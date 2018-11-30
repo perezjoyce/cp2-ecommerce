@@ -14,6 +14,7 @@ $(document).ready( () => {
 		})
 	}
 
+
   	// SEARCH BAR
   	$("#search").keyup(function(){
   		let word = $(this).val();
@@ -58,8 +59,6 @@ $(document).ready( () => {
 		value = value.toString().split('e');
 		return +(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp));
 	}
-
-
 
   	
     // REGISTRATION
@@ -426,6 +425,7 @@ $(document).ready( () => {
 	});
 
 
+
 	// ADDING ITEMS TO CART
 	$(document).on("click", "#btn_add_to_cart" ,function(){
 		let productId = $(this).attr("data-id");
@@ -449,6 +449,7 @@ $(document).ready( () => {
 		});
 
 	});
+
 
 	// DELETING ITEMS IN CART
 	$(document).on("click", ".btn_delete_item", function(){
@@ -497,14 +498,62 @@ $(document).ready( () => {
 	// FETCHING WISHES
 	$(document).on("click", "#btn_add_to_wishlist", function() {
 		let productId = $(this).attr('data-id');
-		$.post('../controllers/process_add_wishlist.php', {productId: productId});
+		$.ajax({
+			url: '../controllers/process_add_wishlist.php', 
+			method: 'POST',
+			data: {productId: productId}, 
+			success: function() {
+				$("#btn_add_to_wishlist").replaceWith(
+					"<button class='btn btn-outline-secondary mt-3 flex-fill mr-2' data-id='"+ productId +"' disabled>" +
+					"<i class='far fa-heart'></i> Item added to your wishlist. </button>");
+			}
+		});
 	});
 
 
 	// DISPLAYING WISHLIST
 	$("#btn_view_wishList").on("click",function(){
 		let userId = $(this).attr("data-id");
-		$.post( "wishlist.php", {userId:userId});
+
+		$.ajax({
+			url: "wishlist.php",
+			method: "POST",
+			data: {userId:userId},
+			success: (data) => {
+				$('#main-wrapper').html('');
+				$('#main-wrapper').html(data);
+			}
+		})
+			
+	});
+
+	// DELETING WISHLIST 
+	$(document).on("click", ".btn_delete_wish", function(){
+		let productId = $(this).data('productid');
+
+		$.post('../controllers/process_delete_wish.php', {
+			productId: productId 
+			},function(response){
+				$.post("wishlist.php", function(response) {
+					$("#wish-row"+productId).remove();
+					
+					let currentNumberOfWishes = $("#wish-count span").text();
+					currentNumberOfWishes = currentNumberOfWishes - 1;
+
+					if (currentNumberOfWishes == 0) {
+						$("#wish-count").html("");
+					} else {
+					$("#wish-count").html("<span class='badge badge-danger text-light'>" 
+						+ currentNumberOfWishes + "</span>");					
+					}
+
+					$("#btn_already_in_wishlist").replaceWith(
+						"<a class='btn btn-outline-danger mt-3 flex-fill' data-id='"+ productId +"' role='button' id='btn_add_to_wishlist'>" +
+						+ "<i class='far fa-heart'></i> Add to Wish List </a>"
+					);
+				});
+			});
+
 	});
 
 

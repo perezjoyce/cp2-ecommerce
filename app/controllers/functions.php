@@ -59,6 +59,22 @@
     }
 
 
+    // CHECK IF IN WISHLIST
+    function checkIfInWishlist($conn,$productId) {
+
+        $userId = $_SESSION['id'];
+        if($userId) {
+            $sql = " SELECT * FROM tbl_wishlists WHERE user_id=$userId AND product_id = $productId";
+            $result = mysqli_query($conn, $sql);
+            $countr = mysqli_num_rows($result);
+
+            return $countr;
+        } 
+        return 0;
+       
+    }
+
+
     	
 
 

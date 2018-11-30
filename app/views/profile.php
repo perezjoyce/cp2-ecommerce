@@ -61,7 +61,7 @@
                             
                             <?php 
                                 if (getWishlishtCount($conn) == 0) {
-                                    echo "";
+                                    echo "<span></span>";
                                 } else {
                                     echo "<span class='badge badge-danger text-light'>" . getWishlishtCount($conn) . "</span>";
                                 }

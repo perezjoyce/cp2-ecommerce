@@ -1,10 +1,11 @@
 <?php include "../partials/header.php";?>
 <?php require_once "../controllers/connect.php";?>
+<?php require_once "../controllers/functions.php";?>
 
 <?php 
            
   $id = $_GET['id'];
-  $userIdSession = $_SESSION['id'];
+  $userId = $_SESSION['id'];
   $sql = "SELECT * FROM tbl_items WHERE id = $id";
 
   $result = mysqli_query($conn,$sql);
@@ -40,25 +41,41 @@
               <div class='my-5'> <?= $description ?> </div>
               
               <div class='d-flex flex-row'>
-                <!-- STATED HERE SO BUTTON IS STILL DISABLED WHEN YOU RETURN -->
+
+                <!-- ADD TO CART BUTTON -->
                 <?php
                   if($count) {
                 ?>
-                    <button class='btn btn-outline-secondary mt-3 flex-fill mr-2' data-id='<?= $id ?>' role='button' id="btn_delete_from_cart" disabled>
-                      <i class='fas fa-cart-plus'></i>
-                       Item is already in your cart!
+                  <button class='btn btn-outline-secondary mt-3 flex-fill mr-2' data-id='<?= $id ?>' role='button' id="btn_delete_from_cart" disabled>
+                    <i class='fas fa-cart-plus'></i>
+                      Item is already in your cart!
                   </button>
-                <?php } else {?>
-                    <a class='btn btn-outline-primary mt-3 flex-fill mr-2' data-id='<?= $id ?>' role='button' id="btn_add_to_cart">
-                      <i class='fas fa-cart-plus'></i>
-                       Add to Cart
-                    </a>
+                <?php } else { ?>
+                  <a class='btn btn-outline-primary mt-3 flex-fill mr-2' data-id='<?= $id ?>' role='button' id="btn_add_to_cart">
+                    <i class='fas fa-cart-plus'></i>
+                      Add to Cart
+                  </a>
                 <?php }?>
 
-                <a class='btn btn-outline-danger mt-3 flex-fill' data-id='<?= $id ?>' role='button' id="btn_add_to_wishlist">
-                  <i class="far fa-heart"></i>
-                  Add to Wish List
-                </a>
+                <?php 
+                    if (checkIfInWishlist($conn,$id) == 0) {
+                ?>
+                  <a class='btn btn-outline-danger mt-3 flex-fill' data-id='<?= $id ?>' role='button' id="btn_add_to_wishlist">
+                    <i class="far fa-heart"></i>
+                    Add to Wish List
+                  </a>
+                 
+                <!-- ADD TO WISHLIST BUTTON -->
+                <?php  } else { ?>
+
+                  <button class='btn btn-outline-secondary mt-3 flex-fill mr-2' data-id='"+ productId +"' disabled id="btn_already_in_wishlist">
+					          <i class='far fa-heart'></i> 
+                    Item is already in your wishlist. 
+                  </button>
+
+                <?php } ?>
+
+
               </div>
 
             </div>

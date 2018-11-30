@@ -1,7 +1,7 @@
 <?php 
 
     session_start(); 
-   require_once "../controllers/connect.php";
+    require_once "../controllers/connect.php";
 
     if(isset($_POST['userId'])) {
 
@@ -40,7 +40,7 @@
                     $image = $row['img_path'];
 
                 echo "      
-                    <tr>
+                    <tr id='wish-row$productId'>
                         <td>
                             $name
                             <br>
@@ -57,7 +57,7 @@
                         </td>
 
                         <td> 
-                            <a data-productid='$productId' role='button' class='btn_delete_wish'>
+                            <a data-productid='$productId' role='button' class='btn_delete_wish' id='btn_delete_wish'>
                                 Delete
                             </a>
                         </td>
