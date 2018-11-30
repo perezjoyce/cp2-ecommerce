@@ -4,6 +4,7 @@
 <?php 
            
   $id = $_GET['id'];
+  $userIdSession = $_SESSION['id'];
   $sql = "SELECT * FROM tbl_items WHERE id = $id";
 
   $result = mysqli_query($conn,$sql);
@@ -43,7 +44,7 @@
                 <?php
                   if($count) {
                 ?>
-                    <button class='btn btn-outline-secondary mt-3 flex-fill mr-2' disabled>
+                    <button class='btn btn-outline-secondary mt-3 flex-fill mr-2' data-id='<?= $id ?>' role='button' id="btn_delete_from_cart" disabled>
                       <i class='fas fa-cart-plus'></i>
                        Item is already in your cart!
                   </button>
@@ -54,10 +55,10 @@
                     </a>
                 <?php }?>
 
-                <button class='btn btn-outline-danger mt-3 flex-fill'>
+                <a class='btn btn-outline-danger mt-3 flex-fill' data-id='<?= $id ?>' role='button' id="btn_add_to_wishlist">
                   <i class="far fa-heart"></i>
                   Add to Wish List
-                </button>
+                </a>
               </div>
 
             </div>

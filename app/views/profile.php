@@ -56,7 +56,18 @@
                 <div class="row">
                     <a class='list-group-item btn btn-outline btn-block mx-3' role='button' data-id='<?= $id ?>' id="btn_view_wishList">
                         <i class="far fa-heart"></i>
-                        Wish List
+                        Wish List 
+                        <span id='wish-count'>
+                            
+                            <?php 
+                                if (getWishlishtCount($conn) == 0) {
+                                    echo "";
+                                } else {
+                                    echo "<span class='badge badge-danger text-light'>" . getWishlishtCount($conn) . "</span>";
+                                }
+                            ?>
+                       
+                        </span>
                     </a>
                 </div>
             </div>

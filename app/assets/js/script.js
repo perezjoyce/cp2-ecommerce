@@ -14,23 +14,6 @@ $(document).ready( () => {
 		})
 	}
 
-	// DISPLAYING WISHLIST
-	// prob: can i manipulate the contents of this wishlist since it is just echoed?
-	$("#btn_view_wishList").on("click",function(){
-		let userId = $(this).attr("data-id");
-
-		$.ajax({
-			url: "wishlist.php",
-			method: "POST",
-			data: {userId:userId},
-			success: (data) => {
-				$('#main-wrapper').html('');
-				$('#main-wrapper').html(data);
-			}
-		})
-			
-	});
-
   	// SEARCH BAR
   	$("#search").keyup(function(){
   		let word = $(this).val();
@@ -55,8 +38,6 @@ $(document).ready( () => {
 	});
 
 	
-	
-
 
 	// ROUNDING OFF
 	function round(value, exp) {
@@ -267,7 +248,7 @@ $(document).ready( () => {
 
 	});
 
-
+	// EDITING USER PROFILE
 	$(document).on('submit', '#form_edit_user', function(e){
 		e.preventDefault();
 		processEditForm();
@@ -412,10 +393,6 @@ $(document).ready( () => {
 	}
 	
 	
-
-
-	
-
 	// CLEAR
 	$("#btn_clear").click(()=>{
 
@@ -435,7 +412,7 @@ $(document).ready( () => {
 	});
 
 
-	// MODAL
+	// DISPLAYING MODAL
 	$('.modal-link').on('click', function(){
 		const url = $(this).data('url');
 		const id = $(this).data('id');
@@ -449,87 +426,8 @@ $(document).ready( () => {
 	});
 
 
-
-	// UPDATE
-	// template for dynamically added element
-	$('body').on('click', '#btn_edit', ()=>{
-		
-		//get values
-		let username = $("#username").val();
-		let password = $("#password").val();
-		let cpass = $("#cpass").val();
-		let countU = username.length;
-		let countP = password.length;
-
-		let error_flag = 0;
-
-
-		//username verification
-		if(username == ""){
-			
-			$("#username").next().html("Username is required!");
-			error_flag = 1;
-		} else if (countU < 5) {
-			$("#username").next().html("Username should at least 5 characters!");
-			error_flag = 1;
-		} else {
-			$("#username").next().html("");
-		}
-
-		//password verification
-		if(password == ""){
-
-			$("#password").next().html("Password is required!");
-			error_flag = 1;
-		} else if (countP < 8) {
-			$("#password").next().html("Password should have more than 8 characters!");
-			error_flag = 1;
-		} else {
-			$("#password").next().html("");
-		}
-
-		//password and cpass verification
-		if (password !== cpass) {
-			$("#cpass").next().html("Password don't match!");
-			error_flag = 1;
-		} else {
-			$("#password").next().html("");
-		}
-
-		//assess if tama na ang lahat using ajax
-		if(error_flag == 0) {
-			
-			//ONCE navalidate na walang error  na, ipapasa kay process_login.php
-			$.ajax({
-				//sino magpprocess ng login data
-				"url": "process_update.php",
-				"data": {"username" : username,
-						  "password" : password},
-				"type": "POST",
-				//sumasalo sa iniecho ng process_login.php
-				"success": (dataFromPHP) => {
-					if(dataFromPHP) {
-
-						//submit validated changes
-						$("#form_edit").submit();
-
-					} else {
-				
-						$("#error_message").css("color", "red");
-						$("#error_message").html("test"); // Invalid username/password
-					}
-				}
-
-			});
-
-		} 
-
-
-	});
-
-
 	// ADDING ITEMS TO CART
-	$("#btn_add_to_cart").on("click",function(){
+	$(document).on("click", "#btn_add_to_cart" ,function(){
 		let productId = $(this).attr("data-id");
 
 		$.ajax({
@@ -540,7 +438,10 @@ $(document).ready( () => {
 			},
 			dataType: "text",
 			success: function(data) {
-				$("#btn_add_to_cart").replaceWith("<button class=\"btn btn-outline-secondary mt-3 flex-fill mr-2\" disabled><i class=\"fas fa-cart-plus\"></i> Item added to cart!</button>");
+				$("#btn_add_to_cart").replaceWith(
+					"<button class='btn btn-outline-secondary mt-3 flex-fill mr-2' data-id='" + productId + "' role='button'" + 
+					"id='btn_delete_from_cart' disabled>" +
+					"<i class=\"fas fa-cart-plus\"></i> Item added to cart!</button>");
 				let sum = "";
 				sum += data;
 				$("#item-count").html("<span class='badge badge-primary text-light'>" + sum + "</span>");
@@ -548,7 +449,6 @@ $(document).ready( () => {
 		});
 
 	});
-
 
 	// DELETING ITEMS IN CART
 	$(document).on("click", ".btn_delete_item", function(){
@@ -560,6 +460,19 @@ $(document).ready( () => {
 				// reload the modal with the new quantity reflected
 				$.get("../partials/templates/cart_modal.php", function(response) {
 					$('.modal .modal-body').html(response);
+					let currentNumberOfItems = $("#item-count span").text();
+					currentNumberOfItems = currentNumberOfItems-1;
+
+					if (currentNumberOfItems == 0) {
+						$("#item-count").html("");
+					} else {
+						$("#item-count").html("<span class='badge badge-primary text-light'>"
+						+ currentNumberOfItems + "</span>");					
+					}
+
+					$("#btn_delete_from_cart").replaceWith(
+						"<a class='btn btn-outline-primary mt-3 flex-fill mr-2' data-id='"+ productId +"' role='button' id='btn_add_to_cart'>" +
+						"<i class='fas fa-cart-plus'></i> Add to Cart</a>");
 				});
 			});
 
@@ -567,7 +480,7 @@ $(document).ready( () => {
 
 	// ADDING PRODUCT QUANTITY
 	$(document).on("change", ".itemQuantity", function(){		
-		let quantity = $(".itemQuantity").val();		
+		let quantity = $(this).val();		
 		let productId = $(this).data('productid');
 		$.post('../controllers/add_product_quantity.php', {
 			quantity: quantity,
@@ -578,29 +491,26 @@ $(document).ready( () => {
 				$('.modal .modal-body').html(response);
 			});
 		});
-	})
+	});
 
 
-	// GETTING PRODUCT QUANTITY -- probably working OR the prob is in cart_modal code
-	$(document).on("change", ".itemQuantity", function(){		
-		let unitPrice = $(".unitPrice").html();	
-		let quantity = $(".itemQuantity").val();
-		let totalPrice = unitPrice * quantity;
-		$(".totalPrice").html(totalPrice);		
-		// let productId = $(this).data('productid');
-		// $.post('../controllers/add_product_quantity.php', {
-		// 	quantity: quantity,
-		// 	productId: productId
-		// }, function(response){
-		// 	// reload the modal with the new quantity reflected
-		// 	$.post("../partials/templates/cart_modal.php", function(response) {
-		// 		$('.modal .modal-body').html(response);
-		// 	});
-		// });
-	})
+	// FETCHING WISHES
+	$(document).on("click", "#btn_add_to_wishlist", function() {
+		let productId = $(this).attr('data-id');
+		$.post('../controllers/process_add_wishlist.php', {productId: productId});
+	});
+
+
+	// DISPLAYING WISHLIST
+	$("#btn_view_wishList").on("click",function(){
+		let userId = $(this).attr("data-id");
+		$.post( "wishlist.php", {userId:userId});
+	});
 
 
 	
-	
+
+
+
 
 });
