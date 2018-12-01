@@ -1,19 +1,17 @@
 1. allow users to enter home and office addresses in their profile page and, if they choose not to indicate this right away, prompt them right before checkout  
-2. DONE -- change login to logout once user is loggedin
 3. error message for upload http://php.net/manual/en/features.file-upload.errors.php
-4. DONE -- session for profile.php 
 5. lazy loading of contents
 6. crop photo for profile
-7. DONE -- add to cart product id, and quantity (no login required)
-8. DONE -- profile edit
 9. DEACTIVATE / REACTIVE PROFILE
 10. save session or save cart items
-11. displaying wishlist
-// prob: can i manipulate the contents of this wishlist since it is just echoed?
-//look into https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_vertical_tabs for profile navigation
-11.1 adding and deleting wishlist
 12. product.php needs to display quantity option also which should be reflected in the cart
 13. SET MAX of quantity to indicated available stock per product
+14. LIKES/WISH COUNT PER PRODUCT SHOULD BE DISPLAYED ON PRODUCT
+15. REVIEWS
+16. POPULATE ADDRESS WITH DROP DOWN
+17. slide show of photos in product.php
+18. DONE -- on double click, remove from wishlist
+
 
 ADMIN
 1. EDIT PROFILE
@@ -36,8 +34,10 @@ ADMIN
 --EDIT
 --DELETE
 
- 
-errors:
-1. DONE -- counting of items on cart is not updated. page needs to be refreshed for it to work
-2. quantity of  item in a cart cannot be adjusted without affecting the quantity of other items.
-quantity of current item is limited to the quantity of previous item;
+ERRORS:
+1. DONE-- in the index area, when i add a product to wishlist, the heart of the first product in the list changes instead of the one i'm clicking at.
+2. DONE -- in the index area, when i add a product to wishlist, the number doesn't automatically change;
+3. DONE -- when wish is deleted by 1 user, it is also deleted in other users' accounts.
+4. DONE -- a user is logged in and lead to profile page right after registration but is logged out once he/she goes to other pages
+5. DONE -- add to cart button doesn't change right away when clicked
+6. when logged out and i click wish on index, i am now prompted to login first BUT when I do, i don't end up on the same page.

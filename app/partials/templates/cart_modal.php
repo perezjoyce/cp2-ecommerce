@@ -31,6 +31,8 @@
       
         if($count) :
             while($row = mysqli_fetch_assoc($result)){ 
+                $userId = $row['user_id'];
+                $productId = $row['item_id'];
                 $name = $row['name'];
                 $price = $row['price'];
                 $quantity = $row['quantity'];
@@ -49,13 +51,13 @@
                             type="number" 
                             style='width:50px;' 
                             value="<?= $quantity ?>"
-                            data-productid="<?= $row['productId'] ?>"
+                            data-productid="<?= $productId ?>"
                             min="1" 
                             max="99" 
                             onKeyUp="if(this.value>99){this.value='99';}else if(this.value<1){this.value='1';}"></td>
                 <td>&#8369; <span class="totalPrice"> <?= $price * $quantity ?> </span> </td>
                 <td> 
-                    <a data-productid='<?= $row['productId'] ?>' role='button' class="btn_delete_item">
+                    <a data-productid='<?= $productId ?>' role='button' class="btn_delete_item">
                         Delete
                     </a>
                 </td>
@@ -82,6 +84,8 @@
 
     <!-- if input type is submit, this will automatically submit input to users.php hence change this to button, type to button and remove value SO THAT you can employ validation -->
     <!-- indicate id for button -->
-    <button type="button" class="btn btn-block btn-outline-success mb-5" id="btn_checkout">CHECKOUT</button>
+    <a type="button" class="btn btn-block btn-outline-success mb-5 modal-link" data-url='../partials/templates/checkout_modal.php' id="btn_checkout">
+        CHECK OUT
+    </a>
 
 </form>

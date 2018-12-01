@@ -43,12 +43,26 @@
         return $dst;
     }
 
-    // GET WISHLIST
+    // GET WISHLIST COUNT PER USER
     function getWishlishtCount($conn) {
 
-        $userId = $_SESSION['id'];
+        @$userId = $_SESSION['id'];
         if($userId) {
             $sql = " SELECT * FROM tbl_wishlists WHERE user_id=$userId";
+            $result = mysqli_query($conn, $sql);
+            $count = mysqli_num_rows($result);
+
+            return $count;
+        } 
+        return 0;
+       
+    }
+
+    // GET WISHLIST COUNT PER PRODUCT
+    function getProductWishlishtCount($conn, $productId) {
+
+        if($productId) {
+            $sql = " SELECT * FROM tbl_wishlists WHERE product_id=$productId";
             $result = mysqli_query($conn, $sql);
             $count = mysqli_num_rows($result);
 
@@ -62,20 +76,38 @@
     // CHECK IF IN WISHLIST
     function checkIfInWishlist($conn,$productId) {
 
-        $userId = $_SESSION['id'];
-        if($userId) {
-            $sql = " SELECT * FROM tbl_wishlists WHERE user_id=$userId AND product_id = $productId";
-            $result = mysqli_query($conn, $sql);
-            $countr = mysqli_num_rows($result);
-
-            return $countr;
-        } 
-        return 0;
+        if(isset($_SESSION['id'])) {
+            $userId = $_SESSION['id'];
+            if($userId) {
+                $sql = " SELECT * FROM tbl_wishlists WHERE user_id=$userId AND product_id = $productId";
+                $result = mysqli_query($conn, $sql);
+                $countr = mysqli_num_rows($result);
+    
+                return $countr;
+            } 
+            return 0;
+        }
+       
        
     }
 
+    // CHECK IF IN CART
+    function checkIfInCart($conn, $productId) {
 
-    	
+        if(isset($_SESSION['cart_session'])){
+            $cartSession = $_SESSION['cart_session'];
+            $sql = " SELECT * FROM tbl_carts WHERE cart_session='$cartSession' AND item_id=$productId";
+                $result = mysqli_query($conn, $sql);
+                $countc = mysqli_num_rows($result);
+                return $countc;
+        } 
+        return 0;
+    }
+    
+    
+
+
+    
 
 
 

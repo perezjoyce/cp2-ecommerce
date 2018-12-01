@@ -49,7 +49,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
 
-          <ul class="navbar-nav ml-auto">
+          <ul class="navbar-nav ml-auto" id="navbar-nav">
 
             <li class="nav-item mr-5">
               <a class="nav-link text-light" href="catalog2.php">
@@ -59,7 +59,13 @@
             </li>
             <li class="nav-item mr-5">
               <!-- MERELY DISPLAYS CURRENT ID OF EITHER USER OR ITEM -->
-              <a class='nav-link modal-link text-light' href='#' data-id='<?= $_GET['id'] ?>' data-url='../partials/templates/cart_modal.php' role='button'>
+              <a class='nav-link modal-link text-light' 
+                href='#' 
+                data-id='<?= $_GET['id'] ?>' 
+                data-url='../partials/templates/cart_modal.php' 
+                role='button'
+                id='cartModal'
+                >
                 <i class="fas fa-cart-plus"></i>
                 Cart
                 <span id="item-count">
@@ -83,7 +89,7 @@
 
               echo "
               <li class='nav-item mr-5'>
-                <a class='nav-link modal-link text-light' href='../controllers/process_logout.php' role='button'>
+                <a class='nav-link modal-link text-light' href='../controllers/process_logout.php?id=$id' role='button'>
                   <i class='fas fa-sign-in-alt'></i>
                   Logout
                 </a>
@@ -131,7 +137,12 @@
           <!-- SPACE -->
           <?php if(isset($_GET['uploadError'])): ?>
             <div class="alert alert-info"><?= $_GET['uploadError'] ?></div>
-          <?php endif; ?>  
+          <?php endif; ?> 
+          
+          <?php if(isset($_GET['msg'])): ?>
+            <div class="alert alert-info">Please log in using your account first</div>
+          <?php endif; ?> 
+
         </div>
       </div>
     </div>

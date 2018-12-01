@@ -18,7 +18,15 @@ if (isset($_POST['username'])) {
 	if($count == 1) {
 		// SESSION
 		$_SESSION['id'] = $id; 
-		$response = ['status' => 'loggedIn', 'id' => $id];
+		$cartSession = $_SESSION['cart_session'];
+		$sql = " UPDATE tbl_carts SET user_id = $id WHERE cart_session = '$cartSession' ";
+		$result = mysqli_query($conn, $sql);
+		
+		if(isset($_GET['redirectUrl']) && strlen($_GET['redirectUrl'])>0) {
+			$response = ['status' => 'redirect', 'redirectUrl' => 'checkout'];
+		} else {
+			$response = ['status' => 'loggedIn', 'id' => $id];
+		}
 
 	} else {
 		$response = ['status' => 'loginFailed', 'message' => 'Login Failed'];

@@ -1,4 +1,9 @@
-<form action="../controllers/process_login.php" method="POST" id="form_login">
+<form 
+action="../controllers/process_login.php?redirectUrl=<?= isset($_GET['redirectUrl']) 
+? $_GET['redirectUrl'] 
+: null ?>" 
+method="POST" 
+id="form_login">
     
     <div class="my-5">Registered? Login now.</div>
 

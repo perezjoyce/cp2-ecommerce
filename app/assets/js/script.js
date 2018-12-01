@@ -1,67 +1,11 @@
 $(document).ready( () => {
 
-	// SHOWING ITEMS THAT CORRESPOND TO THE SELECTED CATEGORY
-	function showCategories(categoryId) {
-			// alert(categoryId);
-		$.ajax({
-			url: "../controllers/show_items.php",
-			method: "POST",
-			data: {categoryId:categoryId},
-			success: (data) => {
-				$('#products').html('');
-				$('#products').html(data);
-			}
-		})
-	}
 
-
-  	// SEARCH BAR
-  	$("#search").keyup(function(){
-  		let word = $(this).val();
-
-  		//AJAX
-  		//parameters: saan ibabato, ano ibabato, what will happen afterwards
-  		$.post("../controllers/search_items.php", {word:word},function(data){
-  			$('#products').html('');
-  			$("#products").html(data);
-  		})
-  	});
-
+	// ================================ REGISTRATION  ================================ //
+	// =============================================================================== //
+	// =============================================================================== //
 	
-	//ARRANGING ITEMS ACCORDING TO PRICE
-  	$(document).on("change", "#priceOrder", function(){
-  		let value = $(this).val();
-
-  		//AJAX
-  		$.post("../controllers/search_price.php", {value:value},function(data){
-  			$("#products").html(data);
-  		})
-	});
-
-	
-
-	// ROUNDING OFF
-	function round(value, exp) {
-		if (typeof exp === 'undefined' || +exp === 0)
-		  return Math.round(value);
-	  
-		value = +value;
-		exp = +exp;
-	  
-		if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0))
-		  return NaN;
-	  
-		// Shift
-		value = value.toString().split('e');
-		value = Math.round(+(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp)));
-	  
-		// Shift back
-		value = value.toString().split('e');
-		return +(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp));
-	}
-
-  	
-    // REGISTRATION
+	// REGISTRATION
 	$("#btn_register").click(()=>{
 		
 		//get values
@@ -75,7 +19,6 @@ $(document).ready( () => {
 		let countU = username.length;
 		let countP = password.length;
 		
-
 		let error_flag = 0;
 
 		//First name verification
@@ -161,36 +104,39 @@ $(document).ready( () => {
 						
 						$.ajax({
 
-						"url": "../controllers/process_register.php",
-						"data": {
-								"fname" : fname,
-								"lname" : lname,
-								"address" : address,
-								"email" : email,
-								"username" : username,
-								"password" : password
-								},
-						"type": "POST",
-						"success": (dataFromPHP) => {
-							if (dataFromPHP == "userExists") {
-								$("#username").next().css("color", "red");
-								$("#username").next().html("User exists."); 
-							} else if ($.parseJSON(dataFromPHP)) {
-								let data = $.parseJSON(dataFromPHP);
-								location.href="profile.php?id=" + data.id;
-							} else {
-								$("#username").next().css("color", "red");
-								$("#username").next().html("Error encountered. Pls try again."); 
-							}	
-						}
+							"url": "../controllers/process_register.php",
+							"data": {
+									"fname" : fname,
+									"lname" : lname,
+									"address" : address,
+									"email" : email,
+									"username" : username,
+									"password" : password
+									},
+							"type": "POST",
+							"success": (dataFromPHP) => {
+								if (dataFromPHP == "userExists") {
+									$("#username").next().css("color", "red");
+									$("#username").next().html("User exists."); 
+								} else if ($.parseJSON(dataFromPHP)) {
+									let data = $.parseJSON(dataFromPHP);
+									location.href="profile.php?id=" + data.id;
+								} else {
+									$("#username").next().css("color", "red");
+									$("#username").next().html("Error encountered. Pls try again."); 
+								}	
+							}
 						});
-
 					} 
 				}
 			});
 		}
-
 	});
+
+
+	// ==================================== LOGIN  =================================== //
+	// =============================================================================== //
+	// =============================================================================== //
 
 
 	// LOGIN
@@ -198,7 +144,7 @@ $(document).ready( () => {
 		
 		let username = $("#username").val();
 		let password = $("#password").val();
-
+		let url = $('#form_login').attr('action');
 		let error_flag = 0;
 
 
@@ -222,7 +168,7 @@ $(document).ready( () => {
 		if(error_flag == 0) {
 			
 			$.ajax({
-				"url": "../controllers/process_login.php",
+				"url": url,
 				"data": {"username" : username,
 						  "password" : password},
 				"type": "POST",
@@ -235,24 +181,33 @@ $(document).ready( () => {
 					} else if (response.status == "loginFailed") {
 						$("#error_message").css("color", "red");
 						$("#error_message").html(response.message); 
+					} else if(response.status == 'redirect') {
+						$('#cartModal').click();
+
+						// update header reload navbar-nav contents
+						$.get('../partials/navbar-nav.php', function(response){
+							$('#navbar-nav').replaceWith(response);
+						});
 					} else {
 						$("#error_message").css("color", "red");
 						$("#error_message").html(response.message); 
 					}
 				}
-
 			});
-
 		} 
-
 	});
+
+
+	// ==================================== PROFILE  ================================= //
+	// =============================================================================== //
+	// =============================================================================== //
+
 
 	// EDITING USER PROFILE
 	$(document).on('submit', '#form_edit_user', function(e){
 		e.preventDefault();
 		processEditForm();
 	});
-
 
 	function processEditForm() {
 		//get values
@@ -264,8 +219,6 @@ $(document).ready( () => {
 		let id = $("#id").val();
 		let countU = username.length;
 		let countP = password.length;
-		
-		// console.log('id');
 
 		let error_flag = 0;
 
@@ -313,7 +266,6 @@ $(document).ready( () => {
 		if(error_flag == 0) {
 		
 			//CHECK EMAIL VALIDITY AND AVAILABILITY
-			//WHERE id != $id coz it might count its current id..u might need SELECT then if else
 			$.ajax({
 				"url": "../controllers/process_edit_email.php",
 				"data": { 
@@ -373,8 +325,6 @@ $(document).ready( () => {
 										} 
 									}
 								});
-
-
 							} else {
 								$("#edit_user_error").css("color", "red");
 								$("#edit_user_error").append("Error in username validation encountered."); 
@@ -390,29 +340,61 @@ $(document).ready( () => {
 			});
 		}
 	}
-	
-	
-	// CLEAR
-	$("#btn_clear").click(()=>{
 
-	window.confirm("you sure?"); 
 
-  		if(confirm == "ok") {
-  			$("#fname").next().html("");
-  			$("#lname").next().html("");
-  			$("#adress").next().html("");
-  			$("#email").next().html("");
-  			$("#username").next().html("");
-			$("#password").next().html("");
-			$("#cpass").next().html("");
-  		}
-		
+	// UPDATING ADDRESSES AND PHONE NUMBERS
 
+
+
+	// ================================ CATALOG PAGE  ================================ //
+	// =============================================================================== //
+	// =============================================================================== //
+
+
+	// SEARCH BAR
+	$("#search").keyup(function(){
+		let word = $(this).val();
+
+		$.post("../controllers/search_items.php", {word:word},function(data){
+			$('#products').html('');
+			$("#products").html(data);
+		});
 	});
 
 
+	// SHOWING ITEMS THAT CORRESPOND TO THE SELECTED CATEGORY
+	function showCategories(categoryId) {
+			// alert(categoryId);
+		$.ajax({
+			url: "../controllers/show_items.php",
+			method: "POST",
+			data: {categoryId:categoryId},
+			success: (data) => {
+				$('#products').html('');
+				$('#products').html(data);
+			}
+		});
+	}
+
+	//ARRANGING ITEMS ACCORDING TO PRICE
+  	$(document).on("change", "#priceOrder", function(){
+  		let value = $(this).val();
+
+  		//AJAX
+  		$.post("../controllers/search_price.php", {value:value},function(data){
+  			$("#products").html(data);
+  		});
+	});
+	
+	
+
+	// ==================================== GENERAL USE ============================== //
+	// =============================================================================== //
+	// =============================================================================== //
+
+
 	// DISPLAYING MODAL
-	$('.modal-link').on('click', function(){
+	$(document).on('click', '.modal-link', function(){
 		const url = $(this).data('url');
 		const id = $(this).data('id');
 
@@ -421,14 +403,63 @@ $(document).ready( () => {
 			$('#modalContainer .modal-body').html("");
 			$('#modalContainer .modal-body').html(response);
 			$('#modalContainer').modal();
-		})
+		});
 	});
 
+
+	// ROUNDING OFF NUMBERS
+	function round(value, exp) {
+		if (typeof exp === 'undefined' || +exp === 0) {
+		  return Math.round(value);
+		}
+
+		value = +value;
+		exp = +exp;
+	  
+		if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0)) {
+		  return NaN;
+		}
+	  
+		// Shift
+		value = value.toString().split('e');
+		value = Math.round(+(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp)));
+	  
+		// Shift back
+		value = value.toString().split('e');
+		return +(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp));
+	}
+
+
+	// CLEAR
+	$("#btn_clear").click(()=>{
+
+		window.confirm("you sure?"); 
+	
+			if(confirm == "ok") {
+				  $("#fname").next().html("");
+				  $("#lname").next().html("");
+				  $("#adress").next().html("");
+				  $("#email").next().html("");
+				  $("#username").next().html("");
+				$("#password").next().html("");
+				$("#cpass").next().html("");
+			}
+			
+		});
+
+	// ======================================= CART ================================== //
+	// =============================================================================== //
+	// =============================================================================== //
 
 
 	// ADDING ITEMS TO CART
 	$(document).on("click", "#btn_add_to_cart" ,function(){
 		let productId = $(this).attr("data-id");
+
+		$(this).replaceWith(
+			"<button class='btn btn-outline-secondary mt-3 flex-fill mr-2' data-id='" + productId + "' role='button'" + 
+			"id='btn_delete_from_cart' disabled>" +
+			"<i class=\"fas fa-cart-plus\"></i> Item added to cart!</button>");
 
 		$.ajax({
 			url: "../controllers/process_add_to_cart.php",
@@ -438,16 +469,11 @@ $(document).ready( () => {
 			},
 			dataType: "text",
 			success: function(data) {
-				$("#btn_add_to_cart").replaceWith(
-					"<button class='btn btn-outline-secondary mt-3 flex-fill mr-2' data-id='" + productId + "' role='button'" + 
-					"id='btn_delete_from_cart' disabled>" +
-					"<i class=\"fas fa-cart-plus\"></i> Item added to cart!</button>");
 				let sum = "";
 				sum += data;
 				$("#item-count").html("<span class='badge badge-primary text-light'>" + sum + "</span>");
 			}
 		});
-
 	});
 
 
@@ -461,16 +487,16 @@ $(document).ready( () => {
 				// reload the modal with the new quantity reflected
 				$.get("../partials/templates/cart_modal.php", function(response) {
 					$('.modal .modal-body').html(response);
-					let currentNumberOfItems = $("#item-count span").text();
-					currentNumberOfItems = currentNumberOfItems-1;
+						let currentNumberOfItems = $("#item-count span").text();
+						currentNumberOfItems = currentNumberOfItems-1;
 
-					if (currentNumberOfItems == 0) {
-						$("#item-count").html("");
-					} else {
-						$("#item-count").html("<span class='badge badge-primary text-light'>"
-						+ currentNumberOfItems + "</span>");					
-					}
-
+						if (currentNumberOfItems == 0) {
+							$("#item-count").html("");
+						} else {
+							$("#item-count").html("<span class='badge badge-primary text-light'>"
+							+ currentNumberOfItems + "</span>");					
+						}
+					// update button
 					$("#btn_delete_from_cart").replaceWith(
 						"<a class='btn btn-outline-primary mt-3 flex-fill mr-2' data-id='"+ productId +"' role='button' id='btn_add_to_cart'>" +
 						"<i class='fas fa-cart-plus'></i> Add to Cart</a>");
@@ -478,6 +504,7 @@ $(document).ready( () => {
 			});
 
 	});
+
 
 	// ADDING PRODUCT QUANTITY
 	$(document).on("change", ".itemQuantity", function(){		
@@ -495,7 +522,11 @@ $(document).ready( () => {
 	});
 
 
-	// FETCHING WISHES
+	// ==================================== WISHLIST ================================= //
+	// =============================================================================== //
+	// =============================================================================== //
+
+	// FETCHING WISHES FROM PRODUCT.PHP
 	$(document).on("click", "#btn_add_to_wishlist", function() {
 		let productId = $(this).attr('data-id');
 		$.ajax({
@@ -510,6 +541,21 @@ $(document).ready( () => {
 		});
 	});
 
+	// FETCHING WISHES FROM OTHER PAGES IN VIEW FOLDER
+	$(document).on("click", ".btn_add_to_wishlist_view", function() {
+		let productId = $(this).attr('data-id');
+		let currentNumberOfWishes = $(".product-wish-count"+productId).text();
+		currentNumberOfWishes = parseInt(currentNumberOfWishes) + 1;
+		$('.product-wish-count'+productId).text(currentNumberOfWishes);
+
+		$(this).replaceWith(
+			"<a class='mt-3 btn_already_in_wishlist_view' data-id='"+ productId +"' disabled>" +
+				"<i class='fas fa-heart' style='color:red'></i>&nbsp;"+
+				"<span class='product-wish-count"+productId+"'>"+ currentNumberOfWishes+"</span>" +
+				"</a>");
+
+		$.post('../controllers/process_add_wishlist.php', {productId: productId}); 
+	});
 
 	// DISPLAYING WISHLIST
 	$("#btn_view_wishList").on("click",function(){
@@ -523,11 +569,10 @@ $(document).ready( () => {
 				$('#main-wrapper').html('');
 				$('#main-wrapper').html(data);
 			}
-		})
-			
+		});	
 	});
 
-	// DELETING WISHLIST 
+	// DELETING WISHLIST FROM PRODUCT PAGE
 	$(document).on("click", ".btn_delete_wish", function(){
 		let productId = $(this).data('productid');
 
@@ -549,17 +594,25 @@ $(document).ready( () => {
 
 					$("#btn_already_in_wishlist").replaceWith(
 						"<a class='btn btn-outline-danger mt-3 flex-fill' data-id='"+ productId +"' role='button' id='btn_add_to_wishlist'>" +
-						+ "<i class='far fa-heart'></i> Add to Wish List </a>"
-					);
+						+ "<i class='far fa-heart'></i> Add to Wish List </a>");
 				});
 			});
-
 	});
 
+	// DELETING WISHLIST FROM OTHER PAGES IN VIEW FOLDER
+	$(document).on("click", ".btn_already_in_wishlist_view", function() {
+		let productId = $(this).attr('data-id');
+		let currentNumberOfWishes = $(".product-wish-count"+productId).text();
+		currentNumberOfWishes = parseInt(currentNumberOfWishes) -1 ;
+		$('.product-wish-count'+productId).text(currentNumberOfWishes);
 
-	
+		$(this).replaceWith(
+			"<a class='mt-3 btn_add_to_wishlist_view' data-id='"+ productId +"' disabled>" +
+				"<i class='far fa-heart' style='color:red'></i>&nbsp;"+
+				"<span class='product-wish-count"+productId+"'>"+ currentNumberOfWishes+"</span>" +
+				"</a>");
 
-
-
+		$.post('../controllers/process_delete_wish.php', {productId: productId}); 
+	});
 
 });

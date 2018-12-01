@@ -5,7 +5,11 @@
 <?php 
            
   $id = $_GET['id'];
-  $userId = $_SESSION['id'];
+
+  if(isset($_SESSION['id'])) {
+    $userId = $_SESSION['id'];
+  }
+
   $sql = "SELECT * FROM tbl_items WHERE id = $id";
 
   $result = mysqli_query($conn,$sql);
@@ -57,8 +61,10 @@
                   </a>
                 <?php }?>
 
+                
                 <?php 
-                    if (checkIfInWishlist($conn,$id) == 0) {
+                  if(isset($_SESSION['id'])) {
+                      if (checkIfInWishlist($conn,$id) == 0) {
                 ?>
                   <a class='btn btn-outline-danger mt-3 flex-fill' data-id='<?= $id ?>' role='button' id="btn_add_to_wishlist">
                     <i class="far fa-heart"></i>
@@ -68,13 +74,14 @@
                 <!-- ADD TO WISHLIST BUTTON -->
                 <?php  } else { ?>
 
-                  <button class='btn btn-outline-secondary mt-3 flex-fill mr-2' data-id='"+ productId +"' disabled id="btn_already_in_wishlist">
+                  <button class='btn btn-outline-secondary mt-3 flex-fill mr-2' data-id='<?= $id ?>' disabled id="btn_already_in_wishlist">
 					          <i class='far fa-heart'></i> 
                     Item is already in your wishlist. 
                   </button>
 
-                <?php } ?>
-
+                <?php }  } else { ?>
+                  <!-- WISHLIST BUTTON NOT AVAILABLE FOR LOGGED OUT AND UNREGISTERED USERS -->
+                <?php }  ?>
 
               </div>
 
