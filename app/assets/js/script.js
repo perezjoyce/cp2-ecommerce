@@ -615,4 +615,130 @@ $(document).ready( () => {
 		$.post('../controllers/process_delete_wish.php', {productId: productId}); 
 	});
 
+	// ==================================== RATING ================================= //
+	// =============================================================================== //
+	// =============================================================================== //
+
+	// FETCHING PRODUCT RATING
+	$(document).on("click", ".star", function() {
+		let productId = $(this).attr('data-productId');
+		productId = parseInt(productId);
+		let starId = $(this).attr('id');
+		let rating = $(this).attr('data-value');
+		rating = parseInt(rating);
+
+		//automatically update average
+		let ratingCount = $('.rating-count'+productId).text();
+		newRatingCount = parseInt(ratingCount) + 1;
+
+		let ratingAverage = $('.rating-average'+productId).text();  
+		let sumOfratings = rating * newRatingCount;
+		let newRatingAverage = sumOfratings/newRatingCount;
+		$('.rating-average'+productId).text(newRatingAverage);  
+
+			
+		let oneStar = 
+		"<div id='star-container'>" +
+			"<i class='fas fa-star fa-2x star' id='star1' data-productId='"+ productId +"' data-value='1'></i>" +
+			"<i class='far fa-star fa-2x star' id='star2' data-productId='"+ productId +"' data-value='2'></i>" +
+			"<i class='far fa-star fa-2x star' id='star3' data-productId='"+ productId +"' data-value='3'></i>" +
+			"<i class='far fa-star fa-2x star' id='star4' data-productId='"+ productId +"' data-value='4'></i>" +
+			"<i class='far fa-star fa-2x star' id='star5' data-productId='"+ productId +"' data-value='5'></i>" +
+		"</div>";
+
+		let twoStar = 
+		"<div id='star-container'>" +
+			"<i class='fas fa-star fa-2x star' id='star1' data-productId='"+ productId +"' data-value='1'></i>" +
+			"<i class='fas fa-star fa-2x star' id='star2' data-productId='"+ productId +"' data-value='2'></i>" +
+			"<i class='far fa-star fa-2x star' id='star3' data-productId='"+ productId +"' data-value='3'></i>" +
+			"<i class='far fa-star fa-2x star' id='star4' data-productId='"+ productId +"' data-value='4'></i>" +
+			"<i class='far fa-star fa-2x star' id='star5' data-productId='"+ productId +"' data-value='5'></i>" +
+		"</div>";
+
+		let threeStar = 
+		"<div id='star-container'>" +
+			"<i class='fas fa-star fa-2x star' id='star1' data-productId='"+ productId +"' data-value='1'></i>" +
+			"<i class='fas fa-star fa-2x star' id='star2' data-productId='"+ productId +"' data-value='2'></i>" +
+			"<i class='fas fa-star fa-2x star' id='star3' data-productId='"+ productId +"' data-value='3'></i>" +
+			"<i class='far fa-star fa-2x star' id='star4' data-productId='"+ productId +"' data-value='4'></i>" +
+			"<i class='far fa-star fa-2x star' id='star5' data-productId='"+ productId +"' data-value='5'></i>" +
+		"</div>";
+
+		let fourStar = 
+		"<div id='star-container'>" +
+			"<i class='fas fa-star fa-2x star' id='star1' data-productId='"+ productId +"' data-value='1'></i>" +
+			"<i class='fas fa-star fa-2x star' id='star2' data-productId='"+ productId +"' data-value='2'></i>" +
+			"<i class='fas fa-star fa-2x star' id='star3' data-productId='"+ productId +"' data-value='3'></i>" +
+			"<i class='fas fa-star fa-2x star' id='star4' data-productId='"+ productId +"' data-value='4'></i>" +
+			"<i class='far fa-star fa-2x star' id='star5' data-productId='"+ productId +"' data-value='5'></i>" +
+		"</div>";
+
+		let fiveStar = 
+		"<div id='star-container'>" +
+			"<i class='fas fa-star fa-2x star' id='star1' data-productId='"+ productId +"' data-value='1'></i>" +
+			"<i class='fas fa-star fa-2x star' id='star2' data-productId='"+ productId +"' data-value='2'></i>" +
+			"<i class='fas fa-star fa-2x star' id='star3' data-productId='"+ productId +"' data-value='3'></i>" +
+			"<i class='fas fa-star fa-2x star' id='star4' data-productId='"+ productId +"' data-value='4'></i>" +
+			"<i class='fas fa-star fa-2x star' id='star5' data-productId='"+ productId +"' data-value='5'></i>" +
+		"</div>";
+
+		if(rating == 1) {
+			$('#star-container').replaceWith(oneStar);
+		} else if (rating == 2) {
+			$('#star-container').replaceWith(twoStar);
+		} else if (rating == 3) {
+			$('#star-container').replaceWith(threeStar);
+		} else if (rating == 4) {
+			$('#star-container').replaceWith(fourStar);
+		} else {
+			$('#star-container').replaceWith(fiveStar);
+		}
+
+		$.ajax({
+			url: '../controllers/process_add_product_rating.php', 
+			method: 'POST',
+			data: {	productId: productId,
+					rating: rating
+				  }, 
+			success: function(data) {
+				let response = $.parseJSON(data);
+				// UPDATE NUMBER OF REVIEWS 
+				if(response.reviewCount == 0 ) {
+					let response = $.parseJSON(data);
+					$(".rating-count"+productId).empty();
+					$(".rating-word").text('No ratings yet');
+				}else if(response.reviewCount == 1) {
+					let response = $.parseJSON(data);
+					$(".rating-count"+productId).text(response.reviewCount);
+					$(".rating-word").text('Rating');
+				}else {
+					let response = $.parseJSON(data);
+					$(".rating-count"+productId).text(response.reviewCount);
+					$(".rating-word").text('Ratings');
+				}
+
+
+				// if (response.userRating == 1) {
+				// 	$('#star-container').html(oneStar);
+				// } else if (response.userRating == 2) {
+				// 	$('#star-container').html(twoStar);
+				// } else if (response.userRating == 3) {
+				// 	$('#star-container').html(threeStar);
+				// } else if (response.userRating == 4) {
+				// 	$('#star-container').html(fourStar);
+				// } else {
+				// 	$('#star-container').html(fiveStar);
+				// }
+			}
+		});
+	});
+
+	
+
+	// DISPLAYING PRODUCT RATING
+	// DELETING PRODUCT RATING
+	// FETCHING COMMENT
+
 });
+
+

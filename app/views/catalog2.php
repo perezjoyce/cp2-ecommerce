@@ -25,11 +25,11 @@
 	                
 	               	if(!$id || $result === $bool) {
 
-	                	echo "<h1 class='my-5'>Categories</h1>";
+	                	echo "<div class='my-5'>Related Categories</div>";
 	               	} else {
 	               		$row = mysqli_fetch_assoc($result);
 	                	$name = $row['name']; 
-	               		echo "<h1 class='my-5'>$name</h1>";
+	               		echo "<div class='my-5'>$name</div>";
 	               	}
 
 
@@ -56,7 +56,7 @@
 
 		     <!-- PRICE INPUT -->
 				<div class='mt-5'>
-					<h4 class='mb-2'>PRICE</h4>
+					<div class='mb-2'>Sort By: </div>
 					<!-- <input type='number' class='form-control'> -->
 				</div>
 			
@@ -67,8 +67,8 @@
 				  <select class="custom-select" id="priceOrder" onchange="priceOrder">
 				    <option selected>......</option>
 				 
-				    <option value="lowestToHighest"> Lowest to Highest </option>
-				    <option value="highestToLowest"> Highest to Lowest </option>
+				    <option value="lowestToHighest"> Price: Low to High </option>
+				    <option value="highestToLowest"> Price: High to Low </option>
 				  
 				  </select>
 				</div>
@@ -78,7 +78,7 @@
 			 <!-- END OF LEFT COLUMN -->
 			<div class="col-lg-9">
 
-				<div class="row">
+				<div class="row mx-0">
 				
 					<div class="input-group input-group-lg my-5">
 					  

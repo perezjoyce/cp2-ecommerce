@@ -41,46 +41,62 @@
                 </div>
                 <div>&#8369; <?= $price ?> </div>
 
-                <!-- WISHLIST BUTTONS -->
-                <div class='d-flex flex-column'>
-                  <?php 
-                    if(isset($_SESSION['id'])) {
-                        if (checkIfInWishlist($conn,$id) == 0) {
-                  ?>
-                    <a class='mt-3 btn_add_to_wishlist_view' data-id='<?= $id ?>' role='button'>
-                      <i class='far fa-heart' style="color:red"></i> 
-                        <span class='product-wish-count<?= $id ?>'>
-                          <?= getProductWishlishtCount($conn, $id) == 0 
-                          ? "" 
-                          : getProductWishlishtCount($conn, $id) ?>
-                        </span>
-                    </a>
-               
-                  <?php  } else { ?>
+                <div class='d-flex flex-row mt-3'>
+                  <!-- WISHLIST BUTTONS -->
+                  <div class='flex-fill'>
+                    <?php 
+                      if(isset($_SESSION['id'])) {
+                          if (checkIfInWishlist($conn,$id) == 0) {
+                    ?>
+                      <a class='mt-3 btn_add_to_wishlist_view' data-id='<?= $id ?>' role='button'>
+                        <i class='far fa-heart' style="color:red"></i> 
+                          <span class='product-wish-count<?= $id ?>'>
+                            <?= getProductWishlishtCount($conn, $id) == 0 
+                            ? "" 
+                            : getProductWishlishtCount($conn, $id) ?>
+                          </span>
+                      </a>
+                
+                    <?php  } else { ?>
 
-                    <a class='mt-3 btn_already_in_wishlist_view' data-id='<?= $id ?>' disabled>
-                      <i class='fas fa-heart' style='color:red'></i> 
-                        <span class='product-wish-count<?= $id ?>'>
-                          <?= getProductWishlishtCount($conn, $id) == 0 
-                          ? "" 
-                          : getProductWishlishtCount($conn, $id) ?>
-                        </span>
-                    </a>
+                      <a class='mt-3 btn_already_in_wishlist_view' data-id='<?= $id ?>' disabled>
+                        <i class='fas fa-heart' style='color:red'></i> 
+                          <span class='product-wish-count<?= $id ?>'>
+                            <?= getProductWishlishtCount($conn, $id) == 0 
+                            ? "" 
+                            : getProductWishlishtCount($conn, $id) ?>
+                          </span>
+                      </a>
 
-                  <?php }  } else { ?>
-                    <!-- IF LOGGED OUT -->
-                    <a class='mt-3 btn_wishlist_logout_view modal-link' data-id='<?= $id ?>' data-url='../partials/templates/login_modal.php' disabled>
-                      <i class='far fa-heart' style='color:gray'></i> 
-                        <span class='product-wish-count<?= $id ?>'>
-                          <?= getProductWishlishtCount($conn, $id) == 0 
-                          ? "" 
-                          : getProductWishlishtCount($conn, $id) ?>
-                        </span>
-                    </a>
-                  <?php }  ?>
-                      
+                    <?php }  } else { ?>
+                      <!-- IF LOGGED OUT -->
+                      <a class='mt-3 btn_wishlist_logout_view' data-id='<?= $id ?>' disabled>
+                        <i class='far fa-heart' style='color:gray'></i> 
+                          <span class='product-wish-count<?= $id ?>'>
+                            <?= getProductWishlishtCount($conn, $id) == 0 
+                            ? "" 
+                            : getProductWishlishtCount($conn, $id) ?>
+                          </span>
+                      </a>
+                    <?php }  ?>
+                        
+                  </div>
+                  <!-- /WISH LIST BUTTONS -->
+
+                  <!-- AVERAGE STAR RATING -->
+                  <div class='flex-fill text-right'>
+                    XXXXX
+                    <?php 
+                    if (countRatingsPerProduct($conn, $id) == 0) {
+                        echo "<span class='rating-count<?=$id?>'></span>";
+                    } else { 
+                        echo "&#40;<span class='rating-count<?=$id?>'>" . 
+                        countRatingsPerProduct($conn, $id) .
+                        "&#41;</span>";
+                    } ?>
+                  </div>
+                  <!-- /AVERAGE STAR RATING -->
                 </div>
-                <!-- /WISH LIST BUTTONS -->
 
               </div>
               <!-- /.CARD BODY -->

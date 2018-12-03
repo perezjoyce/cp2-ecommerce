@@ -29,8 +29,10 @@
   
 ?>
     <!-- PAGE CONTENT -->
-    <div class="container-fluid">
-      <div class="row pt-5 mt-5">
+    <div class="container">
+
+      <!-- PRODUCT OVERVIEW -->
+      <div class="row pt-5 my-5">
       <input type="hidden" id="$id">
  
         <div class='container d-inline-flex'>
@@ -41,8 +43,49 @@
           <div class='d-flex flex-row'>
             <div class='d-flex flex-column'>
               <div class='card-title font-weight-bold'> <?= $name ?> </div>
+              <!-- AVERAGE STAR RATING -->
+
+              
+              <div class="mb-5">
+
+              <?php 
+              if (isset($_SESSION['cart_session'])) { 
+                if (countRatingsPerProduct($conn, $id) != "" || countRatingsPerProduct($conn, $id) > 0) { ?>
+                  <span class='rating-average<?=$id?>' style='color:red;' >
+                    <?= getAveProductReview($conn, $id) ?>
+                  </span>
+              <?php } } ?>
+
+                XXXXX |
+              
+              <?php 
+              if (isset($_SESSION['cart_session'])) { 
+                if (countRatingsPerProduct($conn, $id) === 0 || countRatingsPerProduct($conn, $id) == "") { ?>
+                  <span class='rating-count<?=$id?>'>
+                    <!-- no value -->
+                  </span>
+                  <span class='rating-word'>
+                    <?= "No ratings yet" ?>
+                  </span>
+                <?php } elseif(countRatingsPerProduct($conn, $id) == 1){?>
+                  <span class='rating-count<?=$id?>'>
+                    <?= countRatingsPerProduct($conn, $id) ?>
+                  </span>
+                  <span class='rating-word'>
+                    <?= "Rating" ?>
+                  </span>
+                <?php } else {?>
+                  <span class='rating-count<?=$id?>'>
+                    <?= countRatingsPerProduct($conn, $id) ?>
+                  </span>
+                  <span class='rating-word'>
+                    <?= "Ratings" ?>
+                  </span>
+                <?php } } ?>
+              </div>
+              <!-- /AVERAGE STAR RATING -->
               <div class='mb-5'>&#8369; <?= $price ?> </div>
-              <div class='my-5'> <?= $description ?> </div>
+              <div class='mb-5'> <?= $description ?> </div>
               
               <div class='d-flex flex-row'>
 
@@ -90,7 +133,128 @@
         </div>
 
       </div>
-      <!-- /.ROW -->
+      <!-- /.PRODUCT OVERVIEW -->
+      
+      <!-- REVIEW SECTION -->
+      <div class="row mb-5">
+        <!-- PRODUCT REVIEWS -->
+        <div class="col-lg-9 mr-5 border">
+          <div class="row pt-3 pl-3">User's Product Rating:</div>
+          <div class="row pt-3 pl-3 mb-3">
+            <!-- STAR CONTAINER -->
+            <!-- VISIBLE TO USER ONLY -->
+            <?php 
+              if (isset($_SESSION['id'])) {
+                if ((displayUserRating($conn, $userId, $id) == 0)){
+            ?>
+                  <div id='star-container'>
+                    <i class='far fa-star fa-2x star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                    <i class='far fa-star fa-2x star' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                    <i class='far fa-star fa-2x star' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                    <i class='far fa-star fa-2x star' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                    <i class='far fa-star fa-2x star' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+                  </div>
+
+            <?php } elseif (((displayUserRating($conn, $userId, $id) == 1))) { ?>
+
+                  <div id='star-container'>
+                    <i class='fas fa-star fa-2x star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                    <i class='far fa-star fa-2x star' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                    <i class='far fa-star fa-2x star' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                    <i class='far fa-star fa-2x star' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                    <i class='far fa-star fa-2x star' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+                  </div>
+
+            <?php } elseif (((displayUserRating($conn, $userId, $id) == 2))) { ?>
+
+                  <div id='star-container'>
+                    <i class='fas fa-star fa-2x star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                    <i class='fas fa-star fa-2x star' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                    <i class='far fa-star fa-2x star' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                    <i class='far fa-star fa-2x star' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                    <i class='far fa-star fa-2x star' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+                  </div>
+
+            <?php } elseif (((displayUserRating($conn, $userId, $id) == 3))) { ?>
+
+              <div id='star-container'>
+                <i class='fas fa-star fa-2x star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                <i class='fas fa-star fa-2x star' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                <i class='fas fa-star fa-2x star' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                <i class='far fa-star fa-2x star' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                <i class='far fa-star fa-2x star' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+              </div>
+
+            <?php } elseif (((displayUserRating($conn, $userId, $id) == 4))) { ?>
+
+              <div id='star-container'>
+                <i class='fas fa-star fa-2x star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                <i class='fas fa-star fa-2x star' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                <i class='fas fa-star fa-2x star' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                <i class='fas fa-star fa-2x star' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                <i class='far fa-star fa-2x star' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+              </div>
+
+            <?php } else { ?>
+
+              <div id='star-container'>
+                <i class='fas fa-star fa-2x star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                <i class='fas fa-star fa-2x star' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                <i class='fas fa-star fa-2x star' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                <i class='fas fa-star fa-2x star' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                <i class='fas fa-star fa-2x star' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+              </div>
+
+            <?php }  } ?>
+            
+            <!-- /.STAR CONTAINER -->
+          </div>
+          
+          <div class="row pt-3 pl-3">Average Product Rating:</div>
+          <div class='row pt-3 pl-3 mb-3'>
+              <!-- TOTAL AVERAGE RATING -->
+              <?php 
+                if (isset($_SESSION['cart_session'])) { 
+                  if (getAveProductReview($conn, $id) === 0 || getAveProductReview($conn, $id) == "") { ?>
+                    <span class='rating-average<?=$id?>'>
+                      <!-- no value -->
+                    </span>
+                    <span class='rating-word'>
+                    <?= "&nbsp;No reviews yet" ?>
+                    </span>
+              <?php } else {?>
+                    <span class='rating-average<?=$id?>' style='color:red;' >
+                      <?= getAveProductReview($conn, $id) ?> 
+                    </span>
+                    <span>
+                      <?= "&nbsp;of 5" ?>
+                    </span>
+            <?php } } ?>
+          </div>
+
+          <div class='row pt-3 pl-3'>
+            <!-- TEXT REVIEW -->
+            <form action="#" method='POST'>
+              <!-- FOR REVISION COZ DOESN'T WORK IN SMALLER SCREENS -->
+              <textarea style="auto;resize:none" rows="3" cols="134" id='product-review' data-productId='<?= $id ?>'></textarea>
+              <br>
+              <button href="#"> SUBMIT REVIEW </button>
+            </form>
+            <!-- /.TEXT REVIEW -->
+          </div>
+
+        </div>
+        <!-- /.PRODUCT REVIEWS -->
+
+        <!-- ADS -->
+        <div class="col">
+          <!-- dynamically added and generated ads here -->
+        </div>
+        <!-- /.ADS -->
+
+
+      </div>
+      <!-- /.REVIEW SECTION -->
 
     </div>
     <!-- /.PAGE CONTENT -->

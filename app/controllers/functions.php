@@ -104,11 +104,32 @@
         return 0;
     }
     
-    
+    // COUNT NUMBER OF RATINGS PER PRODUCT
+    function  countRatingsPerProduct($conn, $productId) {
 
+        $sql = " SELECT * FROM tbl_ratings WHERE product_id=$productId ";
+        $result = mysqli_query($conn, $sql);
+        $count = mysqli_num_rows($result);
 
-    
+        return $count;
+    }
 
+    // GET AVERANGE PRODUCT REVIEWS
+    function getAveProductReview($conn, $productId) {
+        $sql = " SELECT AVG(product_rating) FROM tbl_ratings WHERE product_id=$productId ";
+        $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($result);
+        $averageProductReview = $row['AVG(product_rating)'];
 
+        return $averageProductReview;
+    }
 
-?>
+    // DISPLAY USER RATING OF PRODUCT -- not yet used
+    function displayUserRating($conn, $userId, $productId) {
+        $sql = " SELECT * FROM tbl_ratings WHERE `user_id`=$userId AND product_id=$productId ";
+        $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($result);
+        $rating = $row['product_rating'];
+
+        return $rating;
+    }

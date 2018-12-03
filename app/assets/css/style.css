@@ -58,3 +58,7 @@ card-title {
 .user-photo {
     max-width: 80px;
 }
+
+textarea #product-review {
+    resize: none;
+  }
