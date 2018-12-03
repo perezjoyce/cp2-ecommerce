@@ -85,7 +85,73 @@
 
                   <!-- AVERAGE STAR RATING -->
                   <div class='flex-fill text-right'>
-                    XXXXX
+                    
+                    <!-- AVERAGE PRODUCT REVIEW (STARS) -->
+
+                    <span class='rating-average-in-stars<?=$id?>'>
+                      <?php 
+                      if (isset($_SESSION['cart_session'])) {
+                        if(getAveProductReview($conn, $id) >= 1 && getAveProductReview($conn, $id) < 1.5 ) { ?>
+                          <i class='fas fa-star star' id='star1' data-productId='<?= $id ?>' data-value='1' disable></i>
+                          <i class='far fa-star star' id='star2' data-productId='<?= $id ?>' data-value='2' disable></i>
+                          <i class='far fa-star star' id='star3' data-productId='<?= $id ?>' data-value='3' disable></i>
+                          <i class='far fa-star star' id='star4' data-productId='<?= $id ?>' data-value='4' disable></i>
+                          <i class='far fa-star star' id='star5' data-productId='<?= $id ?>' data-value='5' disable></i>
+                      <?php } elseif (getAveProductReview($conn, $id) >= 1.5 && getAveProductReview($conn, $id) < 2 ) { ?>
+                          <i class='fas fa-star star' id='star1' data-productId='<?= $id ?>' data-value='1' disable></i>
+                          <i class='fas fa-star-half-alt star' id='star2' data-productId='<?= $id ?>' data-value='2' disable></i>
+                          <i class='far fa-star star' id='star3' data-productId='<?= $id ?>' data-value='3' disable></i>
+                          <i class='far fa-star star' id='star4' data-productId='<?= $id ?>' data-value='4' disable></i>
+                          <i class='far fa-star star' id='star5' data-productId='<?= $id ?>' data-value='5' disable></i>
+                      <?php } elseif (getAveProductReview($conn, $id) >= 2 && getAveProductReview($conn, $id) < 2.5 ) { ?>
+                          <i class='fas fa-star star' id='star1' data-productId='<?= $id ?>' data-value='1' disable></i>
+                          <i class='fas fa-star star' id='star2' data-productId='<?= $id ?>' data-value='2' disable></i>
+                          <i class='far fa-star star' id='star3' data-productId='<?= $id ?>' data-value='3' disable></i>
+                          <i class='far fa-star star' id='star4' data-productId='<?= $id ?>' data-value='4' disable></i>
+                          <i class='far fa-star star' id='star5' data-productId='<?= $id ?>' data-value='5' disable></i>
+                      <?php } elseif (getAveProductReview($conn, $id) >= 2.5 && getAveProductReview($conn, $id) < 3 ) { ?>
+                          <i class='fas fa-star star' id='star1' data-productId='<?= $id ?>' data-value='1' disable></i>
+                          <i class='fas fa-star star' id='star2' data-productId='<?= $id ?>' data-value='2' disable></i>
+                          <i class='fas fa-star-half-alt star' id='star3' data-productId='<?= $id ?>' data-value='3' disable></i>
+                          <i class='far fa-star star' id='star4' data-productId='<?= $id ?>' data-value='4' disable></i>
+                          <i class='far fa-star star' id='star5' data-productId='<?= $id ?>' data-value='5' disable></i>
+                      <?php } elseif (getAveProductReview($conn, $id) >= 3 && getAveProductReview($conn, $id) < 3.5 ) { ?>
+                          <i class='fas fa-star star' id='star1' data-productId='<?= $id ?>' data-value='1' disable></i>
+                          <i class='fas fa-star star' id='star2' data-productId='<?= $id ?>' data-value='2' disable></i>
+                          <i class='fas fa-star star' id='star3' data-productId='<?= $id ?>' data-value='3' disable></i>
+                          <i class='far fa-star star' id='star4' data-productId='<?= $id ?>' data-value='4' disable></i>
+                          <i class='far fa-star star' id='star5' data-productId='<?= $id ?>' data-value='5' disable></i>
+                      <?php } elseif (getAveProductReview($conn, $id) >= 3.5 && getAveProductReview($conn, $id) < 4 ) { ?>
+                          <i class='fas fa-star star' id='star1' data-productId='<?= $id ?>' data-value='1'disable></i>
+                          <i class='fas fa-star star' id='star2' data-productId='<?= $id ?>' data-value='2' disable></i>
+                          <i class='fas fa-star star' id='star3' data-productId='<?= $id ?>' data-value='3' disable></i>
+                          <i class='fas fa-star-half-alt star' id='star4' data-productId='<?= $id ?>' data-value='4' disable></i>
+                          <i class='far fa-star star' id='star5' data-productId='<?= $id ?>' data-value='5' disable></i>
+                      <?php } elseif (getAveProductReview($conn, $id) >= 4 && getAveProductReview($conn, $id) < 4.5 ) { ?> 
+                          <i class='fas fa-star star' id='star1' data-productId='<?= $id ?>' data-value='1' disable></i>
+                          <i class='fas fa-star star' id='star2' data-productId='<?= $id ?>' data-value='2' disable></i>
+                          <i class='fas fa-star star' id='star3' data-productId='<?= $id ?>' data-value='3' disable></i>
+                          <i class='fas fa-star star' id='star4' data-productId='<?= $id ?>' data-value='4' disable></i>
+                          <i class='far fa-star star' id='star5' data-productId='<?= $id ?>' data-value='5' disable></i>
+                      <?php } elseif (getAveProductReview($conn, $id) >= 4.5 && getAveProductReview($conn, $id) < 5 ) { ?> 
+                          <i class='fas fa-star star' id='star1' data-productId='<?= $id ?>' data-value='1' disable></i>
+                          <i class='fas fa-star star' id='star2' data-productId='<?= $id ?>' data-value='2' disable></i>
+                          <i class='fas fa-star star' id='star3' data-productId='<?= $id ?>' data-value='3' disable></i>
+                          <i class='fas fa-star star' id='star4' data-productId='<?= $id ?>' data-value='4' disable></i>
+                          <i class='fas fa-star-half-alt star' id='star5' data-productId='<?= $id ?>' data-value='5' disable></i>
+                      <?php } else { ?>
+                          <i class='fas fa-star star' id='star1' data-productId='<?= $id ?>' data-value='1' disable></i>
+                          <i class='fas fa-star star' id='star2' data-productId='<?= $id ?>' data-value='2' disable></i>
+                          <i class='fas fa-star star' id='star3' data-productId='<?= $id ?>' data-value='3' disable></i>
+                          <i class='fas fa-star star' id='star4' data-productId='<?= $id ?>' data-value='4' disable></i>
+                          <i class='fas fa-star star' id='star5' data-productId='<?= $id ?>' data-value='5' disable></i>
+                      <?php } } ?>
+                    
+                    </span>
+
+
+
+                    <!-- RATING COUNT PER PRODUCT -->
                     <?php 
                     if (countRatingsPerProduct($conn, $id) == 0) {
                         echo "<span class='rating-count<?=$id?>'></span>";

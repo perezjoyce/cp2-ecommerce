@@ -634,7 +634,7 @@ $(document).ready( () => {
 		let ratingAverage = $('.rating-average'+productId).text();  
 		let sumOfratings = rating * newRatingCount;
 		let newRatingAverage = sumOfratings/newRatingCount;
-		$('.rating-average'+productId).text(newRatingAverage);  
+		//$('.rating-average'+productId).text(newRatingAverage);  
 
 			
 		let oneStar = 
@@ -704,31 +704,94 @@ $(document).ready( () => {
 				let response = $.parseJSON(data);
 				// UPDATE NUMBER OF REVIEWS 
 				if(response.reviewCount == 0 ) {
-					let response = $.parseJSON(data);
+					//let response = $.parseJSON(data);
 					$(".rating-count"+productId).empty();
 					$(".rating-word").text('No ratings yet');
 				}else if(response.reviewCount == 1) {
-					let response = $.parseJSON(data);
+					//let response = $.parseJSON(data);
 					$(".rating-count"+productId).text(response.reviewCount);
 					$(".rating-word").text('Rating');
+					$('.rating-average'+productId).text(response.aveRating); 
 				}else {
-					let response = $.parseJSON(data);
+					//let response = $.parseJSON(data);
 					$(".rating-count"+productId).text(response.reviewCount);
 					$(".rating-word").text('Ratings');
+					$('.rating-average'+productId).text(response.aveRating); 
 				}
 
+				if(response.aveRating >= 1 && response.aveRating < 1.5){
+					$('.rating-average-in-stars'+productId).html(
+							"<i class='fas fa-star' id='star1' data-productId='"+ productId +"' data-value='1'></i>" +
+							"<i class='far fa-star' id='star2' data-productId='"+ productId +"' data-value='2'></i>" +
+							"<i class='far fa-star' id='star3' data-productId='"+ productId +"' data-value='3'></i>" +
+							"<i class='far fa-star' id='star4' data-productId='"+ productId +"' data-value='4'></i>" +
+							"<i class='far fa-star' id='star5' data-productId='"+ productId +"' data-value='5'></i>");
+					
+				} else if (response.aveRating >= 1.5 && response.aveRating < 2) {
+					$('.rating-average-in-stars'+productId).html(
+							"<i class='fas fa-star' id='star1' data-productId='"+ productId +"' data-value='1'></i>" +
+							"<i class='fas fa-star-half-alt' id='star2' data-productId='"+ productId +"' data-value='2'></i>" +
+							"<i class='far fa-star' id='star3' data-productId='"+ productId +"' data-value='3'></i>" +
+							"<i class='far fa-star' id='star4' data-productId='"+ productId +"' data-value='4'></i>" +
+							"<i class='far fa-star' id='star5' data-productId='"+ productId +"' data-value='5'></i>");
 
-				// if (response.userRating == 1) {
-				// 	$('#star-container').html(oneStar);
-				// } else if (response.userRating == 2) {
-				// 	$('#star-container').html(twoStar);
-				// } else if (response.userRating == 3) {
-				// 	$('#star-container').html(threeStar);
-				// } else if (response.userRating == 4) {
-				// 	$('#star-container').html(fourStar);
-				// } else {
-				// 	$('#star-container').html(fiveStar);
-				// }
+				} else if (response.aveRating >= 2 && response.aveRating < 2.5) {
+					$('.rating-average-in-stars'+productId).html(
+							"<i class='fas fa-star' id='star1' data-productId='"+ productId +"' data-value='1'></i>" +
+							"<i class='fas fa-star' id='star2' data-productId='"+ productId +"' data-value='2'></i>" +
+							"<i class='far fa-star' id='star3' data-productId='"+ productId +"' data-value='3'></i>" +
+							"<i class='far fa-star' id='star4' data-productId='"+ productId +"' data-value='4'></i>" +
+							"<i class='far fa-star' id='star5' data-productId='"+ productId +"' data-value='5'></i>");
+
+				} else if (response.aveRating >= 2.5 && response.aveRating < 3) {
+				$('.rating-average-in-stars'+productId).html(
+						"<i class='fas fa-star' id='star1' data-productId='"+ productId +"' data-value='1'></i>" +
+						"<i class='fas fa-star' id='star2' data-productId='"+ productId +"' data-value='2'></i>" +
+						"<i class='fas fa-star-half-alt' id='star3' data-productId='"+ productId +"' data-value='3'></i>" +
+						"<i class='far fa-star' id='star4' data-productId='"+ productId +"' data-value='4'></i>" +
+						"<i class='far fa-star' id='star5' data-productId='"+ productId +"' data-value='5'></i>");
+
+				} else if (response.aveRating >= 3 && response.aveRating < 3.5) {
+					$('.rating-average-in-stars'+productId).html(
+							"<i class='fas fa-star' id='star1' data-productId='"+ productId +"' data-value='1'></i>" +
+							"<i class='fas fa-star' id='star2' data-productId='"+ productId +"' data-value='2'></i>" +
+							"<i class='fas fa-star' id='star3' data-productId='"+ productId +"' data-value='3'></i>" +
+							"<i class='far fa-star' id='star4' data-productId='"+ productId +"' data-value='4'></i>" +
+							"<i class='far fa-star' id='star5' data-productId='"+ productId +"' data-value='5'></i>");
+
+				} else if (response.aveRating >= 3.5 && response.aveRating < 4) {
+					$('.rating-average-in-stars'+productId).html(
+							"<i class='fas fa-star' id='star1' data-productId='"+ productId +"' data-value='1'></i>" +
+							"<i class='fas fa-star' id='star2' data-productId='"+ productId +"' data-value='2'></i>" +
+							"<i class='fas fa-star' id='star3' data-productId='"+ productId +"' data-value='3'></i>" +
+							"<i class='fas fa-star-half-alt' id='star4' data-productId='"+ productId +"' data-value='4'></i>" +
+							"<i class='far fa-star' id='star5' data-productId='"+ productId +"' data-value='5'></i>");
+
+				} else if (response.aveRating >= 4 && response.aveRating < 4.5) {
+					$('.rating-average-in-stars'+productId).html(
+							"<i class='fas fa-star' id='star1' data-productId='"+ productId +"' data-value='1'></i>" +
+							"<i class='fas fa-star' id='star2' data-productId='"+ productId +"' data-value='2'></i>" +
+							"<i class='fas fa-star' id='star3' data-productId='"+ productId +"' data-value='3'></i>" +
+							"<i class='fas fa-star' id='star4' data-productId='"+ productId +"' data-value='4'></i>" +
+							"<i class='far fa-star' id='star5' data-productId='"+ productId +"' data-value='5'></i>");
+
+				} else if (response.aveRating >= 4.5 && response.aveRating < 5){
+					$('.rating-average-in-stars'+productId).html(
+							"<i class='fas fa-star' id='star1' data-productId='"+ productId +"' data-value='1'></i>" +
+							"<i class='fas fa-star' id='star2' data-productId='"+ productId +"' data-value='2'></i>" +
+							"<i class='fas fa-star' id='star3' data-productId='"+ productId +"' data-value='3'></i>" +
+							"<i class='fas fa-star' id='star4' data-productId='"+ productId +"' data-value='4'></i>" +
+							"<i class='fas fa-star-half-alt' id='star5' data-productId='"+ productId +"' data-value='5'></i>");
+
+				} else {
+					$('.rating-average-in-stars'+productId).html(
+							"<i class='fas fa-star star' id='star1' data-productId='"+ productId +"' data-value='1'></i>" +
+							"<i class='fas fa-star star' id='star2' data-productId='"+ productId +"' data-value='2'></i>" +
+							"<i class='fas fa-star star' id='star3' data-productId='"+ productId +"' data-value='3'></i>" +
+							"<i class='fas fa-star star' id='star4' data-productId='"+ productId +"' data-value='4'></i>" +
+							"<i class='fas fa-star star' id='star5' data-productId='"+ productId +"' data-value='5'></i>");
+				}
+				
 			}
 		});
 	});

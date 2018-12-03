@@ -121,7 +121,7 @@
         $row = mysqli_fetch_assoc($result);
         $averageProductReview = $row['AVG(product_rating)'];
 
-        return $averageProductReview;
+        return round($averageProductReview, 2);
     }
 
     // DISPLAY USER RATING OF PRODUCT -- not yet used

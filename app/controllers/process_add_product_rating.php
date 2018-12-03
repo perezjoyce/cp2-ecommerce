@@ -2,6 +2,7 @@
 
 session_start(); 
 require_once "connect.php";
+require_once "functions.php";
 
 if (isset($_POST['productId'])) {
 
@@ -35,7 +36,11 @@ if (isset($_POST['productId'])) {
     $rating = $row['product_rating'];
 
     $response = [];
-    $response = ['reviewCount' => $numberOfReviews, 'userRating' => $rating];
+    $response = [
+        'reviewCount' => $numberOfReviews, 
+        'userRating' => $rating,
+        'aveRating'=> getAveProductReview($conn, $productId)
+    ];
 
     echo json_encode($response);
 
