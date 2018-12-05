@@ -103,6 +103,18 @@
             </div>
 
 
+             <label>Preferred Courier</label>
+            <div class="input-group mb-5">
+                <!-- for editing -->
+                <select class="custom-select" id="modeOfPayment" onchange="modeOfPayment">
+                    <option selected="...">...</option>
+                    <option value="lbc">LBC</option>
+                    <option value="palawan">Palawan Express</option>
+                    <option value="2go">2-GO</option>
+                </select>
+            </div>
+
+
 
             <p id="error_message"></p>
 

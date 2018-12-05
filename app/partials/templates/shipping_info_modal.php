@@ -9,17 +9,54 @@
         // pass redirect url so that after logging in you will be able to return to the intended page, in this case check-out
         header("location: login_modal.php?redirectUrl=checkout");
     } 
+    
+    $userId = $_SESSION['id'];
+    $sql = " SELECT * FROM tbl_addresses WHERE `user_id` = $userId ";
+    $result = mysqli_query($conn,$sql);
+    $count = mysqli_num_rows($result);
+?>
 
-    ?>
+    
 
-    <form>
+        <form>
             <label class='mb-5'>Shipping Information</label>
-            <!-- QUERY IF EXISTING. IF YES, CHOOSE BETWEEN OFFICE, HOME AND OTHERS, IF NO, SHOW BELOW -->
+
             <br>
-            <label for='region'>Region</label>
+                
+                <!-- IF USER HAS ADDRESS... -->
+                <?php if($count) { 
+                
+                    $sql = " SELECT * tbl_addresses WHERE user_id = $userId ";
+                    $sql = " SELECT * FROM tbl_addresses WHERE `user_id` = $userId ";
+                    $result = mysqli_query($conn,$sql);
+                ?>
+
+                <label>Choose Saved Address Type</label>
+                <div class="form-check">
+
+                <?php 
+                    while($row = mysqli_fetch_assoc($result)){ 
+                        $addressType = $row['addressType'];
+                ?>
+                    <input class="form-check-input" type="checkbox" value="#">
+                    <label class="form-check-label">
+                        <?= $addressType ?>
+                    </label>
+                <?php } ?>
+                    <br>
+                    <input class="form-check-input" type="checkbox" value="others">
+                    <label class="form-check-label">
+                        others
+                    </label>
+                
+            </div>
+                <?php } else { ?>
+            
+            <br>
+            <label for='region'>Region*</label>
             <div class="input-group mb-3">
                 <select class="custom-select" id="region" onchange="region">
-                    <option selected="...">...</option>
+                    <option id='region-initial-selected' selected="...">...</option>
                     <?php 
                         $sql = " SELECT * FROM tbl_regions ";
                         $result = mysqli_query($conn, $sql);
@@ -28,17 +65,17 @@
                             $regionId = $row['id'];
                             $regCode = $row['regCode'];
                     ?>
-                    <option value='<?= $regionId ?>'>
+                    <option data-id='<?=$region?>' id='region-option' value='<?= $regionId ?>'>
                         <?= $region ?>
                     </option>
                 <?php } ?>
                 </select>
             </div>
 
-            <label for='province'>Province</label>
+            <label for='province'>Province*</label>
             <div class="input-group mb-3">
                 <select class="custom-select" id="province" data-id='<?= $regionId?>'>
-                    <option selected="...">...</option>
+                    <option id='province-initial-selected' selected="...">...</option>
                     <?php 
                         $sql = " SELECT * FROM tbl_provinces WHERE regCode = $regCode";
                         $result = mysqli_query($conn, $sql);
@@ -47,15 +84,15 @@
                             $provinceId = $row['id'];
                             $provCode = $row['provCode'];
                     ?>
-                    <option id='prov-option' value='<?= $provinceId ?>'><?= $province ?> </option>
+                    <option id='province-option' value='<?= $provinceId ?>'><?= $province ?> </option>
                     <?php } ?>
                 </select>
             </div>
        
-            <label for='cityMun'>City or Municipality</label>
+            <label for='cityMun'>City or Municipality*</label>
             <div class="input-group form-group">
                 <select class="custom-select" id="cityMun" data-id='<?= $provinceId ?>'>
-                    <option selected="...">...</option>
+                    <option id='cityMun-initial-selected' selected="...">...</option>
                     <?php 
                         $sql = " SELECT * FROM tbl_cities WHERE provCode = $provCode ";
                         $result = mysqli_query($conn, $sql);
@@ -69,10 +106,10 @@
                 </select>
             </div>
          
-            <label for='barangay'>Barangay</label>
+            <label for='barangay'>Barangay*</label>
             <div class="input-group form-group">
                 <select class="custom-select"  id="barangay" data-id='<?= $cityMunId?>'>
-                    <option selected="...">...</option>
+                    <option id='brgy-initial-selected' selected="...">...</option>
                     <?php 
                         $sql = " SELECT * FROM tbl_barangays WHERE citymunCode = $cityMunCode ";
                         $result = mysqli_query($conn, $sql);
@@ -85,29 +122,32 @@
                 </select> 
             </div>
 
-            <label for='building'>Street, Bldg., Unit No., etc.</label>
+            <label for='building'>Street, Bldg., Unit No., etc.*</label>
+            <div class="input-group form-group">
+                <input type="text" class='form-control' id='streetBldgUnit'>
+            </div>
+
+            <label for='building'>Landmark</label>
             <div class="input-group mb-5 form-group">
-                <input type="text" class='form-control' id='other_shipping_info'>
+                <input type="text" class='form-control' id='landmark'>
             </div>
 
             
             <!-- display shipping fee somewhere -->
 
-            <label>Preferred Courier</label>
+            <label>Save Address Type As*</label>
             <div class="input-group mb-5">
                 <!-- for editing -->
-                <select class="custom-select" id="modeOfPayment" onchange="modeOfPayment">
+                <select class="custom-select" id="addressType">
                     <option selected="...">...</option>
-                    <option value="lbc">LBC</option>
-                    <option value="palawan">Palawan Express</option>
-                    <option value="2go">2-GO</option>
+                    <option value="home">Home</option>
+                    <option value="office">Office</option>
+                    <option value="others">Others</option>
                 </select>
             </div>
 				
 
-
-
-            <p id="error_message"></p>
+            <p id="shipping_error_message"></p>
 
             <!-- if input type is submit, this will automatically submit input to users.php hence change this to button, type to button and remove value SO THAT you can employ validation -->
             <!-- indicate id for button -->
@@ -117,7 +157,7 @@
                     <i class="fas fa-3x fa-arrow-circle-left"></i>
                 </a>
 
-                <a class="modal-link" data-url='../partials/templates/order_summary_modal.php'>
+                <a class="modal-link" data-url='../partials/templates/order_summary_modal.php' id='btn_shipping_info'>
                     <i class="fas fa-3x fa-arrow-circle-right"></i>
                 </a>
 
@@ -125,5 +165,7 @@
                   
 
         </form>
-    
+                        <?php } ?>
+
+
     

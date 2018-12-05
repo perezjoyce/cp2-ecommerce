@@ -44,7 +44,9 @@
                 <td> 
                     <?= $name ?>
                     <br>
-                    <img class="unitImage" src="<?= $image ?>" style='width:50px;height:50px;'> 
+                    <a href="product.php?id=<?= $productId ?>">
+                        <img class="unitImage" src="<?= $image ?>" style='width:50px;height:50px;'> 
+                    </a>
                 </td>
                 <td>&#8369; <span class="unitPrice"> <?= $price ?> </span> </td>
                 <td> <input class='itemQuantity' 

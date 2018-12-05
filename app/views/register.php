@@ -73,3 +73,5 @@
 
     <!-- Footer -->
     <?php include "../partials/footer.php";?>
+
+    <?php require_once "../partials/modal_container.php";?>

@@ -807,24 +807,28 @@ $(document).ready( () => {
 	// =============================================================================== //
 	// =============================================================================== //
 
-	
+
 	//FETCHING REGION THEN DISPLAYING PROV OPTIONS
 	$(document).on("change", "#region", function(){
 		let regionId = $(this).val();
+		// let region = $("#region-option").attr('data-id');
+		// $('#region-initial-selected').empty();
+		// $('#region-option').replaceWith("<option selected="+ region + "' selected='region-option' id='region-option' value='"+ regionId +"'>" + region + "</option>");
 
 		//AJAX
-		$.post("../controllers/process_address.php", {regionId:regionId},function(data){
-			$("#prov-option").replaceWith(data);
+		$.post("../controllers/process_display_address_db.php", {regionId:regionId},function(data){
+			// $('#province-initial-selected').empty();
+			$("#province-option").replaceWith(data);
 		});
 	});
 	  
 	// FETCHING PROVINCE THEN DISPLAYING CITYMUN OPTIONS
 	$(document).on("change", "#province", function(){
 		let provinceId = $(this).val();
-		let regionId = $(this).attr('data-id');
 		
 		//AJAX
-		$.post("../controllers/process_address.php", {provinceId:provinceId, regionId:regionId},function(data){
+		$.post("../controllers/process_display_address_db.php", {provinceId:provinceId},function(data){
+			// $('#cityMun-initial-selected').empty();
 			$("#cityMun-option").replaceWith(data);
 		});
 	  });
@@ -832,22 +836,51 @@ $(document).ready( () => {
 	// FETCHING CITYMUN THEN DISPLAYING BARANGAY OPTIONS
 	$(document).on("change", "#cityMun", function(){
 		let cityMunId = $(this).val();
-		let provinceId = $(this).attr('data-id');
+		// let provinceId = $(this).attr('data-id');
 		
 		//AJAX
-		$.post("../controllers/process_address.php", {cityMunId:cityMunId, provinceId:provinceId},function(data){
+		$.post("../controllers/process_display_address_db.php", {cityMunId:cityMunId},function(data){
+			// $('#brgy-initial-selected').empty();
 			$("#brgy-option").replaceWith(data);
 		});
 	  });
 	
-	// FETCHING BARANGAY
-	$(document).on("change", "#barangay", function(){
-		let brgyId = $(this).val();
-		let cityMunId = $(this).attr('data-id');
+	// FETCHING ADDRESS IN SHIPPING_INFO_MODAL, SAVING IN DB
+	$(document).on("click", "#btn_shipping_info", function(){
 		
-		//AJAX
-		$.post("../controllers/process_address.php", {brgyId:brgyId, cityMunId:cityMunId});  	
+		let regionId = $('#region').val(); 
+		let provinceId = $('#province').val(); 
+		let cityMunId = $('#cityMun').val(); 
+		let brgyId = $('#barangay').val();
+		let streetBldgUnit = $('#streetBldgUnit').val();
+		let landmark = $('#landmark').val();
+		let addressType = $('#addressType').val();
+
+		let flag = 0;
+
+		if(regionId == "" || provinceId == "" || cityMunId == "" || brgyId == "" || streetBldgUnit == "") {
+			$("#shipping_error_message").css("color", "red");
+			$("#shipping_error_message").text('Please fill out required fields.');
+			flag = 1;
+		} else {
+			flag = 0;
+		}
+
+		if (flag == 0) {
+
+			$.post("../controllers/process_save_address.php", {
+				regionId:regionId,
+				provinceId:provinceId,
+				cityMunId:cityMunId,
+				brgyId:brgyId,
+				streetBldgUnit:streetBldgUnit,
+				landmark:landmark,
+				addressType:addressType
+				});
+		}	
 	});
+
+
 
 });
 
