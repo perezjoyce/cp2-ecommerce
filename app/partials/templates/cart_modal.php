@@ -72,7 +72,7 @@
     <table class="table table-bordered mb-5">
 
         <tr>
-            <th>Total</th>
+            <th>Sub-Total</th>
             <td colspan="4"> &#8369;<span class="subtotalAmount"><?= $totalPrice ?></span> </td>
         </tr>
 
@@ -82,10 +82,13 @@
 
     <p id="error_message"></p>
 
-    <!-- if input type is submit, this will automatically submit input to users.php hence change this to button, type to button and remove value SO THAT you can employ validation -->
-    <!-- indicate id for button -->
-    <a type="button" class="btn btn-block btn-outline-success mb-5 modal-link" data-url='../partials/templates/checkout_modal.php' id="btn_checkout">
-        CHECK OUT
-    </a>
+
+     <div class="d-flex justify-content-center mb-5">
+
+        <a class="modal-link" data-url='../partials/templates/shipping_info_modal.php'>
+            <i class="fas fa-3x fa-arrow-circle-right"></i>
+        </a>
+
+    </div>
 
 </form>

@@ -59,10 +59,14 @@ card-title {
     max-width: 80px;
 }
 
-textarea #product-review {
+#product-review {
     resize: none;
+    overflow: auto;
+    width: 100%;
+    outline: none;
   }
 
-.fa-star.star {
-}
+/* .fa-star {
+    position: absolute;
+} */
   

@@ -118,21 +118,21 @@
                         <!-- no value -->
                       </span>
                       <span class='rating-word'>
-                        <?= "No ratings yet" ?>
+                        <?= "No reviews yet" ?>
                       </span>
                     <?php } elseif(countRatingsPerProduct($conn, $id) == 1){?>
                       <span class='rating-count<?=$id?>'>
                         <?= countRatingsPerProduct($conn, $id) ?>
                       </span>
                       <span class='rating-word'>
-                        <?= "Rating" ?>
+                        <?= "Review" ?>
                       </span>
                     <?php } else {?>
                       <span class='rating-count<?=$id?>'>
                         <?= countRatingsPerProduct($conn, $id) ?>
                       </span>
                       <span class='rating-word'>
-                        <?= "Ratings" ?>
+                        <?= "Reviews" ?>
                       </span>
                     <?php } } ?>
               </div>
@@ -328,33 +328,63 @@
           </span>
           <div class='row pt-3 pl-3 mb-3'>
               <!-- TOTAL AVERAGE RATING -->
+                <?php 
+                  if (isset($_SESSION['cart_session'])) { 
+                    if (getAveProductReview($conn, $id) === 0 || getAveProductReview($conn, $id) == "") { ?>
+                      <span class='rating-average<?=$id?>'>
+                        <!-- no value -->
+                      </span>
+                      <span class='rating-word'>
+                      <?= "&nbsp;No reviews yet" ?>
+                      </span>
+                <?php } else {?>
+                      <span class='rating-average<?=$id?>' style='color:red;' >
+                        <?= getAveProductReview($conn, $id) ?> 
+                      </span>
+              <?php } } ?>
+              <span>&nbsp;average based on&nbsp;</span>
+              <span>
               <?php 
-                if (isset($_SESSION['cart_session'])) { 
-                  if (getAveProductReview($conn, $id) === 0 || getAveProductReview($conn, $id) == "") { ?>
-                    <span class='rating-average<?=$id?>'>
-                      <!-- no value -->
-                    </span>
-                    <span class='rating-word'>
-                    <?= "&nbsp;No reviews yet" ?>
-                    </span>
-              <?php } else {?>
-                    <span class='rating-average<?=$id?>' style='color:red;' >
-                      <?= getAveProductReview($conn, $id) ?> 
-                    </span>
-                    <span>
-                      <?= "&nbsp;of 5" ?>
-                    </span>
-            <?php } } ?>
+                  if (isset($_SESSION['cart_session'])) { 
+                    if (countRatingsPerProduct($conn, $id) === 0 || countRatingsPerProduct($conn, $id) == "") { ?>
+                      <span class='rating-count<?=$id?>'>
+                        <!-- no value -->
+                      </span>
+                      <span class='rating-word'>
+                        <?= "No reviews yet" ?>
+                      </span>
+                    <?php } elseif(countRatingsPerProduct($conn, $id) == 1){?>
+                      <span class='rating-count<?=$id?>'>
+                        <?= countRatingsPerProduct($conn, $id) ?>
+                      </span>
+                      <span class='rating-word'>
+                        <?= "Review" ?>
+                      </span>
+                    <?php } else {?>
+                      <span class='rating-count<?=$id?>'>
+                        <?= countRatingsPerProduct($conn, $id) ?>
+                      </span>
+                      <span class='rating-word'>
+                        <?= "Reviews" ?>
+                      </span>
+                    <?php } } ?>
+              </span>
           </div>
 
           <div class='row pt-3 pl-3'>
             <!-- TEXT REVIEW -->
-            <form action="#" method='POST'>
-              <!-- FOR REVISION COZ DOESN'T WORK IN SMALLER SCREENS -->
-              <textarea style="auto;resize:none" rows="3" cols="134" id='product-review' data-productId='<?= $id ?>'></textarea>
-              <br>
-              <button href="#"> SUBMIT REVIEW </button>
-            </form>
+            <div>
+              <textarea class="mb-0" placeholder="Share your review here" rows="5" cols='100' maxlength="250" type="text" id='product-review'>
+              </textarea>
+              <span>
+                <span>
+                  0/250
+                </span>
+              </span>
+              <button type="button" class="next-btn next-btn-primary next-btn-medium qna-ask-btn">
+                SUBMIT REVIEW
+              </button>
+            </div>
             <!-- /.TEXT REVIEW -->
           </div>
 

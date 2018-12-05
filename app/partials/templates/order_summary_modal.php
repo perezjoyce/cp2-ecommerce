@@ -18,8 +18,11 @@
      
             
         <form>
-            <label class='my-5'>Your Order Summary</label>
+            <label class='mb-5'>Your Order Summary</label>
 
+            <br>
+
+            <label>Items In Cart</label>
             <table class="table table-bordered">
                 <tr id="table-header">
                     <th> Item </th>
@@ -63,10 +66,12 @@
 
             </table>
 
+            
+
             <table class="table table-bordered mb-5">
 
                 <tr>
-                    <th>Total</th>
+                    <th>Grand Total</th>
                     <?php
                         $sql = "SELECT c.quantity, p.price, SUM(c.quantity * p.price) FROM tbl_carts c JOIN tbl_items p on p.id=c.item_id 
                                 WHERE cart_session='" . $cartSession. "'";
@@ -80,15 +85,37 @@
 
             </table>
 
+               <!-- add shipping fee somewhere -->
+
+           
+
+            <label>Preferred Mode of Payment</label>
+            <div class="input-group mb-5">
+                <!-- for editing -->
+                <select class="custom-select" id="modeOfPayment" onchange="modeOfPayment">
+                    <option selected="...">...</option>
+                    <option value="cod">COD</option>
+                    <option value="paypal">Paypal</option>
+                    <option value="gcash">G-Cash</option>
+                    <option value="perapadala">Pera Padala</option>
+                    <option value="bdo">BDO</option>
+                </select>
+            </div>
 
 
-                    <p id="error_message"></p>
 
-                    <!-- if input type is submit, this will automatically submit input to users.php hence change this to button, type to button and remove value SO THAT you can employ validation -->
-                    <!-- indicate id for button -->
-                    <a type="button" class="btn btn-block btn-outline-success mb-5 modal-link" data-url='../partials/templates/checkout_modal.php' id="btn_checkout">
-                        CHECK OUT
-                    </a>
+            <p id="error_message"></p>
+
+            <!-- if input type is submit, this will automatically submit input to users.php hence change this to button, type to button and remove value SO THAT you can employ validation -->
+            <!-- indicate id for button -->
+            <div class="d-flex justify-content-center mb-5">
+                <a class="mr-5 modal-link" data-url='../partials/templates/shipping_info_modal.php'>
+                    <i class="fas fa-3x fa-arrow-circle-left"></i>
+                </a>
+                <a class="#" data-url='#'>
+                    <i class="fas fa-3x fa-arrow-circle-right"></i>
+                </a>
+            </div>
 
         </form>
 

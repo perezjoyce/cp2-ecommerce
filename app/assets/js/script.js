@@ -706,16 +706,16 @@ $(document).ready( () => {
 				if(response.reviewCount == 0 ) {
 					//let response = $.parseJSON(data);
 					$(".rating-count"+productId).empty();
-					$(".rating-word").text('No ratings yet');
+					$(".rating-word").text('No reviews yet');
 				}else if(response.reviewCount == 1) {
 					//let response = $.parseJSON(data);
 					$(".rating-count"+productId).text(response.reviewCount);
-					$(".rating-word").text('Rating');
+					$(".rating-word").text('Review');
 					$('.rating-average'+productId).text(response.aveRating); 
 				}else {
 					//let response = $.parseJSON(data);
 					$(".rating-count"+productId).text(response.reviewCount);
-					$(".rating-word").text('Ratings');
+					$(".rating-word").text('Reviews');
 					$('.rating-average'+productId).text(response.aveRating); 
 				}
 
@@ -801,6 +801,53 @@ $(document).ready( () => {
 	// DISPLAYING PRODUCT RATING
 	// DELETING PRODUCT RATING
 	// FETCHING COMMENT
+
+
+	// ==================================== CHECKOUT ================================= //
+	// =============================================================================== //
+	// =============================================================================== //
+
+	
+	//FETCHING REGION THEN DISPLAYING PROV OPTIONS
+	$(document).on("change", "#region", function(){
+		let regionId = $(this).val();
+
+		//AJAX
+		$.post("../controllers/process_address.php", {regionId:regionId},function(data){
+			$("#prov-option").replaceWith(data);
+		});
+	});
+	  
+	// FETCHING PROVINCE THEN DISPLAYING CITYMUN OPTIONS
+	$(document).on("change", "#province", function(){
+		let provinceId = $(this).val();
+		let regionId = $(this).attr('data-id');
+		
+		//AJAX
+		$.post("../controllers/process_address.php", {provinceId:provinceId, regionId:regionId},function(data){
+			$("#cityMun-option").replaceWith(data);
+		});
+	  });
+	
+	// FETCHING CITYMUN THEN DISPLAYING BARANGAY OPTIONS
+	$(document).on("change", "#cityMun", function(){
+		let cityMunId = $(this).val();
+		let provinceId = $(this).attr('data-id');
+		
+		//AJAX
+		$.post("../controllers/process_address.php", {cityMunId:cityMunId, provinceId:provinceId},function(data){
+			$("#brgy-option").replaceWith(data);
+		});
+	  });
+	
+	// FETCHING BARANGAY
+	$(document).on("change", "#barangay", function(){
+		let brgyId = $(this).val();
+		let cityMunId = $(this).attr('data-id');
+		
+		//AJAX
+		$.post("../controllers/process_address.php", {brgyId:brgyId, cityMunId:cityMunId});  	
+	});
 
 });
 
