@@ -6,8 +6,9 @@
     if(isset($_POST['userId'])) {
 
         $userId = $_POST['userId'];
-        $sql = " SELECT * FROM tbl_wishlists WHERE user_id = $userId";
-        $result = mysqli_query($conn, $sql);
+        $sql = " SELECT * FROM tbl_wishlists WHERE user_id = ? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$userId]);
 
             echo "
             <div class='row pt-5 pl-5 flex-column'>
@@ -24,16 +25,17 @@
                     </tr>
             ";
 
-            if(mysqli_num_rows($result) > 0){
+            if($statement->rowCount()){
                     
-                $sql = "SELECT w.*, p.img_path, p.name, p.price, p.id as productId
+                $sql = " SELECT w.*, p.img_path, p.name, p.price, p.id as productId
                 FROM tbl_wishlists w 
                 JOIN tbl_items p on p.id=w.product_id 
-                WHERE user_id= $userId ";
-                $result = mysqli_query($conn, $sql);
+                WHERE user_id= ? ";
+               $statement = $conn->prepare($sql);
+               $statement->execute([$userId]);
 
                 // var_dump($result);die();
-                while($row = mysqli_fetch_assoc($result)){
+                while($row = $statement->fetch()){
                     $productId = $row['product_id'];
                     $name = $row['name'];
                     $price = $row['price'];

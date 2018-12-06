@@ -1,7 +1,8 @@
-<?php include "../partials/header.php";?>
+<?php require_once "../partials/header.php";?>
 <?php require_once "../controllers/connect.php";?>
     
-    <!-- Page Content -->
+
+    <!-- PAGE CONTENT -->
     <div class="container">
      <div class="row">
         <div class="col-lg-4 col-md-3"></div>
@@ -58,20 +59,19 @@
                 </div>
                 
               </form>
-            </div>
 
+            </div>
+            <!-- .CARD BODY -->
          
-            </div>
           </div>
-          <!-- /.card -->
+          <!-- /.CARD -->
         </div>
-        <!-- /.col -->
+        <!-- /.COL -->
       </div>
-      <!-- /.row -->
+      <!-- /.ROW -->
     </div>
-    <!-- /.container -->
+    <!-- /.CONTAINER -->
 
-    <!-- Footer -->
-    <?php include "../partials/footer.php";?>
 
-    <?php require_once "../partials/modal_container.php";?>
+<?php require_once "../partials/footer.php";?>
+<?php require_once "../partials/modal_container.php";?>

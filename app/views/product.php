@@ -1,4 +1,4 @@
-<?php include "../partials/header.php";?>
+<?php require_once "../partials/header.php";?>
 <?php require_once "../controllers/connect.php";?>
 <?php require_once "../controllers/functions.php";?>
 
@@ -12,8 +12,13 @@
 
   $sql = "SELECT * FROM tbl_items WHERE id = $id";
 
-  $result = mysqli_query($conn,$sql);
-  $row = mysqli_fetch_assoc($result);
+  $statement = $conn->prepare($sql);
+  $statement->execute([$id]);
+
+
+  //$result = mysqli_query($conn,$sql);
+  //$row = mysqli_fetch_assoc($result);
+  $row = $statement->fetch(PDO::FETCH_ASSOC);
 
   $id = $row['id'];    
   $name = $row['name'];     
@@ -22,10 +27,11 @@
   $item_img = $row['img_path'];
 
 
-  $sql = " SELECT * FROM tbl_carts WHERE cart_session='$cartSession' AND item_id=$id";
-	$result = mysqli_query($conn, $sql);
-  $count = mysqli_num_rows($result);
-
+  $sql = " SELECT * FROM tbl_carts WHERE cart_session=? AND item_id=?";
+  //$result = mysqli_query($conn, $sql);
+  $statement = $conn->prepare($sql);
+  $statement->execute([$cartSession, $id]);
+  $count = $statement->rowCount();
   
 ?>
     <!-- PAGE CONTENT -->
@@ -404,8 +410,5 @@
     </div>
     <!-- /.PAGE CONTENT -->
 
-<!-- /FOOTER -->
-<?php include_once "../partials/footer.php";?>
-
-<!-- MODAL -->
-<?php include_once "../partials/modal_container.php"; ?>
+<?php require_once "../partials/footer.php";?>
+<?php require_once "../partials/modal_container.php"; ?>

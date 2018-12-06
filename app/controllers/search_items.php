@@ -6,12 +6,13 @@
 
 	$word = $_POST['word'];
 
-	$sql = "SELECT * FROM tbl_items WHERE name LIKE '%".$word."%'";
-	$result = mysqli_query($conn,$sql);
+	$sql = "SELECT * FROM tbl_items WHERE name LIKE ? ";
+	$statement = $conn->prepare($sql);
+    $statement->execute(["%".$word."%"]);
 	$data = '';
-	if(mysqli_num_rows($result) > 0){
+	if($statement->rowCount()){
 
-		while($row = mysqli_fetch_assoc($result)){
+		while($row = $statement->fetch()){
 			$name = $row['name'];
 			$id = $row['id'];
 			$price = $row['price'];

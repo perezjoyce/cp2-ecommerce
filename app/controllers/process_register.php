@@ -11,23 +11,24 @@
 		$username = $_POST['username'];
 		$password = sha1($_POST['password']);
 
-		$sql = "SELECT * FROM tbl_users WHERE username = '$username'";
-
-		$result = mysqli_query($conn, $sql);
-		$count = mysqli_num_rows($result);
+		$sql = "SELECT * FROM tbl_users WHERE username = ? ";
+		$statement = $conn->prepare($sql);
+		$statement->execute([$username]);
+		$count = $statement->rowCount();
 
 		if($count) {
 			echo "userExists";
 		} else {
 
-			$sql = "INSERT INTO tbl_users (last_name, first_name, email, username, `password`) 
-			VALUES ('$lname', '$fname', '$email', '$username', '$password')";
+			$sql = " INSERT INTO tbl_users (last_name, first_name, email, username, `password`) 
+			VALUES (?, ?, ?, ?, ?) ";
 
-			$result = mysqli_query($conn,$sql);
+			$statement = $conn->prepare($sql);
+			$result = $statement->execute([$lname, $fname, $email, $username, $password]);
 
 			if($result) {
 				//GET LAST ID TO BE ABLE TO BE DIRECTED TO CORRECT PROFILE PAGE WHEN REGISTRATION IS SUCCESSFULLY DONE.
-				$last_id = mysqli_insert_id($conn);
+				$last_id = $conn->lastInsertId();
 				echo json_encode(["id" => $last_id]);
 			} else {
 				echo "fail";

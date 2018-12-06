@@ -4,12 +4,13 @@
 
 	$categoryId = $_POST['categoryId'];
 
-	$sql = "SELECT * FROM tbl_categories WHERE category_id = $categoryId";
-	$result = mysqli_query($conn,$sql);
+	$sql = "SELECT * FROM tbl_categories WHERE category_id = ? ";
+	$statement = $conn->prepare($sql);
+    $statement->execute([$categoryId]);
 	$data = '';
-	if(mysqli_num_rows($result) > 0){
+	if($statement->rowCount()){
 
-		while($row = mysqli_fetch_assoc($result)){
+		while($statement->fetch()){
 			$id = $row['id'];
 			$name = $row['name'];
 			$price = $row['price'];

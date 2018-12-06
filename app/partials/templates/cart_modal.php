@@ -1,15 +1,26 @@
 <?php 
 
     session_start(); 
-    require_once "../../controllers/connect.php";
+    include_once '../../sources/pdo/src/PDO.class.php';
+
+	//set values
+	$host = "localhost";
+	$db_username = "root";
+	$db_password = "";
+	$db_name = "db_demoStoreNew";
+
+	$conn = new PDO("mysql:host=$host;dbname=$db_name",$db_username,$db_password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $cartSession = $_SESSION['cart_session'];
     
     $sql = "SELECT c.*, p.img_path, p.name, p.price, p.id as productId
     FROM tbl_carts c 
     JOIN tbl_items p on p.id=c.item_id 
-    WHERE cart_session='" . $cartSession. "'";
-    $result = mysqli_query($conn, $sql);
+    WHERE cart_session=?";
+    //$result = mysqli_query($conn, $sql);
+    $statement = $conn->prepare($sql);
+    $statement->execute([$cartSession]);
 ?>
 
 <form action="../controllers/process_add_to_cart.php" method="POST" id="form_cart">
@@ -26,11 +37,11 @@
 
         </tr>
         <?php
-        $count = mysqli_num_rows($result);
+        $count = $statement->rowCount();
         $totalPrice = 0;
       
         if($count) :
-            while($row = mysqli_fetch_assoc($result)){ 
+            while($row = $statement->fetch()){ 
                 $userId = $row['user_id'];
                 $productId = $row['item_id'];
                 $name = $row['name'];

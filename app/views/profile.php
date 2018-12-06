@@ -14,10 +14,11 @@
         header("location: index.php");
     } else {
 
-        $sql = "SELECT * FROM tbl_users WHERE id = $id";
+        $sql = "SELECT * FROM tbl_users WHERE id = ? ";
 
-        $result = mysqli_query($conn,$sql);
-        $row = mysqli_fetch_assoc($result);
+        $statement = $conn->prepare($sql);
+        $statement->execute([$id]);
+        $row = $statement->fetch();
 
         $id = $row['id'];      
         $fname = ucfirst($row['first_name']);   
@@ -173,10 +174,7 @@
     <!-- /.CONTAINER -->
 
 
-<!-- FOOTER -->
 <?php require_once "../partials/footer.php";?>
-
-<!-- MODAL -->
 <?php require_once "../partials/modal_container.php";?>
 
   

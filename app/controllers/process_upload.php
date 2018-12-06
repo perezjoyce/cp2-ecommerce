@@ -51,8 +51,9 @@ else {
     }
     
     //$filename = $filename . "." . $imageFileType;
-    $sql = "UPDATE tbl_users SET profile_pic='uploads/$id/$filename' WHERE id = $id";
-    mysqli_query($conn, $sql);
+    $sql = "UPDATE tbl_users SET profile_pic='uploads/$id/$filename' WHERE id = ? ";
+    $statement = $conn->prepare($sql);
+    $statement->execute([$id]);
     header("Location: ../views/profile.php?id=$id");
 }
 

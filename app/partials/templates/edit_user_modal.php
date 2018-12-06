@@ -1,13 +1,24 @@
   <?php 
     // TO DISPLAY CURRENT USER DATA
-    require_once "../../controllers/connect.php";
+    session_start(); 
     require_once "../../controllers/functions.php";
+    include_once '../../sources/pdo/src/PDO.class.php';
+
+    //set values
+    $host = "localhost";
+    $db_username = "root";
+    $db_password = "";
+    $db_name = "db_demoStoreNew";
+
+    $conn = new PDO("mysql:host=$host;dbname=$db_name",$db_username,$db_password);
+      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $id = $_GET['id'];
     
-    $sql = "SELECT * FROM tbl_users WHERE id = $id";
-    $result = mysqli_query($conn, $sql);
-    while($row = mysqli_fetch_assoc($result)){ 
+    $sql = "SELECT * FROM tbl_users WHERE id = ? ";
+    $statement = $conn->prepare($sql);
+    $statement->execute([$id]);
+    while($row = $statement->fetch()){ 
       $id = $row['id'];
       $fname = $row['first_name'];
       $lname = $row['last_name'];

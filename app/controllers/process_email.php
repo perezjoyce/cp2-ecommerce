@@ -4,7 +4,6 @@
 
 
 	if (isset($_POST['email'])) {
-
 		$email = $_POST['email'];
 	
 	// ADD $user = filter_var($_POST['user'], FILTER_SANITIZE_STRING);
@@ -18,9 +17,10 @@
 		 	echo "invalidEmail";
 		} else {
 
-		  $sql = "SELECT * FROM tbl_users WHERE email = '$email'";
-		  $result = mysqli_query($conn, $sql);
-		  $count = mysqli_num_rows($result);
+		  $sql = "SELECT * FROM tbl_users WHERE email = ? ";
+		  $statement = $conn->prepare($sql);
+		  $statement->execute([$email]);
+		  $count = $statement->rowCount();
 				if($count) {
 					echo "emailExists";
 				} else {

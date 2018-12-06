@@ -1,4 +1,4 @@
-<?php include_once "../partials/header.php";?>
+<?php require_once "../partials/header.php";?>
 <?php require_once "../controllers/connect.php";?>
 <?php require_once "../controllers/functions.php";?>
 
@@ -19,12 +19,14 @@
       <?php 
 
         $sql = " SELECT * FROM tbl_items LIMIT 12 ";
-        $result = mysqli_query($conn,$sql);
+        $statement = $conn->prepare($sql);
+        $statement->execute();
+        //$result = mysqli_query($conn,$sql);
 
         //CHECK IF THERE'S DATA
-        if(mysqli_num_rows($result) > 0){
+        if($statement->rowCount()){
           //CREATE A ROW VARIABLE
-          while($row = mysqli_fetch_assoc($result)){
+          while($row = $statement->fetch()){
             $id = $row['id'];
             $name = $row['name'];
             $price = $row['price'];
@@ -177,12 +179,10 @@
       <!-- /.PRODUCTS -->
 
       <!-- LOAD MORE PRODUCTS -->
-      <a href="catalog2.php" class="btn btn-outline-secondary btn-block py-2 mt-5">VIEW MORE PRODUCTS</a>
+      <a href="catalog.php" class="btn btn-outline-secondary btn-block py-2 mt-5">VIEW MORE PRODUCTS</a>
      
     </div>
     <!-- /.PAGE CONTENT -->
 
-<?php include_once "../partials/footer.php";?>
-
-<!-- MODAL -->
-<?php include_once "../partials/modal_container.php"; ?>
+<?php require_once "../partials/footer.php";?>
+<?php require_once "../partials/modal_container.php"; ?>

@@ -811,14 +811,13 @@ $(document).ready( () => {
 	//FETCHING REGION THEN DISPLAYING PROV OPTIONS
 	$(document).on("change", "#region", function(){
 		let regionId = $(this).val();
-		// let region = $("#region-option").attr('data-id');
-		// $('#region-initial-selected').empty();
-		// $('#region-option').replaceWith("<option selected="+ region + "' selected='region-option' id='region-option' value='"+ regionId +"'>" + region + "</option>");
 
 		//AJAX
 		$.post("../controllers/process_display_address_db.php", {regionId:regionId},function(data){
-			// $('#province-initial-selected').empty();
-			$("#province-option").replaceWith(data);
+
+			let selected = "<option value='...' selected='...'>...</option>";
+			$('#province').empty().append(data);
+			$('#province').prepend(selected);
 		});
 	});
 	  
@@ -828,22 +827,29 @@ $(document).ready( () => {
 		
 		//AJAX
 		$.post("../controllers/process_display_address_db.php", {provinceId:provinceId},function(data){
-			// $('#cityMun-initial-selected').empty();
-			$("#cityMun-option").replaceWith(data);
+
+			let selected = "<option value='...' selected='...'>...</option>";
+			$('#cityMun').empty().append(data);
+			$('#cityMun').prepend(selected);
 		});
 	  });
 	
 	// FETCHING CITYMUN THEN DISPLAYING BARANGAY OPTIONS
 	$(document).on("change", "#cityMun", function(){
 		let cityMunId = $(this).val();
-		// let provinceId = $(this).attr('data-id');
 		
 		//AJAX
 		$.post("../controllers/process_display_address_db.php", {cityMunId:cityMunId},function(data){
-			// $('#brgy-initial-selected').empty();
-			$("#brgy-option").replaceWith(data);
+
+			let selected = "<option value='...' selected='...'>...</option>";
+			$("#barangay").empty().append(data);
+			$("#barangay").prepend(selected);
 		});
 	  });
+
+
+
+
 	
 	// FETCHING ADDRESS IN SHIPPING_INFO_MODAL, SAVING IN DB
 	$(document).on("click", "#btn_shipping_info", function(){
@@ -856,18 +862,12 @@ $(document).ready( () => {
 		let landmark = $('#landmark').val();
 		let addressType = $('#addressType').val();
 
-		let flag = 0;
-
-		if(regionId == "" || provinceId == "" || cityMunId == "" || brgyId == "" || streetBldgUnit == "") {
+		if(regionId == "..." || provinceId == "..." || cityMunId == "..." || brgyId == "..." || streetBldgUnit == "" || addressType == "...") {
 			$("#shipping_error_message").css("color", "red");
 			$("#shipping_error_message").text('Please fill out required fields.');
-			flag = 1;
+			
 		} else {
-			flag = 0;
-		}
-
-		if (flag == 0) {
-
+			$(this).attr('class', 'modal-link');
 			$.post("../controllers/process_save_address.php", {
 				regionId:regionId,
 				provinceId:provinceId,
@@ -876,12 +876,65 @@ $(document).ready( () => {
 				streetBldgUnit:streetBldgUnit,
 				landmark:landmark,
 				addressType:addressType
-				});
-		}	
+			}, function(data) {
+				$("#shipping_error_message").css("color", "green");
+				$("#shipping_error_message").text(data);
+			});
+		}
+
+
+
+			
+		
+	});
+
+	$(document).on("click", ".user_addressTypes", function(){
+		let thisRadioButtonValue = $(this).val();
+		$.get("../controllers/process_get_address.php", {id: thisRadioButtonValue}, function(response){
+			let address = $.parseJSON(response);
+
+			$("#address_id").val(address.id);
+			$("#region").val(address.region_id); // Select the added option
+
+			let option = document.createElement('option');
+			option.value = address.province_id;
+			option.text = address.province_name;
+			$("#province")[0].appendChild(option);
+			$("#province").val(address.province_id); 
+
+			option = document.createElement('option');
+			option.value = address.city_id;
+			option.text = address.city_name;
+			$("#cityMun")[0].appendChild(option);
+			$("#cityMun").val(address.city_id);
+
+			option = document.createElement('option');
+			option.value = address.brgy_id;
+			option.text = address.barangay_name;
+			$('#barangay')[0].appendChild(option);
+			$("#barangay").val(address.brgy_id);
+
+			$("#streetBldgUnit").val(address.street_bldg_unit);
+			$("#landmark").val(address.landmark);
+			$("#addressType").val(address.addressType);
+			
+		});
+	});
+
+	$(document).on('click', '#btn_add_address', function(){
+	
+		$("#address_id").val("");
+		$("#region").val("");
+		$("#province").val("");
+		$("#cityMun").val("");
+		$("#barangay").val("");
+		$("#streetBldgUnit").val("");
+		$("#landmark").val("");
+		$("#addressType").val("");
+
 	});
 
 
 
 });
-
 

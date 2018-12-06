@@ -16,10 +16,11 @@
 		$sql = "SELECT * FROM tbl_items"; 
 	}
 
-	$result = mysqli_query($conn,$sql);
-	if(mysqli_num_rows($result) > 0){
+	$statement = $conn->prepare($sql);
+    $statement->execute();
+	if($statement->rowCount()){
 
-		while($row = mysqli_fetch_assoc($result)){
+		while($row = $statement->fetch()){
 			$name = $row['name'];
 			$id = $row['id'];
 			$price = $row['price'];

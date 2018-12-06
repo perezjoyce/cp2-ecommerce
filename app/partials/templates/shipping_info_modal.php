@@ -1,8 +1,18 @@
 <?php
 
     session_start(); 
-    require_once "../../controllers/connect.php";
+    //require_once "../../controllers/connect.php";
 
+    include_once '../../sources/pdo/src/PDO.class.php';
+
+	//set values
+	$host = "localhost";
+	$db_username = "root";
+	$db_password = "";
+	$db_name = "db_demoStoreNew";
+
+	$conn = new PDO("mysql:host=$host;dbname=$db_name",$db_username,$db_password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $cartSession = $_SESSION['cart_session'];
     if(!$_SESSION['id']) {
@@ -11,9 +21,10 @@
     } 
     
     $userId = $_SESSION['id'];
-    $sql = " SELECT * FROM tbl_addresses WHERE `user_id` = $userId ";
-    $result = mysqli_query($conn,$sql);
-    $count = mysqli_num_rows($result);
+    $sql = " SELECT * FROM tbl_addresses WHERE `user_id` = ? ";
+    $statement = $conn->prepare($sql);
+    $statement->execute([$userId]);
+    $count = $statement->rowCount();
 ?>
 
     
@@ -24,48 +35,47 @@
             <br>
                 
                 <!-- IF USER HAS ADDRESS... -->
-                <?php if($count) { 
-                
-                    $sql = " SELECT * tbl_addresses WHERE user_id = $userId ";
-                    $sql = " SELECT * FROM tbl_addresses WHERE `user_id` = $userId ";
-                    $result = mysqli_query($conn,$sql);
+                <?php if($count) {
+                    $sql = " SELECT * FROM tbl_addresses WHERE `user_id` = ? ";
+                    $statement = $conn->prepare($sql);
+                    $statement->execute([$userId]);
                 ?>
 
                 <label>Choose Saved Address Type</label>
                 <div class="form-check">
 
                 <?php 
-                    while($row = mysqli_fetch_assoc($result)){ 
+                    while($row = $statement->fetch()){ 
                         $addressType = $row['addressType'];
                 ?>
-                    <input class="form-check-input" type="checkbox" value="#">
                     <label class="form-check-label">
+                        <input class="form-check-input user_addressTypes" type="radio" value="<?= $row['id'] ?>">
                         <?= $addressType ?>
                     </label>
                 <?php } ?>
                     <br>
-                    <input class="form-check-input" type="checkbox" value="others">
-                    <label class="form-check-label">
-                        others
-                    </label>
+                    
+                   <input type="button" value="Add New" id="btn_add_address">
                 
             </div>
-                <?php } else { ?>
+                <?php } ?>
             
             <br>
+            <input type="text" id="address_id" name="address_id">
             <label for='region'>Region*</label>
             <div class="input-group mb-3">
                 <select class="custom-select" id="region" onchange="region">
-                    <option id='region-initial-selected' selected="...">...</option>
+                    <option id='region-initial-selected' value='...' selected="...">...</option>
                     <?php 
                         $sql = " SELECT * FROM tbl_regions ";
-                        $result = mysqli_query($conn, $sql);
-                        while($row = mysqli_fetch_assoc($result)){ 
+                        $statement = $conn->prepare($sql);
+                        $statement->execute();
+                        while($row = $statement->fetch()){ 
                             $region = $row['regDesc'];
                             $regionId = $row['id'];
                             $regCode = $row['regCode'];
                     ?>
-                    <option data-id='<?=$region?>' id='region-option' value='<?= $regionId ?>'>
+                    <option data-id='<?=$region?>' value='<?= $regionId ?>'>
                         <?= $region ?>
                     </option>
                 <?php } ?>
@@ -75,16 +85,17 @@
             <label for='province'>Province*</label>
             <div class="input-group mb-3">
                 <select class="custom-select" id="province" data-id='<?= $regionId?>'>
-                    <option id='province-initial-selected' selected="...">...</option>
+                    <option id='province-initial-selected' value='...' selected="...">...</option>
                     <?php 
-                        $sql = " SELECT * FROM tbl_provinces WHERE regCode = $regCode";
-                        $result = mysqli_query($conn, $sql);
-                        while($row = mysqli_fetch_assoc($result)){ 
+                        $sql = " SELECT * FROM tbl_provinces WHERE regCode = ? ";
+                        $statement = $conn->prepare($sql);
+                        $statement->execute([$regCode]);
+                        while($row = $statement->fetch()){ 
                             $province = $row['provDesc'];
                             $provinceId = $row['id'];
                             $provCode = $row['provCode'];
                     ?>
-                    <option id='province-option' value='<?= $provinceId ?>'><?= $province ?> </option>
+                    <option class='province-option' value='<?= $provinceId ?>'><?= $province ?> </option>
                     <?php } ?>
                 </select>
             </div>
@@ -92,16 +103,17 @@
             <label for='cityMun'>City or Municipality*</label>
             <div class="input-group form-group">
                 <select class="custom-select" id="cityMun" data-id='<?= $provinceId ?>'>
-                    <option id='cityMun-initial-selected' selected="...">...</option>
+                    <option id='cityMun-initial-selected' value='...' selected="...">...</option>
                     <?php 
-                        $sql = " SELECT * FROM tbl_cities WHERE provCode = $provCode ";
-                        $result = mysqli_query($conn, $sql);
-                        while($row = mysqli_fetch_assoc($result)){ 
+                        $sql = " SELECT * FROM tbl_cities WHERE provCode = ? ";
+                        $statement = $conn->prepare($sql);
+                        $statement->execute([$provCode]);
+                        while($row = $statement->fetch()){ 
                             $cityMun = $row['citymunDesc'];
                             $cityMunId = $row['id'];
                             $cityMunCode = $row['citymunCode'];
                     ?>
-                    <option id='cityMun-option' value='<?= $cityMunId ?>'><?= $cityMun ?></option>
+                    <option class='cityMun-option' value='<?= $cityMunId ?>'><?= $cityMun ?></option>
                     <?php } ?>
                 </select>
             </div>
@@ -109,15 +121,16 @@
             <label for='barangay'>Barangay*</label>
             <div class="input-group form-group">
                 <select class="custom-select"  id="barangay" data-id='<?= $cityMunId?>'>
-                    <option id='brgy-initial-selected' selected="...">...</option>
+                    <option id='brgy-initial-selected' value='...' selected="...">...</option>
                     <?php 
-                        $sql = " SELECT * FROM tbl_barangays WHERE citymunCode = $cityMunCode ";
-                        $result = mysqli_query($conn, $sql);
-                        while($row = mysqli_fetch_assoc($result)){ 
+                        $sql = " SELECT * FROM tbl_barangays WHERE citymunCode = ? ";
+                        $statement = $conn->prepare($sql);
+                        $statement->execute([$cityMunCode]);
+                        while($row = $statement->fetch()){ 
                             $barangay = $row['brgyDesc'];
                             $barangayId = $row['id'];
                     ?>
-                    <option id='brgy-option' value='<?= $barangayId ?>'><?= $barangay ?></option>
+                    <option class='barangay-option' value='<?= $barangayId ?>'><?= $barangay ?></option>
                     <?php } ?>
                 </select> 
             </div>
@@ -135,11 +148,11 @@
             
             <!-- display shipping fee somewhere -->
 
-            <label>Save Address Type As*</label>
+            <label>Address Type*</label>
             <div class="input-group mb-5">
                 <!-- for editing -->
                 <select class="custom-select" id="addressType">
-                    <option selected="...">...</option>
+                    <option value='...' selected="...">...</option>
                     <option value="home">Home</option>
                     <option value="office">Office</option>
                     <option value="others">Others</option>
@@ -157,7 +170,7 @@
                     <i class="fas fa-3x fa-arrow-circle-left"></i>
                 </a>
 
-                <a class="modal-link" data-url='../partials/templates/order_summary_modal.php' id='btn_shipping_info'>
+                <a data-url='../partials/templates/order_summary_modal.php' id='btn_shipping_info'>
                     <i class="fas fa-3x fa-arrow-circle-right"></i>
                 </a>
 
@@ -165,7 +178,7 @@
                   
 
         </form>
-                        <?php } ?>
+                        
 
 
     

@@ -13,14 +13,16 @@
 			$username = $_POST['username'];
 			$password = sha1($_POST['password']);
 
-			$sql = " SELECT * FROM tbl_users WHERE `password` = '$password' AND id = $id ";
+			$sql = " SELECT * FROM tbl_users WHERE `password` = ? AND id = ? ";
 
-			$result = mysqli_query($conn, $sql);
-			$count = mysqli_num_rows($result);
+			$statement = $conn->prepare($sql);
+			$statement->execute([$password, $id]);
+			$count = $statement->rowCount();
 
 			if($count) {
-				$sql = " UPDATE tbl_users SET first_name = '$fname', last_name = '$lname', email = '$email', username = '$username' WHERE id = $id ";
-				$result = mysqli_query($conn,$sql);
+				$sql = " UPDATE tbl_users SET first_name = ?, last_name = ?, email = ?, username = ? WHERE id = ? ";
+				$statement = $conn->prepare($sql);
+				$result = $statement->execute([$fname, $lname, $email, $username, $id]);
 
 				if($result) {
 					//GET LAST ID TO BE ABLE TO BE DIRECTED TO CORRECT PROFILE PAGE WHEN UPDATE IS SUCCESSFULLY DONE.

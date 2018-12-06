@@ -12,13 +12,14 @@
 				echo "invalidEmail";
 			} else {
 
-			$sql = "SELECT * FROM tbl_users WHERE email = '$email'";
-			
-			$result = mysqli_query($conn, $sql);
-			$row = mysqli_fetch_assoc($result);
+			$sql = "SELECT * FROM tbl_users WHERE email = ? ";
+			$statement = $conn->prepare($sql);
+			$statement->execute([$email]);
+
+			$row = $statement->fetch();
 			$target_id = $row['id'];
 
-			$count = mysqli_num_rows($result);
+			$count = $statement->rowCount();
 					if($count) {
 						if($user_id == $target_id) {
 							echo "sameEmail";

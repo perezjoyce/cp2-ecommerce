@@ -8,15 +8,17 @@
 	$username = $_POST['username'];
 	$password = sha1($_POST['password']);
 
-	$sql = "SELECT * FROM tbl_users WHERE username ='$username'";
-	$result = mysqli_query($con, $sql);
-	$count = mysqli_num_rows($result);
+	$sql = "SELECT * FROM tbl_users WHERE username = ? ";
+	$statement = $conn->prepare($sql);
+    $statement->execute([$username]);
+	$count = $statement->rowCount();
 	
 		if($count) {
 			echo "userExists";
 		} else {
-			$sql = "INSERT tbl_users (username) VALUES ('$username')";
-			$result = mysqli_query($con,$sql);
+			$sql = "INSERT tbl_users (username) VALUES (?)";
+			$statement = $conn->prepare($sql);
+    		$statement->execute([$username]);
 
 			if($result) {
 				echo "success";
