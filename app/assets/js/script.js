@@ -342,9 +342,56 @@ $(document).ready( () => {
 	}
 
 
-	// UPDATING ADDRESSES AND PHONE NUMBERS
+	// DISPLAYING ADDRESS WINDOW IN PROFILE
+	$("#btn_view_addresses").on("click",function(){
+		let userId = $(this).attr("data-id");
 
+		$.ajax({
+			url: "shipping_address.php",
+			method: "POST",
+			data: {userId:userId},
+			success: (data) => {
+				$('#main-wrapper').html('');
+				$('#main-wrapper').html(data);
+			}
+		});	
+	});
 
+	// EDITING ADDRESSES
+	$(document).on("click", "#btn_edit_address", function(){
+		
+		let regionId = $('#region').val(); 
+		let provinceId = $('#province').val(); 
+		let cityMunId = $('#cityMun').val(); 
+		let brgyId = $('#barangay').val();
+		let streetBldgUnit = $('#streetBldgUnit').val();
+		let landmark = $('#landmark').val();
+		let addressType = $('#addressType').val();
+
+		if(regionId == "..." || provinceId == "..." || cityMunId == "..." || brgyId == "..." || streetBldgUnit == "" || addressType == "...") {
+			$("#shipping_error_message").css("color", "red");
+			$("#shipping_error_message").text('Please fill out required fields.');
+			
+		} else {
+			$.post("../controllers/process_save_address.php", {
+				regionId:regionId,
+				provinceId:provinceId,
+				cityMunId:cityMunId,
+				brgyId:brgyId,
+				streetBldgUnit:streetBldgUnit,
+				landmark:landmark,
+				addressType:addressType
+			}, function(data) {
+				$("#shipping_error_message").css("color", "green");
+				$("#shipping_error_message").text(data);
+
+				$(document).on('click', '.save_address_edit', function(){
+					$(this).attr('data-dismiss','modal');
+				});
+					
+			});
+		}		
+	});
 
 	// ================================ CATALOG PAGE  ================================ //
 	// =============================================================================== //
@@ -848,11 +895,9 @@ $(document).ready( () => {
 	  });
 
 
-
-
 	
 	// FETCHING ADDRESS IN SHIPPING_INFO_MODAL, SAVING IN DB
-	$(document).on("click", "#btn_shipping_info", function(){
+	$(document).on("click", "#btn_add_address", function(){
 		
 		let regionId = $('#region').val(); 
 		let provinceId = $('#province').val(); 
@@ -879,15 +924,12 @@ $(document).ready( () => {
 			}, function(data) {
 				$("#shipping_error_message").css("color", "green");
 				$("#shipping_error_message").text(data);
+
 			});
-		}
-
-
-
-			
-		
+		}		
 	});
 
+	// DISPLAYING SAVED ADDRESS BASED ON SELECTED ADDRESS TYPE
 	$(document).on("click", ".user_addressTypes", function(){
 		let thisRadioButtonValue = $(this).val();
 		$.get("../controllers/process_get_address.php", {id: thisRadioButtonValue}, function(response){
@@ -921,7 +963,8 @@ $(document).ready( () => {
 		});
 	});
 
-	$(document).on('click', '#btn_add_address', function(){
+	// ADDING NEW ADDRESSES OR OVEWRITING SELECTED ADDRESS TYPES
+	$(document).on('click', '#btn_add_new_address', function(){
 	
 		$("#address_id").val("");
 		$("#region").val("");

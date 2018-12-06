@@ -38,8 +38,11 @@
     <!-- PAGE CONTENT -->
     <div class="container mt-5">
         <div class="row pt-5">
+
             <!-- SIDE BAR -->
             <div class="col-lg-3">
+
+                <!-- PROFILE PICTURE -->
                 <div class="row">
                     <div class="col-lg-4">
                         <img src='<?= $profile_pic ?>'  class="user-photo circle" height="80">
@@ -50,16 +53,26 @@
                 </div>
                 <hr>
 
+                <!-- MY PROFILE -->
                 <div class="row">
-                    <a class='list-group-item btn btn-outline btn-block mx-3 mb-1' role='button' href="profile.php?id=<?= $id ?>">
-                        <i class='far fa-user'></i>
+                    <a class='list-group-item btn btn-outline btn-block text-left pl-5 mx-3 mb-1' role='button' href="profile.php?id=<?= $id ?>">
+                        <i class='far fa-user mr-3'></i>
                          My Profile
                     </a>
                 </div>
 
+                <!-- SHIPPING ADDRESS -->
                 <div class="row">
-                    <a class='list-group-item btn btn-outline btn-block mx-3' role='button' data-id='<?= $id ?>' id="btn_view_wishList">
-                        <i class="far fa-heart"></i>
+                    <a class='list-group-item btn btn-outline btn-block text-left pl-5 mx-3 mb-1' role='button' data-id='<?= $id ?>' id="btn_view_addresses">
+                        <i class="far fa-address-book mr-3"></i>
+                        Shipping Address
+                    </a>
+                </div>
+
+                <!-- WISH LIST -->
+                <div class="row">
+                    <a class='list-group-item btn btn-outline btn-block text-left  pl-5 mx-3' role='button' data-id='<?= $id ?>' id="btn_view_wishList">
+                        <i class="far fa-heart mr-3"></i>
                         Wish List 
                         <span id='wish-count'>
                             

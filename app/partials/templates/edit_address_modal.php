@@ -30,39 +30,53 @@
     
 
         <form>
-            <label class='mb-5'>Shipping Information</label>
-
+           
+                
+            <!-- IF USER HAS ADDRESS... -->
+            <?php if($count == 0 ) { ?>
+            <label class='mb-5'>Add Address</label>
             <br>
-                
-                <!-- IF USER HAS ADDRESS... -->
-                <?php if($count) {
-                    $sql = " SELECT * FROM tbl_addresses WHERE `user_id` = ? ";
-                    $statement = $conn->prepare($sql);
-                    $statement->execute([$userId]);
-                ?>
 
-                <label>Choose Saved Address Type</label>
+            <?php } elseif ($count == 1 || $count == 2 ) { ?>
+            <label class='mb-5'>Edit Address</label>
+            <br>
+            <label>Choose address type to edit...</label>
                 <div class="form-check">
-
-                <?php 
-                    while($row = $statement->fetch()){ 
-                        $addressType = $row['addressType'];
-                ?>
-                    <label class="form-check-label">
-                        <input class="form-check-input user_addressTypes" name="address_type" type="radio" value="<?= $row['id'] ?>">
-                        <?= $addressType ?>
-                    </label>
-                <?php } ?>
-                    <br>
-                    
-                   <input type="button" value="Add New" id="btn_add_new_address">
-                
-            </div>
-                <?php } ?>
+                    <?php 
+                        while($row = $statement->fetch()){ 
+                            $addressType = $row['addressType'];
+                    ?>
+                        <label class="form-check-label">
+                            <input class="form-check-input user_addressTypes" name="address_type" type="radio" value="<?= $row['id'] ?>">
+                            <?= $addressType ?>
+                        </label>
+                        <br>
+                    <?php } ?>
+                        <br>
+                    <input type="button" value="Add New" id="btn_add_new_address">
+                </div>
+            <?php } else { ?>
+                <label class='mb-5'>Edit Address</label>
+                <br>
+                <label>Choose address type to edit...</label>
+                <div class="form-check">
+                    <?php 
+                        while($row = $statement->fetch()){ 
+                            $addressType = $row['addressType'];
+                    ?>
+                        <label class="form-check-label">
+                            <input class="form-check-input user_addressTypes" name="address_type" type="radio" value="<?= $row['id'] ?>">
+                            <?= $addressType ?>
+                        </label>
+                        <br>
+                    <?php } ?>
+                </div>
+            <?php } ?>
             
             <br>
-            <input type="text" id="address_id" name="address_id">
-            <label for='region'>Region*</label>
+
+            <input type="hidden" id="address_id" name="address_id">
+            <label class="mt-4" for='region'>Region*</label>
             <div class="input-group mb-3">
                 <select class="custom-select" id="region" onchange="region">
                     <option id='region-initial-selected' value='...' selected="...">...</option>
@@ -164,16 +178,11 @@
 
             <!-- if input type is submit, this will automatically submit input to users.php hence change this to button, type to button and remove value SO THAT you can employ validation -->
             <!-- indicate id for button -->
+           
             <div class="d-flex justify-content-center mb-5">
-
-                <a class="mr-5 modal-link" data-url='../partials/templates/cart_modal.php'>
-                    <i class="fas fa-3x fa-arrow-circle-left"></i>
+                <a class='btn btn-block btn-outline-secondary save_address_edit' id='btn_edit_address'>
+                SAVE CHANGES
                 </a>
-
-                <a data-url='../partials/templates/order_summary_modal.php' id='btn_add_address'>
-                    <i class="fas fa-3x fa-arrow-circle-right"></i>
-                </a>
-
             </div>
                   
 

@@ -25,6 +25,7 @@
   $price = $row['price'];
   $description = $row['description'];
   $item_img = $row['img_path'];
+  $stocks = $row['stocks'];
 
 
   $sql = " SELECT * FROM tbl_carts WHERE cart_session=? AND item_id=?";
@@ -144,7 +145,17 @@
               </div>
 
               <!-- /AVERAGE RATINGS AREA -->
-              <div class='mb-5'>&#8369; <?= $price ?> </div>
+              <div class='mb-5'>
+                <div>&#8369; <?= $price ?></div>
+                <?php 
+                    if ($stocks == 1) {
+                        echo "Only 1 left!";
+                    } else {
+                        echo "$stocks stocks left";
+                    }
+                ?>
+              </div>
+              
               <div class='mb-5'> <?= $description ?> </div>
               
               <div class='d-flex flex-row'>
