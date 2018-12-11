@@ -18,6 +18,7 @@
         $sql = " SELECT * FROM tbl_addresses WHERE `user_id` = ? ";
         $statement = $conn->prepare($sql);
         $statement->execute([$userId]);
+
         $count = $statement->rowCount();
 
         //IF USER HAS ADDRESS...
@@ -51,8 +52,40 @@
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?) ";
             $statement = $conn->prepare($sql);
             $statement->execute([ $userId, $addressType, $regionId, $provinceId, $cityMunId, $brgyId, $streetBldgUnit, $landmark]);
-
+            $row = $statement->fetch();
+            $addressType = $row['addressType'];
         }
+
+        
+        // GET ID OF ADDEDED/UPDATED ADDRESSES
+        $sql = " SELECT * FROM tbl_addresses WHERE `user_id` = ? AND addressType = ? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$userId,$addressType]);
+        $row = $statement->fetch();
+        $address_id = $row['id'];
+        $cartSession = $_SESSION['cart_session'];
+
+        // INSERT CHOSEN SHIPPING ADDRESS TO TBL_ORDERS BUT FIRST, CHECK IF CART SESSION ALREADY EXISTS
+        $sql = " SELECT * FROM tbl_orders WHERE cart_session = ? AND `user_id` = ? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$cartSession, $userId]);
+        $count = $statement->rowCount();
+
+        if($count) {
+            $sql = " UPDATE tbl_orders SET address_id = ? WHERE cart_session = ? AND `user_id` = ? ";
+            $statement = $conn->prepare($sql);
+            $statement->execute([$address_id, $cartSession, $userId]);
+        } else {
+            $sql = " INSERT INTO tbl_orders (cart_session, `user_id`, address_id) VALUES (?, ?, ?) ";
+            $statement = $conn->prepare($sql);
+            $statement->execute([$cartSession, $userId, $address_id]);
+        }
+
+
+        // $row = $statement->fetch(PDO::FETCH_ASSOC);
+        // echo json_encode($row);
+
+      
 
     }
     

@@ -106,30 +106,24 @@
             <div class="input-group mb-5">
                 <!-- for editing -->
                 <select class="custom-select" id="modeOfPayment" onchange="modeOfPayment">
-                    <option selected="...">...</option>
-                    <option value="cod">COD</option>
-                    <option value="paypal">Paypal</option>
-                    <option value="gcash">G-Cash</option>
-                    <option value="perapadala">Pera Padala</option>
-                    <option value="bdo">BDO</option>
+                    <option value='...' selected="...">...</option>
+                        <?php 
+                            $sql = " SELECT * FROM tbl_payment_modes ";
+                            $statement = $conn->prepare($sql);
+                            $statement->execute();
+                            while($row = $statement->fetch()){ 
+                                $payment_mode_name = $row['name'];
+                                $payment_mode_id = $row['id'];
+                        ?>
+                    <option value='<?= $payment_mode_id ?>'>
+                        <?= $payment_mode_name ?>
+                    </option>
+                    <?php } ?>
                 </select>
             </div>
 
 
-             <label>Preferred Courier</label>
-            <div class="input-group mb-5">
-                <!-- for editing -->
-                <select class="custom-select" id="modeOfPayment" onchange="modeOfPayment">
-                    <option selected="...">...</option>
-                    <option value="lbc">LBC</option>
-                    <option value="palawan">Palawan Express</option>
-                    <option value="2go">2-GO</option>
-                </select>
-            </div>
-
-
-
-            <p id="error_message"></p>
+            <p id="order_summary_error_message"></p>
 
             <!-- if input type is submit, this will automatically submit input to users.php hence change this to button, type to button and remove value SO THAT you can employ validation -->
             <!-- indicate id for button -->
@@ -137,7 +131,7 @@
                 <a class="mr-5 modal-link" data-url='../partials/templates/shipping_info_modal.php'>
                     <i class="fas fa-3x fa-arrow-circle-left"></i>
                 </a>
-                <a class="#" data-url='#'>
+                <a data-url='../partials/templates/order_confirmation_modal.php' id=btn_order_confirmation>
                     <i class="fas fa-3x fa-arrow-circle-right"></i>
                 </a>
             </div>

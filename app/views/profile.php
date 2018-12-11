@@ -24,7 +24,7 @@
         $fname = ucfirst($row['first_name']);   
         $lname = ucfirst($row['last_name']);  
         $username = $row['username'];      
-        $email = $row['email'];
+        $email = $row['email'];  
         $profile_pic = $row['profile_pic'];
 
         if($profile_pic == "") {
@@ -117,38 +117,19 @@
 
                             <div class="row mb-5">
                                 <div class="col-lg-3">
+                                    Username
+                                </div>
+                                <div class="col">
+                                    <?= $username ?>
+                                </div>
+                            </div>
+
+                            <div class="row mb-5">
+                                <div class="col-lg-3">
                                     Email
                                 </div>
                                 <div class="col">
                                     <?= hide_email($email) ?>
-                                </div>
-                            </div>
-
-                            <div class="row mb-5">
-                                <div class="col-lg-3">
-                                    Phone Number
-                                </div>
-                                <div class="col">
-                                    <a href="#">Add</a>
-                                </div>
-                            </div>
-
-                            <div class="row mb-5">
-                                <div class="col-lg-3">
-                                    Home Address
-                                </div>
-                                <div class="col">
-                                    <a href="#">Add</a>
-                                </div>
-                            </div>
-
-
-                            <div class="row mb-5">
-                                <div class="col-lg-3">
-                                    Office Address
-                                </div>
-                                <div class="col">
-                                    <a href="#">Add</a>
                                 </div>
                             </div>
 

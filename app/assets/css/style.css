@@ -64,7 +64,11 @@ card-title {
     overflow: auto;
     width: 100%;
     outline: none;
-  }
+}
+
+a#btn_cart {
+    display: hidden;
+}
 
 /* .fa-star {
     position: absolute;

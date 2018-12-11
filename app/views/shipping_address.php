@@ -2,26 +2,26 @@
 
     session_start(); 
     require_once "../controllers/connect.php";
+    require_once "../controllers/functions.php";
 
-    if(isset($_POST['userId'])) {
+    if(isset($_SESSION['id'])) {
 
-        $userId = $_POST['userId'];
-        $sql = "SELECT 
-            addr.*, 
-            prov.provDesc as province_name,
-            city.citymunDesc as city_name,
-            brgy.brgyDesc as barangay_name
-        FROM tbl_addresses addr 
-        JOIN tbl_regions reg on reg.id=addr.region_id
-        JOIN tbl_provinces prov on prov.regCode=reg.regCode
-        JOIN tbl_cities city on city.provCode=prov.provCode
-        JOIN tbl_barangays brgy on brgy.citymunCode=city.citymunCode
-        WHERE addr.user_id=?";
+        $userId = $_SESSION['id'];
+        $sql = "SELECT addr.*,
+        reg.regDesc as region_name, prov.provDesc as province_name, city.citymunDesc as city_name, brgy.brgyDesc as barangay_name 
+        FROM tbl_users user
+        JOIN tbl_addresses addr on addr.user_id=user.id 
+        JOIN tbl_regions reg on reg.id=addr.region_id 
+        JOIN tbl_provinces prov on prov.regCode=reg.regCode 
+        JOIN tbl_cities city on city.provCode=prov.provCode 
+        JOIN tbl_barangays brgy on brgy.citymunCode=city.citymunCode 
+        WHERE user.id=? GROUP BY addr.id";
+
         $statement = $conn->prepare($sql);
         $statement->execute([$userId]);
         $count = $statement->rowCount();
 
-        var_dump($count);die();
+       //$row = $statement->fetch();
 ?>
             <div class='row pt-5 pl-5 flex-column'>
                 <h4>My Shipping Addresses</h4>
@@ -48,14 +48,19 @@
                             <?php 
                             if ($count){
 							while($row = $statement->fetch()){ 
-                                $addressType = ucfirst($row['addressType']);
+                                $addressType = capitalizeFirstLetter($row['addressType']);
+                                $street_bldg_unit = capitalizeFirstLetter($row['street_bldg_unit']);
+                                $barangay = capitalizeFirstLetter($row['barangay_name']);
+                                $cityMun = capitalizeFirstLetter($row['city_name']);
+                                $province = capitalizeFirstLetter($row['province_name']);
+                                $region = $row['region_name'];
                             ?>
                                 <div class="row mb-5">
                                     <div class="col-lg-3">
                                        <?= $addressType ?>
                                     </div>
                                     <div class="col">
-                                        
+                                        <?= $street_bldg_unit . ", Brgy. " . $barangay . ", " . $cityMun . ", " . $province . ", " . $region?>
                                     </div>
                                 </div>
                             <?php } } else { ?>

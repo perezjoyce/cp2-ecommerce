@@ -14,17 +14,52 @@
 	$conn = new PDO("mysql:host=$host;dbname=$db_name",$db_username,$db_password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $cartSession = $_SESSION['cart_session'];
     if(!$_SESSION['id']) {
         // pass redirect url so that after logging in you will be able to return to the intended page, in this case check-out
         header("location: login_modal.php?redirectUrl=checkout");
     } 
-    
+
     $userId = $_SESSION['id'];
-    $sql = " SELECT * FROM tbl_addresses WHERE `user_id` = ? ";
+    $cartSession = $_SESSION['cart_session'];
+
+    $sql = " SELECT * FROM tbl_orders WHERE user_id = ? AND cart_session = ? ";
     $statement = $conn->prepare($sql);
-    $statement->execute([$userId]);
+    $statement->execute([$userId, $cartSession]);
     $count = $statement->rowCount();
+
+    
+    if ($count) {
+
+        // DOESN'T WORK UNLESS I MAKE A DIFFERENT FORM INSIDE THIS IF SO THAT THE EXISTING ONE WILL BE INSIDE ELSE
+        // BUT THE PROB IS IF USER DECIDES TO EDIT
+        $row = $statement->fetch();
+        $address_id = $row['id'];
+
+        $sql = "SELECT addr.*,
+        reg.regDesc as region_name, prov.provDesc as province_name, city.citymunDesc as city_name, brgy.brgyDesc as barangay_name 
+        FROM tbl_users user
+        JOIN tbl_addresses addr on addr.user_id=user.id 
+        JOIN tbl_regions reg on reg.id=addr.region_id 
+        JOIN tbl_provinces prov on prov.regCode=reg.regCode 
+        JOIN tbl_cities city on city.provCode=prov.provCode 
+        JOIN tbl_barangays brgy on brgy.citymunCode=city.citymunCode 
+        WHERE user.id=? GROUP BY addr.id=? ";
+
+        $statement = $conn->prepare($sql);
+        $statement->execute([$userId, $address_id]);
+
+        $sql = " SELECT * FROM tbl_addresses WHERE `user_id` = ? AND id = ?";
+            $statement = $conn->prepare($sql);
+            $statement->execute([$userId, $address_id]);
+            $count = $statement->rowCount();
+       
+    } else {
+        $sql = " SELECT * FROM tbl_addresses WHERE `user_id` = ? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$userId]);  
+        $count = $statement->rowCount();
+    }
+    
 ?>
 
     
@@ -34,28 +69,36 @@
 
             <br>
                 
-                <!-- IF USER HAS ADDRESS... -->
-                <?php if($count) {
-                    $sql = " SELECT * FROM tbl_addresses WHERE `user_id` = ? ";
-                    $statement = $conn->prepare($sql);
-                    $statement->execute([$userId]);
-                ?>
 
                 <label>Choose Saved Address Type</label>
                 <div class="form-check">
-
+                
+                <!-- IF USER HAS ADDRESS... -->
                 <?php 
-                    while($row = $statement->fetch()){ 
-                        $addressType = $row['addressType'];
+                    if($count) {
+                        $sql = " SELECT * FROM tbl_addresses WHERE `user_id` = ? ";
+                        $statement = $conn->prepare($sql);
+                        $statement->execute([$userId]);  
+
+                        while($row = $statement->fetch()){ 
+                            $addressType = ucfirst($row['addressType']);
+        
                 ?>
-                    <label class="form-check-label">
-                        <input class="form-check-input user_addressTypes" name="address_type" type="radio" value="<?= $row['id'] ?>">
-                        <?= $addressType ?>
-                    </label>
+                    <div>
+                        <label class="form-check-label">
+                            <input class="form-check-input user_addressTypes" name="address_type" type="radio" value="<?= $row['id'] ?>">
+                            &nbsp;<?= $addressType ?>
+                        </label>
+                    </div>
+
                 <?php } ?>
-                    <br>
+                    <div>
+                        <label class="form-check-label">
+                            <input class="form-check-input user_addressTypes" name="address_type" id="btn_add_new_address" type="radio">
+                            &nbsp;Add New Address
+                        </label>
+                    </div>
                     
-                   <input type="button" value="Add New" id="btn_add_new_address">
                 
             </div>
                 <?php } ?>
@@ -164,6 +207,7 @@
 
             <!-- if input type is submit, this will automatically submit input to users.php hence change this to button, type to button and remove value SO THAT you can employ validation -->
             <!-- indicate id for button -->
+
             <div class="d-flex justify-content-center mb-5">
 
                 <a class="mr-5 modal-link" data-url='../partials/templates/cart_modal.php'>

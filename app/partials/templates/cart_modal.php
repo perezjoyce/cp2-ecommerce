@@ -25,22 +25,26 @@
 
 <form action="../controllers/process_add_to_cart.php" method="POST" id="form_cart">
     
-    <label class="my-5">Your Shopping Cart</label>
-
-    <table class="table table-bordered">
-        <tr id="table-header">
-            <th> Item </th>
-            <th> Unit Price </th>
-            <th> Quantity </th>
-            <th> Total Price </th>
-            <th> Action </th>
-
-        </tr>
         <?php
         $count = $statement->rowCount();
-        $totalPrice = 0;
+        $subtotalPrice = 0;
       
-        if($count) :
+        if($count) {
+        ?>
+
+            <label class="my-5">Your Shopping Cart</label>
+
+            <table class="table table-bordered">
+                <tr id="table-header">
+                    <th> Item </th>
+                    <th> Unit Price </th>
+                    <th> Quantity </th>
+                    <th> Subtotal Price </th>
+                    <th> Action </th>
+    
+                </tr>
+        
+        <?php 
             while($row = $statement->fetch()){ 
                 $userId = $row['user_id'];
                 $productId = $row['item_id'];
@@ -49,8 +53,9 @@
                 $quantity = $row['quantity'];
                 $image = $row['img_path'];
                 $stocks = $row['stocks'];
-                $totalPrice = $totalPrice + ($price * $quantity);
+                $GrandTotalPrice = $subtotalPrice + ($price * $quantity);
         ?>
+
             <tr>
        
                 <td> 
@@ -78,40 +83,42 @@
                             ?>
                     </div>
                 </td>
-                <td>&#8369; <span class="totalPrice"> <?= $price * $quantity ?> </span> </td>
+                <td>&#8369; <span class="subtotal_price"> <?= $price * $quantity ?> </span> </td>
                 <td> 
                     <a data-productid='<?= $productId ?>' role='button' class="btn_delete_item">
                         Delete
                     </a>
                 </td>
             </tr>
-        <?php 
-            }
-        endif;
-        ?>
+        
+        <?php } ?>
+       
+   
+        <table class='table table-bordered mb-5'>
 
-    </table>
+            <tr>
+                <th>Grand Total Price</th>
+                <td colspan='4'> &#8369;<span id='grand_total_price'> <?= $GrandTotalPrice ?> </span> </td>
+            </tr>
 
-    <table class="table table-bordered mb-5">
+        </table>
 
-        <tr>
-            <th>Sub-Total</th>
-            <td colspan="4"> &#8369;<span class="subtotalAmount"><?= $totalPrice ?></span> </td>
-        </tr>
+        <div class='d-flex justify-content-center mb-5'>
 
-    </table>
-    
-
-
-    <p id="error_message"></p>
-
-
-     <div class="d-flex justify-content-center mb-5">
-
-        <a class="modal-link" data-url='../partials/templates/shipping_info_modal.php'>
-            <i class="fas fa-3x fa-arrow-circle-right"></i>
+        <a class='modal-link' data-url='../partials/templates/shipping_info_modal.php' id='btn_cart'>
+            <i class='fas fa-3x fa-arrow-circle-right'></i>
         </a>
 
+        </div>
+
+    <?php }  else { ?>
+
+    <div class='container mb-5 text-center'>
+        <img src="http://www.aimilayurveda.com/catalog/view/theme/aimil/assets//images/empty.png" alt="empty_cart">
+        <div> Your shopping cart is empty</div>
     </div>
 
+    <?php }?>
+
 </form>
+

@@ -497,7 +497,7 @@ $(document).ready( () => {
 	// ======================================= CART ================================== //
 	// =============================================================================== //
 	// =============================================================================== //
-
+	
 
 	// ADDING ITEMS TO CART
 	$(document).on("click", "#btn_add_to_cart" ,function(){
@@ -519,6 +519,8 @@ $(document).ready( () => {
 				let sum = "";
 				sum += data;
 				$("#item-count").html("<span class='badge badge-primary text-light'>" + sum + "</span>");
+
+				
 			}
 		});
 	});
@@ -547,6 +549,7 @@ $(document).ready( () => {
 					$("#btn_delete_from_cart").replaceWith(
 						"<a class='btn btn-outline-primary mt-3 flex-fill mr-2' data-id='"+ productId +"' role='button' id='btn_add_to_cart'>" +
 						"<i class='fas fa-cart-plus'></i> Add to Cart</a>");
+
 				});
 			});
 
@@ -898,7 +901,6 @@ $(document).ready( () => {
 	
 	// FETCHING ADDRESS IN SHIPPING_INFO_MODAL, SAVING IN DB
 	$(document).on("click", "#btn_add_address", function(){
-		
 		let regionId = $('#region').val(); 
 		let provinceId = $('#province').val(); 
 		let cityMunId = $('#cityMun').val(); 
@@ -921,11 +923,38 @@ $(document).ready( () => {
 				streetBldgUnit:streetBldgUnit,
 				landmark:landmark,
 				addressType:addressType
-			}, function(data) {
-				$("#shipping_error_message").css("color", "green");
-				$("#shipping_error_message").text(data);
+			}
+			// , function(response) {
 
-			});
+				// let address = $.parseJSON(response);
+
+				// $("#address_id").val(address.id);
+				// $("#region").val(address.region_id); 
+
+				// // let option = document.createElement('option');
+				// // option.value = address.province_id;
+				// // option.text = address.province_name;
+				// // $("#province")[0].appendChild(option);
+				// $("#province").val(address.province_id); 
+
+				// // option = document.createElement('option');
+				// // option.value = address.city_id;
+				// // option.text = address.city_name;
+				// // $("#cityMun")[0].appendChild(option);
+				// $("#cityMun").val(address.city_id);
+
+				// // option = document.createElement('option');
+				// // option.value = address.brgy_id;
+				// // option.text = address.barangay_name;
+				// // $('#barangay')[0].appendChild(option);
+				// $("#barangay").val(address.brgy_id);
+
+				// $("#streetBldgUnit").val(address.street_bldg_unit);
+				// $("#landmark").val(address.landmark);
+				// $("#addressType").val(address.addressType);
+
+				// }
+			);
 		}		
 	});
 
@@ -977,7 +1006,36 @@ $(document).ready( () => {
 
 	});
 
+	// ==================================== ORDER CONFIRMATION ================================= //
+	// =============================================================================== //
+	// =============================================================================== //
+
+	// ORDER CONFIRMATION
+	$(document).on('click', '#btn_order_confirmation', function(){
+		let modeOfPaymentId = $('#modeOfPayment').val();
+
+		if(modeOfPaymentId == "" || modeOfPaymentId == "...") {
+			$("#order_summary_error_message").css("color", "red");
+			$("#order_summary_error_message").text('Please select mode of payment.');
+		} else {
+	
+			$.post('../controllers/process_get_payment_mode.php', {
+				modeOfPaymentId: modeOfPaymentId
+			}, function(response){
+				// reload the modal with the new quantity reflected
+				$.get("../partials/templates/confirmation_modal.php", function(response) {
+					$('.modal .modal-body').html(response);
+				});
+			});
+		}
+
+		
+	});
+
+
 
 
 });
+
+
 

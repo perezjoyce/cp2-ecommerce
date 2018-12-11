@@ -135,3 +135,8 @@
 
         return $rating;
     }
+
+    // CHANGE BEGINNING LETTER TO UPPERCASE
+    function capitalizeFirstLetter($word) {
+        return str_replace('( ', '(', ucwords(str_replace('(', '( ', ucwords(strtolower($word)))));
+    }
