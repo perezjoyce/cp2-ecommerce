@@ -140,3 +140,25 @@
     function capitalizeFirstLetter($word) {
         return str_replace('( ', '(', ucwords(str_replace('(', '( ', ucwords(strtolower($word)))));
     }
+
+    // GET USERNAME
+    function getUsername ($conn,$userId) {
+        $sql = " SELECT * FROM tbl_users WHERE `id`=? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$userId]);
+        $row = $statement->fetch();
+        $username = $row['username'];
+
+        return ucwords($username);
+    }
+
+    // GET PROFILE PIC 
+    function getProfilePic ($conn,$userId) {
+        $sql = " SELECT * FROM tbl_users WHERE `id`=? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$userId]);
+        $row = $statement->fetch();
+        $profile_pic = $row['profile_pic'];
+
+        return $profile_pic;
+    }

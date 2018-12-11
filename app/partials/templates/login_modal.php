@@ -10,13 +10,13 @@ id="form_login">
     <div class="form-group">
         <label>Username</label>
         <!-- change name to id -->
-        <input type="text" class="form-control" id="username" name="username" autocomplete="username">
+        <input type="text" class="form-control" id="login_username" name="login_username" autocomplete="username">
         <p class="validation text-danger"></p>
     </div>
 
     <div class="form-group mb-5">
         <label>Password</label>
-        <input type="password" class="form-control" id="password" name="password" autocomplete="password">
+        <input type="password" class="form-control" id="login_password" name="login_password" autocomplete="password">
         <p class="validation text-danger"></p>
     </div>
 

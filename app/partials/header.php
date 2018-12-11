@@ -2,6 +2,7 @@
   session_start(); 
 
   require_once "../controllers/connect.php";
+  require_once "../controllers/functions.php";
 
   if(!isset($_SESSION['cart_session'])) {
     $_SESSION['cart_session'] = uniqid();
@@ -101,19 +102,46 @@
                   <?php if(isset($_SESSION['id'])) { 
                     $id = $_SESSION['id']; ?>
 
-                    
-            <li class='nav-item mr-5'>
-              <a class='nav-link text-light' href='../controllers/process_logout.php?id=$id' role='button'>
-                <i class='fas fa-sign-in-alt'></i>
-                Logout
-              </a>
-            </li>
 
-            <li class='nav-item'>
-              <a class='nav-link text-light' href='profile.php?id=$id'>
-                <i class='fas fa-user'></i>
-                My Account
+            <li class='nav-item dropdown'>
+              <a class='nav-link dropdown-toggle text-light' id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <?= "<img src='../../".getProfilePic($conn, $id)."_80x80.jpg' height='20' class='circle mr-1'>" ?>
+                <?= getUsername($conn,$id) ?>
+
+                <!-- <img src="../../uploads/2/5c088b195adb0.jpg" height="80"> -->
               </a>
+
+              <div class="dropdown-menu mt-2" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item my-3" href='profile.php?id=$id'>
+                  <i class='far fa-user mr-2'></i> 
+                  Profile
+                </a>
+                <a class="dropdown-item mb-3 btn_view_addresses" data-id='<?= $id ?>'>
+                  <i class="far fa-address-book mr-2"></i>
+                    Shipping Addresses
+                </a>
+                <a class="dropdown-item mb-4 btn_view_wishList" data-id='<?= $id ?>'>
+                  <i class="far fa-heart mr-2"></i>
+                    Wish List
+                    <span id='wish-count-header'>
+                            
+                      <?php 
+                          if (getWishlishtCount($conn) == 0) {
+                              echo "<span></span>";
+                          } else {
+                              echo "<span class='badge badge-danger text-light'>" . getWishlishtCount($conn) . "</span>";
+                          }
+                      ?>
+                       
+                    </span>
+                </a>
+                <div class="dropdown-divider my-3"></div>
+                <a class="dropdown-item mb-3" href='../controllers/process_logout.php?id=$id'>
+                <i class='fas fa-sign-in-alt mr-2'></i>
+                  Logout
+                </a>
+              </div>
+
             </li>
 
                 <?php } else { ?>

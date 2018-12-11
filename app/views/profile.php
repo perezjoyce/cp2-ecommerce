@@ -1,7 +1,6 @@
 <?php require_once "../../config.php";?>
 <?php require_once "../partials/header.php";?>
 <?php require_once "../controllers/connect.php";?>
-<?php require_once "../controllers/functions.php";?>
 
 <?php 
 
@@ -14,6 +13,7 @@
         header("location: index.php");
     } else {
 
+        $id = $_SESSION['id'];
         $sql = "SELECT * FROM tbl_users WHERE id = ? ";
 
         $statement = $conn->prepare($sql);
@@ -57,24 +57,24 @@
                 <div class="row">
                     <a class='list-group-item btn btn-outline btn-block text-left pl-5 mx-3 mb-1' role='button' href="profile.php?id=<?= $id ?>">
                         <i class='far fa-user mr-3'></i>
-                         My Profile
+                         Profile
                     </a>
                 </div>
 
                 <!-- SHIPPING ADDRESS -->
                 <div class="row">
-                    <a class='list-group-item btn btn-outline btn-block text-left pl-5 mx-3 mb-1' role='button' data-id='<?= $id ?>' id="btn_view_addresses">
+                    <a class='list-group-item btn btn-outline btn-block text-left pl-5 mx-3 mb-1 btn_view_addresses' role='button' data-id='<?= $id ?>'>
                         <i class="far fa-address-book mr-3"></i>
-                        Shipping Address
+                        Shipping Addresses
                     </a>
                 </div>
 
                 <!-- WISH LIST -->
                 <div class="row">
-                    <a class='list-group-item btn btn-outline btn-block text-left  pl-5 mx-3' role='button' data-id='<?= $id ?>' id="btn_view_wishList">
+                    <a class='list-group-item btn btn-outline btn-block text-left  pl-5 mx-3 btn_view_wishList' role='button' data-id='<?= $id ?>'>
                         <i class="far fa-heart mr-3"></i>
                         Wish List 
-                        <span id='wish-count'>
+                        <span id='wish-count-profile'>
                             
                             <?php 
                                 if (getWishlishtCount($conn) == 0) {

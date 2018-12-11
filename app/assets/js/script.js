@@ -142,8 +142,8 @@ $(document).ready( () => {
 	// LOGIN
 	$(document).on("click", "#btn_login", ()=> {
 		
-		let username = $("#username").val();
-		let password = $("#password").val();
+		let username = $("#login_username").val();
+		let password = $("#login_password").val();
 		let url = $('#form_login').attr('action');
 		let error_flag = 0;
 
@@ -346,7 +346,7 @@ $(document).ready( () => {
 
 
 	// DISPLAYING ADDRESS WINDOW IN PROFILE
-	$("#btn_view_addresses").on("click",function(){
+	$(".btn_view_addresses").on("click",function(){
 		let userId = $(this).attr("data-id");
 
 		$.ajax({
@@ -354,6 +354,7 @@ $(document).ready( () => {
 			method: "POST",
 			data: {userId:userId},
 			success: (data) => {
+				
 				$('#main-wrapper').html('');
 				$('#main-wrapper').html(data);
 			}
@@ -449,7 +450,6 @@ $(document).ready( () => {
 		const id = $(this).data('id');
 
 		$.get(url, {'id': id},function(response){
-			//put edit_user.php content inside modal-body
 			$('#modalContainer .modal-body').html("");
 			$('#modalContainer .modal-body').html(response);
 			$('#modalContainer').modal();
@@ -590,6 +590,19 @@ $(document).ready( () => {
 				$("#btn_add_to_wishlist").replaceWith(
 					"<button class='btn btn-outline-secondary mt-3 flex-fill mr-2' data-id='"+ productId +"' disabled>" +
 					"<i class='far fa-heart'></i> Item added to your wishlist. </button>");
+				
+				let currentNumberOfWishes = $("#wish-count-header span").text();
+				currentNumberOfWishes = parseInt(currentNumberOfWishes) + 1;
+
+				if (currentNumberOfWishes < 0 || currentNumberOfWishes == "" || currentNumberOfWishes == 'NaN') {
+					$("#wish-count-header").html("");
+					$("#wish-count-profile").html("");
+				} else {
+					$("#wish-count-header").html("<span class='badge badge-danger text-light'>" 
+						+ currentNumberOfWishes + "</span>");	
+					$("#wish-count-profile").html("<span class='badge badge-danger text-light'>" 
+					+ currentNumberOfWishes + "</span>");	
+				}
 			}
 		});
 	});
@@ -597,21 +610,40 @@ $(document).ready( () => {
 	// FETCHING WISHES FROM OTHER PAGES IN VIEW FOLDER
 	$(document).on("click", ".btn_add_to_wishlist_view", function() {
 		let productId = $(this).attr('data-id');
-		let currentNumberOfWishes = $(".product-wish-count"+productId).text();
-		currentNumberOfWishes = parseInt(currentNumberOfWishes) + 1;
-		$('.product-wish-count'+productId).text(currentNumberOfWishes);
+		let productWish = $(".product-wish-count"+productId).text();
+		productWish = parseInt(productWish) + 1;
+		$('.product-wish-count'+productId).text(productWish);
 
 		$(this).replaceWith(
 			"<a class='mt-3 btn_already_in_wishlist_view' data-id='"+ productId +"' disabled>" +
 				"<i class='fas fa-heart' style='color:red'></i>&nbsp;"+
-				"<span class='product-wish-count"+productId+"'>"+ currentNumberOfWishes+"</span>" +
+				"<span class='product-wish-count"+productId+"'>"+ productWish+"</span>" +
 				"</a>");
 
-		$.post('../controllers/process_add_wishlist.php', {productId: productId}); 
+		$.ajax({
+			url: '../controllers/process_add_wishlist.php', 
+			method: 'POST',
+			data: {productId: productId}, 
+			success: function() {
+				
+				let currentNumberOfWishes = $("#wish-count-header span").text();
+				currentNumberOfWishes = parseInt(currentNumberOfWishes) + 1;
+
+				if (currentNumberOfWishes < 0 || currentNumberOfWishes == "" || currentNumberOfWishes == 'NaN') {
+					$("#wish-count-header").html("");
+					$("#wish-count-profile").html("");
+				} else {
+					$("#wish-count-header").html("<span class='badge badge-danger text-light'>" 
+						+ currentNumberOfWishes + "</span>");	
+					$("#wish-count-profile").html("<span class='badge badge-danger text-light'>" 
+					+ currentNumberOfWishes + "</span>");	
+				}
+			}
+		});
 	});
 
 	// DISPLAYING WISHLIST
-	$("#btn_view_wishList").on("click",function(){
+	$(".btn_view_wishList").on("click",function(){
 		let userId = $(this).attr("data-id");
 
 		$.ajax({
@@ -635,14 +667,17 @@ $(document).ready( () => {
 				$.post("wishlist.php", function(response) {
 					$("#wish-row"+productId).remove();
 					
-					let currentNumberOfWishes = $("#wish-count span").text();
-					currentNumberOfWishes = currentNumberOfWishes - 1;
+					let currentNumberOfWishes = $("#wish-count-header span").text();
+					currentNumberOfWishes = parseInt(currentNumberOfWishes) - 1;
 
-					if (currentNumberOfWishes == 0) {
-						$("#wish-count").html("");
+					if (currentNumberOfWishes < 0 || currentNumberOfWishes == "" ) {
+						$("#wish-count-header").html("");
+						$("#wish-count-profile").html("");
 					} else {
-					$("#wish-count").html("<span class='badge badge-danger text-light'>" 
-						+ currentNumberOfWishes + "</span>");					
+						$("#wish-count-header").html("<span class='badge badge-danger text-light'>" 
+							+ currentNumberOfWishes + "</span>");	
+						$("#wish-count-profile").html("<span class='badge badge-danger text-light'>" 
+						+ currentNumberOfWishes + "</span>");	
 					}
 
 					$("#btn_already_in_wishlist").replaceWith(
@@ -655,9 +690,11 @@ $(document).ready( () => {
 	// DELETING WISHLIST FROM OTHER PAGES IN VIEW FOLDER
 	$(document).on("click", ".btn_already_in_wishlist_view", function() {
 		let productId = $(this).attr('data-id');
+
 		let currentNumberOfWishes = $(".product-wish-count"+productId).text();
 		currentNumberOfWishes = parseInt(currentNumberOfWishes) -1 ;
 		$('.product-wish-count'+productId).text(currentNumberOfWishes);
+		
 
 		$(this).replaceWith(
 			"<a class='mt-3 btn_add_to_wishlist_view' data-id='"+ productId +"' disabled>" +
@@ -665,8 +702,26 @@ $(document).ready( () => {
 				"<span class='product-wish-count"+productId+"'>"+ currentNumberOfWishes+"</span>" +
 				"</a>");
 
-		$.post('../controllers/process_delete_wish.php', {productId: productId}); 
-	});
+			$.post('../controllers/process_delete_wish.php', {
+				productId: productId 
+				},function(response){
+						
+				let currentNumberOfWishes = $("#wish-count-header span").text();
+				currentNumberOfWishes = parseInt(currentNumberOfWishes) - 1;
+
+				if (currentNumberOfWishes < 0 || currentNumberOfWishes == "" || currentNumberOfWishes == 'NaN') {
+					$("#wish-count-header").html("");
+					$("#wish-count-profile").html("");
+				} else {
+					$("#wish-count-header").html("<span class='badge badge-danger text-light'>" 
+						+ currentNumberOfWishes + "</span>");	
+					$("#wish-count-profile").html("<span class='badge badge-danger text-light'>" 
+					+ currentNumberOfWishes + "</span>");	
+				}
+
+			});
+		});
+	
 
 	// ==================================== RATING ================================= //
 	// =============================================================================== //
