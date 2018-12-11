@@ -60,6 +60,8 @@
 
           <ul class="navbar-nav ml-auto" id="navbar-nav">
 
+             
+
             <!-- CATALOG -->
             <li class="nav-item mr-5">
               <a class="nav-link text-light" href="catalog.php">
@@ -97,9 +99,9 @@
            
             <!-- LOGOUT AND REGISTER -->
                   <?php if(isset($_SESSION['id'])) { 
-                    $id = $_SESSION['id'];
+                    $id = $_SESSION['id']; ?>
 
-            echo "
+                    
             <li class='nav-item mr-5'>
               <a class='nav-link text-light' href='../controllers/process_logout.php?id=$id' role='button'>
                 <i class='fas fa-sign-in-alt'></i>
@@ -112,13 +114,12 @@
                 <i class='fas fa-user'></i>
                 My Account
               </a>
-            </li>";
+            </li>
 
-                  } else { 
+                <?php } else { ?>
 
-            echo "
             <li class='nav-item mr-5'>
-              <a class='nav-link modal-link text-light' href='#'' data-url='../partials/templates/login_modal.php' role='button'>
+              <a class='nav-link modal-link text-light' href='#' data-url='../partials/templates/login_modal.php' role='button'>
                 <i class='fas fa-sign-in-alt'></i>
                 Login
               </a>
@@ -129,9 +130,9 @@
                 <i class='fas fa-user'></i>
                 Register
               </a>
-            </li>";
+            </li>
 
-                } ?>
+               <?php  } ?>
 
           </ul>
         </div>

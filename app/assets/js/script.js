@@ -178,6 +178,9 @@ $(document).ready( () => {
 					if(response.status == "loggedIn") {
 						let data = $.parseJSON(dataFromPHP);
 						location.href="profile.php?id=" + data.id;
+					} else if (response.status == "adminLogIn") {
+						data = $.parseJSON(dataFromPHP);
+						location.href="users.php?id=" + data.id;
 					} else if (response.status == "loginFailed") {
 						$("#error_message").css("color", "red");
 						$("#error_message").html(response.message); 

@@ -14,22 +14,32 @@ if (isset($_POST['username'])) {
 	$row = $statement->fetch();
 		$id = $row['id'];
 		$username = $row['username'];
+		$userType = $row['userType'];
 
 	$response =[];
+
 	if($count == 1) {
-		// SESSION
+
 		$_SESSION['id'] = $id; 
+		$_SESSION['userType'] = $userType;
 		$cartSession = $_SESSION['cart_session'];
 		$sql = " UPDATE tbl_carts SET user_id = ? WHERE cart_session = ? ";
 		$statement = $conn->prepare($sql);
 		$statement->execute([$id, $cartSession]);
-		
+			
 		if(isset($_GET['redirectUrl']) && strlen($_GET['redirectUrl'])>0) {
 			$response = ['status' => 'redirect', 'redirectUrl' => 'checkout'];
 		} else {
-			$response = ['status' => 'loggedIn', 'id' => $id];
-		}
 
+			if($userType == 'admin') {
+				$response = ['status' => 'adminLogIn', 'id' => $id];
+			} else {
+				$response = ['status' => 'loggedIn', 'id' => $id];
+			}
+			
+		} 
+		
+		
 	} else {
 		$response = ['status' => 'loginFailed', 'message' => 'Login Failed'];
 	}

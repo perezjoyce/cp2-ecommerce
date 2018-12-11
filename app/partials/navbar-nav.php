@@ -1,3 +1,4 @@
+
 <?php
     session_start(); 
     require_once "../controllers/connect.php";
@@ -10,6 +11,7 @@
     //$productCount = mysqli_num_rows($result);
     $productCount = $statment->rowCount();
 ?>
+
                         <ul class="navbar-nav ml-auto" id="navbar-nav">
                             
                             <!-- CATALOG -->
