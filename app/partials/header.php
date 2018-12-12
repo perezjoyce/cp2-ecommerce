@@ -148,15 +148,8 @@
 
             <li class='nav-item mr-5'>
               <a class='nav-link modal-link text-light' href='#' data-url='../partials/templates/login_modal.php' role='button'>
-                <i class='fas fa-sign-in-alt'></i>
-                Login
-              </a>
-            </li>
-
-            <li class='nav-item'>
-              <a class='nav-link text-light' href='register.php'>
                 <i class='fas fa-user'></i>
-                Register
+                Login | Register
               </a>
             </li>
 

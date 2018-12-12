@@ -11,7 +11,7 @@
             <div class=' col-6'>
                 <h4>Login</h4>
             </div>
-            <a href="#" class='text-right text-danger col-6 b'>
+            <a class='text-right text-danger modal-link col-6' data-url='../partials/templates/registration_modal.php'>
                 <h4>Register</h4>
             </a>
         </div>

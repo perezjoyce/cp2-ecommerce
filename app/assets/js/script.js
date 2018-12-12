@@ -6,15 +6,15 @@ $(document).ready( () => {
 	// =============================================================================== //
 	
 	// REGISTRATION
-	$("#btn_register").click(()=>{
+	$(document).on('click', '#btn_register', ()=>{
 		
 		//get values
-		let fname = $("#fname").val();
-		let lname = $("#lname").val();
-		let address = $("#address").val();
-		let email = $("#email").val();
-		let username = $("#username").val();
-		let password = $("#password").val();
+		// let fname = $("#fname").val();
+		// let lname = $("#lname").val();
+		// let address = $("#address").val();
+		let email = $("#register_email").val();
+		let username = $("#register_username").val();
+		let password = $("#register_password").val();
 		let cpass = $("#cpass").val();
 		let countU = username.length;
 		let countP = password.length;
@@ -22,66 +22,60 @@ $(document).ready( () => {
 		let error_flag = 0;
 
 		//First name verification
-		if(fname == ""){
-			$("#fname").next().html("First name is required!");
-			error_flag = 1;
-		} else {
-			$("#fname").next().html("");
-		}
+		// if(fname == ""){
+		// 	$("#fname").next().html("First name is required.");
+		// 	error_flag = 1;
+		// } else {
+		// 	$("#fname").next().html("");
+		// }
 
 		//Last name verification
-		if(lname == ""){
-			$("#lname").next().html("Last name is required!");
-			error_flag = 1;
-		} else {
-			$("#lname").next().html("");
-		}
+		// if(lname == ""){
+		// 	$("#lname").next().html("Last name is required.");
+		// 	error_flag = 1;
+		// } else {
+		// 	$("#lname").next().html("");
+		// }
 
 		//address verification
-		if(address == ""){
-			$("#address").next().html("Address is required!");
-			error_flag = 1;
-		} else {
-			$("#address").next().html("");
-		}
+		// if(address == ""){
+		// 	$("#address").next().html("Address is required.");
+		// 	error_flag = 1;
+		// } else {
+		// 	$("#address").next().html("");
+		// }
 
 		//email verification
-		if(email == ""){
-			$("#email").next().html("Email address is required!");
+		if(email == "" || username == "" || password == "") {
+			$("#registration_error_message").css("color", "red");
+			$("#registration_error_message").text("All fields are required."); 
 			error_flag = 1;
 		} else {
-			$("#email").next().html("");
+			$("#registration_error_message").text(""); 
+
+			if (countU < 5) {
+				$("#registration_username_validation").text("Username should at least 5 characters.");
+				error_flag = 1;
+			} else {
+				$("#registration_username_validation").text("");
+			}
+	
+			if (countP < 8) {
+				$("#registration_password_validation").text("Password should have more than 8 characters.");
+				error_flag = 1;
+			} else {
+				$("#registration_password_validation").text("");
+			}
+	
+			if (password !== cpass) {
+				$("#registration_cpass_validation").text("Passwords don't match.");
+				error_flag = 1;
+			} else {
+				$("#registration_cpass_validation").text("");
+			}
+
 		}
 
-		//username verification
-		if(username == ""){
-			$("#username").next().html("Username is required!");
-			error_flag = 1;
-		} else if (countU < 5) {
-			$("#username").next().html("Username should at least 5 characters!");
-			error_flag = 1;
-		} else {
-			$("#username").next().html("");
-		}
-
-		//password verification
-		if(password == ""){
-			$("#password").next().html("Password is required!");
-			error_flag = 1;
-		} else if (countP < 8) {
-			$("#password").next().html("Password should have more than 8 characters!");
-			error_flag = 1;
-		} else {
-			$("#password").next().html("");
-		}
-
-		//password and cpass verification
-		if (password !== cpass) {
-			$("#cpass").next().html("Password don't match!");
-			error_flag = 1;
-		} else {
-			$("#password").next().html("");
-		}
 
 		if(error_flag == 0) {
 		
@@ -93,22 +87,22 @@ $(document).ready( () => {
 				"success": (dataFromPHP) => {
 
 					if (dataFromPHP == "invalidEmail") {
-						$("#email").next().css("color", "red");
-						$("#email").next().html("Please enter a valid email."); 
+						$("#registration_email_validation").text("color", "red");
+						$("#registration_email_validation").text("Please enter a valid email."); 
 					 
 					} else if (dataFromPHP == "emailExists") {
-						$("#email").next().css("color", "red");
-						$("#email").next().html("Email address already taken."); 
+						$("#registration_email_validation").text("color", "red");
+						$("#registration_email_validation").text("Email already exists."); 
 
 					} else {
 						
 						$.ajax({
 
-							"url": "../controllers/process_register.php",
+							"url": "../controllers/process_register2.php",
 							"data": {
-									"fname" : fname,
-									"lname" : lname,
-									"address" : address,
+									// "fname" : fname,
+									// "lname" : lname,
+									// "address" : address,
 									"email" : email,
 									"username" : username,
 									"password" : password
@@ -116,14 +110,14 @@ $(document).ready( () => {
 							"type": "POST",
 							"success": (dataFromPHP) => {
 								if (dataFromPHP == "userExists") {
-									$("#username").next().css("color", "red");
-									$("#username").next().html("User exists."); 
+									$("#registration_username_validation").text("color", "red");
+									$("#registration_username_validation").text("User exists."); 
 								} else if ($.parseJSON(dataFromPHP)) {
 									let data = $.parseJSON(dataFromPHP);
 									location.href="profile.php?id=" + data.id;
 								} else {
-									$("#username").next().css("color", "red");
-									$("#username").next().html("Error encountered. Pls try again."); 
+									$("#registration_error_message").css("color", "red");
+									$("#registration_error_message").text("Error encountered. Please try again."); 
 								}	
 							}
 						});
