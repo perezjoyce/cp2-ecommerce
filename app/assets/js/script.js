@@ -141,6 +141,15 @@ $(document).ready( () => {
 	$(document).on('dblclick', '#btn_view_password', ()=> {
 		$('#login_password').attr('type','password');
 		$('#btn_view_password').html("<i class='fas fa-eye-slash'></i>");
+		$('#btn_view_password').css("border-bottom-color", "red");
+	});
+
+	$(document).on('focusin', '#login_password', ()=> {
+		$('#btn_view_password').css("border-bottom-color", "red");
+	});
+
+	$(document).on('focusout', '#login_password', ()=> {
+		$('#btn_view_password').css("border-bottom-color", "black");
 	});
 
 	// LOGIN
@@ -156,18 +165,24 @@ $(document).ready( () => {
 		if(username == ""){
 			$("#login_error_message").html(""); 
 			$("#login_username").next().html("Username is required.");
+			$('#login_username').css("border-bottom-color", "red");
 			error_flag = 1;
 		} else {
 			$("#login_username").next().html("");
+			$('#login_username').css("border-bottom-color", "black");
 		}
 
 		//password verification
 		if(password == ""){
 			$("#login_error_message").html(""); 
 			$("#login_password_validation").text("Password is required.");
+			$('#login_password').css("border-bottom-color", "red");
+			$('#btn_view_password').css("border-bottom-color", "red");
 			error_flag = 1;
 		} else {
 			$("#login_password_validation").text("");
+			$('#login_password').css("border-bottom-color", "black");
+			$('#btn_view_password').css("border-bottom-color", "black");
 		}
 
 
@@ -190,9 +205,11 @@ $(document).ready( () => {
 					} else if (response.status == "loginFailed") {
 						$("#login_error_message").css("color", "red");
 						$("#login_error_message").html(response.message); 
+						$('#login_password').css("border-bottom-color", "red");
+						$('#login_username').css("border-bottom-color", "red");
+						$('#btn_view_password').css("border-bottom-color", "red");
 					} else if(response.status == 'redirect') {
 						$('#cartModal').click();
-
 						// update header reload navbar-nav contents
 						$.get('../partials/navbar-nav.php', function(response){
 							$('#navbar-nav').replaceWith(response);
@@ -200,6 +217,9 @@ $(document).ready( () => {
 					} else {
 						$("#login_error_message").css("color", "red");
 						$("#login_error_message").html(response.message); 
+						$('#login_password').css("border-bottom-color", "red");
+						$('#login_username').css("border-bottom-color", "red");
+						$('#btn_view_password').css("border-bottom-color", "red");
 					}
 				}
 			});

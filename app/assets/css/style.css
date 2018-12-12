@@ -70,19 +70,8 @@ a#btn_cart {
     display: hidden;
 }
 
-/* .fa-star {
-    position: absolute;
+/* input#login_username {
+    border: none;
+    border-bottom: 2px solid red;
 } */
 
-/* span.badge {
-    padding: 1px 9px 2px;
-  font-size: 12.025px;
-  font-weight: bold;
-  white-space: nowrap;
-  color: #ffffff;
-  background-color: #999999;
-  -webkit-border-radius: 9px;
-  -moz-border-radius: 9px;
-  border-radius: 9px;
-} */
-  
