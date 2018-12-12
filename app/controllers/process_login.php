@@ -41,11 +41,11 @@ if (isset($_POST['username'])) {
 		
 		
 	} else {
-		$response = ['status' => 'loginFailed', 'message' => 'Login Failed'];
+		$response = ['status' => 'loginFailed', 'message' => 'Please use valid login credentials.'];
 	}
 
 } else {
-	$response = ['status' => 'noUsernameProvided', 'message' => 'Username not provided.'];
+	$response = ['status' => 'noUsernameProvided', 'message' => 'Please provide username.'];
 }
 
 echo json_encode($response);

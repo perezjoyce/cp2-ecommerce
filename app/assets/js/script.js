@@ -138,6 +138,16 @@ $(document).ready( () => {
 	// =============================================================================== //
 	// =============================================================================== //
 
+	// VIEWING PASSWORD
+	$(document).on('click', '#btn_view_password', ()=> {
+		$('#login_password').attr('type','text');
+		$('#btn_view_password').html("<i class='far fa-eye'></i>");
+	});
+
+	$(document).on('dblclick', '#btn_view_password', ()=> {
+		$('#login_password').attr('type','password');
+		$('#btn_view_password').html("<i class='fas fa-eye-slash'></i>");
+	});
 
 	// LOGIN
 	$(document).on("click", "#btn_login", ()=> {
@@ -150,18 +160,20 @@ $(document).ready( () => {
 
 		//username verification
 		if(username == ""){
-			$("#username").next().html("Username is required!");
+			$("#login_error_message").html(""); 
+			$("#login_username").next().html("Username is required.");
 			error_flag = 1;
 		} else {
-			$("#username").next().html("");
+			$("#login_username").next().html("");
 		}
 
 		//password verification
 		if(password == ""){
-			$("#password").next().html("Password is required!");
+			$("#login_error_message").html(""); 
+			$("#login_password_validation").text("Password is required.");
 			error_flag = 1;
 		} else {
-			$("#password").next().html("");
+			$("#login_password_validation").text("");
 		}
 
 
@@ -182,8 +194,8 @@ $(document).ready( () => {
 						data = $.parseJSON(dataFromPHP);
 						location.href="users.php?id=" + data.id;
 					} else if (response.status == "loginFailed") {
-						$("#error_message").css("color", "red");
-						$("#error_message").html(response.message); 
+						$("#login_error_message").css("color", "red");
+						$("#login_error_message").html(response.message); 
 					} else if(response.status == 'redirect') {
 						$('#cartModal').click();
 
@@ -192,8 +204,8 @@ $(document).ready( () => {
 							$('#navbar-nav').replaceWith(response);
 						});
 					} else {
-						$("#error_message").css("color", "red");
-						$("#error_message").html(response.message); 
+						$("#login_error_message").css("color", "red");
+						$("#login_error_message").html(response.message); 
 					}
 				}
 			});
