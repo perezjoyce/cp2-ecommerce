@@ -44,11 +44,23 @@
                 echo "      
                     <tr id='wish-row$productId'>
                         <td>
-                            $name
-                            <br>
-                            <a href='product.php?id=$productId'>
-                                <img class='unitImage' src='$image' style='width:50px;height:50px;'> 
-                            </a>
+                         
+                            <div class='row'>
+                                <div class='col-lg-2'>
+                                    <a href='product.php?id=$productId'>
+                                        <img class='unitImage' src='$image' style='width:70px;height:70px;'> 
+                                    </a>
+                                </div>
+                                    
+                                <div class='col'>
+                                    $name
+                                    <br>
+                                    <a data-productid='$productId' role='button' class='btn_delete_wish' id='btn_delete_wish'>
+                                        <i class='far fa-trash-alt text-secondary'></i>
+                                    </a>
+                                </div>
+                            </div>
+                            
                         </td>
 
                         <td>
@@ -59,8 +71,8 @@
                         </td>
 
                         <td> 
-                            <a data-productid='$productId' role='button' class='btn_delete_wish' id='btn_delete_wish'>
-                                Delete
+                            <a data-id='$productId' role='button' class='btn_add_to_cart_profile' id='btn_add_to_cart_profile'>
+                                <i class='fas fa-cart-plus'></i>
                             </a>
                         </td>
                     </tr>
