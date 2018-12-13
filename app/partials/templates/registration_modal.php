@@ -1,103 +1,111 @@
-<form 
-    action="../controllers/process_email2.php?redirectUrl=<?= isset($_GET['redirectUrl']) 
-    ? $_GET['redirectUrl'] 
-    : null ?>" 
-    method="POST" 
-    id="form_register">
+<div class="container-fluid">
+    <div class="row">
 
-    <div class="container">
+        <div class="col-lg-6 ml-0 py-0 px-0 my-0 ml-0 d-none d-lg-block d-xl-block">
+            <div id='registration_image'></div>
+            <!-- <div id='login_ad'>
+                <h1>fdsfsd</h1>
+            </div> -->
+        </div>
 
-        <div class="row mb-5 mt-4"> 
+        <div class="col">
 
-            <a class='text-danger modal-link col-6' data-url='../partials/templates/login_modal.php'>
-                <h4>Login</h4>
-            </a>
-            <div class='col-6 text-right'>
-                <h4>Register</h4>
+            <div class="row float-right">
+                <button id='close_modal' type="button" class="close mr-1" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-        </div>
 
-        <br>
-        <div class="form-group mt-5">
-            <!-- change name to id -->
-            <input type="email" class="form-control form-control-lg" id="register_email" name="register_email" autocomplete="email" placeholder="Email">
-            <small id="registration_email_validation" class="text-danger"></small>
-        </div>
-    
-        <div class="form-group">
-            <!-- change name to id -->
-            <input type="text" class="form-control form-control-lg" id="register_username" name="register_username" autocomplete="username" placeholder="Username (5+ characters)">
-            <small id="registration_username_validation" class="text-danger"></small>
-        </div>
-
-        <div class="form-group">
-            <div class="input-group">
-            <input type="password" class="form-control form-control-lg" id="register_password" name="register_password" placeholder="Password (8+ characters)">
-                <div class="input-group-append">
-                    <a class="btn btn-lg bg-light" type="button" id='btn_view_password'>
-                        <i class="fas fa-eye-slash bg-light"></i>
+            <div class="container px-5 pb-2 pt-5 mb-4">
+                <div class="row mb-5 mt-4"> 
+                    <a class='text-danger modal-link col-6' data-url='../partials/templates/login_modal.php'>
+                        <h4>Login</h4>
                     </a>
+                    <div class='col-6 text-right'>
+                        <h4>Register</h4>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-6">
-                    <small class="text-danger" id="registration_password_validation"></small>
-                </div>
-            </div>
             
-        </div>
+                <form 
+                    action="../controllers/process_email.php"
+                    method="POST" 
+                    id="form_register">
 
-        <div class="form-group mb-5">
-            <div class="input-group">
-            <input type="password" class="form-control form-control-lg" id="cpass" name="cpass" placeholder="Confirm Password">
-                <div class="input-group-append">
-                    <a class="btn btn-lg bg-light" type="button" id='btn_view_password'>
-                        <i class="fas fa-eye-slash bg-light"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-6">
-                    <small class="text-danger" id="registration_cpass_validation"></small>
-                </div>
-            </div>
+
+                    <div class="form-group my-5">
+                        <input type="email" class="form-control form-control-lg" id="register_email" name="register_email" autocomplete="email" placeholder="Email">
+                        <small id="registration_email_validation"></small>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <input type="text" class="form-control form-control-lg" id="register_username" name="register_username" autocomplete="username" placeholder="Username">
+                        <small id="registration_username_validation"><span class='text-secondary'>Minimum of 5 characters</span></small>
+                    </div>
             
+                    <div class="form-group mb-4">
+                        <div class="input-group">
+                            <input type="password" class="form-control form-control-lg" id="register_password" name="register_password" placeholder="Password">
+                            <div class="input-group-append">
+                                <a class="btn" id='btn_view_registration_password' onclick="showPassword()">
+                                    <i class="fas fa-eye-slash"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <small id="registration_password_validation"><span class='text-secondary'>Minimum of 8 characters</span></small>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div class="form-group mb-5">
+                        <div class="input-group">
+                        <input type="password" class="form-control form-control-lg" id="cpass" name="cpass" placeholder="Confirm Password">
+                            <div class="input-group-append">
+                                <a class="btn" id='btn_view_cpass'>
+                                    <i class="fas fa-eye-slash bg-light" onclick="showPassword()"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <small id="registration_cpass_validation"></small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class='row justify-content-center'>
+                        <small id="registration_error_message"></small>
+                    </div>
+                    
+
+                    <div class="d-flex flex-column text-center">
+                        <button type="button" class="btn btn-lg btn-warning flex-fill mr-2 mt-5 mb-3" id="btn_register">REGISTER</button>
+                        <small class='mb-3 text-left'>Or, register with</small>
+                        <button type="button" class="btn btn-lg border mr-2 mb-5" id="btn_register_facebook">
+                            <i class="fab fa-facebook-f text-primary mr-2"></i>
+                            FACEBOOK
+                        </button>
+                        <small class='flex-fill mb-5'>By signing up, you agree to Shopperoo's <a href="#" class='text-primary'>Terms  & Conditions</a>. </small>
+                    </div>
+
+                </form>
+            </div>
         </div>
-       
-
-        
-        <div>
-            <small id="registration_error_message"></small>
-        </div>
-
-        <br>
-
-
-        <div class="d-flex flex-column text-center my-5">
-            <button type="button" class="btn btn-lg btn-warning flex-fill mr-2 mb-5 mb-5" id="btn_register">REGISTER</button>
-            <div class='flex-fill'>By signing up, you agree to Shopperoo's <a href="#" class='text-primary'>Terms  & Conditions</a>. </div>
-        </div>
-
-
-         <div class="d-flex flex-row">  
-            <button type="button" class="flex-fill btn btn-danger mr-2 my-5" id="btn_login_gmail">
-                <i class="fab fa-google-plus-g"></i>
-                Sign Up With Gmail
-            </button>
-            <button type="button" class="flex-fill btn btn-primary my-5" id="btn_login_facebook">
-                <i class="fab fa-facebook"></i>
-                Connect With Facebook
-            </button>
-        </div>
-        
     </div>
-
-    
-
-   
-
-</form>
+</div>
 
 
-    
+
+
+
+
+
+
+
+
+
+
+        
 

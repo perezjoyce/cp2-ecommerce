@@ -5,6 +5,22 @@ $(document).ready( () => {
 	// =============================================================================== //
 	// =============================================================================== //
 	
+	// VIEWING LOGIN PASSWORD
+	window.showPassword = function() {
+		let x = document.getElementById("login_password");
+
+		if (x.type === "password") {
+			x.type = "text";
+		  	$('.fas').removeClass('fa-eye-slash');
+			$('.fas').addClass('fa-eye');
+		} else {
+		  x.type = "password";
+		  	$('.fas').removeClass('fa-eye');
+			$('.fas').addClass('fa-eye-slash');
+			$('#btn_view_login_password').css("border-bottom-color", "red");
+		}
+	}
+
 	// REGISTRATION
 	$(document).on('click', '#btn_register', ()=>{
 		
@@ -16,9 +32,6 @@ $(document).ready( () => {
 		let username = $("#register_username").val();
 		let password = $("#register_password").val();
 		let cpass = $("#cpass").val();
-		let countU = username.length;
-		let countP = password.length;
-		
 		let error_flag = 0;
 
 		//First name verification
@@ -51,17 +64,23 @@ $(document).ready( () => {
 			$("#registration_error_message").text("All fields are required."); 
 			error_flag = 1;
 		} else {
+
+			let countU = username.length;
+			let countP = password.length;
+
 			$("#registration_error_message").text(""); 
 
 			if (countU < 5) {
-				$("#registration_username_validation").text("Username should at least 5 characters.");
+				$("#registration_username_validation").css("color", "red");
+				$("#registration_username_validation").text("Username needs at least 5 characters.");
 				error_flag = 1;
 			} else {
 				$("#registration_username_validation").text("");
 			}
 	
 			if (countP < 8) {
-				$("#registration_password_validation").text("Password should have more than 8 characters.");
+				$("#registration_password_validation").css("color", "red");
+				$("#registration_password_validation").text("Password needs at least 8 characters.");
 				error_flag = 1;
 			} else {
 				$("#registration_password_validation").text("");
@@ -132,24 +151,30 @@ $(document).ready( () => {
 	// =============================================================================== //
 	// =============================================================================== //
 
-	// VIEWING PASSWORD
-	$(document).on('click', '#btn_view_password', ()=> {
-		$('#login_password').attr('type','text');
-		$('#btn_view_password').html("<i class='far fa-eye'></i>");
-	});
+	// VIEWING LOGIN PASSWORD
+	window.showPassword = function() {
+		let x = document.getElementById("login_password");
 
-	$(document).on('dblclick', '#btn_view_password', ()=> {
-		$('#login_password').attr('type','password');
-		$('#btn_view_password').html("<i class='fas fa-eye-slash'></i>");
-		$('#btn_view_password').css("border-bottom-color", "red");
-	});
+		if (x.type === "password") {
+			x.type = "text";
+		  	$('.fas').removeClass('fa-eye-slash');
+			$('.fas').addClass('fa-eye');
+		} else {
+		  x.type = "password";
+		  	$('.fas').removeClass('fa-eye');
+			$('.fas').addClass('fa-eye-slash');
+			$('#btn_view_login_password').css("border-bottom-color", "red");
+		}
+	}
+	
 
+	// ADJUSTING BORDER OF EYE BUTTON
 	$(document).on('focusin', '#login_password', ()=> {
-		$('#btn_view_password').css("border-bottom-color", "red");
+		$('#btn_view_login_password').css("border-bottom-color", "red");
 	});
 
 	$(document).on('focusout', '#login_password', ()=> {
-		$('#btn_view_password').css("border-bottom-color", "black");
+		$('#btn_view_login_password').css("border-bottom-color", "black");
 	});
 
 	// LOGIN
@@ -177,12 +202,12 @@ $(document).ready( () => {
 			$("#login_error_message").html(""); 
 			$("#login_password_validation").text("Password is required.");
 			$('#login_password').css("border-bottom-color", "red");
-			$('#btn_view_password').css("border-bottom-color", "red");
+			$('#btn_view_login_password').css("border-bottom-color", "red");
 			error_flag = 1;
 		} else {
 			$("#login_password_validation").text("");
 			$('#login_password').css("border-bottom-color", "black");
-			$('#btn_view_password').css("border-bottom-color", "black");
+			$('#btn_view_login_password').css("border-bottom-color", "black");
 		}
 
 
@@ -207,7 +232,7 @@ $(document).ready( () => {
 						$("#login_error_message").html(response.message); 
 						$('#login_password').css("border-bottom-color", "red");
 						$('#login_username').css("border-bottom-color", "red");
-						$('#btn_view_password').css("border-bottom-color", "red");
+						$('#btn_view_login_password').css("border-bottom-color", "red");
 					} else if(response.status == 'redirect') {
 						$('#cartModal').click();
 						// update header reload navbar-nav contents
@@ -219,7 +244,7 @@ $(document).ready( () => {
 						$("#login_error_message").html(response.message); 
 						$('#login_password').css("border-bottom-color", "red");
 						$('#login_username').css("border-bottom-color", "red");
-						$('#btn_view_password').css("border-bottom-color", "red");
+						$('#btn_view_login_password').css("border-bottom-color", "red");
 					}
 				}
 			});

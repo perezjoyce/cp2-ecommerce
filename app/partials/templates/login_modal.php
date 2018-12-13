@@ -1,24 +1,23 @@
-<style>
+<!-- <style>
     input#login_username,
     input#login_password {
-        border: none;
-        border-bottom: 1px solid black;
+        border: none!important;
+        border-bottom: 1px solid black!important;
         padding: 0!important;
     }
 
-    #btn_view_password {
-        border: none;
-        border-bottom: 1px solid black;
+    a#btn_view_password {
+        border: none!important;
+        border-bottom: 1px solid black!important;
     }
 
-    .form-control:focus {
-        -webkit-box-shadow: none;
-        box-shadow: none;
+    input.form-control:focus {
+        -webkit-box-shadow: none!important;
+        box-shadow: none!important;
         border-bottom: 1px solid red!important;
     }
 
-
-    #login_image {
+    div#login_image {
         background-image: url("../../app/assets/images/sample.jpg");
 
         /* Add the blur effect */
@@ -34,15 +33,13 @@
         background-size: cover;
     }
 
-    #login_ad {
+    div#login_ad {
         background: green;
         height: 100%; 
         padding: 0!important;
     }
 
-    
-        
-</style>
+</style> -->
 
 
 <div class="container-fluid">
@@ -91,8 +88,8 @@
                         <div class="input-group">
                             <input type="password" class="form-control form-control-lg" id="login_password" name="login_password" autocomplete="password" placeholder="Password">
                             <div class="input-group-append">
-                                <a class='btn' id='btn_view_password'>
-                                    <i class="fas fa-eye-slash bg-light fa-1x"></i>
+                                <a class="btn hide" id='btn_view_login_password' onclick="showPassword()">
+                                    <i class="fas fa-eye-slash bg-light hide"></i>
                                 </a>
                             </div>
                         </div>
