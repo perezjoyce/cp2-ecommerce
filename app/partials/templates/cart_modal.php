@@ -46,7 +46,7 @@
         
         <?php 
             while($row = $statement->fetch()){ 
-                $userId = $row['user_id'];
+                // $userId = $row['user_id'];
                 $productId = $row['item_id'];
                 $name = $row['name'];
                 $price = $row['price'];

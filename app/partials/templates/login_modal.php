@@ -63,7 +63,7 @@
             <div class="container px-5 pb-2 pt-5 mb-4">
                 <div class="row mb-5 mt-4"> 
                     <div class=' col-6'>
-                        <h4>Login</h4>
+                        <h4>Log In</h4>
                     </div>
                     <a class='text-right text-danger modal-link col-6' data-url='../partials/templates/registration_modal.php'>
                         <h4>Register</h4>
@@ -80,7 +80,7 @@
                     <br>
 
                     <div class="form-group mt-5">
-                        <input type="text" class="form-control form-control-lg" id="login_username" name="login_username" autocomplete="username" placeholder="Username">
+                        <input type="text" class="form-control form-control-lg" id="login_username_email" name="login_username_email" autocomplete="username" placeholder="Email or Username">
                         <small class="validation text-danger"></small>
                     </div>
             
@@ -88,8 +88,8 @@
                         <div class="input-group">
                             <input type="password" class="form-control form-control-lg" id="login_password" name="login_password" autocomplete="password" placeholder="Password">
                             <div class="input-group-append">
-                                <a class="btn hide" id='btn_view_login_password' onclick="showPassword()">
-                                    <i class="fas fa-eye-slash bg-light hide"></i>
+                                <a class="btn hide" id='btn_view_login_password' onclick="showLoginPassword()">
+                                    <i class="fas fa-eye-slash eye bg-light hide"></i>
                                 </a>
                             </div>
                         </div>
@@ -112,8 +112,8 @@
 
 
                     <div class="d-flex flex-column justify-content-end">
-                        <button type="button" class="btn btn-lg btn-warning flex-fill mr-2 mt-5 mb-3" id="btn_login">LOGIN</button>   
-                        <small class='mb-3'>Or, login with</small>
+                        <button type="button" class="btn btn-lg btn-warning flex-fill mr-2 mt-5 mb-3" id="btn_login">LOG IN</button>   
+                        <small class='mb-3'>Or, log in with</small>
                         <button type="button" class="btn btn-lg border mr-2 mb-5" id="btn_login_facebook">
                             <i class="fab fa-facebook-f text-primary mr-2"></i>
                             FACEBOOK

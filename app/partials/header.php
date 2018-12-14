@@ -49,7 +49,7 @@
   <body>
 
     <!-- NAVIGATION  -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-light fixed-top mb-5">
+    <nav class="navbar navbar-expand-lg navbar-expand-md navbar-dark bg-dark text-light fixed-top mb-5">
       <div class="container">
         <a class="navbar-brand font-weight-bold" href="index.php">Demo Shop</a>
         
@@ -72,18 +72,12 @@
             </li>
 
             <!-- CART -->
-            <li class="nav-item mr-5">
-              <a class='nav-link modal-link text-light' 
-                  href='#' 
-                  data-id='<?= $_GET['id'] ?>' 
-                  data-url='../partials/templates/cart_modal.php' 
-                  role='button'
-                  id='cartModal'>
-                
+            <li class="nav-item dropdown mr-5">
+              
+              <a class='nav-link text-light' id="cartDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-cart-plus"></i>
                 Cart
                 <span id="item-count">
-
                   <?php 
                     if ($productCount) {
                       echo "<span class='badge badge-primary text-light'>" . $productCount . "</span>";
@@ -93,9 +87,81 @@
                       echo "";
                     }
                   ?>
-
                 </span>
               </a>
+
+              <div class="dropdown-menu mt-2" aria-labelledby="cartDropdown" style='width:17em;' id='cartDropdown_menu'>  
+                  <?php 
+                    $sql = "SELECT c.item_id, c.quantity, p.img_path, p.name, p.price, p.id as productId
+                    FROM tbl_carts c 
+                    JOIN tbl_items p on p.id=c.item_id 
+                    WHERE cart_session=?";
+                    //$result = mysqli_query($conn, $sql);
+                    $statement = $conn->prepare($sql);
+                    $statement->execute([$cartSession]);
+
+                    $count = $statement->rowCount();
+                    // $subtotalPrice = 0;
+                    if(!$count) {
+                  ?>
+                  
+                  <a class="dropdown-item pb-5 text-center" href='#' id='header-empty-cart'>
+                    <img src="http://www.aimilayurveda.com/catalog/view/theme/aimil/assets/images/empty.png" alt="empty_cart" style='width:10em;'>
+                    <div><small> Your shopping cart is empty</small></div>
+                  </a>
+
+                  <?php } else { ?>
+                  
+                  <?php 
+                      while($row = $statement->fetch()){
+                        $productId = $row['item_id'];
+                        $name = $row['name'];
+                        $price = $row['price'];
+                        $quantity = $row['quantity'];
+                        $image = $row['img_path'];  
+                  ?>
+                     
+                  <div class='dropdown-item my-3' id='product-row<?=$productId?>'>
+                    <div class='row'>
+                      <div class='col-3'>
+                        <img src='<?=$image?>' style='width:30px;height:30px;'>
+                      </div>
+
+                      <div class='col-7'>
+                        <div class='row'>
+                          <small><?= $name ?></small>
+                        </div>
+                        <div class='row text-secondary'>
+                          <small><?= $price ?></small>
+                          <?php if($quantity > 1) { ?>
+                            <small> &nbsp;x&nbsp;<?=$quantity?></small>
+                          <?php } ?>
+                        </div>
+                        
+                      </div>
+                      
+                      <div class='col-2'>
+                        <a data-productid='<?= $productId ?>' role='button' class='btn_delete_item text-danger'>
+                          &times;
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                    
+                  <?php } ?>
+                  <div class="dropdown-divider my-3"></div>
+                  <a class='dropdown-item mb-3'>
+                    <button class='modal-link btn btn-block btn-primary' 
+                      href='#' 
+                      data-id='<?= $_GET['id'] ?>' 
+                      data-url='../partials/templates/cart_modal.php' 
+                      role='button'
+                      id='cartModal'>
+                      Go To Cart
+                    </button>
+                  </a>        
+                  <?php } ?>
+              </div>
             </li>
            
             <!-- LOGOUT AND REGISTER -->
@@ -104,14 +170,14 @@
 
 
             <li class='nav-item dropdown'>
-              <a class='nav-link dropdown-toggle text-light' id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class='nav-link dropdown-toggle text-light' id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <?= "<img src='../../".getProfilePic($conn, $id)."_80x80.jpg' height='20' class='circle mr-1'>" ?>
                 <?= getUsername($conn,$id) ?>
 
                 <!-- <img src="../../uploads/2/5c088b195adb0.jpg" height="80"> -->
               </a>
 
-              <div class="dropdown-menu mt-2" aria-labelledby="navbarDropdown">
+              <div class="dropdown-menu mt-2" aria-labelledby="profileDropdown">
                 <a class="dropdown-item my-3" href='profile.php?id=$id'>
                   <i class='far fa-user mr-2'></i> 
                   Profile
@@ -137,7 +203,7 @@
                 </a>
                 <div class="dropdown-divider my-3"></div>
                 <a class="dropdown-item mb-3" href='../controllers/process_logout.php?id=$id'>
-                <i class='fas fa-sign-in-alt mr-2'></i>
+                  <i class='fas fa-sign-in-alt mr-2'></i>
                   Logout
                 </a>
               </div>

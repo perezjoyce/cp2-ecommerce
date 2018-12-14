@@ -1,13 +1,15 @@
 $(document).ready( () => {
 
+	
+
 
 	// ================================ REGISTRATION  ================================ //
 	// =============================================================================== //
 	// =============================================================================== //
 	
 	// VIEWING LOGIN PASSWORD
-	window.showPassword = function() {
-		let x = document.getElementById("login_password");
+	window.showRegistrationPassword = function() {
+		let x = document.getElementById("register_password");
 
 		if (x.type === "password") {
 			x.type = "text";
@@ -17,7 +19,7 @@ $(document).ready( () => {
 		  x.type = "password";
 		  	$('.fas').removeClass('fa-eye');
 			$('.fas').addClass('fa-eye-slash');
-			$('#btn_view_login_password').css("border-bottom-color", "red");
+			$('#btn_view_registration_password').css("border-bottom-color", "red");
 		}
 	}
 
@@ -31,7 +33,7 @@ $(document).ready( () => {
 		let email = $("#register_email").val();
 		let username = $("#register_username").val();
 		let password = $("#register_password").val();
-		let cpass = $("#cpass").val();
+		// let cpass = $("#cpass").val();
 		let error_flag = 0;
 
 		//First name verification
@@ -84,14 +86,23 @@ $(document).ready( () => {
 				error_flag = 1;
 			} else {
 				$("#registration_password_validation").text("");
+				// let x = $('#cpass_hidden').hasClass('d-none');
+
+				// alert(x);
+
+				// 	if (x) {
+				// 		$('#cpass_hidden').removeClass('.d-none');
+				// 		$('#cpass_hidden').show();
+				// 		error_flag = 1;
+				// 	}
 			}
-	
-			if (password !== cpass) {
-				$("#registration_cpass_validation").text("Passwords don't match.");
-				error_flag = 1;
-			} else {
-				$("#registration_cpass_validation").text("");
-			}
+
+			// if (password !== cpass) {
+			// 	$("#registration_cpass_validation").text("Passwords don't match.");
+			// 	error_flag = 1;
+			// } else {
+			// 	$("#registration_cpass_validation").text("");
+			// }
 
 		}
 
@@ -152,7 +163,7 @@ $(document).ready( () => {
 	// =============================================================================== //
 
 	// VIEWING LOGIN PASSWORD
-	window.showPassword = function() {
+	window.showLoginPassword = function() {
 		let x = document.getElementById("login_password");
 
 		if (x.type === "password") {
@@ -180,21 +191,21 @@ $(document).ready( () => {
 	// LOGIN
 	$(document).on("click", "#btn_login", ()=> {
 		
-		let username = $("#login_username").val();
+		let username_email = $("#login_username_email").val();
 		let password = $("#login_password").val();
 		let url = $('#form_login').attr('action');
 		let error_flag = 0;
 
 
 		//username verification
-		if(username == ""){
+		if(username_email == ""){
 			$("#login_error_message").html(""); 
-			$("#login_username").next().html("Username is required.");
-			$('#login_username').css("border-bottom-color", "red");
+			$("#login_username_email").next().html("Email or Username is required.");
+			$('#login_username_email').css("border-bottom-color", "red");
 			error_flag = 1;
 		} else {
-			$("#login_username").next().html("");
-			$('#login_username').css("border-bottom-color", "black");
+			$("#login_username_email").next().html("");
+			$('#login_username_email').css("border-bottom-color", "black");
 		}
 
 		//password verification
@@ -215,7 +226,7 @@ $(document).ready( () => {
 			
 			$.ajax({
 				"url": url,
-				"data": {"username" : username,
+				"data": {"username_email" : username_email,
 						  "password" : password},
 				"type": "POST",
 				"success": (dataFromPHP) => {
@@ -231,7 +242,7 @@ $(document).ready( () => {
 						$("#login_error_message").css("color", "red");
 						$("#login_error_message").html(response.message); 
 						$('#login_password').css("border-bottom-color", "red");
-						$('#login_username').css("border-bottom-color", "red");
+						$('#login_username_email').css("border-bottom-color", "red");
 						$('#btn_view_login_password').css("border-bottom-color", "red");
 					} else if(response.status == 'redirect') {
 						$('#cartModal').click();
@@ -243,7 +254,7 @@ $(document).ready( () => {
 						$("#login_error_message").css("color", "red");
 						$("#login_error_message").html(response.message); 
 						$('#login_password').css("border-bottom-color", "red");
-						$('#login_username').css("border-bottom-color", "red");
+						$('#login_username_email').css("border-bottom-color", "red");
 						$('#btn_view_login_password').css("border-bottom-color", "red");
 					}
 				}
@@ -531,22 +542,37 @@ $(document).ready( () => {
 	}
 
 
-	// CLEAR
-	$("#btn_clear").click(()=>{
+	// // CLEAR
+	// $("#btn_clear").click(()=>{
 
-		window.confirm("you sure?"); 
+	// 	window.confirm("you sure?"); 
 	
-			if(confirm == "ok") {
-				  $("#fname").next().html("");
-				  $("#lname").next().html("");
-				  $("#adress").next().html("");
-				  $("#email").next().html("");
-				  $("#username").next().html("");
-				$("#password").next().html("");
-				$("#cpass").next().html("");
-			}
+	// 		if(confirm == "ok") {
+	// 			  $("#fname").next().html("");
+	// 			  $("#lname").next().html("");
+	// 			  $("#adress").next().html("");
+	// 			  $("#email").next().html("");
+	// 			  $("#username").next().html("");
+	// 			$("#password").next().html("");
+	// 			$("#cpass").next().html("");
+	// 		}
 			
-		});
+	// 	});
+
+	// ======================================= HEADER ================================ //
+	// =============================================================================== //
+	// =============================================================================== //
+	
+	$('#cartDropdown, #cartDropdown_menu').mouseover(()=>{
+		$('#cartDropdown_menu').show();
+	});
+
+	$('#cartDropdown_menu').mouseout(()=>{
+		$('#cartDropdown_menu').hide();
+	});
+
+
+	
 
 	// ======================================= CART ================================== //
 	// =============================================================================== //
@@ -556,6 +582,9 @@ $(document).ready( () => {
 	// ADDING ITEMS TO CART
 	$(document).on("click", "#btn_add_to_cart" ,function(){
 		let productId = $(this).attr("data-id");
+		let currentItemCount = $("#item-count").text();
+
+		
 
 		$(this).replaceWith(
 			"<button class='btn btn-outline-secondary mt-3 flex-fill mr-2' data-id='" + productId + "' role='button'" + 
@@ -570,9 +599,16 @@ $(document).ready( () => {
 			},
 			dataType: "text",
 			success: function(data) {
+				let response = $.parseJSON(data);
 				let sum = "";
-				sum += data;
+				sum += response.itemsInCart;
 				$("#item-count").html("<span class='badge badge-primary text-light'>" + sum + "</span>");
+				if(currentItemCount == 0 || currentItemCount == "") {
+					$('#cartDropdown_menu').html("");
+					$('#cartDropdown_menu').append(response.button);
+				}
+				$('#cartDropdown_menu').prepend(response.newProduct);
+				
 			}
 		});
 	});
@@ -594,7 +630,6 @@ $(document).ready( () => {
 				$("#item-count").html("<span class='badge badge-primary text-light'>" + sum + "</span>");
 			}
 		});
-
 
 		$.post('../controllers/process_delete_wish.php', {
 			productId: productId 
@@ -629,22 +664,29 @@ $(document).ready( () => {
 		$.post('../controllers/process_delete_in_cart.php', {
 			productId: productId 
 			},function(response){
+
 				// reload the modal with the new quantity reflected
 				$.get("../partials/templates/cart_modal.php", function(response) {
 					$('.modal .modal-body').html(response);
+
 						let currentNumberOfItems = $("#item-count span").text();
 						currentNumberOfItems = currentNumberOfItems-1;
 
 						if (currentNumberOfItems == 0) {
 							$("#item-count").html("");
+							$('#cartDropdown_menu').html("<a class='dropdown-item pb-5 text-center' href='#'>" +
+								"<img src='http://www.aimilayurveda.com/catalog/view/theme/aimil/assets/images/empty.png' alt='empty_cart' style='width:10em;'>" +
+								"<div><small>Your shopping cart is empty</small></div></a>");
 						} else {
-							$("#item-count").html("<span class='badge badge-primary text-light'>"
-							+ currentNumberOfItems + "</span>");					
+							$("#item-count").html("<span class='badge badge-primary text-light'>" + currentNumberOfItems + "</span>");					
 						}
 					// update button
 					$("#btn_delete_from_cart").replaceWith(
 						"<a class='btn btn-outline-primary mt-3 flex-fill mr-2' data-id='"+ productId +"' role='button' id='btn_add_to_cart'>" +
 						"<i class='fas fa-cart-plus'></i> Add to Cart</a>");
+
+					//remove product in header dropdown
+					$("#product-row"+productId).remove();
 
 				});
 			});
@@ -652,7 +694,7 @@ $(document).ready( () => {
 	});
 
 
-	// ADDING PRODUCT QUANTITY
+	// ADJUSTING PRODUCT QUANTITY
 	$(document).on("change", ".itemQuantity", function(){		
 		let quantity = $(this).val();		
 		let productId = $(this).data('productid');

@@ -55,7 +55,7 @@
                                 <div class='col'>
                                     $name
                                     <br>
-                                    <a data-productid='$productId' role='button' class='btn_delete_wish' id='btn_delete_wish'>
+                                    <a data-productid='$productId' role='button' class='btn_delete_wish'>
                                         <i class='far fa-trash-alt text-secondary'></i>
                                     </a>
                                 </div>

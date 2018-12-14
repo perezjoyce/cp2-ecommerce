@@ -8,6 +8,7 @@
 html {
     /* font size root */
     font-size: 12px;
+    background-color: #fff;
 }
 
 /* the following adjusts according to the root */
@@ -77,8 +78,9 @@ a#btn_cart {
     border:0!important;
 }
 
+
 /* ================================ MODALS =================================== */
-input#login_username,
+input#login_username_email,
 input#login_password,
 input#register_email,
 input#register_username,

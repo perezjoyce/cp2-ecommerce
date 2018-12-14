@@ -1,8 +1,10 @@
+
+
 <div class="container-fluid">
     <div class="row">
 
         <div class="col-lg-6 ml-0 py-0 px-0 my-0 ml-0 d-none d-lg-block d-xl-block">
-            <div id='registration_image'></div>
+            <div id='login_image'></div>
             <!-- <div id='login_ad'>
                 <h1>fdsfsd</h1>
             </div> -->
@@ -19,7 +21,7 @@
             <div class="container px-5 pb-2 pt-5 mb-4">
                 <div class="row mb-5 mt-4"> 
                     <a class='text-danger modal-link col-6' data-url='../partials/templates/login_modal.php'>
-                        <h4>Login</h4>
+                        <h4>Log In</h4>
                     </a>
                     <div class='col-6 text-right'>
                         <h4>Register</h4>
@@ -42,11 +44,11 @@
                         <small id="registration_username_validation"><span class='text-secondary'>Minimum of 5 characters</span></small>
                     </div>
             
-                    <div class="form-group mb-4">
+                    <div class="form-group mb-5">
                         <div class="input-group">
                             <input type="password" class="form-control form-control-lg" id="register_password" name="register_password" placeholder="Password">
                             <div class="input-group-append">
-                                <a class="btn" id='btn_view_registration_password' onclick="showPassword()">
+                                <a class="btn" id='btn_view_registration_password' onclick="showRegistrationPassword()">
                                     <i class="fas fa-eye-slash"></i>
                                 </a>
                             </div>
@@ -59,12 +61,12 @@
                         
                     </div>
 
-                    <div class="form-group mb-5">
+                    <!-- <div class="form-group mb-5 d-none" id='cpass_hidden'>
                         <div class="input-group">
                         <input type="password" class="form-control form-control-lg" id="cpass" name="cpass" placeholder="Confirm Password">
                             <div class="input-group-append">
                                 <a class="btn" id='btn_view_cpass'>
-                                    <i class="fas fa-eye-slash bg-light" onclick="showPassword()"></i>
+                                    <i class="fas fa-eye-slash bg-light"></i>
                                 </a>
                             </div>
                         </div>
@@ -73,7 +75,7 @@
                                 <small id="registration_cpass_validation"></small>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class='row justify-content-center'>
                         <small id="registration_error_message"></small>
