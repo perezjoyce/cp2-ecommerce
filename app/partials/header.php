@@ -51,20 +51,44 @@
   <body>
 
     <!-- NAVIGATION  -->
-    <nav class="navbar navbar-main navbar-expand-lg navbar-expand-md text-light py-1">
+    <nav class="navbar navbar-main navbar-expand-lg navbar-expand-md navbar-expand-sm text-light py-1">
 
-        <div class="container">
-            <a class="navbar-brand text-light" href="index.php" id="website_name">Shoperoo</a>
+        <div class="container d-flex flex-row">
 
-            <input type="text">
+            <a class="navbar-brand text-light mr-5" href="index.php" id="website_name">
+                Shoperoo
+            </a>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <form class="form-inline flex-grow-1">
+                <div class="input-group input-group-lg">
+                    <input type="text" class="form-control border border-0" id="search-header" onkeyup="showResult(this.value)" placeholder="Search for products..." aria-label="Search">
+                    <div class='dropdown' id='livesearch'>
+                        <div class="dropdown-menu" id='livesearch'></div>
+                    </div>
+                 
+            
+                    <!-- <div class="input-group-append">
+                        <a class="btn bg-light border border-0">
+                            <i class="fas fa-search"></i>
+                        </a>
+                    </div> -->
+                </div>
+            </form>
+             
+            <!-- <div class='dropdown'>
+                <div class='dropdown-menu' id="livesearch">
+                     search results 
+                </div>
+            </div> -->
+
         
-            <div class="collapse navbar-collapse ml-auto" id="navbarResponsive">
+            <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button> -->
+        
+            <!-- <div class="collapse navbar-collapse" id="navbarResponsive"> -->
 
-                <ul class="navbar-nav ml-auto" id="navbar-nav">
+                <ul class="navbar-nav d-flex" id="navbar-nav">
 
                     <!-- CATALOG -->
                     <!-- <li class="nav-item mr-5">
@@ -93,7 +117,7 @@
                                     ?>
                                 </span>
                             </div>
-                           
+                        
                         </a>
 
                         <div class="dropdown-menu mt-2" aria-labelledby="cartDropdown" style='width:17em;' id='cartDropdown_menu'>  
@@ -218,7 +242,7 @@
                             <?php } else { ?>
                     
                     <li class='nav-item'>
-                        <a class='nav-link text-light modal-link btn-border px-4 mt-2' data-id='<?= $userId ?>' data-url='../partials/templates/login_modal.php' role='button'> 
+                        <a class='nav-link text-light modal-link btn-border text-center' id='login-reg-header' data-id='<?= $userId ?>' data-url='../partials/templates/login_modal.php' role='button'> 
                             <!-- <i class="far fa-user"></i> -->
                             Login | Register
                         </a>
@@ -226,16 +250,32 @@
                             <?php } ?>
                 </ul>
             
-            </div>
+            <!-- </div> -->
+                
         </div>
-    
     </nav>
-       
+    
+    <div class="container-fluid border">
+        <div class="row justify-content-center">
+            
+                <?php 
+                    $sql = " SELECT * FROM tbl_categories ";
+                    $statement = $conn->prepare($sql);
+                    $statement->execute();
+                    
+                    while($row = $statement->fetch()){  
+                ?>
+                
+                    <div class='border'><?= $row['name']?></div>
+                <?php }?>
+              
+        </div>  
+    </div>
 
 
     <!-- ALERTS -->
     <div class="container">
-      <div class="row my-5">
+      <div class="row">
         <div class="col-lg-12">
           
           <?php if(isset($_GET['uploadError'])): ?>

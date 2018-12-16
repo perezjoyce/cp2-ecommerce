@@ -571,6 +571,29 @@ $(document).ready( () => {
 		$('#cartDropdown_menu').hide();
 	});
 
+	// POPULATE SEARCH
+	window.showResult = function(str) {
+		if (str.length==0) { 
+		  document.getElementById("livesearch").innerHTML="";
+		//   document.getElementById("livesearch").style.border="0px";
+		  return;
+		}
+
+		if (window.XMLHttpRequest) {
+		  // code for IE7+, Firefox, Chrome, Opera, Safari
+		  xmlhttp=new XMLHttpRequest();
+		} else {  // code for IE6, IE5
+		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		
+		xmlhttp.onreadystatechange=function() {
+		  if (this.readyState==4 && this.status==200) {
+			document.getElementById("livesearch").innerHTML=xmlhttp.responseText;
+		  }
+		}
+		xmlhttp.open("GET","../controllers/process_search.php?searchKey="+str,true);
+		xmlhttp.send();
+	}
 
 	
 
@@ -1047,6 +1070,7 @@ $(document).ready( () => {
 	// DISPLAYING PRODUCT RATING
 	// DELETING PRODUCT RATING
 	// FETCHING COMMENT
+
 
 
 	// ==================================== CHECKOUT ================================= //
