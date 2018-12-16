@@ -13,12 +13,12 @@ $(document).ready( () => {
 
 		if (x.type === "password") {
 			x.type = "text";
-		  	$('.fas').removeClass('fa-eye-slash');
-			$('.fas').addClass('fa-eye');
+		  	$('.eye').removeClass('fa-eye-slash');
+			$('.eye').addClass('fa-eye');
 		} else {
 		  x.type = "password";
-		  	$('.fas').removeClass('fa-eye');
-			$('.fas').addClass('fa-eye-slash');
+		  	$('.eye').removeClass('fa-eye');
+			$('.eye').addClass('fa-eye-slash');
 			$('#btn_view_registration_password').css("border-bottom-color", "red");
 		}
 	}
@@ -168,12 +168,12 @@ $(document).ready( () => {
 
 		if (x.type === "password") {
 			x.type = "text";
-		  	$('.fas').removeClass('fa-eye-slash');
-			$('.fas').addClass('fa-eye');
+		  	$('.eye').removeClass('fa-eye-slash');
+			$('.eye').addClass('fa-eye');
 		} else {
 		  x.type = "password";
-		  	$('.fas').removeClass('fa-eye');
-			$('.fas').addClass('fa-eye-slash');
+		  	$('.eye').removeClass('fa-eye');
+			$('.eye').addClass('fa-eye-slash');
 			$('#btn_view_login_password').css("border-bottom-color", "red");
 		}
 	}
@@ -234,7 +234,7 @@ $(document).ready( () => {
 
 					if(response.status == "loggedIn") {
 						let data = $.parseJSON(dataFromPHP);
-						location.href="profile.php?id=" + data.id;
+						location.href="index.php?id=" + data.id;
 					} else if (response.status == "adminLogIn") {
 						data = $.parseJSON(dataFromPHP);
 						location.href="users.php?id=" + data.id;
@@ -563,11 +563,11 @@ $(document).ready( () => {
 	// =============================================================================== //
 	// =============================================================================== //
 	
-	$('#cartDropdown, #cartDropdown_menu').mouseover(()=>{
+	$('#cartDropdown, #cartDropdown_menu','#profileDropdown','#profileDropdown_menu').mouseover(()=>{
 		$('#cartDropdown_menu').show();
 	});
 
-	$('#cartDropdown_menu').mouseout(()=>{
+	$('#cartDropdown_menu','#profileDropdown_menu').mouseout(()=>{
 		$('#cartDropdown_menu').hide();
 	});
 
@@ -602,11 +602,13 @@ $(document).ready( () => {
 				let response = $.parseJSON(data);
 				let sum = "";
 				sum += response.itemsInCart;
-				$("#item-count").html("<span class='badge badge-primary text-light'>" + sum + "</span>");
+
+				$("#item-count").html("<span class='badge border-0 circle'>" + sum + "</span>");
 				if(currentItemCount == 0 || currentItemCount == "") {
 					$('#cartDropdown_menu').html("");
 					$('#cartDropdown_menu').append(response.button);
 				}
+
 				$('#cartDropdown_menu').prepend(response.newProduct);
 				
 			}
@@ -627,7 +629,7 @@ $(document).ready( () => {
 			success: function(data) {
 				let sum = "";
 				sum += data;
-				$("#item-count").html("<span class='badge badge-primary text-light'>" + sum + "</span>");
+				$("#item-count").html("<span class='badge border-0 circle'>" + sum + "</span>");
 			}
 		});
 
@@ -645,9 +647,9 @@ $(document).ready( () => {
 					$("#wish-count-header").html("");
 					$("#wish-count-profile").html("");
 				} else {
-					$("#wish-count-header").html("<span class='badge badge-danger text-light'>" 
+					$("#wish-count-header").html("<span class='badge border-0 circle'>" 
 						+ currentNumberOfWishes + "</span>");	
-					$("#wish-count-profile").html("<span class='badge badge-danger text-light'>" 
+					$("#wish-count-profile").html("<span class='badge border-0 circle'>" 
 					+ currentNumberOfWishes + "</span>");	
 				}
 
@@ -678,7 +680,7 @@ $(document).ready( () => {
 								"<img src='http://www.aimilayurveda.com/catalog/view/theme/aimil/assets/images/empty.png' alt='empty_cart' style='width:10em;'>" +
 								"<div><small>Your shopping cart is empty</small></div></a>");
 						} else {
-							$("#item-count").html("<span class='badge badge-primary text-light'>" + currentNumberOfItems + "</span>");					
+							$("#item-count").html("<span class='badge border-0 circle'>" + currentNumberOfItems + "</span>");					
 						}
 					// update button
 					$("#btn_delete_from_cart").replaceWith(
@@ -737,9 +739,9 @@ $(document).ready( () => {
 					$("#wish-count-header").html("");
 					$("#wish-count-profile").html("");
 				} else {
-					$("#wish-count-header").html("<span class='badge badge-danger text-light'>" 
+					$("#wish-count-header").html("<span class='badge border-0 circle'>" 
 						+ currentNumberOfWishes + "</span>");	
-					$("#wish-count-profile").html("<span class='badge badge-danger text-light'>" 
+					$("#wish-count-profile").html("<span class='badge border-0 circle'>" 
 					+ currentNumberOfWishes + "</span>");	
 				}
 			}
@@ -772,9 +774,9 @@ $(document).ready( () => {
 				$("#wish-count-header").text("");
 				$("#wish-count-profile").text("");
 			} else {
-				$("#wish-count-header").html("<span class='badge badge-danger text-light'>" 
+				$("#wish-count-header").html("<span class='badge border-0 circle'>" 
 					+ numberOfWishes + "</span>");	
-				$("#wish-count-profile").html("<span class='badge badge-danger text-light'>" 
+				$("#wish-count-profile").html("<span class='badge border-0 circle'>" 
 				+ numberOfWishes + "</span>");	
 			}
 		});
@@ -813,9 +815,9 @@ $(document).ready( () => {
 					$("#wish-count-header").html("");
 					$("#wish-count-profile").html("");
 				} else {
-					$("#wish-count-header").html("<span class='badge badge-danger text-light'>" 
+					$("#wish-count-header").html("<span class='badge border-0 circle'>" 
 						+ currentNumberOfWishes + "</span>");	
-					$("#wish-count-profile").html("<span class='badge badge-danger text-light'>" 
+					$("#wish-count-profile").html("<span class='badge border-0 circle'>" 
 					+ currentNumberOfWishes + "</span>");	
 				}
 
@@ -849,9 +851,9 @@ $(document).ready( () => {
 					$("#wish-count-header").html("");
 					$("#wish-count-profile").html("");
 				} else {
-					$("#wish-count-header").html("<span class='badge badge-danger text-light'>" 
+					$("#wish-count-header").html("<span class='badge border-0 circle'>" 
 						+ currentNumberOfWishes + "</span>");	
-					$("#wish-count-profile").html("<span class='badge badge-danger text-light'>" 
+					$("#wish-count-profile").html("<span class='badge border-0 circle'>" 
 					+ currentNumberOfWishes + "</span>");	
 				}
 
@@ -1089,7 +1091,7 @@ $(document).ready( () => {
 			$("#barangay").empty().append(data);
 			$("#barangay").prepend(selected);
 		});
-	  });
+	});
 
 
 	
@@ -1102,22 +1104,40 @@ $(document).ready( () => {
 		let streetBldgUnit = $('#streetBldgUnit').val();
 		let landmark = $('#landmark').val();
 		let addressType = $('#addressType').val();
+		let addressId = $('#address_id').val();
+		let that = this;
 
 		if(regionId == "..." || provinceId == "..." || cityMunId == "..." || brgyId == "..." || streetBldgUnit == "" || addressType == "...") {
 			$("#shipping_error_message").css("color", "red");
 			$("#shipping_error_message").text('Please fill out required fields.');
 			
 		} else {
-			$(this).attr('class', 'modal-link');
-			$.post("../controllers/process_save_address.php", {
-				regionId:regionId,
-				provinceId:provinceId,
-				cityMunId:cityMunId,
-				brgyId:brgyId,
-				streetBldgUnit:streetBldgUnit,
-				landmark:landmark,
-				addressType:addressType
+			let data = {
+				regionId :$('#region').val(),
+				provinceId :$('#province').val(),
+				cityMunId : $('#cityMun').val(),
+				brgyId : $('#barangay').val(),
+				streetBldgUnit : $('#streetBldgUnit').val(),
+				landmark : $('#landmark').val(),
+				addressType : $('#addressType').val(),
+				addressId : $('#address_id').val()
 			}
+			$.post('../controllers/process_save_address.php', data, function(response){
+				let url = $(that).data('url');
+				$.post(url, function(response){
+					$('#modalContainer .modal-body').html(response);
+				});
+			});
+			// $.post("../controllers/process_save_address.php", {
+			// 	regionId:regionId,
+			// 	provinceId:provinceId,
+			// 	cityMunId:cityMunId,
+			// 	brgyId:brgyId,
+			// 	streetBldgUnit:streetBldgUnit,
+			// 	landmark:landmark,
+			// 	addressType:addressType,
+			// 	addressId: address_id
+			// }
 			// , function(response) {
 
 				// let address = $.parseJSON(response);
@@ -1148,7 +1168,9 @@ $(document).ready( () => {
 				// $("#addressType").val(address.addressType);
 
 				// }
-			);
+			// ).done(function(response) {
+
+			// });
 		}		
 	});
 

@@ -89,7 +89,7 @@
                             <input type="password" class="form-control form-control-lg" id="login_password" name="login_password" autocomplete="password" placeholder="Password">
                             <div class="input-group-append">
                                 <a class="btn hide" id='btn_view_login_password' onclick="showLoginPassword()">
-                                    <i class="fas fa-eye-slash eye bg-light hide"></i>
+                                    <i class="fas fa-eye-slash eye text-secondary bg-light hide"></i>
                                 </a>
                             </div>
                         </div>

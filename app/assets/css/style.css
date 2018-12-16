@@ -3,6 +3,8 @@
     -webkit-border-radius: 0 !important;
      -moz-border-radius: 0 !important;
           border-radius: 0 !important;
+    font-family: 'Open Sans', 'Tahoma', sans-serif;
+    /* font-family: 'Roboto-Regular', sans-serif; */
 }
 
 html {
@@ -71,6 +73,10 @@ a#btn_cart {
     display: hidden;
 }
 
+a.btn-border {
+    border: 0.5px solid gainsboro!important;
+}
+
 
 /* MODAL CONTAINER */
 .modal-body {
@@ -89,6 +95,7 @@ input#cpass {
     border: none!important;
     border-bottom: 1px solid black!important;
     padding: 0!important;
+    
 }
 
 a#btn_view_login_password,
@@ -98,7 +105,12 @@ a#btn_view_cpass {
     border-bottom: 1px solid black!important;
 }
 
-input.form-control:focus {
+input#login_username_email:focus,
+input#login_password:focus,
+input#register_email:focus,
+input#register_username:focus,
+input#register_password:focus,
+input#cpass:focus {
     -webkit-box-shadow: none!important;
     box-shadow: none!important;
     border-bottom: 1px solid red!important;
@@ -131,4 +143,138 @@ div#login_ad {
 
 div#login_image {
     background-image: url("../../assets/images/sample.jpg")!important;
+}
+
+
+/* ================================ HEADER =================================== */
+
+#cart-img {
+    background-image: url("../../assets/images/shopping-bag-header.png")!important; 
+    height: 2.7em;
+    width: 2.7em;
+    background-repeat: no-repeat;
+    background-size: 2.7em;
+    background-position: 100%;
+}
+
+nav.navbar-main {
+    background: #12c2e9; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #12c2e9, #c471ed, #f64f59); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+#website_name {
+    font-family: 'Fredoka One', cursive!important;
+    font-size: 2em!important;
+}
+
+.badge {
+    background-color: #ff6347!important;
+    color: white!important; 
+    margin: 14px 10px 10px 10px!important;
+}
+
+.fa-search {
+    color:#7200da!important;
+}
+
+#search:focus {
+    outline:none!important;
+    box-shadow: none!important;
+}
+
+/* input#search {
+    background-image: url("../../assets/images/search-solid.svg")!important;
+    background-repeat: no-repeat;
+    background-size: 1.5em;
+    background-position: 100%;
+    padding-left:30px;
+    color: #7200da!important;
+} */
+
+
+
+
+
+/*============================ DESKTOP ==========================*/
+
+@media only screen and (min-width: 961px) {
+
+    /* HEADER */
+    input#search {
+        margin-bottom: 0.5px!important;
+        margin-top: -0.5px!important;
+    }
+
+    #cartDropdown_menu {
+        min-width:20em!important;
+        margin-top:19px!important;
+    }
+
+    #profileDropdown_menu {
+        margin-top:19px!important;
+    }
+
+    /* REUSABLE */
+	.vanish-lg {
+		display: none;
+	}
+
+	.appear-lg {
+		display: block;
+    }
+    
+}
+
+/*==============================TABLET ==============================*/
+
+@media only screen and (min-width:426px) and (max-width:960px) { 
+
+    /* HEADER */
+    #cartDropdown_menu {
+        min-width:20em!important;
+        margin-top:19px!important;
+    }
+
+    #profileDropdown_menu {
+        margin-top:19px!important
+    }
+
+    input#search {
+        margin-bottom: 0.5px!important;
+        margin-top: -0.5px!important;
+    }
+
+
+    /* REUSABLE */
+    .vanish-md {
+		display: none;
+	}
+
+	.appear-md {
+		display: block;
+	}
+}
+
+/*==============================MOBILE==============================*/
+
+@media only screen and (max-width:425px) { 
+
+    /* HEADER */
+    input#search {
+        margin-bottom: -0.4px!important;
+    }
+
+    .navbar {
+        padding-bottom: 10em;
+    }
+
+    /* REUSABLE */
+	.vanish-sm {
+		display: none;
+	}
+
+	.appear-sm {
+		display: block;
+	}
 }

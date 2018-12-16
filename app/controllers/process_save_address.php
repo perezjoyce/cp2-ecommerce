@@ -13,6 +13,7 @@
         $streetBldgUnit = $_POST['streetBldgUnit'];
         $landmark = $_POST['landmark'];
         $addressType = $_POST['addressType'];
+        $_SESSION['preselectedAddressId'] = $_POST['addressId'];
         
         //CHECK IF USER ALREADY HAS AN ADDRESS
         $sql = " SELECT * FROM tbl_addresses WHERE `user_id` = ? ";

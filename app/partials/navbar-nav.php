@@ -37,7 +37,7 @@
 
                                     <?php 
                                         if ($productCount) {
-                                        echo "<span class='badge badge-primary text-light'>" . $productCount . "</span>";
+                                        echo "<span class='badge border-0 circle'>" . $productCount . "</span>";
                                         } elseif ($productCount == 0){
                                         echo "";
                                         } else {

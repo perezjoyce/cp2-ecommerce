@@ -19,6 +19,8 @@ if(isset($_GET['id'])) {
     $statement->execute([$addressId]);
     $row = $statement->fetch(PDO::FETCH_ASSOC);
 
+    $_SESSION['preselectedAddressId'] = $addressId;
+
     echo json_encode($row);
 
 

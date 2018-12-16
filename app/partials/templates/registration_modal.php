@@ -49,7 +49,7 @@
                             <input type="password" class="form-control form-control-lg" id="register_password" name="register_password" placeholder="Password">
                             <div class="input-group-append">
                                 <a class="btn" id='btn_view_registration_password' onclick="showRegistrationPassword()">
-                                    <i class="fas fa-eye-slash"></i>
+                                    <i class="fas fa-eye-slash eye text-secondary"></i>
                                 </a>
                             </div>
                         </div>

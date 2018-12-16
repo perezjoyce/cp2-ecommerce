@@ -80,7 +80,7 @@
                                 if (getWishlishtCount($conn) == 0) {
                                     echo "<span></span>";
                                 } else {
-                                    echo "<span class='badge badge-danger text-light'>" . getWishlishtCount($conn) . "</span>";
+                                    echo "<span class='badge border-0 circle'>" . getWishlishtCount($conn) . "</span>";
                                 }
                             ?>
                        
