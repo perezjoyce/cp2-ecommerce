@@ -63,7 +63,7 @@
                 <div class="input-group input-group-lg">
                     <input type="text" class="form-control border border-0" id="search-header" onkeyup="showResult(this.value)" placeholder="Search for products..." aria-label="Search">
                     <div class='dropdown' id='livesearch'>
-                        <div class="dropdown-menu" id='livesearch'></div>
+                        <div class="dropdown-menu" aria-labelledby="livesearch"></div>
                     </div>
                  
             
@@ -75,12 +75,6 @@
                 </div>
             </form>
              
-            <!-- <div class='dropdown'>
-                <div class='dropdown-menu' id="livesearch">
-                     search results 
-                </div>
-            </div> -->
-
         
             <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -255,22 +249,28 @@
         </div>
     </nav>
     
-    <div class="container-fluid border">
-        <div class="row justify-content-center">
+    <!-- CATEGORIES: TO BE INCLUDED ONLY IN INDEX.PHP -->
+    <!-- <div class="container-fluid border">
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10">
+                <div class="row text-center">
             
-                <?php 
-                    $sql = " SELECT * FROM tbl_categories ";
-                    $statement = $conn->prepare($sql);
-                    $statement->execute();
+                    <?php 
+                        $sql = " SELECT * FROM tbl_categories LIMIT 7";
+                        $statement = $conn->prepare($sql);
+                        $statement->execute();
+                        
+                        while($row = $statement->fetch()){  
+                    ?>
                     
-                    while($row = $statement->fetch()){  
-                ?>
-                
-                    <div class='border'><?= $row['name']?></div>
-                <?php }?>
-              
+                    <div class='border flex-fill py-3 dropdown'><?= $row['name']?></div>
+                    <?php }?>
+                </div>
+            </div>
+            <div class="col-1"></div>
         </div>  
-    </div>
+    </div> -->
 
 
     <!-- ALERTS -->

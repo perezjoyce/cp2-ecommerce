@@ -563,15 +563,31 @@ $(document).ready( () => {
 	// =============================================================================== //
 	// =============================================================================== //
 	
-	$('#cartDropdown, #cartDropdown_menu','#profileDropdown','#profileDropdown_menu').mouseover(()=>{
+	$('#cartDropdown').mouseover(()=>{
 		$('#cartDropdown_menu').show();
 	});
 
-	$('#cartDropdown_menu','#profileDropdown_menu').mouseout(()=>{
+	$('#cartDropdown_menu').mouseover(()=>{
+		$('#cartDropdown_menu').show();
+	});
+
+	$('#profileDropdown').mouseover(()=>{
+		$('#cartDropdown_menu').show();
+	});
+
+	$('#profileDropdown_menu').mouseover(()=>{
+		$('#cartDropdown_menu').show();
+	});
+
+	$('#cartDropdown_menu').mouseout(()=>{
 		$('#cartDropdown_menu').hide();
 	});
 
-	// POPULATE SEARCH
+	$('#profileDropdown_menu').mouseout(()=>{
+		$('#cartDropdown_menu').hide();
+	});
+
+	// POPULATE SEARCH w3schools
 	window.showResult = function(str) {
 		if (str.length==0) { 
 		  document.getElementById("livesearch").innerHTML="";
@@ -585,17 +601,24 @@ $(document).ready( () => {
 		} else {  // code for IE6, IE5
 		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
 		}
-		
+
 		xmlhttp.onreadystatechange=function() {
 		  if (this.readyState==4 && this.status==200) {
 			document.getElementById("livesearch").innerHTML=xmlhttp.responseText;
 		  }
 		}
+
 		xmlhttp.open("GET","../controllers/process_search.php?searchKey="+str,true);
 		xmlhttp.send();
 	}
 
-	
+	// ======================================= INDEX ================================== //
+	// =============================================================================== //
+	// =============================================================================== //
+
+	$('.carousel').carousel({
+		interval: 2000
+	  })
 
 	// ======================================= CART ================================== //
 	// =============================================================================== //

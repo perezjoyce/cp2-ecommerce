@@ -2,17 +2,134 @@
 <?php require_once "../controllers/connect.php";?>
 
     <!-- PAGE CONTENT -->
-    <div class="container">
 
-        <!-- JUMBOTRON -->
-        <header class="jumbotron mb-5">
-          <h1 class="display-3">A Warm Welcome!</h1>
-          <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
-          <a href="#" class="btn btn-primary btn-lg">Call to action!</a>
-        </header>
-        <!-- /JUMBOTRON -->
+    <!-- ADVERTISEMENTS -->
+    <div class="container mt-5">
+
+      <div class="row mx-0">
+        <div class="col-8 p-0">
+
+          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img class="d-block w-100" src="https://via.placeholder.com/800x250" alt="First slide">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block w-100" src="https://via.placeholder.com/800x250" alt="Second slide">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block w-100" src="https://via.placeholder.com/800x250" alt="Third slide">
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+
+        </div>
+
+        <div class="col ml-1">
+          <div class="row mb-1">
+            <div id="index-advertisement-top">
+                <img class="d-block w-100" src="https://via.placeholder.com/800x250">
+            </div>
+          </div>
+
+          <div class="row">
+            <div id="index-advertisement-bottom">
+                <img class="d-block w-100" src="https://via.placeholder.com/800x250">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- COMPANY DESCRIPTIONS -->
+    <div class="container mb-5">
+      <div class="row py-4 mx-0">
+        <div class="col-4">
+          <div class="d-flex flex-row">
+            <div id='description-quality' class='mr-3 ml-5'>
+            </div>
+            <div class=' mt-2'>
+              <div class="d-flex flex-column align-items-stretch">
+                <div class="heading mb-0 pb-0">
+                  <h2>100% Safe</h2>
+                </div>
+                <div class="description">
+                  Guaranteed mom-approved products
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="d-flex flex-row">
+            <div id='description-hours' class='mr-3 ml-5'>
+            </div>
+            <div class=' mt-2'>
+              <div class="d-flex flex-column align-items-stretch">
+                <div class="heading mb-0 pb-0">
+                  <h2>Fast Transactions</h2>
+                </div>
+                <div class="description">
+                  Same Day Delivery
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="d-flex flex-row">
+            <div id='description-shipping' class='mr-3'>
+            </div>
+            <div class=' mt-2'>
+              <div class="d-flex flex-column align-items-stretch">
+                <div class="heading mb-0 pb-0">
+                  <h2>Free Delivery & COD</h2>
+                </div>
+                <div class="description">
+                  Free Shipping & COD Nationwide
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>       
+    </div>
+
+    <!-- CATEGORIES -->
+    <div class="container border">
+      <div class="row mx-0"><h2>CATEGORIES</h2></div>
+      <div class="row d-flex flex-row mx-0">
+
+        <?php 
+          $sql = "SELECT * FROM tbl_categories ";
+          $statement = $conn->prepare($sql);
+          $statement->execute(['name']);
+          
+          while($row = $statement->fetch()){
+        ?>
+        <div class="flex-fill border"><?= $row['name'] ?></div>
+
+        <?php } ?>
+        
+      </div>
+
+    </div>
 
       <!-- PRODUCTS -->
+    <div class="container">
       <div class="row">
         
       <?php 

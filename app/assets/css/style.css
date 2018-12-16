@@ -208,15 +208,48 @@ box-shadow: 1px 1px 10px 0 rgba(0,0,0,.2);
 }
 
 #livesearch {
+    padding-top: 3em;
     position: absolute;
-    padding-top: 2.8em;
+    z-index: 2!important;
     /* margin-top: 5em!important; */
 }
 
 .livesearch-item{
     width: 52vw!important;
     background:  #fff!important;
-    font-size: 16px!important;
+    font-size: 14px!important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    z-index: 5;
+}
+
+
+/*============================ INDEX ==========================*/
+div#description-quality {
+    background-image: url("../images/quality-gradient-filled.png")!important; 
+    height: 4em;
+    width: 4em;
+    background-size: 4em;
+    background-repeat: no-repeat;
+    /* background-position: 100%; */
+}
+
+div#description-shipping {
+    background-image: url("../images/delivery-truck-gradient-filled.png")!important; 
+    height: 4em;
+    width: 4em;
+    background-size: 4em;
+    background-repeat: no-repeat;
+    /* background-position: 100%; */
+}
+
+div#description-hours {
+    background-image: url("../images/24-hours-gradient-filled.png")!important; 
+    height: 4em;
+    width: 4em;
+    background-size: 4em;
+    background-repeat: no-repeat;
+    /* background-position: 100%; */
 }
 
 

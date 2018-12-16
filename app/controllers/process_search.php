@@ -15,6 +15,6 @@
             echo "<a href='product.php?id=$productId' id='$productId'><div class='dropdown-item livesearch-item'>".$row['name']."</div></a>";
         }
     } else {
-        echo "<a href='#'><div class='dropdown-item livesearch-item text-secondary'>Sorry, no results were found. :(</div></a>";
+        echo "<a href='index.php'><div class='dropdown-item livesearch-item text-secondary'>Sorry, no results were found. :(</div></a>";
     }
 ?>
