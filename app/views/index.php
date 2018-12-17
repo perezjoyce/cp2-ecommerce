@@ -55,10 +55,12 @@
           </div>
         </div>
       </div>
+
+     
     </div>
     
     <!-- COMPANY DESCRIPTIONS -->
-    <div class="container mb-3">
+    <!-- <div class="container mb-3">
       <div class="row py-4 mx-0">
         <div class="col-4">
           <div class="d-flex flex-row">
@@ -67,10 +69,10 @@
             <div class=' mt-2'>
               <div class="d-flex flex-column align-items-stretch">
                 <div class="heading mb-0 pb-0">
-                  <h2>100% Safe</h2>
+                  <h2>100% Mom-Approved</h2>
                 </div>
                 <div class="description">
-                  Guaranteed Mom-Approved Products
+                  Guaranteed Safe Products
                 </div>
               </div>
             </div>
@@ -109,7 +111,90 @@
           </div>
         </div>
       </div>       
+    </div> -->
+
+    <div class="container mb-4">
+      <div class="row mx-0 text-center">
+        <div class="col d-flex flex-row">
+
+          <div class="flex-fill py-3">
+            <div class="d-flex justify-content-center">
+              <div id='description-quality'>
+              </div>
+            </div>
+
+            <div class="d-flex flex-column">
+              <div class='description-header'>
+                100% Mom-Approved
+              </div>
+              <div class="description-supporting-text">
+                Guaranteed Safe Products
+              </div>
+            </div>
+          </div>
+
+
+          <div class="flex-fill py-3">
+            <div class="d-flex justify-content-center">
+              <div id='description-save'>
+              </div>
+            </div>
+
+            <div class="d-flex flex-column">
+              <div class='description-header'>
+                Lowest Prices
+              </div>
+              <div class="description-supporting-text">
+                Shop & Save Money
+              </div>
+            </div>
+          </div>
+
+
+          <div class="flex-fill py-3">
+            <div class="d-flex justify-content-center">
+              <div id='description-shipping'>
+              </div>
+            </div>
+
+            <div class="d-flex flex-column">
+              <div class='description-header'>
+                Free Delivery & COD Available
+              </div>
+              <div class="description-supporting-text">
+                Find Amazing Deals
+              </div>
+            </div>
+          </div>
+
+
+          <div class="flex-fill py-3">
+            <div class="d-flex justify-content-center">
+              <div id='description-hours'>
+              </div>
+            </div>
+
+            <div class="d-flex flex-column">
+              <div class='description-header'>
+                Same Day Shipping
+              </div>
+              <div class="description-supporting-text">
+                Get Your Product in 24 Hours
+              </div>
+            </div>
+          </div>
+
+          
+          
+
+        </div>
+      </div>
     </div>
+
+       
+    
+
+        
 
     <!-- VIEWED PRODUCTS, WISHLIST ITEMS AND CART ITEMS THAT WERE NOT PURCHASED, IF LOGGED IN OR SESSION IS NOT DESTROYED -->
     
@@ -141,7 +226,7 @@
               $description = $row['description'];
               $item_img = $row['img_path'];
           ?>
-          <div class="col-lg-2 col-md-4 col-sm-6">
+          <div class="col-lg-2 col-md-3">
             <a href="product.php?id=<?= $id ?>">
               <div class = 'card'>
                 <a href="store.php?id=<?= $row['id'] ?>">
@@ -184,7 +269,7 @@
               $description = $row['description'];
               $item_img = $row['img_path'];
           ?>
-          <div class="col-lg-2 col-md-4 col-sm-6 px-1 pb-2">
+          <div class="col-lg-2 col-md-3 col-sm-6 px-1 pb-2">
             <a href="product.php?id=<?= $id ?>">
               <div class = 'card h-700'>
                 <img class='card-img-top' src="<?= $item_img ?>" > 

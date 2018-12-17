@@ -57,7 +57,7 @@
   <body>
 
     <!-- NAVIGATION  -->
-    <nav class="navbar navbar-main navbar-expand-lg navbar-expand-md navbar-expand-sm text-light py-1 sticky-top">
+    <nav class="navbar navbar-main navbar-expand-lg navbar-expand-md navbar-expand-sm text-light py-1">
 
         <div class="container d-flex flex-row">
 

@@ -11,6 +11,8 @@
     /* font-family: 'Roboto-Regular', sans-serif; */
 }
 
+
+/* FONT SIZE */
 html {
     /* font size root */
     font-size: 12px;
@@ -32,6 +34,7 @@ h2 {
 h3 {
     font-size: 1.25rem;
 }
+
 
 .no-border:focus {
    outline: none!important;
@@ -157,10 +160,10 @@ div#login_image {
 
 #cart-img {
     background-image: url("../images/shopping-bag-header.png")!important; 
-    height: 2.7em;
-    width: 2.7em;
+    height: 2.9em;
+    width: 2.9em;
     background-repeat: no-repeat;
-    background-size: 2.7em;
+    background-size: 2.9em;
     background-position: 100%;
 }
 
@@ -173,7 +176,10 @@ nav.navbar-main {
 .badge {
     background-color: #F64F84!important;
     color: white!important; 
-    margin: 14px 10px 10px 10px!important;
+    margin: 14px 10px!important;
+    font-size: 98%!important;
+    font-weight: 100!important;
+    /* margin: 16px 10px 10px 8px!important; */
 }
 
 .fa-search {
@@ -204,40 +210,46 @@ box-shadow: 1px 1px 10px 0 rgba(0,0,0,.2);
 
 
 /*============================ INDEX ==========================*/
+
+div.description-header {
+    font-weight: bold!important;
+    padding-top: 5px;
+}
+
+div.description-supporting-text {
+    color: gray!important;
+}
+
 div#description-quality {
+    height: 4em!important;
+    width: 4em!important;
+    background-size: 4em!important;
+    background-repeat: no-repeat!important;
     background-image: url("../images/quality-gradient-filled.png")!important; 
-    height: 4em;
-    width: 4em;
-    background-size: 4em;
-    background-repeat: no-repeat;
-    /* background-position: 100%; */
 }
 
 div#description-shipping {
+    height: 4em!important;
+    width: 4em!important;
+    background-size: 4em!important;
+    background-repeat: no-repeat!important;
     background-image: url("../images/delivery-truck-gradient-filled.png")!important; 
-    height: 4em;
-    width: 4em;
-    background-size: 4em;
-    background-repeat: no-repeat;
-    /* background-position: 100%; */
 }
 
 div#description-save {
+    height: 4em!important;
+    width: 4em!important;
+    background-size: 4em!important;
+    background-repeat: no-repeat!important;
     background-image: url("../images/save-gradient-filled.png")!important; 
-    height: 4em;
-    width: 4em;
-    background-size: 4em;
-    background-repeat: no-repeat;
-    /* background-position: 100%; */
 }
 
 div#description-hours {
+    height: 4em!important;
+    width: 4em!important;
+    background-size: 4em!important;
+    background-repeat: no-repeat!important;
     background-image: url("../images/24-hours-gradient-filled.png")!important; 
-    height: 4em;
-    width: 4em;
-    background-size: 4em;
-    background-repeat: no-repeat;
-    /* background-position: 100%; */
 }
 
 /*============================ EFFECTS ==========================*/
@@ -264,6 +276,7 @@ button.hover_btn:active {
 /*============================ DESKTOP ==========================*/
 
 @media only screen and (min-width: 961px) {
+
 
     /* HEADER */
 
@@ -331,6 +344,26 @@ button.hover_btn:active {
 
 @media only screen and (min-width:426px) and (max-width:960px) { 
 
+    /* FONT SIZE */
+    h1 {
+        /* 21px */
+        font-size: 1.5rem; 
+    }
+    
+    h2 {
+        /* 18 px */
+        font-size: 1.2rem;
+    }
+    
+        /* 15px */
+    h3 {
+        font-size: 1rem;
+    }
+
+    p, div {
+        font-size: 0.8rem;
+    }
+
     /* HEADER */
     #website_name {
         font-family: 'Fredoka One', cursive!important;
@@ -393,6 +426,29 @@ button.hover_btn:active {
 /*==============================MOBILE==============================*/
 
 @media only screen and (max-width:425px) { 
+
+    /* FONT SIZE */
+    
+    /* the following adjusts according to the root */
+    h1 {
+        /* 21px */
+        font-size: 1.2rem; 
+    }
+    
+    h2 {
+        /* 18 px */
+        font-size: 1rem;
+    }
+    
+        /* 15px */
+    h3 {
+        font-size: 0.9rem;
+    }
+
+    p, div {
+        font-size: 0.8rem;
+    }
+
 
     /* HEADER */
 
