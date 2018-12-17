@@ -42,8 +42,14 @@
     <!-- Bootstrap CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- SLICK -->
+    <link rel="stylesheet" type="text/css" href="../sources/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="../sources/slick/slick-theme.css"/>
+
     <!-- EXTERNAL CSS -->
     <link href="../assets/css/style.css" rel="stylesheet">
+
+
     
   </head>
 
@@ -51,7 +57,7 @@
   <body>
 
     <!-- NAVIGATION  -->
-    <nav class="navbar navbar-main navbar-expand-lg navbar-expand-md navbar-expand-sm text-light py-1">
+    <nav class="navbar navbar-main navbar-expand-lg navbar-expand-md navbar-expand-sm text-light py-1 sticky-top">
 
         <div class="container d-flex flex-row">
 
@@ -248,30 +254,6 @@
                 
         </div>
     </nav>
-    
-    <!-- CATEGORIES: TO BE INCLUDED ONLY IN INDEX.PHP -->
-    <!-- <div class="container-fluid border">
-        <div class="row">
-            <div class="col-1"></div>
-            <div class="col-10">
-                <div class="row text-center">
-            
-                    <?php 
-                        $sql = " SELECT * FROM tbl_categories LIMIT 7";
-                        $statement = $conn->prepare($sql);
-                        $statement->execute();
-                        
-                        while($row = $statement->fetch()){  
-                    ?>
-                    
-                    <div class='border flex-fill py-3 dropdown'><?= $row['name']?></div>
-                    <?php }?>
-                </div>
-            </div>
-            <div class="col-1"></div>
-        </div>  
-    </div> -->
-
 
     <!-- ALERTS -->
     <div class="container">

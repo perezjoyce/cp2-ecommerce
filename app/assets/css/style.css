@@ -170,11 +170,6 @@ nav.navbar-main {
     background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-#website_name {
-    font-family: 'Fredoka One', cursive!important;
-    font-size: 2em!important;
-}
-
 .badge {
     background-color: #F64F84!important;
     color: white!important; 
@@ -207,22 +202,6 @@ background: #fff;
 box-shadow: 1px 1px 10px 0 rgba(0,0,0,.2);
 }
 
-#livesearch {
-    padding-top: 3em;
-    position: absolute;
-    z-index: 2!important;
-    /* margin-top: 5em!important; */
-}
-
-.livesearch-item{
-    width: 52vw!important;
-    background:  #fff!important;
-    font-size: 14px!important;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    z-index: 5;
-}
-
 
 /*============================ INDEX ==========================*/
 div#description-quality {
@@ -243,6 +222,15 @@ div#description-shipping {
     /* background-position: 100%; */
 }
 
+div#description-save {
+    background-image: url("../images/save-gradient-filled.png")!important; 
+    height: 4em;
+    width: 4em;
+    background-size: 4em;
+    background-repeat: no-repeat;
+    /* background-position: 100%; */
+}
+
 div#description-hours {
     background-image: url("../images/24-hours-gradient-filled.png")!important; 
     height: 4em;
@@ -252,14 +240,54 @@ div#description-hours {
     /* background-position: 100%; */
 }
 
-
-
-
+/*============================ EFFECTS ==========================*/
+a.hover_bold:hover,
+a.hover_bold:active,
+a.hover_bold:focus {
+    color: lightcoral!important;
+    font-weight: bolder!important;
+}
+button.hover_btn {
+    border: 1px solid lightgray!important;
+    color: gray;
+}
+button.hover_btn:hover,
+button.hover_btn:focus,
+button.hover_btn:active {
+    background: #12c2e9; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #12c2e9, #c471ed, #f64f59); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border: white!important;
+    font-weight: bolder!important;
+    color: white!important;
+}
 /*============================ DESKTOP ==========================*/
 
 @media only screen and (min-width: 961px) {
 
     /* HEADER */
+
+    #website_name {
+        font-family: 'Fredoka One', cursive!important;
+        font-size: 3em!important;
+    }
+
+    #livesearch {
+        padding-top: 3em;
+        position: absolute;
+        z-index: 2!important;
+        /* margin-top: 5em!important; */
+    }
+    
+    .livesearch-item{
+        width: 48vw!important;
+        background:  #fff!important;
+        font-size: 14px!important;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        z-index: 5;
+    }
+
     #cartDropdown_menu {
         min-width:21em!important;
     }
@@ -278,7 +306,7 @@ div#description-hours {
         /* margin-left: 10em!important; */
         /* min-width: 30em!important; */
         /* width: 38em!important; */
-        width: 52vw!important;
+        width: 48vw!important;
         background-image: url("../../assets/images/search-gradient.png")!important;
         background-repeat: no-repeat;
         background-size: 1.2em;
@@ -304,6 +332,27 @@ div#description-hours {
 @media only screen and (min-width:426px) and (max-width:960px) { 
 
     /* HEADER */
+    #website_name {
+        font-family: 'Fredoka One', cursive!important;
+        font-size: 2em!important;
+    }
+
+    #livesearch {
+        padding-top: 3em;
+        position: absolute;
+        z-index: 2!important;
+        /* margin-top: 5em!important; */
+    }
+    
+    .livesearch-item{
+        width: 50vw!important;
+        background:  #fff!important;
+        font-size: 12px!important;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        z-index: 5;
+    }
+
     #profileDropdown_menu {
         margin-top:19px!important
     }
@@ -346,6 +395,22 @@ div#description-hours {
 @media only screen and (max-width:425px) { 
 
     /* HEADER */
+
+    .livesearch-item{
+        width: 95vw!important;
+        background:  #fff!important;
+        font-size: 12px!important;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        z-index: 5;
+    }
+
+
+    #website_name {
+        font-family: 'Fredoka One', cursive!important;
+        font-size: 3em!important;
+    }
+
     #login-reg-header {
         /* width: 10vw!important; */
         font-size: 10px!important;

@@ -1,8 +1,8 @@
 <?php require_once "../partials/header.php";?>
+<?php include_once "../partials/categories.php"; ?>
 <?php require_once "../controllers/connect.php";?>
-
-
 		<!-- PAGE CONTENT -->
+
 		<div class="container my-5">
 			<div class="row">
 			

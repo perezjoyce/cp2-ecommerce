@@ -11,8 +11,8 @@
 	
     if($count) {
         while($row = $statement->fetch()) {
-            $productId = $row['id'];
-            echo "<a href='product.php?id=$productId' id='$productId'><div class='dropdown-item livesearch-item'>".$row['name']."</div></a>";
+            $categoryId = $row['id'];
+            echo "<a href='catalog.php?id=$categoryId' id='$categoryId'><div class='dropdown-item livesearch-item'>".$row['name']."</div></a>";
         }
     } else {
         echo "<a href='index.php'><div class='dropdown-item livesearch-item text-secondary'>Sorry, no results were found. :(</div></a>";
