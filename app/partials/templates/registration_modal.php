@@ -20,7 +20,7 @@
 
             <div class="container px-5 pb-2 pt-5 mb-4">
                 <div class="row mb-5 mt-4"> 
-                    <a class='text-danger modal-link col-6' data-url='../partials/templates/login_modal.php'>
+                    <a class='text-purple modal-link col-6' data-url='../partials/templates/login_modal.php'>
                         <h4>Log In</h4>
                     </a>
                     <div class='col-6 text-right'>
@@ -83,7 +83,7 @@
                     
 
                     <div class="d-flex flex-column text-center">
-                        <button type="button" class="btn btn-lg btn-warning flex-fill mr-2 mt-5 mb-3" id="btn_register">REGISTER</button>
+                        <button type="button" class="btn btn-lg flex-fill mr-2 mt-5 mb-3 btn-gradient" id="btn_register">REGISTER</button>
                         <small class='mb-3 text-left'>Or, register with</small>
                         <button type="button" class="btn btn-lg border mr-2 mb-5" id="btn_register_facebook">
                             <i class="fab fa-facebook-f text-primary mr-2"></i>

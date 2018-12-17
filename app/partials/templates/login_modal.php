@@ -65,7 +65,7 @@
                     <div class=' col-6'>
                         <h4>Log In</h4>
                     </div>
-                    <a class='text-right text-danger modal-link col-6' data-url='../partials/templates/registration_modal.php'>
+                    <a class='text-right text-purple modal-link col-6' data-url='../partials/templates/registration_modal.php'>
                         <h4>Register</h4>
                     </a>
                 </div>
@@ -81,7 +81,7 @@
 
                     <div class="form-group mt-5">
                         <input type="text" class="form-control form-control-lg" id="login_username_email" name="login_username_email" autocomplete="username" placeholder="Email or Username">
-                        <small class="validation text-danger"></small>
+                        <small class="validation"></small>
                     </div>
             
                     <div class="form-group my-5">
@@ -95,7 +95,7 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
-                                <small class="text-danger" id="login_password_validation"></small>
+                                <small id="login_password_validation"></small>
                             </div>
                             <div class="col-lg-6 text-right">
                                 <a class="btn" id="btn_forgot_password">
@@ -112,7 +112,7 @@
 
 
                     <div class="d-flex flex-column justify-content-end">
-                        <button type="button" class="btn btn-lg btn-warning flex-fill mr-2 mt-5 mb-3" id="btn_login">LOG IN</button>   
+                        <button type="button" class="btn btn-lg flex-fill mr-2 mt-5 mb-3 btn-gradient" id="btn_login">LOG IN</button>   
                         <small class='mb-3'>Or, log in with</small>
                         <button type="button" class="btn btn-lg border mr-2 mb-5" id="btn_login_facebook">
                             <i class="fab fa-facebook-f text-primary mr-2"></i>

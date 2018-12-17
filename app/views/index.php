@@ -179,7 +179,7 @@
                 Same Day Shipping
               </div>
               <div class="description-supporting-text">
-                Get Your Product in 24 Hours
+                Get Your Order in 24 Hours
               </div>
             </div>
           </div>

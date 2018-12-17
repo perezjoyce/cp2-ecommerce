@@ -244,7 +244,7 @@
                     <li class='nav-item'>
                         <a class='nav-link text-light modal-link btn-border text-center' id='login-reg-header' data-id='<?= $userId ?>' data-url='../partials/templates/login_modal.php' role='button'> 
                             <!-- <i class="far fa-user"></i> -->
-                            Login | Register
+                            Log In | Register
                         </a>
                     </li>
                             <?php } ?>

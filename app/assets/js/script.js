@@ -19,7 +19,7 @@ $(document).ready( () => {
 		  x.type = "password";
 		  	$('.eye').removeClass('fa-eye');
 			$('.eye').addClass('fa-eye-slash');
-			$('#btn_view_registration_password').css("border-bottom-color", "red");
+			$('#btn_view_registration_password').css("border-bottom-color", "#c471ed");
 		}
 	}
 
@@ -62,7 +62,7 @@ $(document).ready( () => {
 
 		//email verification
 		if(email == "" || username == "" || password == "") {
-			$("#registration_error_message").css("color", "red");
+			$("#registration_error_message").css("color", "#c471ed");
 			$("#registration_error_message").text("All fields are required."); 
 			error_flag = 1;
 		} else {
@@ -73,7 +73,7 @@ $(document).ready( () => {
 			$("#registration_error_message").text(""); 
 
 			if (countU < 5) {
-				$("#registration_username_validation").css("color", "red");
+				$("#registration_username_validation").css("color", "#c471ed");
 				$("#registration_username_validation").text("Username needs at least 5 characters.");
 				error_flag = 1;
 			} else {
@@ -81,7 +81,7 @@ $(document).ready( () => {
 			}
 	
 			if (countP < 8) {
-				$("#registration_password_validation").css("color", "red");
+				$("#registration_password_validation").css("color", "#c471ed");
 				$("#registration_password_validation").text("Password needs at least 8 characters.");
 				error_flag = 1;
 			} else {
@@ -117,11 +117,11 @@ $(document).ready( () => {
 				"success": (dataFromPHP) => {
 
 					if (dataFromPHP == "invalidEmail") {
-						$("#registration_email_validation").text("color", "red");
+						$("#registration_email_validation").text("color", "#c471ed");
 						$("#registration_email_validation").text("Please enter a valid email."); 
 					 
 					} else if (dataFromPHP == "emailExists") {
-						$("#registration_email_validation").text("color", "red");
+						$("#registration_email_validation").text("color", "#c471ed");
 						$("#registration_email_validation").text("Email already exists."); 
 
 					} else {
@@ -140,13 +140,13 @@ $(document).ready( () => {
 							"type": "POST",
 							"success": (dataFromPHP) => {
 								if (dataFromPHP == "userExists") {
-									$("#registration_username_validation").text("color", "red");
+									$("#registration_username_validation").text("color", "#c471ed");
 									$("#registration_username_validation").text("User exists."); 
 								} else if ($.parseJSON(dataFromPHP)) {
 									let data = $.parseJSON(dataFromPHP);
 									location.href="profile.php?id=" + data.id;
 								} else {
-									$("#registration_error_message").css("color", "red");
+									$("#registration_error_message").css("color", "#c471ed");
 									$("#registration_error_message").text("Error encountered. Please try again."); 
 								}	
 							}
@@ -174,14 +174,14 @@ $(document).ready( () => {
 		  x.type = "password";
 		  	$('.eye').removeClass('fa-eye');
 			$('.eye').addClass('fa-eye-slash');
-			$('#btn_view_login_password').css("border-bottom-color", "red");
+			$('#btn_view_login_password').css("border-bottom-color", "#c471ed");
 		}
 	}
 	
 
-	// ADJUSTING BORDER OF EYE BUTTON
+	// ADJUSTING BORDER OF EYE BUTTON -- not working
 	$(document).on('focusin', '#login_password', ()=> {
-		$('#btn_view_login_password').css("border-bottom-color", "red");
+		$('#btn_view_login_password').css("border-bottom-color", "#c471ed");
 	});
 
 	$(document).on('focusout', '#login_password', ()=> {
@@ -200,8 +200,9 @@ $(document).ready( () => {
 		//username verification
 		if(username_email == ""){
 			$("#login_error_message").html(""); 
+			$("#login_username_email").next().css("color", "#c471ed");
 			$("#login_username_email").next().html("Email or Username is required.");
-			$('#login_username_email').css("border-bottom-color", "red");
+			$('#login_username_email').css("border-bottom-color", "#c471ed");
 			error_flag = 1;
 		} else {
 			$("#login_username_email").next().html("");
@@ -211,9 +212,11 @@ $(document).ready( () => {
 		//password verification
 		if(password == ""){
 			$("#login_error_message").html(""); 
+			$("#login_password_validation").css("color", "#c471ed");
 			$("#login_password_validation").text("Password is required.");
-			$('#login_password').css("border-bottom-color", "red");
-			$('#btn_view_login_password').css("border-bottom-color", "red");
+			$("#login_password_validation").css("border-bottom-color", "#c471ed");
+			$('#login_password').css("border-bottom-color", "#c471ed");
+			$('#btn_view_login_password').css("border-bottom-color", "#c471ed");
 			error_flag = 1;
 		} else {
 			$("#login_password_validation").text("");
@@ -239,11 +242,12 @@ $(document).ready( () => {
 						data = $.parseJSON(dataFromPHP);
 						location.href="users.php?id=" + data.id;
 					} else if (response.status == "loginFailed") {
-						$("#login_error_message").css("color", "red");
+						$("#login_error_message").css("color", "#c471ed");
 						$("#login_error_message").html(response.message); 
-						$('#login_password').css("border-bottom-color", "red");
-						$('#login_username_email').css("border-bottom-color", "red");
-						$('#btn_view_login_password').css("border-bottom-color", "red");
+						$('#login_password').css("border-bottom-color", "#c471ed");
+						$('#login_username_email').next().css("color", "#c471ed");
+						$('#login_username_email').css("border-bottom-color", "#c471ed");
+						$('#btn_view_login_password').css("border-bottom-color", "#c471ed");
 					} else if(response.status == 'redirect') {
 						$('#cartModal').click();
 						// update header reload navbar-nav contents
@@ -251,11 +255,12 @@ $(document).ready( () => {
 							$('#navbar-nav').replaceWith(response);
 						});
 					} else {
-						$("#login_error_message").css("color", "red");
+						$("#login_error_message").css("color", "#c471ed");
 						$("#login_error_message").html(response.message); 
-						$('#login_password').css("border-bottom-color", "red");
-						$('#login_username_email').css("border-bottom-color", "red");
-						$('#btn_view_login_password').css("border-bottom-color", "red");
+						$('#login_password').css("border-bottom-color", "#c471ed");
+						$('#login_username_email').next().css("color", "#c471ed");
+						$('#login_username_email').css("border-bottom-color", "#c471ed");
+						$('#btn_view_login_password').css("border-bottom-color", "#c471ed");
 					}
 				}
 			});

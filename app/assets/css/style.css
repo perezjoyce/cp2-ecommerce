@@ -12,6 +12,7 @@
 }
 
 
+
 /* FONT SIZE */
 html {
     /* font size root */
@@ -34,7 +35,6 @@ h2 {
 h3 {
     font-size: 1.25rem;
 }
-
 
 .no-border:focus {
    outline: none!important;
@@ -86,8 +86,31 @@ a.btn-border {
 }
 
 
+.text-purple {
+    color: #c471ed!important;
+}
+
+.purple-link:focus,
+.purple-link:hover {
+    color: #c471ed!important;
+}
+
 
 /* ================================ MODALS =================================== */
+/* LOGIN */
+.btn-gradient {
+    background: #12c2e9; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #12c2e9, #c471ed, #f64f59); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border: white!important;
+    color: white!important;
+}
+
+.btn-gradient:focus  {
+   box-shadow: none!important;
+   border:white!important;
+   outline:0!important;
+}
 
 /* MODAL CONTAINER */
 .modal-body {
@@ -122,7 +145,7 @@ input#register_password:focus,
 input#cpass:focus {
     -webkit-box-shadow: none!important;
     box-shadow: none!important;
-    border-bottom: 1px solid red!important;
+    border-bottom: 1px solid #c471ed!important;
 }
 
 div#login_image {
@@ -155,7 +178,7 @@ div#login_image {
 }
 
 
-/* ================================ HEADER =================================== */
+/* ================================ HEADER & FOOTER =================================== */
 
 
 #cart-img {
@@ -167,10 +190,11 @@ div#login_image {
     background-position: 100%;
 }
 
-nav.navbar-main {
+nav.navbar-main,
+footer#footer-main {
     background: #12c2e9; /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #12c2e9, #c471ed, #f64f59); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59); /*W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+
 }
 
 .badge {
@@ -182,9 +206,9 @@ nav.navbar-main {
     /* margin: 16px 10px 10px 8px!important; */
 }
 
-.fa-search {
+/* .fa-search {
     color:#7200da!important;
-}
+} */
 
 #search:focus {
     outline:none!important;
@@ -206,6 +230,10 @@ nav.navbar-main {
 #cartDropdown_menu {
 background: #fff;
 box-shadow: 1px 1px 10px 0 rgba(0,0,0,.2);
+}
+
+a.footer-link {
+    font-weight: 100!important;
 }
 
 
@@ -256,7 +284,7 @@ div#description-hours {
 a.hover_bold:hover,
 a.hover_bold:active,
 a.hover_bold:focus {
-    color: lightcoral!important;
+    color: #c471ed!important;
     font-weight: bolder!important;
 }
 button.hover_btn {
@@ -273,6 +301,7 @@ button.hover_btn:active {
     font-weight: bolder!important;
     color: white!important;
 }
+
 /*============================ DESKTOP ==========================*/
 
 @media only screen and (min-width: 961px) {
