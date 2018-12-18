@@ -25,9 +25,9 @@
 						}
 
 						// DISPLAYING ALL AVAILABLE CATEGORIES
-						$sql = "SELECT * FROM tbl_categories";
+						$sql = "SELECT * FROM tbl_categories WHERE parent_category_id = ?";
 						$statement = $conn->prepare($sql);
-						$statement->execute();
+						$statement->execute([$id]);
 
 						if ($statement->rowCount() > 0){
 							

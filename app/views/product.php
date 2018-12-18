@@ -156,6 +156,8 @@
               </div>
               
               <div class='mb-5'> <?= $description ?> </div>
+
+              
               
               <div class='d-flex flex-row'>
 
@@ -419,6 +421,40 @@
 
     </div>
     <!-- /.PAGE CONTENT -->
+    <div class="container">
+      <div class="your-class">
+        <div class='slick-item'>your content 1</div>
+        <div class='slick-item'>your content 2</div>
+        <div class='slick-item'>your content 3</div>
+
+        <div class='slick-item'>your content 4</div>
+        <div class='slick-item'>your content 5</div>
+        <div class='slick-item'>your content 6</div>
+
+        <div class='slick-item'>your content 7</div>
+        <div class='slick-item'>your content 8</div>
+        <div class='slick-item'>your content 9</div>
+
+        <div class='slick-item'>your content 10</div>
+        <div class='slick-item'>your content 11</div>
+        <div class='slick-item'>your content 12</div>
+
+        <div class='slick-item'>your content 13</div>
+        <div class='slick-item'>your content 14</div>
+        <div class='slick-item'>your content 15</div>
+      </div>
+    </div>
+    
 
 <?php require_once "../partials/footer.php";?>
 <?php require_once "../partials/modal_container.php"; ?>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.your-class').slick({
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    accessibility: true,
+    dots: true
+  });
+});
+</script>

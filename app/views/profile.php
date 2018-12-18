@@ -5,7 +5,10 @@
 <?php 
 
     if(!isset($_SESSION['id'])) {
-        header("location: index.php?msg=NotLoggedIn");
+        // ob_clean();
+        // header("location: index.php?msg=NotLoggedIn"); // doesn't work because header already exists
+        // ECHO THIS TO REDIRECT YOU TO HEADER
+        echo "<script>window.location.href='".BASE_URL."/app/views/'</script>";
     }
 
     $id = $_GET['id'];

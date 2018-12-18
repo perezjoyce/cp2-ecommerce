@@ -71,7 +71,7 @@
     line-height: 1;
 
     opacity: .75;
-    color: white;
+    color:gray;
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -201,4 +201,14 @@
 {
     opacity: .75;
     color: black;
+}
+
+.slick-item {
+    background: #fff;
+    color: #3498db;
+    font-size: 36px;
+    line-height: 36px;
+    margin: 10px;
+    position: relative;
+    text-align: center;
 }

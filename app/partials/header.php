@@ -43,13 +43,11 @@
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- SLICK -->
-    <link rel="stylesheet" type="text/css" href="../sources/slick/slick.css"/>
-    <link rel="stylesheet" type="text/css" href="../sources/slick/slick-theme.css"/>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link href="../sources/slick/slick-theme.css" rel="stylesheet"/>
 
     <!-- EXTERNAL CSS -->
-    <link href="../assets/css/style.css" rel="stylesheet">
-
-
+    <link href="../assets/css/style.css" rel="stylesheet" />
     
   </head>
 
@@ -232,7 +230,7 @@
 
                             </a>
                             <div class="dropdown-divider my-3"></div>
-                            <a class="dropdown-item mb-3" href='../controllers/process_logout.php?id=$id'>
+                            <a class="dropdown-item mb-3" href='../controllers/process_logout.php?id=<?=$id?>'>
                                 <i class='fas fa-sign-in-alt mr-2'></i>
                                 Logout
                             </a>
@@ -242,7 +240,7 @@
                             <?php } else { ?>
                     
                     <li class='nav-item'>
-                        <a class='nav-link text-light modal-link btn-border text-center' id='login-reg-header' data-id='<?= $userId ?>' data-url='../partials/templates/login_modal.php' role='button'> 
+                        <a class='nav-link text-light modal-link btn-border text-center' id='login-reg-header' data-url='../partials/templates/login_modal.php' role='button'> 
                             <!-- <i class="far fa-user"></i> -->
                             Log In | Register
                         </a>
