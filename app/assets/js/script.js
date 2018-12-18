@@ -622,7 +622,7 @@ $(document).ready( () => {
 	// =============================================================================== //
 
 	$('.carousel').carousel({
-		interval: 2000
+		interval: 1500
 	  })
 
 	// SLICK 
@@ -634,7 +634,7 @@ $(document).ready( () => {
 		slidesToShow: 6,
 		slidesToScroll: 3,
 		autoplay: true,
-		autoplaySpeed: 1000,
+		autoplaySpeed: 2000,
 		responsive: [
 			{
 			  breakpoint: 1024,
