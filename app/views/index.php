@@ -60,59 +60,6 @@
     </div>
     
     <!-- COMPANY DESCRIPTIONS -->
-    <!-- <div class="container mb-3">
-      <div class="row py-4 mx-0">
-        <div class="col-4">
-          <div class="d-flex flex-row">
-            <div id='description-quality' class='mr-3 ml-5'>
-            </div>
-            <div class=' mt-2'>
-              <div class="d-flex flex-column align-items-stretch">
-                <div class="heading mb-0 pb-0">
-                  <h2>100% Mom-Approved</h2>
-                </div>
-                <div class="description">
-                  Guaranteed Safe Products
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-4">
-          <div class="d-flex flex-row">
-            <div id='description-save' class='mr-3 ml-5'>
-            </div>
-            <div class=' mt-2'>
-              <div class="d-flex flex-column align-items-stretch">
-                <div class="heading mb-0 pb-0">
-                  <h2>Lowest Prices</h2>
-                </div>
-                <div class="description">
-                  Shop Here & Save Money 
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-4">
-          <div class="d-flex flex-row">
-            <div id='description-shipping' class='mr-3'>
-            </div>
-            <div class=' mt-2'>
-              <div class="d-flex flex-column align-items-stretch">
-                <div class="heading mb-0 pb-0">
-                  <h2>Free Delivery & COD</h2>
-                </div>
-                <div class="description">
-                  Get Your Items in 24-Hours!
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>       
-    </div> -->
-
     <div class="container mb-4">
       <div class="row mx-0 text-center">
         <div class="col d-flex flex-row">
@@ -191,15 +138,66 @@
       </div>
     </div>
 
-       
-    
-
-        
-
     <!-- VIEWED PRODUCTS, WISHLIST ITEMS AND CART ITEMS THAT WERE NOT PURCHASED, IF LOGGED IN OR SESSION IS NOT DESTROYED -->
     
     <!-- FEATURED SHOPS -->
-    <div class="container mb-5">
+    <div class="container mb-5 vanish-sm">
+      <div class="row">
+        <div class="col-6">
+            <h2>
+              FEATURED SHOPS
+            </h2>
+        </div>
+        <div class="col-6 text-right pt-2">View All&nbsp;<i class="fas fa-angle-double-right"></i></i></div>
+      </div>
+      <div class="row no-gutters autoplay">
+        <?php 
+
+          $sql = " SELECT * FROM tbl_items LIMIT 12 ";
+          $statement = $conn->prepare($sql);
+          $statement->execute();
+          //$result = mysqli_query($conn,$sql);
+
+          //CHECK IF THERE'S DATA
+          if($statement->rowCount()){
+            //CREATE A ROW VARIABLE
+            while($row = $statement->fetch()){
+              $id = $row['id'];
+              $name = $row['name'];
+              $price = $row['price'];
+              $description = $row['description'];
+              $item_img = $row['img_path'];
+          ?>
+          <div class="col-lg-2 col-md-3 slick-item px-0" style="width: 250px;">
+              <div class="row">
+                <a href="product.php?id=<?= $id ?>">
+                  <div class = 'card'>
+                    <a href="store.php?id=<?= $row['id'] ?>">
+                      <img class='card-img-top' src="<?= $item_img ?>">
+                    </a> 
+                  </div>
+                </a>
+              </div>
+
+              <div class="row">
+                <a href="product.php?id=<?= $id ?>">
+                  <div class = 'card'>
+                    <a href="store.php?id=<?= $row['id'] ?>">
+                      <img class='card-img-top' src="<?= $item_img ?>">
+                    </a> 
+                  </div>
+                </a>
+              </div>
+            
+          </div>
+              
+        <?php }} ?>
+
+      </div>
+    </div>
+
+    <!-- SM FEATURED SHOPS -->
+    <div class="container mb-5 vanish-lg vanish-md">
       <div class="row">
         <div class="col-6">
             <h2>
@@ -211,7 +209,7 @@
       <div class="row no-gutters">
         <?php 
 
-          $sql = " SELECT * FROM tbl_items LIMIT 12 ";
+          $sql = " SELECT * FROM tbl_items LIMIT 3 ";
           $statement = $conn->prepare($sql);
           $statement->execute();
           //$result = mysqli_query($conn,$sql);

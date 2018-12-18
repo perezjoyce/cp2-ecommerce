@@ -208,7 +208,7 @@
     color: #3498db;
     font-size: 36px;
     line-height: 36px;
-    margin: 10px;
+    /* margin: 10px; */
     position: relative;
     text-align: center;
 }
