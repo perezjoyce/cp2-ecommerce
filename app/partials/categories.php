@@ -6,7 +6,7 @@
                 <div class="row text-center">
             
                     <?php 
-                        $sql = " SELECT * FROM tbl_categories LIMIT 7";
+                        $sql = " SELECT * FROM tbl_categories LIMIT 8";
                         $statement = $conn->prepare($sql);
                         $statement->execute();
                         
@@ -21,12 +21,6 @@
                     </div>
 
                     <?php } ?>
-
-                    <div class='flex-fill py-3'>
-                        <a class='font-weight-bold hover_bold' href="catalog.php?id=<?= $row['id']?>">
-                             SALE
-                        </a>
-                    </div>
 
                 </div>
             </div>

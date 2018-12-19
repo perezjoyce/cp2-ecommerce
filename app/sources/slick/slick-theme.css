@@ -16,7 +16,32 @@
     src: url('./fonts/slick.eot?#iefix') format('embedded-opentype'), url('./fonts/slick.woff') format('woff'), url('./fonts/slick.ttf') format('truetype'), url('./fonts/slick.svg#slick') format('svg');
 }
 /* Arrows */
-.slick-prev,
+.slick-prev
+{
+    font-size: 0;
+    line-height: 0;
+
+    position: absolute;
+    top: 50%;
+
+    display: block;
+
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    cursor: pointer;
+
+    color: transparent;
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+
 .slick-next
 {
     font-size: 0;
@@ -30,9 +55,9 @@
     width: 20px;
     height: 20px;
     padding: 0;
-    -webkit-transform: translate(0, -50%);
-    -ms-transform: translate(0, -50%);
-    transform: translate(0, -50%);
+    -webkit-transform: translate(-85%, -50%);
+    -ms-transform: translate(-85%, -50%);
+    transform: translate(-85%, -50%);
 
     cursor: pointer;
 
@@ -41,6 +66,8 @@
     outline: none;
     background: transparent;
 }
+
+
 .slick-prev:hover,
 .slick-prev:focus,
 .slick-next:hover,
@@ -81,7 +108,7 @@
 .slick-prev
 {
     /* left: -25px; */
-    left: -13px;
+    left: -9px;
     z-index: 5;
 }
 [dir='rtl'] .slick-prev
@@ -100,8 +127,8 @@
 
 .slick-next
 {
-    /* right: -25px; */
-    right: -5px;
+    right: -25px;
+    /* right: -5px; */
 }
 [dir='rtl'] .slick-next
 {

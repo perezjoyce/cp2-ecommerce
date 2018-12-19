@@ -1,30 +1,28 @@
 <?php
-	// connect to database
+	session_start();
 	require_once "connect.php";
+	require_once "../controllers/functions.php";
 
-	// receive value and assign to variable
 	$categoryId = $_POST['categoryId'];
+	$data = '';
 
 	// query database using variable
-	$sql= "SELECT * FROM tbl_items WHERE category_id = '$categoryId'";
+	$sql= "SELECT c.name, c.id, c.parent_category_id, i.id AS product_id, i.name, i.price, i.img_path FROM tbl_categories c JOIN tbl_items i ON i.category_id = c.id WHERE c.id = ? ";
+	$statement = $conn->prepare($sql);
+	$statement->execute([$categoryId]);	
 
-	//get all results and assign to variable
-	$result = mysqli_query($conn, $sql);
+	if($statement->rowCount()){
 
-	$data = '';
-	// loop if resuls is >=1
-	$result = mysqli_query($conn,$sql);
-	if(mysqli_num_rows($result) > 0){
-
-		while($row = mysqli_fetch_assoc($result)){
-			$name = $row['name'];
+		while($row = $statement->fetch()){
 			$id = $row['id'];
+			$name = $row['name'];
+			$productId = $row['product_id'];
 			$price = $row['price'];
 	      	$item_img = $row['img_path'];
 ?>
-			  <div class='col-lg-4 col-md-6 mb-5'>
-				<a href='product.php?id=<?=$id?>'>
-					<div class = 'card h-700'>
+			<div class='col-lg-3 col-md-3 px-1 pb-2'>
+				<a href='product.php?id=<?=$productId?>'>
+					<div class = 'card h-700 border'>
 						<img class='card-img-top' src='<?=$item_img?>'>
 						<div class='card-body'>
 							<div class='font-weight-bold'><?=$name?></div>
@@ -36,7 +34,7 @@
 								if(isset($_SESSION['id'])) {
 									if (checkIfInWishlist($conn,$id) == 0) {
 							
-										echo	"<a class='mt-3 btn_add_to_wishlist_view' data-id='".$id."' role='button'>
+									echo	"<a class='mt-3 btn_add_to_wishlist_view' data-id='".$id."' role='button'>
 													<i class='far fa-heart' style='color:red'></i> 
 													<span class='product-wish-count$id'>
 													" . (getProductWishlishtCount($conn, $id) == 0 
@@ -66,21 +64,20 @@
 												</span>
 											</a>";
 								}
-							echo "		
+								?>		
 							</div>
 							<!-- /WISH LIST BUTTONS -->
 						</div>
 					</div>
 				</a>
-			</div>";
+			</div>
+<?php
 		}
 	} else {
 		$data = "No records found!";
 	}
 
+
 	echo $data;
-
-	
-
 
 ?>

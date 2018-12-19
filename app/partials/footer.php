@@ -78,9 +78,7 @@
               </a>
               
             </div>
-          </div>
-
-          
+          </div>  
 
           <div class="col border-left pl-5">
             <div class="d-flex flex-column pl-5">
@@ -115,7 +113,7 @@
               
               <div class="flex-fill">
                 
-                <a role='button' class='text-light modal-link btn-lg btn-border btn-block text-center' data-url='../partials/templates/registration_modal.php'>
+                <a role='button' class='text-light modal-link btn btn-lg btn-border btn-block text-center' data-url='../partials/templates/registration_modal.php'>
                   Register Now
                 </a>
 

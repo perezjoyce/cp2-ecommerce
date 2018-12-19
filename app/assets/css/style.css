@@ -100,6 +100,10 @@ a.btn-border {
     width: 200px;
 } 
 
+div.card:hover {
+    box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.2)!important; 
+}
+
 
 /* ================================ MODALS =================================== */
 /* LOGIN */
@@ -199,7 +203,7 @@ nav.navbar-main,
 footer#footer-main {
     background: #12c2e9; /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #12c2e9, #c471ed, #f64f59); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59); /*W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+
+    background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59); /*W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .badge {
@@ -394,7 +398,7 @@ button.hover_btn:active {
         font-size: 1rem;
     }
 
-    p, div {
+    p, div, a.btn {
         font-size: 0.8rem;
     }
 
@@ -479,7 +483,7 @@ button.hover_btn:active {
         font-size: 0.9rem;
     }
 
-    p, div {
+    p, div, a.btn {
         font-size: 0.8rem;
     }
 

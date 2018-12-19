@@ -168,10 +168,10 @@
               $description = $row['description'];
               $item_img = $row['img_path'];
           ?>
-          <div class="col-lg-2 col-md-3 slick-item px-0" style="width: 250px;">
+          <div class="col-lg-2 col-md-3 slick-item" style="width: 200px;">
               <div class="row">
                 <a href="product.php?id=<?= $id ?>">
-                  <div class = 'card'>
+                  <div class = 'card border-0'>
                     <a href="store.php?id=<?= $row['id'] ?>">
                       <img class='card-img-top' src="<?= $item_img ?>">
                     </a> 
@@ -181,7 +181,7 @@
 
               <div class="row">
                 <a href="product.php?id=<?= $id ?>">
-                  <div class = 'card'>
+                  <div class = 'card border-0'>
                     <a href="store.php?id=<?= $row['id'] ?>">
                       <img class='card-img-top' src="<?= $item_img ?>">
                     </a> 
@@ -226,7 +226,7 @@
           ?>
           <div class="col-lg-2 col-md-3">
             <a href="product.php?id=<?= $id ?>">
-              <div class = 'card'>
+              <div class = 'card border-0'>
                 <a href="store.php?id=<?= $row['id'] ?>">
                   <img class='card-img-top' src="<?= $item_img ?>">
                 </a> 
@@ -269,7 +269,7 @@
           ?>
           <div class="col-lg-2 col-md-3 col-sm-6 px-1 pb-2">
             <a href="product.php?id=<?= $id ?>">
-              <div class = 'card h-700'>
+              <div class = 'card h-700 border-0'>
                 <img class='card-img-top' src="<?= $item_img ?>" > 
                 <div class="card-body">
                   <div class='font-weight-bold'>

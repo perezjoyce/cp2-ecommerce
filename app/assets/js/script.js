@@ -481,26 +481,64 @@ $(document).ready( () => {
 
 
 	// SHOWING ITEMS THAT CORRESPOND TO THE SELECTED CATEGORY
-	function showCategories(categoryId) {
-			// alert(categoryId);
-		$.ajax({
-			url: "../controllers/show_items.php",
-			method: "POST",
-			data: {categoryId:categoryId},
-			success: (data) => {
-				$('#products').html('');
-				$('#products').html(data);
-			}
-		});
-	}
+	// window.showByChildCategories = function(categoryId) {
+	
+	// 	$.post("../controllers/show_items.php", {categoryId:categoryId},function(data){
+	// 		// let x = $.parseJSON(data);
+	// 		alert(data);
+	// 		$('#products_view').html("");
+	// 		$("#products_view").html(data);
+	// 	});
+
+	// }
+
+	$(document).on("click", ".sub_category_btn", function(e){
+		e.preventDefault();
+		let parentLink = this;
+		let categoryId = $(this).data('id');
+		let brandId = $(this).data('brandid');
+
+		if($(this).hasClass('level-2')) {
+			$("#selectedCatagoryId").val(categoryId);
+		}
+
+		if(brandId) {
+			$("#selectedBrandId").val(brandId);
+			$.post("../controllers/show_brand_items.php", 
+				{categoryId: categoryId, brandId: brandId}, 
+				function(response){
+				// let x = $.parseJSON(data);
+				//alert(data);
+					$("#products_view").html(response);
+			});
+		} else {
+			$.post("../controllers/show_items.php", {categoryId: categoryId}, function(data){
+				// let x = $.parseJSON(data);
+				//alert(data);
+				$("#products_view").html(data);
+	
+				// get all brands of this category via ajax
+				$.get("../controllers/process_get_category_brands.php", {id: categoryId}, 
+					function(response){
+						$('.level-3').remove();
+						$(response).insertAfter($(parentLink));
+				});
+	
+			});
+		}
+  	});
+  
 
 	//ARRANGING ITEMS ACCORDING TO PRICE
-  	$(document).on("change", "#priceOrder", function(){
-  		let value = $(this).val();
+  	$("#sort_products").on("change", function(){
+		  let value = $(this).val();
+		  let categoryId = $("#selectedCatagoryId").val();
+		  let brandId = $("#selectedBrandId").val();
 
-  		//AJAX
-  		$.post("../controllers/search_price.php", {value:value},function(data){
-  			$("#products").html(data);
+		  $.post("../controllers/sort_products.php", 
+			  {value:value, categoryId:categoryId, brandId: brandId}, 
+			  function(data){
+  			$("#products_view").html(data);
   		});
 	});
 	
@@ -633,8 +671,8 @@ $(document).ready( () => {
 		// dots: true,
 		slidesToShow: 6,
 		slidesToScroll: 3,
-		autoplay: true,
-		autoplaySpeed: 2000,
+		// autoplay: true,
+		// autoplaySpeed: 2000,
 		responsive: [
 			{
 			  breakpoint: 1024,
