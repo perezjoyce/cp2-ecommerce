@@ -37,7 +37,7 @@
 								?>
 
 							<div class='text-purple' id="<?=$id?>"><h3><?= $name ?></h3></div>
-							<hr>
+							<hr class='my-4'>
 							
 								<?php
 								// DISPLAYING ALL AVAILABLE CATEGORIES
@@ -96,9 +96,9 @@
 					 <!-- PASS IDs OF SELECTED BTNS -->
 					<input type="hidden" id="selectedBrandId">
 					<input type="hidden" id="selectedCatagoryId" value="<?= $_GET['id'] ?>">
-					<hr>
+					<hr class='my-4'>
 
-					 <!-- PRICE INPUT -->
+					<!-- SORT BY POPULARITY AND HIGH-LOW PRICE -->
 					<div class='row'>
 						<div class='col-12 d-flex flex-column'>
 							<div class='flex-fill mb-2'>Sort By </div>
@@ -108,16 +108,32 @@
 									<option value="1" selected>Popularity</option>
 									<option value="2"> Price - low to high </option>
 									<option value="3"> Price  - high to low </option>
-								
 								</select>
 							</div>
 						</div>
 					</div>
-					<hr>
-					<!-- /.PRICE INPUT -->
+					<hr class='my-4'>
+					<!-- /.SORT BY POP -->
+
+					<!-- SORT BY PRICE RANGE -->
+					<div class='row'>
+						<div class='col-12 d-flex flex-column'>
+							<div class='flex-fill mb-2'>Price Range </div>
+							<div class="flex-fill">
+								<div class="d-flex flex-row">
+									<input type="number" style='width:35%'; placeholder='Max' class='py-1 pl-2' id='price_range_min'>
+									<div class='pt-1'>&#8212;</div>
+									<input type="number" style='width:35%'; placeholder='Max' class='py-1 pl-2' id='price_range_max'>
+									<button id='btn_price_range' class='btn border' style='width:20%';><i class="fas fa-caret-right"></i></button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<hr class='my-4'>
+					<!-- /.SORT BY POP -->
 
 
-					<!-- RATING -->
+					<!-- SORT BY RATING -->
 					<div class='row'>
 						<div class='col-12 d-flex flex-column'>
 							<div class='flex-fill mb-2'>Rating </div>
@@ -172,7 +188,7 @@
 							</div>
 						</div>
 					</div>
-					<!-- /.RATING -->
+					<!-- /.SORT BY RATING -->
 				</div>
 				<!-- END OF FIRST COLUMN -->
 

@@ -553,8 +553,22 @@ $(document).ready( () => {
 			function(data){
 			$("#products_view").html(data);
 		});
-  });
+  	});
 	
+	// SORTING BY PRICE RANGE
+	$("#btn_price_range").on("click", function(){
+		let categoryId = $("#selectedCatagoryId").val();
+		let brandId = $("#selectedBrandId").val();
+		let minPrice = $("#price_range_min").val();
+		let maxPrice = $("#price_range_max").val();
+
+		$.post("../controllers/process_sort_by_price_range.php", 
+			{minPrice:minPrice, maxPrice:maxPrice, categoryId:categoryId, brandId: brandId}, 
+			function(data){
+			$("#products_view").html(data);
+		});
+
+	});
 	
 
 	// ==================================== GENERAL USE ============================== //
