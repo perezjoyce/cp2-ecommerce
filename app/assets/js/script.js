@@ -504,7 +504,7 @@ $(document).ready( () => {
 
 		if(brandId) {
 			$("#selectedBrandId").val(brandId);
-			$.post("../controllers/show_brand_items.php", 
+			$.post("../controllers/process_show_brand_items.php", 
 				{categoryId: categoryId, brandId: brandId}, 
 				function(response){
 				// let x = $.parseJSON(data);
@@ -512,7 +512,7 @@ $(document).ready( () => {
 					$("#products_view").html(response);
 			});
 		} else {
-			$.post("../controllers/show_items.php", {categoryId: categoryId}, function(data){
+			$.post("../controllers/process_show_items.php", {categoryId: categoryId}, function(data){
 				// let x = $.parseJSON(data);
 				//alert(data);
 				$("#products_view").html(data);
@@ -535,12 +535,25 @@ $(document).ready( () => {
 		  let categoryId = $("#selectedCatagoryId").val();
 		  let brandId = $("#selectedBrandId").val();
 
-		  $.post("../controllers/sort_products.php", 
+		  $.post("../controllers/process_sort_products.php", 
 			  {value:value, categoryId:categoryId, brandId: brandId}, 
 			  function(data){
   			$("#products_view").html(data);
   		});
 	});
+
+	//SORTING PRODUCTS BY RATING
+	$(".sort_by_rating").on("click", function(){
+		let rating = $(this).data('rating');
+		let categoryId = $("#selectedCatagoryId").val();
+		let brandId = $("#selectedBrandId").val();
+
+		$.post("../controllers/process_sort_by_rating.php", 
+			{rating:rating, categoryId:categoryId, brandId: brandId}, 
+			function(data){
+			$("#products_view").html(data);
+		});
+  });
 	
 	
 

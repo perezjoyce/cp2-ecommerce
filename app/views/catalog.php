@@ -36,7 +36,8 @@
 									$name = $row['name']; 
 								?>
 
-							<div class='mb-3 text-purple' id="<?=$id?>"><?= $name ?></div>
+							<div class='text-purple' id="<?=$id?>"><h3><?= $name ?></h3></div>
+							<hr>
 							
 								<?php
 								// DISPLAYING ALL AVAILABLE CATEGORIES
@@ -92,9 +93,10 @@
 						</div>
 					</div>
 					
-					<input type="text" id="selectedBrandId">
-					<input type="text" id="selectedCatagoryId" value="<?= $_GET['id'] ?>">
-					<hr class='my-5'>
+					 <!-- PASS IDs OF SELECTED BTNS -->
+					<input type="hidden" id="selectedBrandId">
+					<input type="hidden" id="selectedCatagoryId" value="<?= $_GET['id'] ?>">
+					<hr>
 
 					 <!-- PRICE INPUT -->
 					<div class='row'>
@@ -111,7 +113,66 @@
 							</div>
 						</div>
 					</div>
+					<hr>
 					<!-- /.PRICE INPUT -->
+
+
+					<!-- RATING -->
+					<div class='row'>
+						<div class='col-12 d-flex flex-column'>
+							<div class='flex-fill mb-2'>Rating </div>
+							<div class="flex-fill input-group mb-3">
+						
+								<!-- <select class="custom-select" id="sort_products" onchange="sort_products" data-id="<?= $_GET['id'];?>"> -->
+								<a class='flex-fill btn btn-block text-left m-0 px-0 py-1 sort_by_rating' data-rating='5'>
+									<i class='fas fa-star text-warning'></i>
+									<i class='fas fa-star text-warning'></i>
+									<i class='fas fa-star text-warning'></i>
+									<i class='fas fa-star text-warning'></i>
+									<i class='fas fa-star text-warning'></i>
+								</a>
+								
+								<a class='flex-fill btn btn-block text-left mx-0 px-0 py-1 sort_by_rating' data-rating='4'>
+									<i class='fas fa-star text-warning'></i>
+									<i class='fas fa-star text-warning'></i>
+									<i class='fas fa-star text-warning'></i>
+									<i class='fas fa-star text-warning'></i>
+									<i class='far fa-star' style='color:lightgray'></i>
+									& Up
+								</a>
+
+								<a class='flex-fill btn btn-block text-left m-0 px-0 py-1 sort_by_rating' data-rating='3'>
+									<i class='fas fa-star text-warning'></i>
+									<i class='fas fa-star text-warning'></i>
+									<i class='fas fa-star text-warning'></i>
+									<i class='far fa-star' style='color:lightgray'></i>
+									<i class='far fa-star' style='color:lightgray'></i>
+									& Up
+								</a>
+
+								<a class='flex-fill btn btn-block text-left m-0 px-0 py-1 sort_by_rating' data-rating='2'>
+									<i class='fas fa-star text-warning'></i>
+									<i class='fas fa-star text-warning'></i>
+									<i class='far fa-star' style='color:lightgray'></i>
+									<i class='far fa-star' style='color:lightgray'></i>
+									<i class='far fa-star' style='color:lightgray'></i>
+									& Up
+								</a>
+									
+								<a class='flex-fill btn btn-block text-left m-0 px-0 py-1 sort_by_rating' data-rating='1'>
+									<i class='fas fa-star text-warning'></i>
+									<i class='far fa-star' style='color:lightgray'></i>
+									<i class='far fa-star' style='color:lightgray'></i>
+									<i class='far fa-star' style='color:lightgray'></i>
+									<i class='far fa-star' style='color:lightgray'></i>
+									& Up
+								</a>
+								
+								</select>
+							</div>
+						</div>
+					</div>
+					<!-- /.RATING -->
 				</div>
 				<!-- END OF FIRST COLUMN -->
 

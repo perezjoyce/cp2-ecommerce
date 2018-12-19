@@ -23,7 +23,7 @@ if($id) :
                 $brandName = $row['brand_name'];
                 $brandCategoryId = $row['categoryId'];
                 $brandId = $row['brandId'];
-                echo "<a href=\"#\" class=\"flex-fill level-3 btn btn-block purple-link text-left my-0 py-2 px-0 sub_category_btn\" data-brandId='".$brandId."' data-id='".$brandCategoryId."'>".$brandName."</a>";
+                echo "<a href=\"#\" class=\"flex-fill level-3 btn btn-block purple-link text-left ml-3 py-2 px-0 sub_category_btn\" data-brandId='".$brandId."' data-id='".$brandCategoryId."'>".$brandName."</a>";
             endwhile;
     endif;
 endif;
