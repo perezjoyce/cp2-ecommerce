@@ -72,7 +72,8 @@
 				</a>
 			</div>
 <?php
-		}
+		} 
+		
 	} else {
 		$data = "No records found!";
 	}

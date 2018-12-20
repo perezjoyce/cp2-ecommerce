@@ -1,6 +1,8 @@
 <?php require_once "../partials/header.php";?>
-<?php include_once "../partials/categories.php"; ?>
 <?php require_once "../controllers/connect.php";?>
+<?php require_once "../controllers/functions.php";?>
+<?php include_once "../partials/categories.php"; ?>
+
 
 
 
@@ -13,7 +15,20 @@ if(isset($_SESSION['id'])) {
 
 ?>
 
-<div class="container my-5">
+<!-- BREADCRUMBS -->
+<div class="container">
+  <div class="row my-4">
+    <div class="col-12">
+      <?php 
+        $origin = $_SERVER['HTTP_REFERER'];
+        displayBreadcrumbs($conn, $id, $origin); 
+      
+      ?>
+    </div>
+</div>
+</div>
+
+<div class="container mb-5">
   <div class="row" style='height: 80vh;'>
     <!-- FIRST COLUMN (PICS) -->
     <div class="col-lg-6 col-md-7 col-sm-12">
@@ -32,9 +47,9 @@ if(isset($_SESSION['id'])) {
 
               ?>
             
-          <div class="card h700">
+          <div class="card h700" style='border:none;'>
               
-            <img src='<?=$url?>' style='width:100%;max-height:90px;' class='product_thumbnail' data-id='<?=$img_id?>' data-url='<?=$url?>'>
+            <img src='<?=$url?>' style='width:100%;max-height:100px;' class='product_thumbnail pb-3' data-id='<?=$img_id?>' data-url='<?=$url?>'>
             
           </div>
 
@@ -49,8 +64,7 @@ if(isset($_SESSION['id'])) {
         </div>
       </div>
 
-      <!-- <div class="row border mt-3"> -->
-      
+     
         <?php
 
         $sql = " SELECT * FROM tbl_carts WHERE cart_session=? AND item_id=?";
@@ -68,13 +82,13 @@ if(isset($_SESSION['id'])) {
           if($count) {
         ?>
           <button class='btn btn-lg btn-purple py-3' style="width:50%;" data-id='<?= $id ?>' role='button' id="btn_delete_from_cart" disabled>
-            <i class='fas fa-cart-plus'></i>
+            <i class='fas fa-shopping-bag'></i>
               &nbsp;Item is in bag
           </button>
         <?php } else { ?>
           <a class='btn btn-lg btn-purple py-3' style="width:50%;" data-id='<?= $id ?>' role='button' id="btn_add_to_cart">
-            <i class='fas fa-cart-plus'></i>
-              &nbsp;Add to Shopping Bag
+            <i class='fas fa-shopping-bag'></i>  
+            &nbsp;Add to Shopping Bag
           </a>
         <?php }?>
 
@@ -107,7 +121,7 @@ if(isset($_SESSION['id'])) {
     <!-- /FIRST COLUMN (PICS) -->
 
     <!-- SECOND COLUMN (PRODUCT DETAILS) -->
-    <div class="col border" style='overflow-y: scroll;'>
+    <div class="col" style='overflow-y: scroll;'>
         <?php
         if(isset($_SESSION['id'])) {
           $userId = $_SESSION['id'];
@@ -121,33 +135,88 @@ if(isset($_SESSION['id'])) {
           $price = $row['price'];
           $description = $row['description'];
           $item_img = $row['img_path'];
+          $brandId = $row['brandId'];
           $stocks = $row['stocks'];
         }
         ?>
       
       <!-- PRODUCT NAME -->
-      <div class="row">
-        <h1 class='font-weight-bold'><?= $name?></h1>
+      <div class="row pl-4">
+        <h2 class='font-weight-bold'><?= $name?></h2>
       </div>
+      
         
       <!-- PRODUCT RATING -->
-     
-      <div class="row">
+      <div class="row pl-4">
         <?
         $sql = "SELECT AVG(product_rating) as averageProductRating FROM tbl_ratings WHERE product_id = ?";
         $statement = $conn->prepare($sql);
         $statement->execute([$id]);
         $row = $statement->fetch();
         $averageRating = $row['averageProductRating'];
+        $averageRating = ($averageRating/5)*100;
+        $averageRating = round($averageRating, 1);
         ?>
-        <input type="hidden" value='<?=  $averageRating ?>'>
-        <input type="hidden" value='<?= ($averageRating/5)*100 ?>' id='average_product_rating'>
-        <div id='average_product_rating_in_stars'>
 
-        </div>
-
+        <!-- FOR DEBUGGING PURPOSES -->
+        <input type="hidden" value='<?= $averageRating ?>' id='average_product_rating'>
+        
+        <!-- AVE PRODUCT RATING AS STARS -->
+        <!-- NUMBER OF REVIEWS -->
+        <span id='average_product_rating_in_stars'>
+        </span>
+        <span>&nbsp;|&nbsp;</span>
+    
+          <?php 
+        if (isset($_SESSION['cart_session'])) { 
+          if (countRatingsPerProduct($conn, $id) === 0 || countRatingsPerProduct($conn, $id) == "") { ?>
+        <span class='rating-count<?=$id?>'>
+          <!-- no value -->
+        </span>
+        <span class='rating-word'>
+          <?= "&nbsp;No rating yet" ?>
+        </span>
+            <?php } elseif(countRatingsPerProduct($conn, $id) == 1){?>
+        <span class='rating-count<?=$id?>'>
+          <?= countRatingsPerProduct($conn, $id) ?>
+        </span>
+        <span class='rating-word'>
+          <?= "&nbsp;Rating" ?>
+        </span>
+            <?php } else {?>
+        <span class='rating-count<?=$id?>'>
+          <?= countRatingsPerProduct($conn, $id) ?>
+        </span>
+        <span class='rating-word'>
+          <?= "&nbsp;Ratings" ?>
+        </span>
+            <?php } } ?>
+          
       </div>
-     
+      
+      <!-- BRAND -->
+      <div class="row pl-4 mt-3">
+        <?php
+
+          $sql = "SELECT * FROM tbl_brands WHERE id = ?";
+          $statement = $conn->prepare($sql);
+          $statement->execute([$brandId]);
+          $row = $statement->fetch();
+          $brandName = $row['brand_name'];
+        ?>
+        <span class='text-secondary'>Brand:&nbsp;</span>
+        <span><?=$brandName?></span>
+      </div>
+
+      <hr class='my-4'>
+
+      <!-- PRICE -->
+      <div class="row pl-4">
+        <h1>&#8369;&nbsp;</h1>
+        <h1 class='font-weight-bold'><?= $price?></h1>
+      </div>
+
+
     </div>
     <!-- /PRODUCT DETAILS -->
   </div>

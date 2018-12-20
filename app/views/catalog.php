@@ -3,6 +3,7 @@
 <?php require_once "../controllers/functions.php";?>
 <?php require_once "../partials/header.php";?>
 <?php include_once "../partials/categories.php"; ?>
+<?php include_once "../partials/breadcrumbs.php"; ?>
 
 		<!-- PAGE CONTENT -->
 
@@ -12,10 +13,9 @@
 		if(!isset($_GET['id'])) {
 			echo "<script>window.location.href='".BASE_URL."/app/views/'</script>";
 		}
+		
 		?>
-
-		<div class="container my-5">
-			
+		<div class="container">
 			<div class="row">
 				<!-- FIRST COLUMN -->
 				<div class="col-lg-2 col-md-2 mb-5">
@@ -23,28 +23,13 @@
 					<!-- CATEGORY & SUBCATEGORIES -->
 					<div class="row">
 						<div class="col-12 d-flex flex-column">
-				
-								<?php 
-									// DISPLAYING CATEGORY ON TOP OF LIST GROUP
-								if(isset($_GET['id'])) {
-									$id = $_GET['id'];
-									$sql = "SELECT * FROM tbl_categories WHERE id=?";
-									$statement = $conn->prepare($sql);
-									$statement->execute([$id]);
-									
-									$row = $statement->fetch();
-									$name = $row['name']; 
-								?>
-
-							<div class='text-purple' id="<?=$id?>"><h3><?= $name ?></h3></div>
-							<hr class='my-4'>
-							
+					
 								<?php
 								// DISPLAYING ALL AVAILABLE CATEGORIES
 								$sql = "SELECT * FROM tbl_categories WHERE parent_category_id = ?";
 								$statement = $conn->prepare($sql);
 								$statement->execute([$id]);
-
+						
 								if ($statement->rowCount() > 0){
 							
 									while($row = $statement->fetch()){
@@ -59,7 +44,7 @@
 							</a>
 
 							
-								<?php } } } 
+								<?php } }  
 							
 							if(isset($_GET['id'])) {
 								$id = $_GET['id'];
@@ -95,7 +80,7 @@
 					
 					 <!-- PASS IDs OF SELECTED BTNS -->
 					<input type="hidden" id="selectedBrandId">
-					<input type="hidden" id="selectedCatagoryId" value="<?= $_GET['id'] ?>">
+					<input type="hidden" id="selectedCategoryId" value="<?= $_GET['id'] ?>">
 					<hr class='my-4'>
 
 					<!-- SORT BY POPULARITY AND HIGH-LOW PRICE -->
@@ -121,7 +106,7 @@
 							<div class='flex-fill mb-2'>Price Range </div>
 							<div class="flex-fill">
 								<div class="d-flex flex-row">
-									<input type="number" style='width:35%'; placeholder='Max' class='py-1 pl-2' id='price_range_min'>
+									<input type="number" style='width:35%'; placeholder='Min' class='py-1 pl-2' id='price_range_min'>
 									<div class='pt-1'>&#8212;</div>
 									<input type="number" style='width:35%'; placeholder='Max' class='py-1 pl-2' id='price_range_max'>
 									<button id='btn_price_range' class='btn border' style='width:20%';><i class="fas fa-caret-right"></i></button>
@@ -219,7 +204,7 @@
 							if(isset($_GET['id'])){
 								$id = $_GET['id'];
 											
-								$sql = "SELECT c.name, c.parent_category_id, c.id, i.name, i.price, i.img_path FROM tbl_categories c JOIN tbl_items i ON i.category_id = c.id WHERE parent_category_id = ?";	
+								$sql = "SELECT c.name, c.parent_category_id, c.id, i.id AS 'productId', i.name, i.price, i.img_path FROM tbl_categories c JOIN tbl_items i ON i.category_id = c.id WHERE parent_category_id = ?";	
 								$statement = $conn->prepare($sql);
 								$statement->execute([$id]);	
 
@@ -231,6 +216,7 @@
 			
 								if ($statement->rowCount()){
 									while($row = $statement->fetch()){
+										$productId = $row['productId'];
 										$id = $row['id'];
 										$name = $row['name'];
 										$price = $row['price'];
@@ -239,7 +225,7 @@
 						
 						<!-- PRODUCT CARDS -->
 						<div class='col-lg-3 col-md-3 px-1 pb-2'>
-							<a href='product.php?id=<?= $id ?>'>
+							<a href='product.php?id=<?= $productId ?>'>
 								<div class = 'card h-700 border-0'>
 									<img class='card-img-top' src='<?= $item_img ?>'>
 									<div class='card-body'>
@@ -311,6 +297,7 @@
 			<!-- /.CATALOG.PHP ROW -->
 		</div>
 		<!-- /.CATALOG.PHP CONTAINER -->
+										
 
 	
 <?php require_once "../partials/footer.php";?>

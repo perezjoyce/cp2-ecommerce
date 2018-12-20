@@ -488,7 +488,18 @@ $(document).ready( () => {
 		let brandId = $(this).data('brandid');
 
 		if($(this).hasClass('level-2')) {
-			$("#selectedCatagoryId").val(categoryId);
+			$("#selectedCategoryId").val(categoryId);
+			
+			$.post("../controllers/process_show_level_2_breadcrumb.php", 
+				{categoryId: categoryId}, 
+				function(data){
+				$("#level_2_breadcrumb").html(data);
+			});
+
+			if(!brandId) {
+				$("#level_3_breadcrumb").html("");
+			}
+			
 		}
 
 		if(brandId) {
@@ -500,6 +511,14 @@ $(document).ready( () => {
 				//alert(data);
 					$("#products_view").html(response);
 			});
+
+			$.post("../controllers/process_show_level_3_breadcrumb.php", 
+				{brandId: brandId}, 
+				function(data){
+				$("#level_3_breadcrumb").html(data);
+			});
+
+
 		} else {
 			$.post("../controllers/process_show_items.php", {categoryId: categoryId}, function(data){
 				// let x = $.parseJSON(data);
@@ -521,7 +540,7 @@ $(document).ready( () => {
 	//ARRANGING ITEMS ACCORDING TO PRICE
   	$("#sort_products").on("change", function(){
 		  let value = $(this).val();
-		  let categoryId = $("#selectedCatagoryId").val();
+		  let categoryId = $("#selectedCategoryId").val();
 		  let brandId = $("#selectedBrandId").val();
 
 		  $.post("../controllers/process_sort_products.php", 
@@ -534,7 +553,7 @@ $(document).ready( () => {
 	//SORTING PRODUCTS BY RATING
 	$(".sort_by_rating").on("click", function(){
 		let rating = $(this).data('rating');
-		let categoryId = $("#selectedCatagoryId").val();
+		let categoryId = $("#selectedCategoryId").val();
 		let brandId = $("#selectedBrandId").val();
 
 		$.post("../controllers/process_sort_by_rating.php", 
@@ -546,7 +565,7 @@ $(document).ready( () => {
 	
 	// SORTING BY PRICE RANGE
 	$("#btn_price_range").on("click", function(){
-		let categoryId = $("#selectedCatagoryId").val();
+		let categoryId = $("#selectedCategoryId").val();
 		let brandId = $("#selectedBrandId").val();
 		let minPrice = $("#price_range_min").val();
 		let maxPrice = $("#price_range_max").val();
@@ -572,24 +591,6 @@ $(document).ready( () => {
 			"<img src='"+ $url + "' style='width:100%;height:65vh;' id='"+$id+"'>"
 		);
 	})
-
-	// STARS TEST
-	// (function(){
-	// 	let averageRating = $("#average_product_rating").text();
-		
-	// 	for (let x = 1; x <= averageRating; x++) {
-	// 		$("#average_product_rating").append("<span><i class='fa fa-star'></i></span>");
-	// 	}
-	// 	if (strpos(averageRating, '.')) {
-	// 		$("#average_product_rating").append("<span><i class='fa fa-star-half-o'></i></span>");
-	// 		x++;
-	// 	}
-	// 	while (x <= 5) {
-	// 		$("#average_product_rating").append("<span><i class='fa fa-star-o'></i></span>");
-	// 		x++;
-	// 	}
-
-	// }());
 	
 	$(function() {
 
@@ -779,8 +780,7 @@ $(document).ready( () => {
 		$(this).replaceWith(
 			"<button class='btn btn-lg btn-purple py-3' style='width:50%;' data-id='" + productId + "' role='button'" + 
 			"id='btn_delete_from_cart' disabled>" +
-			"<i class=\"fas fa-cart-plus\"></i>&nbsp;Item added to cart!</button>");
-
+			"<i class='fas fa-shopping-bag'></i>&nbsp;Item added to bag!</button>");
 		$.ajax({
 			url: "../controllers/process_add_to_cart.php",
 			method: "POST",
@@ -875,7 +875,7 @@ $(document).ready( () => {
 					// update button
 					$("#btn_delete_from_cart").replaceWith(
 						"<a class='btn btn-lg btn-purple py-3' style='width:50%;' data-id='"+ productId +"' role='button' id='btn_add_to_cart'>" +
-						"<i class='fas fa-cart-plus'></i> Add to Cart</a>");
+						"<i class='fas fa-shopping-bag'></i></i>&nbsp;Add to Shopping Bag</a>");
 
 					//remove product in header dropdown
 					$("#product-row"+productId).remove();

@@ -62,7 +62,8 @@
     $statement->execute($param); 
 	if($statement->rowCount()) {
 		while($row = $statement->fetch()){
-            $price = $row['price'];
+			$price = $row['price'];
+			
             if($price >= $minPrice && $price <= $maxPrice) {
                 $name = $row['name'];
                 $id = $row['id'];

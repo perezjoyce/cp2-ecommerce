@@ -41,6 +41,11 @@
 
     <!-- Bootstrap CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- MATERIAL ICONS -->
+    <!-- https://google.github.io/material-design-icons/#getting-icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 
     <!-- SLICK -->
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
