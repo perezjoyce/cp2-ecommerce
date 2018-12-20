@@ -123,7 +123,7 @@
 	<?php 
 		}
 	} } else {
-		$data = "No records found!";
+		$data = "Sorry, no products found!";
 	}
 
 	echo $data;

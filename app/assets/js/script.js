@@ -481,17 +481,6 @@ $(document).ready( () => {
 
 
 	// SHOWING ITEMS THAT CORRESPOND TO THE SELECTED CATEGORY
-	// window.showByChildCategories = function(categoryId) {
-	
-	// 	$.post("../controllers/show_items.php", {categoryId:categoryId},function(data){
-	// 		// let x = $.parseJSON(data);
-	// 		alert(data);
-	// 		$('#products_view').html("");
-	// 		$("#products_view").html(data);
-	// 	});
-
-	// }
-
 	$(document).on("click", ".sub_category_btn", function(e){
 		e.preventDefault();
 		let parentLink = this;
@@ -569,6 +558,54 @@ $(document).ready( () => {
 		});
 
 	});
+
+	// =================================== PRODUCT.PHP ============================== //
+	// =============================================================================== //
+	// =============================================================================== //
+	
+	$(document).on('click', '.product_thumbnail', function(){
+		// $(this).css({'border-style': 'solid', 'border-color' : '#c471ed'});
+		$id = $(this).data('id');
+		$url = $(this).data('url');
+		$('#iframeId').val($id);
+		$('#product_iframe').html(
+			"<img src='"+ $url + "' style='width:100%;height:65vh;' id='"+$id+"'>"
+		);
+	})
+
+	// STARS TEST
+	// (function(){
+	// 	let averageRating = $("#average_product_rating").text();
+		
+	// 	for (let x = 1; x <= averageRating; x++) {
+	// 		$("#average_product_rating").append("<span><i class='fa fa-star'></i></span>");
+	// 	}
+	// 	if (strpos(averageRating, '.')) {
+	// 		$("#average_product_rating").append("<span><i class='fa fa-star-half-o'></i></span>");
+	// 		x++;
+	// 	}
+	// 	while (x <= 5) {
+	// 		$("#average_product_rating").append("<span><i class='fa fa-star-o'></i></span>");
+	// 		x++;
+	// 	}
+
+	// }());
+	
+	$(function() {
+
+		let averageRating = $("#average_product_rating").val();
+		// alert(averageRating)
+		function addScore(score, $domElement) {
+		  var starWidth = "<style>.stars-container:after { width: " + score + "%} </style>";
+		  $("<span class='stars-container'>")
+			.text("★★★★★")
+			.append($(starWidth))
+			.appendTo($domElement);
+		}
+
+		addScore(averageRating, $("#average_product_rating_in_stars"));
+	  });
+
 	
 
 	// ==================================== GENERAL USE ============================== //
@@ -740,9 +777,9 @@ $(document).ready( () => {
 		
 
 		$(this).replaceWith(
-			"<button class='btn btn-outline-secondary mt-3 flex-fill mr-2' data-id='" + productId + "' role='button'" + 
+			"<button class='btn btn-lg btn-purple py-3' style='width:50%;' data-id='" + productId + "' role='button'" + 
 			"id='btn_delete_from_cart' disabled>" +
-			"<i class=\"fas fa-cart-plus\"></i> Item added to cart!</button>");
+			"<i class=\"fas fa-cart-plus\"></i>&nbsp;Item added to cart!</button>");
 
 		$.ajax({
 			url: "../controllers/process_add_to_cart.php",
@@ -837,7 +874,7 @@ $(document).ready( () => {
 						}
 					// update button
 					$("#btn_delete_from_cart").replaceWith(
-						"<a class='btn btn-outline-primary mt-3 flex-fill mr-2' data-id='"+ productId +"' role='button' id='btn_add_to_cart'>" +
+						"<a class='btn btn-lg btn-purple py-3' style='width:50%;' data-id='"+ productId +"' role='button' id='btn_add_to_cart'>" +
 						"<i class='fas fa-cart-plus'></i> Add to Cart</a>");
 
 					//remove product in header dropdown
@@ -878,8 +915,8 @@ $(document).ready( () => {
 			data: {productId: productId}, 
 			success: function() {
 				$("#btn_add_to_wishlist").replaceWith(
-					"<button class='btn btn-outline-secondary mt-3 flex-fill mr-2' data-id='"+ productId +"' disabled>" +
-					"<i class='far fa-heart'></i> Item added to your wishlist. </button>");
+					"<button class='btn btn-lg btn-red py-3 ml-2' style='width:50%;' data-id='"+ productId +"' disabled>" +
+					"<i class='far fa-heart'></i>&nbsp;Item added to wishlist!</button>");
 				
 				let currentNumberOfWishes = $("#wish-count-header span").text();
 				if (currentNumberOfWishes == "NaN" || currentNumberOfWishes == "") {
@@ -910,7 +947,7 @@ $(document).ready( () => {
 
 		$(this).replaceWith(
 			"<a class='mt-3 btn_already_in_wishlist_view' data-id='"+ productId +"' disabled>" +
-				"<i class='fas fa-heart' style='color:red'></i>&nbsp;"+
+				"<i class='fas fa-heart' style='color:red;'></i>&nbsp;"+
 				"<span class='product-wish-count"+productId+"'>"+ productWish+"</span>" +
 				"</a>");
 
@@ -989,7 +1026,7 @@ $(document).ready( () => {
 
 		$(this).replaceWith(
 			"<a class='mt-3 btn_add_to_wishlist_view' data-id='"+ productId +"' disabled>" +
-				"<i class='far fa-heart' style='color:red'></i>&nbsp;"+
+				"<i class='far fa-heart' style='color:red;'></i>&nbsp;"+
 				"<span class='product-wish-count"+productId+"'>"+ currentNumberOfWishes+"</span>" +
 				"</a>");
 

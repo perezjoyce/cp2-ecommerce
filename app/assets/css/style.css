@@ -93,6 +93,7 @@ a.btn-border {
 .purple-link:focus,
 .purple-link:hover {
     color: #c471ed!important;
+    font-weight: bolder!important;
 }
 
 .slick-slide
@@ -104,7 +105,55 @@ div.card:hover {
     box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.2)!important; 
 }
 
+/* ================================ PRODUCT PAGE =================================== */
+.btn-purple {
+   background: #c471ed;
+    border: white!important;
+    color: white!important;
+}
 
+
+.btn-red {
+    background: #f64f59;
+    border: white!important;
+    color: white!important;
+}
+
+.product_thumbnail:hover,
+.product_thumbnail:focus,
+.product_thumbnail:active {
+    border-style: solid!important;
+    border: 2px solid white;
+    outline: none!important;
+    box-shadow: none!important;
+}
+
+/* STARS TEST */
+
+.stars-container {
+    position: relative;
+    display: inline-block;
+    color: transparent;
+  }
+  
+  .stars-container:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '★★★★★';
+    zoom:150%;
+    color: lightgray;
+  }
+  
+  .stars-container:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '★★★★★';
+    color: gold;
+    zoom:150%;
+    overflow: hidden;
+  }
 /* ================================ MODALS =================================== */
 /* LOGIN */
 .btn-gradient {
