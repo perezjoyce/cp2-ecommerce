@@ -13,27 +13,27 @@ if(isset($_SESSION['id'])) {
 
 ?>
 
-<!-- BREADCRUMBS -->
-<div class="container">
-  <div class="row my-4">
-    <div class="col-12">
-      <?php 
-        @$origin = $_SERVER['HTTP_REFERER'];
-        displayBreadcrumbs($conn, $id, $origin); 
-      
-      ?>
+  <!-- BREADCRUMBS -->
+  <div class="container">
+    <div class="row my-4">
+      <div class="col-12">
+        <?php 
+          @$origin = $_SERVER['HTTP_REFERER'];
+          displayBreadcrumbs($conn, $id, $origin); 
+        
+        ?>
+      </div>
     </div>
-</div>
-</div>
+  </div>
 
-<!-- PRODUCT PAGE MAIN CONTAINER -->
-<div class="container mb-5">
+  <!-- PRODUCT PAGE MAIN CONTAINER -->
+  <div class="container">
 
   <!-- FIRST ROW -->
   <div class="row">
-
+      
     <!-- FIRST COLUMN (PICS) -->
-    <div class="col-lg-4 col-md-7 col-sm-12 mb-4">
+    <div class="col-lg-4 col-md-5 col-sm-12 mb-4 mb-4">
       <input type="hidden" id='iframeId'>
       <!-- IFRAME -->
       <div class="row mb-3 no-gutters">
@@ -74,14 +74,10 @@ if(isset($_SESSION['id'])) {
     <!-- /FIRST COLUMN (PICS) -->
 
 
-
-
-
     <!-- SECOND COLUMN (PRODUCT DETAILS) -->
-    <div class="col pr-5">
-    <!-- <div class="col" style='overflow-y: scroll;'> -->
+    <div class="col-lg-6 col-md-7 col-sm-12 mb-5">
         <?php
-       
+      
           $sql = "SELECT * FROM tbl_items WHERE id = ?";
           $statement = $conn->prepare($sql);
           $statement->execute([$id]);
@@ -91,6 +87,7 @@ if(isset($_SESSION['id'])) {
           $price = $row['price'];
           $description = $row['description'];
           $item_img = $row['img_path'];
+          $categoryId = $row['category_id'];
           $brandId = $row['brand_id'];
           $stocks = $row['stocks'];
           $storeId = $row['store_id'];
@@ -190,7 +187,7 @@ if(isset($_SESSION['id'])) {
           <div class="row">
             <?php
             
-              $sql = "SELECT * FROM tbl_variations WHERE product_id = ?;";
+              $sql = "SELECT * FROM tbl_variations WHERE product_id = ?";
               $statement = $conn->prepare($sql);
               $statement->execute([$id]);
               if ($statement->rowCount()){
@@ -267,7 +264,7 @@ if(isset($_SESSION['id'])) {
       </div>
       <br>
       <!-- BUTTONS -->
-      <div class="d-flex flex-row">
+      <div class="d-flex flex-row mb-5">
         <?php
           $sql = " SELECT * FROM tbl_carts WHERE cart_session=? AND item_id=?";
           //$result = mysqli_query($conn, $sql);
@@ -318,131 +315,189 @@ if(isset($_SESSION['id'])) {
     </div>
     <!-- /PRODUCT DETAILS -->
 
-
-
-
-
     
     <!-- THIRD COLUMN (SELLER DETAILS) -->
-    <div class="col-2">
+    <div class="col-lg-2 col-md-3 col-sm-12 px-5 mb-5">
 
-      <div class='row border mb-4'>
-        <div class="col-12 py-4">
-            <?php
-              $sql = "SELECT * FROM tbl_stores WHERE id = ?";
-              $statement = $conn->prepare($sql);
-              $statement->execute([$storeId]);	
-              $row = $statement->fetch();
-              $storeName = $row['name'];
-              $storeLogo = $row['logo'];
-              $storeAddress = $row['store_address'];
-              $sellerId = $row['user_id'];
-            ?>
-          
-          <!-- STORE LOG -->
-          <div class="flex-fill row justify-content-center mb-3">
-            <img src="<?=$storeLogo?>" alt="<?=$storeName?>" style='width:80px;max-height:80px;' class='circle'>
-          </div>
-
-          <!-- STORE NAME -->
-          <div class="flex-fill row justify-content-center text-purple font-weight-bold mb-3">
-            <?=$storeName?>
-          </div>
-
-          <!-- STORE ADDRESS -->
-          <div class="flex-fill row justify-content-center text-gray mb-2">
-            <small>
-              <i class="fas fa-map-marker-alt"></i>
-              &nbsp;<?= ucwords(strtolower($storeAddress)) ?>
-            </small>
-          </div>
-
-          <!-- LAST LOGIN -->
-          <div class="flex-fill row justify-content-center text-gray">
-            <?
-              $sql = "SELECT last_login FROM tbl_users WHERE id = ?";
-              $statement = $conn->prepare($sql);
-              $statement->execute([$sellerId]);	
-              $row = $statement->fetch();
-              $lastLogin = $row['last_login'];
-              $lastLog = new DateTime($lastLogin);
-
-              date_default_timezone_set('Asia/Manila');
-              $currentDate = new DateTime();
-            ?>
-
-            <small>
-              <i class="fas fa-clock"></i>
-              &nbsp;Active
-              <?= $lastLog->diff($currentDate)->format("%d days, %h hrs & %i mins ago"); ?>
-            </small>
-          </div>
-
-          <!-- MEMBER SINCE -->
-          <!-- <div class="row justify-content-center text-gray mb-3">
-            <?php
-              $sql = "SELECT DATE_FORMAT(date_created, '%M %d, %Y') AS 'dateJoined' FROM tbl_stores WHERE id = ?";
-              $statement = $conn->prepare($sql);
-              $statement->execute([$storeId]);
-              $row = $statement->fetch();
-              $dateJoined = $row['dateJoined'];	
-            ?>
+      <div class='row mb-4 py-4 border'>
+          <div class="col-12">
             
-              &nbsp;Joined&nbsp;<?=$dateJoined?>
-          </div> -->
-
-          <hr class='my-4'>
-
-          <!-- STATS -->
-          <div class="flex-fill row text-gray">
-            <div class="col">
-
-              <!-- RATINGS -->
-              <div class="d-flex flex-row mb-3">
-                <div style='width:45%;'>Ratings</div>
-                <div>fds</div>
+                <?php
+                  $sql = "SELECT * FROM tbl_stores WHERE id = ?";
+                  $statement = $conn->prepare($sql);
+                  $statement->execute([$storeId]);	
+                  $row = $statement->fetch();
+                  $storeId = $row['id'];
+                  $storeName = $row['name'];
+                  $storeLogo = $row['logo'];
+                  $storeAddress = $row['store_address'];
+                  $sellerId = $row['user_id'];
+                ?>
+              
+              <!-- STORE LOG -->
+              <div class="row justify-content-center mb-3">
+                <img src="<?=$storeLogo?>" alt="<?=$storeName?>" style='width:80px;max-height:80px;' class='circle'>
               </div>
 
-              <!-- FOLLWERS -->
-              <div class="d-flex flex-row mb-3">
-                <div style='width:45%;'>Followers</div>
-                <div>fds</div>
+              <!-- STORE NAME -->
+              <div class="row justify-content-center text-purple font-weight-bold mb-3">
+                <?=$storeName?>
               </div>
 
-              <!-- PRODUCTS -->
-              <div class="d-flex flex-row mb-3">
-                <div style='width:45%;'>Products</div>
-                <div>fds</div>
+              <!-- STORE ADDRESS -->
+              <div class="row justify-content-center text-gray mb-2">
+                <small>
+                  <i class="fas fa-map-marker-alt"></i>
+                  &nbsp;<?= ucwords(strtolower($storeAddress)) ?>
+                </small>
               </div>
 
-              <!-- JOINED -->
-              <div class="d-flex flex-row mb-5">
-                <div style='width:45%;'>Joined</div>
-                <div>fds</div>
+              <!-- SELLER NAME -->
+              <div class="row justify-content-center text-gray mb-2">
+                <?php
+                  $sql = "SELECT * FROM tbl_users WHERE id = ?";
+                  $statement = $conn->prepare($sql);
+                  $statement->execute([$sellerId]);	
+                  $row = $statement->fetch();
+                  $fname = $row['first_name'];
+                  $fname = ucwords(strtolower($fname));
+                  $lname = $row['last_name'];
+                  $lname = ucwords(strtolower($lname));
+
+                ?>
+                <small>
+                  <i class="far fa-user"></i>
+                  &nbsp;<?= $fname." ".$lname ?>
+                </small>
               </div>
 
-            </div>
+              <hr class='my-4'>
+
+              <!-- STATS -->
+              <div class="row text-gray">
+                <div class="col">
+
+                  <!-- RATINGS -->
+                  <small class="d-flex flex-row mb-3">
+                      <?php
+                      $sql = "SELECT i.id, i.store_id, AVG(product_rating) as 'averageRating' FROM tbl_ratings LEFT JOIN tbl_items i ON product_id = i.id WHERE store_id = ?";
+                        $statement = $conn->prepare($sql);
+                        $statement->execute([$storeId]);
+                        $row = $statement->fetch();
+                        $averageSellerRating = $row['averageRating'];	
+                        $averageSellerRating = round($averageSellerRating,1);
+                      ?>
+                    <div style='width:45%;'>Rating</div>
+                    <div>
+                      <?= $averageSellerRating ?> of 5
+                    </div>
+                  </small>
+
+                  <!-- FOLLWERS -->
+                  <small class="d-flex flex-row mb-3">
+                    <div style='width:45%;'>Followers</div>
+                    <div>fds</div>
+                  </small>
+
+                  <!-- PRODUCTS COUNT -->
+                  <small class="d-flex flex-row mb-3">
+                      <?php
+                        $sql = "SELECT COUNT(*) AS 'productCount' FROM tbl_items WHERE store_id = ?";
+                        $statement = $conn->prepare($sql);
+                        $statement->execute([$storeId]);
+                        $row = $statement->fetch();
+                        $productCount = $row['productCount'];	
+                      ?>
+                    <div style='width:45%;'>Products</div>
+                    <div>
+                      <?= $productCount ?>
+                    </div>
+                  </small>
+
+                  <!-- JOINED -->
+                  <small class="d-flex flex-row mb-3">
+                      <?php
+                        $sql = "SELECT DATE_FORMAT(date_created, '%M %d, %Y') AS 'dateJoined' FROM tbl_stores WHERE id = ?";
+                        $statement = $conn->prepare($sql);
+                        $statement->execute([$storeId]);
+                        $row = $statement->fetch();
+                        $dateJoined = $row['dateJoined'];	
+                        $month = substr($dateJoined,0,3);
+                        $daysYear = substr(strstr($dateJoined," "), 1);
+                        $dateJoined = $month." ".$daysYear
+                      ?>
+                    <div style='width:45%;'>Joined</div>
+                    <div>
+                      <?=  $dateJoined ?>
+                    </div>
+                    <!-- https://stackoverflow.com/questions/6823133/how-to-remove-first-word-from-a-php-string -->
+                  </small>
+
+                  <!-- ACTIVE -->
+                  <small class="d-flex flex-row mb-4">
+                    <?
+                      $sql = "SELECT last_login FROM tbl_users WHERE id = ?";
+                      $statement = $conn->prepare($sql);
+                      $statement->execute([$sellerId]);	
+                      $row = $statement->fetch();
+                      $lastLogin = $row['last_login'];
+                      $datetime1 = new DateTime($lastLogin);
+                      $datetime2 = new DateTime();
+                      $interval = $datetime1->diff($datetime2);
+                      $ago = "";
+
+                      
+                        if($interval->format('%w') != 0) {
+                            $ago = $interval->format('%w weeks ago');
+                        } else {
+                          if($interval->format('%d') != 0) {
+                            $ago = $interval->format('%d days ago ');
+                          } else {
+                            if($interval->format('%h') != 0) {
+                              $ago = $interval->format('%h hrs & %i mins ago');
+                            } elseif($interval->format('%i') != 0) {
+                              $ago = $interval->format('%i minutes ago');
+                            } else {
+                              $ago = "
+                                <i class='fas fa-circle text-success'>&nbsp;</i>Active Now
+                                ";
+                            }
+                          }
+                          
+                        }
+
+                      
+                    ?>
+                    <div style='width:45%;'>Active</div>
+                    <div>
+                      <?= $ago ?>
+                    </div>
+                  </small>
+
+                </div> 
+              </div>
+
+            
+              <!-- BUTTONS -->
+              <div class="row">
+                <a href='#' class='btn btn-block border text-purple mx-3 py-2'>
+                  <i class="far fa-comment"></i>
+                  &nbsp;Chat Seller
+                </a>
+
+                <a href='store.php?id=<?=$storeId?>' class='btn btn-block border text-secondary mx-3 py-2'>
+                  <i class="fas fa-store"></i>
+                  &nbsp;View Shop
+                </a>
+              </div>
             
           </div>
-          
-          <!-- BUTTONS -->
-          <div class="row">
-            <a href='#' class='btn btn-block border text-purple mx-3 py-2'>
-              <i class="far fa-comment"></i>
-              &nbsp;Chat Seller
-            </a>
-
-            <a href='#' class='btn btn-block border text-secondary mx-3 py-2'>
-              <i class="fas fa-store"></i>
-              &nbsp;View Shop
-            </a>
-          </div>
-        </div>
+      
 
       </div>
 
       <div class='row border'>
-       
+      
           <a href='#' class='btn btn-block text-gray mx-3 py-2'>
             <i class="far fa-flag"></i>
               &nbsp;Report
@@ -450,15 +505,582 @@ if(isset($_SESSION['id'])) {
     
       </div>
 
-      
-
-      
+    
     </div>
     <!-- /SELLER DETAILS -->
+    
+  
+    <!-- NAV TABS FOR  -->
+    <div class="col-lg-12 col-md-9 col-sm-12 mt-3 mb-5">
+      <div class="row">
+        <div class="col-lg-12">
+          
+          <!-- TABS -->
+          <div class="row mb-4">
+            <div class="col-12">
+              <div class="tab border-bottom d-flex flex-row">
+                <button class="tablinks flex-fill active" onclick="openTab(event, 'info_content')">
+                  <h3>Product Info</h3>
+                </button>
+                <button class="tablinks flex-fill" onclick="openTab(event, 'reviews_content')">
+                  <h3>Reviews</h3>
+                </button>
+                <button class="tablinks flex-fill" onclick="openTab(event, 'questions_content')">
+                  <h3>Q&As</h3>
+                </button>
+              </div>
+            </div>
+          </div>
 
+          <!-- CONTENT -->
+          <div class='row'>
+            <div class='col-12'>
+              <div id="info_content" class="tabcontent" style='display:block'>
+                <h3>London</h3>
+                <p>London is the capital city of England.</p>
+              </div>
+
+              <div id="reviews_content" class="tabcontent">
+                <h3>Paris</h3>
+                <p>Paris is the capital of France.</p> 
+              </div>
+
+              <div id="questions_content" class="tabcontent">
+                <h3>Tokyo</h3>
+                <p>Tokyo is the capital of Japan.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   </div>
-  <!-- END OF FIRST ROW -->
+  <!-- /END OF FIRST ROW -->
+
+
+  <!-- RELATED PRODUCTS -->
+  
+        <?php 
+
+          $sql = "SELECT * FROM tbl_items WHERE id != ? AND category_id = ? LIMIT 12 ";
+          $statement = $conn->prepare($sql);
+          $statement->execute([$id,$categoryId]);
+        
+          if($statement->rowCount() >= 6){
+        ?>
+    <div class="container mb-5" style="width:100%;">
+      <div class="row">
+        <div class="col-6">
+            <h2>
+              RELATED PRODUCTS
+            </h2>
+        </div>
+        <div class="col-6 text-right pt-2">View All&nbsp;<i class="fas fa-angle-double-right"></i></i></div>
+      </div>
+      <div class="row no-gutters autoplay justify-content-left">
+
+        <?php
+            while($row = $statement->fetch()){
+              $id = $row['id'];
+              $name = $row['name'];
+              $price = $row['price'];
+              $description = $row['description'];
+              $item_img = $row['img_path'];
+        ?>
+
+        <div class="row">
+          <a href="product.php?id=<?= $id ?>">
+            <div class='card h-700 p-1 border-0'>
+              <a href="product.php?id=<?= $row['id'] ?>">
+                <img class='card-img-top' src="<?= $item_img ?>" style='width:182px;'>
+
+                <div class="card-body" style='width:182px;'>
+                  <div>
+                    <?= $name ?>
+                  </div>
+                  <div>&#8369; <?= $price ?> </div>
+
+                  <div class='d-flex flex-row mt-3'>
+                    <!-- WISHLIST BUTTONS -->
+                    <div class='flex-fill'>
+                      <?php 
+                        if(isset($_SESSION['id'])) {
+                            if (checkIfInWishlist($conn,$id) == 0) {
+                      ?>
+                        <a class='mt-3 btn_add_to_wishlist_view' data-id='<?= $id ?>' role='button'>
+                          <i class='far fa-heart' style="color:red"></i> 
+                            <span class='product-wish-count<?= $id ?>'>
+                              <?= getProductWishlishtCount($conn, $id) == 0 
+                              ? "" 
+                              : getProductWishlishtCount($conn, $id) ?>
+                            </span>
+                        </a>
+                  
+                      <?php  } else { ?>
+
+                        <a class='mt-3 btn_already_in_wishlist_view' data-id='<?= $id ?>' disabled>
+                          <i class='fas fa-heart' style='color:red'></i> 
+                            <span class='product-wish-count<?= $id ?>'>
+                              <?= getProductWishlishtCount($conn, $id) == 0 
+                              ? "" 
+                              : getProductWishlishtCount($conn, $id) ?>
+                            </span>
+                        </a>
+
+                      <?php }  } else { ?>
+                        <!-- IF LOGGED OUT -->
+                        <a class='mt-3 btn_wishlist_logout_view' data-id='<?= $id ?>' disabled>
+                          <i class='far fa-heart' style='color:gray'></i> 
+                            <span class='product-wish-count<?= $id ?>'>
+                              <?= getProductWishlishtCount($conn, $id) == 0 
+                              ? "" 
+                              : getProductWishlishtCount($conn, $id) ?>
+                            </span>
+                        </a>
+                      <?php }  ?>
+                          
+                    </div>
+                    <!-- /WISH LIST BUTTONS -->
+
+                    <!-- AVERAGE STAR RATING -->
+                    <div class='flex-fill text-right'>
+                      
+                      <!-- AVERAGE PRODUCT REVIEW (STARS) -->
+
+                      <span class='rating-average-in-stars<?=$id?>'>
+                        <?php 
+                        if (isset($_SESSION['cart_session'])) {
+                          if(getAveProductReview($conn, $id) >= 1 && getAveProductReview($conn, $id) < 1.5 ) { ?>
+                            <i class='fas fa-star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                            <i class='far fa-star' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                            <i class='far fa-star' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                            <i class='far fa-star' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                            <i class='far fa-star' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+                        <?php } elseif (getAveProductReview($conn, $id) >= 1.5 && getAveProductReview($conn, $id) < 2 ) { ?>
+                            <i class='fas fa-star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                            <i class='fas fa-star-half-alt' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                            <i class='far fa-star' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                            <i class='far fa-star' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                            <i class='far fa-star' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+                        <?php } elseif (getAveProductReview($conn, $id) >= 2 && getAveProductReview($conn, $id) < 2.5 ) { ?>
+                            <i class='fas fa-star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                            <i class='fas fa-star' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                            <i class='far fa-star' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                            <i class='far fa-star' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                            <i class='far fa-star' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+                        <?php } elseif (getAveProductReview($conn, $id) >= 2.5 && getAveProductReview($conn, $id) < 3 ) { ?>
+                            <i class='fas fa-star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                            <i class='fas fa-star' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                            <i class='fas fa-star-half-alt' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                            <i class='far fa-star' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                            <i class='far fa-star' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+                        <?php } elseif (getAveProductReview($conn, $id) >= 3 && getAveProductReview($conn, $id) < 3.5 ) { ?>
+                            <i class='fas fa-star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                            <i class='fas fa-star' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                            <i class='fas fa-star' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                            <i class='far fa-star' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                            <i class='far fa-star' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+                        <?php } elseif (getAveProductReview($conn, $id) >= 3.5 && getAveProductReview($conn, $id) < 4 ) { ?>
+                            <i class='fas fa-star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                            <i class='fas fa-star' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                            <i class='fas fa-star' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                            <i class='fas fa-star-half-alt' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                            <i class='far fa-star' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+                        <?php } elseif (getAveProductReview($conn, $id) >= 4 && getAveProductReview($conn, $id) < 4.5 ) { ?> 
+                            <i class='fas fa-star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                            <i class='fas fa-star' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                            <i class='fas fa-star' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                            <i class='fas fa-star' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                            <i class='far fa-star' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+                        <?php } elseif (getAveProductReview($conn, $id) >= 4.5 && getAveProductReview($conn, $id) < 5 ) { ?> 
+                            <i class='fas fa-star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                            <i class='fas fa-star' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                            <i class='fas fa-star' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                            <i class='fas fa-star' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                            <i class='fas fa-star-half-alt' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+                        <?php } else { ?>
+                            <i class='fas fa-star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                            <i class='fas fa-star' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                            <i class='fas fa-star' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                            <i class='fas fa-star' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                            <i class='fas fa-star' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+                        <?php } } ?>
+                      
+                      </span>
+
+
+
+                      <!-- RATING COUNT PER PRODUCT -->
+                      <?php 
+                      if (countRatingsPerProduct($conn, $id) == 0) {
+                          echo "<span class='rating-count<?=$id?>'></span>";
+                      } else { 
+                          echo "&#40;<span class='rating-count<?=$id?>'>" . 
+                          countRatingsPerProduct($conn, $id) .
+                          "&#41;</span>";
+                      } ?>
+                    </div>
+                    <!-- /AVERAGE STAR RATING -->
+                  </div>
+
+                </div>
+              </a> 
+            </div>
+          </a>
+        </div>
+            
+      <?php } ?>
+
+    </div>
+  </div>
+  <?php } elseif($statement->rowCount() < 6 && $statement->rowCount() > 0) { ?>
+    <div class="container mb-5">
+      <div class="row">
+        <div class="col-6">
+            <h2>
+              TRENDING PRODUCTS
+            </h2>
+        </div>
+        <div class="col-6 text-right pt-2">View All&nbsp;<i class="fas fa-angle-double-right"></i></i></div>
+      </div>
+      <div class="row no-gutters">
+        <?php 
+        
+            while($row = $statement->fetch()){
+              $id = $row['id'];
+              $name = $row['name'];
+              $price = $row['price'];
+              $description = $row['description'];
+              $item_img = $row['img_path'];
+        ?>
+          <div class="col-lg-2 col-md-3 col-sm-6 px-1 pb-2">
+            <a href="product.php?id=<?= $id ?>">
+              <div class = 'card h-700 border-0'>
+                <img class='card-img-top' src="<?= $item_img ?>" > 
+                <div class="card-body">
+                  <div class='font-weight-bold'>
+                    <?= $name ?>
+                  </div>
+                  <div>&#8369; <?= $price ?> </div>
+
+                  <div class='d-flex flex-row mt-3'>
+                    <!-- WISHLIST BUTTONS -->
+                    <div class='flex-fill'>
+                      <?php 
+                        if(isset($_SESSION['id'])) {
+                            if (checkIfInWishlist($conn,$id) == 0) {
+                      ?>
+                        <a class='mt-3 btn_add_to_wishlist_view' data-id='<?= $id ?>' role='button'>
+                          <i class='far fa-heart' style="color:red"></i> 
+                            <span class='product-wish-count<?= $id ?>'>
+                              <?= getProductWishlishtCount($conn, $id) == 0 
+                              ? "" 
+                              : getProductWishlishtCount($conn, $id) ?>
+                            </span>
+                        </a>
+                  
+                      <?php  } else { ?>
+
+                        <a class='mt-3 btn_already_in_wishlist_view' data-id='<?= $id ?>' disabled>
+                          <i class='fas fa-heart' style='color:red'></i> 
+                            <span class='product-wish-count<?= $id ?>'>
+                              <?= getProductWishlishtCount($conn, $id) == 0 
+                              ? "" 
+                              : getProductWishlishtCount($conn, $id) ?>
+                            </span>
+                        </a>
+
+                      <?php }  } else { ?>
+                        <!-- IF LOGGED OUT -->
+                        <a class='mt-3 btn_wishlist_logout_view' data-id='<?= $id ?>' disabled>
+                          <i class='far fa-heart' style='color:gray'></i> 
+                            <span class='product-wish-count<?= $id ?>'>
+                              <?= getProductWishlishtCount($conn, $id) == 0 
+                              ? "" 
+                              : getProductWishlishtCount($conn, $id) ?>
+                            </span>
+                        </a>
+                      <?php }  ?>
+                          
+                    </div>
+                    <!-- /WISH LIST BUTTONS -->
+
+                    <!-- AVERAGE STAR RATING -->
+                    <div class='flex-fill text-right'>
+                      
+                      <!-- AVERAGE PRODUCT REVIEW (STARS) -->
+
+                      <span class='rating-average-in-stars<?=$id?>'>
+                        <?php 
+                        if (isset($_SESSION['cart_session'])) {
+                          if(getAveProductReview($conn, $id) >= 1 && getAveProductReview($conn, $id) < 1.5 ) { ?>
+                            <i class='fas fa-star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                            <i class='far fa-star' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                            <i class='far fa-star' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                            <i class='far fa-star' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                            <i class='far fa-star' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+                        <?php } elseif (getAveProductReview($conn, $id) >= 1.5 && getAveProductReview($conn, $id) < 2 ) { ?>
+                            <i class='fas fa-star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                            <i class='fas fa-star-half-alt' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                            <i class='far fa-star' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                            <i class='far fa-star' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                            <i class='far fa-star' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+                        <?php } elseif (getAveProductReview($conn, $id) >= 2 && getAveProductReview($conn, $id) < 2.5 ) { ?>
+                            <i class='fas fa-star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                            <i class='fas fa-star' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                            <i class='far fa-star' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                            <i class='far fa-star' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                            <i class='far fa-star' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+                        <?php } elseif (getAveProductReview($conn, $id) >= 2.5 && getAveProductReview($conn, $id) < 3 ) { ?>
+                            <i class='fas fa-star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                            <i class='fas fa-star' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                            <i class='fas fa-star-half-alt' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                            <i class='far fa-star' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                            <i class='far fa-star' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+                        <?php } elseif (getAveProductReview($conn, $id) >= 3 && getAveProductReview($conn, $id) < 3.5 ) { ?>
+                            <i class='fas fa-star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                            <i class='fas fa-star' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                            <i class='fas fa-star' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                            <i class='far fa-star' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                            <i class='far fa-star' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+                        <?php } elseif (getAveProductReview($conn, $id) >= 3.5 && getAveProductReview($conn, $id) < 4 ) { ?>
+                            <i class='fas fa-star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                            <i class='fas fa-star' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                            <i class='fas fa-star' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                            <i class='fas fa-star-half-alt' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                            <i class='far fa-star' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+                        <?php } elseif (getAveProductReview($conn, $id) >= 4 && getAveProductReview($conn, $id) < 4.5 ) { ?> 
+                            <i class='fas fa-star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                            <i class='fas fa-star' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                            <i class='fas fa-star' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                            <i class='fas fa-star' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                            <i class='far fa-star' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+                        <?php } elseif (getAveProductReview($conn, $id) >= 4.5 && getAveProductReview($conn, $id) < 5 ) { ?> 
+                            <i class='fas fa-star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                            <i class='fas fa-star' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                            <i class='fas fa-star' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                            <i class='fas fa-star' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                            <i class='fas fa-star-half-alt' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+                        <?php } else { ?>
+                            <i class='fas fa-star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                            <i class='fas fa-star' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                            <i class='fas fa-star' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                            <i class='fas fa-star' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                            <i class='fas fa-star' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+                        <?php } } ?>
+                      
+                      </span>
+
+
+
+                      <!-- RATING COUNT PER PRODUCT -->
+                      <?php 
+                      if (countRatingsPerProduct($conn, $id) == 0) {
+                          echo "<span class='rating-count<?=$id?>'></span>";
+                      } else { 
+                          echo "&#40;<span class='rating-count<?=$id?>'>" . 
+                          countRatingsPerProduct($conn, $id) .
+                          "&#41;</span>";
+                      } ?>
+                    </div>
+                    <!-- /AVERAGE STAR RATING -->
+                  </div>
+
+                </div>
+                <!-- /.CARD BODY -->
+              </div>
+              <!-- /.CARD -->
+            </a>
+          </div>
+              
+        <?php } ?>
+      </div>
+    </div>
+  <? }else { echo ""; } ?>
+ 
+
+  <!-- PRODUCTS FROM SELLER -->
+  <div class="container mb-5" style="width:100%;">
+    <div class="row">
+      <div class="col-6">
+          <h2>
+            OTHER PRODUCTS FROM SHOP
+          </h2>
+      </div>
+    </div>
+    <div class="row no-gutters autoplay justify-content-left">
+        <?php 
+
+          $sql = "SELECT * FROM tbl_items WHERE id != ? AND store_id = ? LIMIT 12 ";
+          $statement = $conn->prepare($sql);
+          $statement->execute([$id,$storeId]);
+          //$result = mysqli_query($conn,$sql);
+
+          //CHECK IF THERE'S DATA
+          if($statement->rowCount()){
+            //CREATE A ROW VARIABLE
+            while($row = $statement->fetch()){
+              $id = $row['id'];
+              $name = $row['name'];
+              $price = $row['price'];
+              $description = $row['description'];
+              $item_img = $row['img_path'];
+        ?>
+      
+        <div class="row">
+          <a href="product.php?id=<?= $id ?>">
+            <div class='card h-700 p-1 border-0'>
+              <a href="product.php?id=<?= $row['id'] ?>">
+                <img class='card-img-top' src="<?= $item_img ?>" style='width:182px;'>
+
+                <div class="card-body" style='width:182px;'>
+                  <div>
+                    <?= $name ?>
+                  </div>
+                  <div>&#8369; <?= $price ?> </div>
+
+                  <div class='d-flex flex-row mt-3'>
+                    <!-- WISHLIST BUTTONS -->
+                    <div class='flex-fill'>
+                      <?php 
+                        if(isset($_SESSION['id'])) {
+                            if (checkIfInWishlist($conn,$id) == 0) {
+                      ?>
+                        <a class='mt-3 btn_add_to_wishlist_view' data-id='<?= $id ?>' role='button'>
+                          <i class='far fa-heart' style="color:red"></i> 
+                            <span class='product-wish-count<?= $id ?>'>
+                              <?= getProductWishlishtCount($conn, $id) == 0 
+                              ? "" 
+                              : getProductWishlishtCount($conn, $id) ?>
+                            </span>
+                        </a>
+                  
+                      <?php  } else { ?>
+
+                        <a class='mt-3 btn_already_in_wishlist_view' data-id='<?= $id ?>' disabled>
+                          <i class='fas fa-heart' style='color:red'></i> 
+                            <span class='product-wish-count<?= $id ?>'>
+                              <?= getProductWishlishtCount($conn, $id) == 0 
+                              ? "" 
+                              : getProductWishlishtCount($conn, $id) ?>
+                            </span>
+                        </a>
+
+                      <?php }  } else { ?>
+                        <!-- IF LOGGED OUT -->
+                        <a class='mt-3 btn_wishlist_logout_view' data-id='<?= $id ?>' disabled>
+                          <i class='far fa-heart' style='color:gray'></i> 
+                            <span class='product-wish-count<?= $id ?>'>
+                              <?= getProductWishlishtCount($conn, $id) == 0 
+                              ? "" 
+                              : getProductWishlishtCount($conn, $id) ?>
+                            </span>
+                        </a>
+                      <?php }  ?>
+                          
+                    </div>
+                    <!-- /WISH LIST BUTTONS -->
+
+                    <!-- AVERAGE STAR RATING -->
+                    <div class='flex-fill text-right'>
+                      
+                      <!-- AVERAGE PRODUCT REVIEW (STARS) -->
+
+                      <span class='rating-average-in-stars<?=$id?>'>
+                        <?php 
+                        if (isset($_SESSION['cart_session'])) {
+                          if(getAveProductReview($conn, $id) >= 1 && getAveProductReview($conn, $id) < 1.5 ) { ?>
+                            <i class='fas fa-star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                            <i class='far fa-star' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                            <i class='far fa-star' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                            <i class='far fa-star' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                            <i class='far fa-star' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+                        <?php } elseif (getAveProductReview($conn, $id) >= 1.5 && getAveProductReview($conn, $id) < 2 ) { ?>
+                            <i class='fas fa-star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                            <i class='fas fa-star-half-alt' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                            <i class='far fa-star' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                            <i class='far fa-star' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                            <i class='far fa-star' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+                        <?php } elseif (getAveProductReview($conn, $id) >= 2 && getAveProductReview($conn, $id) < 2.5 ) { ?>
+                            <i class='fas fa-star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                            <i class='fas fa-star' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                            <i class='far fa-star' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                            <i class='far fa-star' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                            <i class='far fa-star' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+                        <?php } elseif (getAveProductReview($conn, $id) >= 2.5 && getAveProductReview($conn, $id) < 3 ) { ?>
+                            <i class='fas fa-star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                            <i class='fas fa-star' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                            <i class='fas fa-star-half-alt' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                            <i class='far fa-star' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                            <i class='far fa-star' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+                        <?php } elseif (getAveProductReview($conn, $id) >= 3 && getAveProductReview($conn, $id) < 3.5 ) { ?>
+                            <i class='fas fa-star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                            <i class='fas fa-star' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                            <i class='fas fa-star' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                            <i class='far fa-star' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                            <i class='far fa-star' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+                        <?php } elseif (getAveProductReview($conn, $id) >= 3.5 && getAveProductReview($conn, $id) < 4 ) { ?>
+                            <i class='fas fa-star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                            <i class='fas fa-star' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                            <i class='fas fa-star' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                            <i class='fas fa-star-half-alt' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                            <i class='far fa-star' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+                        <?php } elseif (getAveProductReview($conn, $id) >= 4 && getAveProductReview($conn, $id) < 4.5 ) { ?> 
+                            <i class='fas fa-star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                            <i class='fas fa-star' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                            <i class='fas fa-star' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                            <i class='fas fa-star' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                            <i class='far fa-star' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+                        <?php } elseif (getAveProductReview($conn, $id) >= 4.5 && getAveProductReview($conn, $id) < 5 ) { ?> 
+                            <i class='fas fa-star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                            <i class='fas fa-star' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                            <i class='fas fa-star' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                            <i class='fas fa-star' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                            <i class='fas fa-star-half-alt' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+                        <?php } else { ?>
+                            <i class='fas fa-star' id='star1' data-productId='<?= $id ?>' data-value='1'></i>
+                            <i class='fas fa-star' id='star2' data-productId='<?= $id ?>' data-value='2'></i>
+                            <i class='fas fa-star' id='star3' data-productId='<?= $id ?>' data-value='3'></i>
+                            <i class='fas fa-star' id='star4' data-productId='<?= $id ?>' data-value='4'></i>
+                            <i class='fas fa-star' id='star5' data-productId='<?= $id ?>' data-value='5'></i>
+                        <?php } } ?>
+                      
+                      </span>
+
+
+
+                      <!-- RATING COUNT PER PRODUCT -->
+                      <?php 
+                      if (countRatingsPerProduct($conn, $id) == 0) {
+                          echo "<span class='rating-count<?=$id?>'></span>";
+                      } else { 
+                          echo "&#40;<span class='rating-count<?=$id?>'>" . 
+                          countRatingsPerProduct($conn, $id) .
+                          "&#41;</span>";
+                      } ?>
+                    </div>
+                    <!-- /AVERAGE STAR RATING -->
+                  </div>
+
+                </div>
+              </a> 
+            </div>
+          </a>
+        </div>
+       
+            
+      <?php }} ?>
+
+    </div>
+  </div>
+</body>
+</html> 
+
+
+
+  
 
 </div>
 

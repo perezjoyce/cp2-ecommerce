@@ -11,7 +11,7 @@
         <div class="row">
           <div class="col-2">
             <div class="d-flex flex-column">
-             <h3 class='text-light font-weight-bold pb-3'>About</h3>
+             <h3 class='text-light pb-3'>About</h3>
               <a href="#" class='text-light footer-link'>About Us</a>
               <a href="#" class='text-light footer-link'>Blog</a>
               <a href="#" class='text-light footer-link'>Press</a>
@@ -22,7 +22,7 @@
 
           <div class="col-2">
             <div class="d-flex flex-column">
-              <h3 class='text-light font-weight-bold pb-3'>Help</h3>
+              <h3 class='text-light pb-3'>Help</h3>
               <a href="#" class='text-light footer-link'>FAQs</a>
               <a href="#" class='text-light footer-link'>Payment</a>
               <a href="#" class='text-light footer-link'>Shipping</a>
@@ -33,7 +33,7 @@
 
           <div class="col-2">
             <div class="d-flex flex-column">
-              <h3 class='text-light font-weight-bold pb-3'>Policy</h3>
+              <h3 class='text-light pb-3'>Policy</h3>
               <a href="#" class='text-light footer-link'>Security</a>
               <a href="#" class='text-light footer-link'>Privacy</a>
               <a href="#" class='text-light footer-link'>Return Policy</a>
@@ -44,7 +44,7 @@
 
           <div class="col-2">
             <div class="d-flex flex-column">
-              <h3 class='text-light font-weight-bold pb-3'>Follow Us</h3>
+              <h3 class='text-light pb-3'>Follow Us</h3>
               <a href="https://www.facebook.com" class='text-light footer-link' target="_blank">
                 <span class="fa-stack">
                   <i class="fa fa-circle fa-stack-2x icon-background"></i>
@@ -83,7 +83,7 @@
           <div class="col border-left pl-5">
             <div class="d-flex flex-column pl-5">
               <div class="flex-fill">
-                <h3 class='font-weight-bold text-light'>Exclusive Deals & Offers</h3>
+                <h3 class='text-light'>Exclusive Deals & Offers</h3>
               </div>
 
               <div class="flex-fill pl-3 mt-3">
@@ -132,10 +132,25 @@
       </div>
     </div>
     
-
+    
     <!-- JQUERY -->
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
     crossorigin="anonymous"></script>
+
+    <!-- TO ADDRESS: Added non-passive event listener to a scroll-blocking 'touchmove' event -->
+    <script>
+      addEventListener('touchstart', this.callPassedFuntion, { passive: false })
+      
+      jQuery.event.special.touchstart = {
+        setup: function( _, ns, handle ){
+          if ( ns.includes("noPreventDefault") ) {
+            this.addEventListener("touchstart", handle, { passive: false });
+          } else {
+            this.addEventListener("touchstart", handle, { passive: true });
+          }
+        }
+      };
+    </script>
 
     <!-- SLICK -->
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>

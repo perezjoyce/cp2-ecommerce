@@ -1,8 +1,17 @@
 <?php 
   session_start(); 
-
+  
+  require_once "../../config.php";
   require_once "../controllers/connect.php";
   require_once "../controllers/functions.php";
+
+    // UPDATE LAST ACTIVITY    
+  if(isset($_SESSION['id'])){
+    $userId = $_SESSION['id'];
+    $sql = "UPDATE tbl_users SET last_login = now() WHERE id = ?";
+    $statement = $conn->prepare($sql);
+    $statement->execute([$userId]);
+  }
 
   if(!isset($_SESSION['cart_session'])) {
     $_SESSION['cart_session'] = uniqid();
@@ -32,7 +41,7 @@
     <link rel="shortcut icon" href="../assets/images/logo.png">
 
     <!-- GOOGLE FONTS -->
-    <link href="https://fonts.googleapis.com/css?family=Fredoka+One|Open+Sans|Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Fredoka+One|Open+Sans:300,400,400italic,600|Roboto" rel="stylesheet">
 
     <!-- FONTAWESOME -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
