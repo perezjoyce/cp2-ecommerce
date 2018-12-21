@@ -30,9 +30,18 @@ if (isset($_POST['username_email'])) {
 			$_SESSION['id'] = $id; 
 			$_SESSION['userType'] = $userType;
 			$cartSession = $_SESSION['cart_session'];
+			
 			$sql = " UPDATE tbl_carts SET user_id = ? WHERE cart_session = ? ";
 			$statement = $conn->prepare($sql);
 			$statement->execute([$id, $cartSession]);
+
+			// update last login
+			date_default_timezone_set('Asia/Manila');
+			$date = date('Y-m-d H:i:s');
+
+			$sql = "UPDATE tbl_users SET last_login = ? WHERE id = ? ";
+			$statement = $conn->prepare($sql);
+			$statement->execute([$date,$id]);
 				
 			if(isset($_GET['redirectUrl']) && strlen($_GET['redirectUrl'])>0) {
 				$response = ['status' => 'redirect', 'redirectUrl' => 'checkout'];

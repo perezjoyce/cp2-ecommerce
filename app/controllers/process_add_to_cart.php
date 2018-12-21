@@ -10,25 +10,28 @@ if (isset($_POST['productId'])) {
 
     $quantity = 1;
     $sql = " SELECT * FROM tbl_carts WHERE cart_session=? AND item_id=?";
-	$statement = $conn->prepare($sql);
-	$statement->execute([$cartSession, $productId]);
+    $statement = $conn->prepare($sql);
+    $statement->execute([$cartSession, $productId]);
     $count = $statement->rowCount();
+
+    date_default_timezone_set('Asia/Manila');
+		$date = date('Y-m-d H:i:s');
     
     if($count) {
         $row = $statement->fetch();
         $quantity = $row['quantity'] + 1;
         $sql = " UPDATE tbl_carts SET quantity=? WHERE cart_session=? ";
         $statement = $conn->prepare($sql);
-	    $statement->execute([$quantity, $cartSession]);
+	      $statement->execute([$quantity, $cartSession]);
     } else {
-        $sql = " INSERT INTO tbl_carts ( dateCreated, item_id, quantity, cart_session) VALUES (now(), ?, ?, ?) ";
+        $sql = " INSERT INTO tbl_carts ( dateCreated, item_id, quantity, cart_session) VALUES (?, ?, ?, ?) ";
         $statement = $conn->prepare($sql);
-	    $statement->execute([$productId, $quantity, $cartSession]);
+	      $statement->execute([$date, $productId, $quantity, $cartSession]);
     }
 
     $sql = " SELECT * FROM tbl_carts WHERE cart_session=? ";
-	$statement = $conn->prepare($sql);
-	$statement->execute([$cartSession]);
+    $statement = $conn->prepare($sql);
+    $statement->execute([$cartSession]);
     $count = $statement->rowCount();
 
     // var_dump($count); die();

@@ -91,7 +91,7 @@ h1, h2, h3, h4, h5 {
     font-family: 'Roboto-Regular', 'Tahoma', sans-serif!important;
 }
 
-p, div, a, small {
+p, div, a, small, button, .text-responsive {
     font-family: 'Open Sans', 'Tahoma', sans-serif!important;
 }
 
@@ -539,8 +539,8 @@ button.hover_btn:active {
         font-size: 1rem;
     }
 
-    p, div, a.btn {
-        font-size: 0.8rem;
+    p, div, a.btn, button, .text-responsive {
+        font-size: 0.8rem!important;
     }
 
     /* HEADER */
@@ -624,8 +624,8 @@ button.hover_btn:active {
         font-size: 0.9rem;
     }
 
-    p, div, a.btn {
-        font-size: 0.8rem;
+    p, div, a.btn, button, .text-responsive {
+        font-size: 0.8rem!important;
     }
 
 

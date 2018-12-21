@@ -4,8 +4,6 @@
 <?php include_once "../partials/categories.php"; ?>
 
 
-
-
 <?php 
 $id = $_GET['id'];
 
@@ -30,10 +28,12 @@ if(isset($_SESSION['id'])) {
 
 <!-- PRODUCT PAGE MAIN CONTAINER -->
 <div class="container mb-5">
-  <div class="row" style='height: 80vh;'>
+
+  <!-- FIRST ROW -->
+  <div class="row">
 
     <!-- FIRST COLUMN (PICS) -->
-    <div class="col-lg-4 col-md-7 col-sm-12">
+    <div class="col-lg-4 col-md-7 col-sm-12 mb-4">
       <input type="hidden" id='iframeId'>
       <!-- IFRAME -->
       <div class="row mb-3 no-gutters">
@@ -74,13 +74,14 @@ if(isset($_SESSION['id'])) {
     <!-- /FIRST COLUMN (PICS) -->
 
 
+
+
+
     <!-- SECOND COLUMN (PRODUCT DETAILS) -->
     <div class="col pr-5">
     <!-- <div class="col" style='overflow-y: scroll;'> -->
         <?php
-        if(isset($_SESSION['id'])) {
-          $userId = $_SESSION['id'];
-
+       
           $sql = "SELECT * FROM tbl_items WHERE id = ?";
           $statement = $conn->prepare($sql);
           $statement->execute([$id]);
@@ -92,14 +93,14 @@ if(isset($_SESSION['id'])) {
           $item_img = $row['img_path'];
           $brandId = $row['brand_id'];
           $stocks = $row['stocks'];
-        }
-        ?>
-      
+          $storeId = $row['store_id'];
+
+      ?>
+
       <!-- PRODUCT NAME -->
       <div class="row pl-4 mb-2">
-        <h1><?= ucwords($name)?></h1>
-      </div>
-      
+        <h1><?= ucwords(strtolower($name)); ?></h1>
+      </div>    
         
       <!-- PRODUCT RATING -->
       <div class="row pl-4 mb-4">
@@ -163,10 +164,9 @@ if(isset($_SESSION['id'])) {
         <span><?=$brandName?></span>
       </div> -->
 
-      
 
       <!-- PRICE -->
-      <div class="row pl-4 mb-5">
+      <div class="row pl-4 mb-lg-5 mb-4">
         <h1 class='font-weight-bold text-purple'>&#8369;&nbsp;<?= $price?></h1>
       </div>
 
@@ -182,7 +182,7 @@ if(isset($_SESSION['id'])) {
       </div> -->
 
       <!-- VARIATION -->
-      <div class="row mb-4">
+      <div class="row mb-5">
         <div class="col-3">
           <div class='pt-3'>Variation</div>
         </div>
@@ -200,7 +200,7 @@ if(isset($_SESSION['id'])) {
                   $variationStock = $row['variation_stock'];
             ?>
             
-            <button class="btn p-2 mr-2 mb-2 text-center border btn_variation" style='width:18%;' data-variationStock='<?= $variationStock ?>'>
+            <button class="btn p-2 mr-2 mb-2 text-center border btn_variation text-responsive" style='width:18%;' data-variationStock='<?= $variationStock ?>'>
               [&nbsp;<?= ucwords($variationName) ?>&nbsp;]
             </button>
 
@@ -227,14 +227,14 @@ if(isset($_SESSION['id'])) {
         <div class="col pl-0">
           <div class="d-flex flex-row">
             <!-- INPUT FIELD -->
-            <span>
+            <span class='flex-fill'>
               <div class="input-group">
                 <div class="input-group-prepend">
                   <button class="btn border btn_minus" type="button">&#8212;</button>
                 </div>
                 <input class='itemQuantity text-center' id ='variation_quantity'
                   type="number" 
-                  style='width:55px;' 
+                  style='width:35%;' 
                   value="1"
                   data-productid="<?= $id ?>"
                   min="1" 
@@ -245,9 +245,9 @@ if(isset($_SESSION['id'])) {
               </div>
             </span>
             
-            <div class='pt-2'>
+            <div class='flex-grow-1 pt-2'>
               <!-- STOCK AVAILABILITY -->
-              <span class='ml-3 variation_display' id='variation_stock'>
+              <span class='variation_display' id='variation_stock'>
                 <?= $totalStocksAvailable ?>
               </span>
               
@@ -265,7 +265,7 @@ if(isset($_SESSION['id'])) {
           </div>
         </div>
       </div>
-
+      <br>
       <!-- BUTTONS -->
       <div class="d-flex flex-row">
         <?php
@@ -315,29 +315,152 @@ if(isset($_SESSION['id'])) {
 
       </div>
 
-
-
-
-
-
-
     </div>
     <!-- /PRODUCT DETAILS -->
 
+
+
+
+
     
     <!-- THIRD COLUMN (SELLER DETAILS) -->
-    <div class="col-2 border">
+    <div class="col-2">
 
+      <div class='row border mb-4'>
+        <div class="col-12 py-4">
+            <?php
+              $sql = "SELECT * FROM tbl_stores WHERE id = ?";
+              $statement = $conn->prepare($sql);
+              $statement->execute([$storeId]);	
+              $row = $statement->fetch();
+              $storeName = $row['name'];
+              $storeLogo = $row['logo'];
+              $storeAddress = $row['store_address'];
+              $sellerId = $row['user_id'];
+            ?>
+          
+          <!-- STORE LOG -->
+          <div class="flex-fill row justify-content-center mb-3">
+            <img src="<?=$storeLogo?>" alt="<?=$storeName?>" style='width:80px;max-height:80px;' class='circle'>
+          </div>
+
+          <!-- STORE NAME -->
+          <div class="flex-fill row justify-content-center text-purple font-weight-bold mb-3">
+            <?=$storeName?>
+          </div>
+
+          <!-- STORE ADDRESS -->
+          <div class="flex-fill row justify-content-center text-gray mb-2">
+            <small>
+              <i class="fas fa-map-marker-alt"></i>
+              &nbsp;<?= ucwords(strtolower($storeAddress)) ?>
+            </small>
+          </div>
+
+          <!-- LAST LOGIN -->
+          <div class="flex-fill row justify-content-center text-gray">
+            <?
+              $sql = "SELECT last_login FROM tbl_users WHERE id = ?";
+              $statement = $conn->prepare($sql);
+              $statement->execute([$sellerId]);	
+              $row = $statement->fetch();
+              $lastLogin = $row['last_login'];
+              $lastLog = new DateTime($lastLogin);
+
+              date_default_timezone_set('Asia/Manila');
+              $currentDate = new DateTime();
+            ?>
+
+            <small>
+              <i class="fas fa-clock"></i>
+              &nbsp;Active
+              <?= $lastLog->diff($currentDate)->format("%d days, %h hrs & %i mins ago"); ?>
+            </small>
+          </div>
+
+          <!-- MEMBER SINCE -->
+          <!-- <div class="row justify-content-center text-gray mb-3">
+            <?php
+              $sql = "SELECT DATE_FORMAT(date_created, '%M %d, %Y') AS 'dateJoined' FROM tbl_stores WHERE id = ?";
+              $statement = $conn->prepare($sql);
+              $statement->execute([$storeId]);
+              $row = $statement->fetch();
+              $dateJoined = $row['dateJoined'];	
+            ?>
+            
+              &nbsp;Joined&nbsp;<?=$dateJoined?>
+          </div> -->
+
+          <hr class='my-4'>
+
+          <!-- STATS -->
+          <div class="flex-fill row text-gray">
+            <div class="col">
+
+              <!-- RATINGS -->
+              <div class="d-flex flex-row mb-3">
+                <div style='width:45%;'>Ratings</div>
+                <div>fds</div>
+              </div>
+
+              <!-- FOLLWERS -->
+              <div class="d-flex flex-row mb-3">
+                <div style='width:45%;'>Followers</div>
+                <div>fds</div>
+              </div>
+
+              <!-- PRODUCTS -->
+              <div class="d-flex flex-row mb-3">
+                <div style='width:45%;'>Products</div>
+                <div>fds</div>
+              </div>
+
+              <!-- JOINED -->
+              <div class="d-flex flex-row mb-5">
+                <div style='width:45%;'>Joined</div>
+                <div>fds</div>
+              </div>
+
+            </div>
+            
+          </div>
+          
+          <!-- BUTTONS -->
+          <div class="row">
+            <a href='#' class='btn btn-block border text-purple mx-3 py-2'>
+              <i class="far fa-comment"></i>
+              &nbsp;Chat Seller
+            </a>
+
+            <a href='#' class='btn btn-block border text-secondary mx-3 py-2'>
+              <i class="fas fa-store"></i>
+              &nbsp;View Shop
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class='row border'>
+       
+          <a href='#' class='btn btn-block text-gray mx-3 py-2'>
+            <i class="far fa-flag"></i>
+              &nbsp;Report
+            </a>
+    
+      </div>
+
+      
+
+      
     </div>
     <!-- /SELLER DETAILS -->
 
 
-    
   </div>
+  <!-- END OF FIRST ROW -->
 
 </div>
-
-
 
     
     
