@@ -6,8 +6,6 @@
     -webkit-border-radius: 0 !important;
         -moz-border-radius: 0 !important;
           border-radius: 0 !important;
-    font-family: 'Open Sans', 'Tahoma', sans-serif;
-
     /* font-family: 'Roboto-Regular', sans-serif; */
 }
 
@@ -15,6 +13,13 @@ body{
     background-color: #fff;
     color: rgba(0,0,0,.8);
     line-height: 1.2;
+}
+
+/* TURN OFF ARROWS INSIDE INPUT FIELD NUM */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
 }
 
 /* MATERIAL ICONS */
@@ -75,11 +80,19 @@ body{
     .material-icons.md-light { color: rgba(255, 255, 255, 1); }
     .material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
 
-/* FONT SIZE */
+/* FONT SIZE  & STYLE*/
 html {
     /* font size root */
     font-size: 12px;
     /* background-color: #000000; */
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'Roboto-Regular', 'Tahoma', sans-serif!important;
+}
+
+p, div, a, small {
+    font-family: 'Open Sans', 'Tahoma', sans-serif!important;
 }
 
 /* the following adjusts according to the root */
@@ -167,6 +180,12 @@ div.card:hover {
     box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.2)!important; 
 }
 
+.text-gray {
+    color: darkgray!important;
+}
+
+
+
 /* ================================ PRODUCT PAGE =================================== */
 .btn-purple {
    background: #c471ed;
@@ -180,6 +199,17 @@ div.card:hover {
     border: white!important;
     color: white!important;
 }
+
+.btn-gray {
+    /* background: white!important; */
+    border: solid 1px lightgray!important;
+    color: rgb(156, 154, 154)!important;
+}
+
+.btn-gray:hover {
+    color:  #c471ed!important;
+   
+} 
 
 .product_thumbnail:hover,
 .product_thumbnail:focus,

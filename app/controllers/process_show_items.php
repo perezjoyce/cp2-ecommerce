@@ -22,7 +22,7 @@
 ?>
 			<div class='col-lg-3 col-md-3 px-1 pb-2'>
 				<a href='product.php?id=<?=$productId?>'>
-					<div class = 'card h-700 border'>
+					<div class = 'card h-700 border-0'>
 						<img class='card-img-top' src='<?=$item_img?>'>
 						<div class='card-body'>
 							<div class='font-weight-bold'><?=$name?></div>

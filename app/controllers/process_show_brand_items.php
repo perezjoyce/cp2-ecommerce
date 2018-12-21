@@ -12,7 +12,7 @@
 	$sql= "SELECT c.name, c.id, c.parent_category_id, i.id AS product_id, i.name, i.price, i.img_path 
 		FROM tbl_categories c 
 		JOIN tbl_items i ON i.category_id = c.id 
-		WHERE c.id = ? AND i.brandId=? ";
+		WHERE c.id = ? AND i.brand_id=? ";
 	$statement = $conn->prepare($sql);
 	$statement->execute([$categoryId, $brandId]);	
 
@@ -27,7 +27,7 @@
 ?>
 			<div class='col-lg-3 col-md-3 px-1 pb-2'>
 				<a href='product.php?id=<?=$productId?>'>
-					<div class = 'card h-700 border'>
+					<div class = 'card h-700 border-0'>
 						<img class='card-img-top' src='<?=$item_img?>'>
 						<div class='card-body'>
 							<div class='font-weight-bold'><?=$name?></div>

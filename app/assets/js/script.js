@@ -582,18 +582,19 @@ $(document).ready( () => {
 	// =============================================================================== //
 	// =============================================================================== //
 	
+	// THUMBNAILS
 	$(document).on('click', '.product_thumbnail', function(){
 		// $(this).css({'border-style': 'solid', 'border-color' : '#c471ed'});
 		$id = $(this).data('id');
 		$url = $(this).data('url');
 		$('#iframeId').val($id);
 		$('#product_iframe').html(
-			"<img src='"+ $url + "' style='width:100%;height:65vh;' id='"+$id+"'>"
+			"<img src='"+ $url + "' style='width:100%;height:50vh;' id='"+$id+"'>"
 		);
 	})
 	
+	// AVERAGE PRODUCT RATING AS STARS
 	$(function() {
-
 		let averageRating = $("#average_product_rating").val();
 		// alert(averageRating)
 		function addScore(score, $domElement) {
@@ -606,6 +607,54 @@ $(document).ready( () => {
 
 		addScore(averageRating, $("#average_product_rating_in_stars"));
 	  });
+
+		// FETCHING STOCK OF PRODUCT VARIATIONS AND UPDATING DISPLAYED STOCK   
+	  $(document).on('click', '.btn_variation',function(){
+		  let variationStock = $(this).attr('data-variationStock');
+			//reset settings and values
+			$('#variation_quantity').val('1');
+			$('.variation_display').css('color','rgba(0,0,0,.8)');
+			//update max of quantity input field   
+			$('#variation_quantity').attr('max',variationStock);
+			//update displayed available stock 
+			$('#variation_stock').text(variationStock);
+			//punt in hidden field to be fetched by btn plus later
+			$('#variation_stock_hidden').val(variationStock);
+	  })
+
+	  // PLUS AND MINUS BUTTONS
+	$('.btn_plus').click(()=>{
+		
+		let value = $('#variation_quantity').val();
+		let variationStock = $("#variation_stock_hidden").val();
+		variationStock = parseInt(variationStock);
+		if(value >= variationStock) {
+			$('.variation_display').css('color','#c471ed');
+			$(this).attr('disabled',true);
+		} else {
+			value = parseInt(value) + 1
+			$('#variation_quantity').val(value);
+			$('.variation_display').css('color','rgba(0,0,0,.8)');
+		}
+		
+
+	})   
+
+	$('.btn_minus').click(()=>{
+		let value = $('#variation_quantity').val();
+
+		if(value > 0) {
+			value = parseInt(value) - 1
+			$('#variation_quantity').val(value);
+			$('.variation_display').css('color','rgba(0,0,0,.8)');
+		}else{
+			$('#variation_quantity').val('1');
+			$('.variation_display').css('color','rgba(0,0,0,.8)');
+		}
+
+	})   
+	  
+	
 
 	
 
@@ -778,7 +827,7 @@ $(document).ready( () => {
 		
 
 		$(this).replaceWith(
-			"<button class='btn btn-lg btn-purple py-3' style='width:50%;' data-id='" + productId + "' role='button'" + 
+			"<button class='btn btn-lg btn-purple py-3 ml-2' style='width:50%;' data-id='" + productId + "' role='button'" + 
 			"id='btn_delete_from_cart' disabled>" +
 			"<i class='fas fa-shopping-bag'></i>&nbsp;Item added to bag!</button>");
 		$.ajax({
@@ -874,7 +923,7 @@ $(document).ready( () => {
 						}
 					// update button
 					$("#btn_delete_from_cart").replaceWith(
-						"<a class='btn btn-lg btn-purple py-3' style='width:50%;' data-id='"+ productId +"' role='button' id='btn_add_to_cart'>" +
+						"<a class='btn btn-lg btn-purple py-3 ml-2' style='width:50%;' data-id='"+ productId +"' role='button' id='btn_add_to_cart'>" +
 						"<i class='fas fa-shopping-bag'></i></i>&nbsp;Add to Shopping Bag</a>");
 
 					//remove product in header dropdown
@@ -915,7 +964,7 @@ $(document).ready( () => {
 			data: {productId: productId}, 
 			success: function() {
 				$("#btn_add_to_wishlist").replaceWith(
-					"<button class='btn btn-lg btn-red py-3 ml-2' style='width:50%;' data-id='"+ productId +"' disabled>" +
+					"<button class='btn btn-lg btn-gray py-3' style='width:50%;' data-id='"+ productId +"' disabled>" +
 					"<i class='far fa-heart'></i>&nbsp;Item added to wishlist!</button>");
 				
 				let currentNumberOfWishes = $("#wish-count-header span").text();

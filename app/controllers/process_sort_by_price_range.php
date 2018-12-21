@@ -18,7 +18,7 @@
 	$parentCategoryId = $row['parent_category_id'];
 
 	if($brandId) {
-		$brandJoin = " AND i.brandId=?";
+		$brandJoin = " AND i.brand_id=?";
 	} else {
 		$brandJoin = "";
 	}

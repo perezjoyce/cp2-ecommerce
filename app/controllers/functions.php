@@ -166,7 +166,7 @@
 
     // DISPLAY BREADCRUMB 
     function displayBreadcrumbs ($conn,$productId,$origin) {
-        $sql = "SELECT i.name as 'product_name', i.brandId as 'brand_id',c.name as 'category_name', c.parent_category_id, c.id AS 'category_id',b.brand_name as 'brand_name' FROM tbl_ratings r JOIN tbl_categories c JOIN tbl_items i JOIN tbl_brands b ON i.category_id = c.id AND r.product_id = i.id AND i.brandId=b.id WHERE product_id = ? GROUP BY product_id";
+        $sql = "SELECT i.name as 'product_name', i.brand_id as 'brand_id',c.name as 'category_name', c.parent_category_id, c.id AS 'category_id',b.brand_name as 'brand_name' FROM tbl_ratings r JOIN tbl_categories c JOIN tbl_items i JOIN tbl_brands b ON i.category_id = c.id AND r.product_id = i.id AND i.brand_id=b.id WHERE product_id = ? GROUP BY product_id";
         $statement = $conn->prepare($sql);
         $statement->execute([$productId]);
         $row = $statement->fetch();
@@ -190,11 +190,11 @@
         if($origin == "http://localhost/tuitt/cp2-ecommerce/app/views/index.php"){
             $whereUserIsFrom = "Home";
             $url = "index.php";
-            $arrow = "<i class='fas fa-angle-right text-purple'></i>";
+            $arrow = "<i class='fas fa-angle-right text-gray'></i>";
         }elseif($origin == "http://localhost/tuitt/cp2-ecommerce/app/views/catalog.php?id=$productId"){
             $whereUserIsFrom = "Catalog";
             $url = "catalog.php?id=$productId";
-            $arrow = "<i class='fas fa-angle-right text-purple'></i>";
+            $arrow = "<i class='fas fa-angle-right text-gray'></i>";
         }else {
             $whereUserIsFrom ="";
             $url = "";
@@ -204,32 +204,32 @@
         
             echo "
         
-            <span>
-                <a href='$url' class='text-purple'>
+            <span clas>
+                <a href='$url' class='text-gray'>
                     &nbsp;$whereUserIsFrom&nbsp; 
                 </a>
                 $arrow
             </span>
             <span>
-                <a href='#' class='text-purple'>
+                <a href='#' class='text-gray'>
                     &nbsp;$parentCategoryName&nbsp;
                 </a>
             </span>
             <span>
-                <i class='fas fa-angle-right text-purple'></i>
-                <a href='#' class='text-purple'>
+                <i class='fas fa-angle-right text-gray'></i>
+                <a href='#' class='text-gray'>
                     &nbsp;$categoryName&nbsp;
                 </a>
             </span>
             <span>
-                <i class='fas fa-angle-right text-purple'></i>
-                <a href='#' class='text-purple'>
+                <i class='fas fa-angle-right text-gray'></i>
+                <a href='#' class='text-gray'>
                     &nbsp;$brandName&nbsp;
                 </a>
             </span>
             <span>
-                <i class='fas fa-angle-right text-purple'></i>
-                <a href='#' class='text-purple'>
+                <i class='fas fa-angle-right text-gray'></i>
+                <a href='#' class='text-gray'>
                     &nbsp;$productName
                 </a>
             </span>
