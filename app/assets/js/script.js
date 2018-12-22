@@ -595,36 +595,49 @@ $(document).ready( () => {
 	
 	// AVERAGE PRODUCT RATING AS STARS
 	$(function() {
-		let averageRating = $("#average_product_rating").val();
-		// alert(averageRating)
-		function addScore(score, $domElement) {
-		  var starWidth = "<style>.stars-container:after { width: " + score + "%} </style>";
-		  $("<span class='stars-container'>")
-			.text("★★★★★")
-			.append($(starWidth))
-			.appendTo($domElement);
-		}
+	let averageRating = $("#average_product_rating").val();
+	// alert(averageRating)
+	function addScore(score, $domElement) {
+		var starWidth = "<style>.stars-container:after { width: " + score + "%} </style>";
+		$("<span class='stars-container'>")
+		.text("★★★★★")
+		.append($(starWidth))
+		.appendTo($domElement);
+	}
 
-		addScore(averageRating, $("#average_product_rating_in_stars"));
-	  });
+		addScore(averageRating, $("#average_product_stars"));
+	});
 
-		// FETCHING STOCK OF PRODUCT VARIATIONS AND UPDATING DISPLAYED STOCK   
-	  $(document).on('click', '.btn_variation',function(){
-		  let variationStock = $(this).attr('data-variationStock');
-			//reset settings and values
-			$('#variation_quantity').val('1');
-			$('.variation_display').css('color','rgba(0,0,0,.8)');
-			//update max of quantity input field   
-			$('#variation_quantity').attr('max',variationStock);
-			//update displayed available stock 
-			$('#variation_stock').text(variationStock);
-			//punt in hidden field to be fetched by btn plus later
-			$('#variation_stock_hidden').val(variationStock);
-	  })
+	$(function() {
+	let averageRating = $("#average_product_rating_big").val();
+	// alert(averageRating)
+	function addScore(score, $domElement) {
+		var starWidth = "<style>.stars-container-big:after { width: " + score + "%} </style>";
+		$("<span class='stars-container-big'>")
+		.text("★★★★★")
+		.append($(starWidth))
+		.appendTo($domElement);
+	}
+		addScore(averageRating, $("#average_product_stars_big"));
+	});
+
+
+	// FETCHING STOCK OF PRODUCT VARIATIONS AND UPDATING DISPLAYED STOCK   
+	$(document).on('click', '.btn_variation',function(){
+		let variationStock = $(this).attr('data-variationStock');
+		//reset settings and values
+		$('#variation_quantity').val('1');
+		$('.variation_display').css('color','rgba(0,0,0,.8)');
+		//update max of quantity input field   
+		$('#variation_quantity').attr('max',variationStock);
+		//update displayed available stock 
+		$('#variation_stock').text(variationStock);
+		//punt in hidden field to be fetched by btn plus later
+		$('#variation_stock_hidden').val(variationStock);
+	})
 
 	  // PLUS AND MINUS BUTTONS
 	$('.btn_plus').click(()=>{
-		
 		let value = $('#variation_quantity').val();
 		let variationStock = $("#variation_stock_hidden").val();
 		variationStock = parseInt(variationStock);
@@ -636,8 +649,6 @@ $(document).ready( () => {
 			$('#variation_quantity').val(value);
 			$('.variation_display').css('color','rgba(0,0,0,.8)');
 		}
-		
-
 	})   
 
 	$('.btn_minus').click(()=>{
@@ -651,7 +662,6 @@ $(document).ready( () => {
 			$('#variation_quantity').val('1');
 			$('.variation_display').css('color','rgba(0,0,0,.8)');
 		}
-
 	})   
 	  
 	
@@ -668,9 +678,130 @@ $(document).ready( () => {
 		}
 		document.getElementById(content).style.display = "block";
 		evt.currentTarget.className += " active";
+
+		// if (document.body.classList.tablinks.contains('progress-x')) {
+			// do some stuff
+		
+			// let elem = document.getElementsById("rating_bar");   
+			// let width = 1;
+			// let x = setInterval(frame, 10);
+			// let aveScorePerStar = 60;
+	
+			// function frame() {
+			// 	if (width >= aveScorePerStar) {
+			// 		clearInterval(x);
+			// 	} else {
+			// 		width++; 
+			// 		elem.style.width = width + '%'; 
+			// 	}
+			// }
+		// }
+
+		console.log(evt.target.textContent);
+
+		if(evt.target.textContent.indexOf("Reviews") != false){
+				// RATING BARS
+			$(function(){
+				let elem = document.getElementById("rating_bar1");   
+				let width = 1;
+				let x = setInterval(frame, 10);
+			
+					function frame() {
+						if(document.getElementById("rating_bar1_hidden")) {
+							let aveScorePerStar = document.getElementById("rating_bar1_hidden").value;
+							if (width >= aveScorePerStar) {
+								clearInterval(x);
+							} else {
+								width++; 
+								elem.style.width = width + '%'; 
+							}
+						}	
+					}
+			});
+
+			$(function(){
+
+				let elem = document.getElementById("rating_bar2");   
+				let width = 1;
+				let x = setInterval(frame, 10);
+			
+					function frame() {
+						if(document.getElementById("rating_bar2_hidden")) {
+							let aveScorePerStar = document.getElementById("rating_bar2_hidden").value;
+							if (width >= aveScorePerStar) {
+								clearInterval(x);
+							} else {
+								width++; 
+								elem.style.width = width + '%'; 
+							}
+						}
+					}
+			});
+
+			$(function(){
+
+				let elem = document.getElementById("rating_bar3");   
+				let width = 1;
+				let x = setInterval(frame, 10);
+			
+					function frame() {
+						if(document.getElementById("rating_bar3_hidden")){
+							let aveScorePerStar = document.getElementById("rating_bar3_hidden").value;
+							if (width >= aveScorePerStar) {
+								clearInterval(x);
+							} else {
+								width++; 
+								elem.style.width = width + '%'; 
+							}
+						}
+					}
+			});
+
+			$(function(){
+
+				let elem = document.getElementById("rating_bar4");   
+				let width = 1;
+				let x = setInterval(frame, 10);
+			
+					function frame() {
+						if(document.getElementById("rating_bar4_hidden")){
+							let aveScorePerStar = document.getElementById("rating_bar4_hidden").value;
+							if (width >= aveScorePerStar) {
+								clearInterval(x);
+							} else {
+								width++; 
+								elem.style.width = width + '%'; 
+							}
+						}
+					}
+			});
+
+			$(function(){
+
+				let elem = document.getElementById("rating_bar5");   
+				let width = 1;
+				let x = setInterval(frame, 10);
+			
+					function frame() {
+						if(document.getElementById("rating_bar5_hidden")){
+							let aveScorePerStar = document.getElementById("rating_bar5_hidden").value;
+							if (width >= aveScorePerStar) {
+								clearInterval(x);
+							} else {
+								width++; 
+								elem.style.width = width + '%'; 
+							}
+						}
+						
+					}
+			});
+		}
+		
+
 	}
 
 	
+
 	
 	
 

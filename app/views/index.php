@@ -168,10 +168,10 @@
               $description = $row['description'];
               $item_img = $row['img_path'];
           ?>
-          <div class="col-lg-2 col-md-3 slick-item" style="width: 200px;">
+          <div class="col-lg-2 col-md-3 slick-item">
               <div class="row">
                 <a href="product.php?id=<?= $id ?>">
-                  <div class = 'card border-0'>
+                  <div class='card border-0' style='width:184.5px;'>
                     <a href="store.php?id=<?= $row['id'] ?>">
                       <img class='card-img-top' src="<?= $item_img ?>">
                     </a> 
@@ -181,7 +181,7 @@
 
               <div class="row">
                 <a href="product.php?id=<?= $id ?>">
-                  <div class = 'card border-0'>
+                  <div class='card border-0' style='width:184.5px;'>
                     <a href="store.php?id=<?= $row['id'] ?>">
                       <img class='card-img-top' src="<?= $item_img ?>">
                     </a> 
