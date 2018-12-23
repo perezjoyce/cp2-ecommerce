@@ -561,7 +561,9 @@ $(document).ready( () => {
 			function(data){
 			$("#products_view").html(data);
 		});
-  	});
+	  });
+	  
+	
 	
 	// SORTING BY PRICE RANGE
 	$("#btn_price_range").on("click", function(){
@@ -637,6 +639,64 @@ $(document).ready( () => {
 		addScore(averageRating, $("#average_product_stars_big"));
 	});
 
+	// PRODUCT RATING AS STARS
+	//$(function() {
+	function productRatingAsStars(rating, $domElement) {
+		//let rating = $(this).data('rating');
+		// let className = $(this).attr('id');
+		//let unique = $(this).data('id');
+		letHasDecimal = rating % 1;
+
+		for(i=1;i<=parseInt(rating);i++) {
+			$('<div class="star">★</div>').appendTo($domElement);
+		}
+
+		if(i <= 5) {
+			// print the grey stars
+			for(c=i;c<=5;c++) {
+				$('<div class="star" style="color:#eff0f5!important">★</div>').appendTo($domElement);
+			}
+		}
+
+		//function displayRating(score, $domElement) {
+			// var starWidth = "<style>.stars-container:after { width: " + score + "%} </style>";
+			// $("<span class='stars-container'>")
+			// .text("★★★★★")
+			// .append($(starWidth))
+			// .appendTo($domElement);
+	}
+		//}
+		//	displayRating(rating, $("#test-container"+unique));
+	//})
+
+	$('.test-container').each(function(i, element){
+		let rating = $(this).data('rating');
+		//let className = $(this).attr('class');
+		productRatingAsStars(rating, $(element));
+	});
+
+	//SORTING RATINGS
+	$("#sort_ratings").on("change", function(){
+		let rating = $(this).val();
+
+		if(rating < 6){
+			let storeId = $(this).data('storeid');
+			let productId = $(this).data('id');
+			$("#ratings_view").html("");
+
+			$.post("../controllers/process_sort_ratings.php", 
+				{rating:rating, productId:productId, storeId:storeId}, 
+				function(data){
+				$("#ratings_view").html(data);
+
+				$('.test-container').each(function(i, element){
+					let rating = $(this).data('rating');
+					//let className = $(this).attr('class');
+					productRatingAsStars(rating, $(element));
+				});
+			});
+		}
+	  });
 
 	// FETCHING STOCK OF PRODUCT VARIATIONS AND UPDATING DISPLAYED STOCK   
 	$(document).on('click', '.btn_variation',function(){
