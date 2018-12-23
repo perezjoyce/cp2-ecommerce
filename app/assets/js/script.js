@@ -592,6 +592,22 @@ $(document).ready( () => {
 			"<img src='"+ $url + "' style='width:100%;height:50vh;' id='"+$id+"'>"
 		);
 	})
+
+	$(document).on('mouseout', '.review_thumbnail', function(){
+		$id = $(this).data('id');
+		$url = $(this).data('url');
+		$clientId = $(this).data('clientid');
+		$("#review_iframe"+$clientId).html("");
+	})
+
+	$(document).on('mouseover', '.review_thumbnail', function(){
+		$id = $(this).data('id');
+		$url = $(this).data('url');
+		$clientId = $(this).data('clientid');
+		$('#review_iframe'+$clientId).html(
+			"<img src='"+ $url + "' style='width:100%;height:100%;' id='"+$id+"'>"
+		);
+	})
 	
 	// AVERAGE PRODUCT RATING AS STARS
 	$(function() {
@@ -679,25 +695,7 @@ $(document).ready( () => {
 		document.getElementById(content).style.display = "block";
 		evt.currentTarget.className += " active";
 
-		// if (document.body.classList.tablinks.contains('progress-x')) {
-			// do some stuff
-		
-			// let elem = document.getElementsById("rating_bar");   
-			// let width = 1;
-			// let x = setInterval(frame, 10);
-			// let aveScorePerStar = 60;
-	
-			// function frame() {
-			// 	if (width >= aveScorePerStar) {
-			// 		clearInterval(x);
-			// 	} else {
-			// 		width++; 
-			// 		elem.style.width = width + '%'; 
-			// 	}
-			// }
-		// }
-
-		console.log(evt.target.textContent);
+		// console.log(evt.target.textContent);
 
 		if(evt.target.textContent.indexOf("Reviews") != false){
 				// RATING BARS

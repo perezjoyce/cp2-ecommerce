@@ -227,6 +227,12 @@ div.card:hover {
     zoom:120%;
     color:gold!important;
 }
+
+.star-gray {
+    content:'★';
+    zoom:120%;
+    color:#eff0f5!important;
+}
   
 .star-container:after {
     position: absolute;
@@ -349,6 +355,18 @@ border-top: none;
 .rating_bar {
     height: 5px;
     background-color: gold;
+}
+
+.seller_response_container::before {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: -10px;
+    right: 95%;
+    border-bottom: 10px solid #eff0f5;
+    border-left: 11px solid transparent;
+    border-right: 11px solid transparent;
 }
 /* ================================ MODALS =================================== */
 /* LOGIN */
@@ -695,6 +713,10 @@ button.hover_btn:active {
         box-shadow: none!important;
     }
 
+    /* PRODUCT PAGE */
+    .seller_response_container::before {
+        right: 89%;
+    }
 
     /* REUSABLE */
     .vanish-md {
@@ -767,6 +789,11 @@ button.hover_btn:active {
         font-size: 10px;
         -webkit-box-shadow: none!important;
         box-shadow: none!important;
+    }
+
+    /* PRODUCT PAGE */
+    .seller_response_container::before {
+        right: 80%;
     }
 
     /* REUSABLE */

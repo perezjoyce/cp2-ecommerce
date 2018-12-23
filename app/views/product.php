@@ -539,6 +539,7 @@ if(isset($_SESSION['id'])) {
             <!-- CONTENT -->
             <div class='row'>
               <div class='col-12'>
+
                 <div id="info_content" class="tabcontent" style='display:block'>
                   <h3>London</h3>
                   <p>London is the capital city of England.</p>
@@ -546,7 +547,9 @@ if(isset($_SESSION['id'])) {
 
                 <div id="reviews_content" class="tabcontent">
                   <div class="container">
-                    <div class="row">
+
+                    <!-- DIAGRAMS -->
+                    <div class="row mb-5">
                       
                       <div class="col-lg-2"></div>
                        <!-- RATING STARS -->
@@ -780,9 +783,189 @@ if(isset($_SESSION['id'])) {
                       
                     
                     </div>
-                  </div>
 
-                  
+                    <!-- FUNNEL -->
+                    <?php 
+                       if($totalProductRating > 0) {
+                    ?>
+                    <div class="row">
+                      <div class="col-10 text-left">
+                        <h3 class='py-1'>Comments</h3>
+                      </div>
+                      <div class="col text-right">
+                        <div>
+                          <div class="flex-fill input-group" id='funnel_dropdown'>
+                            <div class="input-group-prepend pt-2 px-2">
+                              <i class="fas fa-filter"></i>
+                              &nbsp;Filter:
+                            </div>
+                            <select class="custom-select border-0" id="sort_products" onchange="sort_products" data-id="1">
+                              <option value="6" selected="">All stars</option>
+                              <option value="5"> 5 stars </option>
+                              <option value="4"> 4 stars </option>
+                              <option value="3"> 3 stars </option>
+                              <option value="3"> 2 stars </option>
+                              <option value="3"> 1 star </option>
+                            </select>
+                          </div> 
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- COMMENTS -->   
+                        <?php
+
+                          $sql ="SELECT r.*, u.first_name, u.last_name FROM tbl_ratings r JOIN tbl_users u ON r.user_id = u.id WHERE product_id = ?";
+                          $statement = $conn->prepare($sql);
+                          $statement->execute([$id]);	
+
+                          $count = $statement->rowCount();
+                          
+                          
+
+                            while($row = $statement->fetch()) {
+
+                          $ratingId = $row['id'];
+                          $clientId = $row['user_id'];
+                          $clientFname = $row['first_name'];
+                          $clientFname = ucwords(strtolower($clientFname));
+                          $clientLname = $row['last_name'];
+                          $clientLname = ucwords(strtolower($clientLname ));
+                          $clientRating = $row['product_rating'];
+                          $clientProductReview = $row['product_review'];
+                          $clientRatingDate = $row['date_given'];
+                          $sellerResponse = $row['seller_response'];
+                          $sellerResponseDate = $row['response_date'];
+
+                        ?>
+                    <div class="row border-top px-4">
+                      <div class="col-12 pt-4">
+                      
+                        <!-- CLIENT RATING -->
+                        <div class="row mb-1">
+                            <?php 
+                              if($clientRating != null || $clientRating != "") {
+                            ?>
+                          <!-- to be edited -->
+                          <div class="star">★</div>
+                          <div class="star">★</div>
+                          <div class="star">★</div>
+                          <div class="star">★</div>
+                          <div class="star">★</div>
+
+                            <?php } else { ?>
+                          
+                          <div class="star-gray">★</div>
+                          <div class="star-gray">★</div>
+                          <div class="star-gray">★</div>
+                          <div class="star-gray">★</div>
+                          <div class="star-gray">★</div>
+                        
+                            <?php } ?>
+
+                        </div>
+
+                        <!-- CLIENT NAME -->
+                        <div class='row text-gray mb-2'>
+                          <span><?=$clientFname." ".$clientLname ?></span>
+                        </div>
+
+                         
+
+                        <!-- VERFICATION BADGE AND DATE -->
+                        <div class="row mb-4">
+                          <img src="../assets/images/verified-gradient.png" alt="verified_user" style='height:10px;width:10px;'>
+                          <small class='text-purple'>&nbsp;Verified Purchase&nbsp;|
+                            <?= date("M d, Y", strtotime($clientRatingDate));  ?>
+                          </small>
+                        </div>
+
+                        
+
+                        <!-- REVIEW -->
+                            <?php 
+                              if($clientRating != null || $clientRating != "") {
+                            ?>  
+                        <div class="row mb-2">  
+                          <p style='line-height:1.5em;'><?=$clientProductReview?></p>
+                        </div>
+                            <?php } else echo ""; ?>
+
+
+                        <!-- REVIEW IMAGES -->  
+                        <div class="row mb-2">
+                          <div class="col-12">
+                            <div class="row mb-2">
+                            
+                                <?php 
+                                  $sql = "SELECT * FROM tbl_rating_images WHERE rating_id =?";
+                                  $statement2 = $conn->prepare($sql);
+                                  $statement2->execute([$ratingId]);	
+                                  $count2 = $statement2->rowCount();
+
+                                  if($count2) {
+                                
+                                  while($row2 = $statement2->fetch()){
+                                    $reviewImageId = $row2['id'];
+                                    $reviewImageUrl = $row2['url'];
+                                ?>
+
+                              <img src="<?=$reviewImageUrl?>" 
+                                  alt="review_image" style='width:50px;max-height:50px;cursor: zoom-in;' 
+                                  class='review_thumbnail mr-2' 
+                                  data-id='<?=$reviewImageId?>' data-clientid='<?=$clientId?>'
+                                  data-url='<?=$reviewImageUrl?>'>
+
+                                <?php } } ?>
+                            
+                            </div>
+                            <div class="row">
+                              <div class="col-lg-6 col-md-12 col-sm-12 px-0">
+                                <div id='review_iframe<?=$clientId?>'></div>
+                              </div>   
+                            </div>
+                          </div>
+                        </div>
+                           
+                     
+                                
+                        <!-- SELLER RESPONSE -->
+                            <?php
+                              if($sellerResponse) {
+                            ?>
+                        <div class="row my-4">
+                          <div class="col-1"></div>
+                          <div class="col mb-2 pt-4 px-5 seller_response_container" style='background:#eff0f5'>
+                            <!-- SELLER DETAILS -->
+                            <div class="row flex-row text-gray mb-4"> 
+                              <a href="store.php?id=<?=$storeId ?>"></a>
+                              <img src="<?=$storeLogo?>" alt="<?=$storeName?>" style='width:30px;max-height:30px;' class='circle'>
+                              <div>
+                                <div>&nbsp;<?=$storeName?></div>
+                                <small class='text-purple'>
+                                  &nbsp;
+                                  <?= date("M d, Y", strtotime($sellerResponseDate));  ?>
+                                </small>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <p style='line-height:1.5em;'><?=$sellerResponse?></p>
+                            </div>
+
+                          </div>
+                        </div>
+                            <?php } else { echo ""; } ?>
+
+
+                      </div>
+                    </div>
+                    <!-- ADJUSTING FIXING THIS -->
+                    <?php } ?>
+                    
+
+                  </div>
+                  <!-- /CONTAINER -->
+                  <?php } ?>
                 </div>
 
                 <div id="questions_content" class="tabcontent">
@@ -810,10 +993,10 @@ if(isset($_SESSION['id'])) {
   <!-- RELATED PRODUCTS -->
   <div class="container mb-5" style="width:100%;">  
       <!-- LABEL -->
-      <div class="row">
+      <div class="row pl-3">
         <div class="col-6">
             <h2>
-              RELATED PRODUCTS
+            &nbsp;RELATED PRODUCTS
             </h2>
         </div>
       </div>
@@ -831,7 +1014,7 @@ if(isset($_SESSION['id'])) {
 
         <div class="col">
           <a href="product.php?id=<?= $id ?>">
-            <div class='card h-700 border-0' style='width:173px;'>
+            <div class='card h-700 border-0' style='width:100%;'>
               <a href="product.php?id=<?= $row['id'] ?>">
                 <img class='card-img-top' src="<?= $item_img ?>">
 
@@ -985,7 +1168,7 @@ if(isset($_SESSION['id'])) {
     <div class="row">
       <div class="col-6">
         <h2>
-          TRENDING PRODUCTS
+        &nbsp;RELATED PRODUCTS
         </h2>
       </div>
       <div class="col-6 text-right pt-2">View All&nbsp;<i class="fas fa-angle-double-right"></i></i></div>
@@ -1002,7 +1185,7 @@ if(isset($_SESSION['id'])) {
         ?>
       <div class="col-lg-2 col-md-3 col-sm-6 px-1 pb-2">
         <a href="product.php?id=<?= $id ?>">
-          <div class = 'card h-700 border-0' style='width:173px;'>
+          <div class = 'card h-700 border-0' style='width:150px;'>
             <img class='card-img-top' src="<?= $item_img ?>" > 
             <div class="card-body">
 
@@ -1154,10 +1337,10 @@ if(isset($_SESSION['id'])) {
 
   <!-- PRODUCTS FROM SELLER -->
   <div class="container mb-5" style="width:100%;">
-    <div class="row">
+    <div class="pl-3 row">
       <div class="col-6">
         <h2>
-          OTHER PRODUCTS FROM SHOP
+          &nbsp;OTHER PRODUCTS FROM SHOP
         </h2>
       </div>
     </div>
@@ -1179,7 +1362,7 @@ if(isset($_SESSION['id'])) {
       
       <div class="col">
         <a href="product.php?id=<?= $id ?>">
-          <div class='card h-700 border-0' style='width:173px;'>
+          <div class='card h-700 border-0' style='width:100%;'>
             <a href="product.php?id=<?= $row['id'] ?>">
               <img class='card-img-top' src="<?= $item_img ?>">
 
