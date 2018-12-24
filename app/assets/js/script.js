@@ -858,6 +858,23 @@ $(document).ready( () => {
 
 	}
 
+
+	// POSTING QUESTIONS
+	$(document).on('click', '#btn_ask_question', function(){
+
+		let userId = $(this).data('userid');
+		let productId = $(this).data('productid');
+		let question = $('#product_question').val();
+
+		$.post('../controllers/process_ask_about_product.php', {
+			question:question,
+			userId: userId,
+			productId:productId 
+		},function(data){
+			$('#post_questioin_notification').text(data);
+		})
+
+	})
 	
 
 	

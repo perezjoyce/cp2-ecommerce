@@ -392,6 +392,15 @@ border-top: none;
     width: 1.5em;
     margin-left: -1.5em;
 }
+
+textarea:focus, textarea:active {
+    box-shadow: none!important;
+    border:#c471ed!important;
+    outline:#c471ed!important;
+    background: #eff0f5!important;
+}
+
+
 /* ================================ MODALS =================================== */
 /* LOGIN */
 .btn-gradient {
@@ -685,7 +694,7 @@ button.hover_btn:active {
         font-size: 1rem;
     }
 
-    p, div, a.btn, button, .text-responsive, .product_details {
+    p, div, a.btn, button, .text-responsive, .product_details, textarea {
         font-size: 0.8rem!important;
     }
 
@@ -774,7 +783,7 @@ button.hover_btn:active {
         font-size: 0.9rem;
     }
 
-    p, div, a.btn, button, .text-responsive ,.product_details {
+    p, div, a.btn, button, .text-responsive ,.product_details, textarea {
         font-size: 0.8rem!important;
     }
 

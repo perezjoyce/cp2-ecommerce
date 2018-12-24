@@ -540,8 +540,9 @@ if(isset($_SESSION['id'])) {
             <div class='row'>
               <div class='col-12'>
 
+                <!-- PRODUCT INFO -->
                 <div id="info_content" class="tabcontent" style='display:block'>
-                  <div class="container mt-4">
+                  <div class="container mt-4 px-4">
                     <div class="row">
                       <!-- <div class="col-1"></div> -->
                       <div class="col ml-4">
@@ -563,7 +564,8 @@ if(isset($_SESSION['id'])) {
                     </div>
                   </div>
                 </div>
-
+                
+                <!-- PRODUCT REVIEWS -->
                 <div id="reviews_content" class="tabcontent">
                   <div class="container">
 
@@ -989,10 +991,13 @@ if(isset($_SESSION['id'])) {
                   <!-- /CONTAINER -->
                   <?php } ?>
                 </div>
-
+                
+                <!-- Q&As -->
                 <div id="questions_content" class="tabcontent">
-                  <div class="container mt-4">
+                  <div class="container mt-4 px-4">
                     <div class="row">
+
+                      <!-- FREQUENTLY ASKED -->
                       <div class="col-6">
                         <div class="row mb-4">
                           <h3 class='py-1'>Frequently Asked</h3>
@@ -1012,14 +1017,12 @@ if(isset($_SESSION['id'])) {
                                       while($row = $statement->fetch()) {
                                         $question = $row['question'];
                                         $answer = $row['answer'];
-                                        // $whoAskedId = $row['user_id'];
-                                        // $whoAsked = $row['username'];
                                   ?>
 
                                 
                                   <div class="d-flex flex-column pb-5">
                                     <div>
-                                      <img src="../assets/images/question-gradient.png" alt="verified_user" style='height:20px;width:20px;'>
+                                      <img src="../assets/images/question-gradient-filled.png" alt="verified_user" style='height:20px;width:20px;'>
                                       <span class='pl-3 text-purple'>
                                         <?=$question?>
                                       </span>
@@ -1041,14 +1044,14 @@ if(isset($_SESSION['id'])) {
                         
                       </div>
                       
-
+                      <!-- OTHER QUESTIONS-->
                       <div class="col-6">
                         <div class="row mb-4">
                           <h3 class='py-1'>Other Questions</h3>
                         </div>
 
                         <div class="row">
-                          <div class="col-12 px-0" style="overflow-x:scroll;max-height:500px;">
+                          <div class="col-12 px-0" style="overflow-x:scroll;max-height:300px;">
                             
 
                                   <?php
@@ -1090,17 +1093,17 @@ if(isset($_SESSION['id'])) {
 
                       
                                           if($interval->format('%w') != 0) {
-                                              $ago = $interval->format('%w weeks ago');
+                                              $ago = $interval->format('- %w weeks ago');
                                           } else {
                                             if($interval->format('%d') != 0) {
-                                              $ago = $interval->format('%d days ago ');
+                                              $ago = $interval->format('- %d days ago ');
                                             } else {
                                               if($interval->format('%h') != 0) {
-                                                $ago = $interval->format('%h hrs ago');
-                                              } elseif($interval->format('%i') != 0) {
-                                                $ago = $interval->format('%i minutes ago');
+                                                $ago = $interval->format('- %h hrs ago');
+                                              } elseif($interval->format('- %i') != 0) {
+                                                $ago = $interval->format('- %i minutes ago');
                                               } else {
-                                                $ago = "just now";
+                                                $ago = "- just now";
                                               }
                                             } 
                                           }
@@ -1110,9 +1113,53 @@ if(isset($_SESSION['id'])) {
 
                                       </small>
                                     </div>
+                                      <?php if($answer != null){ ?>
+
                                     <div class='pl-5 pt-2'>
-                                      <?=$answer?>
+                                      <div><?=$answer?></div>
+                                      <div class='text-gray'>
+                                        <small><?=$storeName?></small>
+                                        <small>
+                                          <?php 
+                                        
+                                            $datetimeA = new DateTime($dateAsked);
+                                            $datetimeB = new DateTime($dateAnswered);
+                                            $interval2 = $datetimeB->diff($datetimeA);
+                                            $ago2 = "";
+
+                        
+                                            if($interval2->format('%w') != 0) {
+                                                $ago2 = $interval2->format('- answered within %w week/s');
+                                            } else {
+                                              if($interval2->format('%d') != 0) {
+                                                $ago2 = $interval2->format('- answered within %d day/s');
+                                              } else {
+                                                if($interval2->format('%h') != 0) {
+                                                  $ago2 = $interval2->format('- asnwered within %h hr/s');
+                                                } elseif($interval2->format('%i') != 0) {
+                                                  $ago2 = $interval2->format('- answered within %i min/s');
+                                                } else {
+                                                  $ago2 = $interval2->format('- answered within %s sec/s');
+                                                }
+                                              } 
+                                            }
+
+                                            echo $ago2;
+                                        
+                                        
+                                          ?>
+                                        </small>
+                                      </div>
                                     </div>
+
+                                      <?php } else { ?>
+
+                                    <div class='pl-5 pt-2'>
+                                      <div class='text-gray'>Waiting for seller's response.</div>
+                                    </div>
+
+                                      <?php } ?>
+
                                   </div>
                                 
                               
@@ -1121,14 +1168,43 @@ if(isset($_SESSION['id'])) {
                                 
                           </div>
                         </div>
-                            
+                        
 
-                          
+                        <!-- ASK A QUESTION -->
+                        <?php 
+                          if(isset($_SESSION['id'])) {
+                            
+                        ?>
+                        <div class="row">
+                          <div class="col-12">
+                            <form action='process_ask_about_product' method='POST'>
+                              <div class="form mt-5">
+                                <div class="form-group">
+                                  <label for="post_question">
+                                    <h3>Ask A Question</h3>
+                                  </label>
+                                  <textarea class="form-control" id="product_question" style='width:100%;' rows='3'></textarea>
+                                </div>
+                              </div>
+
+                              <div class="d-flex flex-row">
+                                <a class="btn btn-purple" data-userid='<?=$userId?>' data-productid='<?=$id?>'role='button' id='btn_ask_question'>
+                                  Submit
+                                  <i class="far fa-paper-plane"></i>
+                                </a>
+                                <small id='post_questioin_notification' class='text-purple ml-4 pt-1'></small>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                        <?php } ?>
                         
                       </div>
                     </div>
                   </div>
                 </div>
+
+
               </div>
             </div>
           </div>
