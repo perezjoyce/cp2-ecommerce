@@ -96,7 +96,7 @@ html {
     /* background-color: #000000; */
 }
 
-p {
+p, .product_details {
     font-size: 1.1rem;
 }
 
@@ -377,6 +377,20 @@ border-top: none;
     border-bottom: 10px solid #eff0f5;
     border-left: 11px solid transparent;
     border-right: 11px solid transparent;
+}
+
+/* PRODUCT DETAILS */
+.product_details {
+    list-style: none!important;
+}
+
+.product_details::before {
+    content: "\2022";
+    color: #c471ed;
+    font-weight: bold;
+    display: inline-block; 
+    width: 1.5em;
+    margin-left: -1.5em;
 }
 /* ================================ MODALS =================================== */
 /* LOGIN */
@@ -671,7 +685,7 @@ button.hover_btn:active {
         font-size: 1rem;
     }
 
-    p, div, a.btn, button, .text-responsive {
+    p, div, a.btn, button, .text-responsive, .product_details {
         font-size: 0.8rem!important;
     }
 
@@ -760,7 +774,7 @@ button.hover_btn:active {
         font-size: 0.9rem;
     }
 
-    p, div, a.btn, button, .text-responsive {
+    p, div, a.btn, button, .text-responsive ,.product_details {
         font-size: 0.8rem!important;
     }
 

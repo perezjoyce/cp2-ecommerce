@@ -541,8 +541,27 @@ if(isset($_SESSION['id'])) {
               <div class='col-12'>
 
                 <div id="info_content" class="tabcontent" style='display:block'>
-                  <h3>London</h3>
-                  <p>London is the capital city of England.</p>
+                  <div class="container mt-4">
+                    <div class="row">
+                      <!-- <div class="col-1"></div> -->
+                      <div class="col ml-4">
+                          <ul class='d-flex flex-wrap'>
+                            <?php
+                              $sql = "SELECT * FROM tbl_item_descriptions WHERE product_id = ?";
+                              $statement = $conn->prepare($sql);
+                              $statement->execute([$id]);	
+                              $count = $statement->rowCount();
+                              if($count) {
+                                while($row = $statement->fetch()) { 
+                                  $description = $row['description'];
+                            ?>
+                              <li style='line-height:1.5; flex: 1 0 50%' class='pb-5 pr-5 product_details'><?=$description?></li>
+                            <?php } } ?>
+                          </ul>
+                        
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 <div id="reviews_content" class="tabcontent">
@@ -789,7 +808,7 @@ if(isset($_SESSION['id'])) {
                        if($totalProductRating > 0) {
                     ?>
                     <div class="row">
-                      <div class="col-10 text-left">
+                      <div class="col-lg-10 col-md-8  text-left">
                         <h3 class='py-1'>Comments</h3>
                       </div>
                       <div class="col text-right">
@@ -799,7 +818,7 @@ if(isset($_SESSION['id'])) {
                               <i class="fas fa-filter"></i>
                               &nbsp;Filter:
                             </div>
-                            <select class="custom-select border-0" id="sort_ratings" onchange="sort_ratings" data-id='<?= $id ?>' data-storeid='<?=$storeId?>'>
+                            <select class="custom-select border-0 pt-0" id="sort_ratings" onchange="sort_ratings" data-id='<?= $id ?>' data-storeid='<?=$storeId?>'>
                               <option value="6" selected="">All stars</option>
                               <option value="5"> 5 stars </option>
                               <option value="4"> 4 stars </option>
@@ -972,8 +991,143 @@ if(isset($_SESSION['id'])) {
                 </div>
 
                 <div id="questions_content" class="tabcontent">
-                  <h3>Tokyo</h3>
-                  <p>Tokyo is the capital of Japan.</p>
+                  <div class="container mt-4">
+                    <div class="row">
+                      <div class="col-6">
+                        <div class="row mb-4">
+                          <h3 class='py-1'>Frequently Asked</h3>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 px-0" style="overflow-x:scroll;max-height:500px;">
+                            
+
+                                  <?php
+                                    $sql = "SELECT q.*,u.username FROM tbl_questions_answers q JOIN tbl_users u ON q.user_id = u.id WHERE product_id = ? AND faq = 'yes' ";
+                                    $statement = $conn->prepare($sql);
+                                    $statement->execute([$id]);
+                                    $count = $statement->rowCount();
+                                  
+                                    if($count) {
+                                      while($row = $statement->fetch()) {
+                                        $question = $row['question'];
+                                        $answer = $row['answer'];
+                                        // $whoAskedId = $row['user_id'];
+                                        // $whoAsked = $row['username'];
+                                  ?>
+
+                                
+                                  <div class="d-flex flex-column pb-5">
+                                    <div>
+                                      <img src="../assets/images/question-gradient.png" alt="verified_user" style='height:20px;width:20px;'>
+                                      <span class='pl-3 text-purple'>
+                                        <?=$question?>
+                                      </span>
+                                    </div>
+                                    <div class='pl-5 pt-2'>
+                                      <?=$answer?>
+                                    </div>
+                                  </div>
+                                
+                              
+
+                                <?php } } ?>
+                                
+                          </div>
+                        </div>
+                            
+
+                          
+                        
+                      </div>
+                      
+
+                      <div class="col-6">
+                        <div class="row mb-4">
+                          <h3 class='py-1'>Other Questions</h3>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 px-0" style="overflow-x:scroll;max-height:500px;">
+                            
+
+                                  <?php
+                                    $sql = "SELECT q.*,u.username FROM tbl_questions_answers q JOIN tbl_users u ON q.user_id = u.id WHERE product_id = ? AND faq = 'no' ";
+                                    $statement = $conn->prepare($sql);
+                                    $statement->execute([$id]);
+                                    $count = $statement->rowCount();
+                                  
+                                    if($count) {
+                                      while($row = $statement->fetch()) {
+                                        $question = $row['question'];
+                                        $answer = $row['answer'];
+                                        $whoAskedId = $row['user_id'];
+                                        $whoAsked = $row['username'];
+                                        $dateAsked = $row['date_asked'];
+                                        $dateAnswered = $row['date_answered'];
+
+
+                                        
+                                        
+                                  ?>
+
+                                
+                                  <div class="d-flex flex-column pb-5">
+                                    <div>
+                                      <img src="../assets/images/question-gradient.png" alt="verified_user" style='height:20px;width:20px;'>
+                                      <span class='pl-3 text-purple'>
+                                        <?=$question?>
+                                      </span>
+                                    </div>
+                                    <div class='text-gray pl-5 pb-3'>
+                                      <small><?=$whoAsked?>&nbsp;</small>
+                                      <small>
+                                        <?php
+                                          $datetime1 = new DateTime($dateAsked);
+                                          $datetime2 = new DateTime();
+                                          $interval = $datetime1->diff($datetime2);
+                                          $ago = "";
+
+                      
+                                          if($interval->format('%w') != 0) {
+                                              $ago = $interval->format('%w weeks ago');
+                                          } else {
+                                            if($interval->format('%d') != 0) {
+                                              $ago = $interval->format('%d days ago ');
+                                            } else {
+                                              if($interval->format('%h') != 0) {
+                                                $ago = $interval->format('%h hrs ago');
+                                              } elseif($interval->format('%i') != 0) {
+                                                $ago = $interval->format('%i minutes ago');
+                                              } else {
+                                                $ago = "just now";
+                                              }
+                                            } 
+                                          }
+
+                                          echo $ago;
+                                        ?>
+
+                                      </small>
+                                    </div>
+                                    <div class='pl-5 pt-2'>
+                                      <?=$answer?>
+                                    </div>
+                                  </div>
+                                
+                              
+
+                                <?php } } ?>
+                                
+                          </div>
+                        </div>
+                            
+
+                          
+                        
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
