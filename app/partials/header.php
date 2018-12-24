@@ -132,7 +132,7 @@
                         
                         </a>
 
-                        <div class="dropdown-menu mt-2" aria-labelledby="cartDropdown" style='width:17em;' id='cartDropdown_menu'>  
+                        <div class="dropdown-menu mt-2 pt-3" aria-labelledby="cartDropdown" style='width:17em;' id='cartDropdown_menu'>  
                             <?php 
                                 $sql = "SELECT c.item_id, c.quantity, p.img_path, p.name, p.price, p.id as productId
                                 FROM tbl_carts c 
@@ -161,44 +161,46 @@
                                     $image = $row['img_path'];  
                             ?>
                                 
-                            <div class='dropdown-item my-3' id='product-row<?=$productId?>'>
-                                <div class='row'>
-                                    <div class='col-3'>
-                                        <img src='<?=$image?>' style='width:30px;height:30px;'>
-                                    </div>
-
-                                    <div class='col-7'>
-                                        <div class='row'>
-                                            <small><?= $name ?></small>
+                            <div class='dropdown-item' id='product-row<?=$productId?>'>
+                                <div class='row mx-1'>
+                                    <div class='d-flex flex-row' style='justify-content:flex-start;width:100%;'>
+                                        <div class='flex pr-2'>
+                                            <img src='<?=$image?>' style='width:30px;height:30px;'> 
+                                        </div>   
+                                        <div class='flex-fill'>
+                                            <div class='d-flex flex-column'>
+                                                <small><?= $name ?></small>
+                                                <small class='text-gray'>
+                                                    <?=$price?>
+                                                     <?php if($quantity > 1) { ?>
+                                                    &nbsp;x&nbsp;<?=$quantity?>
+                                                    <?php } ?>
+                                                </small>
+                                            </div>
                                         </div>
-                                        <div class='row text-secondary'>
-                                            <small><?= $price ?></small>
-                                            <?php if($quantity > 1) { ?>
-                                            <small> &nbsp;x&nbsp;<?=$quantity?></small>
-                                            <?php } ?>
+                                        <div class='flex-fill text-right' style='align-self:end;'>
+                                            <a data-productid='<?= $productId ?>' role='button' class='btn_delete_item text-gray flex-fill font-weight-light' style='font-size:16px;'>
+                                            &times;
+                                            </a>
                                         </div>
-                                    </div>
-                                
-                                    <div class='col-2'>
-                                        <a data-productid='<?= $productId ?>' role='button' class='btn_delete_item text-danger'>
-                                        &times;
-                                        </a>
+                                        
                                     </div>
                                 </div>
                             </div>
                         
                             
-                            <?php } ?>
+                                <?php } ?>
                         
                             <div class="dropdown-divider my-3"></div>
                             <a class='dropdown-item mb-3'>
-                                <button class='modal-link btn btn-block btn-primary' 
-                                href='#' 
-                                data-id='<?= $_GET['id'] ?>' 
-                                data-url='../partials/templates/cart_modal.php' 
-                                role='button'
-                                id='cartModal'>
-                                Go To Cart
+                            <!-- data-id='$_GET['id']' REMOVED FROM THIS BUTTON-->
+                                <button class='modal-link btn btn-block btn-gradient' 
+                                    href='#' 
+                                     
+                                    data-url='../partials/templates/cart_modal.php' 
+                                    role='button'
+                                    id='cartModal'>
+                                    Go To Cart
                                 </button>
                             </a>        
                             <?php } ?>
@@ -218,14 +220,14 @@
                             <!-- <img src="../../uploads/2/5c088b195adb0.jpg" height="80"> -->
                         </a>
 
-                        <div class="dropdown-menu mt-2" aria-labelledby="profileDropdown">
+                        <div class="dropdown-menu" aria-labelledby="profileDropdown" id='profileDropdown_menu' style='min-width:1rem;'>
                             <a class="dropdown-item my-3" href='profile.php?id=$id'>
                                 <i class="far fa-user-circle mr-2"></i>
                                 Profile
                             </a>
                             <a class="dropdown-item mb-3 btn_view_addresses" data-id='<?= $id ?>'>
                                 <i class="far fa-address-book mr-2"></i>
-                                Shipping Addresses
+                                Addresses
                             </a>
                             <a class="dropdown-item mb-4 btn_view_wishList" data-id='<?= $id ?>'>
                                 <i class="far fa-heart mr-2"></i>

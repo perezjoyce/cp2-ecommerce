@@ -125,47 +125,47 @@
 							<div class="flex-fill input-group mb-3">
 						
 								<!-- <select class="custom-select" id="sort_products" onchange="sort_products" data-id="<?= $_GET['id'];?>"> -->
-								<a class='flex-fill btn btn-block text-left m-0 px-0 py-1 sort_by_rating' data-rating='5'>
-									<i class='fas fa-star text-warning'></i>
-									<i class='fas fa-star text-warning'></i>
-									<i class='fas fa-star text-warning'></i>
-									<i class='fas fa-star text-warning'></i>
-									<i class='fas fa-star text-warning'></i>
+								<a class='flex-fill btn btn-block text-left m-0 px-0 pt-1 pb-0 sort_by_rating' data-rating='5'>
+									<span class="star">★</span>
+									<span class="star">★</span>
+									<span class="star">★</span>
+									<span class="star">★</span>
+									<span class="star">★</span>
 								</a>
 								
-								<a class='flex-fill btn btn-block text-left mx-0 px-0 py-1 sort_by_rating' data-rating='4'>
-									<i class='fas fa-star text-warning'></i>
-									<i class='fas fa-star text-warning'></i>
-									<i class='fas fa-star text-warning'></i>
-									<i class='fas fa-star text-warning'></i>
-									<i class='far fa-star' style='color:lightgray'></i>
+								<a class='flex-fill btn btn-block text-left mx-0 px-0 pb-1  pt-0 sort_by_rating' data-rating='4'>
+									<span class="star">★</span>
+									<span class="star">★</span>
+									<span class="star">★</span>
+									<span class="star">★</span>
+									<span class="star-gray">★</span>
 									& Up
 								</a>
 
 								<a class='flex-fill btn btn-block text-left m-0 px-0 py-1 sort_by_rating' data-rating='3'>
-									<i class='fas fa-star text-warning'></i>
-									<i class='fas fa-star text-warning'></i>
-									<i class='fas fa-star text-warning'></i>
-									<i class='far fa-star' style='color:lightgray'></i>
-									<i class='far fa-star' style='color:lightgray'></i>
+									<span class="star">★</span>
+									<span class="star">★</span>
+									<span class="star">★</span>
+									<span class="star-gray">★</span>
+									<span class="star-gray">★</span>
 									& Up
 								</a>
 
 								<a class='flex-fill btn btn-block text-left m-0 px-0 py-1 sort_by_rating' data-rating='2'>
-									<i class='fas fa-star text-warning'></i>
-									<i class='fas fa-star text-warning'></i>
-									<i class='far fa-star' style='color:lightgray'></i>
-									<i class='far fa-star' style='color:lightgray'></i>
-									<i class='far fa-star' style='color:lightgray'></i>
+									<span class="star">★</span>
+									<span class="star">★</span>
+									<span class="star-gray">★</span>
+									<span class="star-gray">★</span>
+									<span class="star-gray">★</span>
 									& Up
 								</a>
 									
 								<a class='flex-fill btn btn-block text-left m-0 px-0 py-1 sort_by_rating' data-rating='1'>
-									<i class='fas fa-star text-warning'></i>
-									<i class='far fa-star' style='color:lightgray'></i>
-									<i class='far fa-star' style='color:lightgray'></i>
-									<i class='far fa-star' style='color:lightgray'></i>
-									<i class='far fa-star' style='color:lightgray'></i>
+									<span class="star">★</span>
+									<span class="star-gray">★</span>
+									<span class="star-gray">★</span>
+									<span class="star-gray">★</span>
+									<span class="star-gray">★</span>
 									& Up
 								</a>
 								

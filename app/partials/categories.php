@@ -1,5 +1,5 @@
     <!-- CATEGORIES: FOR INDEX AND CATALOG PAGE ONLY -->
-    <div class="container-fluid border-bottom vanish-sm">
+    <div class="container-fluid border-bottom vanish-sm white-bg">
         <div class="row px-5">
             <div class="col-1"></div>
             <div class="col-10 px-5">

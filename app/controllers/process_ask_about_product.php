@@ -13,6 +13,7 @@ if(isset($_POST['userId'])){
     $statement = $conn->prepare($sql);
     $statement->execute([$question,$productId, $userId]);
     
+    // SEND EMAIL TO SELLER
     echo "Thanks. You will be notified once seller responds.";
 
 } else {

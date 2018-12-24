@@ -654,7 +654,7 @@ $(document).ready( () => {
 		if(i <= 5) {
 			// print the grey stars
 			for(c=i;c<=5;c++) {
-				$('<div class="star" style="color:#eff0f5!important">★</div>').appendTo($domElement);
+				$('<div class="star" style="color:lightgray!important">★</div>').appendTo($domElement);
 			}
 		}
 
@@ -866,13 +866,19 @@ $(document).ready( () => {
 		let productId = $(this).data('productid');
 		let question = $('#product_question').val();
 
-		$.post('../controllers/process_ask_about_product.php', {
-			question:question,
-			userId: userId,
-			productId:productId 
-		},function(data){
-			$('#post_questioin_notification').text(data);
-		})
+		if(question == null || question == "") {
+			$('#post_questioin_notification').text("Please type your question first.");
+		} else {
+			$.post('../controllers/process_ask_about_product.php', {
+				question:question,
+				userId: userId,
+				productId:productId 
+			},function(data){
+				$('#post_questioin_notification').text(data);
+			})
+		}
+
+		
 
 	})
 	
@@ -944,17 +950,24 @@ $(document).ready( () => {
 	
 	$('#cartDropdown').mouseover(()=>{
 		$('#cartDropdown_menu').show();
-	});
-
-	$('#cartDropdown_menu').mouseover(()=>{
-		$('#cartDropdown_menu').show();
+		$('#profileDropdown_menu').hide();
 	});
 
 	$('#profileDropdown').mouseover(()=>{
-		$('#cartDropdown_menu').show();
+		$('#profileDropdown_menu').show();
+		$('#cartDropdown_menu').hide();
 	});
 
 	$('#profileDropdown_menu').mouseover(()=>{
+		$('#profileDropdown_menu').show();
+	});
+
+	$('#profileDropdown_menu').mouseout(()=>{
+		$('#profileDropdown_menu').hide();
+	});
+	
+
+	$('#cartDropdown_menu').mouseover(()=>{
 		$('#cartDropdown_menu').show();
 	});
 
@@ -962,9 +975,8 @@ $(document).ready( () => {
 		$('#cartDropdown_menu').hide();
 	});
 
-	$('#profileDropdown_menu').mouseout(()=>{
-		$('#cartDropdown_menu').hide();
-	});
+
+	
 
 	// POPULATE SEARCH w3schools
 	window.showResult = function(str) {

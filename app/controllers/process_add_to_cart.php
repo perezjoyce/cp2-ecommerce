@@ -58,25 +58,29 @@ if (isset($_POST['productId'])) {
                     $quantity = $row['quantity'];
                     $image = $row['img_path'];  
         
-                $newProductAdded = "<div class='dropdown-item my-3' id='product-row$productId'>
-                    <div class='row'>
-                      <div class='col-3'>
-                        <img src='$image' style='width:30px;height:30px;'>
-                      </div>
-
-                      <div class='col-7'>
-                        <div class='row'>
-                          <small>$name</small>
+                $newProductAdded = 
+                  "<div class='dropdown-item' id='product-row$productId'>
+                    <div class='row mx-1'>
+                      <div class='d-flex flex-row' style='justify-content:flex-start;width:100%;'>
+                        <div class='flex pr-2'>
+                            <img src='$image' style='width:30px;height:30px;'> 
+                        </div>   
+                        <div class='flex-fill'>
+                            <div class='d-flex flex-column'>
+                                <small>$name</small>
+                                <small class='text-gray'>
+                                    $price";
+                                    if($quantity > 1) {
+                                      $newProductAdded .="&nbsp;&nbsp;".$quantity;
+                                    } 
+                                $newProductAdded .= "</small>
+                            </div>
                         </div>
-                        <div class='row text-secondary'>
-                          <small>$price</small>
+                        <div class='flex-fill text-right' style='align-self:end;'>
+                            <a data-productid='$productId' role='button' class='btn_delete_item text-gray flex-fill font-weight-light' style='font-size:16px;'>
+                            &times;
+                            </a>
                         </div>
-                      </div>
-                      
-                      <div class='col-2'>
-                        <a data-productid='$productId' role='button' class='btn_delete_item text-danger'>
-                          &times;
-                        </a>
                       </div>
                     </div>
                   </div>";
@@ -86,17 +90,16 @@ if (isset($_POST['productId'])) {
         
         $button = "<div class='dropdown-divider my-3'></div>
                   <a class='dropdown-item mb-3'>
-                    <button class='modal-link btn btn-block btn-primary' 
-                      href='#' 
-                      data-id='$productId' 
-                      data-url='../partials/templates/cart_modal.php' 
-                      role='button'
-                      id='cartModal'>
-                      Go To Cart
+                    <button class='modal-link btn btn-block btn-gradient' 
+                        href='#' 
+                      
+                        data-url='../partials/templates/cart_modal.php' 
+                        role='button'
+                        id='cartModal'>
+                        Go To Cart
                     </button>
-                  </a>        
-              </div>";
-    
+                  </a>";
+            
     $response = ['newProduct' => $newProductAdded, 'itemsInCart' => $count, 'button' => $button];
 
     echo json_encode($response);

@@ -10,8 +10,8 @@ $id = $_GET['id'];
 if(isset($_SESSION['id'])) {
   $userId = $_SESSION['id'];
 }
-
 ?>
+
 
   <!-- BREADCRUMBS -->
   <div class="container">
@@ -330,7 +330,7 @@ if(isset($_SESSION['id'])) {
       <!-- THIRD COLUMN (SELLER DETAILS) -->
       <div class="col-lg-2 col-md-3 col-sm-12 px-5 mb-5">
 
-        <div class='row mb-4 py-4 border'>
+        <div class='row mb-4 py-4 border white-bg'>
             <div class="col-12">
               
                   <?php
@@ -816,12 +816,12 @@ if(isset($_SESSION['id'])) {
                       <div class="col text-right">
                         <div>
                           <div class="flex-fill input-group" id='funnel_dropdown'>
-                            <div class="input-group-prepend pt-2 px-2">
+                            <div class="input-group-prepend pt-2 px-2" style='background-color:#f5f5f5;'>
                               <i class="fas fa-filter"></i>
                               &nbsp;Filter:
                             </div>
                             <select class="custom-select border-0 pt-0" id="sort_ratings" onchange="sort_ratings" data-id='<?= $id ?>' data-storeid='<?=$storeId?>'>
-                              <option value="6" selected="">All stars</option>
+                              <option value="6" selected>All stars</option>
                               <option value="5"> 5 stars </option>
                               <option value="4"> 4 stars </option>
                               <option value="3"> 3 stars </option>
@@ -1022,6 +1022,7 @@ if(isset($_SESSION['id'])) {
                                 
                                   <div class="d-flex flex-column pb-5">
                                     <div>
+                                      <!-- <i class="fas fa-question-circle text-purple"></i> -->
                                       <img src="../assets/images/question-gradient-filled.png" alt="verified_user" style='height:20px;width:20px;'>
                                       <span class='pl-3 text-purple'>
                                         <?=$question?>
