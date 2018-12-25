@@ -17,15 +17,31 @@ if(isset($_GET['id'])) {
                     <span>
                         <a href="index.php" class='text-purple'>
                             Home&nbsp;
-                            <i class="fas fa-angle-right"></i> 
                         </a>
                     </span>
                     <span>
                         <a href="#" class='text-purple'>
+                            <i class="fas fa-angle-right"></i>
                             <?= $name ?>&nbsp;
+                            <i class="fas fa-angle-right"></i> 
                         </a>
                     </span>
-<?php } ?>
+
+<?php } elseif(isset($_GET['searchKey'])) { 
+    $searchkey = $_GET['searchKey'];
+?>
+    
+        <div class="container">
+        <div class="row my-4">
+            <div class="col-12">
+            <span>
+                <a href="index.php" class='text-purple'>
+                   <?= ucwords(strtolower($searchkey)) ?>
+                   <i class="fas fa-angle-right"></i>
+                </a>
+            </span>
+
+<?php } ?> 
 
                     <span id='level_2_breadcrumb'>
                         <!-- TO BE INSERTED BY JS & AJAX-->

@@ -15,7 +15,7 @@
 		}
 		
 		?>
-		<div class="container">
+		<div class="container mt-5">
 			<div class="row">
 				<!-- FIRST COLUMN -->
 				<div class="col-lg-2 col-md-2 mb-5">
@@ -26,7 +26,7 @@
 					
 								<?php
 								// DISPLAYING ALL AVAILABLE CATEGORIES
-								$id = $_GET['id'];
+								$id = isset($_GET['id']) ? $_GET['id'] : 1;
 								
 								$sql = "SELECT * FROM tbl_categories WHERE parent_category_id = ?";
 								$statement = $conn->prepare($sql);
@@ -205,7 +205,14 @@
 
 						if(isset($_GET['searchKey'])) {
 							$searchkey = $_GET['searchKey'];
-							$sql = "SELECT item.name, item.id, category.name as catName, brand.brand_name 
+							$sql = "SELECT item.name, 
+								item.id as productId, 
+								item.price,
+								item.img_path,
+								category.id as id, 
+								category.name as catName, 
+								brand.brand_name
+								 
 								FROM tbl_items item
 								LEFT JOIN tbl_categories category on item.`category_id`=category.id
 								LEFT JOIN tbl_brands as brand on brand.id=item.`brand_id`
@@ -224,6 +231,7 @@
 								$sql = "SELECT c.name, c.parent_category_id, c.id, i.id AS 'productId', i.name, i.price, i.img_path FROM tbl_categories c JOIN tbl_items i ON i.category_id = c.id WHERE parent_category_id = ?";	
 								$statement = $conn->prepare($sql);
 								$statement->execute([$id]);	
+						}
 
 							// } else {
 							// 	$sql = "SELECT * FROM tbl_items";
@@ -303,7 +311,7 @@
 							<!-- /LINK FOR CARD -->
 						</div>
 						<!-- /PRODUCT CARDS -->
-						<?php } } } ?>
+						<?php } } ?>
 					
 					</div>
 					<!-- /.PRODUCT DISPLAY ROW -->

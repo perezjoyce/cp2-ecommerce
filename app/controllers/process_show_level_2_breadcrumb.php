@@ -15,7 +15,6 @@
             if($parentCategoryId != null) {
                 echo "
                     <a href='#' class='text-purple'>
-                        <i class='fas fa-angle-right'></i> 
                         &nbsp;$name&nbsp;
                     </a>";
             }

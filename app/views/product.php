@@ -27,13 +27,13 @@ if(isset($_SESSION['id'])) {
   </div>
 
   <!-- PRODUCT PAGE MAIN CONTAINER -->
-  <div class="container">
+  <div class="container mt-5">
 
     <!-- FIRST ROW -->
     <div class="row">
         
       <!-- FIRST COLUMN (PICS) -->
-      <div class="col-lg-4 col-md-5 col-sm-12 mb-4 mb-4">
+      <div class="col-lg-4 col-md-5 col-sm-12 mb-4">
         <input type="hidden" id='iframeId'>
         <!-- IFRAME -->
         <div class="row mb-3 no-gutters">
