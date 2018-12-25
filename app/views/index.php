@@ -278,44 +278,34 @@
                   <div>&#8369; <?= $price ?> </div>
 
                   <div class='d-flex flex-row mt-3'>
+                   
                     <!-- WISHLIST BUTTONS -->
-                    <div class='flex-fill'>
-                      <?php 
-                        if(isset($_SESSION['id'])) {
-                            if (checkIfInWishlist($conn,$id) == 0) {
-                      ?>
-                        <a class='mt-3 btn_add_to_wishlist_view' data-id='<?= $id ?>' role='button'>
-                          <i class='far fa-heart' style="color:red"></i> 
-                            <span class='product-wish-count<?= $id ?>'>
-                              <?= getProductWishlishtCount($conn, $id) == 0 
-                              ? "" 
-                              : getProductWishlishtCount($conn, $id) ?>
-                            </span>
-                        </a>
-                  
-                      <?php  } else { ?>
+                    <div class='flex-fill' style='cursor:default;'>
 
-                        <a class='mt-3 btn_already_in_wishlist_view' data-id='<?= $id ?>' disabled>
-                          <i class='fas fa-heart' style='color:red'></i> 
-                            <span class='product-wish-count<?= $id ?>'>
-                              <?= getProductWishlishtCount($conn, $id) == 0 
-                              ? "" 
-                              : getProductWishlishtCount($conn, $id) ?>
-                            </span>
-                        </a>
+                        <?php if(checkIfInWishlist($conn,$id) == 1 ) { ?>
+                        
+                          <i class='fas fa-heart text-red'></i> 
+                          <span class='product-wish-count<?= $id ?>'>
+                            <?= getProductWishlishtCount($conn, $id) ?>
+                          </span>
 
-                      <?php }  } else { ?>
-                        <!-- IF LOGGED OUT -->
-                        <a class='mt-3 btn_wishlist_logout_view' data-id='<?= $id ?>' disabled>
-                          <i class='far fa-heart' style='color:gray'></i> 
-                            <span class='product-wish-count<?= $id ?>'>
-                              <?= getProductWishlishtCount($conn, $id) == 0 
-                              ? "" 
-                              : getProductWishlishtCount($conn, $id) ?>
-                            </span>
-                        </a>
-                      <?php }  ?>
+                        <?php } else { 
                           
+                          if(getProductWishlishtCount($conn, $id) == 0) { ?>
+
+                          <i class='far fa-heart text-gray'></i> 
+                          <span class='product-wish-count<?= $id ?>'>
+                            <?= getProductWishlishtCount($conn, $id) ?>
+                          </span>
+
+                          <?php } else { ?>
+
+                          <i class='far fa-heart text-red'></i> 
+                          <span class='product-wish-count<?= $id ?>'>
+                            <?= getProductWishlishtCount($conn, $id) ?>
+                          </span>
+
+                        <?php   } }  ?>
                     </div>
                     <!-- /WISH LIST BUTTONS -->
 
@@ -416,7 +406,7 @@
       <div class="row">
         <div class="col-4"></div>
         <div class="col-4">
-          <button type='button' href="catalog.php" class="btn btn-lg btn-block hover_btn">See More Products</button>
+          <a href="catalog.php?id=<?=$_GET['id'] = 1 ?>" class="btn btn-lg btn-block border hover_btn">See More Products</a>
         </div>
         <div class="col-4"></div>
       </div>

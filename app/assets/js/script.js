@@ -610,34 +610,59 @@ $(document).ready( () => {
 			"<img src='"+ $url + "' style='width:100%;height:100%;' id='"+$id+"'>"
 		);
 	})
+
 	
-	// AVERAGE PRODUCT RATING AS STARS
+	
+	// AVERAGE PRODUCT RATING AS STARS ON PRODUCT PAGE
 	$(function() {
 	let averageRating = $("#average_product_rating").val();
-	// alert(averageRating)
-	function addScore(score, $domElement) {
-		var starWidth = "<style>.stars-container:after { width: " + score + "%} </style>";
-		$("<span class='stars-container'>")
-		.text("★★★★★")
-		.append($(starWidth))
-		.appendTo($domElement);
-	}
+		// alert(averageRating)
+		function addScore(score, $domElement) {
+			var starWidth = "<style>.stars-container:after { width: " + score + "%} </style>";
+			$("<span class='stars-container'>")
+			.text("★★★★★")
+			.append($(starWidth))
+			.appendTo($domElement);
+		}
 
 		addScore(averageRating, $("#average_product_stars"));
+
+		function addScore2(score2, $domElement2) {
+			score2 = score2 * 2;
+			var starWidth2 = "<style>.stars-container-big:after { width: " + score2 + "%} </style>";
+			$("<span class='stars-container-big'>")
+			.text("★★★★★")
+			.append($(starWidth2))
+			.appendTo($domElement2);
+		}
+		addScore2(averageRating, $("#average_product_stars_big"));
 	});
 
-	$(function() {
-	let averageRating = $("#average_product_rating_big").val();
-	// alert(averageRating)
-	function addScore(score, $domElement) {
-		var starWidth = "<style>.stars-container-big:after { width: " + score + "%} </style>";
-		$("<span class='stars-container-big'>")
-		.text("★★★★★")
-		.append($(starWidth))
-		.appendTo($domElement);
+
+	// STARS IN PRODUCT CARDS
+	function productRatingAsStars2(rating, id, $domElement3) {
+
+		function addScore3(score3) {
+			let starWidth3 = "<style>#" + id + " .stars-container-2:after { width: " + score3 + "%; color: gold} </style>";
+			$("<span class='stars-container-2'>")
+			.text("★★★★★")
+			.append($(starWidth3))
+			.appendTo($domElement3);
+		}
+		addScore3(rating, $(id));
 	}
-		addScore(averageRating, $("#average_product_stars_big"));
+
+
+	$('.stars-outer').each(function(i, element){
+		let rating = $(this).data('productrating');
+		let id = $(this).attr('id');
+		$('#' +id + ' .stars-inner')[0].style.width = (rating/5*100) + '%';
 	});
+
+
+	
+
+	
 
 	// PRODUCT RATING AS STARS
 	//$(function() {
@@ -704,6 +729,7 @@ $(document).ready( () => {
 		//reset settings and values
 		$('#variation_quantity').val('1');
 		$('.variation_display').css('color','rgba(0,0,0,.8)');
+		$('#variation_error').html("<small style='color:#f5f5f5;'>I'm invisible</small>");
 		//update max of quantity input field   
 		$('#variation_quantity').attr('max',variationStock);
 		//update displayed available stock 
@@ -719,7 +745,7 @@ $(document).ready( () => {
 		variationStock = parseInt(variationStock);
 
 		if(value >= variationStock) {
-			$('.variation_display').css('color','#c471ed');
+			$('.variation_display').css('color','#f64f59');
 			$(this).attr('disabled',true);
 		} else {
 			value = parseInt(value) + 1
@@ -860,7 +886,7 @@ $(document).ready( () => {
 		let question = $('#product_question').val();
 
 		if(question == null || question == "") {
-			$('#post_questioin_notification').text("Please type your question first.");
+			$('#post_question_notification').text("Please type your question first.");
 		} else {
 			$.post('../controllers/process_ask_about_product.php', {
 				question:question,
@@ -974,6 +1000,23 @@ $(document).ready( () => {
 		window.location.href="catalog.php?searchKey="+str;
 	});
 
+	$('#search-header').mouseout(()=> {
+		$('#livesearch').hide();
+	})
+
+	$('#livesearch').mouseover(()=> {
+		$('#livesearch').show();
+	})
+
+	$('#livesearch').mouseout(()=> {
+		$('#livesearch').hide();
+	})
+
+	$('#search-header').mouseover(()=> {
+		$('#livesearch').show();
+	})
+		
+
 	$('#search-header').keyup(function(e) {
 		let str = $(this).val();
 
@@ -1060,7 +1103,7 @@ $(document).ready( () => {
 		let flag = 0;
 		
 		if(!variationStock) {
-			$('#variation_error').html("<small class='text-purple'>Please select variation first.</small>");
+			$('#variation_error').html("<small class='text-red'>Please select variation first.</small>");
 			flag = 1;
 		} 
 
@@ -1201,70 +1244,69 @@ $(document).ready( () => {
 	// =============================================================================== //
 
 	// FETCHING WISHES FROM PRODUCT.PHP
-	$(document).on("click", "#btn_add_to_wishlist", function() {
+	var enabled = null;
+
+	$(document).on("click", ".heart-toggler", function(e) {
 		let productId = $(this).attr('data-id');
-		$.ajax({
-			url: '../controllers/process_add_wishlist.php', 
-			method: 'POST',
-			data: {productId: productId}, 
-			success: function() {
-				$("#btn_add_to_wishlist").replaceWith(
-					"<button class='btn btn-lg btn-gray py-3' style='width:50%;' data-id='"+ productId +"' disabled>" +
-					"<i class='far fa-heart'></i>&nbsp;Item added to wishlist!</button>");
-				
-				let currentNumberOfWishes = $("#wish-count-header span").text();
-				if (currentNumberOfWishes == "NaN" || currentNumberOfWishes == "") {
-					currentNumberOfWishes = 1;
-				} else {
-					currentNumberOfWishes = parseInt(currentNumberOfWishes) + 1;
-				}
-
-				if (currentNumberOfWishes < 0 || currentNumberOfWishes == "" || currentNumberOfWishes == 'NaN') {
-					$("#wish-count-header").html("");
-					$("#wish-count-profile").html("");
-				} else {
-					$("#wish-count-header").html("<span class='badge border-0 circle'>" 
-						+ currentNumberOfWishes + "</span>");	
-					$("#wish-count-profile").html("<span class='badge border-0 circle'>" 
-					+ currentNumberOfWishes + "</span>");	
-				}
-			}
-		});
-	});
-
-	// FETCHING WISHES FROM OTHER PAGES IN VIEW FOLDER
-	$(document).on("click", ".btn_add_to_wishlist_view", function() {
-		let productId = $(this).attr('data-id');
-		let productWish = $(".product-wish-count"+productId).text();
-		productWish = parseInt(productWish) + 1;
-		$('.product-wish-count'+productId).text(productWish);
-
-		$(this).replaceWith(
-			"<a class='mt-3 btn_already_in_wishlist_view' data-id='"+ productId +"' disabled>" +
-				"<i class='fas fa-heart' style='color:red;'></i>&nbsp;"+
-				"<span class='product-wish-count"+productId+"'>"+ productWish+"</span>" +
-				"</a>");
-
-		$.post( '../controllers/process_add_wishlist.php', { productId: productId }, function (){
-			let numberOfWishes = $("#wish-count-header span").text();
+		enabled = enabled == null ? $(this).data('enabled') : enabled;
+		e = $(this);
 		
-			if(numberOfWishes == 'NaN' || numberOfWishes == "") {
-				numberOfWishes = 1;
-			} else {
-				numberOfWishes = parseInt(numberOfWishes) + 1;
-			}
-
-			if (numberOfWishes <= 0 || numberOfWishes === "" || numberOfWishes === 'NaN') {
-				$("#wish-count-header").text("");
-				$("#wish-count-profile").text("");
-			} else {
-				$("#wish-count-header").html("<span class='badge border-0 circle'>" 
-					+ numberOfWishes + "</span>");	
-				$("#wish-count-profile").html("<span class='badge border-0 circle'>" 
-				+ numberOfWishes + "</span>");	
-			}
-		});
+		if(!enabled) {
+			
+			$.ajax({
+				url: '../controllers/process_add_wish.php', 
+				method: 'POST',
+				data: {productId: productId}, 
+				success: function(data) {
+					enabled = !enabled;
+					let response = $.parseJSON(data);					
+					$('.user_wish_count').text(response.userWishCount);
+					$('.product_wish_count').text(response.productWishCount);
+					$('.wish_heart').html("<i class='fas fa-heart text-red'></i>");
+					e.id = "btn_delete_wish";
+				}
+			});
+		} else {
+			
+			$.ajax({
+				url: '../controllers/process_delete_wish.php', 
+				method: 'POST',
+				data: {productId: productId}, 
+				success: function(data) {
+					let response = $.parseJSON(data);
+					enabled = !enabled;
+					$('.user_wish_count').text(response.userWishCount);
+					$('.product_wish_count').text(response.productWishCount);
+					$('.wish_heart').html("<i class='far fa-heart text-red'></i>");
+					$("#wish-row"+productId).remove();
+	
+				}
+			});
+		}
 	});
+
+
+	$(document).on("click", ".btn_delete_wish", function() {
+		let productId = $(this).data('productid');
+	
+			$.ajax({
+				url: '../controllers/process_delete_wish.php', 
+				method: 'POST',
+				data: {productId: productId}, 
+				success: function(data) {
+					let response = $.parseJSON(data);
+					$('.user_wish_count').text(response.userWishCount);
+					$('.product_wish_count').text(response.productWishCount);
+					$('.wish_heart').html("<i class='far fa-heart text-red'></i>");
+					$("#wish-row"+productId).remove();
+	
+				}
+			});
+		
+	});
+
+
+
 
 	// DISPLAYING WISHLIST
 	$(".btn_view_wishList").on("click",function(){
@@ -1279,34 +1321,6 @@ $(document).ready( () => {
 				$('#main-wrapper').html(data);
 			}
 		});	
-	});
-
-	// DELETING WISHLIST FROM PRODUCT PAGE
-	$(document).on("click", ".btn_delete_wish", function(){
-		let productId = $(this).data('productid');
-
-		$.post('../controllers/process_delete_wish.php', {
-			productId: productId 
-			},function(response){
-
-			$.post("wishlist.php", function(response) {
-				$("#wish-row"+productId).remove();
-				
-				let currentNumberOfWishes = $("#wish-count-header span").text();
-				currentNumberOfWishes = parseInt(currentNumberOfWishes) - 1;
-
-				if (currentNumberOfWishes < 0 || currentNumberOfWishes == "" ) {
-					$("#wish-count-header").html("");
-					$("#wish-count-profile").html("");
-				} else {
-					$("#wish-count-header").html("<span class='badge border-0 circle'>" 
-						+ currentNumberOfWishes + "</span>");	
-					$("#wish-count-profile").html("<span class='badge border-0 circle'>" 
-					+ currentNumberOfWishes + "</span>");	
-				}
-
-			});
-		});
 	});
 
 	// DELETING WISHLIST FROM OTHER PAGES IN VIEW FOLDER

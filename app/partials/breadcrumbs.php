@@ -3,25 +3,44 @@
 // BREADCRUMBS
 if(isset($_GET['id'])) {
     $id = $_GET['id'];
-    $sql = "SELECT * FROM tbl_categories WHERE id=?";
+    $sql = "SELECT * FROM tbl_categories WHERE id = ? ";
     $statement = $conn->prepare($sql);
     $statement->execute([$id]);
-    
     $row = $statement->fetch();
     $name = $row['name']; 
+
+    $origin = $_SERVER['HTTP_REFERER'];
+    $whereUserIsFrom = "";
+    $url = "";
+    $arrow ="";
+
+    if($origin == "http://localhost/tuitt/cp2-ecommerce/app/views/index.php"){
+        $whereUserIsFrom = "Home";
+        $url = "index.php";
+        $arrow = "<i class='fas fa-angle-right text-purple'></i>";
+    }elseif($origin == "http://localhost/tuitt/cp2-ecommerce/app/views/catalog.php?id=$id"){
+        $whereUserIsFrom = "Catalog";
+        $url = "catalog.php?id=$id";
+        $arrow = "<i class='fas fa-angle-right text-purple'></i>";
+    }else {
+        $whereUserIsFrom ="";
+        $url = "";
+        $arrow = "";
+    }
+			
 ?>
 
         <div class="container">
             <div class="row my-4">
                 <div class="col-12">
                     <span>
-                        <a href="index.php" class='text-purple'>
-                            Home&nbsp;
+                        <a href="<?=$url?>" class='text-purple'>
+                           <?=$whereUserIsFrom?>&nbsp;
+                           <?= $arrow ?>
                         </a>
                     </span>
                     <span>
                         <a href="#" class='text-purple'>
-                            <i class="fas fa-angle-right"></i>
                             <?= $name ?>&nbsp;
                             <i class="fas fa-angle-right"></i> 
                         </a>
@@ -41,6 +60,11 @@ if(isset($_GET['id'])) {
                 </a>
             </span>
 
+<?php }else { ?>
+    <div class="container">
+        <div class="row my-4">
+            <div class="col-12">
+            
 <?php } ?> 
 
                     <span id='level_2_breadcrumb'>

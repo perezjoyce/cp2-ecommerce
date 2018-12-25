@@ -136,6 +136,12 @@ h3 {
    border:0!important;
 }
 
+.dropdown-item:hover,
+.drop-down-item:focus,
+.drop-down-item:active {
+        background:#f5f5f5;
+    }
+
 
 a.edit_user:not([href]) {
     color: #007bff;
@@ -231,6 +237,10 @@ div.card:hover {
    
 } 
 
+.text-red {
+    color: #f64f59!important;
+}
+
 .product_thumbnail:hover,
 .product_thumbnail:focus,
 .product_thumbnail:active {
@@ -264,14 +274,78 @@ div.card:hover {
     overflow: hidden;
 }
 
-.stars-container {
+.test-container {
+    display: flex;
+}
+
+.stars-container-2 {
     position: relative;
     display: inline-block;
     color: transparent;
 }
 
-.test-container {
-    display: flex;
+.stars-outer {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    font-family: 'Font Awesome 5 Free';
+    width: 70px;
+    height: 15px;
+}
+
+.stars-outer::before {
+    position: absolute;
+    top:0;
+    left: 0;
+    font-family: 'Font Awesome 5 Free';
+    width: 70px;
+    height: 15px;
+    content: "\f005 \f005 \f005 \f005 \f005";
+    color: #cccccc;
+}
+
+.stars-inner {
+    position: relative;
+    height: 15px;
+    width: 70px;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.stars-inner::after {
+    position: absolute;
+    top:0;
+    left: 0;
+    color: gold;
+    content: "\f005 \f005 \f005 \f005 \f005";
+    width: 70px;
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+}
+  
+/* .stars-container-2:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '★★★★★';
+    zoom:100%;
+    color: lightgray;
+} */
+  
+.stars-container-2:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* content: '★★★★★'; */
+    color: gold;
+    zoom:100%;
+    overflow: hidden;
+}
+
+.stars-container {
+    position: relative;
+    display: inline-block;
+    color: transparent;
 }
   
 .stars-container:before {
@@ -429,6 +503,14 @@ textarea:focus, textarea:active {
    box-shadow: none!important;
    border:white!important;
    outline:0!important;
+}
+
+.gradient {
+    background: #12c2e9; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #12c2e9, #c471ed, #f64f59); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border: white!important;
+    color: white!important;
 }
 
 /* MODAL CONTAINER */
@@ -606,13 +688,13 @@ a.hover_bold:focus {
     color: #c471ed!important;
     font-weight: bolder!important;
 }
-button.hover_btn {
+a.hover_btn {
     border: 1px solid lightgray!important;
     color: gray;
 }
-button.hover_btn:hover,
-button.hover_btn:focus,
-button.hover_btn:active {
+a.hover_btn:hover,
+a.hover_btn:focus,
+a.hover_btn:active {
     background: #12c2e9; /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #12c2e9, #c471ed, #f64f59); /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -634,20 +716,21 @@ button.hover_btn:active {
     }
 
     #livesearch {
-        padding-top: 3em;
+        /* padding-left: 28px; */
         position: absolute;
         z-index: 2!important;
-        /* margin-top: 5em!important; */
+        margin-top: 3em!important;
     }
     
     .livesearch-item{
         width: 48vw!important;
-        background:  #fff!important;
+        background:  #fff;
         font-size: 14px!important;
         padding-top: 10px;
         padding-bottom: 10px;
         z-index: 5;
     }
+
 
     #cartDropdown_menu {
         min-width:21em!important;
@@ -723,19 +806,20 @@ button.hover_btn:active {
     }
 
     #livesearch {
-        padding-top: 3em;
+        /* padding-top: 3em; */
         position: absolute;
         z-index: 2!important;
-        /* margin-top: 5em!important; */
+        margin-top: 3em!important;
     }
+
     
     .livesearch-item{
         width: 50vw!important;
-        background:  #fff!important;
+        background:  #fff;
         font-size: 12px!important;
         padding-top: 10px;
         padding-bottom: 10px;
-        z-index: 5;
+        z-index: 10;
     }
 
     #profileDropdown {
@@ -815,7 +899,7 @@ button.hover_btn:active {
 
     .livesearch-item{
         width: 95vw!important;
-        background:  #fff!important;
+        background:  #fff;
         font-size: 12px!important;
         padding-top: 10px;
         padding-bottom: 10px;

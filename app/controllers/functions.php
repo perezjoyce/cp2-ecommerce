@@ -123,6 +123,7 @@
         $row = $statement->fetch();
         $averageProductReview = $row['productAverage'];
         return round($averageProductReview, 2);
+        
 
     }
 

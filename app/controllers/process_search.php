@@ -20,9 +20,9 @@
     if($count) {
         while($row = $statement->fetch()) {
             $productId = $row['id'];
-            echo "<a href='product.php?id=$productId' id='$productId'><div class='dropdown-item livesearch-item'>".$row['name']."</div></a>";
+            echo "<a href='product.php?id=$productId' id='$productId'><div class='dropdown-item livesearch-item text-responsive'>".$row['name']."</div></a>";
         }
     } else {
-        echo "<a href='index.php'><div class='dropdown-item livesearch-item text-secondary'>Sorry, no results were found. :(</div></a>";
+        echo "<a href='index.php'><div class='dropdown-item livesearch-item text-secondary text-responsive'>Sorry, no results were found. :(</div></a>";
     }
 ?>

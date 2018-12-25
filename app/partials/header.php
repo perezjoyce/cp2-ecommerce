@@ -79,7 +79,7 @@
 
             <form id="search_form" class="form-inline flex-grow-1">
                 <div class="input-group input-group-lg">
-                    <input type="text" class="form-control border border-0" 
+                    <input type="text" class="form-control border border-0 text-responsive" 
                         id="search-header" 
                         placeholder="Search for products..." 
                         aria-label="Search"
@@ -237,18 +237,7 @@
                             <a class="dropdown-item mb-4 btn_view_wishList" data-id='<?= $id ?>'>
                                 <i class="far fa-heart mr-2"></i>
                                 Wish List
-                                <span id='wish-count-header'>
-                                
-                                    <?php 
-                                        if (getWishlishtCount($conn) == 0) {
-                                            echo "<span></span>";
-                                        } else {
-                                            echo "<span class='badge badge-danger text-light'>" . getWishlishtCount($conn) . "</span>";
-                                        }
-                                    ?>
-                        
-                                </span>
-
+                                <span class='badge circle text-light user_wish_count'><?= getWishlishtCount($conn) ?></span>
                             </a>
                             <div class="dropdown-divider my-3"></div>
                             <a class="dropdown-item mb-3" href='../controllers/process_logout.php?id=<?=$id?>'>
