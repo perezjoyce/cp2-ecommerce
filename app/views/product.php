@@ -47,7 +47,7 @@ if(isset($_SESSION['id'])) {
           ?>
 
           <div class="col position-relative" id="product_iframe">
-            <img src='<?=$url?>' style='width:100%;height:50vh;' iframe_img_id='<?= $img_id ?>'>
+            <img src='<?=$url?>' style='width:100%;' iframe_img_id='<?= $img_id ?>'>
           </div>
         </div>
 
@@ -152,22 +152,37 @@ if(isset($_SESSION['id'])) {
         
 
         <!-- PRICE -->
-        <div class="row pl-4 mb-lg-5 mb-4">
+        <div class="row pl-4 mb-lg-5">
           <h1 class='font-weight-bold text-purple'>&#8369;&nbsp;<?= $price?></h1>
         </div>
 
         <!-- SHIPPING FEE -->
-        <!-- TO BE ADDED ONCE I MAKE SELLER PAGE -->
-        <!-- <div class="row mb-4 border">
-          <div class="col-3 border">
+         <div class="row mb-5">
+          <div class="col-3">
             <div>Shipping Fee</div>
           </div>
           <div class="col">
+            <div class="row">
+            &#8369;&nbsp;
+            <span id='shipping_fee'><?= displayShippingFee($conn,$id) ?></span>            
+            </div>
+
+            <?php if(displayFreeShippingMinimum($conn,$id)) { ?>
+
+            <div class="row pt-2 pb-0">
+              <img src="../assets/images/discount-gradient.png" alt="discount" style='height:15px;width:15px;'>
+              &nbsp;
+              <small class='text-purple'>
+                FREE Shipping with a minimum spend of &#8369;&nbsp;<?=displayFreeShippingMinimum($conn,$id);?> from seller.
+              </small>
+            </div>
+
+            <?php } else { echo ""; } ?>
+
+
 
           </div>
-        </div> -->
-
-       
+        </div>
 
         <!-- BRAND -->
         <div class="row mb-5">
@@ -190,9 +205,9 @@ if(isset($_SESSION['id'])) {
         </div>
 
         <!-- VARIATION -->
-        <div class="row mb-5">
+        <div class="row mb-3">
           <div class="col-3">
-            <div class='pt-3'>Variation</div>
+            <div>Variation</div>
           </div>
           <div class="col">
             <div class="row">
@@ -220,7 +235,7 @@ if(isset($_SESSION['id'])) {
         </div>
         
         <!-- QUANTITY --> 
-        <div class="row mb-5">
+        <div class="row mb-3">
           <?
             $sql = "SELECT SUM(variation_stock) as 'totalStocksAvailable'  FROM tbl_variations WHERE product_id = ?";
             $statement = $conn->prepare($sql);
@@ -230,10 +245,10 @@ if(isset($_SESSION['id'])) {
 
           ?>
           <div class="col-3">
-            <div class='pt-2'>Quantity</div>
+            <div>Quantity</div>
           </div>
           <div class="col pl-0">
-            <div class="d-flex flex-row">
+            <div class="d-flex flex-row mb-3">
               <!-- INPUT FIELD -->
               <span class='flex-fill'>
                 <div class="input-group">
@@ -271,9 +286,12 @@ if(isset($_SESSION['id'])) {
                 <?php } ?>
               </div>
             </div>
+            <div id='variation_error'>
+              <small style='color:#f5f5f5;'>I'm invisible</small>
+            </div>
           </div>
         </div>
-        <br>
+            
         <!-- BUTTONS -->
         <div class="d-flex flex-row mb-5">
           <?php
@@ -288,7 +306,7 @@ if(isset($_SESSION['id'])) {
             if(isset($_SESSION['id'])) {
                 if (checkIfInWishlist($conn,$id) == 0) {
           ?>
-          <a class='btn btn-lg btn-gray py-3' style="width:50%;" data-id='<?= $id ?>' role='button' id="btn_add_to_wishlist">
+          <a class='btn btn-lg btn-gray py-3 mr-2' style="width:50%;" data-id='<?= $id ?>' role='button' id="btn_add_to_wishlist">
             <i class="far fa-heart"></i>
             &nbsp;Wish List
           </a>
@@ -296,7 +314,7 @@ if(isset($_SESSION['id'])) {
           <!-- ADD TO WISHLIST BUTTON -->
           <?php  } else { ?>
 
-          <button class='btn btn-lg btn-gray py-3' style="width:50%;" data-id='<?= $id ?>' disabled id="btn_already_in_wishlist">
+          <button class='btn btn-lg btn-gray py-3 mr-2' style="width:50%;" data-id='<?= $id ?>' disabled id="btn_already_in_wishlist">
             <i class='far fa-heart'></i> 
             &nbsp;Item is in wishlist 
           </button>
@@ -309,12 +327,13 @@ if(isset($_SESSION['id'])) {
           
             if($count) {
           ?>
-          <button class='btn btn-lg btn-purple py-3 ml-2' style="width:50%;" data-id='<?= $id ?>' role='button' id="btn_delete_from_cart" disabled>
+          <button class='btn btn-lg btn-purple py-3' style="width:50%;" data-id='<?= $id ?>' role='button' id="btn_delete_from_cart" disabled>
             <i class='fas fa-shopping-bag'></i>
               &nbsp;Item is in bag
           </button>
           <?php } else { ?>
-          <a class='btn btn-lg btn-purple py-3 ml-2' style="width:50%;" data-id='<?= $id ?>' role='button' id="btn_add_to_cart">
+          
+          <a class='btn btn-lg btn-purple py-3' style="width:50%;" data-id='<?= $id ?>' role='button' id="btn_add_to_cart">
             <i class='fas fa-shopping-bag'></i>  
             &nbsp;Add to Shopping Bag
           </a>
@@ -343,6 +362,7 @@ if(isset($_SESSION['id'])) {
                     $storeLogo = $row['logo'];
                     $storeAddress = $row['store_address'];
                     $sellerId = $row['user_id'];
+                    $shippingFee = $row['standard_shipping'];
                   ?>
                 
                 <!-- STORE LOG -->

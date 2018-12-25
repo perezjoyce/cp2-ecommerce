@@ -6,6 +6,7 @@
     // require_once "../assets/js/script.js";
 
     if(isset($_POST['rating'])){
+
         $rating = $_POST['rating'];
         $rating = number_format((float)$rating, 2, '.', '');
         
@@ -13,9 +14,19 @@
         $productId = $_POST['productId'];
         $storeId = $_POST['storeId'];
 
-        $sql ="SELECT r.*, u.first_name, u.last_name FROM tbl_ratings r JOIN tbl_users u ON r.user_id = u.id WHERE product_id = ? AND product_rating = ?";
-        $statement = $conn->prepare($sql);
-        $statement->execute([$productId, $rating]);	
+        if($rating < 6 ){
+
+            $sql ="SELECT r.*, u.first_name, u.last_name FROM tbl_ratings r JOIN tbl_users u ON r.user_id = u.id WHERE product_id = ? AND product_rating = ?";
+            $statement = $conn->prepare($sql);
+            $statement->execute([$productId, $rating]);	
+
+        } else {
+        
+            $sql ="SELECT r.*, u.first_name, u.last_name FROM tbl_ratings r JOIN tbl_users u ON r.user_id = u.id WHERE product_id = ?";
+            $statement = $conn->prepare($sql);
+            $statement->execute([$productId]);
+
+        }
 
         $count = $statement->rowCount();
 

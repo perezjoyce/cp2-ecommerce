@@ -679,7 +679,7 @@ $(document).ready( () => {
 	$("#sort_ratings").on("change", function(){
 		let rating = $(this).val();
 
-		if(rating < 6){
+		// if(rating < 6){
 			let storeId = $(this).data('storeid');
 			let productId = $(this).data('id');
 			$("#ratings_view").html("");
@@ -695,7 +695,7 @@ $(document).ready( () => {
 					productRatingAsStars(rating, $(element));
 				});
 			});
-		}
+		// }
 	  });
 
 	// FETCHING STOCK OF PRODUCT VARIATIONS AND UPDATING DISPLAYED STOCK   
@@ -717,6 +717,7 @@ $(document).ready( () => {
 		let value = $('#variation_quantity').val();
 		let variationStock = $("#variation_stock_hidden").val();
 		variationStock = parseInt(variationStock);
+
 		if(value >= variationStock) {
 			$('.variation_display').css('color','#c471ed');
 			$(this).attr('disabled',true);
@@ -757,102 +758,94 @@ $(document).ready( () => {
 
 		// console.log(evt.target.textContent);
 
-		if(evt.target.textContent.indexOf("Reviews") != false){
+		if(evt.target.textContent.indexOf("Reviews") != -1){
 				// RATING BARS
-			$(function(){
-				let elem = document.getElementById("rating_bar1");   
-				let width = 1;
-				let x = setInterval(frame, 10);
-			
-					function frame() {
-						if(document.getElementById("rating_bar1_hidden")) {
-							let aveScorePerStar = document.getElementById("rating_bar1_hidden").value;
-							if (width >= aveScorePerStar) {
-								clearInterval(x);
-							} else {
-								width++; 
-								elem.style.width = width + '%'; 
-							}
-						}	
+		
+			let elem = document.getElementById("rating_bar1");   
+			let width = 1;
+			let x = setInterval(frame, 10);
+		
+			function frame() {
+				if(document.getElementById("rating_bar1_hidden")) {
+					let aveScorePerStar = document.getElementById("rating_bar1_hidden").value;
+					if (width >= aveScorePerStar) {
+						clearInterval(x);
+					} else {
+						width++; 
+						elem.style.width = width + '%'; 
 					}
-			});
+				}	
+			}
+		
 
-			$(function(){
-
-				let elem = document.getElementById("rating_bar2");   
-				let width = 1;
-				let x = setInterval(frame, 10);
-			
-					function frame() {
-						if(document.getElementById("rating_bar2_hidden")) {
-							let aveScorePerStar = document.getElementById("rating_bar2_hidden").value;
-							if (width >= aveScorePerStar) {
-								clearInterval(x);
-							} else {
-								width++; 
-								elem.style.width = width + '%'; 
-							}
-						}
+			let elem2 = document.getElementById("rating_bar2");   
+			let width2 = 1;
+			let x2 = setInterval(frame2, 10);
+		
+			function frame2() {
+				if(document.getElementById("rating_bar2_hidden")) {
+					let aveScorePerStar2 = document.getElementById("rating_bar2_hidden").value;
+					if (width2 >= aveScorePerStar2) {
+						clearInterval(x2);
+					} else {
+						width2++; 
+						elem2.style.width = width2 + '%'; 
 					}
-			});
+				}
+			}
+		
 
-			$(function(){
-
-				let elem = document.getElementById("rating_bar3");   
-				let width = 1;
-				let x = setInterval(frame, 10);
-			
-					function frame() {
-						if(document.getElementById("rating_bar3_hidden")){
-							let aveScorePerStar = document.getElementById("rating_bar3_hidden").value;
-							if (width >= aveScorePerStar) {
-								clearInterval(x);
-							} else {
-								width++; 
-								elem.style.width = width + '%'; 
-							}
-						}
+			let elem3 = document.getElementById("rating_bar3");   
+			let width3 = 1;
+			let x3 = setInterval(frame3, 10);
+		
+			function frame3() {
+				if(document.getElementById("rating_bar3_hidden")){
+					let aveScorePerStar3 = document.getElementById("rating_bar3_hidden").value;
+					if (width3 >= aveScorePerStar3) {
+						clearInterval(x3);
+					} else {
+						width3++; 
+						elem3.style.width = width3 + '%'; 
 					}
-			});
+				}
+			}
+		
 
-			$(function(){
-
-				let elem = document.getElementById("rating_bar4");   
-				let width = 1;
-				let x = setInterval(frame, 10);
-			
-					function frame() {
-						if(document.getElementById("rating_bar4_hidden")){
-							let aveScorePerStar = document.getElementById("rating_bar4_hidden").value;
-							if (width >= aveScorePerStar) {
-								clearInterval(x);
-							} else {
-								width++; 
-								elem.style.width = width + '%'; 
-							}
-						}
+			let elem4 = document.getElementById("rating_bar4");   
+			let width4 = 1;
+			let x4 = setInterval(frame4, 10);
+		
+			function frame4() {
+				if(document.getElementById("rating_bar4_hidden")){
+					let aveScorePerStar4 = document.getElementById("rating_bar4_hidden").value;
+					if (width4 >= aveScorePerStar4) {
+						clearInterval(x4);
+					} else {
+						width4++; 
+						elem4.style.width = width4 + '%'; 
 					}
-			});
+				}
+			}
+	
 
-			$(function(){
-
-				let elem = document.getElementById("rating_bar5");   
-				let width = 1;
-				let x = setInterval(frame, 10);
-			
-					function frame() {
-						if(document.getElementById("rating_bar5_hidden")){
-							let aveScorePerStar = document.getElementById("rating_bar5_hidden").value;
-							if (width >= aveScorePerStar) {
-								clearInterval(x);
-							} else {
-								width++; 
-								elem.style.width = width + '%'; 
-							}
-						}
-						
+			let elem5 = document.getElementById("rating_bar5");   
+			let width5 = 1;
+			let x5 = setInterval(frame5, 10);
+		
+			function frame5() {
+				if(document.getElementById("rating_bar5_hidden")){
+					let aveScorePerStar5 = document.getElementById("rating_bar5_hidden").value;
+					if (width5 >= aveScorePerStar5) {
+						clearInterval(x5);
+					} else {
+						width5++; 
+						elem5.style.width = width5 + '%'; 
 					}
-			});
+				}
+				
+			}
+		
 		}
 		
 
@@ -975,11 +968,15 @@ $(document).ready( () => {
 		$('#cartDropdown_menu').hide();
 	});
 
+	$('#search_form').on('submit', function(e) {
+		e.preventDefault();
+		let str = $('#search-header').val();
+		window.location.href="catalog.php?searchKey="+str;
+	});
 
-	
+	$('#search-header').keyup(function(e) {
+		let str = $(this).val();
 
-	// POPULATE SEARCH w3schools
-	window.showResult = function(str) {
 		if (str.length==0) { 
 		  document.getElementById("livesearch").innerHTML="";
 		//   document.getElementById("livesearch").style.border="0px";
@@ -1001,7 +998,7 @@ $(document).ready( () => {
 
 		xmlhttp.open("GET","../controllers/process_search.php?searchKey="+str,true);
 		xmlhttp.send();
-	}
+	});
 
 	// ======================================= INDEX ================================== //
 	// =============================================================================== //
@@ -1055,37 +1052,51 @@ $(document).ready( () => {
 
 	// ADDING ITEMS TO CART
 	$(document).on("click", "#btn_add_to_cart" ,function(){
+
+		let variationStock = $("#variation_stock_hidden").val();
+			variationStock = parseInt(variationStock);
 		let productId = $(this).attr("data-id");
-		let currentItemCount = $("#item-count").text();
+		let currentItemCount = $("#item-count").text();	
+		let flag = 0;
+		
+		if(!variationStock) {
+			$('#variation_error').html("<small class='text-purple'>Please select variation first.</small>");
+			flag = 1;
+		} 
+
+		if(flag == 0) {
+			$('#variation_error').html("<small style='color:#f5f5f5;'>I'm invisible</small>");
+			$(this).replaceWith(
+				"<button class='btn btn-lg btn-purple py-3 ml-2' style='width:50%;' data-id='" + productId + "' role='button'" + 
+				"id='btn_delete_from_cart' disabled>" +
+				"<i class='fas fa-shopping-bag'></i>&nbsp;Item added to bag!</button>");
+			$.ajax({
+				url: "../controllers/process_add_to_cart.php",
+				method: "POST",
+				data: {
+					productId: productId
+				},
+				dataType: "text",
+				success: function(data) {
+					let response = $.parseJSON(data);
+					let sum = "";
+					sum += response.itemsInCart;
+	
+					$("#item-count").html("<span class='badge border-0 circle'>" + sum + "</span>");
+					if(currentItemCount == 0 || currentItemCount == "") {
+						$('#cartDropdown_menu').html("");
+						$('#cartDropdown_menu').append(response.button);
+					}
+	
+					$('#cartDropdown_menu').prepend(response.newProduct);
+					
+				}
+			});
+		}
 
 		
 
-		$(this).replaceWith(
-			"<button class='btn btn-lg btn-purple py-3 ml-2' style='width:50%;' data-id='" + productId + "' role='button'" + 
-			"id='btn_delete_from_cart' disabled>" +
-			"<i class='fas fa-shopping-bag'></i>&nbsp;Item added to bag!</button>");
-		$.ajax({
-			url: "../controllers/process_add_to_cart.php",
-			method: "POST",
-			data: {
-				productId: productId
-			},
-			dataType: "text",
-			success: function(data) {
-				let response = $.parseJSON(data);
-				let sum = "";
-				sum += response.itemsInCart;
-
-				$("#item-count").html("<span class='badge border-0 circle'>" + sum + "</span>");
-				if(currentItemCount == 0 || currentItemCount == "") {
-					$('#cartDropdown_menu').html("");
-					$('#cartDropdown_menu').append(response.button);
-				}
-
-				$('#cartDropdown_menu').prepend(response.newProduct);
-				
-			}
-		});
+		
 	});
 
 	// ADDING ITEM ON WISHLIST TO CART 

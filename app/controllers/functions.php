@@ -164,9 +164,47 @@
         return $profile_pic;
     }
 
+    // SHOW SHIPPING FEE
+    function displayShippingFee($conn,$productId) {
+        $sql = "SELECT s.standard_shipping, i.store_id, i.id FROM tbl_stores s 
+        JOIN tbl_items i ON i.store_id = s.id WHERE i.id = ?";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$productId]);
+        $row = $statement->fetch();
+        $shippingFee = $row['standard_shipping'];
+        $shippingFee = number_format((float)$shippingFee, 2, '.', '');    
+        return $shippingFee;
+
+    }
+
+    function displayFreeShippingMinimum($conn,$productId) {
+        $sql = "SELECT s.free_shipping_minimum, i.store_id, i.id FROM tbl_stores s 
+        JOIN tbl_items i ON i.store_id = s.id WHERE i.id = ?";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$productId]);
+        $row = $statement->fetch();
+        $freeShippingMinimum =$row['free_shipping_minimum'];
+        $freeShippingMinimum = number_format((float)$freeShippingMinimum, 2, '.', '');    
+
+        if($freeShippingMinimum != 0 || !$freeShippingMinimum ){
+            return $freeShippingMinimum;
+        }
+       
+
+    }
+
+    // SHOW SHIPPING FEE MINIMUM
+
+    
+
     // DISPLAY BREADCRUMB 
     function displayBreadcrumbs ($conn,$productId,$origin) {
-        $sql = "SELECT i.name as 'product_name', i.brand_id as 'brand_id',c.name as 'category_name', c.parent_category_id, c.id AS 'category_id',b.brand_name as 'brand_name' FROM tbl_ratings r JOIN tbl_categories c JOIN tbl_items i JOIN tbl_brands b ON i.category_id = c.id AND r.product_id = i.id AND i.brand_id=b.id WHERE product_id = ? GROUP BY product_id";
+        $sql = "SELECT i.name as 'product_name', i.brand_id 
+        as 'brand_id',c.name as 'category_name', c.parent_category_id, c.id 
+        AS 'category_id',b.brand_name as 'brand_name' FROM tbl_ratings r 
+        JOIN tbl_categories c JOIN tbl_items i JOIN tbl_brands b ON i.category_id = c.id 
+        AND r.product_id = i.id AND i.brand_id=b.id WHERE product_id = ? GROUP BY product_id";
+
         $statement = $conn->prepare($sql);
         $statement->execute([$productId]);
         $row = $statement->fetch();

@@ -5,6 +5,7 @@
 	require_once "../controllers/functions.php";
 
 	$rating = $_POST['rating'];
+
 	$categoryId = $_POST['categoryId'];
 	$brandId = $_POST['brandId'];
 	$categoryId = (int)$categoryId;

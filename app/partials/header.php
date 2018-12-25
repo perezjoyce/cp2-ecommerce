@@ -77,9 +77,9 @@
                 Shoperoo
             </a>
 
-            <form class="form-inline flex-grow-1">
+            <form id="search_form" class="form-inline flex-grow-1">
                 <div class="input-group input-group-lg">
-                    <input type="text" class="form-control border border-0" id="search-header" onkeyup="showResult(this.value)" placeholder="Search for products..." aria-label="Search">
+                    <input type="text" class="form-control border border-0" id="search-header" placeholder="Search for products..." aria-label="Search">
                     <div class='dropdown' id='livesearch'>
                         <div class="dropdown-menu" aria-labelledby="livesearch"></div>
                     </div>

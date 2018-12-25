@@ -10,7 +10,7 @@
 		<?php 
 
 		//REDIRECT TO INDEX IF CATEGORY HASN'T BEEN SELECTED YET
-		if(!isset($_GET['id'])) {
+		if(!isset($_GET['id']) && !isset($_GET['searchKey'])) {
 			echo "<script>window.location.href='".BASE_URL."/app/views/'</script>";
 		}
 		
@@ -26,10 +26,11 @@
 					
 								<?php
 								// DISPLAYING ALL AVAILABLE CATEGORIES
+								$id = $_GET['id'];
+								
 								$sql = "SELECT * FROM tbl_categories WHERE parent_category_id = ?";
 								$statement = $conn->prepare($sql);
 								$statement->execute([$id]);
-						
 								if ($statement->rowCount() > 0){
 							
 									while($row = $statement->fetch()){
@@ -201,9 +202,25 @@
 					<div class="row" id="products_view">
 
 						<?php
-							if(isset($_GET['id'])){
+
+						if(isset($_GET['searchKey'])) {
+							$searchkey = $_GET['searchKey'];
+							$sql = "SELECT item.name, item.id, category.name as catName, brand.brand_name 
+								FROM tbl_items item
+								LEFT JOIN tbl_categories category on item.`category_id`=category.id
+								LEFT JOIN tbl_brands as brand on brand.id=item.`brand_id`
+								WHERE (item.name like ? ) 
+								OR (category.name like ? ) 
+								OR (brand.brand_name like ? )";
+						
+
+								// var_dump($sql);die();
+							$statement = $conn->prepare($sql);
+							$statement->execute(["%$searchkey%", "%$searchkey%", "%$searchkey%"]);
+							$count = $statement->rowCount();
+						
+						} else {
 								$id = $_GET['id'];
-											
 								$sql = "SELECT c.name, c.parent_category_id, c.id, i.id AS 'productId', i.name, i.price, i.img_path FROM tbl_categories c JOIN tbl_items i ON i.category_id = c.id WHERE parent_category_id = ?";	
 								$statement = $conn->prepare($sql);
 								$statement->execute([$id]);	
