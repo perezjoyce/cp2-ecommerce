@@ -530,6 +530,8 @@ $(document).ready( () => {
 					function(response){
 						$('.level-3').remove();
 						$(response).insertAfter($(parentLink));
+
+						
 				});
 	
 			});

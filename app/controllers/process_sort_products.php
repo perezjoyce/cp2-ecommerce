@@ -2,7 +2,7 @@
 	// connect to database
 	session_start();
 	require_once "connect.php";
-	require_once "../controllers/functions.php";
+	require_once "functions.php";
 
 	$value = $_POST['value'];
 	$categoryId = $_POST['categoryId'];
@@ -98,49 +98,57 @@
 				<a href='product.php?id=<?=$id?>'>
 					<div class = 'card h-700 border-0'>
 						<img class='card-img-top' src='<?=$item_img?>'>
-						<div class='card-body'>
+						<div class='card-body pr-1'>
 							<div class='font-weight-bold'><?=$name?></div>
 							<div>&#8369;<?=$row['price'] ?></div>
 
-							<!-- WISHLIST BUTTONS -->
-							<div class='d-flex flex-column'>
-								<?php
-								if(isset($_SESSION['id'])) {
-									if (checkIfInWishlist($conn,$id) == 0) {
-							
-										echo	"<a class='mt-3 btn_add_to_wishlist_view' data-id='".$id."' role='button'>
-													<i class='far fa-heart' style='color:red'></i> 
-													<span class='product-wish-count$id'>
-													" . (getProductWishlishtCount($conn, $id) == 0 
-													? ""
-													: getProductWishlishtCount($conn, $id)) ."
-													</span>
-												</a>";
-							
-								} else {
+							<div class='d-flex flex-row mt-3'>
 
-									echo	"<a class='mt-3 btn_already_in_wishlist_view' data-id='$id' disabled>
-												<i class='fas fa-heart' style='color:red'></i> 
-												<span class='product-wish-count$id'>
-												" . (getProductWishlishtCount($conn, $id) == 0 
-												? "" 
-												: getProductWishlishtCount($conn, $id) ) . "
-												</span>
-											</a>";
+								<!-- WISHLIST BUTTONS -->
+								<div class='' style='cursor:default;'>
 
-								}  } else { 
-									echo 	"<a class='mt-3' data-id='$id' disabled>
-												<i class='far fa-heart' style='color:gray'></i> 
-												<span class='product-wish-count$id'>"
-												. (getProductWishlishtCount($conn, $id) == 0 
-												? "" 
-												: getProductWishlishtCount($conn, $id)) . " 
-												</span>
-											</a>";
-								}
-								?>		
+									<?php if(checkIfInWishlist($conn,$id) == 1 ) { ?>
+									
+									<i class='fas fa-heart text-red'></i> 
+									<span class='text-gray product-wish-count<?= $id ?>'>
+										<small><?= getProductWishlishtCount($conn, $id) ?></small>
+									</span>
+
+									<?php } else { 
+									
+									if(getProductWishlishtCount($conn, $id) == 0) { ?>
+
+									<i class='far fa-heart text-gray'></i> 
+									<span class='text-gray product-wish-count<?= $id ?>'>
+										<small><?= getProductWishlishtCount($conn, $id) ?></small>
+									</span>
+
+									<?php } else { ?>
+
+									<i class='far fa-heart text-red'></i> 
+									<span class='text-gray product-wish-count<?= $id ?>'>
+										<small><?= getProductWishlishtCount($conn, $id) ?></small>
+									</span>
+
+									<?php   } }  ?>
+								
+								</div>
+									
+
+								<!-- AVERAGE STAR RATING -->
+								<div class='flex-fill' style="display:flex; flex-direction: column; width:81%; align-items:flex-end">  
+								<div class='stars-outer' 
+									data-productrating='<?=getAveProductReview($conn, $id)?>' 
+									data-productid='<?=$id?>' 
+									id='average_product_stars2<?=$id?>'>
+									<span class='stars-inner'></span>
+								</div>
+								</div>
+								<!-- /AVERAGE STAR RATING -->
+
 							</div>
-							<!-- /WISH LIST BUTTONS -->
+
+
 						</div>
 					</div>
 				</a>
