@@ -314,14 +314,7 @@ if(isset($_SESSION['id'])) {
         
         <!-- QUANTITY --> 
         <div class="row mb-5">
-          <?
-            $sql = "SELECT SUM(variation_stock) as 'totalStocksAvailable'  FROM tbl_variations WHERE product_id = ?";
-            $statement = $conn->prepare($sql);
-            $statement->execute([$id]);
-            $row = $statement->fetch();
-            $totalStocksAvailable = $row['totalStocksAvailable'];
-
-          ?>
+          <?php $totalStocksAvailable = getTotalProductStocks($conn,$id) ?>
           <div class="col-3">
             <div>Quantity</div>
           </div>
@@ -1602,3 +1595,4 @@ if(isset($_SESSION['id'])) {
 
 <?php require_once "../partials/footer.php";?>
 <?php require_once "../partials/modal_container.php"; ?>
+<?php require_once "../partials/modal_container_big.php"; ?>

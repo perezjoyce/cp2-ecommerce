@@ -330,3 +330,4 @@
 	
 <?php require_once "../partials/footer.php";?>
 <?php require_once "../partials/modal_container.php";?>
+<?php require_once "../partials/modal_container_big.php"; ?>

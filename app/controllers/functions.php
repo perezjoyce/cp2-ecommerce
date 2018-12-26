@@ -44,7 +44,6 @@
     }
 
     //COUNT ITEMS IN CART
-
     function itemsInCart($conn,$cartSession) {
         $sql = " SELECT SUM(quantity) as 'itemsInCart' FROM tbl_carts WHERE cart_session = ? ";
         $statement = $conn->prepare($sql);
@@ -176,6 +175,17 @@
         $profile_pic = $row['profile_pic'];
 
         return $profile_pic;
+    }
+
+    // GET STOCKS
+    function getTotalProductStocks ($conn,$productId){
+        $sql = "SELECT SUM(variation_stock) as 'totalStocksAvailable'  FROM tbl_variations WHERE product_id = ?";
+            $statement = $conn->prepare($sql);
+            $statement->execute([$productId]);
+            $row = $statement->fetch();
+            $totalStocksAvailable = $row['totalStocksAvailable'];
+
+            return $totalStocksAvailable;
     }
 
     // SHOW SHIPPING FEE

@@ -199,7 +199,7 @@
                             <div class="dropdown-divider my-3"></div>
                             <a class='dropdown-item mb-3'>
                             <!-- data-id='$_GET['id']' REMOVED FROM THIS BUTTON-->
-                                <button class='modal-link btn btn-block btn-gradient' 
+                                <button class='modal-link-big btn btn-block btn-gradient' 
                                     href='#' 
                                      
                                     data-url='../partials/templates/cart_modal.php' 
@@ -279,6 +279,7 @@
         </div>
       </div>
     </div>
+
 
     
    

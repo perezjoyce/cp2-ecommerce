@@ -929,6 +929,20 @@ $(document).ready( () => {
 	});
 
 
+
+	// DISPLAYING MODAL - BIG
+	$(document).on('click', '.modal-link-big', function(){
+		const url = $(this).data('url');
+		const id = $(this).data('id');
+
+		$.get(url, {'id': id},function(response){
+			$('#modalContainerBig .modal-body').html("");
+			$('#modalContainerBig .modal-body').html(response);
+			$('#modalContainerBig').modal();
+		});
+	});
+
+
 	// ROUNDING OFF NUMBERS
 	function round(value, exp) {
 		if (typeof exp === 'undefined' || +exp === 0) {
