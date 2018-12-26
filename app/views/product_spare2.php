@@ -89,7 +89,7 @@ if(isset($_SESSION['id'])) {
             $item_img = $row['img_path'];
             $categoryId = $row['category_id'];
             $brandId = $row['brand_id'];
-            $stocks = $row['stocks'];
+            // $stocks = $row['stocks'];
             $storeId = $row['store_id'];
 
         ?>

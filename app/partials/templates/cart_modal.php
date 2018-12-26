@@ -14,7 +14,7 @@
 
     $cartSession = $_SESSION['cart_session'];
     
-    $sql = "SELECT c.*, p.stocks, p.img_path, p.name, p.price, p.id as productId
+    $sql = "SELECT c.*, p.img_path, p.name, p.price, p.id as productId
     FROM tbl_carts c 
     JOIN tbl_items p on p.id=c.item_id 
     WHERE cart_session=?";
@@ -52,7 +52,7 @@
                 $price = $row['price'];
                 $quantity = $row['quantity'];
                 $image = $row['img_path'];
-                $stocks = $row['stocks'];
+                // $stocks = $row['stocks'];
                 $GrandTotalPrice = $subtotalPrice + ($price * $quantity);
         ?>
 
@@ -72,13 +72,13 @@
                             value="<?= $quantity ?>"
                             data-productid="<?= $productId ?>"
                             min="1" 
-                            max="<?= $stocks ?>" >
+                            max="<?= stocks ?>" >
                     <div>
                             <?php 
-                            if ($stocks == 1) {
+                            if (stocks == 1) {
                                 echo "Only 1 left!";
                             } else {
-                                echo "$stocks stocks left";
+                                echo "stocks stocks left";
                             }
                             ?>
                     </div>

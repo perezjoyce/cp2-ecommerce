@@ -24,7 +24,7 @@
   $price = $row['price'];
   $description = $row['description'];
   $item_img = $row['img_path'];
-  $stocks = $row['stocks'];
+  // $stocks = $row['stocks'];
 
 
   $sql = " SELECT * FROM tbl_carts WHERE cart_session=? AND item_id=?";

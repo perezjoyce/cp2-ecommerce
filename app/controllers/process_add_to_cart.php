@@ -2,49 +2,58 @@
 
 session_start(); 
 require_once "connect.php";
+require_once "functions.php";
 
-if (isset($_POST['productId'])) {
 
     $cartSession = $_SESSION['cart_session'];
-    $productId = $_POST['productId'];
-
-    $quantity = 1;
-    $sql = " SELECT * FROM tbl_carts WHERE cart_session=? AND item_id=?";
+    $variationId = $_POST['variationId'];
+    $quantity = $_POST['quantity'];
+    $date = date('Y-m-d H:i:s');
+  
+    //CHECK IF ITEM VARIATION IS ALREADY IN CART
+    $sql = " SELECT * FROM tbl_carts WHERE cart_session=? AND variation_id=? ";
     $statement = $conn->prepare($sql);
-    $statement->execute([$cartSession, $productId]);
+    $statement->execute([$cartSession, $variationId]);
     $count = $statement->rowCount();
 
-    date_default_timezone_set('Asia/Manila');
-		$date = date('Y-m-d H:i:s');
-    
+    //IF IT IS, ASSUME THAT USER WANTS TO UPDATE QUANTITY OF SPECIFIC VARIATION
     if($count) {
-        $row = $statement->fetch();
-        $quantity = $row['quantity'] + 1;
-        $sql = " UPDATE tbl_carts SET quantity=? WHERE cart_session=? ";
+        $sql = " UPDATE tbl_carts SET quantity=? WHERE cart_session=? AND variation_id=?";
         $statement = $conn->prepare($sql);
-	      $statement->execute([$quantity, $cartSession]);
+        $statement->execute([$quantity, $cartSession, $variationId]);
+        
+    //IF IT IS NOT, INSERT IT INTO THE CART SESSION AS NEW PRODUCT ADDED 
     } else {
-        $sql = " INSERT INTO tbl_carts ( dateCreated, item_id, quantity, cart_session) VALUES (?, ?, ?, ?) ";
-        $statement = $conn->prepare($sql);
-	      $statement->execute([$date, $productId, $quantity, $cartSession]);
+
+        //IF USER IS LOGGED IN
+        if(isset($_SESSION['id'])) {
+
+            $userId = $_SESSION['id'];
+            $sql = " INSERT INTO tbl_carts (cart_session,date_created,variation_id,quantity,`user_id`) VALUES (?, ?, ?, ?, ?) ";
+            $statement = $conn->prepare($sql);
+            $statement->execute([$cartSession,$date,$variationId,$quantity,$userId]);
+       
+        //IF USER IS NOT LOGGED IN
+        } else {
+            $sql = " INSERT INTO tbl_carts (cart_session,date_created,variation_id,quantity) VALUES (?, ?, ?, ?) ";
+            $statement = $conn->prepare($sql);
+            $statement->execute([$cartSession,$date,$variationId,$quantity]);
+        }
     }
 
-    $sql = " SELECT * FROM tbl_carts WHERE cart_session=? ";
-    $statement = $conn->prepare($sql);
-    $statement->execute([$cartSession]);
-    $count = $statement->rowCount();
 
-    // var_dump($count); die();
-    // echo $count;
-
+    //PREPARE RESONSE TO BE ECHOED
     $response =[];
 
-    //header cart
-    $sql = "SELECT c.item_id, c.quantity, p.img_path, p.name, p.price, p.id as productId
+        //HEADER CART
+        $sql = "SELECT v.product_id 
+            AS 'productId', v.variation_name, c.variation_id, c.quantity, c.cart_session, p.img_path, p.name, p.price
             FROM tbl_carts c 
-            JOIN tbl_items p on p.id=c.item_id 
-            WHERE cart_session=?";
-            //$result = mysqli_query($conn, $sql);
+            JOIN tbl_items p 
+            JOIN tbl_variations v
+            ON v.product_id = p.id 
+            AND c.variation_id=v.id 
+            WHERE cart_session= ?";
             $statement = $conn->prepare($sql);
             $statement->execute([$cartSession]);
 
@@ -52,42 +61,84 @@ if (isset($_POST['productId'])) {
             // $subtotalPrice = 0;
             if($count1) {
                 while($row = $statement->fetch()){
-                    $productId = $row['item_id'];
+                    $variationId = $row['variation_id'];
+                    $variationName = $row['variation_name'];
+                    $variationName  = ucfirst(strtolower($variationName));
+                    $productId = $row['productId'];
                     $name = $row['name'];
                     $price = $row['price'];
                     $quantity = $row['quantity'];
                     $image = $row['img_path'];  
-        
-                $newProductAdded = 
-                  "<div class='dropdown-item' id='product-row$productId'>
-                    <div class='row mx-1'>
-                      <div class='d-flex flex-row' style='justify-content:flex-start;width:100%;'>
-                        <div class='flex pr-2'>
-                            <img src='$image' style='width:30px;height:30px;'> 
-                        </div>   
-                        <div class='flex-fill'>
-                            <div class='d-flex flex-column'>
-                                <small>$name</small>
-                                <small class='text-gray'>
-                                    $price";
-                                    if($quantity > 1) {
-                                      $newProductAdded .="&nbsp;&nbsp;".$quantity;
-                                    } 
-                                $newProductAdded .= "</small>
+
+                    
+
+                    if($quantity > 1){
+                        $quantityDisplay = "&nbsp;x&nbsp$quantity";
+                    } else {
+                        $quantityDisplay = "";
+                    }
+
+                    if($variationName == 'None') {
+                        $newProductAdded = 
+                        "<div class='dropdown-item' id='product-row$variationId'>
+                          <div class='row mx-1'>
+                            <div class='d-flex flex-row' style='justify-content:flex-start;width:100%;'>
+                              <div class='flex pr-2'>
+                                  <img src='$image' style='width:35px;height:35px;'> 
+                              </div>   
+                              <div class='flex-fill'>
+                                  <div class='d-flex flex-column'>
+                                      <small>$name</small>
+                                      <small class='text-gray'>
+                                          <span>$price</span>
+                                          <span>$quantityDisplay</span>
+                                      </small>
+                                  </div>
+                              </div>
+                              <div class='flex-fill text-right' style='align-self:end;'>
+                                  <a data-productid='$productId' data-vname='$variationName' data-variationid='$variationId' data-quantity='$quantity' role='button' class='btn_delete_item text-gray flex-fill font-weight-light' style='font-size:16px;'>
+                                  &times;
+                                  </a>
+                              </div>
                             </div>
-                        </div>
-                        <div class='flex-fill text-right' style='align-self:end;'>
-                            <a data-productid='$productId' role='button' class='btn_delete_item text-gray flex-fill font-weight-light' style='font-size:16px;'>
-                            &times;
-                            </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>";
+                          </div>
+                        </div>";
+                    } else {
+
+                        $newProductAdded = 
+                        "<div class='dropdown-item' id='product-row$variationId'>
+                          <div class='row mx-1'>
+                            <div class='d-flex flex-row' style='justify-content:flex-start;width:100%;'>
+                              <div class='flex pr-2'>
+                                  <img src='$image' style='width:35px;height:35px;'> 
+                              </div>   
+                              <div class='flex-fill'>
+                                  <div class='d-flex flex-column'>
+                                      <small>$name</small>
+                                      <small>$variationName</small>
+                                      <small class='text-gray'>
+                                          <span>$price</span>
+                                          <span>$quantityDisplay</span>
+                                      </small>
+                                  </div>
+                              </div>
+                              <div class='flex-fill text-right' style='align-self:end;'>
+                                  <a data-productid='$productId' data-vname='$variationName' data-variationid='$variationId' data-quantity='$quantity' role='button' class='btn_delete_item text-gray flex-fill font-weight-light' style='font-size:16px;'>
+                                  &times;
+                                  </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>";
+                        
+                    }
+                    
+        
+             
                 }
             }
-        //header cart button
         
+        //HEADER COUNT BUTTON
         $button = "<div class='dropdown-divider my-3'></div>
                   <a class='dropdown-item mb-3'>
                     <button class='modal-link btn btn-block btn-gradient' 
@@ -99,11 +150,21 @@ if (isset($_POST['productId'])) {
                         Go To Cart
                     </button>
                   </a>";
-            
-    $response = ['newProduct' => $newProductAdded, 'itemsInCart' => $count, 'button' => $button];
 
-    echo json_encode($response);
-} 
+        //COUNT TOTAL QUANTITY OF ITEMS IN CART
+        $sql = " SELECT SUM(quantity) as 'itemsInCart' FROM tbl_carts WHERE cart_session = ? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$cartSession]);
+        $row = $statement->fetch();
+        $itemsInCart = $row['itemsInCart'];
+            
+
+        
+        $response = ['newProduct' => $newProductAdded, 'itemsInCart' =>  $itemsInCart, 'button' => $button];
+        echo json_encode($response);
+        
+            
+    
 
 
 

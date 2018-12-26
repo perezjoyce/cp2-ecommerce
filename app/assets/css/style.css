@@ -153,6 +153,8 @@ div.card:hover {
 
 /* ================================ PRODUCT PAGE =================================== */
 
+
+
 .seller_response_container::before {
     right: 89%;
 }
@@ -179,6 +181,14 @@ div.card:hover {
     margin:0;
 }
 
+.btn-purple-reverse {
+    background: #edd4f9;
+    border: 1px solid #c471ed!important;
+    color: #9c5abd!important;
+    font-weight:500;
+}
+
+
 
 .btn-purple:hover  {
     background: #edd4f9;
@@ -192,6 +202,13 @@ div.card:hover {
     /* border: 1px solid#894fa5!important; */
     color: white!important;
     font-weight:500;
+}
+
+.btn-disabled {
+    background: transparent;
+    border: 1px solid lightgray;
+    color: gray;
+    font-weight: 400;
 }
 
 
@@ -532,7 +549,7 @@ div#login_image {
 
 
 #cart-img {
-    background-image: url("../images/shopping-cart-header.png")!important; 
+    background-image: url("../images/shopping-cart-white.png")!important; 
     height: 2.8em;
     width: 2.8em;
     padding-top: -5px;
@@ -545,9 +562,9 @@ div#login_image {
 
 nav.navbar-main,
 footer#footer-main {
-    background: #12c2e9; /* fallback for old browsers */
+    background: #12c2e9; 
     background: -webkit-linear-gradient(to right, #12c2e9, #c471ed, #f64f59); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59); /*W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59);/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .badge {

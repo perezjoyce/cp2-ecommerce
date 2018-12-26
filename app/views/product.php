@@ -90,7 +90,7 @@ if(isset($_SESSION['id'])) {
             $item_img = $row['img_path'];
             $categoryId = $row['category_id'];
             $brandId = $row['brand_id'];
-            $stocks = $row['stocks'];
+            // $stocks = $row['stocks'];
             $storeId = $row['store_id'];
 
         ?>
@@ -270,16 +270,44 @@ if(isset($_SESSION['id'])) {
                   while($row = $statement->fetch()){
                     $variationId = $row['id'];
                     $variationName = $row['variation_name'];
+                    $variationName  = ucfirst(strtolower($variationName));
                     $variationStock = $row['variation_stock'];
+
+                    if($variationName != 'None') {
+
+                      // query to check if this variation is already in cart
+                    $disabled = '';
+                    $sql2 = "SELECT v.*, c.cart_session FROM tbl_carts c 
+                            JOIN tbl_variations v ON c.variation_id=v.id 
+                            WHERE cart_session = ? AND product_id = ? 
+                            AND v.variation_name= ? GROUP BY id";
+                    $statement2 = $conn->prepare($sql2);
+                    $statement2->execute([$cartSession,$id,$variationName]);
+                    $countVariation = $statement2->rowCount();
+                    
+                    if($countVariation>0) {
+                      $disabled = 'disabled';
+                      
+                    }
               ?>
               
-              <button class="btn p-2 mr-2 mb-2 text-center border btn_variation text-responsive" style='width:18%;' data-variationStock='<?= $variationStock ?>'>
+              <button class="btn p-2 mr-2 mb-2 text-center border btn_variation text-responsive " 
+                <?= $disabled ?> 
+                style='width:18%;' 
+                data-variationStock='<?= $variationStock ?>' 
+                data-id='<?=$variationId?>'>
                 [&nbsp;<?= ucwords($variationName) ?>&nbsp;]
               </button>
 
-              <?php } } ?>
+              <?php } else { 
+
+                  echo "None";
+
+               } } } ?>
               <!-- HIDDEN FOR DEBUGGING PURPOSES -->
-              <input type="hidden" id='variation_stock_hidden' val='<?$variationStock?>'>
+              <input type="text" id='variation_stock_hidden' value='<?$variationStock?>'>
+              <input type="hidden" id='variation_name_hidden' value='<?$variationName?>'>
+              <input type="hidden" id='variation_id_hidden' value='<?=$variationId?>'>
             </div>
           </div>
         </div>
@@ -345,27 +373,37 @@ if(isset($_SESSION['id'])) {
         <!-- BUTTON -->
         <div class="d-flex flex-row">
           <?php
-            $sql = " SELECT * FROM tbl_carts WHERE cart_session=? AND item_id=?";
+            $sql = " SELECT v.product_id, v.variation_name as 'var_name', c.cart_session FROM tbl_carts c JOIN tbl_variations v ON c.variation_id=v.id WHERE cart_session=? AND product_id=?";
             //$result = mysqli_query($conn, $sql);
             $statement = $conn->prepare($sql);
             $statement->execute([$cartSession, $id]);
-            $count = $statement->rowCount();
-          ?>
+            $row = $statement->fetch();
+                   $vname = $row['var_name'];
+                   $vname = ucfirst(strtolower($vname));
 
-  
-          <?php
-          
-            if($count) {
+                    if($vname == 'None') {
           ?>
-          <button class='btn btn-lg btn-purple py-3' style="width:40%;" data-id='<?= $id ?>' role='button' id="btn_delete_from_cart" disabled>
-              &nbsp;Item is in Cart
+          <!-- SINCE BUTTON HAS NO VARIATION THERE IS NO NEED TO ADD IT TO CART AGAIN ANYMORE -->
+          <button class='btn btn-lg btn-gray py-3' style='width:40%;height:50px;' data-id='<?= $id ?>' role='button' data-variationid='<?=$variationId?>' data-name='<?=$variationName?>' id="btn_add_to_cart_again" disabled>
+              &nbsp;Item Already In Cart
           </button>
+
+          <?php
+                    } else {
+                      $count = $statement->rowCount();
+                      if($count) {
+          ?>  
+
+          <button class='btn btn-lg btn-purple-reverse py-3' style='width:50%;height:50px;' data-id='<?= $id ?>' role='button' data-variationid='<?=$variationId?>' data-name='<?=$variationName?>' id="btn_add_to_cart_again">
+              &nbsp;Add To Cart Again
+          </button>
+
           <?php } else { ?>
           
-          <a class='btn btn-lg btn-purple py-3 ' style="width:40%;height:50px;" data-id='<?= $id ?>' role='button' id="btn_add_to_cart">
+          <a class='btn btn-lg btn-purple py-3' style='width:40%;height:50px;' data-id='<?= $id ?>' role='button' data-variationid='<?=$variationId?>' data-name='<?=$variationName?>' id="btn_add_to_cart">
             &nbsp;Add To Cart
           </a>
-          <?php }?>
+          <?php } }?>
 
 
         </div>
@@ -376,10 +414,10 @@ if(isset($_SESSION['id'])) {
     </div>
 
     <!-- SECOND ROW -->
-    <div class="row bg-white rounded mb-5 px-5 pt-5">
+    <div class="row bg-white rounded mb-5 px-5">
 
       <!-- SELLER DETAILS -->
-      <div class="col-lg-2 col-md-3 col-sm-12 mr-5 white-bg">
+      <div class="col-lg-2 col-md-3 col-sm-12 mr-5 white-bg py-5">
 
         <div class='row mb-4 py-5 border'>
             <div class="col-12">
@@ -1042,8 +1080,8 @@ if(isset($_SESSION['id'])) {
                 
                 <!-- Q&As -->
                 <div id="questions_content" class="tabcontent">
-                  <div class="container mt-4 px-4">
-                    <div class="row">
+                  <div class="container px-4">
+                    <div class="row pb-5">
 
                       <!-- FREQUENTLY ASKED -->
                       <div class="col-6">
@@ -1053,7 +1091,7 @@ if(isset($_SESSION['id'])) {
                         </div>
 
                         <div class="row">
-                          <div class="col-12 px-0" style="overflow-x:scroll;max-height:500px;">
+                          <div class="col-12 pl-0" style="overflow-x:scroll;max-height:400px;">
                             
 
                                   <?php
@@ -1100,7 +1138,7 @@ if(isset($_SESSION['id'])) {
                         </div>
 
                         <div class="row">
-                          <div class="col-12 px-0" style="overflow-x:scroll;max-height:300px;">
+                          <div class="col-12 px-0" style="overflow-x:scroll;max-height:400px;">
                             
 
                                   <?php
@@ -1221,7 +1259,7 @@ if(isset($_SESSION['id'])) {
                           if(isset($_SESSION['id'])) {
                             
                         ?>
-                        <div class="row my-5">
+                        <div class="row mt-5">
                           <div class="col-12 px-0">
                             <form action='process_ask_about_product' method='POST'>
                               <div class="form">
@@ -1235,7 +1273,7 @@ if(isset($_SESSION['id'])) {
 
                               <div class="d-flex flex-row">
                                 <a class="btn btn-purple" data-userid='<?=$userId?>' data-productid='<?=$id?>'role='button' id='btn_ask_question'>
-                                  Submit
+                                  Send
                                   <i class="far fa-paper-plane"></i>
                                 </a>
                                 <small id='post_question_notification' class='text-red ml-4 pt-1'></small>

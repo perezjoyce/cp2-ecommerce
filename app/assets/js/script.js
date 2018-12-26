@@ -727,7 +727,9 @@ $(document).ready( () => {
 
 	// FETCHING STOCK OF PRODUCT VARIATIONS AND UPDATING DISPLAYED STOCK   
 	$(document).on('click', '.btn_variation',function(){
+		// let variationName = $(this).data('name');
 		let variationStock = $(this).attr('data-variationStock');
+		let variationId = $(this).data('id');
 		//reset settings and values
 		$('#variation_quantity').val('1');
 		$('.variation_display').css('color','rgba(0,0,0,.8)');
@@ -738,6 +740,8 @@ $(document).ready( () => {
 		$('#variation_stock').text(variationStock);
 		//punt in hidden field to be fetched by btn plus later
 		$('#variation_stock_hidden').val(variationStock);
+		$('#variation_id_hidden').val(variationId);
+		// $('#variation_name_hidden').val(variationName);
 	})
 
 	  // PLUS AND MINUS BUTTONS
@@ -1098,42 +1102,56 @@ $(document).ready( () => {
 	// ADDING ITEMS TO CART
 	$(document).on("click", "#btn_add_to_cart" ,function(){
 
+		let variationName = $(this).data('name');
+		let productId = $(this).attr("data-id"); //not passed because variation id is already present
+
 		let variationStock = $("#variation_stock_hidden").val();
 			variationStock = parseInt(variationStock);
-		let productId = $(this).attr("data-id");
-		let currentItemCount = $("#item-count").text();	
+		let variationId = $('#variation_id_hidden').val();
+
+		let quantity = $("#variation_quantity").val();
+		let cartItems = $("#item-count").text();	
+
+		let that = this;
 		let flag = 0;
 		
-		if(!variationStock) {
+		if(!variationStock && variationName != 'None') {
+			//REQUIRE USER TO CHOOSE VARIATION
 			$('#variation_error').html("<small class='text-red'>Please select variation first.</small>");
 			flag = 1;
-		} 
+		}
 
 		if(flag == 0) {
+
+			// REMOVE ERROR MESSAGE
 			$('#variation_error').html("<small style='color:#f5f5f5;'>I'm invisible</small>");
-			$(this).replaceWith(
-				"<button class='btn btn-lg btn-purple py-3 ml-2' style='width:50%;' data-id='" + productId + "' role='button'" + 
-				"id='btn_delete_from_cart' disabled>" +
-				"Item Added to Cart!</button>");
+			
 			$.ajax({
 				url: "../controllers/process_add_to_cart.php",
 				method: "POST",
 				data: {
-					productId: productId
+					// productId: productId,
+					variationId:variationId,
+					quantity:quantity
 				},
-				dataType: "text",
 				success: function(data) {
 					let response = $.parseJSON(data);
-					let sum = "";
-					sum += response.itemsInCart;
-	
-					$("#item-count").html("<span class='badge border-0 circle'>" + sum + "</span>");
-					if(currentItemCount == 0 || currentItemCount == "") {
+					
+					// UPDATE HEADER BADGE
+					$("#item-count").text(response.itemsInCart);
+
+					// UPDATE CART DROPDOWN
+					if(cartItems == 0 || cartItems == "") {
 						$('#cartDropdown_menu').html("");
 						$('#cartDropdown_menu').append(response.button);
 					}
 	
-					$('#cartDropdown_menu').prepend(response.newProduct);
+						$('#cartDropdown_menu').prepend(response.newProduct);
+					
+					// UPDATE ADD TO CART BUTTON
+					$(that).replaceWith("<button class='btn btn-lg btn-disabled py-3' style='width:40%;height:50px;' data-id='" + productId + "'role='button'" + 
+						"id='btn_add_to_cart_again' disabled>" +
+						"Item Added To Cart!</button>");
 					
 				}
 			});
@@ -1144,7 +1162,80 @@ $(document).ready( () => {
 		
 	});
 
-	// ADDING ITEM ON WISHLIST TO CART 
+	// ADDING ITEMS TO CART AGAIN (DIFFERENT VARIATION)
+	$(document).on("click", "#btn_add_to_cart_again" ,function(){
+
+		let variationName = $(this).data('name');
+		let productId = $(this).attr("data-id"); //not passed because variation id is already present
+
+		let variationStock = $("#variation_stock_hidden").val();
+			variationStock = parseInt(variationStock);
+		let variationId = $('#variation_id_hidden').val();
+
+		let quantity = $("#variation_quantity").val();
+		let cartItems = $("#item-count").text();	
+
+		let that = this;
+		let flag = 0;
+		
+		if(!variationStock && variationName != 'None') {
+			//REQUIRE USER TO CHOOSE VARIATION
+			$('#variation_error').html("<small class='text-red'>Please select a different variation first.</small>");
+			flag = 1;
+		}
+
+		if(variationName == 'None'){
+			window.confirm("This item is already in your cart. Would you like to proceed anyway?"); 
+	
+			if(confirm == 'ok') {
+				flag = 0;
+			} else {
+				flag = 1;
+			}
+		}
+
+		if(flag == 0) {
+
+			// REMOVE ERROR MESSAGE
+			$('#variation_error').html("<small style='color:#f5f5f5;'>I'm invisible</small>");
+			
+			$.ajax({
+				url: "../controllers/process_add_to_cart.php",
+				method: "POST",
+				data: {
+					// productId: productId,
+					variationId:variationId,
+					quantity:quantity
+				},
+				success: function(data) {
+					let response = $.parseJSON(data);
+					
+					// UPDATE HEADER BADGE
+					$("#item-count").text(response.itemsInCart);
+
+					// UPDATE CART DROPDOWN
+					if(cartItems == 0 || cartItems == "") {
+						$('#cartDropdown_menu').html("");
+						$('#cartDropdown_menu').append(response.button);
+					}
+	
+						$('#cartDropdown_menu').prepend(response.newProduct);
+					
+					// UPDATE ADD TO CART BUTTON
+					$(that).replaceWith("<button class='btn btn-lg btn-disabled py-3' style='width:40%;height:50px;' data-id='" + productId + "'role='button'" + 
+						"disabled>" +
+						"Item Added To Cart!</button>");
+					
+				}
+			});
+		}
+
+		
+
+		
+	});
+
+	// ADDING ITEM ON WISHLIST TO CART -- later
 	$(document).on('click', '#btn_add_to_cart_profile', function(){
 		let productId = $(this).attr("data-id");
 
@@ -1190,38 +1281,42 @@ $(document).ready( () => {
 
 	// DELETING ITEMS IN CART
 	$(document).on("click", ".btn_delete_item", function(){
+		let variationId = $(this).data('variationid');
+		let variationName = $(this).data('vname');
 		let productId = $(this).data('productid');
+		let quantity = $(this).data('quantity');	
 
 		$.post('../controllers/process_delete_in_cart.php', {
-			productId: productId 
-			},function(response){
+			variationId: variationId,
+			quantity, quantity
+			},function(data){
+				//REMOVE ITEM IN HEADER DROPDOWN
+				$("#product-row"+variationId).remove();
 
-				// reload the modal with the new quantity reflected
-				$.get("../partials/templates/cart_modal.php", function(response) {
-					$('.modal .modal-body').html(response);
+				// update button
+				$("#btn_add_to_cart_again").replaceWith(
+					"<a class='btn btn-lg btn-purple py-3' style='width:40%;height:50px;'" +  
+					"data-variationid='"+ variationId +"' role='button'" +
+					"data-id='"+ productId +"' id='btn_add_to_cart'" +
+					"data-name='"+variationName+"'>" + "Add to Cart</a>");
 
-						let currentNumberOfItems = $("#item-count span").text();
-						currentNumberOfItems = currentNumberOfItems-1;
+				//UPDATE ITEM COUNT
+				if (data == 0) {
+					$("#item-count").text(data);
+					$('#cartDropdown_menu').html("<a class='dropdown-item pb-5 text-center' href='#'>" +
+						"<img src='http://www.aimilayurveda.com/catalog/view/theme/aimil/assets/images/empty.png' alt='empty_cart' style='width:10em;'>" +
+						"<div><small>Your shopping cart is empty</small></div></a>");
+				} else {
+					$("#item-count").text(data);			
+				}
 
-						if (currentNumberOfItems == 0) {
-							$("#item-count").html("");
-							$('#cartDropdown_menu').html("<a class='dropdown-item pb-5 text-center' href='#'>" +
-								"<img src='http://www.aimilayurveda.com/catalog/view/theme/aimil/assets/images/empty.png' alt='empty_cart' style='width:10em;'>" +
-								"<div><small>Your shopping cart is empty</small></div></a>");
-						} else {
-							$("#item-count").html("<span class='badge border-0 circle'>" + currentNumberOfItems + "</span>");					
-						}
-					// update button
-					$("#btn_delete_from_cart").replaceWith(
-						"<a class='btn btn-lg btn-purple py-3 ml-2' style='width:50%;' data-id='"+ productId +"' role='button' id='btn_add_to_cart'>" +
-						"Add to Cart</a>");
+					// RELOAD CART WITH THE NEW QUANTITY REFLECTED
+					$.get("../partials/templates/cart_modal.php", function(response) {
+						$('.modal .modal-body').html(response);
 
-					//remove product in header dropdown
-					$("#product-row"+productId).remove();
 
 				});
 			});
-
 	});
 
 

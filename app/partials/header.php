@@ -22,7 +22,7 @@
   $sql = " SELECT * FROM tbl_carts WHERE cart_session=?";
   $statement = $conn->prepare($sql);
   $statement->execute([$cartSession]);
-  $productCount = $statement->rowCount();
+//   $productCount = $statement->rowCount();
 
 ?>
 
@@ -53,8 +53,7 @@
     
     <!-- MATERIAL ICONS -->
     <!-- https://google.github.io/material-design-icons/#getting-icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- SLICK -->
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
@@ -124,16 +123,10 @@
                                
                                 <div id='cart-img'></div>
                                 
-                                <span id="item-count px-0 mx-0">
-                                    <?php 
-                                        if ($productCount) {
-                                        echo "<span class='badge text-light'>" . $productCount . "</span>";
-                                        } elseif ($productCount == 0){
-                                        echo "";
-                                        } else {
-                                        echo "";
-                                        }
-                                    ?>
+                                <span>
+                                    
+                                    <span class='badge text-light' id="item-count"><?= itemsInCart($conn,$cartSession) ?></span>
+                                    
                                 </span>
                             </div>
                             
@@ -142,10 +135,11 @@
 
                         <div class="dropdown-menu mt-2 pt-3" aria-labelledby="cartDropdown" style='width:17em;' id='cartDropdown_menu'>  
                             <?php 
-                                $sql = "SELECT c.item_id, c.quantity, p.img_path, p.name, p.price, p.id as productId
+                                $sql = "SELECT v.product_id as 'productId', v.variation_name, c.variation_id, c.quantity, c.cart_session, p.img_path, p.name, p.price
                                 FROM tbl_carts c 
-                                JOIN tbl_items p on p.id=c.item_id 
-                                WHERE cart_session=?";
+                                JOIN tbl_items p 
+                                JOIN tbl_variations v
+                                ON v.product_id = p.id AND c.variation_id=v.id WHERE cart_session= ?";
                                 //$result = mysqli_query($conn, $sql);
                                 $statement = $conn->prepare($sql);
                                 $statement->execute([$cartSession]);
@@ -162,22 +156,25 @@
 
                             <?php } else { 
                                 while($row = $statement->fetch()){
-                                    $productId = $row['item_id'];
+                                    $variationId = $row['variation_id'];
+                                    $variationName = $row['variation_name'];
+                                    $productId = $row['productId'];
                                     $name = $row['name'];
                                     $price = $row['price'];
                                     $quantity = $row['quantity'];
                                     $image = $row['img_path'];  
                             ?>
                                 
-                            <div class='dropdown-item' id='product-row<?=$productId?>'>
+                            <div class='dropdown-item' id='product-row<?=$variationId?>'>
                                 <div class='row mx-1'>
                                     <div class='d-flex flex-row' style='justify-content:flex-start;width:100%;'>
                                         <div class='flex pr-2'>
-                                            <img src='<?=$image?>' style='width:30px;height:30px;'> 
+                                            <img src='<?=$image?>' style='width:35px;height:35px;'> 
                                         </div>   
                                         <div class='flex-fill'>
                                             <div class='d-flex flex-column'>
                                                 <small><?= $name ?></small>
+                                                <small class='text-gray italics'><?= $variationName ?></small>
                                                 <small class='text-gray'>
                                                     <?=$price?>
                                                      <?php if($quantity > 1) { ?>
@@ -187,7 +184,7 @@
                                             </div>
                                         </div>
                                         <div class='flex-fill text-right' style='align-self:end;'>
-                                            <a data-productid='<?= $productId ?>' role='button' class='btn_delete_item text-gray flex-fill font-weight-light' style='font-size:16px;'>
+                                            <a data-productid='<?=$productId?>' data-vname='<?=$variationName?>' data-variationid='<?= $variationId ?>' data-quantity='<?=$quantity?>' role='button' class='btn_delete_item text-gray flex-fill font-weight-light' style='font-size:16px;'>
                                             &times;
                                             </a>
                                         </div>

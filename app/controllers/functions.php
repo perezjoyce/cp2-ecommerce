@@ -43,6 +43,19 @@
         return $dst;
     }
 
+    //COUNT ITEMS IN CART
+
+    function itemsInCart($conn,$cartSession) {
+        $sql = " SELECT SUM(quantity) as 'itemsInCart' FROM tbl_carts WHERE cart_session = ? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$cartSession]);
+        $row = $statement->fetch();
+        $itemsInCart = $row['itemsInCart'];
+
+        return  $itemsInCart;
+    }
+    
+
     // GET WISHLIST COUNT PER USER
     function getWishlishtCount($conn) {
 

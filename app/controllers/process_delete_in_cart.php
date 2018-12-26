@@ -2,23 +2,25 @@
 session_start(); 
 require_once "connect.php";
 
-if (isset($_POST['productId'])) {
+if (isset($_POST['variationId'])) {
 
     $cartSession = $_SESSION['cart_session'];
-    $productId = $_POST['productId'];
+    $variationId = $_POST['variationId'];
+    $response = [];
 
-    $sql = " SELECT * FROM tbl_carts WHERE cart_session=? AND item_id=? ";
-	$statement = $conn->prepare($sql);
-	$statement->execute([$cartSession, $productId]);
-    $count = $statement->rowCount();
+    // DELETE ITEM FROM CART
+    $sql = " DELETE FROM tbl_carts WHERE cart_session=? AND variation_id=? ";
+    $statement = $conn->prepare($sql);
+    $result = $statement->execute([$cartSession, $variationId]);
 
-    if($count) {
-        $row = $statement->fetch();
-        $sql = " DELETE FROM tbl_carts WHERE cart_session=? AND item_id=? ";
-        $statement = $conn->prepare($sql);
-	    $result = $statement->execute([$cartSession, $productId]);
+    // COUNT NEW NUMBER OF ITEMS IN CART
+    $sql = " SELECT SUM(quantity) as 'itemsInCart' FROM tbl_carts WHERE cart_session = ? ";
+    $statement = $conn->prepare($sql);
+    $statement->execute([$cartSession]);
+    $row = $statement->fetch();
+    $itemsInCart = $row['itemsInCart'];
 
-        echo $result;
-    } 
+    echo $itemsInCart;
+       
 
 }
