@@ -128,10 +128,10 @@
             <!-- if input type is submit, this will automatically submit input to users.php hence change this to button, type to button and remove value SO THAT you can employ validation -->
             <!-- indicate id for button -->
             <div class="d-flex justify-content-center mb-5">
-                <a class="mr-5 modal-link" data-url='../partials/templates/shipping_info_modal.php'>
+                <a class="mr-5 modal-link" data-url='../partials/templates/shipping_info_modal.php' role='button'>
                     <i class="fas fa-3x fa-arrow-circle-left"></i>
                 </a>
-                <a data-url='../partials/templates/order_confirmation_modal.php' id=btn_order_confirmation>
+                <a data-url='../partials/templates/order_confirmation_modal.php' id=btn_order_confirmation role='button'>
                     <i class="fas fa-3x fa-arrow-circle-right"></i>
                 </a>
             </div>

@@ -10,90 +10,22 @@
 }
 
 body{
-    /* background-color: #fff; */
+    color: #1d2129;
     background-color: #f5f5f5;
-    /* background-color: snow; */
-    /* color: rgba(0,0,0,.8); */
-    line-height: 1.2;
+    line-height: 1.35;
 }
 
-nav, .white-bg {
-    background-color:white!important;
+nav, footer, .white-bg {
+    background-color:#ffffff!important;
 }
 
 .card {
-    background-color: #f5f5f5!important;
+    background-color: white!important;
 }
 
 .card-body {
     background-color: white!important;
 }
-
-/* TURN OFF ARROWS INSIDE INPUT FIELD NUM */
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
-}
-
-/* MATERIAL ICONS */
-@font-face {
-    font-family: 'Material Icons';
-    font-style: normal;
-    font-weight: 400;
-    src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
-    src: local('Material Icons'),
-      local('MaterialIcons-Regular'),
-      url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
-      url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
-      url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
-  }
-
-  .material-icons {
-    font-family: 'Material Icons';
-    font-weight: normal;
-    font-style: normal;
-    font-size: 24px;  /* Preferred icon size */
-    display: inline-block;
-    line-height: 1;
-    text-transform: none;
-    letter-spacing: normal;
-    word-wrap: normal;
-    white-space: nowrap;
-    direction: ltr;
-  
-    /* Support for all WebKit browsers. */
-    -webkit-font-smoothing: antialiased;
-    /* Support for Safari and Chrome. */
-    text-rendering: optimizeLegibility;
-  
-    /* Support for Firefox. */
-    -moz-osx-font-smoothing: grayscale;
-  
-    /* Support for IE. */
-    font-feature-settings: 'liga';
-  }
-
-    /* Rules for sizing the icon. */
-    .material-icons.md-18 { font-size: 18px; }
-    .material-icons.md-24 { font-size: 24px; }
-    .material-icons.md-36 { font-size: 36px; }
-    .material-icons.md-48 { font-size: 48px; }
-
-    /* Rules for using icons as black on a light background. */
-    .material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
-    .material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
-
-    /* Rules for using icons as white on a dark background. */
-    .material-icons.md-light { color: rgba(255, 255, 255, 1); }
-    .material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
-
-    .material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
-    .material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
-    
-    .material-icons.md-light { color: rgba(255, 255, 255, 1); }
-    .material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
-
 
 
 h1, h2, h3, h4, h5 {
@@ -111,29 +43,36 @@ html {
 }
 
 p, .product_details {
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 
 /* the following adjusts according to the root */
 h1 {
     /* 21px */
-    font-size: 1.8rem; 
+    font-size: 2.4rem; 
 }
 
 h2 {
     /* 18 px */
-    font-size: 1.5rem;
+    font-size: 1.7rem;
 }
 
     /* 15px */
 h3 {
+    font-size: 1.5rem;
+}
+
+h4 {
     font-size: 1.25rem;
 }
 
-.no-border:focus {
-   outline: none!important;
-   border:0!important;
+
+/* TURN OFF ARROWS INSIDE INPUT FIELD NUM */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
 }
 
 .livesearch-item:hover,
@@ -213,10 +152,46 @@ div.card:hover {
 
 
 /* ================================ PRODUCT PAGE =================================== */
-.btn-purple {
-   background: #c471ed;
-    border: white!important;
+
+.seller_response_container::before {
+    right: 89%;
+}
+
+#free-delivery-img {
+    background-image: url("../images/free-delivery.png")!important; 
+    height: 2em;
+    width: 2em;
+    background-repeat: no-repeat;
+    background-size: 2em;
+    background-position: 100%;
+    padding: 15px;
+    margin:0;
+}
+
+#btn-image {
+    background-image: url("../images/shopping-cart-button.png")!important; 
+    height: 2em;
+    width: 2em;
+    background-repeat: no-repeat;
+    background-size: 2em;
+    background-position: 100%;
+    padding: 0;
+    margin:0;
+}
+
+
+.btn-purple:hover  {
+    background: #edd4f9;
+    border: 1px solid #c471ed!important;
+    color: #9c5abd!important;
+    font-weight:500;
+}
+
+.btn-purple{
+    background:  #c471ed;
+    /* border: 1px solid#894fa5!important; */
     color: white!important;
+    font-weight:500;
 }
 
 
@@ -325,24 +300,6 @@ div.card:hover {
     font-weight: 900;
 }
   
-/* .stars-container-2:before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    content: '★★★★★';
-    zoom:100%;
-    color: lightgray;
-} */
-  
-.stars-container-2:after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    /* content: '★★★★★'; */
-    color: gold;
-    zoom:100%;
-    overflow: hidden;
-}
 
 .stars-container {
     position: relative;
@@ -432,25 +389,14 @@ border-top: none;
     background-color: lightgray;
 }
 
-#rating_bar1 {
-    width: 1%;
-}
-
-#rating_bar2 {
-    width: 1%;
-}
-
-#rating_bar3 {
-    width: 1%;
-}
-
-#rating_bar4 {
-    width: 1%;
-}
-
+#rating_bar1, 
+#rating_bar2,
+#rating_bar3,
+#rating_bar4,
 #rating_bar5 {
     width: 1%;
 }
+
 
 .rating_bar {
     height: 5px;
@@ -483,10 +429,12 @@ border-top: none;
     margin-left: -1.5em;
 }
 
+textarea {
+    background: #eff0f5!important;
+}
+
 textarea:focus, textarea:active {
     box-shadow: none!important;
-    border:#c471ed!important;
-    outline:#c471ed!important;
     background: #eff0f5!important;
 }
 
@@ -575,7 +523,6 @@ div#login_ad {
 
 
 /* BACKGROUND IMAGES TO DELETE ONCE FUNCTIONALITY IS AVAILABLE */
-
 div#login_image {
     background-image: url("../../assets/images/sample.jpg")!important;
 }
@@ -585,12 +532,15 @@ div#login_image {
 
 
 #cart-img {
-    background-image: url("../images/shopping-bag-header.png")!important; 
-    height: 2.9em;
-    width: 2.9em;
+    background-image: url("../images/shopping-cart-header.png")!important; 
+    height: 2.8em;
+    width: 2.8em;
+    padding-top: -5px;
     background-repeat: no-repeat;
-    background-size: 2.9em;
+    background-size: 2.8em;
     background-position: 100%;
+    padding: 0;
+    margin:0;
 }
 
 nav.navbar-main,
@@ -601,17 +551,15 @@ footer#footer-main {
 }
 
 .badge {
-    background-color: #F64F84!important;
-    color: white!important; 
-    margin: 14px 10px!important;
-    font-size: 98%!important;
+    background-color: gold!important;
+    color: black!important; 
+    font-weight: 900;
+    font-size: 92%!important;
     font-weight: 100!important;
+    
     /* margin: 16px 10px 10px 8px!important; */
 }
 
-/* .fa-search {
-    color:#7200da!important;
-} */
 
 #search:focus {
     outline:none!important;
@@ -648,7 +596,7 @@ div.description-header {
 }
 
 div.description-supporting-text {
-    color: gray!important;
+    color: slategray!important;
 }
 
 div#description-quality {
@@ -684,16 +632,13 @@ div#description-hours {
 }
 
 /*============================ EFFECTS ==========================*/
-a.hover_bold:hover,
-a.hover_bold:active,
-a.hover_bold:focus {
-    color: #c471ed!important;
-    font-weight: bolder!important;
-}
+
 a.hover_btn {
+    background: white;
     border: 1px solid lightgray!important;
-    color: gray;
+    color: gray!important;
 }
+
 a.hover_btn:hover,
 a.hover_btn:focus,
 a.hover_btn:active {
@@ -704,6 +649,12 @@ a.hover_btn:active {
     font-weight: bolder!important;
     color: white!important;
 }
+
+.no-border:focus {
+   outline: none!important;
+   border:0!important;
+}
+
 
 /*============================ DESKTOP ==========================*/
 
@@ -855,10 +806,7 @@ a.hover_btn:active {
         box-shadow: none!important;
     }
 
-    /* PRODUCT PAGE */
-    .seller_response_container::before {
-        right: 89%;
-    }
+    
 
     /* REUSABLE */
     .vanish-md {

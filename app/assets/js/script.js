@@ -593,7 +593,7 @@ $(document).ready( () => {
 		$url = $(this).data('url');
 		$('#iframeId').val($id);
 		$('#product_iframe').html(
-			"<img src='"+ $url + "' style='width:100%;height:50vh;' id='"+$id+"'>"
+			"<img src='"+ $url + "' style='width:100%;height:450px;' id='"+$id+"'>"
 		);
 	})
 
@@ -609,7 +609,7 @@ $(document).ready( () => {
 		$url = $(this).data('url');
 		$clientId = $(this).data('clientid');
 		$('#review_iframe'+$clientId).html(
-			"<img src='"+ $url + "' style='width:100%;height:100%;' id='"+$id+"'>"
+			"<img src='"+ $url + "' style='width:100%;height:450px;' id='"+$id+"'>"
 		);
 	})
 
@@ -1114,7 +1114,7 @@ $(document).ready( () => {
 			$(this).replaceWith(
 				"<button class='btn btn-lg btn-purple py-3 ml-2' style='width:50%;' data-id='" + productId + "' role='button'" + 
 				"id='btn_delete_from_cart' disabled>" +
-				"<i class='fas fa-shopping-bag'></i>&nbsp;Item added to bag!</button>");
+				"Item Added to Cart!</button>");
 			$.ajax({
 				url: "../controllers/process_add_to_cart.php",
 				method: "POST",
@@ -1176,9 +1176,9 @@ $(document).ready( () => {
 					$("#wish-count-header").html("");
 					$("#wish-count-profile").html("");
 				} else {
-					$("#wish-count-header").html("<span class='badge border-0 circle'>" 
+					$("#wish-count-header").html("<span class='badge border-0'>" 
 						+ currentNumberOfWishes + "</span>");	
-					$("#wish-count-profile").html("<span class='badge border-0 circle'>" 
+					$("#wish-count-profile").html("<span class='badge border-0'>" 
 					+ currentNumberOfWishes + "</span>");	
 				}
 
@@ -1214,7 +1214,7 @@ $(document).ready( () => {
 					// update button
 					$("#btn_delete_from_cart").replaceWith(
 						"<a class='btn btn-lg btn-purple py-3 ml-2' style='width:50%;' data-id='"+ productId +"' role='button' id='btn_add_to_cart'>" +
-						"<i class='fas fa-shopping-bag'></i></i>&nbsp;Add to Shopping Bag</a>");
+						"Add to Cart</a>");
 
 					//remove product in header dropdown
 					$("#product-row"+productId).remove();

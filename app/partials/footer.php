@@ -123,7 +123,7 @@
         </div>
       </div>
     </footer>
-    <div class="container py-2 white-bg">
+    <div class="container py-2">
       <div class="row">
         <div class="col-12 text-center">
           <a href="https://perezjoyce.github.io/portfolio/" target="_blank" class='purple-link'>Joyce Perez</a>  &copy; <a href="#" class='modal-link purple-link' data-url='../partials/templates/disclaimer_modal.php'>Disclaimer</a>

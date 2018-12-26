@@ -180,7 +180,7 @@
             <!-- indicate id for button -->
            
             <div class="d-flex justify-content-center mb-5">
-                <a class='btn btn-block btn-outline-secondary save_address_edit' id='btn_edit_address'>
+                <a class='btn btn-block btn-outline-secondary save_address_edit' id='btn_edit_address' role='button'>
                 SAVE CHANGES
                 </a>
             </div>

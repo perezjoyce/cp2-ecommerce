@@ -27,16 +27,16 @@ if(isset($_SESSION['id'])) {
   </div>
 
   <!-- PRODUCT PAGE MAIN CONTAINER -->
-  <div class="container mt-5">
+  <div class="container">
 
     <!-- FIRST ROW -->
-    <div class="row">
+    <div class="row bg-white mb-5 rounded p-5">
         
       <!-- FIRST COLUMN (PICS) -->
-      <div class="col-lg-4 col-md-5 col-sm-12 mb-4">
+      <div class="col-lg-5 col-md-5 col-sm-12">
         <input type="hidden" id='iframeId'>
         <!-- IFRAME -->
-        <div class="row mb-3 no-gutters">
+        <div class="row mb-3">
           <?php 
             $sql = "SELECT * FROM tbl_product_images WHERE product_id = ?";
             $statement = $conn->prepare($sql);
@@ -47,7 +47,7 @@ if(isset($_SESSION['id'])) {
           ?>
 
           <div class="col position-relative" id="product_iframe">
-            <img src='<?=$url?>' style='width:100%;' iframe_img_id='<?= $img_id ?>'>
+            <img src='<?=$url?>' style='width:100%;height:450px;' iframe_img_id='<?= $img_id ?>'>
           </div>
         </div>
 
@@ -62,9 +62,9 @@ if(isset($_SESSION['id'])) {
               $img_id =$row['id'];
 
           ?>
-          <div class="col-2 px-0 mr-1">
+          <div class="col-2 px-0 m-0">
             <div class="card" style="border:none;">
-              <img src='<?=$url?>' style='width:50px;max-height:50px;cursor:pointer;' class='product_thumbnail' data-id='<?=$img_id?>' data-url='<?=$url?>'>
+              <img src='<?=$url?>' style='width:67px;height:65px;cursor:pointer;' class='product_thumbnail' data-id='<?=$img_id?>' data-url='<?=$url?>'>
             </div>
           </div>
 
@@ -76,7 +76,7 @@ if(isset($_SESSION['id'])) {
 
 
       <!-- SECOND COLUMN (PRODUCT DETAILS) -->
-      <div class="col-lg-6 col-md-7 col-sm-12 mb-5">
+      <div class="col-lg-7 col-md-7 col-sm-12 px-5">
           <?php
         
             $sql = "SELECT * FROM tbl_items WHERE id = ?";
@@ -101,8 +101,8 @@ if(isset($_SESSION['id'])) {
         </div>    
           
         <!-- PRODUCT RATING -->
-        <div class="row pl-4 mb-4">
-          <div class="col-6 px-0">
+        <div class="row pl-4 mb-5">
+          <div class="col-7 pl-0">
             <?
               $sql = "SELECT AVG(product_rating) as averageProductRating FROM tbl_ratings WHERE product_id = ?";
               $statement = $conn->prepare($sql);
@@ -150,7 +150,7 @@ if(isset($_SESSION['id'])) {
                 <?php } } ?> 
           </div>
         
-          <div class="col pl-5">
+          <div class="col">
             <div class='flex-fill'>
             
 
@@ -192,20 +192,19 @@ if(isset($_SESSION['id'])) {
           </div>  
         </div>
 
-        
-        
-
         <!-- PRICE -->
-        <div class="row pl-4 mb-lg-5">
+        <div class="row pl-4">
           <h1 class='font-weight-bold text-purple'>&#8369;&nbsp;<?= $price?></h1>
         </div>
 
+        <hr class='mt-4 mb-5'>
+
         <!-- SHIPPING FEE -->
-         <div class="row mb-5">
-          <div class="col-3">
+        <div class="row mb-5">
+          <div class="col-lg-3 col-md-4">
             <div>Shipping Fee</div>
           </div>
-          <div class="col">
+          <div class="col-lg-4 col-md-4">
             <div class="row">
             &#8369;&nbsp;
             <span id='shipping_fee'><?= displayShippingFee($conn,$id) ?></span>            
@@ -213,18 +212,25 @@ if(isset($_SESSION['id'])) {
 
             <?php if(displayFreeShippingMinimum($conn,$id)) { ?>
 
-            <div class="row pt-2 pb-0">
-              <img src="../assets/images/discount-gradient.png" alt="discount" style='height:15px;width:15px;'>
-              &nbsp;
-              <small class='text-purple'>
-                FREE Shipping with a minimum spend of &#8369;&nbsp;<?=displayFreeShippingMinimum($conn,$id);?> from seller.
-              </small>
-            </div>
+            
 
             <?php } else { echo ""; } ?>
 
 
 
+          </div>
+
+          <div class="col">
+            <div class="row">
+              <div class='d-flex flex-row'>
+                  <div id='free-delivery-img'></div>
+                  <!-- <img src="../assets/images/discount-gradient.png" alt="discount" style='height:15px;width:15px;'> -->
+                  &nbsp;
+                  <small class='text-gray pt-1'>
+                    FREE Shipping with a minimum spend of &#8369;&nbsp;<?=displayFreeShippingMinimum($conn,$id);?> from seller.
+                  </small>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -249,7 +255,7 @@ if(isset($_SESSION['id'])) {
         </div>
 
         <!-- VARIATION -->
-        <div class="row mb-3">
+        <div class="row mb-5">
           <div class="col-3">
             <div>Variation</div>
           </div>
@@ -279,7 +285,7 @@ if(isset($_SESSION['id'])) {
         </div>
         
         <!-- QUANTITY --> 
-        <div class="row mb-3">
+        <div class="row mb-5">
           <?
             $sql = "SELECT SUM(variation_stock) as 'totalStocksAvailable'  FROM tbl_variations WHERE product_id = ?";
             $statement = $conn->prepare($sql);
@@ -336,8 +342,8 @@ if(isset($_SESSION['id'])) {
           </div>
         </div>
             
-        <!-- BUTTONS -->
-        <div class="d-flex flex-row mb-5">
+        <!-- BUTTON -->
+        <div class="d-flex flex-row">
           <?php
             $sql = " SELECT * FROM tbl_carts WHERE cart_session=? AND item_id=?";
             //$result = mysqli_query($conn, $sql);
@@ -351,15 +357,13 @@ if(isset($_SESSION['id'])) {
           
             if($count) {
           ?>
-          <button class='btn btn-lg btn-purple py-3' style="width:50%;" data-id='<?= $id ?>' role='button' id="btn_delete_from_cart" disabled>
-            <i class='fas fa-shopping-bag'></i>
-              &nbsp;Item is in bag
+          <button class='btn btn-lg btn-purple py-3' style="width:40%;" data-id='<?= $id ?>' role='button' id="btn_delete_from_cart" disabled>
+              &nbsp;Item is in Cart
           </button>
           <?php } else { ?>
           
-          <a class='btn btn-lg btn-purple py-3' style="width:50%;" data-id='<?= $id ?>' role='button' id="btn_add_to_cart">
-            <i class='fas fa-shopping-bag'></i>  
-            &nbsp;Add to Shopping Bag
+          <a class='btn btn-lg btn-purple py-3 ' style="width:40%;height:50px;" data-id='<?= $id ?>' role='button' id="btn_add_to_cart">
+            &nbsp;Add To Cart
           </a>
           <?php }?>
 
@@ -369,11 +373,15 @@ if(isset($_SESSION['id'])) {
       </div>
       <!-- /PRODUCT DETAILS -->
 
-      
-      <!-- THIRD COLUMN (SELLER DETAILS) -->
-      <div class="col-lg-2 col-md-3 col-sm-12 px-5 mb-5">
+    </div>
 
-        <div class='row mb-4 py-4 border white-bg'>
+    <!-- SECOND ROW -->
+    <div class="row bg-white rounded mb-5 px-5 pt-5">
+
+      <!-- SELLER DETAILS -->
+      <div class="col-lg-2 col-md-3 col-sm-12 mr-5 white-bg">
+
+        <div class='row mb-4 py-5 border'>
             <div class="col-12">
               
                   <?php
@@ -390,12 +398,12 @@ if(isset($_SESSION['id'])) {
                   ?>
                 
                 <!-- STORE LOG -->
-                <div class="row justify-content-center mb-3">
-                  <img src="<?=$storeLogo?>" alt="<?=$storeName?>" style='width:60px;max-height:60px;' class='circle'>
+                <div class="row justify-content-center mb-4">
+                  <img src="<?=$storeLogo?>" alt="<?=$storeName?>" style='width:70px;max-height:70px;' class='circle'>
                 </div>
 
                 <!-- STORE NAME -->
-                <div class="row justify-content-center text-purple font-weight-bold mb-3">
+                <div class="row justify-content-center text-purple font-weight-bold mb-4">
                   <?=$storeName?>
                 </div>
 
@@ -409,7 +417,7 @@ if(isset($_SESSION['id'])) {
 
 
                 <!-- LAST ACTIVITY -->
-                <div class="row justify-content-center text-gray mb-2">
+                <div class="row justify-content-center text-gray">
                   <?
                     $sql = "SELECT last_login FROM tbl_users WHERE id = ?";
                     $statement = $conn->prepare($sql);
@@ -463,8 +471,8 @@ if(isset($_SESSION['id'])) {
                 <hr class='my-4'>
 
                 <!-- STATS -->
-                <div class="row text-gray">
-                  <div class="col">
+                <div class="row text-gray mb-4">
+                  <div class="col ml-3">
 
                     <!-- RATINGS -->
                     <small class="d-flex flex-row mb-3">
@@ -528,9 +536,9 @@ if(isset($_SESSION['id'])) {
               
                 <!-- BUTTONS -->
                 <div class="row">
-                  <a href='#' class='btn btn-block border text-purple mx-3 py-2 modal-link' id="chatbox" data-url="../partials/templates/chatbox_modal.php">
+                  <a href='#' class='btn btn-block border text-purple mx-3 mb-2 py-2 modal-link' id="chatbox" data-url="../partials/templates/chatbox_modal.php">
                     <i class="far fa-comment"></i>
-                    &nbsp;Chat Seller
+                    &nbsp;Message Seller
                   </a>
 
                   <a href='store.php?id=<?=$storeId?>' class='btn btn-block border text-secondary mx-3 py-2'>
@@ -540,8 +548,6 @@ if(isset($_SESSION['id'])) {
                 </div>
               
             </div>
-        
-
         </div>
 
         <div class='row border'>
@@ -559,22 +565,22 @@ if(isset($_SESSION['id'])) {
     
 
       <!-- NAV TABS FOR  -->
-      <div class="col-lg-12 col-md-9 col-sm-12 mt-3 mb-5">
+      <div class="col-lg-9 col-md-9 col-sm-12">
         <div class="row">
           <div class="col-lg-12">
             
             <!-- TABS -->
-            <div class="row mb-4">
+            <div class="row my-5">
               <div class="col-12">
                 <div class="tab border-bottom d-flex flex-row">
                   <button class="tablinks flex-fill active" onclick="openTab(event, 'info_content')">
-                    <h3>Product Info</h3>
+                    <h4>Product Details</h4>
                   </button>
                   <button class="tablinks flex-fill progress-x" onclick="openTab(event, 'reviews_content')">
-                    <h3>Reviews</h3>
+                    <h4>Reviews</h4>
                   </button>
                   <button class="tablinks flex-fill" onclick="openTab(event, 'questions_content')">
-                    <h3>Q&As</h3>
+                    <h4>Q&As</h4>
                   </button>
                 </div>
               </div>
@@ -586,23 +592,23 @@ if(isset($_SESSION['id'])) {
 
                 <!-- PRODUCT INFO -->
                 <div id="info_content" class="tabcontent" style='display:block'>
-                  <div class="container mt-4 px-4">
+                  <div class="container mt-4 pl-0">
                     <div class="row">
                       <!-- <div class="col-1"></div> -->
-                      <div class="col ml-4">
-                          <ul class='d-flex flex-wrap'>
-                            <?php
-                              $sql = "SELECT * FROM tbl_item_descriptions WHERE product_id = ?";
-                              $statement = $conn->prepare($sql);
-                              $statement->execute([$id]);	
-                              $count = $statement->rowCount();
-                              if($count) {
-                                while($row = $statement->fetch()) { 
-                                  $description = $row['description'];
-                            ?>
-                              <li style='line-height:1.5; flex: 1 0 50%' class='pb-5 pr-5 product_details'><?=$description?></li>
-                            <?php } } ?>
-                          </ul>
+                      <div class="col">
+                        <ul class='d-flex flex-wrap'>
+                          <?php
+                            $sql = "SELECT * FROM tbl_item_descriptions WHERE product_id = ?";
+                            $statement = $conn->prepare($sql);
+                            $statement->execute([$id]);	
+                            $count = $statement->rowCount();
+                            if($count) {
+                              while($row = $statement->fetch()) { 
+                                $description = $row['description'];
+                          ?>
+                            <li style='line-height:1.8; flex: 1 0 50%' class='pb-5 pl-5 product_details'><?=$description?></li>
+                          <?php } } ?>
+                        </ul>
                         
                       </div>
                     </div>
@@ -664,7 +670,6 @@ if(isset($_SESSION['id'])) {
                         </div>
                       </div>
 
-            
                       <!-- RATINGS BARS -->
                       <div class="col-lg-5 col-md-9 col-sm-12 text-gray">
 
@@ -843,7 +848,6 @@ if(isset($_SESSION['id'])) {
                           
                       </div>
 
-                      
                       <div class="col-lg-3"></div>
                       
                     
@@ -854,17 +858,17 @@ if(isset($_SESSION['id'])) {
                        if($totalProductRating > 0) {
                     ?>
                     <div class="row">
-                      <div class="col-lg-10 col-md-8  text-left">
-                        <h3 class='py-1'>Comments</h3>
+                      <div class="col-lg-9 col-md-8  text-left">
+                        <h4 class='py-1'>Comments</h4>
                       </div>
                       <div class="col text-right">
                         <div>
                           <div class="flex-fill input-group" id='funnel_dropdown'>
                             <div class="input-group-prepend pt-2 px-2" style='background-color:#f5f5f5;'>
-                              <i class="fas fa-filter"></i>
+                              <i class="fas fa-filter text-secondary"></i>
                               &nbsp;Filter:
                             </div>
-                            <select class="custom-select border-0 pt-0" id="sort_ratings" onchange="sort_ratings" data-id='<?= $id ?>' data-storeid='<?=$storeId?>'>
+                            <select class="custom-select border-0 pt-2" id="sort_ratings" onchange="sort_ratings" data-id='<?= $id ?>' data-storeid='<?=$storeId?>'>
                               <option value="6" selected>All stars</option>
                               <option value="5"> 5 stars </option>
                               <option value="4"> 4 stars </option>
@@ -940,7 +944,7 @@ if(isset($_SESSION['id'])) {
                           
 
                           <!-- VERFICATION BADGE AND DATE -->
-                          <div class="row mb-4">
+                          <div class="row pb-4">
                             <img src="../assets/images/verified-gradient.png" alt="verified_user" style='height:10px;width:10px;'>
                             <small class='text-purple'>&nbsp;Verified Purchase&nbsp;|
                               <?= date("M d, Y", strtotime($clientRatingDate));  ?>
@@ -978,7 +982,7 @@ if(isset($_SESSION['id'])) {
                                   ?>
 
                                 <img src="<?=$reviewImageUrl?>" 
-                                    alt="review_image" style='width:50px;max-height:50px;cursor: zoom-in;' 
+                                    alt="review_image" style='width:70px;max-height:80px;cursor: zoom-in;' 
                                     class='review_thumbnail mr-2' 
                                     data-id='<?=$reviewImageId?>' data-clientid='<?=$clientId?>'
                                     data-url='<?=$reviewImageUrl?>'>
@@ -1044,7 +1048,8 @@ if(isset($_SESSION['id'])) {
                       <!-- FREQUENTLY ASKED -->
                       <div class="col-6">
                         <div class="row mb-4">
-                          <h3 class='py-1'>Frequently Asked</h3>
+                          <!-- <img src="../assets/images/question-gradient-filled.png" alt="verified_user" style='height:20px;width:20px;'> -->
+                          <h4 class='py-1 text-secondary'>Frequently Asked</h4>
                         </div>
 
                         <div class="row">
@@ -1067,12 +1072,11 @@ if(isset($_SESSION['id'])) {
                                   <div class="d-flex flex-column pb-5">
                                     <div>
                                       <!-- <i class="fas fa-question-circle text-purple"></i> -->
-                                      <img src="../assets/images/question-gradient-filled.png" alt="verified_user" style='height:20px;width:20px;'>
-                                      <span class='pl-3 text-purple'>
+                                      <span class='text-purple'>
                                         <?=$question?>
                                       </span>
                                     </div>
-                                    <div class='pl-5 pt-2'>
+                                    <div class='pt-2'>
                                       <?=$answer?>
                                     </div>
                                   </div>
@@ -1092,7 +1096,7 @@ if(isset($_SESSION['id'])) {
                       <!-- OTHER QUESTIONS-->
                       <div class="col-6">
                         <div class="row mb-4">
-                          <h3 class='py-1'>Other Questions</h3>
+                          <h4 class='py-1 text-secondary'>Other Questions</h4>
                         </div>
 
                         <div class="row">
@@ -1114,20 +1118,17 @@ if(isset($_SESSION['id'])) {
                                         $dateAsked = $row['date_asked'];
                                         $dateAnswered = $row['date_answered'];
 
-
-                                        
-                                        
                                   ?>
 
                                 
                                   <div class="d-flex flex-column pb-5">
                                     <div>
-                                      <img src="../assets/images/question-gradient.png" alt="verified_user" style='height:20px;width:20px;'>
-                                      <span class='pl-3 text-purple'>
+                                      <!-- <img src="../assets/images/question-gradient.png" alt="verified_user" style='height:20px;width:20px;'> -->
+                                      <span class='text-purple'>
                                         <?=$question?>
                                       </span>
                                     </div>
-                                    <div class='text-gray pl-5 pb-3'>
+                                    <div class='text-gray pb-3'>
                                       <small><?=$whoAsked?>&nbsp;</small>
                                       <small>
                                         <?php
@@ -1160,7 +1161,7 @@ if(isset($_SESSION['id'])) {
                                     </div>
                                       <?php if($answer != null){ ?>
 
-                                    <div class='pl-5 pt-2'>
+                                    <div class='pt-2'>
                                       <div><?=$answer?></div>
                                       <div class='text-gray'>
                                         <small><?=$storeName?></small>
@@ -1199,7 +1200,7 @@ if(isset($_SESSION['id'])) {
 
                                       <?php } else { ?>
 
-                                    <div class='pl-5 pt-2'>
+                                    <div class='pt-2'>
                                       <div class='text-gray'>Waiting for seller's response.</div>
                                     </div>
 
@@ -1220,15 +1221,15 @@ if(isset($_SESSION['id'])) {
                           if(isset($_SESSION['id'])) {
                             
                         ?>
-                        <div class="row">
-                          <div class="col-12">
+                        <div class="row my-5">
+                          <div class="col-12 px-0">
                             <form action='process_ask_about_product' method='POST'>
-                              <div class="form mt-5">
-                                <div class="form-group">
+                              <div class="form">
+                                <div class="form-group px-0">
                                   <label for="post_question">
-                                    <h3>Ask A Question</h3>
+                                    <h4>Ask A Question</h4>
                                   </label>
-                                  <textarea class="form-control" id="product_question" style='width:100%;' rows='3'></textarea>
+                                  <textarea class="form-control border-0" id="product_question" style='width:100%;background:#eff0f5;' rows='3'></textarea>
                                 </div>
                               </div>
 
@@ -1256,7 +1257,7 @@ if(isset($_SESSION['id'])) {
         </div>
       </div>
     </div>
-    <!-- /END OF FIRST ROW -->
+
   </div>
 
     <!-- THIRD ROW APPEARS DIFFERENTLY DEPENDING ON NO OF PRODUCTS -->
@@ -1273,9 +1274,9 @@ if(isset($_SESSION['id'])) {
       <!-- LABEL -->
       <div class="row">
         <div class="col-6">
-            <h2 class='pl-3'>
+            <h4 class='pl-3'>
             &nbsp;RELATED PRODUCTS
-            </h2>
+            </h4>
         </div>
       </div>
       <!-- CARDS -->
@@ -1369,9 +1370,9 @@ if(isset($_SESSION['id'])) {
     <!-- LABEL -->
     <div class="row">
       <div class="col-6">
-        <h2 class='pl-3'>
+        <h4 class='pl-3'>
         RELATED PRODUCTS
-        </h2>
+        </h4>
       </div>
       <div class="col-6 text-right pt-2">View All&nbsp;<i class="fas fa-angle-double-right"></i></i></div>
     </div>
@@ -1462,9 +1463,9 @@ if(isset($_SESSION['id'])) {
   <div class="container mb-5" style="width:100%;">
     <div class="pl-3 row">
       <div class="col-6">
-        <h2>
+        <h4>
           &nbsp;OTHER PRODUCTS FROM SHOP
-        </h2>
+        </h4>
       </div>
     </div>
     <div class="row no-gutters autoplay justify-content-left">

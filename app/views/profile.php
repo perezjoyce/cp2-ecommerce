@@ -77,7 +77,7 @@
                     <a class='list-group-item btn btn-outline btn-block text-left  pl-5 mx-3 btn_view_wishList' role='button' data-id='<?= $id ?>'>
                         <i class="far fa-heart mr-3"></i>
                         Wish List 
-                        <span class='badge circle text-light user_wish_count'><?= getWishlishtCount($conn) ?></span>
+                        <span class='badge text-light user_wish_count'><?= getWishlishtCount($conn) ?></span>
                     </a>
                 </div>
             </div>

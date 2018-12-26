@@ -305,11 +305,11 @@
 
             <div class="d-flex justify-content-center mb-5">
 
-                <a class="mr-5 modal-link" data-url='../partials/templates/cart_modal.php'>
+                <a class="mr-5 modal-link" data-url='../partials/templates/cart_modal.php' role='button'>
                     <i class="fas fa-3x fa-arrow-circle-left"></i>
                 </a>
 
-                <a data-url='../partials/templates/order_summary_modal.php' id='btn_add_address'>
+                <a data-url='../partials/templates/order_summary_modal.php' id='btn_add_address' role='button'>
                     <i class="fas fa-3x fa-arrow-circle-right"></i>
                 </a>
 

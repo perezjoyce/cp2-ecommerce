@@ -120,12 +120,14 @@
 
                         <a class='nav-link text-light' id="cartDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <!-- <i class="fas fa-cart-plus fa-2x"></i> -->
-                            <div id='cart-img'>
-
-                                <span id="item-count">
+                            <div class='d-flex flex-row'>
+                               
+                                <div id='cart-img'></div>
+                                
+                                <span id="item-count px-0 mx-0">
                                     <?php 
                                         if ($productCount) {
-                                        echo "<span class='badge circle text-light'>" . $productCount . "</span>";
+                                        echo "<span class='badge text-light'>" . $productCount . "</span>";
                                         } elseif ($productCount == 0){
                                         echo "";
                                         } else {
@@ -134,6 +136,7 @@
                                     ?>
                                 </span>
                             </div>
+                            
                         
                         </a>
 
@@ -237,7 +240,7 @@
                             <a class="dropdown-item mb-4 btn_view_wishList" data-id='<?= $id ?>'>
                                 <i class="far fa-heart mr-2"></i>
                                 Wish List
-                                <span class='badge circle text-light user_wish_count'><?= getWishlishtCount($conn) ?></span>
+                                <span class='badge text-light user_wish_count'><?= getWishlishtCount($conn) ?></span>
                             </a>
                             <div class="dropdown-divider my-3"></div>
                             <a class="dropdown-item mb-3" href='../controllers/process_logout.php?id=<?=$id?>'>
