@@ -106,7 +106,9 @@
                                     <td> 
                                         <div class='d-flex flex-row' style='justify-content:flex-start;'>
                                             <div class='flex pr-2'>
-                                                <img src='<?=$image?>' style='width:50px;height:50px;'> 
+                                                <a href="product.php?id=<?=$productId?>">
+                                                    <img src='<?=$image?>' style='width:50px;height:50px;'>
+                                                </a> 
                                             </div>   
                                             <div class='flex-fill'>
                                                 <div class='d-flex flex-column'>
@@ -118,7 +120,7 @@
                                     </td>
                                     
                                     <!-- PRICE -->
-                                    <td>&#8369; <span class="unitPrice<?=$variationId?>"> <?= number_format((float)$price, 2, '.', '') ?> </span> </td>
+                                    <td>&#8369; <span class="unitPrice<?=$variationId?>"> <?= number_format((float)$price, 2, '.', ',') ?> </span> </td>
                                     
                                     <!-- QUANTITY -->
                                     <td> 
@@ -132,7 +134,7 @@
                                                         type="number" 
                                                         style='width:35%;' 
                                                         value="<?=$quantity?>"
-                                                        data-productid="<?= $id ?>"
+                                                        data-productid="<?= $productId ?>"
                                                         min="1" 
                                                         max="<?= $variationStock ?>" >
                                                     <div class="input-group-append">
@@ -167,7 +169,7 @@
                                     <!-- UNIT PRICE X QUANTITY -->
                                     <td class='text-center'>
                                         <span>&#8369; </span>
-                                        <span class="subtotal_price<?=$variationId?>"> <?= number_format((float)$subtotalPrice, 2, '.', '') ?> </span> 
+                                        <span class="subtotal_price<?=$variationId?>"> <?= number_format((float)$subtotalPrice, 2, '.', ',') ?> </span> 
                                     </td>
             
                                 </tr>
@@ -178,7 +180,16 @@
                                 <!-- GRAND TOTAL /SUBTOTAL CART ITEMS -->
                                 <tr class='tr-gray text-secondary font-weight-bold text-center'>
                                     <td colspan='4' class='text-right'>SUBTOTAL (Cart Items)</td>
-                                    <td> &#8369;<span id='grand_total_price'> <?= displayGrandTotal($conn, $cartSession) ?> </span> </td>
+                                    <td> 
+                                        <span>&#8369;</span>
+                                        <span id='grand_total_price'> 
+                                            <?php
+                                                $cartTotal = displayGrandTotal($conn, $cartSession);
+                                                $cartTotal = number_format((float)$cartTotal, 2, '.', ',');
+                                                echo $cartTotal;
+                                            ?> 
+                                         </span> 
+                                    </td>
                                 </tr>  
 
                             </table>
@@ -217,7 +228,7 @@
 
                                                     $statement2 = $conn->prepare($sql2);
                                                     $statement2->execute([$cartSession]);
-
+                                                    $combinedShippingFee = 0;
                                                     while($row2 = $statement2->fetch()) {
                                                         $storeId = $row2['store_id'];
                                                         $storeName = $row2['name'];  
@@ -231,18 +242,20 @@
                                             <tr>
                                                 <!-- DELETE STORE AND ITS PRODUCTS BUTTON -->
                                                 <td class='pr-0'>
-                                                    <div class='text-left' style='align-self:end;'>
+                                                    <!-- <div class='text-left' style='align-self:end;'>
                                                         <a data-productid='<?=$productId?>' data-vname='<?=$variationName?>' data-variationid='<?= $variationId ?>' data-quantity='<?=$quantity?>' role='button' class='btn_delete_item text-gray flex-fill font-weight-light' style='font-size:16px;'>
                                                         &times;
                                                         </a>
-                                                    </div>
+                                                    </div> -->
                                                 </td>
                                                 
                                                 <!-- STORE LOGO AND NAME -->
                                                 <td> 
                                                     <div class='d-flex flex-row' style='justify-content:flex-start;'>
                                                         <div class='flex pr-2'>
-                                                            <img src='<?=$storeLogo?>' style='width:50px;height:50px;' class='circle'> 
+                                                            <a href="store.php?id=<?=$storeId?>">
+                                                                <img src='<?=$storeLogo?>' style='width:50px;height:50px;' class='circle'> 
+                                                            </a>
                                                         </div>   
                                                         <div class='flex-fill'>
                                                             <div class='d-flex flex-column'>
@@ -256,13 +269,14 @@
                                                 
                                                 <!-- SHIPPING FEE -->
                                                 <td class='text-center'>
-                                                    <div>
+                                                    <div class='pt-2'>
                                                         <?php 
 
                                                             if($freeShippingMinimum != 0 && $totalPerStore >= $freeShippingMinimum) {
                                                                 echo "Free Shipping!";
                                                             } else {
-                                                                $standardShipping = number_format((float)$standardShipping, 2, '.', '');
+                                                                $combinedShippingFee = $combinedShippingFee + $standardShipping;
+                                                                $standardShipping = number_format((float)$standardShipping, 2, '.', ',');
                                                                 echo "₱&nbsp;$standardShipping";
                                                             }
                                                         
@@ -281,7 +295,7 @@
                                             <tr class='tr-gray text-secondary font-weight-bold text-center'>
                                                 <td colspan='2' class='text-right'>SUBTOTAL (Shipping Fee)</td>
                                                 <!-- <td></td> -->
-                                                <td> &#8369;<span id='grand_total_price'> <?= displayGrandTotal($conn, $cartSession) ?> </span> </td>
+                                                <td> &#8369;<span id='grand_total_price'> <?= number_format((float)$combinedShippingFee, 2, '.', ','); ?> </span> </td>
                                             </tr>  
 
                                         </table>
@@ -292,7 +306,7 @@
                                     <!-- SUPER GRAND TOTAL -->
                                     <div class="col">
 
-                                        <div class='row'>
+                                      
                                             <div>
                                                 <h4>Grand Total</h4>
                                             </div>
@@ -312,9 +326,10 @@
                                                     <td class='text-center'>
                                                         <?php 
                                                             $totalForItems = displayGrandTotal($conn, $cartSession); 
-                                                            $totalForItems = number_format((float)$totalForItems, 2, '.', '');    
+                                                            // echo $totalForItems;
+                                                            $finalItemsFee = number_format((float)$totalForItems, 2, '.', ',');    
                                                             echo "₱&nbsp;$totalForItems";
-                                                        ?>
+                                                        // ?>
                                                     </td>
                                                 </tr>
 
@@ -322,7 +337,13 @@
                                                     <td>
                                                         Shipping Fee(s)
                                                     </td>
-                                                    <td>?</td>
+                                                    <td class='text-center'>
+                                                        <?php
+                                                            $finalShippingFee = number_format((float)$combinedShippingFee, 2, '.', ',');    
+                                                            echo "₱&nbsp;$combinedShippingFee";
+                                                            // echo $combinedShippingFee;
+                                                        ?>
+                                                    </td>
                                                 </tr>
 
 
@@ -333,18 +354,30 @@
                                                     <td> 
                                                         <div class='d-flex flex-row justify-content-center'>
                                                             <h3>&#8369;&nbsp;</h3>
-                                                            <h3 id='grand_total_price'> <?= displayGrandTotal($conn, $cartSession) ?></h3>
+                                                            <h3 id='grand_total_price'> 
+                                                                <?php 
+                                                                    $superGrandTotal = $totalForItems + $combinedShippingFee;
+                                                                    $grandTotal = number_format((float)$superGrandTotal, 2, '.', ','); 
+                                                                    echo $grandTotal;
+                                                                ?>
+                                                            </h3>
                                                         </div>
                                                     </td>
                                                 </tr>  
 
                                             </table>
-                                        </div>
+                                   
                                         
                                         <!-- CHECKOUT BUTTON -->
-                                        <div class="row px-5">
-                                            <div class="col px-5">
-                                                <a class='btn btn-lg btn-block py-3 btn-purple modal-link mt-5'  data-url='../partials/templates/shipping_info_modal.php' id='btn_cart'>Check Out</a>
+                                        <div class="row">
+                                            <div class="col">
+                                                <?php 
+                                                    $modalLinkClassPrefix = ''; 
+                                                    if(isset($_SESSION['id'])) {
+                                                        $modalLinkClassPrefix='-big';
+                                                    }
+                                                ?>
+                                                <a class='btn btn-lg btn-block py-3 btn-purple modal-link<?= $modalLinkClassPrefix ?> mt-5' data-grandtotal='<?=$superGrandTotal?>'  data-url='../partials/templates/shipping_info_modal.php' id='btn_cart'>Check Out</a>
                                             </div>
                                         </div>
                                     </div>

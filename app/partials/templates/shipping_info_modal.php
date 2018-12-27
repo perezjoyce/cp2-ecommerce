@@ -51,7 +51,7 @@
         return $addressData;
     }
 
-    include_once '../../sources/pdo/src/PDO.class.php';
+    require_once '../../sources/pdo/src/PDO.class.php';
 
 	//set values
 	$host = "localhost";
@@ -81,242 +81,296 @@
     $statement->execute([$userId, $cartSession]);
     $count = $statement->rowCount();
     
-    if ($count) {
-
-        // DOESN'T WORK UNLESS I MAKE A DIFFERENT FORM INSIDE THIS IF SO THAT THE EXISTING ONE WILL BE INSIDE ELSE
-        // BUT THE PROB IS IF USER DECIDES TO EDIT
-
-        $sql = " SELECT * FROM tbl_addresses WHERE `user_id` = ?";
-            $statement = $conn->prepare($sql);
-            $statement->execute([$userId]);
-            $count = $statement->rowCount();
-    }
 ?>
 
-    
+<div class="container-fluid">
+    <div class="row">
 
-        <form>
-            <label class='mb-5'>Shipping Information</label>
+        <div class="col-lg-4 ml-0 py-0 px-0 my-0 ml-0 d-none d-lg-block d-xl-block">
+            <div id='login_image'></div>
+            <!-- <div id='login_ad'>
+                <h1>fdsfsd</h1>
+            </div> -->
+        </div>
 
-            <br>
-                
+        <div class="col" style='height:80vh;overflow-y:auto;'>
 
-                <label>Choose Saved Address Type</label>
-                <div class="form-check">
-                
-                <!-- IF USER HAS ADDRESS... -->
-                <?php 
+            <div class="row float-right">
+                <button id='close_modal' type="button" class="close mr-3 mt-2" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class='font-weight-light text-secondary' style='font-size:20px;'>&times;</span>
+                </button>
+            </div>
 
-            
-                        $sql = " SELECT * FROM tbl_addresses WHERE `user_id` = ? ";
-                        $statement = $conn->prepare($sql);
-                        $statement->execute([$userId]);  
-
-                        while($row = $statement->fetch()){ 
-                            $addressType = ucfirst($row['addressType']);
-                            $checked = "";
-                            if(isset($preselectedAddressData['addressType']) && 
-                                strtolower($addressType) == strtolower($preselectedAddressData['addressType'])) {
-                                    $checked = "checked";
-                            }
-        
-                ?>
-                    <div>
-                        <label class="form-check-label">
-                            <input class="form-check-input user_addressTypes" name="address_type" type="radio" value="<?= $row['id'] ?>" <?= $checked ?>>
-                            &nbsp;<?= $addressType ?>
-                        </label>
+            <div class="container px-5 pb-2 pt-5">
+                <div class="row mt-4"> 
+                    <div class='col'>
+                       <h4>Your Shipping & Payment Information</h4>
                     </div>
+                </div>
 
-                <?php } ?>
-                    <div>
-                        <label class="form-check-label">
-                            <input class="form-check-input user_addressTypes" name="address_type" id="btn_add_new_address" type="radio">
-                            &nbsp;Add New Address
-                        </label>
+                <div class="row">
+                    <div class="col">
+
+                        <!-- HIDDEN ELEMENT  -->
+                        <input type="hidden" id="address_id" name="address_id" value="<?= isset($preselectedAddressData['id']) 
+                                        ? $preselectedAddressData['id'] : "" ?>">
+                        <form>
+                            <?php
+                                
+                                $sql = " SELECT * FROM tbl_addresses WHERE `user_id` = ?";
+                                        $statement = $conn->prepare($sql);
+                                        $statement->execute([$userId]);
+                                        $count = $statement->rowCount();
+
+                                // IF USER HAS ADDRESS IN DB
+                                if($count) {
+                            ?>
+                            
+                            <div class="form-inline justify-content-left mt-5">
+                                <div class='pr-5 pt-3'>Choose Saved Address Type</div>    
+                                            
+            
+                                <?php
+                                    while($row = $statement->fetch()){ 
+                                        $addressType = ucfirst($row['addressType']);
+                                        $checked = "";
+
+                                        if(isset($preselectedAddressData['addressType']) && 
+                                            strtolower($addressType) == strtolower($preselectedAddressData['addressType'])) {
+                                                $checked = "checked";
+                                        }
+                                ?>
+                                <div class="form-check form-check-inline pr-5 radio-item">
+                                    <input class="form-check-input user_addressTypes" id='<?= $addressType ?>' name="address_type" type="radio" value="<?= $row['id'] ?>" <?= $checked ?>>
+                                    <label class="form-check-label" for='<?= $addressType ?>'><?= $addressType ?></label>
+                                </div>
+
+                                <?php }  ?>
+                                <div class="form-check form-check-inline radio-item">    
+                                    <input class="form-check-input user_addressTypes" name="address_type" id="btn_add_new_address" type="radio">
+                                    <label class="form-check-label" for='btn_add_new_address'>Add A Different Address</label>
+                                </div>
+
+                            </div>
+                            <?php } ?>
+                                
+                        
+                            <!-- REGION -->
+                            <div class="form-group row my-5">
+                                <label for='region' class='col'>Region*</label>
+                                <div class="input-group col-9">
+                                    <select class="custom-select" id="region" onchange="region">
+                                        <option id='region-initial-selected' value='...' selected="...">...</option>
+                                            <?php 
+                                                $sql = " SELECT * FROM tbl_regions ";
+                                                $statement = $conn->prepare($sql);
+                                                $statement->execute();
+                                                
+                                                while($row = $statement->fetch()){ 
+                                                    $selected = "";
+                                                    if (isset($preselectedAddressData['region_id']) 
+                                                        && $row['regDesc'] == $preselectedAddressData['region_id']['name']) {
+                                                        $selected = "selected";
+                                                    }
+
+                                                    $region = $row['regDesc'];
+                                                    $regionId = $row['id'];
+                                                    $regCode = $row['regCode'];
+                                            ?>
+                                        <option data-id='<?=$region?>' value='<?= $regionId ?>' <?= $selected ?>>
+                                            <?= $region ?>
+                                        </option>
+                                    <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <!-- PROVINCE -->
+                            <div class="form-group row mb-5">
+                                <label for='province' class='col'>Province*</label>
+                                <div class="input-group col-9">
+                                    <select class="custom-select" id="province" data-id='<?= $regionId?>'>
+                                        <option id='province-initial-selected' value='...' selected="...">...</option>
+                                        <?php 
+
+                                            if(isset($preselectedAddressData['region_id']['id'])) {
+                                                $regCode = $preselectedAddressData['region_id']['id'];
+                                            }
+                                            
+                                            $sql = " SELECT * FROM tbl_provinces WHERE regCode = $regCode ";
+                                            $statement = $conn->prepare($sql);
+                                            $statement->execute([$regCode]);
+                                            while($row = $statement->fetch()){ 
+                                                $selected = "";
+                                                if(isset($preselectedAddressData['province_id'])
+                                                    && $row['provDesc'] == $preselectedAddressData['province_id']['name']
+                                                ) {
+                                                    $selected = "selected";
+                                                }
+                                                $province = $row['provDesc'];
+                                                $provinceId = $row['id'];
+                                                $provCode = $row['provCode'];
+                                        ?>
+                                                <option class='province-option' value='<?= $provinceId ?>' <?= $selected ?>><?= $province ?> </option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <!-- CITYMUN -->
+                            <div class="form-group row mb-5">
+                                <label for='cityMun' class='col'>City or Municipality*</label>
+                                <div class="input-group col-9">
+                                    <select class="custom-select" id="cityMun" data-id='<?= $provinceId ?>'>
+                                        <option id='cityMun-initial-selected' value='...' selected="...">...</option>
+                                        <?php 
+
+                                            if(isset($preselectedAddressData['province_id']['id'])) {
+                                                $provCode = $preselectedAddressData['province_id']['id'];
+                                            }    
+                                            
+                                            $sql = " SELECT * FROM tbl_cities WHERE provCode = ? ";
+                                            $statement = $conn->prepare($sql);
+                                            $statement->execute([$provCode]);
+                                            while($row = $statement->fetch()){ 
+
+                                                $selected = "";
+                                                if(isset($preselectedAddressData['city_id']['id']) 
+                                                    && $row['citymunDesc'] == $preselectedAddressData['city_id']['name']) {
+                                                    $selected = "selected";
+                                                }
+                                                $cityMun = $row['citymunDesc'];
+                                                $cityMunId = $row['id'];
+                                                $cityMunCode = $row['citymunCode'];
+                                        ?>
+                                        <option class='cityMun-option' value='<?= $cityMunId ?>' <?= $selected ?>><?= $cityMun ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <!-- BARANGAY -->
+                            <div class="form-group row mb-5">
+                                <label for='barangay' class='col'>Barangay*</label>
+                                <div class="input-group col-9">
+                                    <select class="custom-select"  id="barangay" data-id='<?= $cityMunId?>'>
+                                        <option id='brgy-initial-selected' value='...' selected="...">...</option>
+                                        <?php 
+
+                                            if(isset($preselectedAddressData['city_id']['id'])) {
+                                                $cityMunCode = $preselectedAddressData['city_id']['id'];
+                                            }
+
+                                            $sql = " SELECT * FROM tbl_barangays WHERE citymunCode = ? ";
+                                            $statement = $conn->prepare($sql);
+                                            $statement->execute([$cityMunCode]);
+                                            while($row = $statement->fetch()){ 
+                                                $selected = "";
+                                                if($preselectedAddressData['brgy_id']['id'] == $row['id']) {
+                                                    $selected = "selected";
+                                                }
+                                                $barangay = $row['brgyDesc'];
+                                                $barangayId = $row['id'];
+                                        ?>
+                                        <option class='barangay-option' value='<?= $barangayId ?>' <?= $selected ?>><?= $barangay ?></option>
+                                        <?php } ?>
+                                    </select> 
+                                </div>
+                            </div>
+
+                            <!-- STREET BLDG. UNIT NO -->
+                            <div class="form-group row mb-5">
+                                <label for='building' class='col'>Street, Bldg., Unit No., etc.*</label>
+                                <div class="input-group col-9">
+                                    <input type="text" 
+                                        class='form-control' 
+                                        id='streetBldgUnit' 
+                                        value="<?= isset($preselectedAddressData['street_bldg_unit']) 
+                                            ? $preselectedAddressData['street_bldg_unit'] 
+                                            : "" ?>">
+                                </div>
+                            </div>
+                            
+                            <!-- LANDMARK -->
+                            <div class="form-group row mb-5">
+                                <label for='building' class='col'>Landmark</label>
+                                <div class="input-group col-9">
+                                    <input type="text" class='form-control' id='landmark'
+                                        value="<?= isset($preselectedAddressData['landmark']) 
+                                                ? $preselectedAddressData['landmark'] 
+                                                : "" ?>">
+                                </div>
+                            </div>
+
+                            
+                            <!-- ADDRESS TYPE -->
+                            <div class="form-group row mb-5">
+                                <label class='col'>Address Type*</label>
+                                <div class="input-group col-9">
+                                    <!-- for editing -->
+                                    <select class="custom-select" id="addressType">
+                                        <?php
+                                            $addressType = null;
+                                            if(!isset($preselectedAddressData['addressType'])) {
+                                                echo "<option value='...' selected=\"...\">...</option>";
+                                            } else {
+                                                $addressType = $preselectedAddressData['addressType'];
+                                            }
+                                        ?>
+                                        <option value='...'>...</option>
+                                        <option value="home" <?= $addressType == "home" ? "selected": ""?>>Home</option>
+                                        <option value="office" <?= $addressType == "office" ? "selected": ""?>>Office</option>
+                                        <option value="others" <?= $addressType == "others" ? "selected": ""?>>Others</option>
+                                    </select>
+                                </div>
+                            </div>
+                                
+
+                            <p id="shipping_error_message"></p>
+
+                            <!-- if input type is submit, this will automatically submit input to users.php hence change this to button, type to button and remove value SO THAT you can employ validation -->
+                            <!-- indicate id for button -->
+
+                            
+
+                            <div class="container px-0 mb-5">
+                                <!-- CHECKOUT BUTTON -->
+                                <div class="row">
+                                    <div class="col-4">
+                                        <?php 
+                                            $modalLinkClassPrefix = ''; 
+                                            if(isset($_SESSION['id'])) {
+                                                $modalLinkClassPrefix='-big';
+                                            }
+                                        ?>
+                                        <a class='btn btn-lg btn-block py-3 btn-purple modal-link<?= $modalLinkClassPrefix ?> mt-5' data-url='../partials/templates/cart_modal.php' role='button'>
+                                            <i class="fas fa-angle-double-left"></i>
+                                            &nbsp;Back To Cart
+                                        </a>
+                                    </div>
+
+                                    <div class="col-4">
+
+                                    </div>
+
+                                    <div class="col-4">
+                                        <a class='btn btn-lg btn-block py-3 btn-purple modal-link<?= $modalLinkClassPrefix ?> mt-5' data-url='../partials/templates/order_summary_modal.php' id='btn_add_address' role='button'>
+                                            Confirm Order&nbsp;
+                                        </a>
+
+                                    </div>
+                                </div>
+                            </div>
+                                
+
+                        </form>
                     </div>
-                    
-                
+                </div>
             </div>
-                
-            
-            <br>
-            <input type="text" 
-                id="address_id" 
-                name="address_id" 
-                value="<?= isset($preselectedAddressData['id']) 
-                    ? $preselectedAddressData['id'] : "" ?>">
-            <label for='region'>Region*</label>
-            <div class="input-group mb-3">
-                <select class="custom-select" id="region" onchange="region">
-                    <option id='region-initial-selected' value='...' selected="...">...</option>
-                    <?php 
-                        $sql = " SELECT * FROM tbl_regions ";
-                        $statement = $conn->prepare($sql);
-                        $statement->execute();
-                        
-                        while($row = $statement->fetch()){ 
-                            $selected = "";
-                            if (isset($preselectedAddressData['region_id']) 
-                                && $row['regDesc'] == $preselectedAddressData['region_id']['name']) {
-                                $selected = "selected";
-                            }
+        </div>
+    </div>
 
-                            $region = $row['regDesc'];
-                            $regionId = $row['id'];
-                            $regCode = $row['regCode'];
-                    ?>
-                    <option data-id='<?=$region?>' value='<?= $regionId ?>' <?= $selected ?>>
-                        <?= $region ?>
-                    </option>
-                <?php } ?>
-                </select>
-            </div>
-
-            <label for='province'>Province*</label>
-            <div class="input-group mb-3">
-                <select class="custom-select" id="province" data-id='<?= $regionId?>'>
-                    <option id='province-initial-selected' value='...' selected="...">...</option>
-                    <?php 
-
-                        if(isset($preselectedAddressData['region_id']['id'])) {
-                            $regCode = $preselectedAddressData['region_id']['id'];
-                        }
-                        
-                        $sql = " SELECT * FROM tbl_provinces WHERE regCode = $regCode ";
-                        $statement = $conn->prepare($sql);
-                        $statement->execute([$regCode]);
-                        while($row = $statement->fetch()){ 
-                            $selected = "";
-                            if(isset($preselectedAddressData['province_id'])
-                                && $row['provDesc'] == $preselectedAddressData['province_id']['name']
-                            ) {
-                                $selected = "selected";
-                            }
-                            $province = $row['provDesc'];
-                            $provinceId = $row['id'];
-                            $provCode = $row['provCode'];
-                    ?>
-                            <option class='province-option' value='<?= $provinceId ?>' <?= $selected ?>><?= $province ?> </option>
-                    <?php } ?>
-                </select>
-            </div>
-       
-            <label for='cityMun'>City or Municipality*</label>
-            <div class="input-group form-group">
-                <select class="custom-select" id="cityMun" data-id='<?= $provinceId ?>'>
-                    <option id='cityMun-initial-selected' value='...' selected="...">...</option>
-                    <?php 
-
-                        if(isset($preselectedAddressData['province_id']['id'])) {
-                            $provCode = $preselectedAddressData['province_id']['id'];
-                        }    
-                        
-                        $sql = " SELECT * FROM tbl_cities WHERE provCode = ? ";
-                        $statement = $conn->prepare($sql);
-                        $statement->execute([$provCode]);
-                        while($row = $statement->fetch()){ 
-
-                            $selected = "";
-                            if(isset($preselectedAddressData['city_id']['id']) 
-                                && $row['citymunDesc'] == $preselectedAddressData['city_id']['name']) {
-                                $selected = "selected";
-                            }
-                            $cityMun = $row['citymunDesc'];
-                            $cityMunId = $row['id'];
-                            $cityMunCode = $row['citymunCode'];
-                    ?>
-                    <option class='cityMun-option' value='<?= $cityMunId ?>' <?= $selected ?>><?= $cityMun ?></option>
-                    <?php } ?>
-                </select>
-            </div>
-         
-            <label for='barangay'>Barangay*</label>
-            <div class="input-group form-group">
-                <select class="custom-select"  id="barangay" data-id='<?= $cityMunId?>'>
-                    <option id='brgy-initial-selected' value='...' selected="...">...</option>
-                    <?php 
-
-                        if(isset($preselectedAddressData['city_id']['id'])) {
-                            $cityMunCode = $preselectedAddressData['city_id']['id'];
-                        }
-
-                        $sql = " SELECT * FROM tbl_barangays WHERE citymunCode = ? ";
-                        $statement = $conn->prepare($sql);
-                        $statement->execute([$cityMunCode]);
-                        while($row = $statement->fetch()){ 
-                            $selected = "";
-                            if($preselectedAddressData['brgy_id']['id'] == $row['id']) {
-                                $selected = "selected";
-                            }
-                            $barangay = $row['brgyDesc'];
-                            $barangayId = $row['id'];
-                    ?>
-                    <option class='barangay-option' value='<?= $barangayId ?>' <?= $selected ?>><?= $barangay ?></option>
-                    <?php } ?>
-                </select> 
-            </div>
-
-            <label for='building'>Street, Bldg., Unit No., etc.*</label>
-            <div class="input-group form-group">
-                <input type="text" 
-                    class='form-control' 
-                    id='streetBldgUnit' 
-                    value="<?= isset($preselectedAddressData['street_bldg_unit']) 
-                        ? $preselectedAddressData['street_bldg_unit'] 
-                        : "" ?>">
-            </div>
-
-            <label for='building'>Landmark</label>
-            <div class="input-group mb-5 form-group">
-                <input type="text" class='form-control' id='landmark'
-                    value="<?= isset($preselectedAddressData['landmark']) 
-                            ? $preselectedAddressData['landmark'] 
-                            : "" ?>">
-            </div>
-
-            
-            <!-- display shipping fee somewhere -->
-
-            <label>Address Type*</label>
-            <div class="input-group mb-5">
-                <!-- for editing -->
-                <select class="custom-select" id="addressType">
-                    <?php
-                        $addressType = null;
-                        if(!isset($preselectedAddressData['addressType'])) {
-                            echo "<option value='...' selected=\"...\">...</option>";
-                        } else {
-                            $addressType = $preselectedAddressData['addressType'];
-                        }
-                    ?>
-                    <option value='...'>...</option>
-                    <option value="home" <?= $addressType == "home" ? "selected": ""?>>Home</option>
-                    <option value="office" <?= $addressType == "office" ? "selected": ""?>>Office</option>
-                    <option value="others" <?= $addressType == "others" ? "selected": ""?>>Others</option>
-                </select>
-            </div>
-				
-
-            <p id="shipping_error_message"></p>
-
-            <!-- if input type is submit, this will automatically submit input to users.php hence change this to button, type to button and remove value SO THAT you can employ validation -->
-            <!-- indicate id for button -->
-
-            <div class="d-flex justify-content-center mb-5">
-
-                <a class="mr-5 modal-link" data-url='../partials/templates/cart_modal.php' role='button'>
-                    <i class="fas fa-3x fa-arrow-circle-left"></i>
-                </a>
-
-                <a data-url='../partials/templates/order_summary_modal.php' id='btn_add_address' role='button'>
-                    <i class="fas fa-3x fa-arrow-circle-right"></i>
-                </a>
-
-            </div>
-                  
-
-        </form>
+</div>
                         
 
 

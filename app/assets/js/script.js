@@ -441,7 +441,7 @@ $(document).ready( () => {
 
 		if(regionId == "..." || provinceId == "..." || cityMunId == "..." || brgyId == "..." || streetBldgUnit == "" || addressType == "...") {
 			$("#shipping_error_message").css("color", "red");
-			$("#shipping_error_message").text('Please fill out required fields.');
+			$("#shipping_error_message").text('Please fill out all fields with asterisk.');
 			
 		} else {
 			$.post("../controllers/process_save_address.php", {
@@ -760,115 +760,7 @@ $(document).ready( () => {
 
 	})   
 
-
-	window.passVariationIdToAdd = function(variationId) {
-		// alert(variationId);
-		$('#variation_id_hidden_modal').val(variationId);
-		
-		let value = $('#variation_quantity'+variationId).val();
-		let price = $('.unitPrice'+variationId).text();
-		price = parseFloat(price.replace(/[^0-9-.]/g, '')); 
-
-		let subtotalPrice = $('.subtotal_price'+variationId).text();
-		subtotalPrice = parseFloat(subtotalPrice.replace(/[^0-9-.]/g, '')); 
-
-		let grandTotalPrice = $('#grand_total_price').text();
-		// this.alert(grandTotalPrice);
-		grandTotalPrice = parseFloat(grandTotalPrice.replace(/[^0-9-.]/g, '')); 
-
-		let variationStock = $('#variation_quantity'+variationId).attr('max');
-		variationStock = parseInt(variationStock);
-
-		
-		if(value >= variationStock) {
-			$('.variation_display'+variationId).css('color','#f64f59');
-			$(this).attr('disabled',true);
-		} else {
-			value = parseInt(value) + 1;
-			$('#variation_quantity'+variationId).val(value);
-			$('.variation_display'+variationId).css('color','rgba(0,0,0,.8)');
-
-			// UPDATE DATABASE AND RELOAD MODAL
-			$.post('../controllers/change_product_quantity.php', {
-				value: value,
-				variationId: variationId
-			}, function(response){
-				if(response == 'success') {
-					//UPDATE HEADER CART
-					$('#quantity_header'+variationId).text(value);
-					
-					//UPDATE SUBTOTAL PRICE
-					value = value * price;
-					value = value.toLocaleString('us', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-					$('.subtotal_price'+variationId).text(value);
-		
-					//UPDATE GRANDTOTAL
-					grandTotalPrice = grandTotalPrice + price;
-					grandTotalPrice = grandTotalPrice.toLocaleString('us', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-					$('#grand_total_price').text(grandTotalPrice);
-
-				}
-			})
-			
-		}
-
-		
-	}
-
-	window.passVariationIdToSubtract = function(variationId) {
-		// alert(variationId);
-		$('#variation_id_hidden_modal').val(variationId);
-
-		let value = $('#variation_quantity'+variationId).val();
-		let price = $('.unitPrice'+variationId).text();
-		// this.alert(price);
-		let subtotalPrice = $('.subtotal_price'+variationId).text();
-		subtotalPrice = parseFloat(subtotalPrice.replace(/[^0-9-.]/g, '')); 
-
-		let grandTotalPrice = $('#grand_total_price').text();
-		grandTotalPrice = parseFloat(grandTotalPrice.replace(/[^0-9-.]/g, '')); 
-
-		let variationStock = $('#variation_quantity'+variationId).attr('max');
-		variationStock = parseInt(variationStock);
-
-		
-		if(value > 1) {
-			value = parseInt(value) - 1;
-			$('#variation_quantity'+variationId).val(value);
-			$('.variation_display'+variationId).css('color','rgba(0,0,0,.8)');
-
-			$.post('../controllers/change_product_quantity.php', {
-				value: value,
-				variationId: variationId
-				}, function(response){
-					if(response == 'success') {
 	
-					//UPDATE SUBTOTAL PRICE
-					subtotalPrice = subtotalPrice - price;
-					subtotalPrice = subtotalPrice.toLocaleString('us', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-					$('.subtotal_price'+variationId).text(subtotalPrice);
-		
-					//UPDATE GRANDTOTAL
-					grandTotalPrice = grandTotalPrice - price;
-					grandTotalPrice = grandTotalPrice.toLocaleString('us', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-					$('#grand_total_price').text(grandTotalPrice);
-
-					//UPDATE HEADER CART
-					$('#quantity_header'+variationId).text(value);
-
-				}
-			})
-
-
-		} else {
-			$('#variation_quantity'+variationId).val('1');
-			$('.variation_display'+variationId).css('color','rgba(0,0,0,.8)');
-
-			$('.subtotal_price'+variationId).text(price);
-		}
-
-		
-	}
 
 	
 
@@ -1054,6 +946,16 @@ $(document).ready( () => {
 			$('#modalContainerBig .modal-body').html(response);
 			$('#modalContainerBig').modal();
 		});
+	});
+
+	$("#modalContainer").on('shown.bs.modal', function(){
+		$("#modalContainerBig").modal('hide'); 
+		$('body').addClass('modal-open'); // so modal can be scrolled
+	});
+
+	$("#modalContainerBig").on('shown.bs.modal', function(){
+		$("#modalContainer").modal('hide');
+		$('body').addClass('modal-open');
 	});
 
 
@@ -1358,9 +1260,6 @@ $(document).ready( () => {
 			});
 		}
 
-		
-
-		
 	});
 
 	// ADDING ITEM ON WISHLIST TO CART -- later
@@ -1440,27 +1339,139 @@ $(document).ready( () => {
 
 					// RELOAD CART WITH THE NEW QUANTITY REFLECTED
 					$.get("../partials/templates/cart_modal.php", function(response) {
-						$('.modal .modal-body').html(response);
+						//$('.modal .modal-body').html(response);
+						$("#modalContainerBig .modal-content").html(response);
 
 				});
 			});
 	});
 
 
-	// // ADJUSTING PRODUCT QUANTITY
-	// $(document).on("change", ".itemQuantity", function(){		
-	// 	let quantity = $(this).val();		
-	// 	let variationId = $('variation_id_hidden_modal').val();
-	// 	$.post('../controllers/add_product_quantity.php', {
-	// 		quantity: quantity,
-	// 		variationId: variationId
-	// 	}, function(response){
-	// 		// reload the modal with the new quantity reflected
-	// 		$.get("../partials/templates/cart_modal.php", function(response) {
-	// 			$('.modal .modal-body').html(response);
-	// 		});
-	// 	});
-	// });
+	let checkClick;
+	window.passVariationIdToAdd = function(variationId) {
+		// alert(variationId);
+
+		clearTimeout(checkClick);
+		checkClick = setTimeout(function(){
+			// update the cart modal
+			$.get('../partials/templates/cart_modal.php', function(response){
+				$("#modalContainerBig .modal-content").html(response);
+			});
+			
+		}, 800);
+
+		$('#variation_id_hidden_modal').val(variationId);		
+			let value = $('#variation_quantity'+variationId).val();
+			let price = $('.unitPrice'+variationId).text();
+			price = parseFloat(price.replace(/[^0-9-.]/g, '')); 
+
+			let subtotalPrice = $('.subtotal_price'+variationId).text();
+			subtotalPrice = parseFloat(subtotalPrice.replace(/[^0-9-.]/g, '')); 
+
+			let grandTotalPrice = $('#grand_total_price').text();
+			// this.alert(grandTotalPrice);
+			grandTotalPrice = parseFloat(grandTotalPrice.replace(/[^0-9-.]/g, '')); 
+
+			let variationStock = $('#variation_quantity'+variationId).attr('max');
+			variationStock = parseInt(variationStock);
+
+			
+			if(value >= variationStock) {
+				$('.variation_display'+variationId).css('color','#f64f59');
+				$(this).attr('disabled',true);
+			} else {
+				value = parseInt(value) + 1;
+				$('#variation_quantity'+variationId).val(value);
+				$('.variation_display'+variationId).css('color','rgba(0,0,0,.8)');
+
+				// UPDATE DATABASE AND RELOAD MODAL
+				$.post('../controllers/change_product_quantity.php', {
+					value: value,
+					variationId: variationId
+				}, function(response){
+					if(response == 'success') {
+						//UPDATE HEADER CART
+						$('#quantity_header'+variationId).text(value);
+
+						//UPDATE SUBTOTAL PRICE
+						value = value * price;
+						value = value.toLocaleString('us', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+						$('.subtotal_price'+variationId).text(value);
+			
+						//UPDATE GRANDTOTAL
+						grandTotalPrice = grandTotalPrice + price;
+						grandTotalPrice = grandTotalPrice.toLocaleString('us', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+						$('#grand_total_price').text(grandTotalPrice);
+
+					}
+				})
+				
+			}
+	}
+
+	window.passVariationIdToSubtract = function(variationId) {
+		// alert(variationId);
+		$('#variation_id_hidden_modal').val(variationId);
+
+		clearTimeout(checkClick);
+		checkClick = setTimeout(function(){
+			// update the cart modal
+			$.get('../partials/templates/cart_modal.php', function(response){
+				$("#modalContainerBig .modal-content").html(response);
+			});
+		}, 800);
+
+		let value = $('#variation_quantity'+variationId).val();
+		let price = $('.unitPrice'+variationId).text();
+		// this.alert(price);
+		let subtotalPrice = $('.subtotal_price'+variationId).text();
+		subtotalPrice = parseFloat(subtotalPrice.replace(/[^0-9-.]/g, '')); 
+
+		let grandTotalPrice = $('#grand_total_price').text();
+		grandTotalPrice = parseFloat(grandTotalPrice.replace(/[^0-9-.]/g, '')); 
+
+		let variationStock = $('#variation_quantity'+variationId).attr('max');
+		variationStock = parseInt(variationStock);
+
+		
+		if(value > 1) {
+			value = parseInt(value) - 1;
+			$('#variation_quantity'+variationId).val(value);
+			$('.variation_display'+variationId).css('color','rgba(0,0,0,.8)');
+
+			$.post('../controllers/change_product_quantity.php', {
+				value: value,
+				variationId: variationId
+				}, function(response){
+					if(response == 'success') {
+	
+					//UPDATE SUBTOTAL PRICE
+					subtotalPrice = subtotalPrice - price;
+					subtotalPrice = subtotalPrice.toLocaleString('us', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+					$('.subtotal_price'+variationId).text(subtotalPrice);
+		
+					//UPDATE GRANDTOTAL
+					grandTotalPrice = grandTotalPrice - price;
+					grandTotalPrice = grandTotalPrice.toLocaleString('us', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+					$('#grand_total_price').text(grandTotalPrice);
+
+					//UPDATE HEADER CART
+					$('#quantity_header'+variationId).text(value);
+
+				}
+			})
+
+
+		} else {
+			$('#variation_quantity'+variationId).val('1');
+			$('.variation_display'+variationId).css('color','rgba(0,0,0,.8)');
+
+			$('.subtotal_price'+variationId).text(price);
+		}
+
+		
+	}
+
 
 
 	// ==================================== WISHLIST ================================= //
@@ -1831,7 +1842,7 @@ $(document).ready( () => {
 		let that = this;
 
 		if(regionId == "..." || provinceId == "..." || cityMunId == "..." || brgyId == "..." || streetBldgUnit == "" || addressType == "...") {
-			$("#shipping_error_message").css("color", "red");
+			$("#shipping_error_message").css("color", "#f64f59");
 			$("#shipping_error_message").text('Please fill out required fields.');
 			
 		} else {
