@@ -318,7 +318,7 @@
                       </div>
                     </div>
                     <!-- /AVERAGE STAR RATING -->
-                </div>
+                  </div>
 
                 </div>
                 <!-- /.CARD BODY -->

@@ -50,7 +50,8 @@
                        <h4>Your Shopping Cart Details</h4>
                     </div>
                 </div>
-            
+
+                <input type="hidden" value='1' id='variation_id_hidden_modal'>
                <div class="row">
                     <div class="col">
                         
@@ -63,17 +64,20 @@
                             if($count) {
                             ?>
 
-                             
-
-                                <table class="table table-bordered">
-                                    <tr id="table-header">
-                                        <th> Item </th>
-                                        <th> Unit Price </th>
-                                        <th> Quantity </th>
-                                        <th> Subtotal Price </th>
-                                        <th> Action </th>
-                        
-                                    </tr>
+                                
+                                
+                                <table class="table table-hover borderless">
+                                    <thead class="thead-purple">
+                                        <tr id="table-header pb-4">
+                                            <th></th>
+                                            <th> Item </th>
+                                            <th> Unit Price </th>
+                                            <th> Quantity </th>
+                                            <th> Subtotal Price </th>
+                                            
+                            
+                                        </tr>
+                                    </thead>
             
                                     <?php 
                                         while($row = $statement->fetch()){ 
@@ -86,11 +90,19 @@
                                             $price = $row['price'];
                                             $quantity = $row['quantity'];
                                             $image = $row['img_path'];  
-                                            $GrandTotalPrice = $subtotalPrice + ($price * $quantity);
+                                            $subtotalPrice = $price * $quantity;
                                             $totalStocksAvailable = getTotalProductStocks ($conn,$productId);
                                     ?>
 
+
                                     <tr>
+                                        <td>
+                                            <div class='flex-fill text-right' style='align-self:end;'>
+                                                <a data-productid='<?=$productId?>' data-vname='<?=$variationName?>' data-variationid='<?= $variationId ?>' data-quantity='<?=$quantity?>' role='button' class='btn_delete_item text-gray flex-fill font-weight-light' style='font-size:16px;'>
+                                                &times;
+                                                </a>
+                                            </div>
+                                        </td>
         
                                         <td> 
                                             <div class='d-flex flex-row' style='justify-content:flex-start;width:100%;'>
@@ -101,42 +113,38 @@
                                                     <div class='d-flex flex-column'>
                                                         <?= $name ?>
                                                         <div class='text-gray italics'><?= $variationName ?></div>
-                                                        <div class='text-gray'>&#8369;&nbsp;<?=$price?></div>
+                                                        <div class='text-gray'>&#8369;&nbsp;<?= number_format((float)$price, 2, '.', '') ?></div>
                                                 </div>
-                                                <div class='flex-fill text-right' style='align-self:end;'>
-                                                    <a data-productid='<?=$productId?>' data-vname='<?=$variationName?>' data-variationid='<?= $variationId ?>' data-quantity='<?=$quantity?>' role='button' class='btn_delete_item text-gray flex-fill font-weight-light' style='font-size:16px;'>
-                                                    &times;
-                                                    </a>
-                                                </div>
+                                                
                                             
                                             </div>
                                         </td>
-                                        <td>&#8369; <span class="unitPrice"> <?= $price ?> </span> </td>
+                                        <td>&#8369; <span class="unitPrice<?=$variationId?>"> <?= number_format((float)$price, 2, '.', '') ?> </span> </td>
                                         <td> 
                                             <div class="d-flex flex-row mb-3">
                                                 
                                                 <!-- INPUT FIELD -->
                                                 <span class='flex-fill'>
-                                                    <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <button class="btn border btn_minus" type="button">&#8212;</button>
-                                                    </div>
-                                                    <input class='itemQuantity text-center' id ='variation_quantity'
-                                                        type="number" 
-                                                        style='width:35%;' 
-                                                        value="<?=$quantity?>"
-                                                        data-productid="<?= $id ?>"
-                                                        min="1" 
-                                                        max="<?= $variationStock ?>" >
-                                                    <div class="input-group-append">
-                                                        <button class="btn border btn_plus" type="button">&#65291;</button>
-                                                    </div>
+                                                    <div class="input-group" id=''>
+                                                        <div class="input-group-prepend">
+                                                            <button class="btn border btn_minus modal_btn" type="button" onclick="passVariationIdToSubtract(<?=$variationId?>)">&#8212;</button>
+                                                        </div>
+                                                        <input class='itemQuantity text-center' id='variation_quantity<?=$variationId?>'
+                                                            type="number" 
+                                                            style='width:35%;' 
+                                                            value="<?=$quantity?>"
+                                                            data-productid="<?= $id ?>"
+                                                            min="1" 
+                                                            max="<?= $variationStock ?>" >
+                                                        <div class="input-group-append">
+                                                            <button class="btn border btn_plus_modal" type="button" onclick="passVariationIdToAdd(<?=$variationId?>)">&#65291;</a>
+                                                        </div>
                                                     </div>
                                                 </span>
                 
                                                 <div class='flex-grow-1 pt-2'>
                                                     <!-- STOCK AVAILABILITY -->
-                                                    <span class='variation_display' id='variation_stock'>
+                                                    <span class='variation_display<?=$variationId?>' id='variation_stock'>
                                                     <?= $variationStock ?>
                                                     </span>
                                                     
@@ -144,21 +152,17 @@
                                                     <?php
                                                         if($variationStock == 1) {
                                                     ?>
-                                                    <span class='variation_display'>&nbsp;piece available</span>
+                                                    <span class='variation_display<?=$variationId?>'>&nbsp;piece available</span>
                                                     
                                                     <?php }else{ ?>
                                                 
-                                                    <span class='variation_display'>&nbsp;pieces available</span>
+                                                    <span class='variation_display<?=$variationId?>'>&nbsp;pieces available</span>
                                                     <?php } ?>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>&#8369; <span class="subtotal_price"> <?= $price * $quantity ?> </span> </td>
-                                        <td> 
-                                            <a data-productid='<?= $productId ?>' role='button' class="btn_delete_item">
-                                                Delete
-                                            </a>
-                                        </td>
+                                        <td>&#8369; <span class="subtotal_price<?=$variationId?>"> <?= number_format((float)$subtotalPrice, 2, '.', '') ?> </span> </td>
+                
                                     </tr>
             
                                     <?php } ?>
@@ -169,7 +173,7 @@
 
                                     <tr>
                                         <th>Grand Total Price</th>
-                                        <td colspan='4'> &#8369;<span id='grand_total_price'> <?= $GrandTotalPrice ?> </span> </td>
+                                        <td colspan='6'> &#8369;<span id='grand_total_price'> <?= displayGrandTotal($conn, $cartSession) ?> </span> </td>
                                     </tr>
 
                                 </table>

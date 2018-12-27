@@ -493,8 +493,9 @@ input#register_username,
 input#register_password,
 input#cpass {
     border: none!important;
-    border-bottom: 1px solid black!important;
+    border-bottom: 1px solid lightgray!important;
     padding: 0!important;
+    font-size: 13px;
     
 }
 
@@ -502,7 +503,7 @@ a#btn_view_login_password,
 a#btn_view_registration_password,
 a#btn_view_cpass {
     border: none!important;
-    border-bottom: 1px solid black!important;
+    border-bottom: 1px solid lightgray!important;
 }
 
 input#login_username_email:focus,
@@ -544,6 +545,15 @@ div#login_image {
     background-image: url("../../assets/images/sample.jpg")!important;
 }
 
+/* ================================ CART MODAL =================================== */
+.borderless td, .borderless th {
+    border: none;
+}
+
+.thead-purple {
+    background-color:  #f5f5f5;
+    border:none!important;
+}
 
 /* ================================ HEADER & FOOTER =================================== */
 

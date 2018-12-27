@@ -176,9 +176,11 @@
                                                 <small><?= $name ?></small>
                                                 <small class='text-gray italics'><?= $variationName ?></small>
                                                 <small class='text-gray'>
-                                                    <?=$price?>
+                                                    <span><?=$price?></span>
+                                                    <span></span>
                                                      <?php if($quantity > 1) { ?>
-                                                    &nbsp;x&nbsp;<?=$quantity?>
+                                                    <span>&nbsp;x&nbsp;</span>
+                                                    <span id='quantity_header<?=$variationId?>'><?=$quantity?></span>
                                                     <?php } ?>
                                                 </small>
                                             </div>

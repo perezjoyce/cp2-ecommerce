@@ -30,7 +30,7 @@ if(isset($_SESSION['id'])) {
   <div class="container">
 
     <!-- FIRST ROW -->
-    <div class="row bg-white mb-5 rounded p-5">
+    <div class="row bg-white mb-5 rounded p-lg-5 py-md-5">
         
       <!-- FIRST COLUMN (PICS) -->
       <div class="col-lg-5 col-md-5 col-sm-12">
@@ -76,7 +76,7 @@ if(isset($_SESSION['id'])) {
 
 
       <!-- SECOND COLUMN (PRODUCT DETAILS) -->
-      <div class="col-lg-7 col-md-7 col-sm-12 px-5">
+      <div class="col-lg-7 col-md-7 col-sm-12 px-lg-5">
           <?php
         
             $sql = "SELECT * FROM tbl_items WHERE id = ?";
@@ -86,6 +86,7 @@ if(isset($_SESSION['id'])) {
     
             $name = $row['name'];     
             $price = $row['price'];
+            $price = number_format((float)$price, 2, '.', '');
             $description = $row['description'];
             $item_img = $row['img_path'];
             $categoryId = $row['category_id'];
@@ -199,40 +200,46 @@ if(isset($_SESSION['id'])) {
 
         <hr class='mt-4 mb-5'>
 
-        <!-- SHIPPING FEE -->
+      <!-- SHIPPING FEE -->
+      <?php if(displayFreeShippingMinimum($conn,$id)) { ?>
+        <div class="row mb-3">
+          <div class="col-lg-3 col-md-3">
+            <div>Shipping Fee</div>
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <div class="row">
+              &#8369;&nbsp;
+              <span id='shipping_fee'><?= displayShippingFee($conn,$id) ?></span>            
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="row">
+              <div class='d-flex flex-row border mr-4 text-center p-1 bg-light'>
+                  <!-- <div id='free-delivery-img'></div> -->
+                  <!-- <img src="../assets/images/discount-gradient.png" alt="discount" style='height:15px;width:15px;'> -->
+                  &nbsp;
+                  <div class='text-purple'>FREE SHIPPING</div>
+                  <small class='text-gray pt-lg-1 pt-md-1'>
+                    With a minimum spend of &#8369;&nbsp;<?=displayFreeShippingMinimum($conn,$id);?> from seller.
+                  </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      <?php } else { ?>
         <div class="row mb-5">
           <div class="col-lg-3 col-md-4">
             <div>Shipping Fee</div>
           </div>
           <div class="col-lg-4 col-md-4">
             <div class="row">
-            &#8369;&nbsp;
-            <span id='shipping_fee'><?= displayShippingFee($conn,$id) ?></span>            
-            </div>
-
-            <?php if(displayFreeShippingMinimum($conn,$id)) { ?>
-
-            
-
-            <?php } else { echo ""; } ?>
-
-
-
-          </div>
-
-          <div class="col">
-            <div class="row">
-              <div class='d-flex flex-row'>
-                  <div id='free-delivery-img'></div>
-                  <!-- <img src="../assets/images/discount-gradient.png" alt="discount" style='height:15px;width:15px;'> -->
-                  &nbsp;
-                  <small class='text-gray pt-1'>
-                    FREE Shipping with a minimum spend of &#8369;&nbsp;<?=displayFreeShippingMinimum($conn,$id);?> from seller.
-                  </small>
-              </div>
+              &#8369;&nbsp;
+              <span id='shipping_fee'><?= displayShippingFee($conn,$id) ?></span>            
             </div>
           </div>
         </div>
+      <?php } ?>
 
         <!-- BRAND -->
         <div class="row mb-5">
@@ -305,7 +312,7 @@ if(isset($_SESSION['id'])) {
 
                } } } ?>
               <!-- HIDDEN FOR DEBUGGING PURPOSES -->
-              <input type="text" id='variation_stock_hidden' value='<?$variationStock?>'>
+              <input type="hidden" id='variation_stock_hidden' value='<?$variationStock?>'>
               <input type="hidden" id='variation_name_hidden' value='<?$variationName?>'>
               <input type="hidden" id='variation_id_hidden' value='<?=$variationId?>'>
             </div>
@@ -315,7 +322,7 @@ if(isset($_SESSION['id'])) {
         <!-- QUANTITY --> 
         <div class="row mb-5">
           <?php $totalStocksAvailable = getTotalProductStocks($conn,$id) ?>
-          <div class="col-3">
+          <div class="col-lg-3 col-md-3">
             <div>Quantity</div>
           </div>
           <div class="col pl-0">
@@ -377,7 +384,7 @@ if(isset($_SESSION['id'])) {
                     if($vname == 'None') {
           ?>
           <!-- SINCE BUTTON HAS NO VARIATION THERE IS NO NEED TO ADD IT TO CART AGAIN ANYMORE -->
-          <button class='btn btn-lg btn-gray py-3' style='width:40%;height:50px;' data-id='<?= $id ?>' role='button' data-variationid='<?=$variationId?>' data-name='<?=$variationName?>' id="btn_add_to_cart_again" disabled>
+          <button class='btn btn-lg btn-gray py-3' style='width:40%;' data-id='<?= $id ?>' role='button' data-variationid='<?=$variationId?>' data-name='<?=$variationName?>' id="btn_add_to_cart_again" disabled>
               &nbsp;Item Already In Cart
           </button>
 
@@ -387,13 +394,13 @@ if(isset($_SESSION['id'])) {
                       if($count) {
           ?>  
 
-          <button class='btn btn-lg btn-purple-reverse py-3' style='width:50%;height:50px;' data-id='<?= $id ?>' role='button' data-variationid='<?=$variationId?>' data-name='<?=$variationName?>' id="btn_add_to_cart_again">
+          <button class='btn btn-lg btn-purple-reverse py-3' style='width:50%;' data-id='<?= $id ?>' role='button' data-variationid='<?=$variationId?>' data-name='<?=$variationName?>' id="btn_add_to_cart_again">
               &nbsp;Add To Cart Again
           </button>
 
           <?php } else { ?>
           
-          <a class='btn btn-lg btn-purple py-3' style='width:40%;height:50px;' data-id='<?= $id ?>' role='button' data-variationid='<?=$variationId?>' data-name='<?=$variationName?>' id="btn_add_to_cart">
+          <a class='btn btn-lg btn-purple py-3' style='width:40%;' data-id='<?= $id ?>' role='button' data-variationid='<?=$variationId?>' data-name='<?=$variationName?>' id="btn_add_to_cart">
             &nbsp;Add To Cart
           </a>
           <?php } }?>
@@ -1318,6 +1325,7 @@ if(isset($_SESSION['id'])) {
               $id = $row['id'];
               $name = $row['name'];
               $price = $row['price'];
+              $price = number_format((float)$price, 2, '.', '');
               $description = $row['description'];
               $item_img = $row['img_path'];
         ?>
@@ -1414,6 +1422,7 @@ if(isset($_SESSION['id'])) {
             $id = $row['id'];
             $name = $row['name'];
             $price = $row['price'];
+            $price = number_format((float)$price, 2, '.', '');
             $description = $row['description'];
             $item_img = $row['img_path'];
         ?>
@@ -1511,6 +1520,7 @@ if(isset($_SESSION['id'])) {
               $id = $row2['id'];
               $name = $row2['name'];
               $price = $row2['price'];
+              $price = number_format((float)$price, 2, '.', '');
               $description = $row2['description'];
               $item_img = $row2['img_path'];
         ?>

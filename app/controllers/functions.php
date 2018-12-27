@@ -201,6 +201,7 @@
 
     }
 
+    // SHOW MINIMUM AMOUNT REQUIRED TO AVAIL FREE SHIPPING
     function displayFreeShippingMinimum($conn,$productId) {
         $sql = "SELECT s.free_shipping_minimum, i.store_id, i.id FROM tbl_stores s 
         JOIN tbl_items i ON i.store_id = s.id WHERE i.id = ?";
@@ -213,12 +214,19 @@
         if($freeShippingMinimum != 0 || !$freeShippingMinimum ){
             return $freeShippingMinimum;
         }
-       
-
     }
 
-    // SHOW SHIPPING FEE MINIMUM
-
+    //DISPLAY GRANDTOTAL (WITHOUT SHIPPING)
+    function displayGrandTotal($conn, $cartSession) {
+        $sql = "SELECT c.cart_session, SUM(i.price * c.quantity) AS 'grandTotal' FROM tbl_items i JOIN tbl_carts c JOIN tbl_variations v ON v.product_id=i.id AND c.variation_id=v.id WHERE c.cart_session = ? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$cartSession]);
+        $row = $statement->fetch();
+        $grandTotal = $row['grandTotal'];
+        $grandTotal = number_format((float)$grandTotal, 2, '.', '');    
+        
+        return $grandTotal;
+    }
     
 
     // DISPLAY BREADCRUMB 
