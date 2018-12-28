@@ -52,16 +52,17 @@
             <div class="container px-5 pb-2 pt-5 mb-4">
                 <div class="row mb-5 mt-4"> 
                     <div class='col'>
-                       <h4>Your Shopping Cart Details</h4>
+                       <h3>Your Shopping Cart Details</h3>
                     </div>
                 </div>
 
                 <input type="hidden" value='1' id='variation_id_hidden_modal'>
                 <div class="row">
-                    <div class="col">
-                        
+                    <div class="col">            
                         <form action="../controllers/process_add_to_cart.php" method="POST" id="form_cart">
-                    
+                            <div class='mb-5'>
+                                <h4 class='text-secondary'>Cart Items</h4>
+                            </div>
      
                             <!-- ITEMS SUMMARY -->
                             <table class="table table-hover borderless">
@@ -197,11 +198,11 @@
                             <div style='margin-top:60px;'></div>
 
                             <!-- SHIPPING FEE SUMMARY -->
-                            <div class="container my-5">
+                            <div class="container my-5 px-0">
                                 <div class="row">
                                     <div class="col-6">
                                         <div>
-                                            <h4>Shipping Fee</h4>
+                                            <h4 class='text-secondary'>Shipping Fee</h4>
                                         </div>
                                         <table class="table table-hover borderless mt-5">
                                             
@@ -308,7 +309,7 @@
 
                                       
                                             <div>
-                                                <h4>Grand Total</h4>
+                                                <h4 class='text-secondary'>Grand Total</h4>
                                             </div>
                                             <table class="table table-hover borderless mt-5">
                                                 

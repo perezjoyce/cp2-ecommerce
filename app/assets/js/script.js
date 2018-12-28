@@ -959,6 +959,7 @@ $(document).ready( () => {
 	});
 
 
+
 	// ROUNDING OFF NUMBERS
 	function round(value, exp) {
 		if (typeof exp === 'undefined' || +exp === 0) {
@@ -1953,26 +1954,81 @@ $(document).ready( () => {
 	$(document).on('click', '#btn_order_confirmation', function(){
 		let modeOfPaymentId = $('#modeOfPayment').val();
 
-		if(modeOfPaymentId == "" || modeOfPaymentId == "...") {
-			$("#order_summary_error_message").css("color", "red");
-			$("#order_summary_error_message").text('Please select mode of payment.');
-		} else {
-	
-			$.post('../controllers/process_get_payment_mode.php', {
-				modeOfPaymentId: modeOfPaymentId
+
+		let regionId = $('#region').val(); 
+		let provinceId = $('#province').val(); 
+		let cityMunId = $('#cityMun').val(); 
+		let brgyId = $('#barangay').val();
+		let streetBldgUnit = $('#streetBldgUnit').val();
+		let landmark = $('#landmark').val();
+		let addressType = $('#addressType').val();
+		let name = $('#name').val();
+
+		let addressId = $('#address_id').val();
+		let url = $(this).data('url');
+		let flag = 0;
+
+		if(modeOfPaymentId == "" || modeOfPaymentId == "..." || name == "" || regionId == "..." || provinceId == "..." || cityMunId == "..." || brgyId == "..." || streetBldgUnit == "" || addressType == "...") {
+			$("#billing_info_error").css("color", "#f64f59");
+			$("#billing_info_error").text('Please fill out required fields.');
+			flag = 1;
+		} 
+
+		if(!addressId || addressId == ""){	
+			
+			$.post('../controllers/process_save_new_billing_address.php', {
+				regionId:regionId, 
+				provinceId:provinceId,
+				cityMunId:cityMunId,
+				brgyId:brgyId,
+				streetBldgUnit:streetBldgUnit,
+				landmark:landmark,
+				addressType:addressType,
+				name:name
+
 			}, function(response){
-				// reload the modal with the new quantity reflected
-				$.get("../partials/templates/confirmation_modal.php", function(response) {
-					$('.modal .modal-body').html(response);
-				});
+				if(response == 'success') {
+					flag = 0;
+					// $.get(url, function(response){
+					// 	$('#modalContainerBig .modal-content').html(response);
+					// });
+				} else {
+					flag = 1;
+				}
+			});
+		
+
+		} else {
+			$.post('../controllers/process_save_shipping_as_billing.php', {
+				addressId: addressId
+			}, function(response){
+				if(response == 'success'){
+					flag = 0;
+				}else {
+					flag = 1;
+				}
 			});
 		}
 
+		if(flag == 0){
+			
+			$.post('../controllers/process_get_payment_mode.php', {
+				modeOfPaymentId: modeOfPaymentId
+			}, function(response){
+
+				if(response == "success"){
+					// reload the modal with the new quantity reflected
+					$.get(url, function(response){
+						$('#modalContainerBig .modal-content').html(response);
+					});
+				}
+				
+			});
+			
+
+		}
 		
 	});
-
-
-
 
 });
 

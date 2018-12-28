@@ -28,17 +28,20 @@ if(isset($_POST['modeOfPaymentId'])) {
 
    }
 
-   $message =   "<form id='form_confirmation'>
-                        
-                    <label class='my-5 font-weight-bold'>ORDER CONFIRMATION</label>
+   $message =   "<form>
+                    <h4>Order Confirmation</h4>
+                    <div style='padding-top:18px;'>Hi, there!</div> 
+                    <div style='padding-top:20px;'>Your order has been received and is being processed. Below is your transaction code:</div>
 
-                    <br>
+                    <h4 style='color:#c471ed;'>$transactionCode</h4>
 
-                    <label>Transaction Code</label>
-                    <div class='my-5 text-danger'>$transactionCode</div>
+                    <div>You will receive a confirmation message from the seller/s within the day.</div>
+                    <div>Thank you for shopping with us!</div>   
 
-                    <div class='mb-5'>Thank you for shopping! Your order is being processed.</div>
-
+                    <div style='padding-top:30px;font-weight:bold;'>Team Shoperoo</div>
+                    <div style='padding-top:10px;'>shoperoo@gmail.com</div>
+                    <div>+06907-1234-4560</div>
+                    <div>+06919-1454-1160</div>
                 </form>";
 
                 if($result) {
@@ -68,14 +71,14 @@ if(isset($_POST['modeOfPaymentId'])) {
                         $mail->Password = '8London*'; // totoong password
                         $mail->SMTPSecure = 'tls';
                         $mail->Port = 587;
-                        $mail->setFrom($staff_email,'Company Name');
+                        $mail->setFrom($staff_email,'Shoperoo');
                         $mail->addAddress($users_email);
                         $mail->isHTML(true);
                         $mail->Subject = $email_subject;
                         $mail->Body = $email_body;
                         $mail->send();
         
-                        echo $message;
+                        echo "success";
         
         
                         }catch (Exception $e){

@@ -1,11 +1,10 @@
 <?php
 
     session_start(); 
-    //require_once "../../controllers/connect.php";
-
+    // require_once "../../controllers/connect.php";
     function getPreselectedAddress($addressId, $conn) {
-        $statement = $conn->prepare("SELECT * FROM tbl_addresses WHERE id=?");
-        $statement->execute([$addressId]);
+        $statement = $conn->prepare("SELECT a.*, o.address_id FROM  tbl_addresses a JOIN tbl_orders o ON o.address_id=a.id WHERE cart_session = ? ");
+        $statement->execute([$_SESSION['cart_session']]);
         $row = $statement->fetch();
         // brgy
         $brgyStatement = $conn->prepare("SELECT * FROM tbl_barangays WHERE id=?"); 
@@ -74,6 +73,7 @@
         ? $_SESSION['preselectedAddressId'] 
         : null;
 
+    // var_dump($$preselectedAddressId);
 
         
     $preselectedAddressData = getPreselectedAddress($preselectedAddressId, $conn);
@@ -105,7 +105,7 @@
             <div class="container px-5 pb-2 pt-5">
                 <div class="row mt-4"> 
                     <div class='col'>
-                       <h3>Your Shipping Information</h3>
+                       <h3>Your Billing Information</h3>
                     </div>
                 </div>
 
@@ -115,45 +115,48 @@
                         <!-- HIDDEN ELEMENT  -->
                         <input type="hidden" id="address_id" name="address_id" value="<?= isset($preselectedAddressData['id']) 
                                         ? $preselectedAddressData['id'] : "" ?>">
-                        <form action='../controllers/process_save_address.php' method='POST' id='shipping_info_modal'>
-                            <?php
-                                
-                                $sql = " SELECT * FROM tbl_addresses WHERE `user_id` = ?";
-                                        $statement = $conn->prepare($sql);
-                                        $statement->execute([$userId]);
-                                        $count = $statement->rowCount();
-
-                                // IF USER HAS ADDRESS IN DB
-                                if($count) {
-                            ?>
+                        <form action='../controllers/process_save_billing_address.php' method='POST' id='shipping_info_modal'>
                             
-                            <div class="form-inline justify-content-left mt-5">
-                                <div class='pr-5 pt-3'>Choose Saved Address Type</div>    
-                                            
-            
-                                <?php
-                                    while($row = $statement->fetch()){ 
+
+                            <div class="form-inline ml-0 px-0 mt-5">
+                                <div class='pr-5 pt-3 mr-4'>Choose Billing Address</div> 
+                                &nbsp;<div class="form-check form-check-inline radio-item pr-5 pl-0 selected">    
+                                    <input class="form-check-input user_addressTypes" name="address_type" id="btn_save_shipping_as_billing" type="radio" value='<?= isset($preselectedAddressData['id']) 
+                                        ? $preselectedAddressData['id'] : "" ?>' checked="">
+                                    <label  style='justify-content:start' class="form-check-label" for='btn_save_shipping_as_billing' active>&nbsp;Same As Shipping</label>
+                                </div>
+
+                                
+
+                                 <?php
+                                
+                                    $sql = " SELECT * FROM tbl_addresses WHERE `user_id` = ? AND id != ? ";
+                                            $statement = $conn->prepare($sql);
+                                            $statement->execute([$userId,$preselectedAddressData['id']]);
+                                            $count = $statement->rowCount();
+
+                                    // IF OTHER ADDRESSES ASIDE THE ONE USED AS SHIPPING
+                                    if($count) {
+                              
+                                        while($row = $statement->fetch()){ 
                                         $addressType = ucfirst($row['addressType']);
                                         $checked = "";
 
-                                        if(isset($preselectedAddressData['addressType']) && 
-                                            strtolower($addressType) == strtolower($preselectedAddressData['addressType'])) {
-                                                $checked = "checked";
-                                        }
-                                ?>
-                                <div class="form-check form-check-inline pr-5 radio-item">
+                                    ?>
+                                <div class="form-check form-check-inline radio-item pr-5 pl-0">
+
                                     <input class="form-check-input user_addressTypes" id='<?= $addressType ?>' name="address_type" type="radio" value="<?= $row['id'] ?>" <?= $checked ?>>
-                                    <label class="form-check-label" for='<?= $addressType ?>'>&nbsp;<?= $addressType ?></label>
+                                    <label style='justify-content:start' class="form-check-label" for='<?= $addressType ?>'>&nbsp;<?= $addressType ?></label>    
                                 </div>
 
-                                <?php }  ?>
-                                <div class="form-check form-check-inline radio-item">    
+                                    <?php }  } ?>
+
+                                <div class="form-check form-check-inline radio-item pr-5 pl-0">    
                                     <input class="form-check-input user_addressTypes" name="address_type" id="btn_add_new_address" type="radio">
-                                    <label class="form-check-label" for='btn_add_new_address'>&nbsp;Add New Address</label>
+                                    <label style='justify-content:start' class="form-check-label" for='btn_add_new_address'>&nbsp;Add New Address</label>
                                 </div>
 
                             </div>
-                            <?php } ?>
                                 
                         
                             <!-- REGION -->
@@ -281,7 +284,7 @@
 
                             <!-- STREET BLDG. UNIT NO -->
                             <div class="form-group row mb-5">
-                                <label for='building' class='col'>Street, Bldg., Unit No., etc.*</label>
+                                <label for='streetBldgUnit' class='col'>Street, Bldg., Unit No., etc.*</label>
                                 <div class="input-group col-9">
                                     <input type="text" 
                                         class='form-control' 
@@ -302,11 +305,10 @@
                                                 : "" ?>">
                                 </div>
                             </div>
-
-                            
+                  
                             <!-- ADDRESS TYPE -->
                             <div class="form-group row mb-5">
-                                <label class='col'>Address Type*</label>
+                                <label for='addressType' class='col'>Address Type*</label>
                                 <div class="input-group col-9">
                                     <!-- for editing -->
                                     <select class="custom-select" id="addressType">
@@ -336,29 +338,55 @@
                                                 : "" ?>">
                                 </div>
                             </div>
+
+                             <!-- PAYMENT MODE -->
+                             <div class="form-group row mb-5">
+                                <label for='modeOfPayment' class='col'>Payment Mode*</label>
+                                <div class="input-group col-9">
+                                    <select class="custom-select" id="modeOfPayment" onchange="modeOfPayment">
+                                        <option value='...' selected="...">...</option>
+                                            <?php 
+                                                $sql = " SELECT * FROM tbl_payment_modes ";
+                                                $statement = $conn->prepare($sql);
+                                                $statement->execute();
+                                                while($row = $statement->fetch()){ 
+                                                    $payment_mode_name = $row['name'];
+                                                    $payment_mode_id = $row['id'];
+                                            ?>
+                                        <option value='<?= $payment_mode_id ?>'>
+                                            <?= $payment_mode_name ?>
+                                        </option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            
                                 
 
-                            <p id="shipping_error_message"></p>
+                            <p id="billing_info_error"></p>
 
-                            <!-- if input type is submit, this will automatically submit input to users.php hence change this to button, type to button and remove value SO THAT you can employ validation -->
-                            <!-- indicate id for button -->
-
+                            
                             
 
                             <div class="container px-0 mb-5">
                                 <!-- CHECKOUT BUTTON -->
                                 <div class="row">
                                     <div class="col-4">
+
                                         <?php 
                                             $modalLinkClassPrefix = ''; 
                                             if(isset($_SESSION['id'])) {
                                                 $modalLinkClassPrefix='-big';
                                             }
                                         ?>
-                                        <a class='btn btn-lg btn-block py-3 btn-purple modal-link<?= $modalLinkClassPrefix ?> mt-5' data-url='../partials/templates/cart_modal.php' role='button'>
+                                        
+                                        <button class='btn btn-lg btn-block py-3 btn-purple back modal-link<?= $modalLinkClassPrefix?> mt-5' data-toggle="modal" 
+                                            data-url="../partials/templates/shipping_info_modal.php" type='button'>
                                             <i class="fas fa-angle-double-left"></i>
-                                            &nbsp;Back To Cart
-                                        </a>
+                                            &nbsp;Edit Shipping Info
+                                        </button>
                                     </div>
 
                                     <div class="col-4">
@@ -366,10 +394,9 @@
                                     </div>
 
                                     <div class="col-4">
-                                        <a class='btn btn-lg btn-block py-3 btn-purple mt-5' data-url='../partials/templates/billing_info_modal.php' id='btn_add_address' role='button'>
-                                            Go To Payment&nbsp;
-                                            <i class="fas fa-angle-double-right"></i>
-                                        </a>
+                                        <button class='btn btn-lg btn-block py-3 btn-purple mt-5 modal-link<?= $modalLinkClassPrefix?>' data-url='../partials/templates/confirmation_modal.php' id='btn_order_confirmation' type='button'>
+                                            Confirm Order
+                                        </button>
 
                                     </div>
                                 </div>
@@ -377,6 +404,10 @@
                                 
 
                         </form>
+
+
+
+
                     </div>
                 </div>
             </div>

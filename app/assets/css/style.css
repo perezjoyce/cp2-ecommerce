@@ -546,6 +546,23 @@ div#login_image {
 }
 
 /* ================================ CART MODAL =================================== */
+
+#btn_order_confirmation:hover,
+.back:hover {
+    background: #edd4f9!important;
+    border: 1px solid #c471ed!important;
+    color: #9c5abd!important;
+    font-weight:500;
+}
+    
+#btn_order_confirmation,
+.back {
+    background:  #c471ed;
+    /* border: 1px solid#894fa5!important; */
+    color: white!important;
+    font-weight:500;
+}
+
 .borderless td, .borderless th {
     border: none;
 }

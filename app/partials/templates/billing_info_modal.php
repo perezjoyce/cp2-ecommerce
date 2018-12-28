@@ -87,7 +87,7 @@
 <div class="container-fluid">
     <div class="row">
 
-        <div class="col-lg-4 ml-0 py-0 px-0 my-0 ml-0 d-none d-lg-block d-xl-block">
+        <div class="col-lg-3 ml-0 py-0 px-0 my-0 ml-0 d-none d-lg-block d-xl-block">
             <div id='login_image'></div>
             <!-- <div id='login_ad'>
                 <h1>fdsfsd</h1>
@@ -105,7 +105,7 @@
             <div class="container px-5 pb-2 pt-5">
                 <div class="row mt-4"> 
                     <div class='col'>
-                       <h4>Your Billing Information</h4>
+                       <h3>Your Billing Information</h3>
                     </div>
                 </div>
 
@@ -115,7 +115,7 @@
                         <!-- HIDDEN ELEMENT  -->
                         <input type="hidden" id="address_id" name="address_id" value="<?= isset($preselectedAddressData['id']) 
                                         ? $preselectedAddressData['id'] : "" ?>">
-                        <form action='../controllers/process_save_address.php' method='POST' id='shipping_info_modal'>
+                        <form action='../controllers/process_save_billing_address.php' method='POST' id='shipping_info_modal'>
                             
 
                             <div class="form-inline ml-0 px-0 mt-5">
@@ -284,7 +284,7 @@
 
                             <!-- STREET BLDG. UNIT NO -->
                             <div class="form-group row mb-5">
-                                <label for='building' class='col'>Street, Bldg., Unit No., etc.*</label>
+                                <label for='streetBldgUnit' class='col'>Street, Bldg., Unit No., etc.*</label>
                                 <div class="input-group col-9">
                                     <input type="text" 
                                         class='form-control' 
@@ -305,11 +305,10 @@
                                                 : "" ?>">
                                 </div>
                             </div>
-
-                            
+                  
                             <!-- ADDRESS TYPE -->
                             <div class="form-group row mb-5">
-                                <label class='col'>Address Type*</label>
+                                <label for='addressType' class='col'>Address Type*</label>
                                 <div class="input-group col-9">
                                     <!-- for editing -->
                                     <select class="custom-select" id="addressType">
@@ -339,29 +338,55 @@
                                                 : "" ?>">
                                 </div>
                             </div>
+
+                             <!-- PAYMENT MODE -->
+                             <div class="form-group row mb-5">
+                                <label for='modeOfPayment' class='col'>Payment Mode*</label>
+                                <div class="input-group col-9">
+                                    <select class="custom-select" id="modeOfPayment" onchange="modeOfPayment">
+                                        <option value='...' selected="...">...</option>
+                                            <?php 
+                                                $sql = " SELECT * FROM tbl_payment_modes ";
+                                                $statement = $conn->prepare($sql);
+                                                $statement->execute();
+                                                while($row = $statement->fetch()){ 
+                                                    $payment_mode_name = $row['name'];
+                                                    $payment_mode_id = $row['id'];
+                                            ?>
+                                        <option value='<?= $payment_mode_id ?>'>
+                                            <?= $payment_mode_name ?>
+                                        </option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            
                                 
 
-                            <p id="shipping_error_message"></p>
+                            <p id="billing_info_error"></p>
 
-                            <!-- if input type is submit, this will automatically submit input to users.php hence change this to button, type to button and remove value SO THAT you can employ validation -->
-                            <!-- indicate id for button -->
-
+                            
                             
 
                             <div class="container px-0 mb-5">
                                 <!-- CHECKOUT BUTTON -->
                                 <div class="row">
                                     <div class="col-4">
+
                                         <?php 
                                             $modalLinkClassPrefix = ''; 
                                             if(isset($_SESSION['id'])) {
                                                 $modalLinkClassPrefix='-big';
                                             }
                                         ?>
-                                        <a class='btn btn-lg btn-block py-3 btn-purple modal-link<?= $modalLinkClassPrefix ?> mt-5' data-url='../partials/templates/cart_modal.php' role='button'>
+                                        
+                                        <button class='btn btn-lg btn-block py-3 btn-purple back modal-link<?= $modalLinkClassPrefix?> mt-5' data-toggle="modal" 
+                                            data-url="../partials/templates/shipping_info_modal.php" type='button'>
                                             <i class="fas fa-angle-double-left"></i>
-                                            &nbsp;Back To Cart
-                                        </a>
+                                            &nbsp;Edit Shipping Info
+                                        </button>
                                     </div>
 
                                     <div class="col-4">
@@ -369,10 +394,9 @@
                                     </div>
 
                                     <div class="col-4">
-                                        <a class='btn btn-lg btn-block py-3 btn-purple mt-5' data-url='../partials/templates/order_summary_modal.php' id='btn_add_address' role='button'>
-                                            Go To Payment&nbsp;
-                                            <i class="fas fa-angle-double-right"></i>
-                                        </a>
+                                        <button class='btn btn-lg btn-block py-3 btn-purple mt-5 modal-link<?= $modalLinkClassPrefix?>' data-url='../partials/templates/confirmation_modal.php' id='btn_order_confirmation' type='button'>
+                                            Confirm Order
+                                        </button>
 
                                     </div>
                                 </div>
@@ -380,6 +404,10 @@
                                 
 
                         </form>
+
+
+
+
                     </div>
                 </div>
             </div>
