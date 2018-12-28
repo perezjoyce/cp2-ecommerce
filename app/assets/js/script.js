@@ -1839,13 +1839,21 @@ $(document).ready( () => {
 		let landmark = $('#landmark').val();
 		let addressType = $('#addressType').val();
 		let addressId = $('#address_id').val();
-		let that = this;
+		let name = $('#name').val();
+		let url = $(this).data('url');
+		let flag = 0;
+		
 
-		if(regionId == "..." || provinceId == "..." || cityMunId == "..." || brgyId == "..." || streetBldgUnit == "" || addressType == "...") {
+		if(name == "" || regionId == "..." || provinceId == "..." || cityMunId == "..." || brgyId == "..." || streetBldgUnit == "" || addressType == "...") {
 			$("#shipping_error_message").css("color", "#f64f59");
 			$("#shipping_error_message").text('Please fill out required fields.');
+			flag = 1;
 			
 		} else {
+			flag = 0;
+		}	
+		
+		if(flag == 0) {
 			let data = {
 				regionId :$('#region').val(),
 				provinceId :$('#province').val(),
@@ -1854,58 +1862,21 @@ $(document).ready( () => {
 				streetBldgUnit : $('#streetBldgUnit').val(),
 				landmark : $('#landmark').val(),
 				addressType : $('#addressType').val(),
-				addressId : $('#address_id').val()
+				addressId : $('#address_id').val(),
+				name : $('#name').val()
 			}
+
 			$.post('../controllers/process_save_address.php', data, function(response){
-				let url = $(that).data('url');
-				$.post(url, function(response){
-					$('#modalContainer .modal-body').html(response);
-				});
+				if(response == 'success') {
+
+					$.get(url, function(response){
+						$('#modalContainerBig .modal-content').html(response);
+					});
+
+				}
+				
 			});
-			// $.post("../controllers/process_save_address.php", {
-			// 	regionId:regionId,
-			// 	provinceId:provinceId,
-			// 	cityMunId:cityMunId,
-			// 	brgyId:brgyId,
-			// 	streetBldgUnit:streetBldgUnit,
-			// 	landmark:landmark,
-			// 	addressType:addressType,
-			// 	addressId: address_id
-			// }
-			// , function(response) {
-
-				// let address = $.parseJSON(response);
-
-				// $("#address_id").val(address.id);
-				// $("#region").val(address.region_id); 
-
-				// // let option = document.createElement('option');
-				// // option.value = address.province_id;
-				// // option.text = address.province_name;
-				// // $("#province")[0].appendChild(option);
-				// $("#province").val(address.province_id); 
-
-				// // option = document.createElement('option');
-				// // option.value = address.city_id;
-				// // option.text = address.city_name;
-				// // $("#cityMun")[0].appendChild(option);
-				// $("#cityMun").val(address.city_id);
-
-				// // option = document.createElement('option');
-				// // option.value = address.brgy_id;
-				// // option.text = address.barangay_name;
-				// // $('#barangay')[0].appendChild(option);
-				// $("#barangay").val(address.brgy_id);
-
-				// $("#streetBldgUnit").val(address.street_bldg_unit);
-				// $("#landmark").val(address.landmark);
-				// $("#addressType").val(address.addressType);
-
-				// }
-			// ).done(function(response) {
-
-			// });
-		}		
+		}
 	});
 
 	// DISPLAYING SAVED ADDRESS BASED ON SELECTED ADDRESS TYPE
@@ -1938,9 +1909,26 @@ $(document).ready( () => {
 			$("#streetBldgUnit").val(address.street_bldg_unit);
 			$("#landmark").val(address.landmark);
 			$("#addressType").val(address.addressType);
+			$("#name").val(address.name);
+			
 			
 		});
 	});
+
+	// // // RETRIEVE SHIPPING ADDRESS AND SAVE AS BILLING
+	// $(document).on('click', '#btn_save_shipping_as_billing', function(){
+	// 	let savedShippingAddress = $(this).val();
+
+	// 	// $.post('../controllers/process_save_shipping_as_billing.php', {
+	// 	// 	savedShippingAddress: savedShippingAddress
+	// 	// }, function(response){
+	// 	// 	// reload the modal with the new quantity reflected
+	// 	// 	$.get("../partials/templates/confirmation_modal.php", function(response) {
+	// 	// 		$('.modal .modal-body').html(response);
+	// 	// 	});
+	// 	// });
+
+	// })
 
 	// ADDING NEW ADDRESSES OR OVEWRITING SELECTED ADDRESS TYPES
 	$(document).on('click', '#btn_add_new_address', function(){
@@ -1953,6 +1941,7 @@ $(document).ready( () => {
 		$("#streetBldgUnit").val("");
 		$("#landmark").val("");
 		$("#addressType").val("");
+		$("#name").val("");
 
 	});
 

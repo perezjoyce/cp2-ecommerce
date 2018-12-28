@@ -1,11 +1,10 @@
 <?php
 
     session_start(); 
-    //require_once "../../controllers/connect.php";
-
+    // require_once "../../controllers/connect.php";
     function getPreselectedAddress($addressId, $conn) {
-        $statement = $conn->prepare("SELECT * FROM tbl_addresses WHERE id=?");
-        $statement->execute([$addressId]);
+        $statement = $conn->prepare("SELECT a.*, o.address_id FROM  tbl_addresses a JOIN tbl_orders o ON o.address_id=a.id WHERE cart_session = ? ");
+        $statement->execute([$_SESSION['cart_session']]);
         $row = $statement->fetch();
         // brgy
         $brgyStatement = $conn->prepare("SELECT * FROM tbl_barangays WHERE id=?"); 
@@ -105,7 +104,7 @@
             <div class="container px-5 pb-2 pt-5">
                 <div class="row mt-4"> 
                     <div class='col'>
-                       <h4>Your Shipping Information</h4>
+                       <h4>Your Billing Information</h4>
                     </div>
                 </div>
 
@@ -127,33 +126,49 @@
                                 if($count) {
                             ?>
                             
-                            <div class="form-inline justify-content-left mt-5">
-                                <div class='pr-5 pt-3'>Choose Saved Address Type</div>    
-                                            
-            
-                                <?php
-                                    while($row = $statement->fetch()){ 
-                                        $addressType = ucfirst($row['addressType']);
-                                        $checked = "";
 
-                                        if(isset($preselectedAddressData['addressType']) && 
-                                            strtolower($addressType) == strtolower($preselectedAddressData['addressType'])) {
-                                                $checked = "checked";
-                                        }
-                                ?>
-                                <div class="form-check form-check-inline pr-5 radio-item">
-                                    <input class="form-check-input user_addressTypes" id='<?= $addressType ?>' name="address_type" type="radio" value="<?= $row['id'] ?>" <?= $checked ?>>
-                                    <label class="form-check-label" for='<?= $addressType ?>'>&nbsp;<?= $addressType ?></label>
+                            <div class="form-inline ml-0 px-0">
+                                <div class='pr-5 pt-3'>Choose Billing Address Type</div> 
+                                <div class="form-check form-check-inline radio-item pr-5 pl-0">    
+                                    <input class="form-check-input user_addressTypes" name="address_type" id="btn_save_shipping_as_billing" type="radio">
+                                    <label  style='justify-content:start' class="form-check-label" for='btn_save_shipping_as_billing'>&nbsp;Same As Shipping Address</label>
                                 </div>
 
-                                <?php }  ?>
-                                <div class="form-check form-check-inline radio-item">    
+                                <div class="form-check form-check-inline radio-item pr-5 pl-0">    
                                     <input class="form-check-input user_addressTypes" name="address_type" id="btn_add_new_address" type="radio">
-                                    <label class="form-check-label" for='btn_add_new_address'>&nbsp;Add A Different Address</label>
+                                    <label style='justify-content:start' class="form-check-label" for='btn_add_new_address'>&nbsp;Add A Different Address</label>
                                 </div>
+                            
+                                <!-- <div class="form-check-inline radio-item p-0 mt-5">
+                                    <div clas='form-check pt-2'>
+                                    
+                                    <?php
+                                        while($row = $statement->fetch()){ 
+                                            $addressType = ucfirst($row['addressType']);
+                                            $checked = "";
 
+                                            if(isset($preselectedAddressData['addressType']) && 
+                                                strtolower($addressType) == strtolower($preselectedAddressData['addressType'])) {
+                                                    $checked = "checked";
+                                            }
+                                    ?>
+                               
+                                    
+                                        <input class="form-check-input user_addressTypes" id='<?= $addressType ?>' name="address_type" type="radio" value="<?= $row['id'] ?>" <?= $checked ?>>
+                                        <label style='justify-content:start' class="form-check-label" for='<?= $addressType ?>'>&nbsp;<?= $addressType ?></label>    
+                                    
+
+                                
+                           
+                                    <?php }  ?>
+                                    </div> -->
+
+                                
+                                   
+                                <!-- </div> -->
+                                </div>
+                                <?php } ?>
                             </div>
-                            <?php } ?>
                                 
                         
                             <!-- REGION -->

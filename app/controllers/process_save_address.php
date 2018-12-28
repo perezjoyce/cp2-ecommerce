@@ -13,6 +13,7 @@
         $streetBldgUnit = $_POST['streetBldgUnit'];
         $landmark = $_POST['landmark'];
         $addressType = $_POST['addressType'];
+        $name = $_POST['name'];
         $_SESSION['preselectedAddressId'] = $_POST['addressId'];
         
         //CHECK IF USER ALREADY HAS AN ADDRESS
@@ -33,26 +34,26 @@
             //IF USER HAS GIVEN ADDRESS TYPE, UPDATE IT
             if($count) {
                 $sql = " UPDATE tbl_addresses SET region_id = ?, province_id = ?, city_id = ?, brgy_id = ?,
-                    street_bldg_unit = ?, landmark = ? WHERE addressType = ? AND `user_id` = ? ";
+                    street_bldg_unit = ?, landmark = ?, name = ? WHERE addressType = ? AND `user_id` = ? ";
                 $statement = $conn->prepare($sql);
-                $statement->execute([$regionId, $provinceId, $cityMunId, $brgyId, $streetBldgUnit, $landmark, $addressType, $userId]);
+                $statement->execute([$regionId, $provinceId, $cityMunId, $brgyId, $streetBldgUnit, $landmark, $name, $addressType, $userId]);
 
             } else {
                 // IF NO, INSERT IT
-                $sql = " INSERT INTO tbl_addresses ( `user_id`, addressType ,region_id, province_id, city_id, brgy_id, street_bldg_unit, landmark ) 
+                $sql = " INSERT INTO tbl_addresses ( `user_id`, addressType ,region_id, province_id, city_id, brgy_id, street_bldg_unit, landmark, `name` ) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?) ";
                 $statement = $conn->prepare($sql);
-                $statement->execute([ $userId, $addressType, $regionId, $provinceId, $cityMunId, $brgyId, $streetBldgUnit, $landmark]);
+                $statement->execute([ $userId, $addressType, $regionId, $provinceId, $cityMunId, $brgyId, $streetBldgUnit, $landmark, $name]);
              
             }
 
 
         } else {
             // IF USER DOESN'T HAVE ADDRESS YET, INSERT ALL DATA
-            $sql = " INSERT INTO tbl_addresses ( `user_id`, addressType ,region_id, province_id, city_id, brgy_id, street_bldg_unit, landmark ) 
+            $sql = " INSERT INTO tbl_addresses ( `user_id`, addressType ,region_id, province_id, city_id, brgy_id, street_bldg_unit, landmark, `name` ) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?) ";
             $statement = $conn->prepare($sql);
-            $statement->execute([ $userId, $addressType, $regionId, $provinceId, $cityMunId, $brgyId, $streetBldgUnit, $landmark]);
+            $statement->execute([ $userId, $addressType, $regionId, $provinceId, $cityMunId, $brgyId, $streetBldgUnit, $landmark, $name]);
             $row = $statement->fetch();
             $addressType = $row['addressType'];
         }
@@ -86,7 +87,7 @@
         // $row = $statement->fetch(PDO::FETCH_ASSOC);
         // echo json_encode($row);
 
-      
+        echo "success";
 
     }
     
