@@ -547,6 +547,42 @@ div#login_image {
 
 /* ================================ CART MODAL =================================== */
 
+
+@media screen {
+    #printSection {
+        display: none;
+    }
+  }
+  
+  @media print {
+    /* div { border: 1px solid black;}  */
+    .print+.print {
+        page-break-before: always;
+    }
+    html, body { height: auto; }
+    body * {
+      visibility:hidden; 
+    }
+    #printSection, #printSection * {
+      visibility:visible;
+    }
+    #printSection {
+      position:absolute;
+      left:0;
+      top:0;
+    }
+
+
+    #printThis {
+        height:auto!important;
+    }
+}
+
+
+  
+  
+
+
 #btn_order_confirmation:hover,
 .back:hover {
     background: #edd4f9!important;

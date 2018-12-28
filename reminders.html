@@ -14,21 +14,16 @@
 21. DONE -- password eye options(so you can have the option to see them)
 22. add status to cart session (instead of creating a separate table for tbl_history) and use this later on to restrict
 reviews to purchased status only so that only users who purchased a product will be allowed to review it
-NOTE: rework 
-23. recently viewed products
+23. DONE -- recently viewed products
 24. view of profile.php if you are registered but not the user
 25. DONE -- display total average points as stars on index.php, products, and other pages == solution: +1
 26. DONE -- half average reviews <i class="fa fa-star-half-o" aria-hidden="true"></i>
 27. DONE -- spacing of stars are not consistent when clicked and when displaying
-28. prep comment section
-29. address foreign keys don't work
+28. DONE -- prep comment section
+29. DONE -- address foreign keys don't work
 30. user include to declutter view pages 
 31. DONE -- conversion of server time to manila time
-34. print order summary, receipt or something
-
-
-
-ERRORS:
+34. DONE -- print order summary, receipt or something - https://restpack.io/html2pdf/save-as-pdf-instructions?error=net%3A%3AERR_CONNECTION_REFUSED%20at%20http%3A%2F%2Flocalhost%2Ftuitt%2Fcp2-ecommerce%2Fapp%2Fviews%2Fproduct.php%3Fid%3D1
 1. DONE-- in the index area, when i add a product to wishlist, the heart of the first product in the list changes instead of the one i'm clicking at.
 2. DONE -- in the index area, when i add a product to wishlist, the number doesn't automatically change;
 3. DONE -- when wish is deleted by 1 user, it is also deleted in other users' accounts.
@@ -39,7 +34,7 @@ ERRORS:
 8. update stock once checkout is done
 8. DONE -- turn to money values (with appropriate commas)
 9. DONE -- add validation for address (if blank) -- should not proceed to order summary -- I added modal attribute only when required fields are filled out
-10. display and add shipping fee to grand total in shopping cart
+10. DONE -- display and add shipping fee to grand total in shopping cart
 11. if out of stock, disable add to cart and place out of stock
 12. DONE -- shipping info options to those with saved addresses needs to be improved. when an option is clicked, the address is displayed?
 13. add stars to catalog pages
@@ -54,7 +49,7 @@ ERRORS:
 22. copy changes of header.php to navbar-nav.php
 23. deleting addresses
 24. remove default images in header and transfer to php
-25. SHIPPING address and billing address (if COD)
+25. DONE -- SHIPPING address and billing address 
 26. header profile pic error after registeration since there is no pic  yet
 28. DONE -- dropdown menus don't respond to mouseout and mouseover
 29. DONE-- adding items to cart and dropdown menu needs refresh to work
@@ -63,19 +58,24 @@ ERRORS:
 32. DONE!!!-- i cannot change what's inside seach once i click outside 
 33. DONE -- catalog overlaps with search results
 34. DONE -- cart overview doesn't scroll when too many items are inside it already
-35. badge moves
+35. DONE -- badge moves
+> placed it outside cart
 36. DONE -- right col of product page is not responsive to screen size
 37. DONE -- datetime in product page is wrong...i only update time upon login...what if user never logs out?
 38. DONE -- fix tabs javascript so that progress only loads when reviews tab is clicked
 39. DONE -- search more doesn't work
 40. DONE -- fetch total shipping, fetch grandtotal
-41. Billing info modal won't return to shipping info when BACK is clicked
-42. Confirmation Modal is sent twice because button has data-url there
-42. JS 1953: reponsenses == error;
-43. 
-
-
-TRANSFERRED ORIG BILLING INFO MODAL CONTENT TO BILLING_INFO_MODAL_SPARE.PHP SO I CAN CREATE 
+41. DONE -- PRINT ORDER SUMMARY 
+42. DONE -- TRANSFER JS OF PRINT TO EXTERNAL JS FILE 
+43. DONE -- Billing info modal won't return to shipping info when BACK is clicked
+    >modal body was missing in the said page
+44. DONE -- Confirmation Modal is sent twice because button has data-url there
+    >added type='button' to prevent default behavior of button in a form (i.e., submit)
+45. DONE -- JS 1953: reponsenses == error;
+    >i was using the word response in both outer and inner AJAX
+46. SEND MESSAGE TO SELLER
+47. PAYPAL 
+48. DONE -- TRANSFERRED ORIG BILLING INFO MODAL CONTENT TO BILLING_INFO_MODAL_SPARE.PHP SO I CAN CREATE 
 ORDER SUMMARY AND CONFIRMATION PAGE
 
 
@@ -111,10 +111,11 @@ DONE -- SEARCH LEADS TO CATALOG. IS THIS SUPPOSED TO BE IT?
 C. SHOPPING CART
 DONE -- LIKE SHOPEE, VIEW ON HOVER https://codepen.io/Gothburz/pen/GpJKqP 
 DONE -- LIKE SHOPEE, DELETE ON DROPDOWN
-1. LIKE SHOPEE AND LAZADA, GO TO DIFF PAGE WHEN CLICKED -- I'LL THINK ABOUT IT
-2. CART LOOKS LIKE LAZADA
+DISCARDED -- LIKE SHOPEE AND LAZADA, GO TO DIFF PAGE WHEN CLICKED -- I'LL THINK ABOUT IT
+DISCARDED -- CART LOOKS LIKE LAZADA
 3. PROGRESS BAR
-4. SAVE CART
+DISCARDED -- SAVE CART -- CART SESSION IS SAVED SO PRODUCTS THERE CAN BE POSTED AS RECENTLY VIEWED
+5. PAYPAL 
 
 
 D. PRODUCT PAGE
@@ -152,7 +153,7 @@ H. HEADER
 1. CART QUICK VIEW SHOULD ONLY BE AVAILABLE IN LG AND MD SCREENS OR JUST SHOW BUTTONS AND REMOVE NAVBAR COLLAPSE
 
 I. INDEX page
-1. -- VIEW MORE -- COPY SHOPEE
+1. DONE -- VIEW MORE
 
 J. CATALOG PAGE
 DONE -- CHILD CATEGORIES ARE STILL BROAD AND CAN HAVE GRANDCHILD CATEGORIES -- BRANDS
@@ -165,8 +166,8 @@ K. CART
 1. DONE -- FETCH QUANTITY FROM BUTTON ADD
 2. DONE -- FETCH SHIPPING RATES AND ADJUST IF FROM SAME SELLER AND WITHIN MINIMUM
 3. DONE -- DESIGN
-4. ADD PAYMENT MODE AND ORDER SUMMARY TO SHIPPING INFO MODAL
-5. ADJUST JS FOR BUTTON IN SHIPPING INFO MODAL TO FIRE CONFIRMATION EVENT AS WELL.
+4. DONE -- ADD PAYMENT MODE AND ORDER SUMMARY TO SHIPPING INFO MODAL
+5. DONE -- ADJUST JS FOR BUTTON IN SHIPPING INFO MODAL TO FIRE CONFIRMATION EVENT AS WELL.
 6. SEND TEMPLATED MESSAGE FOR BOTH SELLER AND BUYER. FINISH PROFILE TOMORROW AS WELL. HARDEST PART WOULD BE MESSEGING
 
 

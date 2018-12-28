@@ -18,7 +18,7 @@
 ?>
 
 
-<div class="container-fluid">
+<div class="container-fluid" id='confirmation_modal'>
     <div class="row">
 
         <div class="col-lg-4 ml-0 py-0 px-0 my-0 ml-0 d-none d-lg-block d-xl-block">
@@ -28,7 +28,7 @@
             </div> -->
         </div>
 
-        <div class="col" style='height:80vh;overflow-y:auto;'>
+        <div class="col" style='height:80vh;overflow-y:auto;' id='printThis'>
 
             <div class="row float-right">
                 <button id='close_modal' type="button" class="close mr-3 mt-2" data-dismiss="modal" aria-label="Close">
@@ -56,7 +56,7 @@
                                     $row = $statement->fetch();
                                     $orderId = $row['id'];
                                     $purchaseDate = $row['purchase_date'];
-                                    $purchaseDate = date("M d, Y (D)", strtotime($purchaseDate));
+                                    $purchaseDate = date("M d, Y", strtotime($purchaseDate));
 
                                     $transactionCode = $row['transaction_code'];
                                     $paymentModeId = $row['payment_mode_id'];
@@ -115,7 +115,7 @@
                                         
                                     </div>
                                     <div class="col">
-                                        <h4 class='text-red font-weight-bold'><?=$transactionCode?></h4>
+                                        <h4 class='text-purple font-weight-bold'><?=$transactionCode?></h4>
                                     </div>
                                 </div>
 
@@ -148,7 +148,6 @@
                                     </div>
                                 </div>
                                 
-                                <br>
                                 
                                 <!-- DELIVERY ADDRESS -->
                                 <div class="row mt-5">
@@ -190,7 +189,7 @@
                                                     </td>
                                                 </tr>
 
-                                                <tr>
+                                                <tr class='tr-gray'>
                                                     <td>
                                                         Billing
                                                     </td>
@@ -504,7 +503,10 @@
                                                 $modalLinkClassPrefix='-big';
                                             }
                                         ?>
-                                        <a class='btn btn-lg btn-block py-3 btn-purple modal-link<?= $modalLinkClassPrefix ?> mt-5' data-grandtotal='<?=$superGrandTotal?>'  data-url='../partials/templates/shipping_info_modal.php' id='btn_cart'>PRINT</a>
+                                        <a class='btn btn-lg btn-block py-3 btn-purple mt-5'  id='btnPrint'>
+                                            Save As PDF&nbsp; 
+                                            <i class="fas fa-file-download"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -524,4 +526,3 @@
 
 </div>
 <!-- /CONTAINER-FLUID -->
-

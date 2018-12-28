@@ -144,9 +144,9 @@
     <div class="container mb-5 vanish-sm">
       <div class="row">
         <div class="col-6">
-            <h2>
+            <h4>
               FEATURED SHOPS
-            </h2>
+            </h4>
         </div>
         <div class="col-6 text-right pt-2">View All&nbsp;<i class="fas fa-angle-double-right"></i></i></div>
       </div>
@@ -200,9 +200,9 @@
     <div class="container mb-5 vanish-lg vanish-md">
       <div class="row">
         <div class="col-6">
-            <h2>
+            <h4>
               FEATURED SHOPS
-            </h2>
+            </h4>
         </div>
         <div class="col-6 text-right pt-2">View All&nbsp;<i class="fas fa-angle-double-right"></i></i></div>
       </div>
@@ -221,7 +221,6 @@
               $id = $row['id'];
               $name = $row['name'];
               $price = $row['price'];
-              $description = $row['description'];
               $item_img = $row['img_path'];
           ?>
           <div class="col-lg-2 col-md-3">
@@ -240,12 +239,115 @@
     </div>
 
     <!-- JUST FOR YOU/ RECENT SEARCHES/ -->
+    <?php 
+      if(isset($_SESSION['id'])){
+        $sql = "SELECT i.id as 'productId', i.name,i.price,i.img_path, c.date_created 
+                FROM tbl_items i 
+                JOIN tbl_carts c 
+                JOIN tbl_variations v 
+                ON v.product_id=i.id 
+                AND c.variation_id=v.id 
+                WHERE user_id = ? 
+                ORDER BY date_created DESC LIMIT 12";
+
+        $statement = $conn->prepare($sql);
+        $statement->execute([$_SESSION['id']]);
+
+        if($statement->rowCount()){
+    ?>
     <div class="container mb-5">
       <div class="row">
-        <div class="col-6">
-            <h2>
+        <div class="col-6 pl-4">
+            <h4>
+              JUST FOR YOU
+            </h4>
+        </div>
+        <div class="col-6 text-right pt-2">View All&nbsp;<i class="fas fa-angle-double-right"></i></i></div>
+      </div>
+
+      <div class="row no-gutters">
+
+        <?php
+          while($row = $statement->fetch()){
+            $id = $row['productId'];
+            $name = $row['name'];
+            $price = $row['price'];
+            $item_img = $row['img_path'];
+          ?>
+
+        <div class="col-lg-2 col-md-3 col-sm-6 px-1 pb-2">
+          <a href="product.php?id=<?= $id ?>">
+            <div class = 'card h-700 border-0'>
+              <img class='card-img-top' src="<?= $item_img ?>" > 
+              <div class="card-body pr-0">
+                <div class='font-weight-bold'>
+                  <?= $name ?>
+                </div>
+                <div>&#8369; <?= $price ?> </div>
+
+                <div class='d-flex flex-row mt-3'>
+                
+                  <!-- WISHLIST BUTTONS -->
+                  <div class='flex-fill' style='cursor:default;'>
+
+                    <?php if(checkIfInWishlist($conn,$id) == 1 ) { ?>
+
+                      <i class='fas fa-heart text-red'></i> 
+                      <span class='product-wish-count<?= $id ?>'>
+                        <small><?= getProductWishlishtCount($conn, $id) ?></small>
+                      </span>
+
+                    <?php } else { 
+                      
+                      if(getProductWishlishtCount($conn, $id) == 0) { ?>
+
+                      <i class='far fa-heart text-gray'></i> 
+                      <span class='text-gray product-wish-count<?= $id ?>'>
+                        <small><?= getProductWishlishtCount($conn, $id) ?></small>
+                      </span>
+
+                      <?php } else { ?>
+
+                      <i class='far fa-heart text-red'></i> 
+                      <span class='text-gray product-wish-count<?= $id ?>'>
+                        <small><?= getProductWishlishtCount($conn, $id) ?></small>
+                      </span>
+
+                    <?php   } }  ?>
+                  </div>
+
+                  <!-- AVERAGE STAR RATING -->
+                  <div class='flex-fill' style="display:flex; flex-direction: column; width:81%; align-items:flex-end">  
+                    <div class='stars-outer' 
+                      data-productrating='<?=getAveProductReview($conn, $id)?>' 
+                      data-productid='<?=$id?>' 
+                      id='average_product_stars2<?=$id?>'>
+                      <span class='stars-inner'></span>
+                    </div>
+                  </div>
+                  <!-- /AVERAGE STAR RATING -->
+                </div>
+
+              </div>
+              <!-- /.CARD BODY -->
+            </div>
+            <!-- /.CARD -->
+          </a>
+        </div>
+        
+        <?php } ?>
+      </div>
+    </div>
+    <?php } } ?>
+
+
+    <!-- TRENDING PRODUCTS -->
+    <div class="container mb-5">
+      <div class="row">
+        <div class="col-6 pl-4">
+            <h4>
               TRENDING PRODUCTS
-            </h2>
+            </h4>
         </div>
         <div class="col-6 text-right pt-2">View All&nbsp;<i class="fas fa-angle-double-right"></i></i></div>
       </div>
@@ -264,7 +366,6 @@
               $id = $row['id'];
               $name = $row['name'];
               $price = $row['price'];
-              $description = $row['description'];
               $item_img = $row['img_path'];
           ?>
           <div class="col-lg-2 col-md-3 col-sm-6 px-1 pb-2">

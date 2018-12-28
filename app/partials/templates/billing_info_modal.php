@@ -382,19 +382,21 @@
                                             }
                                         ?>
                                         
-                                        <button class='btn btn-lg btn-block py-3 btn-purple back modal-link<?= $modalLinkClassPrefix?> mt-5' data-toggle="modal" 
+                                        <button class='btn btn-lg btn-block py-3 btn-purple back modal-link<?= $modalLinkClassPrefix?> mt-5'
                                             data-url="../partials/templates/shipping_info_modal.php" type='button'>
                                             <i class="fas fa-angle-double-left"></i>
                                             &nbsp;Edit Shipping Info
                                         </button>
-                                    </div>
-
-                                    <div class="col-4">
 
                                     </div>
 
                                     <div class="col-4">
-                                        <button class='btn btn-lg btn-block py-3 btn-purple mt-5 modal-link<?= $modalLinkClassPrefix?>' data-url='../partials/templates/confirmation_modal.php' id='btn_order_confirmation' type='button'>
+
+                                    </div>
+
+                                    <div class="col-4">
+                                        <button class='btn btn-lg btn-block py-3 btn-purple mt-5 modal-link<?= $modalLinkClassPrefix?>' 
+                                            data-url='../partials/templates/confirmation_modal.php' id='btn_order_confirmation' type='button'>
                                             Confirm Order
                                         </button>
 

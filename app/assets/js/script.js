@@ -942,8 +942,8 @@ $(document).ready( () => {
 		const id = $(this).data('id');
 
 		$.get(url, {'id': id},function(response){
-			$('#modalContainerBig .modal-body').html("");
-			$('#modalContainerBig .modal-body').html(response);
+			$('#modalContainerBig .modal-content').html("");
+			$('#modalContainerBig .modal-content').html(response);
 			$('#modalContainerBig').modal();
 		});
 	});
@@ -1870,8 +1870,8 @@ $(document).ready( () => {
 			$.post('../controllers/process_save_address.php', data, function(response){
 				if(response == 'success') {
 
-					$.get(url, function(response){
-						$('#modalContainerBig .modal-content').html(response);
+					$.get(url, function(data){
+						$('#modalContainerBig .modal-content').html(data);
 					});
 
 				}
@@ -1952,6 +1952,10 @@ $(document).ready( () => {
 
 	// ORDER CONFIRMATION
 	$(document).on('click', '#btn_order_confirmation', function(){
+
+		// DELETE ERROR MESSAGE IN CASE MERON
+		$("#billing_info_error").text("");
+
 		let modeOfPaymentId = $('#modeOfPayment').val();
 
 
@@ -1989,11 +1993,6 @@ $(document).ready( () => {
 			}, function(response){
 				if(response == 'success') {
 					flag = 0;
-					// $.get(url, function(response){
-					// 	$('#modalContainerBig .modal-content').html(response);
-					// });
-				} else {
-					flag = 1;
 				}
 			});
 		
@@ -2002,11 +2001,7 @@ $(document).ready( () => {
 			$.post('../controllers/process_save_shipping_as_billing.php', {
 				addressId: addressId
 			}, function(response){
-				if(response == 'success'){
-					flag = 0;
-				}else {
-					flag = 1;
-				}
+				flag = 0;
 			});
 		}
 
@@ -2017,9 +2012,8 @@ $(document).ready( () => {
 			}, function(response){
 
 				if(response == "success"){
-					// reload the modal with the new quantity reflected
-					$.get(url, function(response){
-						$('#modalContainerBig .modal-content').html(response);
+					$.get(url, function(data){
+						$('#modalContainerBig .modal-content').html(data);
 					});
 				}
 				
@@ -2029,6 +2023,43 @@ $(document).ready( () => {
 		}
 		
 	});
+
+
+	// PRINT CONFIRMATION PAGE 
+	// http://jsfiddle.net/95ezN/121/
+	$(document).on('click', "#btnPrint", function () {
+		printElement(document.getElementById("printThis"));
+		// var modThis = document.querySelector("#printSection .modifyMe");
+		// modThis.appendChild(document.createTextNode(" new"));
+		window.print();
+
+		// RELOAD CART WITH THE NEW QUANTITY REFLECTED
+		$.get("../controllers/process_unset_session.php", function(data) {
+			let response = $.parseJSON(data);
+			if(response.message == 'success'){
+				$("#modalContainerBig").modal('hide'); 
+				location.href="index.php?id=" + response.userId; 
+			
+			}
+		});
+
+	});
+
+	window.printElement = function(elem) {
+		var domClone = elem.cloneNode(true);
+		
+		var $printSection = document.getElementById("printSection");
+		
+		if (!$printSection) {
+			var $printSection = document.createElement("div");
+			$printSection.id = "printSection";
+			document.body.appendChild($printSection);
+		}
+		
+		$printSection.innerHTML = "";
+		
+		$printSection.appendChild(domClone);
+	}
 
 });
 
