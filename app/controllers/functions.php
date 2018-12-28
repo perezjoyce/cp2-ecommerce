@@ -305,8 +305,69 @@
             </span>
             
             ";
-        
-
-        
+    
 
     }
+
+    // GET REGION NAME
+    function getRegionName($conn, $sRegionId){
+        $sql = "SELECT regDesc FROM tbl_regions WHERE id = ?";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$sRegionId]);	
+        $row = $statement->fetch();
+        $sRegionName = $row['regDesc'];
+
+        echo  $sRegionName;
+    }
+
+    // GET PROVINCE NAME
+    function getProvinceName($conn, $sProvId){
+        $sql = "SELECT provDesc FROM tbl_provinces WHERE id = ?";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$sProvId]);	
+        $row = $statement->fetch();
+        $sProvName = $row['provDesc'];
+        $sProvName = ucwords(strtolower($sProvName));
+
+        echo  $sProvName;
+    }
+
+    // GET CITY NAME 
+    function getCityName($conn, $sCityId){
+        $sql = "SELECT citymunDesc FROM tbl_cities WHERE id = ?";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$sCityId]);	
+        $row = $statement->fetch();
+        $sCityName = $row['citymunDesc'];
+        $sCityName = ucwords(strtolower($sCityName));
+
+        echo $sCityName;
+    }
+
+    // GET BRGY NAME
+    function getBrgyName($conn, $sBrgyId){
+        $sql = "SELECT brgyDesc FROM tbl_barangays WHERE id = ?";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$sBrgyId]);	
+        $row = $statement->fetch();
+        $sBrgyName = $row['brgyDesc'];
+        $sBrgyName = ucwords(strtolower($sBrgyName));
+
+        echo $sBrgyName;
+    }
+
+    //GET MODE OF PAYMENT
+    function getModeOfPayment($conn, $paymentModeId){
+        $sql = "SELECT `name` FROM tbl_payment_modes WHERE id = ?";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$paymentModeId]);	
+        $row = $statement->fetch();
+        $paymentModeName = $row['name'];
+
+        if($paymentModeName == 'COD') {
+            $paymentModeName = 'Cash On Delivery (COD)';
+        }
+
+        echo $paymentModeName;
+    }
+

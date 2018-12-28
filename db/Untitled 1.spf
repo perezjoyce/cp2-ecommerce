@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ContentFilters</key>
+	<dict/>
+	<key>auto_connect</key>
+	<true/>
+	<key>data</key>
+	<dict>
+		<key>connection</key>
+		<dict>
+			<key>database</key>
+			<string>db_demoStoreNew</string>
+			<key>host</key>
+			<string>127.0.0.1</string>
+			<key>kcid</key>
+			<string>7947604497429565580</string>
+			<key>name</key>
+			<string>127.0.0.1</string>
+			<key>rdbms_type</key>
+			<string>mysql</string>
+			<key>sslCACertFileLocation</key>
+			<string></string>
+			<key>sslCACertFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslCertificateFileLocation</key>
+			<string></string>
+			<key>sslCertificateFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslKeyFileLocation</key>
+			<string></string>
+			<key>sslKeyFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>type</key>
+			<string>SPTCPIPConnection</string>
+			<key>useSSL</key>
+			<integer>0</integer>
+			<key>user</key>
+			<string>root</string>
+		</dict>
+		<key>session</key>
+		<dict>
+			<key>connectionEncoding</key>
+			<string>latin1</string>
+			<key>contentFilter</key>
+			<dict/>
+			<key>contentPageNumber</key>
+			<integer>1</integer>
+			<key>contentSelection</key>
+			<data>
+			YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFy
+			Y2hpdmVyVCR0b3ASAAGGoK8QDwcIFRYXGBkfICEoLDA1OlUkbnVs
+			bNMJCgsMEBRXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6MNDg+A
+			AoADgASjERITgAWABoAKgA5UdHlwZVRyb3dzVGtleXNfECZTZWxl
+			Y3Rpb25EZXRhaWxUeXBlUHJpbWFyeUtleWVkRGV0YWlsc9MJCgsa
+			HB6hG4AHoR2ACIAJUjM0CdIiIyQlWiRjbGFzc25hbWVYJGNsYXNz
+			ZXNfEBNOU011dGFibGVEaWN0aW9uYXJ5oyQmJ1xOU0RpY3Rpb25h
+			cnlYTlNPYmplY3TSCgspK6EqgAuADdILLS4vWU5TLnN0cmluZ4AM
+			Umlk0iIjMTJfEA9OU011dGFibGVTdHJpbmejMTM0WE5TU3RyaW5n
+			WE5TT2JqZWN00iIjNjdeTlNNdXRhYmxlQXJyYXmjNjg5V05TQXJy
+			YXlYTlNPYmplY3TSIiMmO6ImPFhOU09iamVjdF8QD05TS2V5ZWRB
+			cmNoaXZlctE/QFRkYXRhgAEACAARABoAIwAtADIANwBJAE8AVgBe
+			AGkAcAB0AHYAeAB6AH4AgACCAIQAhgCLAJAAlQC+AMUAxwDJAMsA
+			zQDPANIA0wDYAOMA7AECAQYBEwEcASEBIwElAScBLAE2ATgBOwFA
+			AVIBVgFfAWgBbQF8AYABiAGRAZYBmQGiAbQBtwG8AAAAAAAAAgEA
+			AAAAAAAAQQAAAAAAAAAAAAAAAAAAAb4=
+			</data>
+			<key>contentSortColIsAsc</key>
+			<true/>
+			<key>contentViewport</key>
+			<string>{{0, 0}, {1226, 737}}</string>
+			<key>isToolbarVisible</key>
+			<true/>
+			<key>queries</key>
+			<string>SELECT c.cart_session, c.variation_id, c.quantity, i.price, SUM(i.price * c.quantity) FROM tbl_items i JOIN tbl_carts c JOIN tbl_variations v ON v.product_id=i.id AND c.variation_id=v.id WHERE c.cart_session = '5c23b57c3ea59';
+
+SELECT c.cart_session, SUM(i.price * c.quantity) AS 'grandTotal' FROM tbl_items i JOIN tbl_carts c JOIN tbl_variations v ON v.product_id=i.id AND c.variation_id=v.id WHERE c.cart_session = '5c23b57c3ea59';
+
+SELECT v.product_id as 'productId', v.variation_stock, v.variation_name, c.variation_id, c.quantity, c.cart_session, p.img_path, p.name, p.price, p.store_id
+            FROM tbl_carts c 
+            JOIN tbl_items p 
+            JOIN tbl_variations v
+            ON v.product_id = p.id AND c.variation_id=v.id WHERE cart_session= '5c23b57c3ea59' AND p.store_id = 1;
+            
+SELECT c.cart_session, i.store_id, SUM(i.price * c.quantity) AS 'grandTotal', s.name, s.standard_shipping, s.free_shipping_minimum FROM tbl_items i JOIN tbl_carts c JOIN tbl_variations v JOIN tbl_stores s ON v.product_id=i.id AND c.variation_id=v.id AND i.store_id=s.id WHERE c.cart_session = '5c23b57c3ea59' GROUP BY store_id;
+
+SELECT addr.*, prov.provDesc as province_name,city.citymunDesc as city_name, brgy.brgyDesc as barangay_name FROM tbl_addresses addr JOIN tbl_regions reg on reg.id=addr.region_id JOIN tbl_provinces prov on prov.regCode=reg.regCode JOIN tbl_cities city on city.provCode=prov.provCode JOIN tbl_barangays brgy on brgy.citymunCode=city.citymunCode WHERE addr.id=20 ;
+
+SELECT a.*, o.address_id FROM  tbl_addresses a JOIN tbl_orders o ON o.address_id=a.id WHERE cart_session = '5c20ef753ce09';
+
+SELECT * FROM tbl_addresses WHERE `user_id` = 2 AND id != 20;
+
+SELECT a.name, o.address_id, o.billing_address_id FROM tbl_addresses a JOIN tbl_orders o ON o.address_id=a.id WHERE cart_session = ?</string>
+			<key>table</key>
+			<string>tbl_orders</string>
+			<key>view</key>
+			<string>SP_VIEW_CUSTOMQUERY</string>
+			<key>windowVerticalDividerPosition</key>
+			<real>214</real>
+		</dict>
+	</dict>
+	<key>encrypted</key>
+	<false/>
+	<key>format</key>
+	<string>connection</string>
+	<key>queryFavorites</key>
+	<array/>
+	<key>queryHistory</key>
+	<array>
+		<string>SELECT a.name, o.address_id, o.billing_address_id FROM tbl_addresses a JOIN tbl_orders o ON o.address_id=a.id</string>
+		<string>SELECT a.name, o.address_id, o.billing_id FROM tbl_addresses a JOIN tbl_orders o ON o.address_id=a.id</string>
+		<string>SELECT a.name, o.address_id, o.billing_id FROM tbl_addresses a JOIN tbl_orders o ON o.address_id=a.id WHERE cart_session = ?</string>
+		<string>SELECT a.name, o.* FROM tbl_addresses a JOIN tbl_orders o ON o.address_id=a.id</string>
+		<string>SELECT a.name, o.* FROM tbl_addresses a JOIN tbl_orders o ON o.address_id=id</string>
+		<string>SELECT * FROM tbl_addresses WHERE `user_id` = 2 AND id != 20</string>
+		<string>SELECT * FROM tbl_addresses WHERE `user_id` = 2</string>
+		<string>SELECT a.*, o.* FROM  tbl_addresses a JOIN tbl_orders o ON o.address_id=a.id</string>
+		<string>SELECT a.*, o* FROM  tbl_addresses a JOIN tbl_orders o ON o.address_id=a.id</string>
+		<string>SELECT a.*, o.address_id FROM  tbl_addresses a JOIN tbl_orders o ON o.address_id=a.id</string>
+		<string>SELECT a.*, o.address_id FROM  tbl_addresses a JOIN tbl_orders o ON o.address_id=a.id WHERE</string>
+		<string>SELECT a.*, o.address_id FROM  tbl_addresses a JOIN tbl_orders o ON o.address_id=a.id WHERE cart_session = '5c20ef753ce09'</string>
+		<string>SELECT a.*, o.address_id FROM  tbl_addresses a JOIN tbl_orders o ON o.addresss_id=a.id WHERE cart_session = '5c20ef753ce09'</string>
+		<string>SELECT a.*, o.address_id FROM  tbl_address a JOIN tbl_orders o ON o.addresss_id=a.id WHERE cart_session = '5c20ef753ce09'</string>
+		<string>SELECT a.*, o.address_id ON tbl_address a JOIN tbl_orders o ON o.addresss_id=a.id WHERE cart_session = '5c20ef753ce09'</string>
+		<string>SELECT addr.*, prov.provDesc as province_name,city.citymunDesc as city_name, brgy.brgyDesc as barangay_name FROM tbl_addresses addr JOIN tbl_regions reg on reg.id=addr.region_id JOIN tbl_provinces prov on prov.regCode=reg.regCode JOIN tbl_cities city on city.provCode=prov.provCode JOIN tbl_barangays brgy on brgy.citymunCode=city.citymunCode WHERE addr.id=20</string>
+		<string>SELECT addr.*, prov.provDesc as province_name,city.citymunDesc as city_name, brgy.brgyDesc as barangay_name FROM tbl_addresses addr JOIN tbl_regions reg on reg.id=addr.region_id JOIN tbl_provinces prov on prov.regCode=reg.regCode JOIN tbl_cities city on city.provCode=prov.provCode JOIN tbl_barangays brgy on brgy.citymunCode=city.citymunCode</string>
+		<string>SELECT addr.*, prov.provDesc as province_name,city.citymunDesc as city_name, brgy.brgyDesc as barangay_name FROM tbl_addresses addr JOIN tbl_regions reg on reg.id=addr.region_id JOIN tbl_provinces prov on prov.regCode=reg.regCode JOIN tbl_cities city on city.provCode=prov.provCode JOIN tbl_barangays brgy on brgy.citymunCode=city.citymunCode WHERE addr.id=20 GROUP BY addr.id</string>
+		<string>SELECT addr.*, prov.provDesc as province_name,city.citymunDesc as city_name, brgy.brgyDesc as barangay_name FROM tbl_addresses addr JOIN tbl_regions reg on reg.id=addr.region_id JOIN tbl_provinces prov on prov.regCode=reg.regCode JOIN tbl_cities city on city.provCode=prov.provCode JOIN tbl_barangays brgy on brgy.citymunCode=city.citymunCode WHERE addr.id=20 GROUP BY add.id</string>
+		<string>SELECT c.cart_session, i.store_id, SUM(i.price * c.quantity) AS 'grandTotal', s.name, s.standard_shipping, s.free_shipping_minimum FROM tbl_items i JOIN tbl_carts c JOIN tbl_variations v JOIN tbl_stores s ON v.product_id=i.id AND c.variation_id=v.id AND i.store_id=s.id WHERE c.cart_session = '5c23b57c3ea59' GROUP BY store_id</string>
+	</array>
+	<key>rdbms_type</key>
+	<string>mysql</string>
+	<key>rdbms_version</key>
+	<string>5.5.5-10.1.37-MariaDB</string>
+	<key>version</key>
+	<integer>1</integer>
+</dict>
+</plist>

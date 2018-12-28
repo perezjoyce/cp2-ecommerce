@@ -330,7 +330,7 @@
 
                             <!-- NAME -->
                             <div class="form-group row mb-5">
-                                <label for='name' class='col'>Name*</label>
+                                <label for='name' class='col'>Complete Name*</label>
                                 <div class="input-group col-9">
                                     <input type="text" class='form-control' id='name'
                                         value="<?= isset($preselectedAddressData['name']) 
