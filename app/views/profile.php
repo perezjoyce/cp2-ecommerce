@@ -497,11 +497,12 @@
                                                 ?>
                                         
                                                 
-                                                <tr id='wish-row<?=$completeOrderProductId?>'>
+                                                <tr id='wish-row<?=$completeOrderProductId?>' class='d-flex align-items-center'>
                                                     
                                                     
                                                     <!-- IMAGE, NAME AND VARIATION -->
-                                                    <td class='mx-0'> 
+                                                    <td class='mx-0 flex-fill'> 
+                                                        <!-- <input type="text" value='<?=$completeOrderSession?>'> -->
                                                         <a href="product.php?id=<?=$completeOrderProductId?>" target='_blank'>
                                                             <div class='d-flex flex-row align-items-center' style='justify-content:flex-start;'>
                                                                 <div class='flex pr-2'>
@@ -514,7 +515,7 @@
                                                                                 <h4 class='text-secondary'><?= $completeOrderProductName ?></h4>
                                                                             </div>
                                                                             <div>
-                                                                                <h4 class='text-secondary'><?= $completeOrderVariationName ?></h4>
+                                                                                <div class='text-gray'><?= $completeOrderVariationName ?></div>
                                                                             </div>
                                                                             <div>
                                                                                 <span class='text-gray'>&#8369;&nbsp;</span>
@@ -528,14 +529,14 @@
                                                         </a> 
                                                     </td>
 
-                                                    <!-- ADD TO CART -->
-                                                    <!-- CAN'T DO THIS ANYMORE SINCE YOU NEED TO SELECT VARIATION FIRST -->
-
-                                                    <!-- DELETE -->
-                                                    <td>
-                                                        <button data-productid='<?=$completeOrderProductId?>' type="button" class="close btn_delete_wish" aria-label="Close">
-                                                            <span aria-hidden="true" class='font-weight-light text-secondary' style='font-size:20px;'>&times;</span>
-                                                        </button>
+                                                    <!-- RATING MODAL -->
+                                                    <td class='flex'>
+                                                     
+                                                        <div class="py-2">
+                                                            <a data-url="../partials/templates/review_product_modal.php" data-productid='<?=$completeOrderProductId?>' class='btn btn-block border btn_review_product' style='cursor:pointer;size:15px;'>
+                                                                <small class='text-gray'>REVIEW PRODUCT</small>
+                                                            </a>
+                                                        </div>
 
                                                     </td>
                                                     

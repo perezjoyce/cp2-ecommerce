@@ -2080,7 +2080,6 @@ $(document).ready( () => {
 	});
 
 	//PRINT ORDER COPY
-	// PRINT CONFIRMATION PAGE 
 	// http://jsfiddle.net/95ezN/121/
 	$(document).on('click', "#btn_print_order_copy", function () {
 		printElement(document.getElementById("printThis"));
@@ -2088,6 +2087,24 @@ $(document).ready( () => {
 		// modThis.appendChild(document.createTextNode(" new"));
 		window.print();
 
+	});
+
+	//VIEW ORDER HISTORY
+	$(document).on('click', '.btn_review_product', function(){
+		let productId = $(this).data('productid');
+		let url = $(this).data('url');
+		$(this).addClass('modal-link');
+		
+		$.post(url, {
+			productId: productId
+		}, function(response){
+			$('#modalContainer .modal-content').html(response);
+			
+			// $("#modalContainer").on('shown.bs.modal', function(){
+			// 	$('#modalContainer .modal-content').html(response);
+			// });
+			
+		});
 	});
 		
 	
