@@ -228,7 +228,7 @@
                         </a>
 
                         <div class="dropdown-menu" aria-labelledby="profileDropdown" id='profileDropdown_menu' style='min-width:1rem;'>
-                            <a class="dropdown-item my-3" href='profile.php?id=$id'>
+                            <a class="dropdown-item my-3" href='profile.php?id=<?=$id?>'>
                                 <i class="far fa-user-circle mr-2"></i>
                                 Profile
                             </a>

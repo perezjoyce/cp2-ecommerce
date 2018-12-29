@@ -241,14 +241,17 @@
     <!-- JUST FOR YOU/ RECENT SEARCHES/ -->
     <?php 
       if(isset($_SESSION['id'])){
-        $sql = "SELECT i.id as 'productId', i.name,i.price,i.img_path, c.date_created 
-                FROM tbl_items i 
-                JOIN tbl_carts c 
-                JOIN tbl_variations v 
-                ON v.product_id=i.id 
-                AND c.variation_id=v.id 
-                WHERE user_id = ? 
-                ORDER BY date_created DESC LIMIT 12";
+        $sql = "SELECT o.purchase_date, o.status_id, c.user_id, c.variation_id, i.name, i.price,i.img_path, i.id 
+            as 'productId' 
+            FROM tbl_orders o 
+            JOIN tbl_carts c 
+            JOIN tbl_items i 
+            JOIN tbl_variations v 
+            ON o.cart_session=c.cart_session 
+            AND c.variation_id=v.id 
+            AND v.product_id=i.id 
+            WHERE status_id != 2 
+            AND c.user_id = ? GROUP BY productId LIMIT 12";
 
         $statement = $conn->prepare($sql);
         $statement->execute([$_SESSION['id']]);

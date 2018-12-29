@@ -371,3 +371,16 @@
         echo $paymentModeName;
     }
 
+
+    //GET STATUS OF ORDER
+    function displayOrderStatus($conn,$statusId) {
+        $sql = "SELECT * FROM tbl_status WHERE id = ?";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$statusId]);	
+        $row = $statement->fetch();
+        $status = $row['name'];
+        $status = ucfirst($status);
+        
+        // var_dump($status);die();
+        echo $status;
+    }

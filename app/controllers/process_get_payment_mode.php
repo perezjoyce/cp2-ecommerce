@@ -8,7 +8,7 @@ if(isset($_POST['modeOfPaymentId'])) {
    $cartSession = $_SESSION['cart_session'];
    $userId = $_SESSION['id'];
     //  SET UNIQUE TRANSACTION CODE  
-   $_SESSION['transaction_code'];
+    // $_SESSION['transaction_code'];
     $unique_num = str_replace(".","",microtime(true)).rand(000,999);
     $unique_mix = substr(hash('sha256', mt_rand()), 0, 10);
     $_SESSION['transaction_code'] = $unique_num . " - " . $unique_mix;

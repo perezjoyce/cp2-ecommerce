@@ -1,6 +1,7 @@
 <?php require_once "../../config.php";?>
 <?php require_once "../partials/header.php";?>
 <?php require_once "../controllers/connect.php";?>
+<?php require_once "../controllers/functions.php";?>
 
 <?php 
 
@@ -40,90 +41,617 @@
 ?>
     <!-- PAGE CONTENT -->
     <br>
-    <div class="container border p-0 mt-5">
-        <div class="row">
+    <div class="container p-0 my-lg-5 mt-md-5">
 
-            <!-- SIDE BAR -->
-            <div class="col-lg-2 col-md-4">
-                <div class="container">
-                    <!-- PROFILE PICTURE -->
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <img src='<?= $profile_pic ?>'  class="user-photo circle" height="80">
-                        </div>
-                        <div class="col">
-                            <div class="mt-4"> Hello, <span class="font-weight-bold"><?= $username ?></span>! </div>
-                        </div>
-                    </div>
-                    <hr>
 
-                    <!-- MY PROFILE -->
-                    <div class="row">
-                        <a class='list-group-item btn border-0 btn-block text-left mx-3 mb-1' role='button' href="profile.php?id=<?= $id ?>" style='background:#f5f5f5;'>
-                            <i class='far fa-user mr-3'></i>
-                            Profile
-                        </a>
-                    </div>
-
-                    <!-- SHIPPING ADDRESS -->
-                    <div class="row">
-                        <a class='list-group-item btn border-0 btn-block text-left mx-3 mb-1 btn_view_addresses' role='button' data-id='<?= $id ?>' style='background:#f5f5f5;'>
-                            <i class="far fa-address-book mr-3"></i>
-                            Shipping Addresses
-                        </a>
-                    </div>
-
-                    <!-- ORDER HISTORY -->
-                    <div class="row">
-                        <a class='list-group-item btn border-0 btn-block text-left mx-3 btn_view_wishList' role='button' data-id='<?= $id ?>' style='background:#f5f5f5;'>
-                            <i class="fas fa-history mr-3"></i>  
-                            Order History
-                        </a>
-                    </div>
-
-                    <!-- WISH LIST -->
-                    <div class="row">
-                        <a class='list-group-item btn border-0 btn-block text-left mx-3 btn_view_wishList' role='button' data-id='<?= $id ?>' style='background:#f5f5f5;'>
-                            <i class="far fa-heart mr-3"></i>
-                            Wish List 
-                            <span class='badge text-light user_wish_count'><?= getWishlishtCount($conn) ?></span>
-                        </a>
-                    </div>
-
-                    <!-- MESSAGES -->
-                    <div class="row">
-                        <a class='list-group-item btn border-0 btn-block text-left mx-3 btn_view_wishList' role='button' data-id='<?= $id ?>' style='background:#f5f5f5;'>
-                            <i class="far fa-comments mr-3"></i>
-                            Messages
-                           
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!-- /SIDE BAR -->
+        <div class="row mx-0">
 
             <!-- MAIN BAR-->
-            <div class="col rounded mr-5" style='background:white;'>
-                <div class='container' id="main-wrapper">
-                    <div class="row pt-5 pl-5 flex-column">
-                        <div class="col">
-                            <h4>My Profile</h4>
-                            <a class='nav-link modal-link px-0' href='#' data-id='<?= $id ?>' data-url='../partials/templates/edit_user_modal.php' role='button'>
-                                <i class="far fa-edit"></i>
-                                Edit Profile
-                            </a>
+            <div class="col">
+
+                <!-- PROFILE -->
+                <div class='container p-lg-5 p-md-5 rounded mb-5' style='background:white;'>
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <div class='d-flex flex-row'>
+                                <div class='flex-fill'>
+                                    <div class="d-flex align-items-center">
+                                        <div class='pr-3'>
+                                            <img src='<?= $profile_pic ?>'  class="user-photo circle" height="90px;">
+                                        </div>
+                                        <div class="d-flex flex-column">
+                                            <div>
+                                                <h3><?= $fname . " " . $lname ?></h3>
+                                            </div>
+                                            
+                                            <div class="text-gray">
+                                                <?
+                                                    $sql = "SELECT last_login FROM tbl_users WHERE id = ?";
+                                                    $statement = $conn->prepare($sql);
+                                                    $statement->execute([$id]);	
+                                                    $row = $statement->fetch();
+                                                    $lastLogin = $row['last_login'];
+                                                    $datetime1 = new DateTime($lastLogin);
+                                                    $datetime2 = new DateTime();
+                                                    $interval = $datetime1->diff($datetime2);
+                                                    $ago = "";
+
+                                                    
+                                                    if($interval->format('%w') != 0) {
+                                                        $ago = $interval->format('Active %w weeks ago');
+                                                    } else {
+                                                        if($interval->format('%d') != 0) {
+                                                            $ago = $interval->format('Active %d days ago ');
+                                                        } else {
+                                                            if($interval->format('%h') != 0) {
+                                                                $ago = $interval->format('Active %h hrs ago');
+                                                            } elseif($interval->format('%i') != 0) {
+                                                                $ago = $interval->format('Active %i minutes ago');
+                                                            } else {
+                                                                $ago = "
+                                                                <small>
+                                                                    <i class='fas fa-circle text-success'>&nbsp;</i>
+                                                                </small>
+                                                                Active Now
+                                                                ";
+                                                            }
+                                                        }
+                                                        
+                                                    }
+                                                ?>
+                                                <small><?=$ago?></small>
+                                             </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='flex-fill text-right'>
+                                    <div class="d-flex flex-column">
+                                        <a class='nav-link modal-link px-0' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
+                                            <i class="fas fa-camera"></i>
+                                            Update Image
+                                        </a>
+                                        <div class="text-gray">
+                                            <small>File size: Max of 1MB</small>
+                                        </div>
+                                        <div class="text-gray">
+                                            <small>File extension: jpg, jpeg, png</small>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <hr class="mb-5">
-                    
-                    <div class="row">
-                        <!-- LEFT OF MAIN BAR -->
-                        <div class="col-lg-8 border-right pl-5">
-                            <div class="container">
+                </div>
 
-                                <div class="row mb-5">
-                                    <div class="col-lg-3">
+                <!-- SECOND ROW -->
+                <div class='container p-0'>
+                    <div class="row">
+
+                        
+                        <div class="col-lg-6 col-md-6">
+                            <!-- BASIC INFO -->
+                            <div class="container p-5 rounded mb-5" style='background:white;'>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <div class='d-flex flex-row'>
+                                            <div class='flex-fill'>
+                                                <h4>Basic Information</h4>
+                                            </div>
+                                            <div class='flex-fill text-right'>
+                                                <a class='nav-link modal-link' href='#' data-id='<?= $id ?>' data-url='../partials/templates/edit_user_modal.php' role='button'>
+                                                    <i class="far fa-edit"></i>
+                                                    Edit
+                                                </a>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row border-top">
+                                    <!-- LEFT OF MAIN BAR -->
+                                    <div class="col">
+                                        <div class="container px-0">
+
+                                            <div class="row my-5">
+                                                <div class="col-3">
+                                                    Name
+                                                </div>
+                                                <div class="col">
+                                                    <?= $fname . " " . $lname ?>
+                                                </div>
+                                            </div>  
+
+                                            <div class="row mb-5">
+                                                <div class="col-3">
+                                                    Username
+                                                </div>
+                                                <div class="col">
+                                                    <?= $username ?>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    Email
+                                                </div>
+                                                <div class="col">
+                                                    <?= hide_email($email) ?>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <!-- /LEFT OF MAIN BAR -->
+
+                                
+                                </div>
+                                <!-- ================ -->
+
+                            </div>
+
+                             <!-- ORDER HISTORY -->
+                             <div class="container p-5 rounded mb-5" style='background:white;height:600px;overflow-y:auto;'>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <div class='d-flex flex-row'>
+                                            <div class='flex-fill'>
+                                                <h4>Order History</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                 <!-- PENDING TRANSACTIONS -->
+                                 <?php
+                                    $sql = "SELECT o.*, s.name as 'status' FROM tbl_orders o JOIN tbl_status s ON o.status_id=s.id WHERE `user_id` = ? AND status_id = 1 ORDER BY o.purchase_date DESC";
+                                                $statement = $conn->prepare($sql);
+                                                $statement->execute([$id]);
+                                                $count = $statement->rowCount();
+                            
+                                            if($count) {
+                                ?>
+                                <div class="row border-top">
+                                    <div class="col px-2">
+                                        <div class="container px-0">
+                                            <table class="table table-hover borderless mt-4 text-center">
+                                                <tr>
+                                                    <h4 class='text-gray pl-3 mt-5'>Pending Orders</h4>
+                                                    
+                                                </tr>
+                                                
+                                                <tr>
+                                                    <thead class='text-secondary bg-gray'>
+                                                        <th>Date</th>
+                                                        <th>Transaction Code</th>
+                                                        <th>Status</th>
+                                                        <th>View</th>
+                                                    </thead>
+                                                </tr>                               
+                        
+                                                <?php 
+                                                        while($row = $statement->fetch()){ 
+                                                        $transactionId = $row['id'];
+                                                        $transactionCode = $row['transaction_code'];
+                                                        $purchaseDate = $row['purchase_date'];
+                                                        $status = $row['status'];
+                                                        $orderHistoryCartSession = $row['cart_session'];
+                                            
+                                                ?>
+                                                
+                                                <tr>
+
+                                                    <!-- PURCHASE DATE -->
+                                                    <td>
+                                                        <div class='py-3 text-secondary'><?=date("M d, Y", strtotime($purchaseDate))?></div>
+                                                    </td>
+                                                    
+                                                    
+                                                    <!-- IMAGE, NAME AND VARIATION -->
+                                                    <td class='mx-0'> 
+                                                        <div class='py-3'><?=$transactionCode ?></div>
+                                                    </td>
+
+                                                    <!-- STATUS-->
+                                                    <td class='mx-0'> 
+                                                        <div class='py-3 text-gray'><?= ucfirst($status) ?></div>
+                                                    </td>
+
+                                                    <!-- VIEW -->
+                                                    <td>
+                                                        <div class="py-3">
+                                                            <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
+                                                                <i class="fas fa-file-download text-gray"></i>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <?php } ?>
+                    
+                                            </table>
+
+                                            <?php } ?>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- COMPLETED TRANSACTIONS -->
+                                <?php
+                                    $sql = "SELECT o.*, s.name as 'status' FROM tbl_orders o JOIN tbl_status s ON o.status_id=s.id WHERE `user_id` = ? AND status_id = 2 ORDER BY o.purchase_date DESC";
+                                            $statement = $conn->prepare($sql);
+                                            $statement->execute([$id]);
+                                            $count = $statement->rowCount();
+                            
+                                        if($count) {
+                                ?>
+                                <div class="row border-top">
+                                    <div class="col px-2">
+                                        <div class="container px-0">
+                                            
+                                            <table class="table table-hover borderless mt-4 text-center">
+                                                <tr>
+                                                    <h4 class='text-gray pl-3 mt-5'>Completed Orders</h4>
+                                                    
+                                                </tr>
+                                                
+                                                <tr>
+                                                    <thead class='text-secondary bg-gray'>
+                                                        <th>Date</th>
+                                                        <th>Transaction Code</th>
+                                                        <th>Status</th>
+                                                        <th>View</th>
+                                                    </thead>
+                                                </tr>
+                                            
+                        
+                                                <?php 
+                                                    while($row = $statement->fetch()){ 
+                                                        $transactionId = $row['id'];
+                                                        $transactionCode = $row['transaction_code'];
+                                                        $purchaseDate = $row['purchase_date'];
+                                                        $status = $row['status'];
+                                                        $orderHistoryCartSession = $row['cart_session'];
+                                            
+                                                ?>
+
+                                                
+                                                <tr>
+
+                                                    <!-- PURCHASE DATE -->
+                                                    <td>
+                                                        <div class='py-3 text-secondary'><?=date("M d, Y", strtotime($purchaseDate))?></div>
+                                                    </td>
+                                                    
+                                                    
+                                                    <!-- IMAGE, NAME AND VARIATION -->
+                                                    <td class='mx-0'> 
+                                                        <div class='py-3'><?=$transactionCode ?></div>
+                                                    </td>
+
+                                                    <!-- STATUS-->
+                                                    <td class='mx-0'> 
+                                                        <div class='py-3 text-gray'><?= ucfirst($status) ?></div>
+                                                    </td>
+
+                                                    <!-- VIEW -->
+                                                    <td>
+                                                        <div class="py-3">
+                                                        <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
+                                                                <i class="fas fa-file-download text-gray"></i>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <?php } ?>
+                    
+                                            </table>
+
+                                            <?php } ?>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <!-- CANCELLED TRANSACTIONS -->
+                                <?php
+                                    $sql = "SELECT o.*, s.name as 'status' FROM tbl_orders o JOIN tbl_status s ON o.status_id=s.id WHERE `user_id` = ? AND status_id = 3 ORDER BY o.purchase_date DESC";
+                                            $statement = $conn->prepare($sql);
+                                            $statement->execute([$id]);
+                                            $count = $statement->rowCount();
+                            
+                                        if($count) {
+                                ?>
+                                <div class="row border-top">
+                                    <div class="col px-2">
+                                        <div class="container px-0">
+                                            
+                                            <table class="table table-hover borderless mt-4 text-center">
+                                                <tr>
+                                                    <h4 class='text-gray pl-3 mt-5'>Cancelled Orders</h4>
+                                                    
+                                                </tr>
+                                                
+                                                <tr>
+                                                    <thead class='text-secondary bg-gray'>
+                                                        <th>Date</th>
+                                                        <th>Transaction Code</th>
+                                                        <th>Status</th>
+                                                        <th>View</th>
+                                                    </thead>
+                                                </tr>
+                                            
+                        
+                                                <?php 
+                                                    while($row = $statement->fetch()){ 
+                                                        $transactionId = $row['id'];
+                                                        $transactionCode = $row['transaction_code'];
+                                                        $purchaseDate = $row['purchase_date'];
+                                                        $status = $row['status'];
+                                                        $orderHistoryCartSession = $row['cart_session'];
+                                            
+                                                ?>
+
+                                                
+                                                <tr>
+
+                                                    <!-- PURCHASE DATE -->
+                                                    <td>
+                                                        <div class='py-3 text-secondary'><?=date("M d, Y", strtotime($purchaseDate))?></div>
+                                                    </td>
+                                                    
+                                                    
+                                                    <!-- IMAGE, NAME AND VARIATION -->
+                                                    <td class='mx-0'> 
+                                                        <div class='py-3'><?=$transactionCode ?></div>
+                                                    </td>
+
+                                                    <!-- STATUS-->
+                                                    <td class='mx-0'> 
+                                                        <div class='py-3 text-gray'><?= ucfirst($status) ?></div>
+                                                    </td>
+
+                                                    <!-- VIEW -->
+                                                    <td>
+                                                        <div class="py-3">
+                                                        <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
+                                                                <i class="fas fa-file-download text-gray"></i>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <?php } ?>
+                    
+                                            </table>
+
+                                            <?php } ?>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-lg-6 col-md-6">
+
+                            <!-- ADDRESSES -->
+                            <div class="container p-5 mb-5 rounded" style='background:white;'>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <div class='d-flex flex-row'>
+                                            <div class='flex-fill'>
+                                                <h4>Addresses</h4>
+                                            </div>
+                                            <div class='flex-fill text-right'>
+                                                <a class='nav-link modal-link' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
+                                                    <i class="far fa-edit"></i>
+                                                    Edit
+                                                </a>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row border-top">
+                                    <div class="col">
+                                        <div class="container px-0">
+
+                                            <?php 
+                                                $sql = "SELECT * FROM tbl_addresses WHERE `user_id` = ?";
+                                                $statement = $conn->prepare($sql);
+                                                $statement->execute([$id]);	
+
+                                                $count = $statement->rowCount();
+
+                                                if($count) {
+                                                    while($row = $statement->fetch()){
+                                                        $addressType = $row['addressType'];
+                                                        $addressType = ucwords(strtolower($addressType));
+                                                
+                                                        $landmark = $row['landmark'];
+                                                        $landmark = ucwords(strtolower($landmark));
+
+                                                        $street = $row['street_bldg_unit'];
+                                                        $street = ucwords(strtolower($street));
+
+                                                        $regionId = $row['region_id'];
+                                                        $provId = $row['province_id'];
+                                                        $cityId = $row['city_id'];
+                                                        $brgyId = $row['brgy_id'];
+                                            ?>
+
+                                             <div class="row mt-5">
+                                                <div class="col-3">
+                                                    <?=$addressType?>
+                                                </div>
+                                                <div class="col">
+                                                        <?=$street?>,&nbsp;
+                                                        <?= getBrgyName($conn, $brgyId) ?>,&nbsp;
+                                                        <?= getCityName($conn, $cityId) ?>,&nbsp;
+                                                        <?= getProvinceName($conn, $provId) ?>,
+                                                        <?= getRegionName($conn, $regionId) ?>&nbsp; -- &nbsp;
+                                                        
+                                                        <span class='text-gray'>
+                                                            <?=$landmark?>
+                                                        </span>
+                                                    
+                                                </div>
+                                            </div>  
+
+
+                                            <?php } } ?>
+
+                                            
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- WISH LIST -->
+                            <div class="container p-5 rounded mb-5" style='background:white;height:550px;overflow-y:auto;'>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <div class='d-flex flex-row'>
+                                            <div class='flex-fill'>
+                                                <h4>Wish List</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row border-top">
+                                    <div class="col px-0">
+                                        <div class="container px-2">
+                                                <!-- ITEMS SUMMARY -->
+                                            <table class="table table-hover borderless mt-4">
+                                                
+                                            
+                        
+                                                <?php 
+
+                                                    $sql = "SELECT w.*, p.img_path, p.name, p.price
+                                                            FROM tbl_wishlists w 
+                                                            JOIN tbl_items p on p.id=w.product_id 
+                                                            WHERE user_id= ? ";
+                                                        $statement = $conn->prepare($sql);
+                                                        $statement->execute([$id]);
+                                                        $count = $statement->rowCount();
+                                     
+                                                    if($count) {
+                                                    while($row = $statement->fetch()){ 
+                                                        $productId = $row['product_id'];
+                                                        $name = $row['name'];
+                                                        $price = $row['price'];
+                                                        $image = $row['img_path'];
+
+                                                ?>
+                                                
+
+                                                
+                                                <tr id='wish-row<?=$productId?>'>
+                                                    
+                                                    
+                                                    <!-- IMAGE, NAME AND VARIATION -->
+                                                    <td class='mx-0'> 
+                                                        <a href="product.php?id=<?=$productId?>">
+                                                            <div class='d-flex flex-row align-items-center' style='justify-content:flex-start;'>
+                                                                <div class='flex pr-2'>
+                                                                    <img src='<?=$image?>' style='width:100px;height:100px;'>
+                                                                </div>   
+                                                                <div class='flex-fill'>
+                                                                    <div class='d-flex flex-column'>
+                                                                    
+                                                                            <div>
+                                                                                <h4 class='text-secondary'><?= $name ?></h4>
+                                                                            </div>
+                                                                            <div>
+                                                                                <span class='text-gray'>&#8369;&nbsp;</span>
+                                                                                <span class='text-gray'><?= $price ?></span>
+                                                                            </div>
+                                                                    
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </a> 
+                                                    </td>
+
+                                                    <!-- ADD TO CART -->
+                                                    <!-- CAN'T DO THIS ANYMORE SINCE YOU NEED TO SELECT VARIATION FIRST -->
+
+                                                    <!-- DELETE -->
+                                                    <td>
+                                                        <button data-productid='<?=$productId?>' type="button" class="close btn_delete_wish" aria-label="Close">
+                                                            <span aria-hidden="true" class='font-weight-light text-secondary' style='font-size:20px;'>&times;</span>
+                                                        </button>
+
+                                                    </td>
+                                                    
+                                                </tr>
+                        
+                                                <?php } } ?>
+                                            
+
+
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            
+                           
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- /#MAIN-WRAPPER -->
+
+
+                <!-- MESSEGING -->
+                <div class="container p-5 rounded mb-5" style='background:white;' id="main-wrapper">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <div class='d-flex flex-row'>
+                                <div class='flex-fill'>
+                                    <h4>Basic Information</h4>
+                                </div>
+                                <div class='flex-fill text-right'>
+                                    <a class='nav-link modal-link' href='#' data-id='<?= $id ?>' data-url='../partials/templates/edit_user_modal.php' role='button'>
+                                        <i class="far fa-edit"></i>
+                                        Edit
+                                    </a>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row border-top">
+                        <!-- LEFT OF MAIN BAR -->
+                        <div class="col-lg-6 col-md-4 col-sm-12">
+                            <div class="container px-0">
+
+                                <div class="row my-5">
+                                    <div class="col-3">
                                         Name
                                     </div>
                                     <div class="col">
@@ -132,7 +660,7 @@
                                 </div>  
 
                                 <div class="row mb-5">
-                                    <div class="col-lg-3">
+                                    <div class="col-3">
                                         Username
                                     </div>
                                     <div class="col">
@@ -140,8 +668,8 @@
                                     </div>
                                 </div>
 
-                                <div class="row mb-5">
-                                    <div class="col-lg-3">
+                                <div class="row">
+                                    <div class="col-3">
                                         Email
                                     </div>
                                     <div class="col">
@@ -154,27 +682,12 @@
                         </div>
                         <!-- /LEFT OF MAIN BAR -->
 
-                        <!-- RIGHT OF MAIN BAR -->
-                        <div class="col">
-                            <div class="row justify-content-center mb-5">
-                                <img src='<?= $profile_pic ?>'  class="user-photo circle" height="80">
-                            </div>
-                            <div class="row justify-content-center">
-                                <a class='nav-link modal-link btn border mb-5' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
-                                    <i class="fas fa-camera"></i>
-                                    Update Image
-                                </a>
-                            </div>
-
-                            <div class="row text-center justify-content-center flex-column mb-5">
-                                <div>File size: Max of 1MB</div>
-                                <div>File extension: .JPG, .JPEG, .PNG</div>
-                            </div>
-                        </div>
-                        <!-- /RIGHT OF MAIN BAR -->
+                       
                     </div>
                 </div>
-                <!-- /#MAIN-WRAPPER -->
+
+
+
             </div>
             <!-- /MAIN BAR -->
 

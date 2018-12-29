@@ -67,7 +67,7 @@
                             <!-- ITEMS SUMMARY -->
                             <table class="table table-hover borderless">
                                 
-                                <tr id="table-header" class='text-secondary bg-gray border-bottom'>
+                                <tr class='text-secondary bg-gray border-bottom'>
                                     <th></th>
                                     <th> ITEM </th>
                                     <th> UNIT PRICE </th>
@@ -206,7 +206,7 @@
                                         </div>
                                         <table class="table table-hover borderless mt-5">
                                             
-                                            <tr id="table-header" class='text-secondary bg-gray text-center border-bottom'>
+                                            <tr class='text-secondary bg-gray text-center border-bottom'>
                                                 <th></th>
                                                 <th class='text-left'>STORE</th>
                                                 <th> SHIPPING FEE </th>
@@ -313,7 +313,7 @@
                                             </div>
                                             <table class="table table-hover borderless mt-5">
                                                 
-                                                <tr id="table-header" class='text-secondary bg-gray text-center border-bottom'>
+                                                <tr class='text-secondary bg-gray text-center border-bottom'>
                                                     <th class='text-left'>SUBTOTALS</th>
                                                     <th> AMOUNT </th>
                                                     
