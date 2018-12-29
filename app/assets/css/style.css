@@ -699,12 +699,12 @@ div#login_image {
 
 .rating:not(:checked) > label {
     float:right;
-    width:1em;
+    width:1.2em;
     padding:0 .1em;
     overflow:hidden;
     white-space:nowrap;
     cursor:pointer;
-    font-size:200%;
+    font-size:400%;
     line-height:1.2;
     color:#ddd;
     /* text-shadow:1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5); */
@@ -715,8 +715,8 @@ div#login_image {
 }
 
 .rating > input:checked ~ label {
-    color: #f70;
-    text-shadow:1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5);
+    color: #ffc107;
+    /* text-shadow:1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5); */
 }
 
 .rating:not(:checked) > label:hover,
@@ -737,7 +737,7 @@ div#login_image {
 .rating > label:active {
     position:relative;
     top:2px;
-    left:2px;
+    left:5px;
 }
 
 /* ================================ HEADER & FOOTER =================================== */
