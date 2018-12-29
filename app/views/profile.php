@@ -228,7 +228,7 @@
                                                     <thead class='text-secondary bg-gray'>
                                                         <th>Date</th>
                                                         <th>Transaction Code</th>
-                                                        <th>Status</th>
+                                                        <!-- <th>Status</th> -->
                                                         <th>View</th>
                                                     </thead>
                                                 </tr>                               
@@ -238,7 +238,7 @@
                                                         $transactionId = $row['id'];
                                                         $transactionCode = $row['transaction_code'];
                                                         $purchaseDate = $row['purchase_date'];
-                                                        $status = $row['status'];
+                                                        // $status = $row['status'];
                                                         $orderHistoryCartSession = $row['cart_session'];
                                             
                                                 ?>
@@ -257,9 +257,9 @@
                                                     </td>
 
                                                     <!-- STATUS-->
-                                                    <td class='mx-0'> 
+                                                    <!-- <td class='mx-0'> 
                                                         <div class='py-3 text-gray'><?= ucfirst($status) ?></div>
-                                                    </td>
+                                                    </td> -->
 
                                                     <!-- VIEW -->
                                                     <td>
@@ -304,7 +304,7 @@
                                                     <thead class='text-secondary bg-gray'>
                                                         <th>Date</th>
                                                         <th>Transaction Code</th>
-                                                        <th>Status</th>
+                                                        <!-- <th>Status</th> -->
                                                         <th>View</th>
                                                     </thead>
                                                 </tr>
@@ -315,7 +315,7 @@
                                                         $transactionId = $row['id'];
                                                         $transactionCode = $row['transaction_code'];
                                                         $purchaseDate = $row['purchase_date'];
-                                                        $status = $row['status'];
+                                                        // $status = $row['status'];
                                                         $orderHistoryCartSession = $row['cart_session'];
                                             
                                                 ?>
@@ -335,9 +335,9 @@
                                                     </td>
 
                                                     <!-- STATUS-->
-                                                    <td class='mx-0'> 
+                                                    <!-- <td class='mx-0'> 
                                                         <div class='py-3 text-gray'><?= ucfirst($status) ?></div>
-                                                    </td>
+                                                    </td> -->
 
                                                     <!-- VIEW -->
                                                     <td>
@@ -384,7 +384,7 @@
                                                     <thead class='text-secondary bg-gray'>
                                                         <th>Date</th>
                                                         <th>Transaction Code</th>
-                                                        <th>Status</th>
+                                                        <!-- <th>Status</th> -->
                                                         <th>View</th>
                                                     </thead>
                                                 </tr>
@@ -395,7 +395,7 @@
                                                         $transactionId = $row['id'];
                                                         $transactionCode = $row['transaction_code'];
                                                         $purchaseDate = $row['purchase_date'];
-                                                        $status = $row['status'];
+                                                        // $status = $row['status'];
                                                         $orderHistoryCartSession = $row['cart_session'];
                                             
                                                 ?>
@@ -415,9 +415,9 @@
                                                     </td>
 
                                                     <!-- STATUS-->
-                                                    <td class='mx-0'> 
+                                                    <!-- <td class='mx-0'> 
                                                         <div class='py-3 text-gray'><?= ucfirst($status) ?></div>
-                                                    </td>
+                                                    </td> -->
 
                                                     <!-- VIEW -->
                                                     <td>
@@ -441,6 +441,120 @@
                                 </div>
 
                             </div>
+
+
+                             <!-- PRODUCTS TO REVIEW -->
+                             <div class="container p-5 rounded mb-5" style='background:white;height:550px;overflow-y:auto;'>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <div class='d-flex flex-row'>
+                                            <div class='flex-fill'>
+                                                <h4>Products To Review</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row border-top">
+                                    <div class="col px-0">
+                                        <div class="container px-2">
+                                               
+                                            <table class="table table-hover borderless mt-4">
+                                                
+                                            
+                        
+                                                <?php 
+                                                    $sql = "SELECT cart_session,purchase_date 
+                                                            FROM tbl_orders WHERE `user_id` = ? 
+                                                            AND status_id = 2 ORDER BY purchase_date DESC";
+                                                        $statement = $conn->prepare($sql);
+                                                        $statement->execute([$id]);
+                                                        $count = $statement->rowCount();
+                                     
+                                                    if($count) {
+                                                    while($row = $statement->fetch()){ 
+                                                        $completeOrderSession = $row['cart_session'];
+
+                                                        $sql2 = "SELECT variation_id FROM tbl_carts WHERE cart_session = ?";
+                                                            $statement2 = $conn->prepare($sql2);
+                                                            $statement2->execute([$completeOrderSession]);
+                                                        
+                                                        while($row2 = $statement2->fetch()){ 
+                                                            $completeOrderVariationId = $row2['variation_id'];
+                                                            
+                                                            $sql3 = "SELECT v.id as 'variationId', v.variation_name as 'variationName', i.id as 'productId', i.name as 'productName', i.price, i.img_path, i.store_id FROM tbl_variations v JOIN tbl_items i ON v.product_id=i.id WHERE v.id = ? GROUP BY i.id";
+                                                                $statement3 = $conn->prepare($sql3);
+                                                                $statement3->execute([$completeOrderVariationId]);
+
+                                                                while($row3 = $statement3->fetch()){ 
+                                                                    $completeOrderVariationName = $row3['variationName'];
+                                                                    $completeOrderProductId = $row3['productId'];
+                                                                    $completeOrderProductName = $row3['productName'];
+                                                                    $completeOrderPrice = $row3['price'];
+                                                                    $completeOrderLogo = $row3['img_path'];
+                                                                    $completeOrderStoreId = $row3['store_id'];
+
+                                                ?>
+                                        
+                                                
+                                                <tr id='wish-row<?=$completeOrderProductId?>'>
+                                                    
+                                                    
+                                                    <!-- IMAGE, NAME AND VARIATION -->
+                                                    <td class='mx-0'> 
+                                                        <a href="product.php?id=<?=$completeOrderProductId?>" target='_blank'>
+                                                            <div class='d-flex flex-row align-items-center' style='justify-content:flex-start;'>
+                                                                <div class='flex pr-2'>
+                                                                    <img src='<?=$completeOrderLogo?>' style='width:100px;height:100px;'>
+                                                                </div>   
+                                                                <div class='flex-fill'>
+                                                                    <div class='d-flex flex-column'>
+                                                                    
+                                                                            <div>
+                                                                                <h4 class='text-secondary'><?= $completeOrderProductName ?></h4>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h4 class='text-secondary'><?= $completeOrderVariationName ?></h4>
+                                                                            </div>
+                                                                            <div>
+                                                                                <span class='text-gray'>&#8369;&nbsp;</span>
+                                                                                <span class='text-gray'><?= $completeOrderPrice ?></span>
+                                                                            </div>
+                                                                    
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </a> 
+                                                    </td>
+
+                                                    <!-- ADD TO CART -->
+                                                    <!-- CAN'T DO THIS ANYMORE SINCE YOU NEED TO SELECT VARIATION FIRST -->
+
+                                                    <!-- DELETE -->
+                                                    <td>
+                                                        <button data-productid='<?=$completeOrderProductId?>' type="button" class="close btn_delete_wish" aria-label="Close">
+                                                            <span aria-hidden="true" class='font-weight-light text-secondary' style='font-size:20px;'>&times;</span>
+                                                        </button>
+
+                                                    </td>
+                                                    
+                                                </tr>
+                        
+                                                <?php } } } }?>
+                                            
+
+
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            
 
                         </div>
 
@@ -568,7 +682,7 @@
                                                     
                                                     <!-- IMAGE, NAME AND VARIATION -->
                                                     <td class='mx-0'> 
-                                                        <a href="product.php?id=<?=$productId?>">
+                                                        <a href="product.php?id=<?=$productId?>" target='_blank'>
                                                             <div class='d-flex flex-row align-items-center' style='justify-content:flex-start;'>
                                                                 <div class='flex pr-2'>
                                                                     <img src='<?=$image?>' style='width:100px;height:100px;'>
@@ -623,7 +737,7 @@
                     </div>
 
                 </div>
-                <!-- /#MAIN-WRAPPER -->
+                <!-- /SECOND ROW -->
 
 
                 <!-- MESSEGING -->
@@ -632,7 +746,7 @@
                         <div class="col">
                             <div class='d-flex flex-row'>
                                 <div class='flex-fill'>
-                                    <h4>Basic Information</h4>
+                                    <h4>Messages</h4>
                                 </div>
                                 <div class='flex-fill text-right'>
                                     <a class='nav-link modal-link' href='#' data-id='<?= $id ?>' data-url='../partials/templates/edit_user_modal.php' role='button'>
