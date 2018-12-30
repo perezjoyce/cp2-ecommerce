@@ -50,10 +50,10 @@
             <div class="col">
 
                 <!-- PROFILE -->
-                <div class='container p-lg-5 p-md-5 rounded mb-5' style='background:white;'>
+                <div class='container p-5 rounded mb-5' style='background:white;'>
                     <div class="row mb-3">
                         <div class="col-12">
-                            <div class='d-flex flex-row'>
+                            <div class='d-flex flex-lg-row flex-md-row flex-sm-column'>
                                 <div class='flex-fill'>
                                     <div class="d-flex align-items-center">
                                         <div class='pr-3'>
@@ -245,30 +245,36 @@
                                                 
                                                 <tr>
 
-                                                    <!-- PURCHASE DATE -->
-                                                    <td>
-                                                        <div class='py-3 text-secondary'><?=date("M d, Y", strtotime($purchaseDate))?></div>
-                                                    </td>
-                                                    
-                                                    
-                                                    <!-- IMAGE, NAME AND VARIATION -->
-                                                    <td class='mx-0'> 
-                                                        <div class='py-3'><?=$transactionCode ?></div>
-                                                    </td>
+                                                    <div>
 
-                                                    <!-- STATUS-->
-                                                    <!-- <td class='mx-0'> 
-                                                        <div class='py-3 text-gray'><?= ucfirst($status) ?></div>
-                                                    </td> -->
-
-                                                    <!-- VIEW -->
-                                                    <td>
-                                                        <div class="py-3">
+                                                        <!-- PURCHASE DATE -->
+                                                        <td>
                                                             <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                                <i class="fas fa-file-download text-gray"></i>
+                                                                <div class='py-3 text-secondary'><?=date("M d, Y", strtotime($purchaseDate))?></div>
                                                             </a>
-                                                        </div>
-                                                    </td>
+                                                        </td>
+                                                        
+                                                        
+                                                        <!-- IMAGE, NAME AND VARIATION -->
+                                                        <td class='mx-0'> 
+                                                            <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
+                                                                <div class='py-3'><?=$transactionCode ?></div>
+                                                            </a>
+                                                        </td>
+
+                                                        <!-- STATUS-->
+                                                        <!-- <td class='mx-0'> 
+                                                            <div class='py-3 text-gray'><?= ucfirst($status) ?></div>
+                                                        </td> -->
+
+                                                        <!-- VIEW -->
+                                                        <td>
+                                                            <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
+                                                                <i class="far fa-file-pdf text-gray py-3"></i>
+                                                            </a>
+                                                        </td>
+                                                        
+                                                    </div>
                                                     
                                                 </tr>
                                                 <?php } ?>
@@ -325,13 +331,17 @@
 
                                                     <!-- PURCHASE DATE -->
                                                     <td>
-                                                        <div class='py-3 text-secondary'><?=date("M d, Y", strtotime($purchaseDate))?></div>
+                                                        <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
+                                                            <div class='py-3 text-secondary'><?=date("M d, Y", strtotime($purchaseDate))?></div>
+                                                        </a>
                                                     </td>
                                                     
                                                     
                                                     <!-- IMAGE, NAME AND VARIATION -->
                                                     <td class='mx-0'> 
-                                                        <div class='py-3'><?=$transactionCode ?></div>
+                                                        <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
+                                                            <div class='py-3'><?=$transactionCode ?></div>
+                                                        </a>
                                                     </td>
 
                                                     <!-- STATUS-->
@@ -341,11 +351,9 @@
 
                                                     <!-- VIEW -->
                                                     <td>
-                                                        <div class="py-3">
                                                         <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                                <i class="fas fa-file-download text-gray"></i>
-                                                            </a>
-                                                        </div>
+                                                            <i class="fas fa-file-download text-gray py-3"></i>
+                                                        </a>
                                                     </td>
                                                     
                                                 </tr>
@@ -405,13 +413,17 @@
 
                                                     <!-- PURCHASE DATE -->
                                                     <td>
-                                                        <div class='py-3 text-secondary'><?=date("M d, Y", strtotime($purchaseDate))?></div>
+                                                        <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
+                                                            <div class='py-3 text-secondary'><?=date("M d, Y", strtotime($purchaseDate))?></div>
+                                                        </a>
                                                     </td>
                                                     
                                                     
                                                     <!-- IMAGE, NAME AND VARIATION -->
                                                     <td class='mx-0'> 
-                                                        <div class='py-3'><?=$transactionCode ?></div>
+                                                        <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
+                                                            <div class='py-3'><?=$transactionCode ?></div>
+                                                        </a>
                                                     </td>
 
                                                     <!-- STATUS-->
@@ -421,11 +433,9 @@
 
                                                     <!-- VIEW -->
                                                     <td>
-                                                        <div class="py-3">
                                                         <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                                <i class="fas fa-file-download text-gray"></i>
-                                                            </a>
-                                                        </div>
+                                                            <i class="fas fa-file-download text-gray py-3"></i>
+                                                        </a>
                                                     </td>
                                                     
                                                 </tr>
@@ -503,16 +513,20 @@
                                                     <!-- IMAGE, NAME AND VARIATION -->
                                                     <td class='mx-0 flex-fill'> 
                                                         <!-- <input type="text" value='<?=$completeOrderSession?>'> -->
-                                                        <a href="product.php?id=<?=$completeOrderProductId?>" target='_blank'>
+                                                        <a data-url="../partials/templates/review_product_modal.php" 
+                                                                data-productid='<?=$completeOrderProductId?>' 
+                                                                class='btn btn_review_product btn_products_to_review<?=$completeOrderProductId?>' 
+                                                                style='cursor:pointer;size:15px;'>
+                                                            
                                                             <div class='d-flex flex-row align-items-center' style='justify-content:flex-start;'>
                                                                 <div class='flex pr-2'>
-                                                                    <img src='<?=$completeOrderLogo?>' style='width:100px;height:100px;'>
+                                                                    <img src='<?=$completeOrderLogo?>' style='width:80px;height:80px;'>
                                                                 </div>   
                                                                 <div class='flex-fill'>
-                                                                    <div class='d-flex flex-column'>
+                                                                    <div class='d-flex flex-column text-left'>
                                                                     
                                                                             <div>
-                                                                                <h4 class='text-secondary'><?= $completeOrderProductName ?></h4>
+                                                                                <div class='text-secondary'><?= $completeOrderProductName ?></div>
                                                                             </div>
                                                                             <div>
                                                                                 <div class='text-gray'><?= $completeOrderVariationName ?></div>
@@ -531,18 +545,19 @@
 
                                                     <!-- RATING MODAL -->
                                                     <td class='flex'>
-                                                     
-                                                        <div class="py-2">
-                                                            <a data-url="../partials/templates/review_product_modal.php" data-productid='<?=$completeOrderProductId?>' class='btn btn-block border btn_review_product' style='cursor:pointer;size:15px;'>
-                                                                <small class='text-gray'>REVIEW PRODUCT</small>
-                                                            </a>
-                                                        </div>
-
+                                                        <a data-url="../partials/templates/review_product_modal.php" 
+                                                                data-productid='<?=$completeOrderProductId?>' 
+                                                                class='btn btn_review_product btn_products_to_review<?=$completeOrderProductId?> py-2' 
+                                                                style='cursor:pointer;size:15px;'>
+                                                           
+                                                                <?=changeWordInsideProductRatingButton($conn,$completeOrderProductId)?>
+                                                            
+                                                        </a>
                                                     </td>
                                                     
                                                 </tr>
                         
-                                                <?php } } } }?>
+                                                <?php } } } } ?>
                                             
 
 
@@ -571,7 +586,7 @@
                                                 <h4>Addresses</h4>
                                             </div>
                                             <div class='flex-fill text-right'>
-                                                <a class='nav-link modal-link' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
+                                                <a class='nav-link modal-link' href='#' data-id='<?= $id ?>' data-url='../partials/templates/edit_address_modal.php' role='button'>
                                                     <i class="far fa-edit"></i>
                                                     Edit
                                                 </a>
@@ -686,13 +701,13 @@
                                                         <a href="product.php?id=<?=$productId?>" target='_blank'>
                                                             <div class='d-flex flex-row align-items-center' style='justify-content:flex-start;'>
                                                                 <div class='flex pr-2'>
-                                                                    <img src='<?=$image?>' style='width:100px;height:100px;'>
+                                                                    <img src='<?=$image?>' style='width:80px;height:80px;'>
                                                                 </div>   
                                                                 <div class='flex-fill'>
                                                                     <div class='d-flex flex-column'>
                                                                     
                                                                             <div>
-                                                                                <h4 class='text-secondary'><?= $name ?></h4>
+                                                                                <div class='text-secondary'><?= $name ?></div>
                                                                             </div>
                                                                             <div>
                                                                                 <span class='text-gray'>&#8369;&nbsp;</span>

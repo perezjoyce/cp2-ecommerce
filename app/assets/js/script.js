@@ -438,13 +438,15 @@ $(document).ready( () => {
 		let streetBldgUnit = $('#streetBldgUnit').val();
 		let landmark = $('#landmark').val();
 		let addressType = $('#addressType').val();
+		let password = $("#password").val();
 
-		if(regionId == "..." || provinceId == "..." || cityMunId == "..." || brgyId == "..." || streetBldgUnit == "" || addressType == "...") {
-			$("#shipping_error_message").css("color", "red");
-			$("#shipping_error_message").text('Please fill out all fields with asterisk.');
+		if(password == "" || regionId == "..." || provinceId == "..." || cityMunId == "..." || brgyId == "..." || streetBldgUnit == "" || addressType == "...") {
+			$("#address_error_message").css("color", "red");
+			$("#address_error_message").text('Please fill out all fields with asterisk.');
 			
 		} else {
-			$.post("../controllers/process_save_address.php", {
+			$.post("../controllers/process_save_profile_address.php", {
+				password, password,
 				regionId:regionId,
 				provinceId:provinceId,
 				cityMunId:cityMunId,
@@ -453,12 +455,22 @@ $(document).ready( () => {
 				landmark:landmark,
 				addressType:addressType
 			}, function(data) {
-				$("#shipping_error_message").css("color", "green");
-				$("#shipping_error_message").text(data);
 
-				$(document).on('click', '.save_address_edit', function(){
-					$(this).attr('data-dismiss','modal');
-				});
+				if(data == "success") {
+					alert("Your changes has been saved.");
+					window.location.reload();
+				}else if(data=='fail') {
+					$("#address_error_message").css("color", "red");
+					$("#address_error_message").text('Your password is incorrect.');
+				}else{
+					$("#address_error_message").css("color", "red");
+					$("#address_error_message").text('Please try again.');
+				}
+				
+
+				// $(document).on('click', '.save_address_edit', function(){
+				// 	$(this).attr('data-dismiss','modal');
+				// });
 					
 			});
 		}		
@@ -927,13 +939,14 @@ $(document).ready( () => {
 
 
 	// DISPLAYING MODAL
-	$(document).on('click', '.modal-link', function(){
+	$(document).on('click', '.modal-link', function(e){
+		e.preventDefault();
 		const url = $(this).data('url');
 		const id = $(this).data('id');
 
 		$.get(url, {'id': id},function(response){
-			$('#modalContainer .modal-body').html("");
-			$('#modalContainer .modal-body').html(response);
+			$('#modalContainer .modal-content').html("");
+			$('#modalContainer .modal-content').html(response);
 			$('#modalContainer').modal();
 		});
 	});
@@ -941,7 +954,8 @@ $(document).ready( () => {
 
 
 	// DISPLAYING MODAL - BIG
-	$(document).on('click', '.modal-link-big', function(){
+	$(document).on('click', '.modal-link-big', function(e){
+		e.preventDefault();
 		const url = $(this).data('url');
 		const id = $(this).data('id');
 
@@ -1955,7 +1969,8 @@ $(document).ready( () => {
 	// =============================================================================== //
 
 	// ORDER CONFIRMATION
-	$(document).on('click', '#btn_order_confirmation', function(){
+	$(document).on('click', '#btn_order_confirmation', function(e){
+		e.preventDefault();
 
 		// DELETE ERROR MESSAGE IN CASE MERON
 		$("#billing_info_error").text("");
@@ -2093,26 +2108,165 @@ $(document).ready( () => {
 
 	});
 
-	//VIEW ORDER HISTORY
+	//REVIEW PRODUCT MODAL ON PROFILE PAGE
 	$(document).on('click', '.btn_review_product', function(){
 		let productId = $(this).data('productid');
 		let url = $(this).data('url');
-		$(this).addClass('modal-link');
+		//$(this).addClass('modal-link');
 		
 		$.post(url, {
 			productId: productId
 		}, function(response){
 			$('#modalContainer .modal-content').html(response);
-			
+			$('#modalContainer').modal('show');
 			// $("#modalContainer").on('shown.bs.modal', function(){
 			// 	$('#modalContainer .modal-content').html(response);
 			// });
-			
+
+			$("#fileBox").on('change', function(){
+				$('#fileBox__label').find('span').text('1 file chosen');	
+			});
+
+			$("#fileBoxSave").on('click', function(){
+				
+				var file_data = $('#fileBox').prop('files')[0]; 
+				var form_data = new FormData();       
+				var ratingId = $(this).data('ratingid');           
+				form_data.append('upload', file_data);
+				form_data.append('rating_id', ratingId);
+				$.ajax({
+					url: '../../app/controllers/process_upload_review_images.php', // point to server-side PHP script 
+					dataType: 'text',  // what to expect back from the PHP script, if anything
+					cache: false,
+					contentType: false,
+					processData: false,
+					data: form_data,                         
+					type: 'post',
+					success: function(php_script_response){
+						$.get('../../app/controllers/process_get_review_images.php', {ratingId: ratingId}, function(response){
+							$("#review_images_container").html(response);
+						});
+					}
+				});
+			});
 		});
 	});
-		
 	
+	//reader.onloadstart = ...
+	//reader.onprogress = ... <-- Allows you to update a progress bar.
+	//reader.onabort = ...
+	//reader.onerror = ...
+	//reader.onloadend = ...
+	
+	// UPLOADING IMAGES ON REVIEW PRODUCT MODAL
+	// https://stackoverflow.com/questions/4006520/using-html5-file-uploads-with-ajax-and-jquery
+	function shipOff(event) {
+		var file_data = event.target.result;
+		var fileName = document.getElementById('fileBox').files[0].name; //Should be 'picture.jpg';
+	
+		//$.post('../../app/controllers/process_upload_review_images.php', { data: result, name: fileName }, function(){
 
+		var form_data = new FormData();                  
+		form_data.append('upload', urlencode(file_data));
+		$.ajax({
+			url: '../../app/controllers/process_upload_review_images.php', // point to server-side PHP script 
+			dataType: 'text',  // what to expect back from the PHP script, if anything
+			cache: false,
+			contentType: false,
+			processData: false,
+			data: form_data,                         
+			type: 'post',
+			success: function(php_script_response){
+				alert(php_script_response); // display response from the PHP script, if any
+			}
+		});
+	}
+
+	// FETCHING RATING SCORE ON REVIEW PRODUCT MODAL ON PROFILE PAGE
+	$(document).on('click', '.product_rating_score', function(){
+		let ratingId = $('#rating_id_hidden').val();
+		let ratingScore = $(this).val();
+		ratingScore = parseInt(ratingScore);
+		$('#rating_score_hidden').val(ratingScore);
+
+		let answer = confirm("Would you like to save this rating? You won't be able to change this rating afterwards if you click OK.");
+
+		if(answer == true) {
+			if(ratingScore == 1) {
+				$('#product_rating_score').replaceWith(
+					"<div>" +
+					"<span class='star2x'>★</span>" +
+					"<span class='star2x-gray'>★</span>" +
+					"<span class='star2x-gray'>★</span>" +
+					"<span class='star2x-gray'>★</span>" +
+					"<span class='star2x-gray'>★</span>" +
+					"</div>");
+			}else if(ratingScore == 2) {
+				$('#product_rating_score').replaceWith(
+					"<div>" +
+					"<span class='star2x'>★&nbsp;</span>" +
+					"<span class='star2x'>★&nbsp;</span>" +
+					"<span class='star2x-gray'>★&nbsp;</span>" +
+					"<span class='star2x-gray'>★&nbsp;</span>" +
+					"<span class='star2x-gray'>★</span>" +
+					"</div>");
+			}else if(ratingScore == 3) {
+				$('#product_rating_score').replaceWith(
+					"<div>" +
+					"<span class='star2x'>★&nbsp;</span>" +
+					"<span class='star2x'>★&nbsp;</span>" +
+					"<span class='star2x'>★&nbsp;</span>" +
+					"<span class='star2x-gray'>★&nbsp;</span>" +
+					"<span class='star2x-gray'>★</span>" +
+					"</div>");
+			}else if(ratingScore == 4) {
+				$('#product_rating_score').replaceWith(
+					"<div>" +
+					"<span class='star2x'>★&nbsp;</span>" +
+					"<span class='star2x'>★&nbsp;</span>" +
+					"<span class='star2x'>★&nbsp;</span>" +
+					"<span class='star2x'>★&nbsp;</span>" +
+					"<span class='star2x-gray'>★</span>" +
+					"</div>");
+			}else{
+				$('#product_rating_score').replaceWith(
+					"<div>" +
+					"<span class='star2x'>★&nbsp;</span>" +
+					"<span class='star2x'>★&nbsp;</span>" +
+					"<span class='star2x'>★&nbsp;</span>" +
+					"<span class='star2x'>★&nbsp;</span>" +
+					"<span class='star2x'>★</span>" +
+					"</div>");
+			}
+
+			$.post('../../app/controllers/process_save_rating_as_final.php', {
+				ratingId:ratingId,
+				ratingScore:ratingScore
+			});
+		} 
+
+	})
+
+	// SAVING DATE IN REVIEW PRODUCT MODAL
+	$(document).on('click', '#btn_submit_review', function(){
+		let productId = $(this).data('productid');
+		let ratingId = $('#rating_id_hidden').val();
+		let ratingScore = $('#rating_score_hidden').val();
+		let productReview = $('#product_review').val();
+
+		$.post('../../app/controllers/process_save_rating_and_review.php', {
+			ratingId:ratingId,
+			ratingScore:ratingScore,
+			productReview:productReview
+		}, function(response){
+			if(response=='success'){
+				alert('Thanks! Your review has been submitted.');
+				window.location.reload();
+				$('.btn_products_to_review'+productId).html("<small class='text-gray font-weight-light'>REVIEWED</small>");
+			}
+		})
+
+	})
 
 });
 

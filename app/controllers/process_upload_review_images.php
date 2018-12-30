@@ -4,14 +4,16 @@ require_once "connect.php";
 require_once "functions.php";
 require_once "../sources/class.upload.php";
 
-$id = $_POST['id'];
+$id = $_POST['rating_id'] ?: null;
 
-$target_dir = "../../uploads/" . $id."/"; // folder
+$target_dir = "../../uploads/review_images/"; // folder
 // $filename = $_FILES['upload']['name'];
 $filename = uniqid(); //RANDOM FILENAME
-$uploader = new Upload($_FILES['upload']);
+//$uploader = new Upload($_FILES['upload']);
 $imageFileType = strtolower(pathinfo($_FILES['upload']['name'], PATHINFO_EXTENSION));
 //$target_file = $target_dir . basename($filename) . ".". $imageFileType;
+
+// check if image is jpeg
 
 //VALIDATION
 // to limit file size to 1 MB
@@ -22,38 +24,36 @@ if ($_FILES['upload']['size'] > 1000000) {
     exit;
 } 
 
-// to limit type of files 
-if ($imageFileType != 'jpg' && $imageFileType != 'png' && $imageFileType != 'jpeg') {
-    $errorMsg = urlencode("Only JPG, JPEG and PNG Files are allowed.");
-    header("Location: ../views/profile.php?id=$id&uploadError=" . $errorMsg);
-    exit;
-}
-
 else {
 
-    $uploader->file_new_name_body = $filename; // rename uploaded file
-    $uploader->Process($target_dir); // actual uploading process
-    //move_uploaded_file($_FILES['upload']['tmp_name'], $target_file);
-    // SET PERMISSION ON FOLDER. TYPE IN TERMINAL : sudo chmod -R  777 app/controllers/uploads/ for file permission for the folder
 
-    // resize uploaded file and copy in another file
-    $uploader->file_new_name_body = $filename . "_80x80";
-    $uploader->image_resize = true;
-    $uploader->image_convert = 'jpg';
-    $uploader->image_x = 80;
-    $uploader->image_y = 80;
-    $uploader->image_ratio_y = false;
-    $uploader->image_ratio = true;
-    $handle->image_ratio_crop = 'TBLR';
-    $uploader->Process($target_dir); // actual uploading of new photo with new size
-    if ($uploader->processed) {
-        $uploader->Clean();
+    $imgPath = $target_dir . $filename . ".jpg";
+    if (move_uploaded_file($_FILES['upload']['tmp_name'], $imgPath)) {
+        $sql = "INSERT INTO tbl_rating_images (url, rating_id) VALUES (?, ?) ";
+        $statement = $conn->prepare($sql);
+        
+        $imgPath = "uploads/review_images/".$filename . ".jpg";
+        $statement->execute([$imgPath, $id]);
+    } else {
+       echo "File was not uploaded";
     }
     
-    //$filename = $filename . "." . $imageFileType;
-    $sql = "INSERT INTO tbl_rating_images (url) VALUES ('uploads/$id/$filename') WHERE rating_id = ? ";
-    $statement = $conn->prepare($sql);
-    $statement->execute([$id]);
-    header("Location: ../views/profile.php?id=$id");
+    // $uploader = new Upload($_FILES['upload']);
+    // //$uploader->file_new_name_body = $filename; // rename uploaded file
+    // $uploader->Process($target_dir);
+    // //if($uploader->uploaded) {
+        
+    //     //$uploader->process($target_dir); // actual uploading of new photo with new size
+    //     if ($uploader->processed) {
+    //         $uploader->Clean();
+    //     }
+        
+        //$filename = $filename . "." . $imageFileType;
+       
+    //}
+    
+    // $statement = $conn->prepare($sql);
+    // $statement->execute([$id]);
+    // header("Location: ../views/profile.php?id=$id");
 }
 

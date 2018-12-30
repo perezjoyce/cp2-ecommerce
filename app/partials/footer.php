@@ -60,7 +60,7 @@
                   <i class="fa fa-circle fa-stack-2x icon-background"></i>
                   <i class="fab fa-facebook-f fa-stack-1x text-primary"></i>
                 </span>
-                <span class="vanish-sm">Facebook</span>
+                <span class="vanish-md vanish-sm">Facebook</span>
               </a>
 
               <a href="https://www.instagram.com" class='text-light footer-link pt-2' target="_blank">
@@ -68,7 +68,7 @@
                   <i class="fa fa-circle fa-stack-2x icon-background"></i>
                   <i class="fab fa-instagram fa-stack-1x text-purple"></i>
                 </span>
-                <span class="vanish-sm">Instagram</span>
+                <span class="vanish-md vanish-sm">Instagram</span>
               </a>
 
               <a href="https://pinterest.com" class='text-light footer-link pt-lg-2 pt-2' target="_blank">
@@ -76,7 +76,7 @@
                   <i class="fa fa-circle fa-stack-2x icon-background"></i>
                   <i class="fab fa-pinterest-p fa-stack-1x text-danger"></i>
                 </span>
-                <span class="vanish-sm">Pinterest</span>
+                <span class="vanish-md vanish-sm">Pinterest</span>
               </a>
 
               <a href="https://twitter.com" class='text-light footer-link pt-lg-2 pt-2' target="_blank">
@@ -84,7 +84,7 @@
                   <i class="fa fa-circle fa-stack-2x icon-background"></i>
                   <i class="fab fa-twitter fa-stack-1x text-primary"></i>
                 </span>
-                <span class="vanish-sm">Twitter</span>
+                <span class="vanish-md vanish-sm">Twitter</span>
               </a>
               
             </div>

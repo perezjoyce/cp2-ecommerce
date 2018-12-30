@@ -384,3 +384,28 @@
         // var_dump($status);die();
         echo $status;
     }
+
+    // FUNCTION 
+    function changeWordInsideProductRatingButton($conn,$productId){
+
+        $userId = $_SESSION['id'];
+        $sql = " SELECT r.product_id, r.user_id, r.rating_is_final, ri.is_final FROM tbl_ratings r JOIN tbl_rating_images ri ON ri.rating_id=r.id WHERE r.product_id=? AND r.user_id=? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$productId, $userId]);
+        $count = $statement->rowCount();
+
+        if($count) {
+        $row = $statement->fetch();
+        $finalRatingScore = $row['rating_is_final'];
+        $isFinal = $row['is_final']; // DONE WHEN SUBMIT BUTTON IS CLICKED. ALL DATA INSIDE IS CONSIDERED FINAL WHETHER FILLED OUT OR NOT.
+
+            if($finalRatingScore == 0 && $finalImages == 0){
+                echo "<small class='text-gray font-weight-light'>REVIEW PRODUCT</small>";
+            }else {
+                echo "<small class='text-gray font-weight-light'>REVIEWED</small>";
+            }
+
+        } else {
+            echo "<small class='text-gray font-weight-light'>REVIEW PRODUCT</small>";
+        }
+    }

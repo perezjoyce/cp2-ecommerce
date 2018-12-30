@@ -32,7 +32,7 @@ h1, h2, h3, h4, h5 {
     font-family: 'Roboto-Regular', 'Tahoma', sans-serif!important;
 }
 
-p, div, a, small, button, .text-responsive {
+p, div, a, small, .small, button, .text-responsive {
     font-family: 'Open Sans', 'Tahoma', sans-serif!important;
 }
 /* FONT SIZE  & STYLE*/
@@ -254,6 +254,17 @@ div.card:hover {
 }
 
 /* STARS */
+.star2x {
+    content:'★';
+    zoom:400%;
+    color:gold!important;
+}
+
+.star2x-gray {
+    content:'★';
+    zoom:400%;
+    color:lightgray!important;
+}
 
 .star {
     content:'★';
@@ -755,6 +766,12 @@ div#login_image {
 .dropdown-item {
     z-index:7!important;
 }
+
+.dropdown-menu {
+    right: 0;
+    left: initial;
+}
+
 .sticky-top {
     z-index: 6!important;
 }
@@ -821,7 +838,7 @@ background: linear-gradient(to right, #240b36, #c31432); /* W3C, IE 10+/ Edge, F
     height: 0;
     position: absolute;
     top: -10px;
-    right: 218px;
+    right: 22px;
     border-bottom: 10px solid #fff;
     border-left: 11px solid transparent;
     border-right: 11px solid transparent;
@@ -938,7 +955,8 @@ a.hover_btn:active {
 
 
     #cartDropdown_menu {
-        min-width:21em!important;
+        left:-150px;
+        top: 50px;
     }
 
     /* #profileDropdown {
@@ -1007,7 +1025,7 @@ a.hover_btn:active {
         font-size: 1rem;
     }
 
-    p, div, a.btn, button, .text-responsive, .product_details, textarea, label {
+    p, div, a.btn, button, .text-responsive, .product_details, textarea, label, .small, {
         font-size: 0.8rem!important;
     }
 
@@ -1033,6 +1051,7 @@ a.hover_btn:active {
         padding-bottom: 10px;
         z-index: 10;
     }
+    
 
     /* #profileDropdown {
         padding-top:10px;
@@ -1173,7 +1192,7 @@ a.hover_btn:active {
         font-size: 1.2rem;
     }
 
-    p, div, a.btn, button, .text-responsive ,.product_details, textarea, label {
+    p, div, a.btn, button, .text-responsive ,.product_details, textarea, label, .small {
         font-size: 1rem!important;
     }
 

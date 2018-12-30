@@ -115,7 +115,7 @@
                                         
                                     </div>
                                     <div class="col">
-                                        <h4 class='text-purple font-weight-bold'><?=$transactionCode?></h4>
+                                        <h4 class='text-purple font-weight-bold'><?=$_SESSION['transaction_code']?></h4>
                                     </div>
                                 </div>
 
@@ -143,7 +143,15 @@
                                     </div>
                                     <div class="col">
                                         <div>
-                                            <?=getModeOfPayment($conn, $paymentModeId)?>
+                                            <?php 
+                                                if(isset($_SESSION['paymentMode'])){
+                                                    if($_SESSION['paymentMode'] ==  'COD') {
+                                                        echo "Cash On Delivery (COD)";
+                                                    }else {
+                                                        echo $_SESSION['paymentMode'];
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -526,3 +534,26 @@
 
 </div>
 <!-- /CONTAINER-FLUID -->
+
+<?php 
+    //END SESSION AFTER DISPLAYING CONFIRMATION MODAL
+    //unset($_SESSION["cart_session"]);
+  
+
+?>
+
+
+<script>
+    // RELOAD THE PAGE TO GET NEW CART SESSION ID
+    $("#modalContainerBig").on('hidden.bs.modal', function(){
+       // ;
+
+       $.get("../controllers/process_unset_session.php", function(data) {
+			let response = $.parseJSON(data);
+			if(response.message == 'success'){
+			    window.location.reload();
+			}
+        });
+        
+    })
+</script>

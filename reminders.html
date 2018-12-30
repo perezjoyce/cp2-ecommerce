@@ -59,7 +59,7 @@ reviews to purchased status only so that only users who purchased a product will
 33. DONE -- catalog overlaps with search results
 34. DONE -- cart overview doesn't scroll when too many items are inside it already
 35. DONE -- badge moves
-> placed it outside cart
+    > placed it outside cart
 36. DONE -- right col of product page is not responsive to screen size
 37. DONE -- datetime in product page is wrong...i only update time upon login...what if user never logs out?
 38. DONE -- fix tabs javascript so that progress only loads when reviews tab is clicked
@@ -73,12 +73,20 @@ reviews to purchased status only so that only users who purchased a product will
     >added type='button' to prevent default behavior of button in a form (i.e., submit)
 45. DONE -- JS 1953: reponsenses == error;
     >i was using the word response in both outer and inner AJAX
+48. DONE -- TRANSFERRED ORIG BILLING INFO MODAL CONTENT TO BILLING_INFO_MODAL_SPARE.PHP SO I CAN CREATE ORDER SUMMARY AND CONFIRMATION PAGE
+49. DONE -- TWO TRANSACTION CODES ARE SENT PER TRANSACTION
+    >I PLACED UNSET SESSION WITHIN THE CONFIRMATION MODAL
+    >window.location.reload();
+50. DONE -- SESSION WON'T UNSET IF USER DOESN'T PRESS PRINT 
+    >I PLACED UNSET SESSION WITHIN THE CONFIRMATION MODAL
+    >window.location.reload();
+51. DONE -- WHEN I OPEN REVIEW PRODUCT MODAL, CLOSE IT AND THEN OPEN A DIFF MODAL (E.G. UUPLOAD PROFILE PIC), THE WRONG MODAL IS SHOWN
+    > I was opening modal body instead of content. The modal that was being targeted ddn't ahve a modal body
 46. SEND MESSAGE TO SELLER
 47. PAYPAL 
-48. DONE -- TRANSFERRED ORIG BILLING INFO MODAL CONTENT TO BILLING_INFO_MODAL_SPARE.PHP SO I CAN CREATE ORDER SUMMARY AND CONFIRMATION PAGE
-49. TWO TRANSACTION CODES ARE SENT PER TRANSACTION
-50. SESSION WON'T UNSET IF USER DOESN'T PRESS PRINT 
-51. WHEN I OPEN REVIEW PRODUCT MODAL, CLOSE IT AND THEN OPEN A DIFF MODAL (E.G. UUPLOAD PROFILE PIC), THE WRONG MODAL IS SHOWN
+48. HEADER IN PROFILE IS DOES NOT FIT MOBILE SCREEN
+49. review IMAGES DON'T APPEAR
+
 
 note: STORE.PHP CONTAINS PROFILE PAGE WITH SIDE BUTTONS
 
@@ -86,13 +94,22 @@ note: STORE.PHP CONTAINS PROFILE PAGE WITH SIDE BUTTONS
 
 
 CLEANDED:
-====containers start on space 3
 1. CATALOG.PHP
 2. HEADER
 3. FOOTER
 4. MODAL CONTAINER
 5. REGISTER.PHP 
+6. CATEGORIES
 
+REMINDERS:
+1. STAR RATINGS NEED TO BE FIXED
+2. ALL CATALOG SORTING ACTS NEED TO BE REVIEWED AND FIXEDSS
+
+TO DO:
+FIX EDIT USER PROFILE MODAL
+FIX EDIT EDIT ADDRESS MODAL
+CREATE MESSENGING 
+CREATE STORE
 
 
 
@@ -212,7 +229,62 @@ admin
 
 
 TO DO:
-1. CART & PROFILE -- 3 DAYS ONLY (THIRD DAY TODAY)
-3. SELLER -- 3 DAYS
-4. ADMIN -- 3 DAYS
-5. CONTENT AND BUGS -- 3 DAYS
+1. STORE PAGE (LIKE PROFILE BUT WITH PRODUCTS, RATINGS AND REVIEWS AREA..REVIEWS AREA IS LIKE COMMENT SECTION)
+2. STORE BACKEND (ADD, EDIT, DELETE PRODUCT, PROCESS ORDER STATUS, REPORT TO ADMIN, MESSENGING)
+3. ADMIN BACKEND (APPROVE STORES APPLICATION, BAN STORES, ADD, DELETE EDIT ADS)
+
+
+
+
+
+
+
+
+correct measurements. i had to undo changes because their size affect the star ratings:
+
+tablet
+
+h1 {
+        /* 21px */
+        font-size: 1.6rem; 
+    }
+    
+    h2 {
+        /* 18 px */
+        font-size: 1.4rem;
+    }
+    
+        /* 15px */
+    h3 {
+        font-size: 1.2rem;
+    }
+
+    h4 {
+        font-size: 1rem;
+    }
+
+
+    mobile 
+
+    h1 {
+        /* 21px */
+        font-size: 1.2rem; 
+    }
+    
+    h2 {
+        /* 18 px */
+        font-size: 1.1rem;
+    }
+    
+        /* 15px */
+    h3 {
+        font-size: 1rem;
+    }
+
+    h4 {
+        font-size: .9rem;
+    }
+
+    p, div, a.btn, button, .text-responsive ,.product_details, textarea, label, .small, .col{
+        font-size: .8rem!important;
+    }

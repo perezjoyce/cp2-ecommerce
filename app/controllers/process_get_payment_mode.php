@@ -26,6 +26,13 @@ if(isset($_POST['modeOfPaymentId'])) {
     $statement = $conn->prepare($sql);
     $result = $statement->execute([$payment_mode_id, $transactionCode, $userId, $cartSession]);
 
+        $sql2= " SELECT name FROM tbl_payment_modes WHERE id = ?";
+        $statement2 = $conn->prepare($sql2);
+        $statement2->execute([$payment_mode_id]);
+        $row2 = $statement2->fetch();
+        $paymentModeName = $row2['name'];
+        $_SESSION['paymentMode'] = $paymentModeName;
+    
    }
 
    $message =   "<form>
