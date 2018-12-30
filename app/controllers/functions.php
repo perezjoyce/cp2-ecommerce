@@ -163,7 +163,7 @@
         $row = $statement->fetch();
         $username = $row['username'];
 
-        return ucwords($username);
+        return strtoupper($username);
     }
 
     // GET PROFILE PIC 

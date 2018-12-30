@@ -615,20 +615,23 @@ $(document).ready( () => {
 	
 	// AVERAGE PRODUCT RATING AS STARS ON PRODUCT PAGE
 	$(function() {
+
 	let averageRating = $("#average_product_rating").val();
+		// averageRating = averageRating*2;
 		// alert(averageRating)
+
 		function addScore(score, $domElement) {
-			var starWidth = "<style>.stars-container:after { width: " + score + "%} </style>";
+			// score = averageRating * 2;
+			var starWidth = "<style>.stars-container:after { width: " + score*2 + "%} </style>";
 			$("<span class='stars-container'>")
 			.text("★★★★★")
 			.append($(starWidth))
 			.appendTo($domElement);
 		}
 
-		addScore(averageRating, $("#average_product_stars"));
-
+		
 		function addScore2(score2, $domElement2) {
-			score2 = score2 * 2;
+			score2 = score2 / 2;
 			var starWidth2 = "<style>.stars-container-big:after { width: " + score2 + "%} </style>";
 			$("<span class='stars-container-big'>")
 			.text("★★★★★")
@@ -636,6 +639,7 @@ $(document).ready( () => {
 			.appendTo($domElement2);
 		}
 		addScore2(averageRating, $("#average_product_stars_big"));
+		addScore(averageRating, $("#average_product_stars"));
 	});
 
 
@@ -1180,7 +1184,7 @@ $(document).ready( () => {
 						$('#cartDropdown_menu').prepend(response.newProduct);
 					
 					// UPDATE ADD TO CART BUTTON
-					$(that).replaceWith("<button class='btn btn-lg btn-disabled py-3' style='width:40%;' data-id='" + productId + "'role='button'" + 
+					$(that).replaceWith("<button class='btn btn-lg btn-disabled py-3' data-id='" + productId + "'role='button'" + 
 						"id='btn_add_to_cart_again' disabled>" +
 						"Item Added To Cart!</button>");
 					
@@ -1253,7 +1257,7 @@ $(document).ready( () => {
 						$('#cartDropdown_menu').prepend(response.newProduct);
 					
 					// UPDATE ADD TO CART BUTTON
-					$(that).replaceWith("<button class='btn btn-lg btn-disabled py-3' style='width:40%;' data-id='" + productId + "'role='button'" + 
+					$(that).replaceWith("<button class='btn btn-lg btn-disabled py-3' data-id='" + productId + "'role='button'" + 
 						"disabled>" +
 						"Item Added To Cart!</button>");
 					
@@ -1323,7 +1327,7 @@ $(document).ready( () => {
 
 				// update button
 				$("#btn_add_to_cart_again").replaceWith(
-					"<a class='btn btn-lg btn-purple py-3' style='width:40%;height:50px;'" +  
+					"<a class='btn btn-lg btn-purple py-3' style='height:50px;'" +  
 					"data-variationid='"+ variationId +"' role='button'" +
 					"data-id='"+ productId +"' id='btn_add_to_cart'" +
 					"data-name='"+variationName+"'>" + "Add to Cart</a>");

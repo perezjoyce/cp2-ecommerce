@@ -15,7 +15,7 @@ $imageFileType = strtolower(pathinfo($_FILES['upload']['name'], PATHINFO_EXTENSI
 
 //VALIDATION
 // to limit file size to 1 MB
-if ($_FILES['upload']['size'] > 2000000) {
+if ($_FILES['upload']['size'] > 1000000) {
     // REDIRECTING PAGE WITH ERROR MSG IN URL QUERY STRING
     $errorMsg = urlencode("Sorry, your file is too large.");
     header("Location: ../views/profile.php?id=$id&uploadError=" . $errorMsg);
@@ -51,7 +51,7 @@ else {
     }
     
     //$filename = $filename . "." . $imageFileType;
-    $sql = "UPDATE tbl_users SET profile_pic='uploads/$id/$filename' WHERE id = ? ";
+    $sql = "INSERT INTO tbl_rating_images (url) VALUES ('uploads/$id/$filename') WHERE rating_id = ? ";
     $statement = $conn->prepare($sql);
     $statement->execute([$id]);
     header("Location: ../views/profile.php?id=$id");

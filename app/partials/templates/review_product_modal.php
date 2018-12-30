@@ -64,7 +64,7 @@
 
                             <div class="container my-5 px-0">
                                 <div class="row">
-                                    <div class="col-5">
+                                    <div class="col-lg-5 col-md-6 col-sm-12">
                                         <div class="card" style="width: 100%;">
                                             <img class="card-img-top" src="<?=$image?>" alt="product_image">
                                             <div class="card-body">
@@ -72,8 +72,10 @@
                                                 <p class="card-text"> &#8369;&nbsp;<?=$price?></p>
                                             </div>
                                             <ul class="list-group list-group-flush">
-                                                <li class="list-group-item">
+                                                <a href="store.php?id="<?=$storeId?>></a>
+                                                <li class="list-group-item py-3">
                                                     <div class='d-flex align-items-center'>
+                                                        
                                                         <div class='pr-3'>
                                                             <img src="<?=$storeLogo?>" alt="<?=$storeName?>" class='circle' style='height:40px;'>
                                                         </div>
@@ -81,85 +83,70 @@
                                                         
                                                             <span><?=$storeName?></span>
                                                             <span><?=$storeAddress?></span>
+
                                                         </div>
                                                     </div>
                                                 </li>
                                             </ul>
-                                            <div class="card-body">
+                                            <!-- <div class="card-body">
                                                 <a href="#" class="card-link">Card link</a>
                                                 <a href="#" class="card-link">Another link</a>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
-                                </div>
 
-                            </div>
-
-                            <div class="container my-5 px-0">
-                                <div class="row mt-5">
-                                    <!-- IMAGE -->
-                                    <div class="col-5">  
-                                        <div>
-                                            <img src="<?=$image?>" alt="product_image">
-                                        </div>
-                                    </div>
-                                    <!-- NAME -->
                                     <div class="col">
                                         <div class='d-flex flex-column'>
-                                            <div>
-                                                <h3 class='text-secondary'><?=$productName?></h3>
-                                            </div>
-                                            <div>
-                                                <h3 class='text-gray'>
-                                                    &#8369;&nbsp;
-                                                    <?=$price?>
-                                                </h3>
-                                            </div>
-                                            <div class='d-flex align-items-center mt-5'>
-                                                <div class='pr-3'>
-                                                    <img src="<?=$storeLogo?>" alt="<?=$storeName?>" class='circle' style='height:40px;'>
-                                                </div>
-                                                <div class='d-flex flex-column'>
-                                                   
-                                                    <span><?=$storeName?></span>
-                                                    <span><?=$storeAddress?></span>
-                                                </div>
-                                            </div>
-                                            <!-- STARS -->
-                                            <div class='mt-5'>Rate this product:</div>
-                                            <div>
+                                            
+                                            <div class='pb-5'>
+                                                <h4 class='text-secondary'>Rate this product</h4>
                                                 <div class="rating">
-                                                    <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
-                                                    <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
-                                                    <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
-                                                    <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
-                                                    <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
+                                                    <input type="radio" id="star5" name="rating" value="5" /><label for="star5">5 stars</label>
+                                                    <input type="radio" id="star4" name="rating" value="4" /><label for="star4">4 stars</label>
+                                                    <input type="radio" id="star3" name="rating" value="3" /><label for="star3">3 stars</label>
+                                                    <input type="radio" id="star2" name="rating" value="2" /><label for="star2">2 stars</label>
+                                                    <input type="radio" id="star1" name="rating" value="1" /><label for="star1">1 star</label>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class='pb-5'>
+                                                <h4 class='text-secondary'>Write a review</h4>
+                                                <textarea class="form-control border-0" id="product_question" style='width:100%;background:#eff0f5;' rows='4'></textarea>
+                                            </div>
+
+                                            <div>
+                                                <h4 class='text-secondary'>Attach images</h4>
+                                                <div class='d-flex flex-row'>
+                                                    <div class='flex-fill pr-1'>
+                                                        <img class="card-img-top" src="<?=$image?>" alt="product_image">    
+                                                    </div>
+                                                    <div class='flex-fill pr-1'>
+                                                        <img class="card-img-top" src="<?=$image?>" alt="product_image">    
+                                                    </div>
+                                                    <div class='flex-fill pr-1'>
+                                                        <img class="card-img-top" src="<?=$image?>" alt="product_image">    
+                                                    </div>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-
-
-                                <!-- TRANSACTION DATE -->
-                                <div class="row mt-5">
-                                    <div class="col-6">  
-                                        <div>
-                                            <h4 class='text-secondary'>Review</h4>
-                                        </div>
-                                    </div>
-                                    <div class="col">
                                         
+
+                                       
                                     </div>
                                 </div>
+
+                               
+                                
 
                             </div>
 
+                    
                           
 
                             
                                     
-                        <!-- CHECKOUT BUTTON -->
+                            <!-- BUTTONS -->
                             <div class="container my-5 px-0">
                                 <div class="row mt-5">
                                     <div class="col">
@@ -169,7 +156,7 @@
                                                 $modalLinkClassPrefix='-big';
                                             }
                                         ?>
-                                        <a class='btn btn-lg btn-block py-3 border-0 text-gray mt-5'  id='btn_print_order_copy'>
+                                        <a class='btn btn-lg btn-block py-3 border-0 text-gray mt-5 text-left px-0'  id='btn_print_order_copy'>
                                             Report Seller&nbsp; 
                                             <i class="far fa-flag"></i>
                                         </a>

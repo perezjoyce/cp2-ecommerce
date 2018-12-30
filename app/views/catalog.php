@@ -19,7 +19,7 @@
 		<div class="container mt-5">
 			<div class="row">
 				<!-- FIRST COLUMN -->
-				<div class="col-lg-2 col-md-2 mb-5">
+				<div class="col-lg-2 col-md-3 mb-5">
 
 					<!-- CATEGORY & SUBCATEGORIES -->
 					<div class="row">
@@ -250,7 +250,7 @@
 						?>
 						
 						<!-- PRODUCT CARDS -->
-						<div class='col-lg-3 col-md-3 px-1 pb-2'>
+						<div class='col-lg-3 col-md-3 col-sm-12 px-1 pb-2'>
 							<a href='product.php?id=<?= $productId ?>'>
 								<div class = 'card h-700 border-0'>
 									<img class='card-img-top' src='<?= $item_img ?>'>
