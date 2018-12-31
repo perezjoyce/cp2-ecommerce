@@ -62,10 +62,18 @@
                 $sql = " INSERT INTO tbl_addresses ( `user_id`, addressType ,region_id, province_id, city_id, brgy_id, street_bldg_unit, landmark ) 
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?) ";
                 $statement = $conn->prepare($sql);
-                $statement->execute([ $userId, $addressType, $regionId, $provinceId, $cityMunId, $brgyId, $streetBldgUnit, $landmark]);
-                $row = $statement->fetch();
-                $addressType = $row['addressType'];
+                $statement->execute([ $userId, $addressType, $regionId, $provinceId, $cityMunId, $brgyId, $streetBldgUnit, $landmark ]);
             }
+
+            // GET ID OF ADDEDED/UPDATED ADDRESSES
+            $sql = " SELECT * FROM tbl_addresses WHERE `user_id` = ? AND addressType = ? ";
+            $statement = $conn->prepare($sql);
+            $statement->execute([$userId,$addressType]);
+            $row = $statement->fetch();
+            $address_id = $row['id'];
+
+            $_SESSION['preselectedAddressId'] = $address_id;
+            $addressId = $_SESSION['preselectedAddressId'];
 
             echo "success";
 

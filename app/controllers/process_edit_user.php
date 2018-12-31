@@ -27,8 +27,7 @@
 				if($result) {
 					//GET LAST ID TO BE ABLE TO BE DIRECTED TO CORRECT PROFILE PAGE WHEN UPDATE IS SUCCESSFULLY DONE.
 					//$last_id = mysqli_insert_id($conn);
-					echo json_encode(["id" => $id]);
-					//header("Location: ../views/profile.php?id=$id");
+					echo "success";
 				} else {
 					echo "fail";
 				}

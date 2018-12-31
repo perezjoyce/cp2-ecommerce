@@ -274,64 +274,51 @@ $(document).ready( () => {
 
 
 	// EDITING USER PROFILE
-	$(document).on('submit', '#form_edit_user', function(e){
-		e.preventDefault();
-		processEditForm();
-	});
+	// $(document).on('submit', '#form_edit_user', function(e){
+	// 	e.preventDefault();
+	// 	processEditForm();
+	// });
 
-	function processEditForm() {
-		//get values
+	$(document).on('click', '#btn_edit_user', function(){
+
+	
 		let fname = $("#fname").val();
 		let lname = $("#lname").val();
 		let email = $("#email").val();
 		let username = $("#username").val();
 		let password = $("#password").val();
 		let id = $("#id").val();
-		let countU = username.length;
-		let countP = password.length;
-
 		let error_flag = 0;
 
-		//First name verification
-		if(fname == ""){
-			$("#fname").next().html("First name is required!");
+		if(email == "" || username == "" || password == "") {
+			$("#edit_user_error").css("color", "#f64f59");
+			$("#edit_user_error").text("Please fill out all fields with asterisk."); 
 			error_flag = 1;
 		} else {
-			$("#fname").next().html("");
-		}
 
-		//Last name verification
-		if(lname == ""){
-			$("#lname").next().html("Last name is required!");
-			error_flag = 1;
-		} else {
-			$("#lname").next().html("");
-		}
+			let countU = username.length;
+			// let countP = password.length;
 
-		//email verification
-		if(email == ""){
-			$("#email").next().html("Email address is required!");
-			error_flag = 1;
-		} else {
-			$("#email").next().html("");
-		}
+			$("#edit_user_error").text(""); 
 
-		//username verification
-		if(username == ""){
-			$("#username").next().html("Username is required!");
-			error_flag = 1;
-		} else {
-			$("#username").next().html("");
-		}
+			if (countU < 5) {
+				$("#username").next().css("color", "#f64f59");
+				$("#username").next().text("Username needs at least 5 characters.");
+				error_flag = 1;
+			} else {
+				$("#username").next().text("");
+			}
+	
+			// if (countP < 8) {
+			// 	$("#registration_password_validation").css("color", "##f64f59");
+			// 	$("#registration_password_validation").text("Password needs at least 8 characters.");
+			// 	error_flag = 1;
+			// } else {
+			// 	$("#registration_password_validation").text("");
+				
+			}
 
-		//password verification
-		if(password == ""){
-			$("#password").next().html("Password is required!");
-			error_flag = 1;
-		} else {
-			$("#password").next().html("");
-		}
-
+		
 
 		if(error_flag == 0) {
 		
@@ -346,70 +333,77 @@ $(document).ready( () => {
 				"success": (dataFromPHP) => {
 
 					if (dataFromPHP == "invalidEmail") {
-						$("#email").next().css("color", "red");
+						$("#email").next().css("color", "#f64f59");
 						$("#email").next().html("Please enter a valid email."); 
 					} else if (dataFromPHP == "emailExists") {
-						$("#email").next().css("color", "red");
-						$("#email").next().html("Email address already taken."); 
+						$("#email").next().css("color", "#f64f59");
+						$("#email").next().html("Email address is already taken."); 
 					} else if (dataFromPHP == "sameEmail" || dataFromPHP == "success"){
+
+						let answer = confirm('Do you want to save changes?');
+							if(answer == true) {
 						
-						// CHECK USERNAME AVAILABILITY
-						$.ajax({
-						"url": "../controllers/process_edit_uname.php",
-						"data": {
-								"username" : username,
-								"id": id
-								},
-						"type": "POST",
-						"success": (dataFromPHP) => {
-							if (dataFromPHP == "userExists") {
-								$("#username").next().css("color", "red");
-								$("#username").next().html("User exists."); 
-							} else if (dataFromPHP == "success" || dataFromPHP == "sameUser") {
-								
-								// CHECK CORRECTNESS OF PASSWORD AND IF CORRECT UPDATE DATA
-								$.ajax({
-									"url": "../controllers/process_edit_user.php",
-									"data": { 
-											"id" : id,
-											"fname" : fname,
-											"lname" : lname,
-											"email" : email,
-											"username" : username,
-											"password" : password
-											 },
-									"type": "POST",
-									"success": (dataFromPHP) => {
-					
-										if (dataFromPHP == "incorrectPassword") {
-											$("#password").next().css("color", "red");
-											$("#password").next().html("Incorrect password."); 
-										 
-										} else if ($.parseJSON(dataFromPHP)) {
-											let data = $.parseJSON(dataFromPHP);
-											location.href="profile.php?id=" + data.id; 
-					
-										} else {
-											$("#edit_user_error").css("color", "red");
-											$("#edit_user_error").append("Error in password validation encountered.");	
-										} 
-									}
-								});
-							} else {
-								$("#edit_user_error").css("color", "red");
-								$("#edit_user_error").append("Error in username validation encountered."); 
-							}	
+							// CHECK USERNAME AVAILABILITY
+							$.ajax({
+							"url": "../controllers/process_edit_uname.php",
+							"data": {
+									"username" : username,
+									"id": id
+									},
+							"type": "POST",
+							"success": (dataFromPHP) => {
+								if (dataFromPHP == "userExists") {
+									$("#username").next().css("color", "#f64f59");
+									$("#username").next().html("User exists."); 
+								} else if (dataFromPHP == "success" || dataFromPHP == "sameUser") {
+									
+									// CHECK CORRECTNESS OF PASSWORD AND IF CORRECT UPDATE DATA
+									$.ajax({
+										"url": "../controllers/process_edit_user.php",
+										"data": { 
+												"id" : id,
+												"fname" : fname,
+												"lname" : lname,
+												"email" : email,
+												"username" : username,
+												"password" : password
+												},
+										"type": "POST",
+										"success": (dataFromPHP) => {
+											
+											if (dataFromPHP == "incorrectPassword") {
+												$("#password").next().css("color", "#f64f59");
+												$("#password").next().html("Your password is incorrect."); 
+											
+											} else if (dataFromPHP == "success") {
+												
+												alert('Your changes has been saved.');
+												window.location.reload();
+												
+											} else {
+												$("#edit_user_error").css("color", "#f64f59");
+												$("#edit_user_error").append("Error in password validation encountered.");	
+											} 
+										}
+									});
+								} else {
+									$("#edit_user_error").css("color", "#f64f59");
+									$("#edit_user_error").append("Error in username validation encountered."); 
+								}	
+							}
+							});
+
 						}
-						});
+
 
 					} else {
-						$("#edit_user_error").css("color", "red");
+						$("#edit_user_error").css("color", "#f64f59");
 						$("#edit_user_error").append("Error in email validation encountered."); 
 					}	
 				}
 			});
 		}
-	}
+	})
 
 
 	// DISPLAYING ADDRESS WINDOW IN PROFILE
@@ -475,6 +469,26 @@ $(document).ready( () => {
 			});
 		}		
 	});
+
+	// VIEWING PASSWORD
+	$(document).on('click', '.btn_view_profile_password', function(){
+
+		let x = document.getElementById("password");
+
+		if (x.type === "password") {
+			x.type = "text";
+		  	$('.eye').removeClass('fa-eye-slash');
+			$('.eye').addClass('fa-eye');
+		} else {
+		  x.type = "password";
+		  	$('.eye').removeClass('fa-eye');
+			$('.eye').addClass('fa-eye-slash');
+		}
+
+	})
+	
+		
+	
 
 	// ================================ CATALOG PAGE  ================================ //
 	// =============================================================================== //
