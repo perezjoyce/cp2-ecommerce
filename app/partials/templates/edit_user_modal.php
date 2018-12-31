@@ -74,7 +74,7 @@
                           <label for='email' class='col'>Email*</label>
                           <div class="input-group col-9">
                               <input type="text" class='form-control' id='email'
-                                  value="<?= $email ?>">
+                                  value="<?= hide_email($email) ?>">
                           </div>
                           <div class='validation'></div>
                       </div>

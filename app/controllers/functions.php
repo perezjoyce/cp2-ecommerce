@@ -150,7 +150,7 @@
         return $rating;
     }
 
-    // CHANGE BEGINNING LETTER TO UPPERCASE
+    // CHANGE BEGINNING LETTER TO UPPERCASE --> ucwords?
     function capitalizeFirstLetter($word) {
         return str_replace('( ', '(', ucwords(str_replace('(', '( ', ucwords(strtolower($word)))));
     }
@@ -164,6 +164,17 @@
         $username = $row['username'];
 
         return strtoupper($username);
+    }
+
+    // GET STORE NAME
+    function getStoreName ($conn,$userId) {
+        $sql = " SELECT * FROM tbl_stores WHERE `id`=? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$userId]);
+        $row = $statement->fetch();
+        $storeName = $row['name'];
+
+        return $storeName;
     }
 
     // GET PROFILE PIC 
@@ -385,7 +396,7 @@
         echo $status;
     }
 
-    // FUNCTION 
+    // CHANGE WORD INSIDE THE PRODUCT RATING
     function changeWordInsideProductRatingButton($conn,$productId){
 
         $userId = $_SESSION['id'];
@@ -409,3 +420,5 @@
             echo "<small class='text-gray font-weight-light'>REVIEW PRODUCT</small>";
         }
     }
+
+

@@ -1611,7 +1611,7 @@ if(isset($_SESSION['id'])) {
     </div>
   </div>
 
-
+  <?php include '../partials/message_box.php' ?>
 </body>
 </html> 
 

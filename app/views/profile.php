@@ -746,6 +746,105 @@
                                 </div>
                             </div>
                             
+
+                            <!-- MESSAGES -->
+                            <div class="container p-5 rounded mb-5" style='background:white;height:650px;'>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <div class='d-flex flex-row'>
+                                            <div class='flex-fill'>
+                                                <h4>Inbox</h4>
+                                            </div>
+                                            <div class="flex-fill">
+                                                <input type="text" style='width:100%;'>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                
+                                <div class="row border-top border-bottom border-top">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 px-0" style='background:white;height:530px;overflow-y:auto;'>
+                                        <div class="container px-0">
+                                                <!-- ITEMS SUMMARY -->
+                                            <table class="table table-hover borderless mt-4">
+                                                
+                                            
+                        
+                                                <?php 
+
+                                                    $sql = "SELECT w.*, p.img_path, p.name, p.price
+                                                            FROM tbl_wishlists w 
+                                                            JOIN tbl_items p on p.id=w.product_id 
+                                                            WHERE user_id= ? ";
+                                                        $statement = $conn->prepare($sql);
+                                                        $statement->execute([$id]);
+                                                        $count = $statement->rowCount();
+                                     
+                                                    if($count) {
+                                                    while($row = $statement->fetch()){ 
+                                                        $productId = $row['product_id'];
+                                                        $name = $row['name'];
+                                                        $price = $row['price'];
+                                                        $image = $row['img_path'];
+
+                                                ?>
+                                                
+
+                                                
+                                                <tr id='wish-row<?=$productId?>' class='mx-0 px-0'>
+                                                    
+                                                    
+                                                    <!-- IMAGE, NAME AND VARIATION -->
+                                                    <td class='mx-0 px-0'> 
+                                                        <a href="product.php?id=<?=$productId?>" target='_blank'>
+                                                            <div class='d-flex flex-row align-items-center' style='justify-content:flex-start;'>
+                                                                <div class='flex'>
+                                                                    <img src='<?=$image?>' style='width:40px;height:40px;' class='circle'>
+                                                                </div>   
+                                                                <div class='flex-fill vanish-sm'>
+                                                                    <div class='d-flex flex-column'>
+                                                                    
+                                                                            
+                                                                        <small class='text-secondary'><?= $name ?></small>
+                                                                        <!-- DATE SENT -->
+                                                                        <small class='text-secondary'><?= $name ?></small> 
+                                                                                              
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </a> 
+                                                    </td>
+
+                                   
+                                                </tr>
+                        
+                                                <?php } } ?>
+                                            
+
+
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                    <div class="col mx-0 px-0 no-gutters">
+                                        <div class="container border-left border-right border-bottom-0  mx-0 px-0 no-gutters">
+                                            <div class="row no-gutters" style='background:white;height:480px;overflow-y:auto;'>
+                                                <div class="col-12"></div>
+                                            </div>
+                                            <div class="row border-top no-gutters" style='background:#eff0f5;height:50px;'>
+                                                <div class="col-12">
+                                                    <form action='process_ask_about_product' method='POST'>
+                                                        <textarea class="form-control border-0" id="messageTextarea" style='width:100%;background:#eff0f5;resize:none;' rows='2'></textarea>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                            
 
                         </div>

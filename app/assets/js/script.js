@@ -2282,6 +2282,59 @@ $(document).ready( () => {
 
 	})
 
+
+	$(document).on('keypress', '#messageTextarea', function(e){
+		if(e.which == 13) {
+			let message = $(this).val();
+			if(message != ""){
+				
+				$(this).val();
+			}
+		}
+	});
+
+	$('#messageBox__button').on('click', function(e){
+		e.preventDefault();
+		$(".conversations").toggle();
+		let data = {
+			sellerId: $(this).data('sellerid')
+		};
+		$.get("../../app/controllers/process_generate_conversation.php", data, function(response){
+			// update message item list to show seller at the top
+
+			let data = $.parseJSON(response);
+			$('#message_box .message_items').html(data.messageItemSelected);
+			$('#message_box .message_details-container').html(data.messageDetails);
+			$('#conversationId').val(data.conversationId);
+			// update the message details to show the text conversation with seller
+
+			var container = $('#message_box .message_details-container');
+			container.scrollTop(container[0].scrollHeight);
+		});
+	});
+
+
+	$(document).on('keyup', '#message_input', function(e) {
+		if(e.keyCode == 13) {
+			var data = {
+				sellerId: $(this).data('sellerid'),
+				conversationId: $('#conversationId').val(),
+				message: $(this).val()
+			}
+			$.post('../../app/controllers/process_send_message.php', data,
+				function(response){
+					var data = $.parseJSON(response);
+					var container = $('#message_box .message_details-container');
+					container.html(data.messageDetails);
+					container.scrollTop(container[0].scrollHeight);
+			});
+
+			$(this).val("")
+		}
+	})
+
+
+
 });
 
 
