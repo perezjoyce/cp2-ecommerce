@@ -1,5 +1,4 @@
 <?php 
-  session_start(); 
   
   require_once "../../config.php";
   require_once "../controllers/connect.php";
@@ -7,10 +6,27 @@
 
     // UPDATE LAST ACTIVITY    
   if(isset($_SESSION['id'])){
-    $userId = $_SESSION['id'];
+    $id = $_SESSION['id']; // userId
     $sql = "UPDATE tbl_users SET last_login = now() WHERE id = ?";
     $statement = $conn->prepare($sql);
-    $statement->execute([$userId]);
+    $statement->execute([$id]);
+
+    $sql = " SELECT * FROM tbl_users WHERE id = ? ";
+    $statement = $conn->prepare($sql);
+    $statement->execute([$id]);
+    $row = $statement->fetch();
+
+    
+        $profile_pic = $row['profile_pic'];
+
+        if($profile_pic == "") {
+            $profile_pic = DEFAULT_PROFILE; 
+            $prefix = "rounded";
+        } else {
+            $profile_pic = BASE_URL ."/". $profile_pic . "_80x80.jpg";
+            $prefix = "";
+        } 
+
   }
 
   if(!isset($_SESSION['cart_session'])) {
@@ -23,9 +39,8 @@
   $statement = $conn->prepare($sql);
   $statement->execute([$cartSession]);
 
-  if(isset($_SESSION['id'])) {
-    $id = $_SESSION['id'];
-}
+    
+  
 
 ?>
 
@@ -94,7 +109,7 @@
                     
                     <div class='flex-fill text-lg-right text-md-right text-sm-right'>
                         <a class='nav-link modal-link border-0 text-lg-right text-md-right text-sm-right py-1' data-url='../partials/templates/login_modal.php' role='button'> 
-                            <i class="far fa-user-circle mr-2"></i>
+                            <img src='<?= DEFAULT_PROFILE ?>' height='20' class='rounded-circle mr-1'>
                             <small>
                                 LOGIN | REGISTER
                             </small>
@@ -106,7 +121,7 @@
                     <div class="d-flex flex-row vanish-lg vanish-md vanish-sm text-sm-center">
                         <div class='flex-fill vanish-lg vanish-md vanish-sm'>
                             <a class='border-0 text-sm-center py-1' href='profile.php?id=<?=$id?>' role='button'> 
-                                    <?= "<img src='../../".getProfilePic($conn, $id)."_80x80.jpg' height='20' class='circle mr-1'>" ?>
+                                    <img src='<?= $profile_pic ?>' height='20' class='rounded-circle mr-1'>
                                     <small>HELLO,&nbsp;</small>
                                     <small>
                                         <?= getUsername($conn,$id) ?>
@@ -126,38 +141,38 @@
                 <div class="col">
                     <div class='flex-fill text-lg-right text-md-right text-sm-right'>
     
-                        <div class='dropdown' id='profileDropdownContainer'>
-                        <a class='dropdown-toggle py-1 text-right' id="profileDropdown" role="button" data-toggle="dropdown">
-                                    <?= "<img src='../../".getProfilePic($conn, $id)."_80x80.jpg' height='20' class='circle mr-1'>" ?>
-                                    <small>HELLO,&nbsp;</small>
-                                    <small>
-                                        <?= getUsername($conn,$id) ?>
-                                    </small>
-                                    <small>!</small>
-                                    
-                                </a>  
+                        <div class='dropdown py-1' id='profileDropdownContainer'>
+                            <a class='dropdown-toggle py-1 text-right' id="profileDropdown" role="button" data-toggle="dropdown">
+                                <img src='<?= $profile_pic ?>' height='20' class='<?= $prefix ?>circle mr-1'>
+                                <small>HELLO,&nbsp;</small>
+                                <small>
+                                    <?= getUsername($conn,$id) ?>
+                                </small>
+                                <small>!</small>
                                 
+                            </a>  
+                            
 
-                                <div class="dropdown-menu" aria-labelledby="profileDropdown" id='profileDropdown_menu' >
-                                    <a class="dropdown-item my-3" href='profile.php?id=<?=$id?>'>
-                                        <i class="far fa-edit mr-1"></i>
-                                        <small>MY PROFILE</small>
-                                    </a>
-                                     <a class="dropdown-item mb-3" href='store.php?id=<?= getStoreId ($conn,$userId) ?>'>
-                                        <i class="fas fa-store mr-1"></i>
-                                        <small>MY SHOP</small>
-                                    </a>
-                                    <!-- <a class="dropdown-item mb-4 btn_view_wishList" data-id='<?= $id ?>'>
-                                        <i class="far fa-heart mr-2"></i>
-                                        Wish List
-                                        <span class='badge text-light user_wish_count'><?= getWishlishtCount($conn) ?></span>
-                                    </a> -->
-                                    <div class="dropdown-divider my-3"></div>
-                                    <a class="dropdown-item mb-3" href='../controllers/process_logout.php?id=<?=$id?>'>
-                                        <i class='fas fa-sign-in-alt mr-1'></i>
-                                        <small> LOG OUT</small>
-                                    </a>
-                                </div>
+                            <div class="dropdown-menu" aria-labelledby="profileDropdown" id='profileDropdown_menu' >
+                                <a class="dropdown-item my-3" href='profile.php?id=<?=$id?>'>
+                                    <i class="far fa-edit mr-1"></i>
+                                    <small>MY PROFILE</small>
+                                </a>
+                                    <a class="dropdown-item mb-3" href='store.php?id=<?= getStoreId ($conn,$id) ?>'>
+                                    <i class="fas fa-store mr-1"></i>
+                                    <small>MY SHOP</small>
+                                </a>
+                                <!-- <a class="dropdown-item mb-4 btn_view_wishList" data-id='<?= $id ?>'>
+                                    <i class="far fa-heart mr-2"></i>
+                                    Wish List
+                                    <span class='badge text-light user_wish_count'><?= getWishlishtCount($conn) ?></span>
+                                </a> -->
+                                <div class="dropdown-divider my-3"></div>
+                                <a class="dropdown-item mb-3" href='../controllers/process_logout.php?id=<?=$id?>'>
+                                    <i class='fas fa-sign-in-alt mr-1'></i>
+                                    <small> LOG OUT</small>
+                                </a>
+                            </div>
                         </div>
 
                     </div>

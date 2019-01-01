@@ -1,6 +1,7 @@
 <?php
 
     session_start(); 
+
     // require_once "../../controllers/connect.php";
     function getPreselectedAddress($addressId, $conn) {
         $statement = $conn->prepare("SELECT a.*, o.address_id FROM  tbl_addresses a JOIN tbl_orders o ON o.address_id=a.id WHERE cart_session = ? ");
@@ -73,10 +74,10 @@
         ? $_SESSION['preselectedAddressId'] 
         : null;
 
-    // var_dump($$preselectedAddressId);
-
+    
         
     $preselectedAddressData = getPreselectedAddress($preselectedAddressId, $conn);
+    // var_dump($preselectedAddressData); die();
     $sql = " SELECT * FROM tbl_orders WHERE user_id = ? AND cart_session = ? ";
     $statement = $conn->prepare($sql);
     $statement->execute([$userId, $cartSession]);

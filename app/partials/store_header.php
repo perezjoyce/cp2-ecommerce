@@ -1,6 +1,4 @@
 <?php 
-  session_start(); 
-  
   require_once "../../config.php";
   require_once "../controllers/connect.php";
   require_once "../controllers/functions.php";
@@ -30,10 +28,17 @@
     $storeId = getStoreId ($conn,$id);
     $storeName = getStoreName($conn,$id);
     $storeLogo = getStoreLogo($conn, $id);
-    $storeDescription = getStoreDescription ($conn,$userId);
-    $storeAddress = getAddress ($conn,$userId);
-    $fname = getFirstName ($conn,$userId);
-    $lname = getLastName ($conn,$userId);
+    $storeDescription = getStoreDescription ($conn,$id);
+    $storeAddress = getStoreAddress ($conn,$id);
+    $storeHours = getStoreHours ($conn,$id);
+    $storeFollowers = countFollowers ($conn, $storeId);
+    $storeRating = getAverageStoreRating ($conn, $storeId);
+    $storeMembershipDate = getMembershipDate($conn, $storeId);
+    $storeShippingFee = displayStoreShippingFee($conn,$storeId);
+    $storeFreeShippingMinimum = displayStoreFreeShipping($conn,$storeId);
+    $fname = getFirstName ($conn,$id);
+    $lname = getLastName ($conn,$id);
+    
     
 
 ?>

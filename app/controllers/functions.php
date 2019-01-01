@@ -189,6 +189,18 @@
     }
 
     // GET STORE NAME
+    function getStore ($conn,$storeId) {
+        $sql = " SELECT * FROM tbl_stores WHERE `id`=? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$storeId]);
+        if($statement->rowCount()) {
+            return $statement->fetch();
+        }
+
+        throw new \Exception("No store with ID: $storeId");
+    }
+
+    // GET STORE NAME
     function getStoreName ($conn,$userId) {
         $sql = " SELECT * FROM tbl_stores WHERE `user_id`=? ";
         $statement = $conn->prepare($sql);
@@ -210,6 +222,20 @@
         return $storeLogo;
     }
 
+    // GET AVERAGE RATING PER STORE
+    function getAverageStoreRating ($conn, $storeId) {
+       
+        $sql = "SELECT i.store_id, AVG(product_rating) as 'averageRating' FROM tbl_ratings LEFT JOIN tbl_items i ON product_id = i.id WHERE store_id = ?";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$storeId]);
+        $row = $statement->fetch();
+        $averageStoreRating = $row['averageRating'];	
+        $averageStoreRating = round($averageStoreRating,1);
+
+        return $averageStoreRating;
+                        
+    }
+
     // GET STORE DESCRIPTION
     function getStoreDescription ($conn,$userId) {
         $sql = " SELECT * FROM tbl_stores WHERE `user_id`=? ";
@@ -222,7 +248,7 @@
     }
 
     // GET STORE DESCRIPTION
-    function getAddress ($conn,$userId) {
+    function getStoreAddress ($conn,$userId) {
         $sql = " SELECT * FROM tbl_stores WHERE `user_id`=? ";
         $statement = $conn->prepare($sql);
         $statement->execute([$userId]);
@@ -230,6 +256,17 @@
         $storeAddress = $row['store_address'];
 
         return $storeAddress;
+    }
+
+    // GET STORE BUSINESS HOURS
+    function getStoreHours ($conn,$userId) {
+        $sql = " SELECT * FROM tbl_stores WHERE `user_id`=? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$userId]);
+        $row = $statement->fetch();
+        $storeHours = $row['hours'];
+
+        return $storeHours;
     }
 
     // GET STORE ID FROM USER ID
@@ -241,6 +278,33 @@
         $storeId = $row['id'];
 
         return $storeId;
+    }
+
+    // COUNT STORE FOLLOWERS 
+    function countFollowers ($conn, $storeId) {
+        $sql = " SELECT COUNT(*) AS 'followers' FROM tbl_followers WHERE store_id = ? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$storeId]);
+        $row = $statement->fetch();
+        $storeFollowers = $row['followers'];
+
+        return $storeFollowers;
+    }
+
+    // GET MEMBERSHIP DATE
+    function getMembershipDate($conn, $storeId) {
+        
+        $sql = "SELECT DATE_FORMAT(date_created, '%M %d, %Y') AS 'dateJoined' FROM tbl_stores WHERE id = ?";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$storeId]);
+        $row = $statement->fetch();
+        $dateJoined = $row['dateJoined'];	
+        $month = substr($dateJoined,0,3);
+        $daysYear = substr(strstr($dateJoined," "), 1);
+        $dateJoined = $month." ".$daysYear;
+
+        return $dateJoined;
+                    
     }
 
     // GET PROFILE PIC 
@@ -273,11 +337,12 @@
         $statement->execute([$productId]);
         $row = $statement->fetch();
         $shippingFee = $row['standard_shipping'];
-        $shippingFee = number_format((float)$shippingFee, 2, '.', '');    
+        $shippingFee = number_format((float)$shippingFee, 2, '.', ',');    
         return $shippingFee;
 
     }
 
+    
     // SHOW MINIMUM AMOUNT REQUIRED TO AVAIL FREE SHIPPING
     function displayFreeShippingMinimum($conn,$productId) {
         $sql = "SELECT s.free_shipping_minimum, i.store_id, i.id FROM tbl_stores s 
@@ -286,10 +351,38 @@
         $statement->execute([$productId]);
         $row = $statement->fetch();
         $freeShippingMinimum =$row['free_shipping_minimum'];
-        $freeShippingMinimum = number_format((float)$freeShippingMinimum, 2, '.', '');    
+        $freeShippingMinimum = number_format((float)$freeShippingMinimum, 2, '.', ',');    
 
         if($freeShippingMinimum != 0 || !$freeShippingMinimum ){
             return $freeShippingMinimum;
+        }
+    }
+
+    // SHOW SHIPPING FEE FROM STORE ID
+    function displayStoreShippingFee($conn,$storeId) {
+        $sql = "SELECT s.standard_shipping, i.store_id, i.id FROM tbl_stores s 
+        JOIN tbl_items i ON i.store_id = s.id WHERE store_id = ? GROUP BY store_id";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$storeId]);
+        $row = $statement->fetch();
+        $storeShippingFee = $row['standard_shipping'];
+        $storeShippingFe = number_format((float)$storeShippingFee, 2, '.', ',');    
+        return $storeShippingFe;
+
+    }
+
+    // SHOW FREE SHIPPING FROM STORE ID
+    function displayStoreFreeShipping($conn,$storeId) {
+        $sql = "        SELECT s.free_shipping_minimum, i.store_id, i.id FROM tbl_stores s 
+        JOIN tbl_items i ON i.store_id = s.id WHERE store_id = ? GROUP BY store_id";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$storeId]);
+        $row = $statement->fetch();
+        $storeFreeShipping =$row['free_shipping_minimum'];
+        $storeFreeShipping = number_format((float) $storeFreeShipping, 2, '.', ',');    
+
+        if( $storeFreeShipping != 0 || !$storeFreeShipping){
+            return $storeFreeShipping;
         }
     }
 
@@ -485,6 +578,18 @@
         } else {
             echo "<small class='text-gray font-weight-light'>REVIEW PRODUCT</small>";
         }
+    }
+
+    function getUser($conn, $userId) {
+        $sql = "SELECT * FROM tbl_users WHERE id=?";
+        $st = $conn->prepare($sql);
+        $st->execute([$userId]);
+        if($st->rowCount()) {
+            $row = $st->fetch();
+            return $row;
+        }
+
+        throw new \Exception("No user fetched");
     }
 
 

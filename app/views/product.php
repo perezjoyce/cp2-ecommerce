@@ -9,6 +9,8 @@ $id = $_GET['id'];
 
 if(isset($_SESSION['id'])) {
   $userId = $_SESSION['id'];
+  $currentUser = getUser($conn, $userId);
+  $isSeller = $currentUser['isSeller'];
 }
 ?>
 
@@ -544,7 +546,7 @@ if(isset($_SESSION['id'])) {
                     <!-- FOLLWERS -->
                     <small class="d-flex flex-row mb-3">
                       <div style='width:45%;'>Followers</div>
-                      <div>fds</div>
+                      <div><?= countFollowers ($conn, $storeId) ?></div>
                     </small>
 
                     <!-- PRODUCTS COUNT -->
@@ -564,19 +566,10 @@ if(isset($_SESSION['id'])) {
 
                     <!-- JOINED -->
                     <small class="d-flex flex-row mb-4">
-                        <?php
-                          $sql = "SELECT DATE_FORMAT(date_created, '%M %d, %Y') AS 'dateJoined' FROM tbl_stores WHERE id = ?";
-                          $statement = $conn->prepare($sql);
-                          $statement->execute([$storeId]);
-                          $row = $statement->fetch();
-                          $dateJoined = $row['dateJoined'];	
-                          $month = substr($dateJoined,0,3);
-                          $daysYear = substr(strstr($dateJoined," "), 1);
-                          $dateJoined = $month." ".$daysYear
-                        ?>
+                        
                       <div style='width:45%;'>Joined</div>
                       <div>
-                        <?=  $dateJoined ?>
+                        <?=  getMembershipDate($conn, $storeId) ?>
                       </div>
                       <!-- https://stackoverflow.com/questions/6823133/how-to-remove-first-word-from-a-php-string -->
                     </small>
@@ -1612,7 +1605,7 @@ if(isset($_SESSION['id'])) {
   </div>
   
   
-  <?php if(isset($_SESSION['id'])){ include '../partials/message_box.php'; } ?>
+  <?php if(isset($_SESSION['id']) && !$isSeller){ include '../partials/message_box.php'; } ?>
 </body>
 </html> 
 

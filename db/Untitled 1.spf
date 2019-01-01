@@ -172,6 +172,33 @@ SELECT u.*, m.* FROM tbl_messages m
 	<array/>
 	<key>queryHistory</key>
 	<array>
+		<string>SELECT s.free_shipping_minimum, i.store_id, i.id FROM tbl_stores s 
+        JOIN tbl_items i ON i.store_id = s.id WHERE store_id = 1 GROUP BY store_id</string>
+		<string>SELECT s.free_shipping_minimum, i.store_id, i.id FROM tbl_stores s 
+        JOIN tbl_items i ON i.store_id = s.id WHERE store_id = 1</string>
+		<string>SELECT s.free_shipping_minimum, i.store_id, i.id FROM tbl_stores s 
+        JOIN tbl_items i ON i.store_id = s.id WHERE store_id = 11</string>
+		<string>SELECT s.free_shipping_minimum, i.store_id, i.id FROM tbl_stores s 
+        JOIN tbl_items i ON i.store_id = s.id</string>
+		<string>SELECT s.standard_shipping, i.store_id, i.id FROM tbl_stores s 
+        JOIN tbl_items i ON i.store_id = s.id WHERE store_id = 1 GROUP BY store_id</string>
+		<string>SELECT s.standard_shipping, i.store_id, i.id FROM tbl_stores s 
+        JOIN tbl_items i ON i.store_id = s.id WHERE store_id = 1</string>
+		<string>SELECT s.standard_shipping, i.store_id, i.id FROM tbl_stores s 
+        JOIN tbl_items i ON i.store_id = s.id</string>
+		<string>SELECT s.standard_shipping, i.store_id, i.id FROM tbl_stores s 
+        JOIN tbl_items i ON i.store_id = s.id WHERE i.store_id = 11</string>
+		<string>SELECT i.store_id, AVG(product_rating) as 'averageRating' FROM tbl_ratings LEFT JOIN tbl_items i ON product_id = i.id WHERE store_id = 1</string>
+		<string>SELECT i.id, i.store_id, AVG(product_rating) as 'averageRating' FROM tbl_ratings LEFT JOIN tbl_items i ON product_id = i.id WHERE store_id = 1</string>
+		<string>SELECT * FROM tbl_stores WHERE name = %1%accessible</string>
+		<string>SELECT * FROM tbl_stores WHERE name = 1</string>
+		<string>SELECT * FROM tbl_conversations 
+                                                    WHERE `from` = 2 OR `to` = 2</string>
+		<string>OR `to` = 2</string>
+		<string>SELECT * FROM tbl_conversations 
+                                                    WHERE `from` = 2</string>
+		<string>SELECT * FROM tbl_conversations 
+                                                    WHERE `from` =2 OR `to` = 2</string>
 		<string>SELECT u.*, m.* FROM tbl_messages m 
             JOIN tbl_users u on u.id=m.user_id        
             WHERE conversation_id=3 ORDER BY m.date</string>
@@ -187,30 +214,6 @@ PRIMARY KEY(id),
 FOREIGN KEY (sender) REFERENCES tbl_users(id) ON UPDATE CASCADE ON DELETE SET NULL
 )</string>
 		<string>SELECT r.id as 'rating_id', r.product_id, r.user_id, r.rating_is_final, ri.is_final FROM tbl_ratings r JOIN tbl_rating_images ri ON ri.rating_id=r.id WHERE r.product_id=1 AND r.user_id=2</string>
-		<string>SELECT r.product_id, r.user_id, r.rating_is_final, ri.is_final FROM tbl_ratings r JOIN tbl_rating_images ri ON ri.rating_id=r.id WHERE r.product_id=1 AND r.user_id=2</string>
-		<string>SELECT r.product_id, r.user_id, r.rating_is_final, ri.is_final FROM tbl_ratings r JOIN tbl_rating_images ri ON ri.rating_id=r.id WHERE r.id=23</string>
-		<string>SELECT r.product_id, r.rating_is_final, ri.is_final FROM tbl_ratings r JOIN tbl_rating_images ri ON ri.rating_id=r.id WHERE r.id=23</string>
-		<string>SELECT r.rating_is_final, ri.is_final FROM tbl_ratings r JOIN tbl_rating_images ri ON ri.rating_id=r.id WHERE r.id=23</string>
-		<string>SELECT r.rating_is_final, ri.is_final FROM tbl_ratings r JOIN tbl_ratings_images ri ON ri.rating_id=r.id WHERE r.id=23</string>
-		<string>INSERT INTO tbl_rating_images (url, rating_id) VALUES ('shitImage', 23)</string>
-		<string>SELECT i.id as 'productId', i.price, i.img_path, i.name as 'productName',s.id as 'storeId', s.name as 'storeName', s.store_address, s.logo FROM tbl_items i JOIN tbl_stores s ON i.store_id=s.id WHERE i.id = 1</string>
-		<string>SELECT i.id as 'productId', i.price, i.img_path, i.name as 'productName', s.name as 'storeName', s.store_address, s.logo FROM tbl_items i JOIN tbl_stores s ON i.store_id=s.id WHERE i.id = 1</string>
-		<string>SELECT i.id as 'productId', i.price, i.img_path, i.name as 'productName', s.name as 'storeName', s.store_addressaddress, s.logo FROM tbl_items i JOIN tbl_stores s ON i.store_id=s.id WHERE i.id = 1</string>
-		<string>SELECT i.id as 'productId', i.price, i.img_path, i.name as 'productName', s.name as 'storeName', s.address, s.logo FROM tbl_items i JOIN tbl_stores s ON i.store_id=s.id WHERE i.id = 1</string>
-		<string>SELECT cart_session,purchase_date FROM tbl_orders WHERE user_id = 2 AND status_id = 2 ORDER BY purchase_date DESC</string>
-		<string>SELECT v.id as 'variationId', v.variation_name as 'variationName', i.id as 'productId', i.name as 'productName', i.price, i.img_path, i.store_id FROM tbl_variations v JOIN tbl_items i ON v.product_id=i.id WHERE v.id = 1 GROUP BY i.id</string>
-		<string>-- fetch name,and product id
--- SELECT name, price, img_path, store_id FROM tbl_items WHERE id = 1;
-SELECT v.id as 'variationId', v.variation_name as 'variationName', i.id as 'productId', i.name as 'productName', i.price, i.img_path, i.store_id FROM tbl_variations v JOIN tbl_items i ON v.product_id=i.id WHERE v.id = 1</string>
-		<string>-- fetch name,and product id
--- SELECT name, price, img_path, store_id FROM tbl_items WHERE id = 1;
-SELECT v.id as 'variationId', v.variation_name as 'variationName', i.id as 'productId', i.name as 'productName', i.price, i.img_path, i.store_id FROM tbl_variations v JOIN tbl_items i ON v.product_id=i.id WHERE v.id = 1 GROUP BY i.id</string>
-		<string>-- fetch name,and product id
--- SELECT name, price, img_path, store_id FROM tbl_items WHERE id = 1;
-SELECT v.id as 'variationId', v.variation_name as 'variationName', i.id as 'productId', i.name as 'productName', i.price, i.img_path, i.store_id FROM tbl_variations v JOIN tbl_items i ON v.product_id=i.id WHERE vi.id = 1 GROUP BY i.id</string>
-		<string>-- fetch name,and product id
--- SELECT name, price, img_path, store_id FROM tbl_items WHERE id = 1;
-SELECT v.id as 'variationId', v.variation_name as 'variationName', i.id as 'productId', i.name as 'productName', i.price, i.img_path, i.store_id FROM tbl_variations v JOIN tbl_items i ON v.product_id=i.id GROUP BY i.id</string>
 	</array>
 	<key>rdbms_type</key>
 	<string>mysql</string>

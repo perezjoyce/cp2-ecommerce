@@ -1046,6 +1046,11 @@ $(document).ready( () => {
 		$('#cartDropdown_menu').hide();
 	});
 
+	$('#profileDropdown').click(()=>{
+		$('.dropdown-menu').toggle();
+		$('#cartDropdown_menu').hide();
+	});
+
 	$('#profileDropdown_menu').mouseover(()=>{
 		$('#profileDropdown_menu').show();
 	});

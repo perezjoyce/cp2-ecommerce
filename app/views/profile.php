@@ -34,7 +34,7 @@
         if($profile_pic == "") {
             $profile_pic = DEFAULT_PROFILE; 
         } else {
-            $profile_pic = BASE_URL . $profile_pic . "_80x80.jpg";
+            $profile_pic = BASE_URL ."/". $profile_pic . "_80x80.jpg";
         } 
     }  
        
@@ -52,19 +52,23 @@
                 <!-- PROFILE -->
                 <div class='container p-5 rounded mb-5' style='background:white;'>
                     <div class="row mb-3">
-                        <div class="col-12">
-                            <div class='d-flex flex-lg-row flex-md-row flex-sm-column'>
+                        <div class="col-12 d-flex">
+                            <div class='flex-fill d-sm-flex d-flex flex-lg-row flex-md-row flex-sm-column'>
                                 <div class='flex-fill'>
-                                    <div class="d-flex align-items-center">
+                                    <div class="d-flex flex-lg-row flex-md-row align-items-center flex-sm-column">
                                         <div class='pr-3'>
                                             <img src='<?= $profile_pic ?>'  class="profile_user_photo rounded-circle">
                                         </div>
-                                        <div class="d-flex flex-column">
+                                        <div class="d-flex flex-column text-lg-left text-md-left text-sm-center">
                                             <div>
+                                                <?php if($fname && $lname) { ?>
                                                 <h3><?= $fname . " " . $lname ?></h3>
+                                                <?php } else { ?> 
+                                                <h3><?= $username ?></h3>
+                                                <?php } ?>
                                             </div>
                                             
-                                            <div class="text-gray">
+                                            <div class="text-gray mr-sm-4">
                                                 <?
                                                     $sql = "SELECT last_login FROM tbl_users WHERE id = ?";
                                                     $statement = $conn->prepare($sql);
@@ -105,7 +109,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class='flex-fill text-right'>
+                                <div class='flex-fill text-lg-right text-sm-center'>
                                     <div class="d-flex flex-column">
                                         <a class='nav-link modal-link px-0' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
                                             <i class="fas fa-camera"></i>
@@ -156,6 +160,7 @@
                                     <div class="col">
                                         <div class="container px-0">
 
+                                            <?php if ($fname && $lname) { ?>
                                             <div class="row my-5">
                                                 <div class="col-3">
                                                     Name
@@ -164,8 +169,9 @@
                                                     <?= $fname . " " . $lname ?>
                                                 </div>
                                             </div>  
-
+                                            
                                             <div class="row mb-5">
+                                            <?php } else { echo "<div class='row my-5'>"; } ?>
                                                 <div class="col-3">
                                                     Username
                                                 </div>
