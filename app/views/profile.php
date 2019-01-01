@@ -57,7 +57,7 @@
                                 <div class='flex-fill'>
                                     <div class="d-flex align-items-center">
                                         <div class='pr-3'>
-                                            <img src='<?= $profile_pic ?>'  class="user-photo circle" height="90px;">
+                                            <img src='<?= $profile_pic ?>'  class="profile_user_photo rounded-circle">
                                         </div>
                                         <div class="d-flex flex-column">
                                             <div>
@@ -759,10 +759,19 @@
                                         <h4>Inbox</h4>  
                                     </div>
                                     <div class="col">
-                                        <input type="text" 
+                                        <!-- <input type="text" 
                                             placeholder="&#128269;" 
                                             class='border-bottom border-top-0 border-right-0 border-left-0' 
                                             id='search_store_name' style='width:100%;'>
+                                    </div> -->
+                                        <div class="input-group" style='width:100%;'>
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text border-right-0 border-left-0 border-top-0" style='background:white;'>
+                                                    <i class="fas fa-search" style='background:white;'></i>
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control border-right-0 border-left-0 border-top-0" id="search_store_name">
+                                        </div>
                                     </div>
                                     
                                 </div>

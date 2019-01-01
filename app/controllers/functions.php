@@ -168,7 +168,7 @@
 
     // GET STORE NAME
     function getStoreName ($conn,$userId) {
-        $sql = " SELECT * FROM tbl_stores WHERE `id`=? ";
+        $sql = " SELECT * FROM tbl_stores WHERE `user_id`=? ";
         $statement = $conn->prepare($sql);
         $statement->execute([$userId]);
         $row = $statement->fetch();

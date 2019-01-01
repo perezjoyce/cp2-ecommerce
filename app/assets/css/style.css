@@ -108,9 +108,12 @@ card-title {
     clip-path: circle(46% at 50% 50%);
 }
 
-.user-photo {
-    max-width: 80px;
+.profile_user_photo {
+   width:100px;
+   height:100px;
 }
+
+
 
 #product-review {
     resize: none;
@@ -1012,6 +1015,11 @@ a.hover_btn:active {
    border:0!important;
 }
 
+/*============================ STORE PHP ==========================*/
+.store_page_logo {
+    width:13em;
+    height:13em;
+}
 
 /*============================ DESKTOP ==========================*/
 

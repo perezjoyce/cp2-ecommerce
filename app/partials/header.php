@@ -102,9 +102,9 @@
                     </div>
 
             <?php } else { ?>
-                <div class="col-lg-10 col-md-9 col-sm-12 justify-content-right">
-                    <div class="d-flex flex-row vanish-lg vanish-md text-sm-center">
-                        <div class='flex-fill vanish-lg vanish-md'>
+                <div class="col-lg-10 col-md-9 col-sm-12 justify-content-right vanish-sm">
+                    <div class="d-flex flex-row vanish-lg vanish-md vanish-sm text-sm-center">
+                        <div class='flex-fill vanish-lg vanish-md vanish-sm'>
                             <a class='border-0 text-sm-center py-1' href='profile.php?id=<?=$id?>' role='button'> 
                                     <?= "<img src='../../".getProfilePic($conn, $id)."_80x80.jpg' height='20' class='circle mr-1'>" ?>
                                     <small>HELLO,&nbsp;</small>
@@ -115,7 +115,7 @@
                             </a>
                         </div>
 
-                        <div class='flex-fill vanish-lg vanish-md text-sm-center'>
+                        <div class='flex-fill vanish-lg vanish-md vanish-sm text-sm-center'>
                             <a class='border-0 text-sm-center' href='../controllers/process_logout.php?id=<?=$id?>' role='button'> 
                                 <i class='fas fa-sign-in-alt py-1'></i>
                                 <small> LOG OUT</small>
@@ -123,11 +123,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col vanish-sm">
-                        
-
-                    <div class='flex-fill text-lg-right text-md-right vanish-sm'>
-                        
+                <div class="col">
+                    <div class='flex-fill text-lg-right text-md-right text-sm-right'>
+    
                         <div class='dropdown' id='profileDropdownContainer'>
                         <a class='dropdown-toggle py-1 text-right' id="profileDropdown" role="button" data-toggle="dropdown">
                                     <?= "<img src='../../".getProfilePic($conn, $id)."_80x80.jpg' height='20' class='circle mr-1'>" ?>
@@ -142,21 +140,21 @@
 
                                 <div class="dropdown-menu" aria-labelledby="profileDropdown" id='profileDropdown_menu' >
                                     <a class="dropdown-item my-3" href='profile.php?id=<?=$id?>'>
-                                        <i class="far fa-edit"></i>
-                                        <small>MANAGE MY PROFILE</small>
+                                        <i class="far fa-edit mr-1"></i>
+                                        <small>MY PROFILE</small>
                                     </a>
-                                    <!-- <a class="dropdown-item mb-3 btn_view_addresses" data-id='<?= $id ?>'>
-                                        <i class="far fa-address-book mr-2"></i>
-                                        Addresses
+                                     <a class="dropdown-item mb-3" href='store.php?id=<?= getStoreId ($conn,$userId) ?>'>
+                                        <i class="fas fa-store mr-1"></i>
+                                        <small>MY SHOP</small>
                                     </a>
-                                    <a class="dropdown-item mb-4 btn_view_wishList" data-id='<?= $id ?>'>
+                                    <!-- <a class="dropdown-item mb-4 btn_view_wishList" data-id='<?= $id ?>'>
                                         <i class="far fa-heart mr-2"></i>
                                         Wish List
                                         <span class='badge text-light user_wish_count'><?= getWishlishtCount($conn) ?></span>
                                     </a> -->
                                     <div class="dropdown-divider my-3"></div>
                                     <a class="dropdown-item mb-3" href='../controllers/process_logout.php?id=<?=$id?>'>
-                                        <i class='fas fa-sign-in-alt mr-2'></i>
+                                        <i class='fas fa-sign-in-alt mr-1'></i>
                                         <small> LOG OUT</small>
                                     </a>
                                 </div>
