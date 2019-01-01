@@ -123,7 +123,7 @@
                                     <?= "<img src='../../".getProfilePic($conn, $id)."_80x80.jpg' height='20' class='circle mr-1'>" ?>
                                     <small>HELLO,&nbsp;</small>
                                     <small>
-                                        <?= getUsername($conn,$id) ?>
+                                        <?= $storeName ?>
                                     </small>
                                     <small>!</small>
                             </a>
@@ -140,12 +140,12 @@
                 <div class="col">
                     <div class='flex-fill text-lg-right text-md-right text-sm-right'>
     
-                        <div class='dropdown' id='profileDropdownContainer'>
+                        <div class='dropdown py-1' id='profileDropdownContainer'>
                         <a class='dropdown-toggle py-1 text-right' id="profileDropdown" role="button" data-toggle="dropdown">
                                     <?= "<img src='../../".getProfilePic($conn, $id)."_80x80.jpg' height='20' class='circle mr-1'>" ?>
                                     <small>HELLO,&nbsp;</small>
                                     <small>
-                                        <?= getUsername($conn,$id) ?>
+                                        <?= $storeName ?>
                                     </small>
                                     <small>!</small>
                                     
@@ -220,7 +220,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item pl-lg-5 pl-md-4">
-                                    <a class="nav-link text-light font-weight-bold" href="store_messages?id<?=$storeId?>"> 
+                                    <a class="nav-link text-light font-weight-bold" href="store_messages.php?id=<?=$storeId?>"> 
                                         <div class='underline'>MESSAGES</div>
                                     </a>
                                 </li>

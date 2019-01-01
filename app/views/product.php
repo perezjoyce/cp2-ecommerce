@@ -1027,11 +1027,11 @@ if(isset($_SESSION['id'])) {
                                       $reviewImageUrl = $row2['url'];
                                   ?>
 
-                                <img src="<?=$reviewImageUrl?>" 
+                                <img src="<?= BASE_URL . "/" .$reviewImageUrl?>" 
                                     alt="review_image" style='width:70px;max-height:80px;cursor: zoom-in;' 
                                     class='review_thumbnail mr-2' 
                                     data-id='<?=$reviewImageId?>' data-clientid='<?=$clientId?>'
-                                    data-url='<?=$reviewImageUrl?>'>
+                                    data-url='<?= $reviewImageUrl ?>'>
 
                                   <?php } } ?>
                               
@@ -1605,7 +1605,21 @@ if(isset($_SESSION['id'])) {
   </div>
   
   
-  <?php if(isset($_SESSION['id']) && !$isSeller){ include '../partials/message_box.php'; } ?>
+   <?php 
+    
+    //CHECK IF CLIENT IS A SELLER AND THE OWNER OF THE PAGE  
+    if ($isSeller && $currentUser['id'] == $sellerId) {
+      echo "";
+    } else { 
+      echo include '../partials/message_box.php'; 
+    }
+      
+  
+  
+    
+  ?> 
+
+  
 </body>
 </html> 
 
