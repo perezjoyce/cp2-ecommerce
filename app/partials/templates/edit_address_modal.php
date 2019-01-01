@@ -311,15 +311,18 @@
 
                             <!-- NAME -->
                             <div class="form-group row mb-5">
-                                <label for='name' class='col-3'>Password*</label>
-                                <div class="input-group col-8 pr-0">
+                                <label for='name' class='col-lg-3 col-md-3 col-sm-12'>Password*</label>
+                                <div class="input-group col-lg-9 col-md-9 col-sm-12">
                                     <input type="password" class='form-control border-right-0' id='password'>
+                                    <a class="btn hide btn_view_profile_password border border-left-0 mx-0 px-0 eye-profile">
+                                        <i class="fas fa-eye-slash eye text-secondary bg-light hide pr-2"></i>
+                                    </a>
                                 </div>
-                                <div class="input-group-append col-1 border-0 m-0 px-0">
+                                <!-- <div class="input-group-append col-1 border-0 m-0 px-0">
                                     <a class="btn hide btn_view_profile_password border border-left-0 mx-0">
                                         <i class="fas fa-eye-slash eye text-secondary bg-light hide px-2 mx-0"></i>
                                     </a>
-                                </div>
+                                </div> -->
                             </div>
                                 
 

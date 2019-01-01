@@ -634,7 +634,7 @@ div#login_image {
 .my-message {
     background-color: #12c2e9;
     border-radius: 10px!important;
-    height: 40px;
+    min-height: 40px;
     border-collapse: separate;
     min-width: 180px;
     text-align: left;
@@ -644,10 +644,20 @@ div#login_image {
 }
 
 .seller-message {
-    background-color:#DCDCDC;
-    border-radius: 10px;
+   
+
+    background-color: #dcdede;
+    border-radius: 10px!important;
+    min-height: 40px;
+    border-collapse: separate;
+    min-width: 180px;
     text-align: left;
+    padding: 8px 10px;
+    float: left;
+    clear: both;
 }
+
+
 
 /* ================================ CART MODAL =================================== */
 
@@ -1045,9 +1055,6 @@ a.hover_btn:active {
     } */
 
     
-    
-    
-
     #login-reg-header {
         width: 9vw!important;
         font-size: 10px!important;
@@ -1074,6 +1081,11 @@ a.hover_btn:active {
     #btn_add_to_cart_again {
         width:50%;
     }
+
+    /* PROFILE PAGE */
+    /* .eye-profile {
+        padding:7px;
+    } */
 
     /* REUSABLE */
 	.vanish-lg {
@@ -1473,6 +1485,30 @@ a.hover_btn:active {
 
     .pt-sm-4 {
         padding-top:2em;
+    }
+
+    .px-sm-0{
+        padding-left:0;
+        padding-right:0;
+    }
+
+    .px-sm-1{
+        padding-left:1em;
+        padding-right:1em;
+    }
+
+    .px-sm-2{
+        padding-left:1.5em;
+        padding-right:1.5em;
+    }
+
+    .px-sm-3{
+        padding-left:2em;
+        padding-right:2em;
+    }
+
+    .float-sm-right{
+        float: right;
     }
 
     #profileDropdown_menu {

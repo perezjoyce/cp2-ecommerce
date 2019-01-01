@@ -1610,8 +1610,9 @@ if(isset($_SESSION['id'])) {
 
     </div>
   </div>
-
-  <?php include '../partials/message_box.php' ?>
+  
+  
+  <?php if(isset($_SESSION['id'])){ include '../partials/message_box.php'; } ?>
 </body>
 </html> 
 

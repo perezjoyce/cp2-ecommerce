@@ -2282,56 +2282,131 @@ $(document).ready( () => {
 
 	})
 
-
-	$(document).on('keypress', '#messageTextarea', function(e){
-		if(e.which == 13) {
-			let message = $(this).val();
-			if(message != ""){
+	//SENDING MESSAGES FROM PROFILE PAGE
+	// $(document).on('keypress', '#messageTextarea', function(e){
+	// 	if(e.which == 13) {
+	// 		let message = $(this).val();
+	// 		if(message != ""){
 				
-				$(this).val();
-			}
-		}
-	});
+	// 			$(this).val();
+	// 		}
+	// 	}
+	// });
 
+	// FETCHING MESSAGES IN CHATBOX
 	$('#messageBox__button').on('click', function(e){
 		e.preventDefault();
 		$(".conversations").toggle();
 		let data = {
 			sellerId: $(this).data('sellerid')
 		};
+
 		$.get("../../app/controllers/process_generate_conversation.php", data, function(response){
 			// update message item list to show seller at the top
 
 			let data = $.parseJSON(response);
 			$('#message_box .message_items').html(data.messageItemSelected);
 			$('#message_box .message_details-container').html(data.messageDetails);
-			$('#conversationId').val(data.conversationId);
+			$('#message_details-conversationId').val(data.conversationId);
 			// update the message details to show the text conversation with seller
 
-			var container = $('#message_box .message_details-container');
+			let container = $('#message_box .message_details-container');
 			container.scrollTop(container[0].scrollHeight);
 		});
 	});
 
+	// FETCHING MESSAGES IN PROFILE INBOX
+	$(document).on('click', '.selected_conversation', function(e){
+		e.preventDefault();
+		let data = {
+			sellerId: $(this).data('sellerid'),
+			conversationId: $(this).data('conversationid')
+		};
+		
+		$.get("../../app/controllers/process_fetch_conversations.php", data, function(response){
+			let data = $.parseJSON(response);
 
+			$('#profile_conversation_id').val(data.conversationId);
+			$('#profile_message_container').html(data.messageDetails);
+			let container = $('#profile_message_container');
+			container.scrollTop(container[0].scrollHeight);
+
+
+		});
+	})
+
+
+	//SENDING MESSAGES THROUGH CHATBOX
 	$(document).on('keyup', '#message_input', function(e) {
 		if(e.keyCode == 13) {
-			var data = {
+			let data = {
 				sellerId: $(this).data('sellerid'),
-				conversationId: $('#conversationId').val(),
+				conversationId: $('#message_details-conversationId').val(),
 				message: $(this).val()
 			}
 			$.post('../../app/controllers/process_send_message.php', data,
 				function(response){
-					var data = $.parseJSON(response);
-					var container = $('#message_box .message_details-container');
-					container.html(data.messageDetails);
-					container.scrollTop(container[0].scrollHeight);
+				// let data = $.parseJSON(response);
+
+					
+				let container = $('#message_box .message_details-container');
+				container.html(response);
+				container.scrollTop(container[0].scrollHeight);
+			
+				
 			});
 
-			$(this).val("")
+			$(this).val("");
 		}
 	})
+
+	//SENDING MESSAGES THROUGH PROFILE INBOX
+	$(document).on('keyup', '#profile_message_input', function(e) {
+		if(e.keyCode == 13) {
+			let data = {
+				sellerId: $(this).data('sellerid'),
+				conversationId: $('#profile_conversation_id').val(),
+				message: $(this).val()
+			}
+			$.post('../../app/controllers/process_send_message.php', data,
+				function(response){
+				// let data = $.parseJSON(response);
+				
+				let container = $('#profile_message_container');
+				container.html(response);
+				container.scrollTop(container[0].scrollHeight);
+					
+				
+			});
+
+			$(this).val("");
+		}
+	})
+
+	// SEARCHING FOR STORENAME IN MESSAGE BOX
+	$(document).on('keypress', '#search_store_name', function(e) {
+		
+		// if(e.keyCode == 13) {
+			let storeName = $(this).val();
+
+			$.get('../../app/controllers/process_search_store_message.php', {storeName:storeName},
+				function(response){
+				// let data = $.parseJSON(response);
+				
+				if(response == 'fail'){
+					$('#sender_container').html("<tr><td><small>Sorry. There is no store with this name in your inbox.</small></td></tr>");
+					setTimeout(function(){window.location.reload()}, 2000);
+				}else{
+					$('#sender_container').html(response);
+				}
+					
+			});
+		// }
+
+		
+	})
+
+	
 
 
 

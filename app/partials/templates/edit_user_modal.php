@@ -53,8 +53,8 @@
 
                       <!-- FIRST NAME -->
                       <div class="form-group row mb-5">
-                          <label for='fname' class='col'>First Name</label>
-                          <div class="input-group col-9">
+                          <label for='fname' class='col-lg-3 col-md-3 col-sm-12'>First Name</label>
+                          <div class="input-group col-lg-9 col-md-9 col-sm-12">
                               <input type="text" class='form-control' id='fname'
                                   value="<?= $fname ?>">
                           </div>
@@ -62,8 +62,8 @@
 
                       <!-- LAST NAME -->
                       <div class="form-group row mb-5">
-                          <label for='lname' class='col'>Last Name</label>
-                          <div class="input-group col-9">
+                          <label for='lname' class='col-lg-3 col-md-3 col-sm-12'>Last Name</label>
+                          <div class="input-group col-lg-9 col-md-9 col-sm-12">
                               <input type="text" class='form-control' id='lname'
                                   value="<?= $lname ?>">
                           </div>
@@ -71,8 +71,8 @@
 
                       <!-- EMAIL -->
                       <div class="form-group row mb-5">
-                          <label for='email' class='col'>Email*</label>
-                          <div class="input-group col-9">
+                          <label for='email' class='col-lg-3 col-md-3 col-sm-12'>Email*</label>
+                          <div class="input-group col-lg-9 col-md-9 col-sm-12">
                               <input type="text" class='form-control' id='email'
                                   value="<?= hide_email($email) ?>">
                           </div>
@@ -82,8 +82,8 @@
 
                       <!-- USERNAME -->
                       <div class="form-group row mb-5">
-                          <label for='unsername' class='col'>Username*</label>
-                          <div class="input-group col-9">
+                          <label for='unsername' class='col-lg-3 col-md-3 col-sm-12'>Username*</label>
+                          <div class="input-group col-lg-9 col-md-9 col-sm-12">
                               <input type="text" class='form-control' id='username'
                                   value="<?= $username ?>">
                           </div>
@@ -93,15 +93,18 @@
                       
                       <!-- PASSWORD -->
                       <div class="form-group row mb-5">
-                          <label for='name' class='col-3'>Password*</label>
-                          <div class="input-group col-8 pr-0">
-                              <input type="password" class='form-control border-right-0' id='password'>
-                          </div>
-                          <div class="input-group-append col-1 border-0 m-0 px-0">
-                              <a class="btn hide btn_view_profile_password border border-left-0 mx-0">
-                                  <i class="fas fa-eye-slash eye text-secondary bg-light hide px-2 mx-0"></i>
+                          <label for='name' class='col-lg-3 col-md-3 col-sm-12'>Password*</label>
+                          <div class="input-group col-lg-9 col-md-9 col-sm-12">
+                              <input type="password" class='form-control border-right-0 pr-0' id='password'>
+                              <a class="btn hide btn_view_profile_password border border-left-0 mx-0 px-0 eye-profile">
+                                  <i class="fas fa-eye-slash eye text-secondary bg-light hide pr-2"></i>
                               </a>
                           </div>
+                          <!-- <div class="input-group-append col-1 px-0 mx-0">
+                              <a class="btn hide btn_view_profile_password border border-left-0 mx-0 px-lg-3 px-md-3 px-sm-3 float-right eye-profile">
+                                  <i class="fas fa-eye-slash eye text-secondary bg-light hide px-lg-0 px-md-2 px-sm-0 mx-0"></i>
+                              </a>
+                          </div> -->
                       </div>
                           
 

@@ -37,6 +37,8 @@ if($statement2->rowCount()) {
     
 }
 
-echo json_encode([
-    "messageDetails" => $messageDetails
-]);
+// echo json_encode([
+//     "messageDetails" => $messageDetails
+// ]);
+
+echo $messageDetails;

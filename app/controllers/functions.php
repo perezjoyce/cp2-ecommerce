@@ -177,6 +177,28 @@
         return $storeName;
     }
 
+    // GET STORE LOGO
+    function getStoreLogo ($conn,$userId) {
+        $sql = " SELECT * FROM tbl_stores WHERE `user_id`=? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$userId]);
+        $row = $statement->fetch();
+        $storeLogo = $row['logo'];
+
+        return $storeLogo;
+    }
+
+    // GET STORE ID FROM USER ID
+    function getStoreId ($conn,$userId) {
+        $sql = " SELECT * FROM tbl_stores WHERE `user_id`=? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$userId]);
+        $row = $statement->fetch();
+        $storeId = $row['id'];
+
+        return $storeId;
+    }
+
     // GET PROFILE PIC 
     function getProfilePic ($conn,$userId) {
         $sql = " SELECT * FROM tbl_users WHERE `id`=? ";

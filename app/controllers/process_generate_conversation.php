@@ -47,7 +47,7 @@ $sellerId = $_GET['sellerId'];
         // fetch the last message
         $sql = "SELECT u.*, m.* FROM tbl_messages m 
             JOIN tbl_users u on u.id=m.user_id        
-            WHERE conversation_id=? ORDER BY m.date DESC";
+            WHERE conversation_id=? ORDER BY m.date"; // DESC
         $statement2 = $conn->prepare($sql);
         $statement2->execute([$conversationId]);
 

@@ -281,11 +281,12 @@
                     
                                             </table>
 
-                                            <?php } ?>
+                                            
                                         
                                         </div>
                                     </div>
                                 </div>
+                                <?php } ?>
 
                                 <!-- COMPLETED TRANSACTIONS -->
                                 <?php
@@ -361,12 +362,13 @@
                     
                                             </table>
 
-                                            <?php } ?>
+                                            
 
                                         </div>
 
                                     </div>
                                 </div>
+                                <?php } ?>
 
 
                                 <!-- CANCELLED TRANSACTIONS -->
@@ -443,14 +445,16 @@
                     
                                             </table>
 
-                                            <?php } ?>
+                                            
 
                                         </div>
 
                                     </div>
                                 </div>
+                                <?php } ?>
 
                             </div>
+                            
 
 
                              <!-- PRODUCTS TO REVIEW -->
@@ -466,22 +470,22 @@
                                 </div>
                                 
                                 <div class="row border-top">
+                                        <?php 
+                                            $sql = "SELECT cart_session,purchase_date 
+                                                    FROM tbl_orders WHERE `user_id` = ? 
+                                                    AND status_id = 2 ORDER BY purchase_date DESC";
+                                                $statement = $conn->prepare($sql);
+                                                $statement->execute([$id]);
+                                                $count = $statement->rowCount();
+
+                                                if($count) {
+                                        ?>
                                     <div class="col px-0">
                                         <div class="container px-2">
-                                               
                                             <table class="table table-hover borderless mt-4">
-                                                
-                                            
-                        
-                                                <?php 
-                                                    $sql = "SELECT cart_session,purchase_date 
-                                                            FROM tbl_orders WHERE `user_id` = ? 
-                                                            AND status_id = 2 ORDER BY purchase_date DESC";
-                                                        $statement = $conn->prepare($sql);
-                                                        $statement->execute([$id]);
-                                                        $count = $statement->rowCount();
-                                     
-                                                    if($count) {
+
+ 
+                                                <?php
                                                     while($row = $statement->fetch()){ 
                                                         $completeOrderSession = $row['cart_session'];
 
@@ -557,7 +561,7 @@
                                                     
                                                 </tr>
                         
-                                                <?php } } } } ?>
+                                                <?php } } } ?>
                                             
 
 
@@ -566,6 +570,7 @@
                                         </div>
 
                                     </div>
+                                    <?php } ?>
                                 </div>
                             </div>
 
@@ -699,7 +704,7 @@
                                                     <!-- IMAGE, NAME AND VARIATION -->
                                                     <td class='mx-0'> 
                                                         <a href="product.php?id=<?=$productId?>" target='_blank'>
-                                                            <div class='d-flex flex-row align-items-center' style='justify-content:flex-start;'>
+                                                            <div class='d-flex flex-row align-items-center mx-0 px-1' style='justify-content:flex-start;'>
                                                                 <div class='flex pr-2'>
                                                                     <img src='<?=$image?>' style='width:80px;height:80px;'>
                                                                 </div>   
@@ -750,93 +755,92 @@
                             <!-- MESSAGES -->
                             <div class="container p-5 rounded mb-5" style='background:white;height:650px;'>
                                 <div class="row mb-3">
-                                    <div class="col">
-                                        <div class='d-flex flex-row'>
-                                            <div class='flex-fill'>
-                                                <h4>Inbox</h4>
-                                            </div>
-                                            <div class="flex-fill">
-                                                <input type="text" style='width:100%;'>
-                                            </div>
-                                        </div>
-                                        
+                                    <div class="col-4">   
+                                        <h4>Inbox</h4>  
                                     </div>
+                                    <div class="col">
+                                        <input type="text" 
+                                            placeholder="&#128269;" 
+                                            class='border-bottom border-top-0 border-right-0 border-left-0' 
+                                            id='search_store_name' style='width:100%;'>
+                                    </div>
+                                    
                                 </div>
                                 
-                                <div class="row border-top border-bottom border-top">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 px-0" style='background:white;height:530px;overflow-y:auto;'>
-                                        <div class="container px-0">
-                                                <!-- ITEMS SUMMARY -->
-                                            <table class="table table-hover borderless mt-4">
-                                                
+                                <div class='row'>
+                                    <!-- SELLERS/STORES -->
+                                    <div class="col-lg-3 col-md-3 col-sm-3 mx-0 px-0" style='background:white;height:530px;overflow-y:auto;'>
+                                       
+                                        <table class="table table-hover borderless" id='sender_container'>
                                             
-                        
-                                                <?php 
+                                        
+                    
+                                            <?php 
+                                                // CHECK IF THERE IS AN EXISTING CONVERSATIONS INITIATED BY THE BUYER
+                                                $sql = "SELECT * FROM tbl_conversations 
+                                                WHERE `from` = ? "; // named parameters
+                                                $statement = $conn->prepare($sql);
+                                                $statement->execute([$id]);
+                                                if($statement->rowCount()) {
+                                                    while($row = $statement->fetch()){
+                                                    $conversationId = $row['id'];  
+                                                    $sellerId = $row['to'];
 
-                                                    $sql = "SELECT w.*, p.img_path, p.name, p.price
-                                                            FROM tbl_wishlists w 
-                                                            JOIN tbl_items p on p.id=w.product_id 
-                                                            WHERE user_id= ? ";
-                                                        $statement = $conn->prepare($sql);
-                                                        $statement->execute([$id]);
-                                                        $count = $statement->rowCount();
-                                     
-                                                    if($count) {
-                                                    while($row = $statement->fetch()){ 
-                                                        $productId = $row['product_id'];
-                                                        $name = $row['name'];
-                                                        $price = $row['price'];
-                                                        $image = $row['img_path'];
+                                            ?>
+                                            
 
-                                                ?>
+                                            
+                                            <tr>
                                                 
-
                                                 
-                                                <tr id='wish-row<?=$productId?>' class='mx-0 px-0'>
-                                                    
-                                                    
-                                                    <!-- IMAGE, NAME AND VARIATION -->
-                                                    <td class='mx-0 px-0'> 
-                                                        <a href="product.php?id=<?=$productId?>" target='_blank'>
-                                                            <div class='d-flex flex-row align-items-center' style='justify-content:flex-start;'>
-                                                                <div class='flex'>
-                                                                    <img src='<?=$image?>' style='width:40px;height:40px;' class='circle'>
-                                                                </div>   
-                                                                <div class='flex-fill vanish-sm'>
-                                                                    <div class='d-flex flex-column'>
-                                                                    
-                                                                            
-                                                                        <small class='text-secondary'><?= $name ?></small>
-                                                                        <!-- DATE SENT -->
-                                                                        <small class='text-secondary'><?= $name ?></small> 
-                                                                                              
+                                                <!-- IMAGE, NAME AND VARIATION -->
+                                                <td> 
+                                                    <a data-sellerid='<?= $sellerId ?>' data-conversationid='<?=$conversationId?>' class='selected_conversation'>
+                                                        <div class='d-flex flex-row align-items-center' style='justify-content:flex-start;'>
+                                                            <div class='flex'>
+                                                                <img src='<?=getStoreLogo ($conn,$sellerId)?>' style='width:40px;height:40px;' class='circle'>
+                                                            </div>   
+                                                            <div class='flex-fill vanish-sm vanish-md'>
+                                                                <div class='d-flex flex-column'>
+                                                                
                                                                         
-                                                                    </div>
+                                                                    <small class='text-secondary'><?= getStoreName ($conn,$sellerId) ?></small>
+                                                                    <!-- DATE SENT -->
+
                                                                 </div>
                                                             </div>
-                                                        </a> 
-                                                    </td>
+                                                        </div>
+                                                    </a> 
+                                                </td>
 
-                                   
-                                                </tr>
-                        
-                                                <?php } } ?>
-                                            
+                            
+                                            </tr>
+                    
+                                            <?php } } ?>
+                                        
 
 
-                                            </table>
-
-                                        </div>
+                                        </table>
+                                        
                                     </div>
+                                    
+                                    <!-- MESSAGES -->
                                     <div class="col mx-0 px-0 no-gutters">
-                                        <div class="container border-left border-right border-bottom-0  mx-0 px-0 no-gutters">
-                                            <div class="row no-gutters" style='background:white;height:480px;overflow-y:auto;'>
-                                                <div class="col-12"></div>
+                                        <div class="container border-bottom-0  mx-0 px-0 no-gutters">
+                                            <input type='hidden' id='profile_conversation_id'>    
+                                            <div class="row no-gutters">
+                                                <div class="col-12" id='profile_message_container' style='background:white;height:460px;overflow-y:auto;'>
+                                                <!-- WHERE FETCHED MESSAGES ARE DISPLAYED -->
+                                                </div>
                                             </div>
-                                            <div class="row border-top no-gutters" style='background:#eff0f5;height:50px;'>
+                                            <div class="row no-gutters">
                                                 <div class="col-12">
-                                                    <form action='process_ask_about_product' method='POST'>
-                                                        <textarea class="form-control border-0" id="messageTextarea" style='width:100%;background:#eff0f5;resize:none;' rows='2'></textarea>
+                                                    <form>
+                                                        <textarea class="form-control border-0" 
+                                                            id="profile_message_input" 
+                                                            data-sellerid='<?= $sellerId ?>' 
+                                                            style='width:100%;background:#eff0f5;resize:none;' 
+                                                            rows='3'></textarea>
                                                     </form>
                                                 </div>
                                             </div>
@@ -853,67 +857,6 @@
 
                 </div>
                 <!-- /SECOND ROW -->
-
-
-                <!-- MESSEGING -->
-                <div class="container p-5 rounded mb-5" style='background:white;' id="main-wrapper">
-                    <div class="row mb-3">
-                        <div class="col">
-                            <div class='d-flex flex-row'>
-                                <div class='flex-fill'>
-                                    <h4>Messages</h4>
-                                </div>
-                                <div class='flex-fill text-right'>
-                                    <a class='nav-link modal-link' href='#' data-id='<?= $id ?>' data-url='../partials/templates/edit_user_modal.php' role='button'>
-                                        <i class="far fa-edit"></i>
-                                        Edit
-                                    </a>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="row border-top">
-                        <!-- LEFT OF MAIN BAR -->
-                        <div class="col-lg-6 col-md-4 col-sm-12">
-                            <div class="container px-0">
-
-                                <div class="row my-5">
-                                    <div class="col-3">
-                                        Name
-                                    </div>
-                                    <div class="col">
-                                        <?= $fname . " " . $lname ?>
-                                    </div>
-                                </div>  
-
-                                <div class="row mb-5">
-                                    <div class="col-3">
-                                        Username
-                                    </div>
-                                    <div class="col">
-                                        <?= $username ?>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-3">
-                                        Email
-                                    </div>
-                                    <div class="col">
-                                        <?= hide_email($email) ?>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <!-- /LEFT OF MAIN BAR -->
-
-                       
-                    </div>
-                </div>
 
 
 

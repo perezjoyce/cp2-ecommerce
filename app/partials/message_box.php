@@ -8,7 +8,7 @@
             <div class="message_details pl-0">
                 <div class="message_details-container rounded-top">                
                 </div>
-                <input type='hidden' id='conversationId'>
+                <input type='hidden' id='message_details-conversationId'>
                 <textarea class='rounded-bottom' id="message_input" data-sellerid="<?= $sellerId ?>" style='resize:none;background:#eff0f5;'></textarea>
             </div>
         </div>
