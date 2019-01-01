@@ -27,6 +27,15 @@
     $id = $_SESSION['id'];
 }
 
+    $storeId = getStoreId ($conn,$id);
+    $storeName = getStoreName($conn,$id);
+    $storeLogo = getStoreLogo($conn, $id);
+    $storeDescription = getStoreDescription ($conn,$userId);
+    $storeAddress = getAddress ($conn,$userId);
+    $fname = getFirstName ($conn,$userId);
+    $lname = getLastName ($conn,$userId);
+    
+
 ?>
 
 <!DOCTYPE html>
@@ -143,7 +152,7 @@
                                         <i class="far fa-edit mr-1"></i>
                                         <small>MY PROFILE</small>
                                     </a>
-                                     <a class="dropdown-item mb-3" href='store.php?id=<?= getStoreId ($conn,$userId) ?>'>
+                                     <a class="dropdown-item mb-3" href='store.php?id=<?= $storeId ?>'>
                                         <i class="fas fa-store mr-1"></i>
                                         <small>MY SHOP</small>
                                     </a>
@@ -172,7 +181,7 @@
         <div class="container">
 
                 <!-- <div class=""> -->
-                    <div class="col-lg-5 col-md-6 col-sm-12">
+                    <div class="col-lg-3 col-md-4 col-sm-12">
                         <!-- <div class="col-6"> -->
                                 <div class="d-flex align-items-center">
                                     <div id='header-logo'></div>&nbsp;
@@ -184,23 +193,33 @@
                             
                         <!-- </div> -->
                     </div>
-                    <div class="col-lg-7 col-md-6 col-sm-12 px-0">
+                    <div class="col px-0">
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav ml-auto">
-                                <li class="nav-item px-5">
-                                    <a class="nav-link text-light font-weight-bold" href="#"> 
-                                        <div class='border-bottom'>SHOP PROFILE</div>
+                                <li class="nav-item pl-lg-5 pl-md-4">
+                                    <a class="nav-link text-light font-weight-bold" href="store.php?id=<?=$storeId?>"> 
+                                        <div class='underline'>SHOP PROFILE</div>
                                     </a>
                                 </li>
-                                <li class="nav-item px-5">
-                                    <a class="nav-link text-light" href="#">PRODUCTS</a>
+                                <li class="nav-item pl-lg-5 pl-md-4">
+                                    <a class="nav-link text-light font-weight-bold" href="store_products.php?id=<?=$storeId?>"> 
+                                        <div class='underline'>PRODUCTS</div>
+                                    </a>
                                 </li>
-                                <li class="nav-item pl-5">
-                                    <a class="nav-link text-light" href="#">ORDERS</a>
+                                <li class="nav-item pl-lg-5 pl-md-4">
+                                    <a class="nav-link text-light font-weight-bold" href="store_orders.php?id=<?=$storeId?>"> 
+                                        <div class='underline'>ORDERS</div>
+                                    </a>
                                 </li>
+                                <li class="nav-item pl-lg-5 pl-md-4">
+                                    <a class="nav-link text-light font-weight-bold" href="store_messages?id<?=$storeId?>"> 
+                                        <div class='underline'>MESSAGES</div>
+                                    </a>
+                                </li>
+
                             </ul>
                         </div>
                     </div>

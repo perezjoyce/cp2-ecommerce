@@ -38,11 +38,6 @@
         } 
     }  
 
-
-    $storeId = getStoreId ($conn,$id);
-    $storeName = getStoreName($conn,$id);
-    $storeLogo = getStoreLogo($conn, $id);
-
        
 ?>
     <!-- PAGE CONTENT -->
@@ -140,13 +135,19 @@
 
                         
                         <div class="col-lg-6 col-md-6">
-                            <!-- BASIC INFO -->
+
+                            <!-- ABOUT -->
                             <div class="container p-5 rounded mb-5" style='background:white;'>
                                 <div class="row mb-3">
                                     <div class="col">
                                         <div class='d-flex flex-row'>
                                             <div class='flex-fill'>
-                                                <h4>Basic Information</h4>
+                                                <div class="d-flex flex-row">
+                                                    <h4>About</h4>
+                                                    <a data-toggle="tooltip" title="Describe what makes your shop unique or share your vision statement here." data-original-title="#">
+                                                        &nbsp;<i class="far fa-question-circle text-gray"></i>
+                                                    </a>
+                                                </div>
                                             </div>
                                             <div class='flex-fill text-right'>
                                                 <a class='nav-link modal-link' href='#' data-id='<?= $id ?>' data-url='../partials/templates/edit_user_modal.php' role='button'>
@@ -160,13 +161,40 @@
                                 </div>
                                 
                                 <div class="row border-top">
-                                    <!-- LEFT OF MAIN BAR -->
+                                    <div class="col"> 
+                                       <div class="mt-5">
+                                           <?= $storeDescription ?>
+                                       </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                          
+                            <!-- BUSINESS DETAILS -->
+                            <div class="container p-5 rounded mb-5" style='background:white;'>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <div class='d-flex flex-row'>
+                                            <div class='flex-fill'>
+                                                <h4>Business Details</h4>
+                                            </div>
+                                            <div class='flex-fill text-right'>
+                                                <a class='nav-link modal-link' href='#' data-id='<?= $id ?>' data-url='../partials/templates/edit_user_modal.php' role='button'>
+                                                    <i class="far fa-edit"></i>
+                                                    Edit
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row border-top">
                                     <div class="col">
                                         <div class="container px-0">
 
                                             <div class="row my-5">
                                                 <div class="col-3">
-                                                    Name
+                                                    Owner
                                                 </div>
                                                 <div class="col">
                                                     <?= $fname . " " . $lname ?>
@@ -175,10 +203,10 @@
 
                                             <div class="row mb-5">
                                                 <div class="col-3">
-                                                    Username
+                                                    Address
                                                 </div>
                                                 <div class="col">
-                                                    <?= $username ?>
+                                                    <?= $storeAddress ?>
                                                 </div>
                                             </div>
 
@@ -192,14 +220,8 @@
                                             </div>
 
                                         </div>
-
                                     </div>
-                                    <!-- /LEFT OF MAIN BAR -->
-
-                                
                                 </div>
-                                <!-- ================ -->
-
                             </div>
 
                              <!-- ORDER HISTORY -->
@@ -990,7 +1012,6 @@
         <!-- /.ROW -->
     </div>
     <!-- /.CONTAINER -->
-
 
 <?php require_once "../partials/footer.php";?>
 <?php require_once "../partials/modal_container.php";?>

@@ -1021,6 +1021,18 @@ a.hover_btn:active {
     height:13em;
 }
 
+.border-bottom {
+    border-bottom: 2px solid;
+}
+
+input:active,
+input:hover,
+input:focus{
+    box-shadow:none!important;
+    outline:none!important;
+    border-color:lightgray!important;
+}
+
 /*============================ DESKTOP ==========================*/
 
 @media only screen and (min-width: 961px) {
@@ -1550,6 +1562,11 @@ a.hover_btn:active {
         display: flex;
         flex-direction: column;
     }
-  
+
+    /* SHOP */
+    .store_page_logo {
+        width:8em;
+        height:8em;
+    }
    
 }

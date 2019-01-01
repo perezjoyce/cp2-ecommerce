@@ -166,6 +166,28 @@
         return strtoupper($username);
     }
 
+    // GET FIRST NAME
+    function getFirstName ($conn,$userId) {
+        $sql = " SELECT * FROM tbl_users WHERE `id`=? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$userId]);
+        $row = $statement->fetch();
+        $firstName = $row['first_name'];
+
+        return strtoupper($firstName);
+    }
+
+    // GET LASTNAME
+    function getLastName ($conn,$userId) {
+        $sql = " SELECT * FROM tbl_users WHERE `id`=? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$userId]);
+        $row = $statement->fetch();
+        $lastName = $row['last_name'];
+
+        return strtoupper($lastName);
+    }
+
     // GET STORE NAME
     function getStoreName ($conn,$userId) {
         $sql = " SELECT * FROM tbl_stores WHERE `user_id`=? ";
@@ -186,6 +208,28 @@
         $storeLogo = $row['logo'];
 
         return $storeLogo;
+    }
+
+    // GET STORE DESCRIPTION
+    function getStoreDescription ($conn,$userId) {
+        $sql = " SELECT * FROM tbl_stores WHERE `user_id`=? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$userId]);
+        $row = $statement->fetch();
+        $storeDescription = $row['description'];
+
+        return $storeDescription;
+    }
+
+    // GET STORE DESCRIPTION
+    function getAddress ($conn,$userId) {
+        $sql = " SELECT * FROM tbl_stores WHERE `user_id`=? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$userId]);
+        $row = $statement->fetch();
+        $storeAddress = $row['store_address'];
+
+        return $storeAddress;
     }
 
     // GET STORE ID FROM USER ID
