@@ -153,13 +153,13 @@
                                 </a>  
                                 
 
-                                <div class="dropdown-menu" aria-labelledby="profileDropdown" id='profileDropdown_menu' >
-                                    <a class="dropdown-item my-3" href='profile.php?id=<?=$id?>'>
-                                        <i class="far fa-edit mr-1"></i>
+                                <div class="dropdown-menu py-0" aria-labelledby="profileDropdown" id='profileDropdown_menu' >
+                                    <a class="dropdown-item py-3" href='profile.php?id=<?=$id?>'>
+                                        <i class="far fa-edit pr-2"></i>
                                         <small>MY PROFILE</small>
                                     </a>
-                                     <a class="dropdown-item mb-3" href='store_profile.php?id=<?= $storeId ?>'>
-                                        <i class="fas fa-store mr-1"></i>
+                                     <a class="dropdown-item py-3" href='store-profile.php?id=<?= $storeId ?>'>
+                                        <i class="fas fa-store pr-2"></i>
                                         <small>MY SHOP</small>
                                     </a>
                                     <!-- <a class="dropdown-item mb-4 btn_view_wishList" data-id='<?= $id ?>'>
@@ -167,9 +167,9 @@
                                         Wish List
                                         <span class='badge text-light user_wish_count'><?= getWishlishtCount($conn) ?></span>
                                     </a> -->
-                                    <div class="dropdown-divider my-3"></div>
-                                    <a class="dropdown-item mb-3" href='../controllers/process_logout.php?id=<?=$id?>'>
-                                        <i class='fas fa-sign-in-alt mr-1'></i>
+                                    <div class="dropdown-divider py-0 my-0"></div>
+                                    <a class="dropdown-item py-3" href='../controllers/process_logout.php?id=<?=$id?>'>
+                                        <i class='fas fa-sign-in-alt pr-2'></i>
                                         <small> LOG OUT</small>
                                     </a>
                                 </div>
@@ -183,45 +183,91 @@
         </div>
     </div>
 
-    <nav class="navbar navbar-main navbar-expand-lg  navbar-expand-md sticky-top">
+    <nav class="navbar navbar-main navbar-expand-lg navbar-expand-md sticky-top">
         <div class="container">
 
                 <!-- <div class=""> -->
-                    <div class="col-lg-3 col-md-4 col-sm-12">
+                    <div class="col-lg-5 col-md-4 col-sm-12">
                         <!-- <div class="col-6"> -->
                                 <div class="d-flex align-items-center">
                                     <div id='header-logo'></div>&nbsp;
-                                    <a class="navbar-brand text-light" href="index.php" id="website_name">
+                                    <a class="navbar-brand text-light flex-fill" href="index.php" id="website_name">
                                         Shoperoo
                                     </a>
-                                   
+
+                                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                        <span class="navbar-toggler-icon py-1 border-0"><i class="fas fa-bars text-light"></i></i></span>
+                                    </button>
                                 </div>
+
                             
                         <!-- </div> -->
                     </div>
                     <div class="col px-0">
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item pl-lg-5 pl-md-4">
-                                    <a class="nav-link text-light font-weight-bold" href="store_profile.php?id=<?=$storeId?>"> 
+                                    <a class="nav-link text-light font-weight-bold" href="store-profile.php?id=<?=$storeId?>"> 
                                         <div class='<?= isCurrentPage('profile') ? "underline" : "" ?>' >SHOP PROFILE</div>
                                     </a>
                                 </li>
+
+                                <div class='d-flex flex-row'>
+                                    <li class="nav-item dropdown pl-lg-5 pl-md-4 d-flex flex-row">
+                                        <a class="nav-link text-light font-weight-bold" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" > 
+                                            <div class="d-flex flex-row">
+                                                <div class='<?= isCurrentPage('product') ? "underline" : "" ?> dropdown-toggle'>
+                                                    PRODUCTS
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <div class="dropdown-menu py-0">
+                                            <a class="dropdown-item py-3" href="store-products.php?id=<?=$storeId?>">
+                                                <i class="fas fa-clipboard-list pr-2 text-secondary"></i>
+                                                <small>INVENTORY</small>
+                                            </a>
+                                            <a class="dropdown-item py-3" href="store-add-product.php?id=<?=$storeId?>">
+                                                <span text-secondary>&#65291;</span>
+                                                <small>ADD NEW PRODUCT</small>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </div>
+
+                                <div class='d-flex flex-row'>
+                                    <li class="nav-item dropdown pl-lg-5 pl-md-4 d-flex flex-row">
+                                        <a class="nav-link text-light font-weight-bold" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                                            <div class="d-flex flex-row">
+                                                
+                                                <div class='<?= isCurrentPage('order') ? "underline" : "" ?> dropdown-toggle'>
+                                                    ORDERS 
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                            
+                                        </a>
+                                        <div class="dropdown-menu py-0">
+                                            <a class="dropdown-item py-3" href="store-new-orders.php?id=<?=$storeId?>">
+                                                <i class="fas fa-spinner pr-2 text-secondary"></i>
+                                                <small>NEW</small>
+                                            </a>
+                                            <a class="dropdown-item py-3" href="store-for-shipping-orders.php?id=<?=$storeId?>">
+                                                <i class="fas fa-shipping-fast pr-1 text-secondary"></i>
+                                                <small>FOR SHIPPING</small>
+                                            </a>
+                                            <a class="dropdown-item py-3" href="store-order-history.php?id=<?=$storeId?>">
+                                                <i class="fas fa-file-invoice pr-2 text-secondary"></i>
+                                                <small>RECORDS</small>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li><span class='badge text-light my-0'>0</span></li>
+                                </div>
+                                
+                             
                                 <li class="nav-item pl-lg-5 pl-md-4">
-                                    <a class="nav-link text-light font-weight-bold" href="store_products.php?id=<?=$storeId?>"> 
-                                        <div class='<?= isCurrentPage('product') ? "underline" : "" ?>'>PRODUCTS</div>
-                                    </a>
-                                </li>
-                                <li class="nav-item pl-lg-5 pl-md-4">
-                                    <a class="nav-link text-light font-weight-bold" href="store_orders.php?id=<?=$storeId?>"> 
-                                        <div class='<?= isCurrentPage('order') ? "underline" : "" ?>'>ORDERS</div>
-                                    </a>
-                                </li>
-                                <li class="nav-item pl-lg-5 pl-md-4">
-                                    <a class="nav-link text-light font-weight-bold" href="store_messages.php?id=<?=$storeId?>"> 
+                                    <a class="nav-link text-light font-weight-bold" href="store-messages.php?id=<?=$storeId?>"> 
                                         <div class='<?= isCurrentPage('messages') ? "underline" : "" ?>'>MESSAGES</div>
                                     </a>
                                 </li>

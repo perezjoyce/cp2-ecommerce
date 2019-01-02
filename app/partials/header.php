@@ -153,13 +153,13 @@
                             </a>  
                             
 
-                            <div class="dropdown-menu" aria-labelledby="profileDropdown" id='profileDropdown_menu' >
-                                <a class="dropdown-item my-3" href='profile.php?id=<?=$id?>'>
-                                    <i class="far fa-edit mr-1"></i>
+                            <div class="dropdown-menu py-0" aria-labelledby="profileDropdown" id='profileDropdown_menu' >
+                                <a class="dropdown-item py-3" href='profile.php?id=<?=$id?>'>
+                                    <i class="far fa-edit pr-2"></i>
                                     <small>MY PROFILE</small>
                                 </a>
-                                    <a class="dropdown-item mb-3" href='store_profile.php?id=<?= getStoreId ($conn,$id) ?>'>
-                                    <i class="fas fa-store mr-1"></i>
+                                <a class="dropdown-item py-3" href='store-profile.php?id=<?= getStoreId ($conn,$id) ?>'>
+                                    <i class="fas fa-store pr-2"></i>
                                     <small>MY SHOP</small>
                                 </a>
                                 <!-- <a class="dropdown-item mb-4 btn_view_wishList" data-id='<?= $id ?>'>
@@ -167,9 +167,9 @@
                                     Wish List
                                     <span class='badge text-light user_wish_count'><?= getWishlishtCount($conn) ?></span>
                                 </a> -->
-                                <div class="dropdown-divider my-3"></div>
-                                <a class="dropdown-item mb-3" href='../controllers/process_logout.php?id=<?=$id?>'>
-                                    <i class='fas fa-sign-in-alt mr-1'></i>
+                                <div class="dropdown-divider py-0"></div>
+                                <a class="dropdown-item py-3" href='../controllers/process_logout.php?id=<?=$id?>'>
+                                    <i class='fas fa-sign-in-alt pr-2'></i>
                                     <small> LOG OUT</small>
                                 </a>
                             </div>

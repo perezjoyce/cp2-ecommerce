@@ -294,9 +294,91 @@
                                 </div>
                                 <?php } ?>
 
-                                <!-- COMPLETED TRANSACTIONS -->
+                                <!-- CONFIRMED TRANSACTIONS -->
                                 <?php
                                     $sql = "SELECT o.*, s.name as 'status' FROM tbl_orders o JOIN tbl_status s ON o.status_id=s.id WHERE `user_id` = ? AND status_id = 2 ORDER BY o.purchase_date DESC";
+                                                $statement = $conn->prepare($sql);
+                                                $statement->execute([$id]);
+                                                $count = $statement->rowCount();
+                            
+                                            if($count) {
+                                ?>
+                                <div class="row border-top">
+                                    <div class="col px-2">
+                                        <div class="container px-0">
+                                            <table class="table table-hover borderless mt-4 text-center">
+                                                <tr>
+                                                    <h4 class='text-gray pl-3 mt-5'>Confirmed Orders</h4>
+                                                    
+                                                </tr>
+                                                
+                                                <tr>
+                                                    <thead class='text-secondary bg-gray'>
+                                                        <th>Date</th>
+                                                        <th>Transaction Code</th>
+                                                        <!-- <th>Status</th> -->
+                                                        <th>View</th>
+                                                    </thead>
+                                                </tr>                               
+                        
+                                                <?php 
+                                                        while($row = $statement->fetch()){ 
+                                                        $transactionId = $row['id'];
+                                                        $transactionCode = $row['transaction_code'];
+                                                        $purchaseDate = $row['purchase_date'];
+                                                        // $status = $row['status'];
+                                                        $orderHistoryCartSession = $row['cart_session'];
+                                            
+                                                ?>
+                                                
+                                                <tr>
+
+                                                    <div>
+
+                                                        <!-- PURCHASE DATE -->
+                                                        <td>
+                                                            <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
+                                                                <div class='py-3 text-secondary'><?=date("M d, Y", strtotime($purchaseDate))?></div>
+                                                            </a>
+                                                        </td>
+                                                        
+                                                        
+                                                        <!-- IMAGE, NAME AND VARIATION -->
+                                                        <td class='mx-0'> 
+                                                            <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
+                                                                <div class='py-3'><?=$transactionCode ?></div>
+                                                            </a>
+                                                        </td>
+
+                                                        <!-- STATUS-->
+                                                        <!-- <td class='mx-0'> 
+                                                            <div class='py-3 text-gray'><?= ucfirst($status) ?></div>
+                                                        </td> -->
+
+                                                        <!-- VIEW -->
+                                                        <td>
+                                                            <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
+                                                                <i class="far fa-file-pdf text-gray py-3"></i>
+                                                            </a>
+                                                        </td>
+                                                        
+                                                    </div>
+                                                    
+                                                </tr>
+                                                <?php } ?>
+                    
+                                            </table>
+
+                                            
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php } ?>
+
+                                <!-- COMPLETED TRANSACTIONS -->
+                                <?php
+                                    $sql = "SELECT o.*, s.name as 'status' FROM tbl_orders o JOIN tbl_status s ON o.status_id=s.id WHERE `user_id` = ? AND status_id = 3 ORDER BY o.purchase_date DESC";
                                             $statement = $conn->prepare($sql);
                                             $statement->execute([$id]);
                                             $count = $statement->rowCount();
@@ -379,7 +461,7 @@
 
                                 <!-- CANCELLED TRANSACTIONS -->
                                 <?php
-                                    $sql = "SELECT o.*, s.name as 'status' FROM tbl_orders o JOIN tbl_status s ON o.status_id=s.id WHERE `user_id` = ? AND status_id = 3 ORDER BY o.purchase_date DESC";
+                                    $sql = "SELECT o.*, s.name as 'status' FROM tbl_orders o JOIN tbl_status s ON o.status_id=s.id WHERE `user_id` = ? AND status_id = 4 ORDER BY o.purchase_date DESC";
                                             $statement = $conn->prepare($sql);
                                             $statement->execute([$id]);
                                             $count = $statement->rowCount();

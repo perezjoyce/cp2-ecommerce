@@ -105,7 +105,7 @@
                                                 <p class="card-text"> &#8369;&nbsp;<?=$price?></p>
                                             </div>
                                             <ul class="list-group list-group-flush">
-                                                <a href="store_profile.php?id=<?=$storeId?>"></a>
+                                                <a href="store-profile.php?id=<?=$storeId?>"></a>
                                                 <li class="list-group-item py-3">
                                                     <div class='d-flex align-items-center'>
                                                         

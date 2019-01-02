@@ -60,7 +60,7 @@
                 <div class='container p-5 rounded' style='background:white;'>
                     <div class="row mx-0">
                         <div class="col-6">
-                            <h4>Search Order History</h4>
+                            <h4>Order History</h4>
                         </div>
                         <div class="col">
                             <div class="input-group input-group-lg">
@@ -79,12 +79,12 @@
                 
                 
                 <!-- ORDER HISTORY -->
-                <div class="container px-5 rounded" style='background:white;'>
+                <div class="container px-5 pb-5 rounded" style='background:white;'>
                                
                                 
                     <!-- PENDING TRANSACTIONS -->
                     <?php
-                    $sql = "SELECT o.*, s.name as 'status' FROM tbl_orders o JOIN tbl_status s ON o.status_id=s.id WHERE `user_id` = ? ORDER BY o.purchase_date DESC";
+                    $sql = "SELECT o.*, s.name as `status` FROM tbl_orders o JOIN tbl_status s ON o.status_id=s.id WHERE status_id = 3 OR status_id = 4  AND `user_id` = ? ORDER BY o.purchase_date DESC";
                                 $statement = $conn->prepare($sql);
                                 $statement->execute([$id]);
                                 $count = $statement->rowCount();
@@ -93,15 +93,16 @@
                     ?>
 
                     <div class="row">
-                        <div class="col-12 px-2">
+                        <div class="col-12 px-2 mb-0">
                             
-                            <table class="table borderless text-center bg-gray">
-                                <tr>
+                            <table class="table borderless text-center bg-gray mb-0">
+                                <tr class='py-0'>
                                 
-                                    <td width='25%'>Date</td>
-                                    <td width='25%'>Transaction Code</td>
-                                    <td width='25%'>Status</td>
-                                    <td width='25%'>View</td>
+                                    <td width='20%'>Date</td>
+                                    <td width='30%'>Transaction Code</td>
+                                    <td width='20%'>Payment Mode</td>
+                                    <td width='15%'>Status</td>
+                                    <td width='15%'>View</td>
                                     
                                 </tr> 
                             </table>
@@ -111,12 +112,8 @@
                     <div class="row">
                         <div class="col px-2">
                             <div class="container px-0" style='background:white;height:600px;overflow-y:auto;'>
-                                <table class="table table-hover borderless mt-4 text-center">
+                                <table class="table table-hover borderless text-center">
                                     
-                                          
-                                    
-                                  
-            
                                     <?php 
                                             while($row = $statement->fetch()){ 
                                             $transactionId = $row['id'];
@@ -124,7 +121,7 @@
                                             $purchaseDate = $row['purchase_date'];
                                             $status = $row['status'];
                                             $orderHistoryCartSession = $row['cart_session'];
-                                
+                                            $paymentModeId = $row['payment_mode_id'];
                                     ?>
                                     
                                     <tr>
@@ -132,29 +129,42 @@
                                         <div>
 
                                             <!-- PURCHASE DATE -->
-                                            <td width='25%'>
+                                            <td class='mx-0' width='20%'>
                                                 <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
                                                     <div class='py-3 text-secondary'><?=date("M d, Y", strtotime($purchaseDate))?></div>
                                                 </a>
                                             </td>
                                             
                                             
-                                            <!-- IMAGE, NAME AND VARIATION -->
-                                            <td class='mx-0' width='25%'> 
+                                            <!-- TRANSACTION CODE -->
+                                            <td class='mx-0' width='30%'> 
                                                 <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
                                                     <div class='py-3'><?=$transactionCode ?></div>
                                                 </a>
                                             </td>
 
+                                            <!-- PAYMENT METHOD -->
+                                            <td class='mx-0' width='20%'> 
+                                                <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
+                                                    <div class='py-3'>
+                                                        <?= getModeOfPaymentShort($conn, $paymentModeId) ?>
+                                                    </div>
+                                                </a>
+                                            </td>
+
                                             <!-- STATUS-->
-                                            <td class='mx-0'width='25%'> 
-                                                <div class='py-3 text-gray'><?= ucfirst($status) ?></div>
+                                            <td class='mx-0' width='15%'> 
+                                                <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
+                                                    <div class='py-3 text-gray'>
+                                                        <?= ucfirst($status) ?>
+                                                    </div>
+                                                </a>
                                             </td>
 
                                             <!-- VIEW -->
-                                            <td width='25%'>
+                                            <td class='mx-0' width='15%'>
                                                 <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                    <i class="far fa-file-pdf text-gray py-3"></i>
+                                                    <i class="far fa-file-pdf text-gray py-3" style='width:100%;'></i>
                                                 </a>
                                             </td>
                                             

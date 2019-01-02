@@ -489,7 +489,7 @@ if(isset($_SESSION['id'])) {
                     &nbsp;Chat Seller
                   </a>
 
-                  <a href='store_profile.php?id=<?=$storeId?>' class='btn btn-block border text-secondary mx-3 py-2'>
+                  <a href='store-profile.php?id=<?=$storeId?>' class='btn btn-block border text-secondary mx-3 py-2'>
                     <i class="fas fa-store"></i>
                     &nbsp;View Shop
                   </a>
@@ -938,7 +938,7 @@ if(isset($_SESSION['id'])) {
                           <div class="col mb-2 pt-4 px-5 seller_response_container" style='background:#eff0f5'>
                             <!-- SELLER DETAILS -->
                             <div class="row flex-row text-gray mb-4"> 
-                              <a href="store_profile.php?id=<?=$storeId ?>"></a>
+                              <a href="store-profile.php?id=<?=$storeId ?>"></a>
                               <img src="<?=$storeLogo?>" alt="<?=$storeName?>" style='width:30px;max-height:30px;' class='circle'>
                               <div>
                                 <div>&nbsp;<?=$storeName?></div>

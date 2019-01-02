@@ -188,6 +188,17 @@
         return strtoupper($lastName);
     }
 
+    // GET NAME FROM BILLIG ID
+    function getWhoWillPay ($conn,$billingAddressId){
+        $sql = " SELECT * FROM tbl_addresses WHERE `id`=? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$billingAddressId]);
+        $row = $statement->fetch();
+        $name = $row['name'];
+
+        return $name;
+    }
+
     // GET STORE NAME
     function getStore ($conn,$storeId) {
         $sql = " SELECT * FROM tbl_stores WHERE `id`=? ";
@@ -388,7 +399,14 @@
 
     //DISPLAY GRANDTOTAL (WITHOUT SHIPPING)
     function displayGrandTotal($conn, $cartSession) {
-        $sql = "SELECT c.cart_session, SUM(i.price * c.quantity) AS 'grandTotal' FROM tbl_items i JOIN tbl_carts c JOIN tbl_variations v ON v.product_id=i.id AND c.variation_id=v.id WHERE c.cart_session = ? ";
+        $sql = "SELECT c.cart_session, SUM(i.price * c.quantity) 
+        AS 'grandTotal' 
+        FROM tbl_items i 
+        JOIN tbl_carts c 
+        JOIN tbl_variations v 
+        ON v.product_id=i.id 
+        AND c.variation_id=v.id 
+        WHERE c.cart_session = ? ";
         $statement = $conn->prepare($sql);
         $statement->execute([$cartSession]);
         $row = $statement->fetch();
@@ -487,7 +505,7 @@
         $row = $statement->fetch();
         $sRegionName = $row['regDesc'];
 
-        echo  $sRegionName;
+        return  $sRegionName;
     }
 
     // GET PROVINCE NAME
@@ -499,7 +517,7 @@
         $sProvName = $row['provDesc'];
         $sProvName = ucwords(strtolower($sProvName));
 
-        echo  $sProvName;
+        return  $sProvName;
     }
 
     // GET CITY NAME 
@@ -511,7 +529,7 @@
         $sCityName = $row['citymunDesc'];
         $sCityName = ucwords(strtolower($sCityName));
 
-        echo $sCityName;
+        return $sCityName;
     }
 
     // GET BRGY NAME
@@ -523,7 +541,7 @@
         $sBrgyName = $row['brgyDesc'];
         $sBrgyName = ucwords(strtolower($sBrgyName));
 
-        echo $sBrgyName;
+        return $sBrgyName;
     }
 
     //GET MODE OF PAYMENT
@@ -538,7 +556,17 @@
             $paymentModeName = 'Cash On Delivery (COD)';
         }
 
-        echo $paymentModeName;
+        return $paymentModeName;
+    }
+
+    function getModeOfPaymentShort($conn, $paymentModeId){
+        $sql = "SELECT `name` FROM tbl_payment_modes WHERE id = ?";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$paymentModeId]);	
+        $row = $statement->fetch();
+        $paymentModeName = $row['name'];
+
+        return $paymentModeName;
     }
 
 
@@ -552,14 +580,17 @@
         $status = ucfirst($status);
         
         // var_dump($status);die();
-        echo $status;
+        return $status;
     }
 
     // CHANGE WORD INSIDE THE PRODUCT RATING
     function changeWordInsideProductRatingButton($conn,$productId){
 
         $userId = $_SESSION['id'];
-        $sql = " SELECT r.product_id, r.user_id, r.rating_is_final, ri.is_final FROM tbl_ratings r JOIN tbl_rating_images ri ON ri.rating_id=r.id WHERE r.product_id=? AND r.user_id=? ";
+        $sql = " SELECT r.product_id, r.user_id, r.rating_is_final, ri.is_final 
+        FROM tbl_ratings r JOIN tbl_rating_images ri 
+        ON ri.rating_id=r.id WHERE r.product_id=? 
+        AND r.user_id=? ";
         $statement = $conn->prepare($sql);
         $statement->execute([$productId, $userId]);
         $count = $statement->rowCount();
@@ -582,10 +613,10 @@
 
     function getUser($conn, $userId) {
         $sql = "SELECT * FROM tbl_users WHERE id=?";
-        $st = $conn->prepare($sql);
-        $st->execute([$userId]);
-        if($st->rowCount()) {
-            $row = $st->fetch();
+        $statement = $conn->prepare($sql);
+        $statement->execute([$userId]);
+        if($statement->rowCount()) {
+            $row = $statement->fetch();
             return $row;
         }
 
@@ -600,6 +631,53 @@
         if(strpos(getCurrentFile(), $pageName) !== false) {
             return true;
         }
+    }
+
+    // GET NAME FROM SHIPPING ADDRESS ID
+    function getNameFromShippingAddressId($conn,$shippingAddressId){
+        $sql = "SELECT * FROM tbl_addresses WHERE id = ?";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$shippingAddressId]);	
+        $row = $statement->fetch();
+        $recepient = $row['name'];
+        $recepient = ucwords(strtolower($recepient));
+       
+        return $recepient;
+    }
+
+    // GET CATEGORY NAME
+    function getCategoryRow($conn,$productSubCategoryId){
+        $sql = "SELECT * FROM tbl_categories WHERE id = ?";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$productSubCategoryId]);	
+        $row = $statement->fetch();
+   
+        return $row;
+    }
+
+    // GET PARENT CATEGORY
+    function getCategoryName($conn,$categoryId){
+        $sql = "SELECT * FROM tbl_categories WHERE id = ?";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$categoryId]);	
+        $row = $statement->fetch();
+        $categoryName = $row['name'];
+   
+        return $categoryName;
+    }
+
+    
+
+
+    // GET BRAND NAME
+    function getBrandName($conn,$brandId){
+        $sql = "SELECT * FROM tbl_brands WHERE id = ?";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$brandId]);	
+        $row = $statement->fetch();
+        $brandName = $row['brand_name'];
+   
+        return $brandName;
     }
 
 

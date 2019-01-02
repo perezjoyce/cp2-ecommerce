@@ -156,7 +156,7 @@
                     
                     <!-- SELLER DETAILS -->
                     <div class='row flex-row text-gray mb-4'> 
-                        <a href='store_profile.php?id=<?=$storeId ?>'></a>
+                        <a href='store-profile.php?id=<?=$storeId ?>'></a>
                         <img src='<?=$storeLogo?>' alt="<?=$storeName?>" style='width:30px;max-height:30px;' class='circle'>
                         <div>
                             <div>&nbsp;<?=$storeName?></div>
