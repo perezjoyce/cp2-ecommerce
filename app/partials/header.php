@@ -158,7 +158,7 @@
                                     <i class="far fa-edit mr-1"></i>
                                     <small>MY PROFILE</small>
                                 </a>
-                                    <a class="dropdown-item mb-3" href='store.php?id=<?= getStoreId ($conn,$id) ?>'>
+                                    <a class="dropdown-item mb-3" href='store_profile.php?id=<?= getStoreId ($conn,$id) ?>'>
                                     <i class="fas fa-store mr-1"></i>
                                     <small>MY SHOP</small>
                                 </a>

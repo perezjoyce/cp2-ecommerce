@@ -156,6 +156,8 @@ div.card:hover {
 
 
 
+
+
 /* ================================ PRODUCT PAGE =================================== */
 
 
@@ -1025,9 +1027,14 @@ a.hover_btn:active {
     font-size:5em;
 }
 
-.border-bottom {
+.border-bottom,
+.underline {
     border-bottom: 2px solid;
 }
+
+/* .underline {
+    text-decoration: underline;
+} */
 
 input:active,
 input:hover,

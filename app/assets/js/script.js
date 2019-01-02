@@ -2418,7 +2418,7 @@ $(document).ready( () => {
 	//HEADER
 	$(document).on('click', '.underline', function(){
 		// e.preventDefault(e);
-		setTimeout(function(){window.location.reload()}, 300);
+		//setTimeout(function(){window.location.reload()}, 300);
 		$('.underline').removeClass('border-bottom');
 		$(this).addClass('border-bottom');
 	})

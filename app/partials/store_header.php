@@ -3,6 +3,7 @@
   require_once "../controllers/connect.php";
   require_once "../controllers/functions.php";
 
+
     // UPDATE LAST ACTIVITY    
   if(isset($_SESSION['id'])){
     $userId = $_SESSION['id'];
@@ -157,7 +158,7 @@
                                         <i class="far fa-edit mr-1"></i>
                                         <small>MY PROFILE</small>
                                     </a>
-                                     <a class="dropdown-item mb-3" href='store.php?id=<?= $storeId ?>'>
+                                     <a class="dropdown-item mb-3" href='store_profile.php?id=<?= $storeId ?>'>
                                         <i class="fas fa-store mr-1"></i>
                                         <small>MY SHOP</small>
                                     </a>
@@ -205,23 +206,23 @@
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item pl-lg-5 pl-md-4">
-                                    <a class="nav-link text-light font-weight-bold" href="store.php?id=<?=$storeId?>"> 
-                                        <div class='underline'>SHOP PROFILE</div>
+                                    <a class="nav-link text-light font-weight-bold" href="store_profile.php?id=<?=$storeId?>"> 
+                                        <div class='<?= isCurrentPage('profile') ? "underline" : "" ?>' >SHOP PROFILE</div>
                                     </a>
                                 </li>
                                 <li class="nav-item pl-lg-5 pl-md-4">
                                     <a class="nav-link text-light font-weight-bold" href="store_products.php?id=<?=$storeId?>"> 
-                                        <div class='underline'>PRODUCTS</div>
+                                        <div class='<?= isCurrentPage('product') ? "underline" : "" ?>'>PRODUCTS</div>
                                     </a>
                                 </li>
                                 <li class="nav-item pl-lg-5 pl-md-4">
                                     <a class="nav-link text-light font-weight-bold" href="store_orders.php?id=<?=$storeId?>"> 
-                                        <div class='underline'>ORDERS</div>
+                                        <div class='<?= isCurrentPage('order') ? "underline" : "" ?>'>ORDERS</div>
                                     </a>
                                 </li>
                                 <li class="nav-item pl-lg-5 pl-md-4">
                                     <a class="nav-link text-light font-weight-bold" href="store_messages.php?id=<?=$storeId?>"> 
-                                        <div class='underline'>MESSAGES</div>
+                                        <div class='<?= isCurrentPage('messages') ? "underline" : "" ?>'>MESSAGES</div>
                                     </a>
                                 </li>
 

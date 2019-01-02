@@ -592,4 +592,14 @@
         throw new \Exception("No user fetched");
     }
 
+    function getCurrentFile() {
+        return basename($_SERVER['PHP_SELF']);
+    }
+
+    function isCurrentPage($pageName) {
+        if(strpos(getCurrentFile(), $pageName) !== false) {
+            return true;
+        }
+    }
+
 

@@ -18,12 +18,17 @@
         // get the store information
 
         $storeInfo = $storeId = getStore ($conn,$id);
-        $id = $_SESSION['id'];
-        $currentUser = getUser($conn, $id);
-        $isSeller = $currentUser['isSeller'] == "yes" ? 1 : 0;    
+        $id = isset($_SESSION['id']) ? $_SESSION['id'] : null;
+        try {
+            $currentUser = getUser($conn, $id);
+            $isSeller = $currentUser['isSeller'] == "yes" ? 1 : 0;    
+        } catch (\Exception $e) {
+            $currentUser = null;
+            $isSeller = null;
+        }
     }  
 
-    if ($isSeller && $currentUser['id'] == $storeInfo['user_id']) {
+    if ($isSeller && $currentUser && $currentUser['id'] == $storeInfo['user_id']) {
         require_once "../partials/store_header.php";
     } else {
         require_once "../partials/header.php";
