@@ -65,6 +65,33 @@
                                         <h4>1. Create Product Overview</h4>
                                     </div>
                                 </div>
+
+                                        <?php 
+                                            if(isset($_SESSION['newProductId'])) {
+                                                $newProductId = $_SESSION['newProductId'];
+                                                $sql = "SELECT i.id AS 'product_id', i.name, i.price, b.brand_name, c.name 
+                                                AS 'category_name', c.parent_category_id, c.id AS 'subcategory_id' 
+                                                FROM tbl_items i JOIN tbl_brands b JOIN tbl_categories c 
+                                                ON i.category_id=c.id AND i.brand_id=b.id WHERE i.id = ?";
+                                                $statement = $conn->prepare($sql);
+                                                $statement->execute([$newProductId]);
+                                                $row = $statement->fetch();
+                                                $name = $row['name'];
+                                                $price = $row['price'];
+                                                $subCategoryId = $row['subcategory_id'];
+                                                $subCategoryName = $row['category_name'];
+                                                $parentCategoryId = $row['parent_category_id'];
+                                                $brandName = $row['brand_name'];
+
+                                                //FETCH PARENT CATEGORY NAME
+                                                $sql = "SELECT name FROM tbl_categories WHERE id =?";
+                                                $statement = $conn->prepare($sql);
+                                                $statement->execute([$parentCategoryId]);
+                                                $row = $statement->fetch();
+                                                $parentCategoryName = $row['name'];
+                                            }
+                                        
+                                        ?>
                                 
                                 <div class="row border-top">
                                     <div class="col">
@@ -72,15 +99,15 @@
 
                                             <div class="row mt-5">
                                                 <div class="col">
-                                                    <form action="../controllers/process_add_product.php" method="POST" id="form_edit_user">
-                                                        <input type="hidden" name="id" id="id" value="<?= $id ?>">
+                                                    <form action="../controllers/process_add_new_product.php" method="POST" id="form_add_new_product">
+                                                        <input type="hidden" id="new_product_id" value="<?= isset($newProductId) ? $newProductId : null ; ?>">
 
                                                         <!-- PRODUCT NAME -->
                                                         <div class="form-group row mb-5">
                                                             <label for='product_name' class='col-lg-3 col-md-3 col-sm-12'>Name</label>
                                                             <div class="input-group col-lg-9 col-md-9 col-sm-12">
                                                                 <input type="text" class='form-control' id='product_name'
-                                                                maxlength="40">
+                                                                maxlength="40" value='<?= isset($name) ? $name : null ; ?>'>
                                                             </div>
                                                         </div>
 
@@ -89,7 +116,7 @@
                                                             <label for='product_category' class='col-lg-3 col-md-3 col-sm-12'>Category</label>
                                                             <div class="input-group col-lg-9 col-md-9 col-sm-12">
                                                                 <select class="custom-select" id="product_category">
-                                                                    <option selected>Choose...</option>
+                                                                    <option selected><?= isset($parentCategoryName) ? $parentCategoryName : 'Choose...' ; ?></option>
                                                                     <?php 
                                                                         $sql = "SELECT * FROM tbl_categories WHERE parent_category_id IS NULL";
                                                                             $statement = $conn->prepare($sql);
@@ -113,7 +140,7 @@
                                                             <label for='product_subcategory' class='col-lg-3 col-md-3 col-sm-12'>Type</label>
                                                             <div class="input-group col-lg-9 col-md-9 col-sm-12">
                                                                 <select class="custom-select" id="product_subcategory">
-                                                                    <option selected>...</option>
+                                                                    <option selected><?= isset($subCategoryName) ? $subCategoryName : '...' ; ?></option>
                                                                 </select>
                                                                 <div class="input-group-append">
                                                                     <label class="input-group-text" for="product_subcategory">Options</label>
@@ -126,7 +153,7 @@
                                                             <label for='product_brand' class='col-lg-3 col-md-3 col-sm-12'>Brand</label>
                                                             <div class="input-group col-lg-9 col-md-9 col-sm-12">
                                                                 <select class="custom-select" id="product_brand">
-                                                                    <option selected>...</option>
+                                                                    <option selected><?= isset($brandName) ? $brandName : '...' ; ?></option>
                                                                 </select>
                                                                 <div class="input-group-append">
                                                                     <label class="input-group-text" for="product_brand">Options</label>
@@ -142,28 +169,29 @@
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text">&#x20B1;</span>
                                                                 </div>
-                                                                <input type="number" step=".01" placeholder='0.00' class="form-control" aria-label="Amount" id='product_price'>
+                                                                <input type="number" step=".01" placeholder='0.00' 
+                                                                    class="form-control" aria-label="Amount" id='product_price'
+                                                                    value='<?= isset($price) ? $price : null ; ?>'>
                                                             </div>
                                                             <div class='validation'></div>
                                                         </div>
-
-                                                       
-
-                                                        
                 
-                                                        <p id="edit_user_error"></p>
-
-                                                        
+                                                        <!-- <p id=""></p> -->
 
                                                         <div class="container px-0">
                                                             <!-- CHECKOUT BUTTON -->
                                                             <div class="row">
                                                                 <div class="col-lg-8 col-md-6"></div>
                                                                 <div class="col-lg-4 col-md-6 col-sm-12"> 
+                                                                    <?php if(!isset($newProductId)) { ?>
                                                                     <a class='btn btn-block py-3 btn-purple-reverse save_new_product' role='button' data-id='<?=$storeId?>'>
                                                                         <small>SAVE CHANGES</small>    
-                                                                    
                                                                     </a>
+                                                                    <?php } else { ?>
+                                                                    <a class='btn btn-block py-3 btn-purple-reverse save_new_product' role='button' data-id='<?=$storeId?>' data-productid='<?= isset($newProductId) ? $newProductId : null ; ?>'>
+                                                                        <small>EDIT</small>    
+                                                                    </a>
+                                                                    <?php } ?>
 
                                                                 </div>
                                                             </div>
@@ -190,71 +218,117 @@
                                         </h4>
                                     </div>
                                 </div>
-                                
+
                                 <div class="row border-top">
                                     <div class="col">
                                         <div class="container px-0">
 
                                             <div class="row mt-5">
                                                 <div class="col">
-                                                    <form action="../controllers/process_add_product.php" method="POST" id="form_edit_user">
-                                                        <input type="hidden" name="id" id="id" value="<?= $id ?>">
-
+                                                    <form action="../controllers/process_add_new_product_details.php" method="POST" id="form_product_details">
                                                     
+                                                    <?php 
+                                                            $sql = "SELECT * FROM tbl_item_descriptions WHERE product_id = ?";
+                                                            $statement = $conn->prepare($sql);
+                                                            $statement->execute([$newProductId]);
+                                                            $count = $statement->rowCount();
+
+                                                            if($count) {
+                                                                while($row = $statement->fetch()){
+                                                                $descriptionId = $row['id'];
+                                                                $description = $row['description'];
+                                                    ?>
+
                                                         <div class="input-group mb-4">
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text">a.</span>
                                                             </div>
-                                                            <textarea class="form-control" aria-label="With textarea"></textarea>
+                                                            <textarea class="form-control product_description" 
+                                                                data-descriptionid='<?=$descriptionId?>' 
+                                                                data-id='<?=$newProductId?>' aria-label="With textarea"><?=
+                                                                $description
+                                                                ?></textarea>
+                                                        </div>
+                                                    
+                                                    <?php } ?>
+
+                                                        <div class="container px-0">
+                                                            <!-- CHECKOUT BUTTON -->
+                                                            <div class="row">
+                                                                <div class="col-lg-8 col-md-6">
+
+                                                                    <!-- <a class='btn btn-block py-3 border save_address_edit' id="btn_edit_user" role='button'>
+                                                                        <small>USE EXISTING</small>    
+                                                                    </a> -->
+
+                                                                </div>
+                                                                <!-- <div class="col-lg-4 vanish-md vanish-sm">
+
+                                                                </div> -->
+                                                                <div class="col-lg-4 col-md-6 col-sm-12"> 
+                                                                    <a class='btn btn-block py-3 btn-purple-reverse' id="btn_save_product_detail" role='button'>
+                                                                        <small>EDIT</small>    
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    
+                                                    <?php } else { ?>
+
+                                                        <div class="input-group mb-4">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">a.</span>
+                                                            </div>
+                                                            <textarea class="form-control product_description" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' aria-label="With textarea"></textarea>
                                                         </div>
 
                                                         <div class="input-group mb-4">
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text">b.</span>
                                                             </div>
-                                                            <textarea class="form-control" aria-label="With textarea"></textarea>
+                                                            <textarea class="form-control product_description" data-id='<?= isset($newProductId) ? $newProductId : '...' ; ?>' aria-label="With textarea"></textarea>
                                                         </div>
 
                                                         <div class="input-group mb-4">
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text">c.</span>
                                                             </div>
-                                                            <textarea class="form-control" aria-label="With textarea"></textarea>
+                                                            <textarea class="form-control product_description" data-id='<?= isset($newProductId) ? $newProductId : '...' ; ?>' aria-label="With textarea"></textarea>
                                                         </div>
 
                                                         <div class="input-group mb-4">
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text">d.</span>
                                                             </div>
-                                                            <textarea class="form-control" aria-label="With textarea"></textarea>
+                                                            <textarea class="form-control product_description" data-id='<?= isset($newProductId) ? $newProductId : '...' ; ?>' aria-label="With textarea"></textarea>
                                                         </div>
 
                                                         <div class="input-group mb-4">
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text">e.</span>
                                                             </div>
-                                                            <textarea class="form-control" aria-label="With textarea"></textarea>
+                                                            <textarea class="form-control product_description" data-id='<?= isset($newProductId) ? $newProductId : '...' ; ?>' aria-label="With textarea"></textarea>
                                                         </div>
 
                                                         <div class="input-group mb-4">
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text">f.</span>
                                                             </div>
-                                                            <textarea class="form-control" aria-label="With textarea"></textarea>
+                                                            <textarea class="form-control product_description" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' aria-label="With textarea"></textarea>
                                                         </div>
 
                                                         <div class="input-group mb-4">
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text">g.</span>
                                                             </div>
-                                                            <textarea class="form-control" aria-label="With textarea"></textarea>
+                                                            <textarea class="form-control product_description" data-id='<?= isset($newProductId) ? $newProductId : '...' ; ?>' aria-label="With textarea"></textarea>
                                                         </div>
 
                                                         <div class="input-group mb-5">
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text">h.</span>
                                                             </div>
-                                                            <textarea class="form-control" aria-label="With textarea"></textarea>
+                                                            <textarea class="form-control product_description" data-id='<?= isset($newProductId) ? $newProductId : '...' ; ?>' aria-label="With textarea"></textarea>
                                                         </div>
 
                                                         
@@ -276,18 +350,19 @@
 
                                                                 </div> -->
                                                                 <div class="col-lg-4 col-md-6 col-sm-12"> 
-                                                                    <a class='btn btn-block py-3 btn-purple-reverse save_address_edit' id="btn_edit_user" role='button'>
+                                                                    <a class='btn btn-block py-3 btn-purple-reverse' id="btn_save_product_detail" role='button'>
                                                                         <small>SAVE CHANGES</small>    
                                                                     
                                                                     </a>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                            
+                                                    <?php } ?>       
 
                                                     </form>
                                                 </div>
                                             </div>
+                                         
 
                                         </div>
                                     </div>

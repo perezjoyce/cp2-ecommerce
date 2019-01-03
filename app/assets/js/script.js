@@ -2559,21 +2559,22 @@ $(document).ready( () => {
 	// SAVE NEW PRODUCT
 	$(document).on('click', '.save_new_product', function(){
 		let data = {
+			$newProductId:$(this).data('productid'),
 			storeId:$(this).data('id'),
 			name:$("#product_name").val(),
 			categoryId:$("#product_category").val(),
 			subcategoryId:$("#product_subcategory").val(),
-			brand:$("#product_brand").val(),
-			price:("#product_price").val()
+			brandId:$("#product_brand").val(),
+			price:$("#product_price").val()
 		} 
 
 		$.post("../controllers/process_add_new_product.php", data ,function(response){
 			
 			let dataFromPHP = $.parseJSON(response);
-			let selected = "<option selected>Choose...</option>";
+			// let selected = "<option selected>Choose...</option>";
 
 			$("#product_name").val(dataFromPHP.name);
-			("#product_price").val(dataFromPHP.price);
+			$("#product_price").val(dataFromPHP.price);
 
 			$("#product_category").prepend(dataFromPHP.category);
 			// $("#product_category").val(dataFromPHP.category);
@@ -2581,11 +2582,32 @@ $(document).ready( () => {
 			// $("#product_subcategory").val(dataFromPHP.subcategory);
 			$("#product_brand").prepend(dataFromPHP.brand);
 			// $("#product_brand").val(dataFromPHP.brand);
-
+			$("#new_product_id").val(dataFromPHP.id);
+			alert("Saved!");
+			window.location.reload();
 		});
 		
 	})
 
+	$(document).on('click', '#btn_save_product_detail', function(){
+
+		$(".product_description").each(function(i, el){
+			let data = { 
+				description: $(this).val(),
+				descriptionId:$(this).data('descriptionid'),
+				productId: $(this).data('id')
+			}
+
+			that = this;
+
+			$.post('../controllers/process_add_new_product_details.php', data, function(response){
+				$(that).val(response);
+			})
+		})	
+			alert("Saved!");
+			window.location.reload();
+
+	})
 
 
 });
