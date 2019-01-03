@@ -62,7 +62,19 @@
                             <div class="container p-5 rounded mb-5" style='background:white;'>
                                 <div class="row mb-3">
                                     <div class="col">
-                                        <h4>1. Create Product Overview</h4>
+                                        <div class='d-flex flex-row'>
+                                            <div class='flex-fill'>
+                                                <h4>Product Overview</h4>
+                                            </div>
+                                            <?php if ($isSeller && $currentUser['id'] == $storeInfo['user_id']) { ?>    
+                                            <div class='flex-fill text-right'>
+                                                <a class='nav-link modal-link' href='#' data-id='<?= $id ?>' data-url='../partials/templates/edit_user_modal.php' role='button'>
+                                                    <i class="far fa-edit"></i>
+                                                    Edit
+                                                </a>
+                                            </div>
+                                            <?php } else { echo ""; } ?>
+                                        </div>
                                     </div>
                                 </div>
                                 
@@ -145,22 +157,7 @@
                 
                                                         <p id="edit_user_error"></p>
 
-                                                        
-
-                                                        <div class="container px-0">
-                                                            <!-- CHECKOUT BUTTON -->
-                                                            <div class="row">
-                                                                <div class="col-lg-8 col-md-6"></div>
-                                                                <div class="col-lg-4 col-md-6 col-sm-12"> 
-                                                                    <a class='btn btn-block py-3 btn-purple-reverse save_address_edit' id="btn_edit_user" role='button'>
-                                                                        <small>SAVE CHANGES</small>    
-                                                                    
-                                                                    </a>
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                            
+                                                                                                                
 
                                                     </form>
                                                 </div>
@@ -175,11 +172,19 @@
                             <div class="container p-5 rounded mb-5" style='background:white;'>
                                 <div class="row mb-3">
                                     <div class="col">
-                                        <h4>
-                                            <span class='vanish-lg vanish-md'>2.</span>
-                                            <span class='vanish-sm'>3.</span>
-                                            Include Product Details
-                                        </h4>
+                                        <div class='d-flex flex-row'>
+                                            <div class='flex-fill'>
+                                                <h4>Product Details</h4>
+                                            </div>
+                                            <?php if ($isSeller && $currentUser['id'] == $storeInfo['user_id']) { ?>    
+                                            <div class='flex-fill text-right'>
+                                                <a class='nav-link modal-link' href='#' data-id='<?= $id ?>' data-url='../partials/templates/edit_user_modal.php' role='button'>
+                                                    <i class="far fa-edit"></i>
+                                                    Edit
+                                                </a>
+                                            </div>
+                                            <?php } else { echo ""; } ?>
+                                        </div>
                                     </div>
                                 </div>
                                 
@@ -195,87 +200,62 @@
                                                     
                                                         <div class="input-group mb-4">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text">a.</span>
+                                                                <span class="input-group-text">1.</span>
                                                             </div>
                                                             <textarea class="form-control" aria-label="With textarea"></textarea>
                                                         </div>
 
                                                         <div class="input-group mb-4">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text">b.</span>
+                                                                <span class="input-group-text">2.</span>
                                                             </div>
                                                             <textarea class="form-control" aria-label="With textarea"></textarea>
                                                         </div>
 
                                                         <div class="input-group mb-4">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text">c.</span>
+                                                                <span class="input-group-text">3.</span>
                                                             </div>
                                                             <textarea class="form-control" aria-label="With textarea"></textarea>
                                                         </div>
 
                                                         <div class="input-group mb-4">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text">d.</span>
+                                                                <span class="input-group-text">4.</span>
                                                             </div>
                                                             <textarea class="form-control" aria-label="With textarea"></textarea>
                                                         </div>
 
                                                         <div class="input-group mb-4">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text">e.</span>
+                                                                <span class="input-group-text">5.</span>
                                                             </div>
                                                             <textarea class="form-control" aria-label="With textarea"></textarea>
                                                         </div>
 
                                                         <div class="input-group mb-4">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text">f.</span>
+                                                                <span class="input-group-text">6.</span>
                                                             </div>
                                                             <textarea class="form-control" aria-label="With textarea"></textarea>
                                                         </div>
 
                                                         <div class="input-group mb-4">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text">g.</span>
+                                                                <span class="input-group-text">7.</span>
                                                             </div>
                                                             <textarea class="form-control" aria-label="With textarea"></textarea>
                                                         </div>
 
                                                         <div class="input-group mb-5">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text">h.</span>
+                                                                <span class="input-group-text">8.</span>
                                                             </div>
                                                             <textarea class="form-control" aria-label="With textarea"></textarea>
                                                         </div>
 
                                                         
                                                         <p id="edit_user_error"></p>
-
-                                                        
-
-                                                        <div class="container px-0">
-                                                            <!-- CHECKOUT BUTTON -->
-                                                            <div class="row">
-                                                                <div class="col-lg-8 col-md-6">
-
-                                                                    <!-- <a class='btn btn-block py-3 border save_address_edit' id="btn_edit_user" role='button'>
-                                                                        <small>USE EXISTING</small>    
-                                                                    </a> -->
-
-                                                                </div>
-                                                                <!-- <div class="col-lg-4 vanish-md vanish-sm">
-
-                                                                </div> -->
-                                                                <div class="col-lg-4 col-md-6 col-sm-12"> 
-                                                                    <a class='btn btn-block py-3 btn-purple-reverse save_address_edit' id="btn_edit_user" role='button'>
-                                                                        <small>SAVE CHANGES</small>    
-                                                                    
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                            
 
                                                     </form>
                                                 </div>
@@ -296,11 +276,19 @@
                             <div class="container p-5 rounded mb-5" style='background:white;'>
                                 <div class="row mb-3">
                                     <div class="col">
-                                        <h4>
-                                            <span class='vanish-lg vanish-md'>3.</span>
-                                            <span class='vanish-sm'>2.</span>
-                                            Add Product Variations & Stocks
-                                        </h4>
+                                        <div class='d-flex flex-row'>
+                                            <div class='flex-fill'>
+                                                <h4>Product Variations</h4>
+                                            </div>
+                                            <?php if ($isSeller && $currentUser['id'] == $storeInfo['user_id']) { ?>    
+                                            <div class='flex-fill text-right'>
+                                                <a class='nav-link modal-link' href='#' data-id='<?= $id ?>' data-url='../partials/templates/edit_user_modal.php' role='button'>
+                                                    <i class="far fa-edit"></i>
+                                                    Edit
+                                                </a>
+                                            </div>
+                                            <?php } else { echo ""; } ?>
+                                        </div>
                                     </div>
                                 </div>
                                 
@@ -316,7 +304,7 @@
                                                     
                                                         <div class="input-group mb-4">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text" id="">a.</i></span>
+                                                                <span class="input-group-text" id="">1.</span>
                                                             </div>
                                                             <input type="text" class="form-control" placeholder='Name'>
                                                             <input type="number" class="form-control" placeholder='Available Stock'>
@@ -324,7 +312,7 @@
 
                                                         <div class="input-group mb-4">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text" id="">b.</span>
+                                                                <span class="input-group-text" id="">2.</span>
                                                             </div>
                                                             <input type="text" class="form-control" placeholder='Name'>
                                                             <input type="number" class="form-control" placeholder='Available Stock'>
@@ -332,7 +320,7 @@
 
                                                         <div class="input-group mb-4">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text" id="">c.</span>
+                                                                <span class="input-group-text" id="">3.</span>
                                                             </div>
                                                             <input type="text" class="form-control" placeholder='Name'>
                                                             <input type="number" class="form-control" placeholder='Available Stock'>
@@ -340,7 +328,7 @@
 
                                                         <div class="input-group mb-4">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text" id="">d.</span>
+                                                                <span class="input-group-text" id="">4.</span>
                                                             </div>
                                                             <input type="text" class="form-control" placeholder='Name'>
                                                             <input type="number" class="form-control" placeholder='Available Stock'>
@@ -348,7 +336,7 @@
 
                                                         <div class="input-group mb-4">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text" id="">e.</span>
+                                                                <span class="input-group-text" id="">5.</span>
                                                             </div>
                                                             <input type="text" class="form-control" placeholder='Name'>
                                                             <input type="number" class="form-control" placeholder='Available Stock'>
@@ -356,7 +344,7 @@
 
                                                         <div class="input-group mb-4">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text" id="">f.</span>
+                                                                <span class="input-group-text" id="">6.</span>
                                                             </div>
                                                             <input type="text" class="form-control" placeholder='Name'>
                                                             <input type="number" class="form-control" placeholder='Available Stock'>
@@ -365,29 +353,13 @@
 
                                                         <div class="input-group mb-5">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text" id="">g.</span>
+                                                                <span class="input-group-text" id="">7.</span>
                                                             </div>
                                                             <input type="text" class="form-control" placeholder='Name'>
                                                             <input type="number" class="form-control" placeholder='Available Stock'>
                                                         </div>
 
                                                         <p id="edit_user_error"></p>
-
-                                                        
-
-                                                        <div class="container px-0">
-                                                            <!-- CHECKOUT BUTTON -->
-                                                            <div class="row">
-                                                                <div class="col-lg-8 col-md-6"></div>
-                                                                <div class="col-lg-4 col-md-6 col-sm-12"> 
-                                                                    <a class='btn btn-block py-3 btn-purple-reverse save_address_edit' id="btn_edit_user" role='button'>
-                                                                        <small>SAVE CHANGES</small>    
-                                                                    
-                                                                    </a>
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
                                                             
 
                                                     </form>
@@ -403,7 +375,19 @@
                             <div class="container p-5 rounded mb-5" style='background:white;'>
                                 <div class="row mb-3">
                                     <div class="col">
-                                        <h4>4. Add FAQs</h4>
+                                        <div class='d-flex flex-row'>
+                                            <div class='flex-fill'>
+                                                <h4>FAQs</h4>
+                                            </div>
+                                            <?php if ($isSeller && $currentUser['id'] == $storeInfo['user_id']) { ?>    
+                                            <div class='flex-fill text-right'>
+                                                <a class='nav-link modal-link' href='#' data-id='<?= $id ?>' data-url='../partials/templates/edit_user_modal.php' role='button'>
+                                                    <i class="far fa-edit"></i>
+                                                    Edit
+                                                </a>
+                                            </div>
+                                            <?php } else { echo ""; } ?>
+                                        </div>
                                     </div>
                                 </div>
                                 
@@ -419,7 +403,7 @@
                                                     
                                                         <div class="input-group mb-4">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text" id="">a.</span>
+                                                                <span class="input-group-text" id="">1.</span>
                                                             </div>
                                                             <input type="text" class="form-control" placeholder='Question'>
                                                             <input type="text" class="form-control" placeholder='Answer'>
@@ -427,7 +411,7 @@
 
                                                         <div class="input-group mb-4">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text" id="">b.</span>
+                                                                <span class="input-group-text" id="">2.</span>
                                                             </div>
                                                             <input type="text" class="form-control" placeholder='Question'>
                                                             <input type="text" class="form-control" placeholder='Answer'>
@@ -435,7 +419,7 @@
 
                                                         <div class="input-group mb-4">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text" id="">c.</span>
+                                                                <span class="input-group-text" id="">3.</span>
                                                             </div>
                                                             <input type="text" class="form-control" placeholder='Question'>
                                                             <input type="text" class="form-control" placeholder='Answer'>
@@ -443,7 +427,7 @@
 
                                                         <div class="input-group mb-4">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text" id="">d.</span>
+                                                                <span class="input-group-text" id="">4.</span>
                                                             </div>
                                                             <input type="text" class="form-control" placeholder='Question'>
                                                             <input type="text" class="form-control" placeholder='Answer'>
@@ -451,7 +435,7 @@
 
                                                         <div class="input-group mb-4">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text" id="">e.</span>
+                                                                <span class="input-group-text" id="">5.</span>
                                                             </div>
                                                             <input type="text" class="form-control" placeholder='Question'>
                                                             <input type="text" class="form-control" placeholder='Answer'>
@@ -459,7 +443,7 @@
 
                                                         <div class="input-group mb-4">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text" id="">f.</span>
+                                                                <span class="input-group-text" id="">6.</span>
                                                             </div>
                                                             <input type="text" class="form-control" placeholder='Question'>
                                                             <input type="text" class="form-control" placeholder='Answer'>
@@ -467,7 +451,7 @@
 
                                                         <div class="input-group mb-4">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text" id="">g.</span>
+                                                                <span class="input-group-text" id="">7.</span>
                                                             </div>
                                                             <input type="text" class="form-control" placeholder='Question'>
                                                             <input type="text" class="form-control" placeholder='Answer'>
@@ -475,7 +459,7 @@
 
                                                         <div class="input-group mb-4">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text" id="">h.</span>
+                                                                <span class="input-group-text" id="">8.</span>
                                                             </div>
                                                             <input type="text" class="form-control" placeholder='Question'>
                                                             <input type="text" class="form-control" placeholder='Answer'>
@@ -483,7 +467,7 @@
 
                                                         <div class="input-group mb-4">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text" id="">i.</span>
+                                                                <span class="input-group-text" id="">9.</span>
                                                             </div>
                                                             <input type="text" class="form-control" placeholder='Question'>
                                                             <input type="text" class="form-control" placeholder='Answer'>
@@ -491,7 +475,7 @@
 
                                                         <div class="input-group mb-5">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text" id="">j.</span>
+                                                                <span class="input-group-text" id="">10.</span>
                                                             </div>
                                                             <input type="text" class="form-control" placeholder='Question' >
                                                             <input type="text" class="form-control" placeholder='Answer'>
@@ -500,31 +484,6 @@
 
                                                         
                                                         <p id="edit_user_error"></p>
-
-                                                        
-
-                                                        <div class="container px-0">
-                                                            <!-- CHECKOUT BUTTON -->
-                                                            <div class="row">
-                                                                <div class="col-lg-8 col-md-6">
-
-                                                                    <!-- <a class='btn btn-block py-3 border save_address_edit' id="btn_edit_user" role='button'>
-                                                                        <small>USE EXISTING</small>    
-                                                                    </a> -->
-
-                                                                </div>
-                                                                <!-- <div class="col-lg-4 vanish-md vanish-sm">
-
-                                                                </div> -->
-                                                                <div class="col-lg-4 col-md-6 col-sm-12"> 
-                                                                    <a class='btn btn-block py-3 btn-purple-reverse save_address_edit' id="btn_edit_user" role='button'>
-                                                                        <small>SAVE CHANGES</small>    
-                                                                    
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                            
 
                                                     </form>
                                                 </div>
@@ -549,7 +508,7 @@
                 <div class='container p-5 rounded mb-5' style='background:white;'>
                     <div class="row mx-0">
                         <div class="col-6">
-                            <h4>5. Upload Product Images</h4>
+                            <h4>Product Images</h4>
                             <div class="text-gray">
                                 <small>File size: Max of 1MB</small>
                             </div>
@@ -576,7 +535,7 @@
                                 <div class="card-body">
                                     <a class='nav-link modal-link px-0 text-gray' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
                                         <i class="fas fa-camera pr-2"></i>
-                                        <small class='pr-2'>ADD PRIMARY IMAGE</small>
+                                        <small class='pr-2'>EDIT PRIMARY IMAGE</small>
                                         <i class="far fa-question-circle text-gray" data-toggle="tooltip" title="This will be your product's profile picture." data-original-title="#"></i>
                                     </a>
                                 </div>
@@ -593,7 +552,7 @@
                                 <div class="card-body">
                                     <a class='nav-link modal-link px-0 text-gray' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
                                         <i class="fas fa-camera pr-2"></i>
-                                        <small class='pr-2'>ADD IMAGE</small>
+                                        <small class='pr-2'>EDIT IMAGE</small>
                                     </a>
                                 </div>
                                 </a> 
@@ -609,7 +568,7 @@
                                 <div class="card-body">
                                     <a class='nav-link modal-link px-0 text-gray' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
                                         <i class="fas fa-camera pr-2"></i>
-                                        <small class='pr-2'>ADD IMAGE</small>
+                                        <small class='pr-2'>EDIT IMAGE</small>
                                     </a>
                                 </div>
                                 </a> 
@@ -625,7 +584,7 @@
                                 <div class="card-body">
                                     <a class='nav-link modal-link px-0 text-gray' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
                                         <i class="fas fa-camera pr-2"></i>
-                                        <small class='pr-2'>ADD IMAGE</small>
+                                        <small class='pr-2'>EDIT IMAGE</small>
                                     </a>
                                 </div>
                                 </a> 
@@ -641,7 +600,7 @@
                                 <div class="card-body">
                                     <a class='nav-link modal-link px-0 text-gray' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
                                         <i class="fas fa-camera pr-2"></i>
-                                        <small class='pr-2'>ADD IMAGE</small>
+                                        <small class='pr-2'>EDIT IMAGE</small>
                                     </a>
                                 </div>
                                 </a> 
@@ -657,7 +616,7 @@
                                 <div class="card-body">
                                     <a class='nav-link modal-link px-0 text-gray' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
                                         <i class="fas fa-camera pr-2"></i>
-                                        <small class='pr-2'>ADD IMAGE</small>
+                                        <small class='pr-2'>EDIT IMAGE</small>
                                     </a>
                                 </div>
                                 </a> 
@@ -673,7 +632,7 @@
                                 <div class="card-body">
                                     <a class='nav-link modal-link px-0 text-gray' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
                                         <i class="fas fa-camera pr-2"></i>
-                                        <small class='pr-2'>ADD IMAGE</small>
+                                        <small class='pr-2'>EDIT IMAGE</small>
                                     </a>
                                 </div>
                                 </a> 
@@ -689,7 +648,7 @@
                                 <div class="card-body">
                                     <a class='nav-link modal-link px-0 text-gray' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
                                         <i class="fas fa-camera pr-2"></i>
-                                        <small class='pr-2'>ADD IMAGE</small>
+                                        <small class='pr-2'>EDIT IMAGE</small>
                                     </a>
                                 </div>
                                 </a> 
@@ -705,7 +664,7 @@
                                 <div class="card-body">
                                     <a class='nav-link modal-link px-0 text-gray' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
                                         <i class="fas fa-camera pr-2"></i>
-                                        <small class='pr-2'>ADD IMAGE</small>
+                                        <small class='pr-2'>EDIT IMAGE</small>
                                     </a>
                                 </div>
                                 </a> 
@@ -721,7 +680,7 @@
                                 <div class="card-body">
                                     <a class='nav-link modal-link px-0 text-gray' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
                                         <i class="fas fa-camera pr-2"></i>
-                                        <small class='pr-2'>ADD IMAGE</small>
+                                        <small class='pr-2'>EDIT IMAGE</small>
                                     </a>
                                 </div>
                                 </a> 
@@ -737,7 +696,7 @@
                                 <div class="card-body">
                                     <a class='nav-link modal-link px-0 text-gray' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
                                         <i class="fas fa-camera pr-2"></i>
-                                        <small class='pr-2'>ADD IMAGE</small>
+                                        <small class='pr-2'>EDIT IMAGE</small>
                                     </a>
                                 </div>
                                 </a> 
@@ -753,7 +712,7 @@
                                 <div class="card-body">
                                     <a class='nav-link modal-link px-0 text-gray' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
                                         <i class="fas fa-camera pr-2"></i>
-                                        <small class='pr-2'>ADD IMAGE</small>
+                                        <small class='pr-2'>EDIT IMAGE</small>
                                     </a>
                                 </div>
                                 </a> 

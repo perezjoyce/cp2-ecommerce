@@ -277,6 +277,7 @@
                                         
      
                                 <!-- BUTTONS -->
+                                <?php   if($imagesAreFinal == 0) {?>
                                 <div class="row mt-5">
                                     <div class="col-lg-3 col-md-6">
                                         <?php 
@@ -293,18 +294,14 @@
 
                                     <div class="col-lg-5 vanish-md vanish-sm"></div>
                                     <div class="col-lg-4 col-md-6">
-                                        <?php 
-                                            $modalLinkClassPrefix = ''; 
-                                            if(isset($_SESSION['id'])) {
-                                                $modalLinkClassPrefix='-big';
-                                            }
-                                        ?>
+                                       
                                         <a class='btn btn-lg btn-block py-3 btn-purple mt-5'  id='btn_submit_review' data-productid='<?=$productId?>'>
                                             Submit&nbsp; 
                                             <i class="far fa-paper-plane"></i>
                                         </a>
                                     </div>
                                 </div>
+                                <?php } else { echo ""; } ?>
                             </div>
 
                         </form>

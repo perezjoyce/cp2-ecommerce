@@ -1,33 +1,28 @@
 <?php require_once "../../config.php";?>
 <?php require_once "../controllers/connect.php";?>
 <?php require_once "../controllers/functions.php";?>
+<?php require_once "../partials/store_header.php";?>
 
 <?php 
-    // if(!isset($_SESSION['id'])) {
-    //     // ob_clean();
-    //     // header("location: index.php?msg=NotLoggedIn"); // doesn't work because header already exists
-    //     // ECHO THIS TO REDIRECT YOU TO HEADER
-    //     echo "<script>window.location.href='".BASE_URL."/app/views/'</script>";
-    // }
-
+    
     $id = $_GET['id'];
-    if(empty($id)) {
+    if(empty($id)){ 
         header("location: index.php");
     } else {
-
-        // get the store information
 
         $storeInfo = $storeId = getStore ($conn,$id);
         $id = $_SESSION['id'];
         $currentUser = getUser($conn, $id);
-        $isSeller = $currentUser['isSeller'] == "yes" ? 1 : 0;    
+        $isSeller = $currentUser['isSeller'] == "yes" ? 1 : 0;   
+        
+        $userIsStoreOwner = false;
+        //IF USER IS NOT STORE OWNER, REDIRECT TO ORIGIN
+        if($id === $storeInfo['user_id']) {
+            $userIsStoreOwner = true;
+        } else {
+            echo '<script>history.go(-1);</script>';
+        }
     }  
-
-    if ($isSeller && $currentUser['id'] == $storeInfo['user_id']) {
-        require_once "../partials/store_header.php";
-    } else {
-        require_once "../partials/header.php";
-    }
 
     $storeId = $storeInfo['id'];
     $storeName = $storeInfo['name'];
@@ -234,7 +229,7 @@
                                                                 <a class="dropdown-item" href="#"><small>VIEW</small></a>
                                                                 
                                                                 <!-- ONCE CLICKED, WILL BE TRANSFERRED TO SHIPPING -->
-                                                                <a class="dropdown-item" href="#"><small>UPDATE</small></a>
+                                                                <a class="dropdown-item" href="store-update-product.php?id=<?=$storeId?>"><small>UPDATE</small></a>
                                                                 <!-- ONCE CLICKED, WILL BE TRANSFERRED TO ORDER HISTORY -->
                                                                 <a class="dropdown-item" href="#"><small>DELETE</small></a>
                                                                 

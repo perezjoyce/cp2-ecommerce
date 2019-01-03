@@ -481,6 +481,8 @@ textarea {
 textarea:focus, textarea:active {
     box-shadow: none!important;
     background: #eff0f5!important;
+    border-color:white;
+    outline:none!important;
 }
 
 
