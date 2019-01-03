@@ -87,7 +87,7 @@ $sellerId = $_GET['sellerId'];
             </div>";
 
             $messageDetails .= "<div class='message_details__items'>
-                    <p><i>This will be the start of your conversation with seller</i></p>                    
+                    <p>This will be the start of your conversation with seller. Please indicate the product that you will inquire of.</p>                    
                 </div>";
         }  
 

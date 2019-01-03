@@ -111,7 +111,7 @@
                                 </div>
                                 <div class='flex-fill text-lg-right text-sm-center'>
                                     <div class="d-flex flex-column">
-                                        <a class='nav-link modal-link px-0' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
+                                        <a class='nav-link modal-link px-0' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_user_pic_modal.php' role='button'>
                                             <i class="fas fa-camera"></i>
                                             Update Image
                                         </a>

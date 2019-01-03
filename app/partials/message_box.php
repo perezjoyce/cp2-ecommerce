@@ -12,7 +12,7 @@
                 <textarea class='rounded-bottom' id="message_input" data-sellerid="<?= $sellerId ?>" style='resize:none;background:#eff0f5;'></textarea>
             </div>
         </div>
-        <a href="#" id='messageBox__button' data-sellerid="<?= $sellerId ?>">
+        <a href="#" id='messageBox__button' data-sellerid="<?= $sellerId ?>" data-productid="<?=$_GET['id']?>">
             <span class='fa-stack fa-2x'>
                 <i class="fa fa-circle fa-stack-2x icon-background text-purple"></i>
                 <i class="fas fa-comment fa-stack-1x text-light"></i>

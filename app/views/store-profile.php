@@ -68,7 +68,7 @@
                                 <div class='flex-fill'>
                                     <div class="d-flex align-items-center">
                                         <div class='pr-3'>
-                                            <img src='<?= $storeLogo ?>' class='rounded-circle store_page_logo'>
+                                            <img src='<?= BASE_URL . "/" . $storeLogo . ".jpg" ?>' class='rounded-circle store_page_logo'>
                                         </div>
                                         <div class="d-flex flex-column">
                                             <div>
@@ -120,7 +120,7 @@
                                 <div class='flex-fill text-right'>
                                     <div class="d-flex flex-column">
                                         <?php if ($isSeller && $currentUser['id'] == $storeInfo['user_id']) { ?>
-                                            <a class='nav-link modal-link px-0' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
+                                            <a class='nav-link modal-link px-0' href='#' data-id='<?= $storeId ?>' data-url='../partials/templates/upload_store_pic_modal.php' role='button'>
                                                 <i class="fas fa-camera"></i>
                                                 Update Image
                                             </a>
@@ -131,10 +131,24 @@
                                                 <small>File extension: jpg, jpeg, png</small>
                                             </div>
                                         <?php } else { ?>
-                                            <div class="text-gray">
-                                                <button class='btn border'>
-                                                &#65291; Follow
+                                            <div class="text-gray" id='btn_follow_container'>
+                                                
+                                                <?php 
+                                                    $sql = "SELECT * FROM tbl_followers WHERE user_id =? AND store_id =?";
+                                                    $statement = $conn->prepare($sql);
+                                                    $statement->execute([$currentUser['id'], $storeId]);
+                                                    $count = $statement->rowCount();
+
+                                                    if(!$count) {
+                                                ?>
+                                                <button class='btn btn-purple' id='btn_follow' data-id='<?=$storeId?>'>
+                                                    &#65291; Follow
                                                 </button>
+                                                <?php } else {?>
+                                                <button class='btn border text-gray' id='btn_follow' data-id='<?=$storeId?>'>
+                                                    &#8722; Unfollow
+                                                </button>
+                                                <?php } ?>
                                             </div>
                                         <?php } ?>
                                     </div>
@@ -170,7 +184,7 @@
                                                 </div>
                                             </div>
                                             <div class='flex-fill text-right'>
-                                                <a class='nav-link modal-link' href='#' data-id='<?= $id ?>' data-url='../partials/templates/edit_user_modal.php' role='button'>
+                                                <a class='nav-link modal-link' href='#' data-id='<?= $storeId ?>' data-url='../partials/templates/edit_store_description_modal.php' role='button'>
                                                     <i class="far fa-edit"></i>
                                                     Edit
                                                 </a>
@@ -183,7 +197,7 @@
                                 
                                 <div class="row">
                                     <div class="col"> 
-                                       <div class="mt-5">
+                                       <div class="mt-5" id='store_profile_description'>
                                            <?= $storeDescription ?>
                                        </div>
                                     </div>
@@ -201,7 +215,7 @@
                                             </div>
                                             <?php if ($isSeller && $currentUser['id'] == $storeInfo['user_id']) { ?>    
                                             <div class='flex-fill text-right'>
-                                                <a class='nav-link modal-link' href='#' data-id='<?= $id ?>' data-url='../partials/templates/edit_user_modal.php' role='button'>
+                                                <a class='nav-link modal-link' href='#' data-id='<?= $storeId ?>' data-url='../partials/templates/edit_store_details_modal.php' role='button'>
                                                     <i class="far fa-edit"></i>
                                                     Edit
                                                 </a>
@@ -218,6 +232,11 @@
                                             <div class="row my-5">
                                                 <div class="col-3">
                                                     Owner
+                                                    <?php if ($isSeller && $currentUser['id'] == $storeInfo['user_id']) { ?>
+                                                    <a data-toggle="tooltip" title="Please coordinate with the admin for changes in store ownership." data-original-title="#">
+                                                        &nbsp;<i class="far fa-question-circle text-gray"></i>
+                                                    </a>
+                                                    <?php } ?>
                                                 </div>
                                                 <div class="col">
                                                     <?= ucwords(strtolower($fname)) . " " . ucwords(strtolower($lname)) ?>
@@ -228,7 +247,7 @@
                                                 <div class="col-3">
                                                     Address
                                                 </div>
-                                                <div class="col">
+                                                <div class="col" id='store_profile_address'>
                                                     <?= $storeAddress ?>
                                                 </div>
                                             </div>
@@ -237,7 +256,7 @@
                                                 <div class="col-3">
                                                     Hours
                                                 </div>
-                                                <div class="col">
+                                                <div class="col" id='store_profile_hours'>
                                                     <?= $storeHours ?>
                                                 </div>
                                             </div>
@@ -314,7 +333,7 @@
                                             </div>
                                             <?php if ($isSeller && $currentUser['id'] == $storeInfo['user_id']) { ?>    
                                             <div class='flex-fill text-right'>
-                                                <a class='nav-link modal-link' href='#' data-id='<?= $id ?>' data-url='../partials/templates/edit_user_modal.php' role='button'>
+                                                <a class='nav-link modal-link' href='#' data-id='<?= $storeId ?>' data-url='../partials/templates/edit_store_shipping_modal.php' role='button'>
                                                     <i class="far fa-edit"></i>
                                                     Edit
                                                 </a>
@@ -334,7 +353,7 @@
                                                 </div>
                                                 <div class="col">
                                                     <span>&#8369;&nbsp;</span>
-                                                    <span><?= $storeShippingFee ?></span>
+                                                    <span id='store_profile_standard_fee'><?= $storeShippingFee ?></span>
                                                 </div>
                                             </div>  
                                             
@@ -344,8 +363,9 @@
                                                     Free
                                                 </div>
                                                 <div class="col">
-                                                    <span>Minimum spend of&nbsp;&#8369;</span>
-                                                    <span><?= $storeFreeShippingMinimum ?></span>
+                                                    <span>&nbsp;&#8369;</span>
+                                                    <span id='store_profile_free_shipping'><?= $storeFreeShippingMinimum ?></span>
+                                                    <span>&nbsp;Minimum Spend</span>
                                                 </div>
                                             </div>
                                             <?php } ?>
@@ -375,11 +395,11 @@
                         <div class="col">
                             <div class="input-group input-group-lg">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text border-right-0 border-left-0 border-top-0" id="store_page_search_button" style='background:white;'>
+                                    <span class="input-group-text border-right-0 border-left-0 border-top-0" style='background:white;'>
                                         <i class="fas fa-search" style='background:white;'></i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control border-right-0 border-left-0 border-top-0" id="store_page_search">
+                                <input type="text" class="form-control border-right-0 border-left-0 border-top-0" id="store_page_search" data-storeid='<?= $storeId ?>'>
                             </div>
                         </div>
 						
@@ -388,9 +408,9 @@
 
 
                 <!-- PRODUCTS FROM SELLER -->
-                <div class="container p-0" id='store_page_product_container'>
+                <div class="container p-0">
                     
-                    <div class="row no-gutters justify-content-left">
+                    <div class="row no-gutters justify-content-left" id='store_page_product_container'>
                         <?php 
                             $productId = $_GET['id'];
                             $sql2 = "SELECT * FROM tbl_items WHERE store_id = ? ";

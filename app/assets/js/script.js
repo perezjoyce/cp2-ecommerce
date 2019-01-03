@@ -2357,7 +2357,6 @@ $(document).ready( () => {
 				let container = $('#message_box .message_details-container');
 				container.html(response);
 				container.scrollTop(container[0].scrollHeight);
-			
 				
 			});
 
@@ -2407,7 +2406,6 @@ $(document).ready( () => {
 					
 			});
 		// }
-
 		
 	})
 
@@ -2423,11 +2421,170 @@ $(document).ready( () => {
 		$(this).addClass('border-bottom');
 	})
 
-	
+	//TOOLTIP
 	$(function () {
         $('[data-toggle="tooltip"]').tooltip()
-    })
+	})
 	
+	//EDITING DESCRIPTION 
+	$(document).on('click','#btn_edit_store_description',function(){
+		let data = {
+			storeId: $(this).data('storeid'),
+			description: $('#store_description').val()
+		}
+
+		$.post('../../app/controllers/process_edit_store_description.php', data,
+				function(response){
+				$('#store_profile_description').html(response);
+			});
+
+	})
+	
+	//EDITING STORE DETAILS
+	$(document).on('click','.btn_edit_store_details',function(){
+		let data = {
+			storeId: $(this).data('storeid'),
+			address: $('#store_address').val(),
+			hours: $('#store_hours').val(),
+			standard: $('#store_standard_fee').val(),
+			free: $('#store_free_shipping').val()
+		}
+
+		$.post('../../app/controllers/process_edit_store_details.php', data,
+			function(response){
+			let dataFromPHP = $.parseJSON(response);
+
+			if(dataFromPHP.where == 'details'){
+				$('#store_profile_address').html(dataFromPHP.address);
+				$('#store_profile_hours').html(dataFromPHP.hours);
+			}
+			
+			if(dataFromPHP.where == 'fees'){
+				$('#store_profile_standard_fee').html(dataFromPHP.standard);
+				$('#store_profile_free_shipping').html(dataFromPHP.free);
+			}
+		});
+	})
+
+	//SEARCHING FOR PRODUCTS IN STORE PROFILE
+	$(document).on('keypress', '#store_page_search', function(e) {
+		e.preventDefault;
+
+		if(e.keyCode == 13) {
+			let data = {
+				storeId: $(this).data('storeid'),
+				searchkey: $(this).val()
+			}
+
+			$.get('../../app/controllers/process_search_store_products.php', data,
+				function(response){
+				$('#store_page_product_container').html(response);
+
+				if(response == "fail") {
+					$('#store_page_product_container').html("Sorry. No items were found.");
+					setTimeout(function(){window.location.reload()}, 2000);
+				}
+				
+			});
+
+		}
+	})
+
+	//FOLLOW A SHOP
+	$(document).on('click', '#btn_follow', function(){
+		 storeId = $(this).data('id');
+	
+		$.post('../../app/controllers/process_follow_store.php', { storeId:storeId },
+			function(response){
+
+				if(response == "followed"){
+					$('#btn_follow_container').html("<button class='btn border text-gray' id='btn_follow' data-id='"+storeId+"'>&#8722; Unfollow</button");
+				} else if(response == "unfollowed") {
+					$('#btn_follow_container').html("<button class='btn btn-purple text-light' id='btn_follow' data-id='"+storeId+"'>&#8722; Unfollow</button");
+				} else {
+					alert("fail");
+				}
+		});
+	})
+
+
+	// SEARCHING FOR CLIENT NAME IN MESSAGE BOX
+	$(document).on('keypress', '#search_client_name', function(e) {
+	
+		if(e.keyCode == 13) {
+			let keypress = $(this).val();
+
+			$.get('../../app/controllers/process_search_client_name.php', {keypress:keypress},
+				function(response){
+				// let data = $.parseJSON(response);
+				
+				if(response == 'fail'){
+					$('#sender_container').html("<tr><td><small>Sorry. There is no client with this name in your inbox.</small></td></tr>");
+					setTimeout(function(){window.location.reload()}, 2000);
+				}else{
+					$('#sender_container').html(response);
+				}
+					
+			});
+		}
+		
+	})
+
+
+	//FETCHING PARENT CATEGORY AND POSTING SUBCATEGORIES
+	$(document).on("change", "#product_category", function(){
+		let categoryId = $(this).val();
+		
+		$.post("../controllers/process_display_subcategories.php", {categoryId:categoryId},function(data){
+			let selected = "<option selected>Choose...</option>";
+			$('#product_subcategory').empty().append(data);
+			$('#product_subcategory').prepend(selected);
+		});
+	});
+
+	
+	  
+	// FETCHING SUBCATEGORIES AND POSTING BRAND NAME
+	$(document).on("change", "#product_subcategory", function(){
+		let subcategoryId = $(this).val();
+
+		$.post("../controllers/process_display_brands.php", {subcategoryId:subcategoryId},function(data){
+			let selected = "<option selected>Choose...</option>";
+			$('#product_brand').empty().append(data);
+			$('#product_brand').prepend(selected);
+		});
+	  });
+	
+	
+	// SAVE NEW PRODUCT
+	$(document).on('click', '.save_new_product', function(){
+		let data = {
+			storeId:$(this).data('id'),
+			name:$("#product_name").val(),
+			categoryId:$("#product_category").val(),
+			subcategoryId:$("#product_subcategory").val(),
+			brand:$("#product_brand").val(),
+			price:("#product_price").val()
+		} 
+
+		$.post("../controllers/process_add_new_product.php", data ,function(response){
+			
+			let dataFromPHP = $.parseJSON(response);
+			let selected = "<option selected>Choose...</option>";
+
+			$("#product_name").val(dataFromPHP.name);
+			("#product_price").val(dataFromPHP.price);
+
+			$("#product_category").prepend(dataFromPHP.category);
+			// $("#product_category").val(dataFromPHP.category);
+			$('#product_subcategory').prepend(dataFromPHP.subcategory);
+			// $("#product_subcategory").val(dataFromPHP.subcategory);
+			$("#product_brand").prepend(dataFromPHP.brand);
+			// $("#product_brand").val(dataFromPHP.brand);
+
+		});
+		
+	})
 
 
 

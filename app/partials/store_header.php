@@ -117,27 +117,7 @@
                     </div>
 
             <?php } else { ?>
-                <div class="col-lg-10 col-md-9 col-sm-12 justify-content-right vanish-sm">
-                    <div class="d-flex flex-row vanish-lg vanish-md vanish-sm text-sm-center">
-                        <div class='flex-fill vanish-lg vanish-md vanish-sm'>
-                            <a class='border-0 text-sm-center py-1' href='profile.php?id=<?=$id?>' role='button'> 
-                                    <?= "<img src='../../".getProfilePic($conn, $id)."_80x80.jpg' height='20' class='circle mr-1'>" ?>
-                                    <small>HELLO,&nbsp;</small>
-                                    <small>
-                                        <?= $storeName ?>
-                                    </small>
-                                    <small>!</small>
-                            </a>
-                        </div>
-
-                        <div class='flex-fill vanish-lg vanish-md vanish-sm text-sm-center'>
-                            <a class='border-0 text-sm-center' href='../controllers/process_logout.php?id=<?=$id?>' role='button'> 
-                                <i class='fas fa-sign-in-alt py-1'></i>
-                                <small> LOG OUT</small>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="col">
                     <div class='flex-fill text-lg-right text-md-right text-sm-right'>
     
@@ -244,8 +224,6 @@
                                                 </div>
                                                 
                                             </div>
-                                            
-                                            
                                         </a>
                                         <div class="dropdown-menu py-0">
                                             <a class="dropdown-item py-3" href="store-new-orders.php?id=<?=$storeId?>">
@@ -265,12 +243,15 @@
                                     <li><span class='badge text-light my-0'>0</span></li>
                                 </div>
                                 
-                             
-                                <li class="nav-item pl-lg-5 pl-md-4">
-                                    <a class="nav-link text-light font-weight-bold" href="store-messages.php?id=<?=$storeId?>"> 
-                                        <div class='<?= isCurrentPage('messages') ? "underline" : "" ?>'>MESSAGES</div>
-                                    </a>
-                                </li>
+
+                                <div class='d-flex flex-row'>
+                                    <li class="nav-item pl-lg-5 pl-md-4 d-flex flex-row">
+                                        <a class="nav-link text-light font-weight-bold" href="store-messages.php?id=<?=$storeId?>"> 
+                                            <div class='<?= isCurrentPage('messages') ? "underline" : "" ?>'>MESSAGES</div>
+                                        </a>
+                                    </li>
+                                    <li><span class='badge text-light my-0 message-badge<?$storeId?>'>0</span></li></li>
+                                </div>
 
                             </ul>
                         </div>

@@ -77,69 +77,77 @@
 
                                                         <!-- PRODUCT NAME -->
                                                         <div class="form-group row mb-5">
-                                                            <label for='fname' class='col-lg-3 col-md-3 col-sm-12'>Name</label>
+                                                            <label for='product_name' class='col-lg-3 col-md-3 col-sm-12'>Name</label>
                                                             <div class="input-group col-lg-9 col-md-9 col-sm-12">
-                                                                <input type="text" class='form-control' id='fname'
-                                                                    value="">
+                                                                <input type="text" class='form-control' id='product_name'
+                                                                maxlength="40">
                                                             </div>
                                                         </div>
 
                                                         <!-- PARENT CATEGORY -->
                                                         <div class="form-group row mb-5">
-                                                            <label for='lname' class='col-lg-3 col-md-3 col-sm-12'>Category</label>
+                                                            <label for='product_category' class='col-lg-3 col-md-3 col-sm-12'>Category</label>
                                                             <div class="input-group col-lg-9 col-md-9 col-sm-12">
-                                                                <select class="custom-select" id="inputGroupSelect02">
+                                                                <select class="custom-select" id="product_category">
                                                                     <option selected>Choose...</option>
-                                                                    <option value="1">One</option>
-                                                                    <option value="2">Two</option>
-                                                                    <option value="3">Three</option>
+                                                                    <?php 
+                                                                        $sql = "SELECT * FROM tbl_categories WHERE parent_category_id IS NULL";
+                                                                            $statement = $conn->prepare($sql);
+                                                                            $statement->execute();
+                                                                        while($row = $statement->fetch()){
+                                                                            $parentCategoryId = $row['id'];
+                                                                            $parentCategoryName = $row['name'];
+                                                                    ?>
+                                                                    <option value="<?=$parentCategoryId?>"><?=$parentCategoryName?></option>
+                                                                    <?php } ?>
                                                                 </select>
                                                                 <div class="input-group-append">
-                                                                    <label class="input-group-text" for="inputGroupSelect02">Options</label>
+                                                                    <label class="input-group-text" for="product_category">Options</label>
                                                                 </div>
                                                             </div>
                                                         </div>
 
                                                        
-
-                                                     
-
                                                         <!-- SUBCATEGORY -->
                                                         <div class="form-group row mb-5">
-                                                            <label for='lname' class='col-lg-3 col-md-3 col-sm-12'>Type</label>
+                                                            <label for='product_subcategory' class='col-lg-3 col-md-3 col-sm-12'>Type</label>
                                                             <div class="input-group col-lg-9 col-md-9 col-sm-12">
-                                                                <select class="custom-select" id="inputGroupSelect02">
-                                                                    <option selected>Choose...</option>
-                                                                    <option value="1">One</option>
-                                                                    <option value="2">Two</option>
-                                                                    <option value="3">Three</option>
+                                                                <select class="custom-select" id="product_subcategory">
+                                                                    <option selected>...</option>
                                                                 </select>
                                                                 <div class="input-group-append">
-                                                                    <label class="input-group-text" for="inputGroupSelect02">Options</label>
+                                                                    <label class="input-group-text" for="product_subcategory">Options</label>
                                                                 </div>
                                                             </div>
                                                         </div>
 
                                                         <!-- BRAND -->
                                                         <div class="form-group row mb-5">
-                                                            <label for='email' class='col-lg-3 col-md-3 col-sm-12'>Brand</label>
+                                                            <label for='product_brand' class='col-lg-3 col-md-3 col-sm-12'>Brand</label>
                                                             <div class="input-group col-lg-9 col-md-9 col-sm-12">
-                                                                <input type="text" class='form-control' id='email'
-                                                                    value="">
+                                                                <select class="custom-select" id="product_brand">
+                                                                    <option selected>...</option>
+                                                                </select>
+                                                                <div class="input-group-append">
+                                                                    <label class="input-group-text" for="product_brand">Options</label>
+                                                                </div>
                                                             </div>
-                                                            <div class='validation'></div>
                                                         </div>
 
 
-                                                        <!-- USERNAME -->
+                                                        <!-- PRICE -->
                                                         <div class="form-group row mb-5">
                                                             <label for='unsername' class='col-lg-3 col-md-3 col-sm-12'>Price</label>
                                                             <div class="input-group col-lg-9 col-md-9 col-sm-12">
-                                                                <input type="text" class='form-control' id='username'
-                                                                    value="">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">&#x20B1;</span>
+                                                                </div>
+                                                                <input type="number" step=".01" placeholder='0.00' class="form-control" aria-label="Amount" id='product_price'>
                                                             </div>
                                                             <div class='validation'></div>
                                                         </div>
+
+                                                       
 
                                                         
                 
@@ -152,7 +160,7 @@
                                                             <div class="row">
                                                                 <div class="col-lg-8 col-md-6"></div>
                                                                 <div class="col-lg-4 col-md-6 col-sm-12"> 
-                                                                    <a class='btn btn-block py-3 btn-purple-reverse save_address_edit' id="btn_edit_user" role='button'>
+                                                                    <a class='btn btn-block py-3 btn-purple-reverse save_new_product' role='button' data-id='<?=$storeId?>'>
                                                                         <small>SAVE CHANGES</small>    
                                                                     
                                                                     </a>
@@ -547,17 +555,39 @@
                 
                 <!-- HEADING -->
                 <div class='container p-5 rounded mb-5' style='background:white;'>
-                    <div class="row mx-0">
-                        <div class="col-6">
+                    <div class="row mx-0 d-flex align-items-center">
+
+                        <div class='flex-fill'>
                             <h4>5. Upload Product Images</h4>
-                            <div class="text-gray">
+
+                            <div class="text-gray pl-4">
                                 <small>File size: Max of 1MB</small>
                             </div>
-                            <div class="text-gray">
+                            <div class="text-gray pl-4">
                                 <small>File extension: jpg, jpeg, png</small>
                             </div>
                         </div>
-                    
+
+                        <div class='flex-fill'>  
+                            <div class='d-flex flex-row'>
+                                <a class='nav-link modal-link text-gray btn border' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_product_pic_modal.php' role='button'>
+                                    <i class="fas fa-camera pr-2"></i>
+                                    <small class='pr-2'>ADD PRIMARY IMAGE</small>
+                                    <i class="far fa-question-circle text-gray" data-toggle="tooltip" title="This will be your product's profile picture." data-original-title="#"></i>
+                                </a>
+                            </div>
+                        </div>
+
+
+                        <div class='flex-fill'>  
+                            <div class='d-flex flex-row'>
+                                <!-- STILL NEEDS TO PASS VALUE THROUGH GET TO upload_product_pic_modal.php -->
+                                <a class='nav-link modal-link text-gray btn border' href='#' data-id='<?= $storeId ?>' data-url='../partials/templates/upload_modal.php' role='button'>
+                                    <i class="fas fa-camera pr-2"></i>
+                                    <small class='pr-2'>ADD OTHER IMAGES</small>
+                                </a>
+                            </div>
+                        </div>
 					</div>
                 </div>
 
@@ -573,13 +603,6 @@
                             <div class='card border-0'>
                                 <a href="product.php?id=<?= $row2['id'] ?>">
                                 <img class='card-img-top' src="https://via.placeholder.com/250x250">
-                                <div class="card-body">
-                                    <a class='nav-link modal-link px-0 text-gray' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
-                                        <i class="fas fa-camera pr-2"></i>
-                                        <small class='pr-2'>ADD PRIMARY IMAGE</small>
-                                        <i class="far fa-question-circle text-gray" data-toggle="tooltip" title="This will be your product's profile picture." data-original-title="#"></i>
-                                    </a>
-                                </div>
                                 </a> 
                             </div>
                             </a>
@@ -590,182 +613,9 @@
                             <div class='card border-0'>
                                 <a href="product.php?id=<?= $row2['id'] ?>">
                                 <img class='card-img-top' src="https://via.placeholder.com/250x250">
-                                <div class="card-body">
-                                    <a class='nav-link modal-link px-0 text-gray' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
-                                        <i class="fas fa-camera pr-2"></i>
-                                        <small class='pr-2'>ADD IMAGE</small>
-                                    </a>
-                                </div>
-                                </a> 
                             </div>
                             </a>
                         </div>
-
-                        <div class="col-lg-3 col-md-4 col-sm-6 p-2">
-                            <a href="product.php?id=<?= $id ?>">
-                            <div class='card border-0'>
-                                <a href="product.php?id=<?= $row2['id'] ?>">
-                                <img class='card-img-top' src="https://via.placeholder.com/250x250">
-                                <div class="card-body">
-                                    <a class='nav-link modal-link px-0 text-gray' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
-                                        <i class="fas fa-camera pr-2"></i>
-                                        <small class='pr-2'>ADD IMAGE</small>
-                                    </a>
-                                </div>
-                                </a> 
-                            </div>
-                            </a>
-                        </div>
-
-                        <div class="col-lg-3 col-md-4 col-sm-6 p-2">
-                            <a href="product.php?id=<?= $id ?>">
-                            <div class='card border-0'>
-                                <a href="product.php?id=<?= $row2['id'] ?>">
-                                <img class='card-img-top' src="https://via.placeholder.com/250x250">
-                                <div class="card-body">
-                                    <a class='nav-link modal-link px-0 text-gray' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
-                                        <i class="fas fa-camera pr-2"></i>
-                                        <small class='pr-2'>ADD IMAGE</small>
-                                    </a>
-                                </div>
-                                </a> 
-                            </div>
-                            </a>
-                        </div>
-
-                        <div class="col-lg-3 col-md-4 col-sm-6 p-2">
-                            <a href="product.php?id=<?= $id ?>">
-                            <div class='card border-0'>
-                                <a href="product.php?id=<?= $row2['id'] ?>">
-                                <img class='card-img-top' src="https://via.placeholder.com/250x250">
-                                <div class="card-body">
-                                    <a class='nav-link modal-link px-0 text-gray' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
-                                        <i class="fas fa-camera pr-2"></i>
-                                        <small class='pr-2'>ADD IMAGE</small>
-                                    </a>
-                                </div>
-                                </a> 
-                            </div>
-                            </a>
-                        </div>
-
-                        <div class="col-lg-3 col-md-4 col-sm-6 p-2">
-                            <a href="product.php?id=<?= $id ?>">
-                            <div class='card border-0'>
-                                <a href="product.php?id=<?= $row2['id'] ?>">
-                                <img class='card-img-top' src="https://via.placeholder.com/250x250">
-                                <div class="card-body">
-                                    <a class='nav-link modal-link px-0 text-gray' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
-                                        <i class="fas fa-camera pr-2"></i>
-                                        <small class='pr-2'>ADD IMAGE</small>
-                                    </a>
-                                </div>
-                                </a> 
-                            </div>
-                            </a>
-                        </div>
-
-                        <div class="col-lg-3 col-md-4 col-sm-6 p-2">
-                            <a href="product.php?id=<?= $id ?>">
-                            <div class='card border-0'>
-                                <a href="product.php?id=<?= $row2['id'] ?>">
-                                <img class='card-img-top' src="https://via.placeholder.com/250x250">
-                                <div class="card-body">
-                                    <a class='nav-link modal-link px-0 text-gray' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
-                                        <i class="fas fa-camera pr-2"></i>
-                                        <small class='pr-2'>ADD IMAGE</small>
-                                    </a>
-                                </div>
-                                </a> 
-                            </div>
-                            </a>
-                        </div>
-
-                        <div class="col-lg-3 col-md-4 col-sm-6 p-2">
-                            <a href="product.php?id=<?= $id ?>">
-                            <div class='card border-0'>
-                                <a href="product.php?id=<?= $row2['id'] ?>">
-                                <img class='card-img-top' src="https://via.placeholder.com/250x250">
-                                <div class="card-body">
-                                    <a class='nav-link modal-link px-0 text-gray' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
-                                        <i class="fas fa-camera pr-2"></i>
-                                        <small class='pr-2'>ADD IMAGE</small>
-                                    </a>
-                                </div>
-                                </a> 
-                            </div>
-                            </a>
-                        </div>
-
-                        <div class="col-lg-3 col-md-4 col-sm-6 p-2">
-                            <a href="product.php?id=<?= $id ?>">
-                            <div class='card border-0'>
-                                <a href="product.php?id=<?= $row2['id'] ?>">
-                                <img class='card-img-top' src="https://via.placeholder.com/250x250">
-                                <div class="card-body">
-                                    <a class='nav-link modal-link px-0 text-gray' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
-                                        <i class="fas fa-camera pr-2"></i>
-                                        <small class='pr-2'>ADD IMAGE</small>
-                                    </a>
-                                </div>
-                                </a> 
-                            </div>
-                            </a>
-                        </div>
-
-                        <div class="col-lg-3 col-md-4 col-sm-6 p-2">
-                            <a href="product.php?id=<?= $id ?>">
-                            <div class='card border-0'>
-                                <a href="product.php?id=<?= $row2['id'] ?>">
-                                <img class='card-img-top' src="https://via.placeholder.com/250x250">
-                                <div class="card-body">
-                                    <a class='nav-link modal-link px-0 text-gray' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
-                                        <i class="fas fa-camera pr-2"></i>
-                                        <small class='pr-2'>ADD IMAGE</small>
-                                    </a>
-                                </div>
-                                </a> 
-                            </div>
-                            </a>
-                        </div>
-
-                        <div class="col-lg-3 col-md-4 col-sm-6 p-2">
-                            <a href="product.php?id=<?= $id ?>">
-                            <div class='card border-0'>
-                                <a href="product.php?id=<?= $row2['id'] ?>">
-                                <img class='card-img-top' src="https://via.placeholder.com/250x250">
-                                <div class="card-body">
-                                    <a class='nav-link modal-link px-0 text-gray' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
-                                        <i class="fas fa-camera pr-2"></i>
-                                        <small class='pr-2'>ADD IMAGE</small>
-                                    </a>
-                                </div>
-                                </a> 
-                            </div>
-                            </a>
-                        </div>
-
-                        <div class="col-lg-3 col-md-4 col-sm-6 p-2">
-                            <a href="product.php?id=<?= $id ?>">
-                            <div class='card border-0'>
-                                <a href="product.php?id=<?= $row2['id'] ?>">
-                                <img class='card-img-top' src="https://via.placeholder.com/250x250">
-                                <div class="card-body">
-                                    <a class='nav-link modal-link px-0 text-gray' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
-                                        <i class="fas fa-camera pr-2"></i>
-                                        <small class='pr-2'>ADD IMAGE</small>
-                                    </a>
-                                </div>
-                                </a> 
-                            </div>
-                            </a>
-                        </div>
-
-
-
-                        
-                            
-                     
 
                     </div>
                 </div>

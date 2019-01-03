@@ -411,7 +411,7 @@
         $statement->execute([$cartSession]);
         $row = $statement->fetch();
         $grandTotal = $row['grandTotal'];
-        $grandTotal = number_format((float)$grandTotal, 2, '.', '');    
+        $grandTotal = number_format((float)$grandTotal, 2, '.', ',');    
         
         return $grandTotal;
     }
@@ -668,7 +668,6 @@
 
     
 
-
     // GET BRAND NAME
     function getBrandName($conn,$brandId){
         $sql = "SELECT * FROM tbl_brands WHERE id = ?";
@@ -680,4 +679,45 @@
         return $brandName;
     }
 
+    // CONVERT TO DECIMAL
+    function convertToDecimal($number){
+       echo number_format((float)$number, 2, '.', ',');  
+    }
 
+    // GET LAST LOGIN
+    function getLastLogin($conn, $userId){
+        $sql3 = "SELECT last_login FROM tbl_users WHERE id = ?";
+        $statement3 = $conn->prepare($sql3);
+        $statement3->execute([$userId]);	
+        $row3 = $statement3->fetch();
+        $lastLogin = $row3['last_login'];
+        $datetime1 = new DateTime($lastLogin);
+        $datetime2 = new DateTime();
+        $interval = $datetime1->diff($datetime2);
+        $ago = "";
+
+        
+        if($interval->format('%w') != 0) {
+            $ago = $interval->format('Active %w weeks ago');
+        } else {
+            if($interval->format('%d') != 0) {
+                $ago = $interval->format('Active %d days ago ');
+            } else {
+                if($interval->format('%h') != 0) {
+                    $ago = $interval->format('Active %h hrs ago');
+                } elseif($interval->format('%i') != 0) {
+                    $ago = $interval->format('Active %i minutes ago');
+                } else {
+                    $ago = "
+                    <small>
+                        <i class='fas fa-circle text-success'>&nbsp;</i>
+                    </small>
+                    Active Now
+                    ";
+                }
+            }
+            
+        }
+
+        echo $ago;
+    }

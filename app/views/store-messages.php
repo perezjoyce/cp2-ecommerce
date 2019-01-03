@@ -4,7 +4,6 @@
 <?php require_once "../partials/store_header.php";?>
 
 <?php 
-   
     $id = $_GET['id'];
     if(empty($id)){ 
         header("location: index.php");
@@ -39,6 +38,7 @@
     $storeFreeShippingMinimum = displayStoreFreeShipping($conn,$storeId);
     $fname = getFirstName ($conn,$id);
     $lname = getLastName ($conn,$id);
+    
 ?>
     <!-- PAGE CONTENT -->
     <br>
@@ -62,41 +62,47 @@
                         
                                 <div class="input-group input-group-lg">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text border-right-0 border-left-0 border-top-0 px-0" id="store_page_search_button" style='background:white;'>
+                                        <span class="input-group-text border-right-0 border-left-0 border-top-0 px-0" style='background:white;'>
                                             <i class="fas fa-search" style='background:white;'></i>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control border-right-0 border-left-0 border-top-0" id="store_page_search" placeholder="Search for client names here..." style='font-size:14px;'>
+                                    <input type="text" class="form-control border-right-0 border-left-0 border-top-0" id="search_client_name" placeholder="Search for client names here..." style='font-size:14px;'>
                                 </div>
-                            
                             </div>
                             
                             <div class="row mx-0">
                                 <table class="table table-hover borderless" id='sender_container'>
                                                 
                                             
-                        
+                                <tr>
                                     <?php 
                                         // CHECK IF THERE IS AN EXISTING CONVERSATIONS INITIATED BY THE BUYER
-                                        $sql = "SELECT * FROM tbl_conversations 
-                                        WHERE `to` = ? "; // named parameters
+                                        $sql = "SELECT * FROM tbl_conversations WHERE `to` = ? "; 
                                         $statement = $conn->prepare($sql);
                                         $statement->execute([$storeInfo['user_id']]);
+
                                         if($statement->rowCount()) {
                                             while($row = $statement->fetch()){
                                             $conversationId = $row['id'];  
                                             $clientId = $row['from'];
 
-                                    ?>
-                                    
+                                            $sql2 = "SELECT * FROM tbl_messages WHERE user_id = ? AND conversation_id =? GROUP BY conversation_id"; 
+                                            $statement2 = $conn->prepare($sql2);
+                                            $statement2->execute([$clientId,$conversationId]);
+                                            $count2 = $statement2->rowCount();
 
-                                    
-                                    <tr>
-                                        
-                                        
+                                            if($count2){
+                                                                    
+                                                while($row2 = $statement2->fetch()){ 
+                                                    $message = $row2['message'];
+                                                    $date = $row2['date'];
+
+                                    ?>
+
+
                                         <!-- IMAGE, NAME AND VARIATION -->
                                         <td> 
-                                            <a data-sellerid='<?= $sellerId ?>' data-conversationid='<?=$conversationId?>' class='selected_conversation'>
+                                            <a data-sellerid='<?= $clientId ?>' data-conversationid='<?=$conversationId?>' class='selected_conversation'>
                                                 <div class='d-flex flex-row align-items-center' style='justify-content:flex-start;'>
                                                     <div class='flex pr-2'>
                                                         <img src='<?= BASE_URL ."/" .getProfilePic ($conn,$clientId).".jpg" ?>' style='width:50px;height:50px;' class='circle'>
@@ -115,48 +121,14 @@
                                                                         echo $firstName . " " . $lastName;
 
                                                                     } else {
-                                                                        echo getUsername ($conn,$userId);
+                                                                        $username = getUsername ($conn,$userId);
+                                                                        $username = ucwords(strtolower($username));
+                                                                        echo $username;
                                                                     }
                                                                 ?>
                                                             </div>
                                                             <div class='text-gray'>
-                                                                <?
-                                                                    $sql = "SELECT last_login FROM tbl_users WHERE id = ?";
-                                                                    $statement = $conn->prepare($sql);
-                                                                    $statement->execute([$clientId]);	
-                                                                    $row = $statement->fetch();
-                                                                    $lastLogin = $row['last_login'];
-                                                                    $datetime1 = new DateTime($lastLogin);
-                                                                    $datetime2 = new DateTime();
-                                                                    $interval = $datetime1->diff($datetime2);
-                                                                    $ago = "";
-
-                                                                    
-                                                                    if($interval->format('%w') != 0) {
-                                                                        $ago = $interval->format('Active %w weeks ago');
-                                                                    } else {
-                                                                        if($interval->format('%d') != 0) {
-                                                                            $ago = $interval->format('Active %d days ago ');
-                                                                        } else {
-                                                                            if($interval->format('%h') != 0) {
-                                                                                $ago = $interval->format('Active %h hrs ago');
-                                                                            } elseif($interval->format('%i') != 0) {
-                                                                                $ago = $interval->format('Active %i minutes ago');
-                                                                            } else {
-                                                                                $ago = "
-                                                                                <small>
-                                                                                    <i class='fas fa-circle text-success'>&nbsp;</i>
-                                                                                </small>
-                                                                                Active Now
-                                                                                ";
-                                                                            }
-                                                                        }
-                                                                        
-                                                                    }
-
-                                                                    echo $ago;
-                                                                ?>
-                                                                
+                                                                <?= getLastLogin($conn, $clientId) ?> 
                                                             </div>
                                                             
 
@@ -166,10 +138,14 @@
                                             </a> 
                                         </td>
 
-                    
-                                    </tr>
-            
-                                    <?php } } ?>
+                                    
+
+
+
+                                    <?php } ?> 
+                                </tr>
+
+                               <?php } else echo ""; } }?>
                                             
 
 
@@ -180,14 +156,43 @@
                         <!-- MESSAGE AREA -->
                         <div class="col px-0">
                             <div class="d-flex flex-column">
-                                <div style='background:white;height:411px;overflow-y:auto;'>
+                                <div style='background:white;height:411px;overflow-y:auto;' id='profile_message_container'>
+                                    <?php 
+                                    if(isset($_SESSION['last_selected_conversation'])){
+                                        $sql = "SELECT u.*, m.* FROM tbl_messages m 
+                                        JOIN tbl_users u on u.id=m.user_id        
+                                        WHERE conversation_id=? ORDER BY m.date"; 
+                                        $statement = $conn->prepare($sql);
+                                        $statement->execute([$conversationId]);       
+                                        $messageDetails = "";
+                                    
+                                        if($statement->rowCount()) {
+                                    
+                                            while($row2 = $statement->fetch()) {
+                                                $backgroundClass = 'seller-message'; 
+                                                if($row2['user_id'] == $userId) {
+                                                    $backgroundClass='my-message';
+                                                }
+                                                
+                                                $messageDetails .= "<div class='message_details__items'>
+                                                    <p class='$backgroundClass'>".$row2['message']."</p>                    
+                                                </div>";
+                                            }
+                                            
+                                        }
 
+                                        echo $messageDetails;
+ 
+                                    }
+                                    
+                                    ?>
                                 </div>
                                 <div>
                                     <form>
+                                        <input type="hidden" id='profile_conversation_id'>
                                         <textarea class="form-control border-0" 
                                             id="profile_message_input" 
-                                            data-sellerid='<?= $sellerId ?>' 
+                                            data-sellerid='<?= $storeInfo['user_id'] ?>' 
                                             style='width:100%;background:#eff0f5;resize:none;' 
                                             rows='2'></textarea>
                                     </form>

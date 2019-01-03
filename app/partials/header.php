@@ -117,33 +117,23 @@
                     </div>
 
             <?php } else { ?>
-                <div class="col-lg-10 col-md-9 col-sm-12 justify-content-right vanish-sm">
-                    <div class="d-flex flex-row vanish-lg vanish-md vanish-sm text-sm-center">
-                        <div class='flex-fill vanish-lg vanish-md vanish-sm'>
-                            <a class='border-0 text-sm-center py-1' href='profile.php?id=<?=$id?>' role='button'> 
-                                    <img src='<?= $profile_pic ?>' height='20' class='rounded-circle mr-1'>
-                                    <small>HELLO,&nbsp;</small>
-                                    <small>
-                                        <?= getUsername($conn,$id) ?>
-                                    </small>
-                                    <small>!</small>
-                            </a>
-                        </div>
-
-                        <div class='flex-fill vanish-lg vanish-md vanish-sm text-sm-center'>
-                            <a class='border-0 text-sm-center' href='../controllers/process_logout.php?id=<?=$id?>' role='button'> 
-                                <i class='fas fa-sign-in-alt py-1'></i>
-                                <small> LOG OUT</small>
-                            </a>
-                        </div>
+                <!-- <div class="col-6">
+                    <div class='flex-fill text-lg-left text-md-left text-sm-left'>
+                        <a class='nav-link modal-link border-0 py-1' data-url='../partials/templates/login_modal.php' role='button'> 
+                            <i class="far fa-envelope pr-1 text-secondary"></i>
+                            <small>
+                                MESSAGES
+                            </small>
+                        </a>
                     </div>
-                </div>
+                </div> -->
+              
                 <div class="col">
                     <div class='flex-fill text-lg-right text-md-right text-sm-right'>
     
                         <div class='dropdown py-1' id='profileDropdownContainer'>
                             <a class='dropdown-toggle py-1 text-right' id="profileDropdown" role="button" data-toggle="dropdown">
-                                <img src='<?= $profile_pic ?>' height='20' class='<?= $prefix ?>circle mr-1'>
+                                <img src='<?= $profile_pic ?>' height='20' class='<?= $prefix ?>circle pr-1'>
                                 <small>HELLO,&nbsp;</small>
                                 <small>
                                     <?= getUsername($conn,$id) ?>

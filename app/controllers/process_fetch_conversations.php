@@ -7,7 +7,6 @@ $userId = $_SESSION['id'];
 $sellerId = $_GET['sellerId'];
 $conversationId = $_GET['conversationId'];
 
-
 $sql = "SELECT u.*, m.* FROM tbl_messages m 
     JOIN tbl_users u on u.id=m.user_id        
     WHERE conversation_id=? ORDER BY m.date"; 
@@ -16,6 +15,7 @@ $sql = "SELECT u.*, m.* FROM tbl_messages m
     $messageDetails = "";
 
     if($statement->rowCount()) {
+       $_SESSION['last_selected_conversation']= $conversationId;
 
         while($row2 = $statement->fetch()) {
             $backgroundClass = 'seller-message'; 
