@@ -5,17 +5,18 @@ require_once "connect.php";
 require_once "functions.php";
 
 if(isset($_POST['newProductId'])){
+    
+    $newProductId = $_POST['newProductId'];
     $storeId = $_POST['storeId'];
     $name = $_POST['name'];
     $price = $_POST['price'];
     $categoryId = $_POST['categoryId'];
     $subcategoryId = $_POST['subcategoryId'];
     $brandId = $_POST['brandId'];
-    $newProductId = $_POST['newProductId'];
     $sql = "UPDATE tbl_items SET `name`=?, price=?, category_id=?,brand_id=?,store_id=? WHERE id =?";
         $statement = $conn->prepare($sql);
         $statement->execute([$name, $price, $subcategoryId, $brandId, $storeId,$newProductId]);
-
+    
 } else {
 
     $storeId = $_POST['storeId'];

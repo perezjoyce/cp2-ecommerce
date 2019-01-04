@@ -2556,10 +2556,10 @@ $(document).ready( () => {
 	  });
 	
 	
-	// SAVE NEW PRODUCT
+	// SAVE & EDIT NEW PRODUCT
 	$(document).on('click', '.save_new_product', function(){
 		let data = {
-			$newProductId:$(this).data('productid'),
+			newProductId:$(this).data('productid'),
 			storeId:$(this).data('id'),
 			name:$("#product_name").val(),
 			categoryId:$("#product_category").val(),
@@ -2589,6 +2589,7 @@ $(document).ready( () => {
 		
 	})
 
+	//SAVE & EDIT PRODUCT DETAIL
 	$(document).on('click', '#btn_save_product_detail', function(){
 
 		$(".product_description").each(function(i, el){
@@ -2608,6 +2609,92 @@ $(document).ready( () => {
 			window.location.reload();
 
 	})
+
+	//ADD PRODUCT DETAIL ROW
+	$(document).on('click', '#btn_add_product_detail',function(){
+		let productId = $(this).data('id');
+		$('.product_detail').append("<div class='input-group mb-4'>"+
+		"<div class='input-group-prepend' style='background:white;'>"+
+		"<span class='input-group-text border-0 text-secondary' style='background:white;'>&#9679;</span></div>"+
+		"<textarea class='form-control product_description'"+
+		"data-id='"+productId+"' aria-label='With textarea'></textarea></div>");
+	})
+
+	//SAVE & EDIT PRODUCT VARIATION
+	$(document).on('click','.btn_save_product_variation',function(){
+		
+		$(".new_variation_name").each(function(i,el){
+			let data = {
+				productId:$(this).data('id'),
+				variationId: $(this).data('variationid'),
+				variationName: $(this).val(),
+				variationStock: $(this).next().val()
+			}
+
+			that = this;
+
+			if(data['variationName'] != "" || data['variationStock'] != "" || data['variationStock'] != 0){
+				$.post('../controllers/process_add_new_product_variation.php', data, function(response){
+					let dataFromPHP = $.parseJSON(response);
+					$('.new_variation_name').val(dataFromPHP.variationName);
+					$('.new_variation_stock').val(dataFromPHP.variationStock);
+				})
+			}
+
+		})
+			alert("Saved!");
+			window.location.reload();
+	})
+
+	//ADD PRODUCT VARIATION ROW
+	$(document).on('click', '#btn_add_product_variation',function(){
+		let productId = $(this).data('id');
+	$('.product_variation').append("<div class='input-group mb-4'>"+
+		"<div class='input-group-prepend'>" +
+		"<span class='input-group-text border-0 text-secondary' style='background:white;'>&#9679;</span></div>"+
+		"<input type='text' class='form-control new_variation_name' data-id='"+productId+"' placeholder='Name'>"+
+		"<input type='number' class='form-control new_variation_stock' data-id='"+productId+"' placeholder='Available Stock'></div>");
+	})
+
+
+	//SAVE & EDIT PRODUCT FAQs
+	$(document).on('click','.btn_save_product_faq',function(){
+			
+		$(".new_question").each(function(i,el){
+			let data = {
+				productId:$(this).data('id'),
+				faqId: $(this).data('faqid'),
+				question: $(this).val(),
+				answer: $(this).next().val()
+			}
+
+			that = this;
+
+			if(data['question'] != "" || data['answer'] != ""){
+				$.post('../controllers/process_add_new_product_faq.php', data, function(response){
+					let dataFromPHP = $.parseJSON(response);
+					$('.new_question').val(dataFromPHP.question);
+					$('.new_answer').val(dataFromPHP.answer);
+				})
+			}
+
+		})
+			alert("Saved!");
+			window.location.reload();
+	})
+
+	//ADD PRODUCT FAQ ROW
+	$(document).on('click', '.btn_add_product_faq',function(){
+		let productId = $(this).data('id');
+	$('.product_faq').append("<div class='input-group mb-4'>"+
+		"<div class='input-group-prepend'>" +
+		"<span class='input-group-text border-0 text-secondary' style='background:white;'>&#9679;</span></div>"+
+		"<input type='text' class='form-control new_question' data-id='"+productId+"' placeholder='Question' maxlength='50'>"+
+		"<input type='text' class='form-control new_answer' data-id='"+productId+"' placeholder='Answer' maxlength='50'></div>");
+	})
+
+
+
 
 
 });
