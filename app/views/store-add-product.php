@@ -638,11 +638,30 @@
 
                         <div class='flex-fill'>  
                             <div class='d-flex flex-row'>
-                                <a class='nav-link modal-link text-gray btn border' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_product_pic_modal.php' role='button'>
+                                <?php if(isset($_SESSION['newProductId'])) {
+                                    $sql = "SELECT img_path FROM tbl_items WHERE id =?";
+                                    $statement = $conn->prepare($sql);
+                                    $statement->execute([$newProductId]);
+                                    $row = $statement->fetch();
+                                    $img_path = $row['img_path'];
+
+                                    if(!$img_path){
+                                 ?>
+                                <a class='btn py-3 btn-purple-reverse modal-link' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_product_pic_modal.php' role='button'>
                                     <i class="fas fa-camera pr-2"></i>
-                                    <small class='pr-2'>ADD PRIMARY IMAGE</small>
+                                    <small class='pr-2'>ADD RIMARY IMAGE</small>
                                     <i class="far fa-question-circle text-gray" data-toggle="tooltip" title="This will be your product's profile picture." data-original-title="#"></i>
                                 </a>
+
+                                <?php } else {?>
+
+                                 <a class='btn py-3 btn-purple-reverse modal-link' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_product_pic_modal.php' role='button'>
+                                    <i class="fas fa-camera pr-2"></i>
+                                    <small class='pr-2'>EDIT PRIMARY IMAGE</small>
+                                    <i class="far fa-question-circle text-gray" data-toggle="tooltip" title="This will be your product's profile picture." data-original-title="#"></i>
+                                </a>
+
+                                <?php } ?>
                             </div>
                         </div>
 
@@ -650,10 +669,12 @@
                         <div class='flex-fill'>  
                             <div class='d-flex flex-row'>
                                 <!-- STILL NEEDS TO PASS VALUE THROUGH GET TO upload_product_pic_modal.php -->
-                                <a class='nav-link modal-link text-gray btn border' href='#' data-id='<?= $storeId ?>' data-url='../partials/templates/upload_modal.php' role='button'>
+                                    <!-- TO EDIT, ON CLICK PASS VALUE TO HIDDEN URL THEN WHEN USER CLICKS EDIT, YOU KNOW ALREADY WHAT IMG ID TO EDIT -->
+                                <a class='btn py-3 btn-purple-reverse modal-link' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_other_product_pics_modal.php' role='button'>
                                     <i class="fas fa-camera pr-2"></i>
-                                    <small class='pr-2'>ADD OTHER IMAGES</small>
+                                    <small class='pr-2'>ADD ANOTHER IMAGE</small>
                                 </a>
+                                <?php } ?>
                             </div>
                         </div>
 					</div>
@@ -667,23 +688,72 @@
                       
 
                         <div class="col-lg-3 col-md-4 col-sm-6 p-2">
-                            <a href="product.php?id=<?= $id ?>">
-                            <div class='card border-0'>
-                                <a href="product.php?id=<?= $row2['id'] ?>">
-                                <img class='card-img-top' src="https://via.placeholder.com/250x250">
-                                </a> 
-                            </div>
+                            <a href=#>
+                                <div class='card border-0' style='background:none;'>
+                                    <?php 
+                                    if(isset($_SESSION['newProductId'])) {
+                                        $default = "https://via.placeholder.com/250x250";
+                                        $sql = "SELECT img_path FROM tbl_items WHERE id =?";
+                                        $statement = $conn->prepare($sql);
+                                        $statement->execute([$newProductId]);
+                                        $row = $statement->fetch();
+                                        $img_path = $row['img_path'];
+
+                                        if($img_path){
+                                            $img_path = BASE_URL."/".$img_path.".jpg";
+                                            echo  "<img class='card-img-top' src='$img_path' style='width:250px;height:250px;background-color:transparent;'>";
+                                        } else {
+                                            echo "<img class='card-img-top' src='$default' style='width:250px;height:250px;background-color:transparent;'>";
+                                        }
+                                    }
+                                    ?>
+                                    
+                                </div>
                             </a>
                         </div>
+                    
+
+                            <?php 
+                                $default = "https://via.placeholder.com/250x250";
+                            if(isset($_SESSION['newProductId'])){
+                                    $sql = "SELECT * FROM tbl_product_images WHERE product_id =?";
+                                    $statement = $conn->prepare($sql);
+                                    $statement->execute([$newProductId]);                                    
+                                    $count = $statement->rowCount();
+
+                                if($count){
+                                    while($row = $statement->fetch()){
+                                        $imgId = $row['id'];
+                                        $img_path = $row['url'];
+                                        $img_path = BASE_URL."/".$img_path.".jpg";
+                            ?>
 
                         <div class="col-lg-3 col-md-4 col-sm-6 p-2">
-                            <a href="product.php?id=<?= $id ?>">
-                            <div class='card border-0'>
-                                <a href="product.php?id=<?= $row2['id'] ?>">
-                                <img class='card-img-top' src="https://via.placeholder.com/250x250">
-                            </div>
+                            <a href='#' data-imgid='<?=$imgId?>'>
+                                <div class='card border-0' style='background:none;'>
+                                    <img class='card-img-top' src='<?=$img_path?>' style='width:250px;height:250px;background-color:transparent;'>
+                                </div>
+                            </a>
+                        </div>        
+                                    
+                            <?php } } else { ?>
+                        <div class="col-lg-3 col-md-4 col-sm-6 p-2">
+                            <a href='#'>
+                                <div class='card border-0' style='background:none;'>
+                                    <img class='card-img-top' src='<?=$default?>' style='width:250px;height:250px;background-color:transparent;'>
+                                </div>
                             </a>
                         </div>
+                            
+                           <?php } } else { ?>
+                        <div class="col-lg-3 col-md-4 col-sm-6 p-2">
+                            <a href='#'>
+                                <div class='card border-0' style='background:none;'>
+                                    <img class='card-img-top' src='<?=$default?>' style='width:250px;height:250px;background-color:transparent;'>
+                                </div>
+                            </a>
+                        </div>
+                           <?php } ?>
 
                     </div>
                 </div>

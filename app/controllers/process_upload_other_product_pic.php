@@ -61,10 +61,11 @@
                     $uploader->Clean();
                 }
 
+                $img_path= "uploads/$id/$storeId/$productId/$filename";
                
-                $sql = "UPDATE tbl_items SET img_path='uploads/$id/$storeId/$productId/$filename' WHERE id = ? ";
+                $sql = "INSERT INTO tbl_product_images(`url`,product_id) VALUES(?,?)";
                 $statement = $conn->prepare($sql);
-                $statement->execute([$productId]);
+                $statement->execute([$img_path,$productId]);
                 header("Location: ../views/store-add-product.php?id=$storeId");
                 
             // } else {

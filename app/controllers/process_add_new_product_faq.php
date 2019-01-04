@@ -15,7 +15,7 @@ if($_POST['productId']){
 
         $sql = "UPDATE tbl_questions_answers SET question=?,answer=? WHERE id=?";
         $statement = $conn->prepare($sql);
-        $statement->execute([$quesiton, $answer, $faqId]);
+        $statement->execute([$question, $answer, $faqId]);
     } else {
         $sql = "INSERT INTO tbl_questions_answers(question,answer,product_id,faq) VALUES(?,?,?,?)";
         $statement = $conn->prepare($sql);

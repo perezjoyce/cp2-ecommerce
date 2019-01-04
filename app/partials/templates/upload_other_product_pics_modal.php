@@ -13,20 +13,20 @@
             <div class="container px-5 pb-2 pt-5 mb-4">
                 <div class="row mb-5 mt-4"> 
                     <div class='col'>
-                       <h3>Upload Your Product's Primary Picture</h3>
+                       <h3>Upload Other Picture</h3>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col">
-                        <form action="../controllers/process_upload_product_primary_pic.php" method="POST" enctype="multipart/form-data">
+                        <form action="../controllers/process_upload_other_product_pic.php" method="POST" enctype="multipart/form-data">
                             <div class="d-flex align-items-center py-0">
                                 <div class="form-group flex-fill">
                                     <input type="file" name="upload" class='btn py-2'>
                                     <!-- STORE ID -->
-                                    <input type="hidden" name="id" value="<?= $_GET['id'] ?>"> 
+                                    <input type="text" name="id" value="<?= $_GET['id'] ?>"> 
                                     <!-- PRODUCT ID TO BE FETCHED FROM store-add-product -->
-                                    <input type="hidden" name="productId" value="<?= $_SESSION['newProductId'] ?>"> 
+                                    <input type="text" name="productId" value="<?= $_SESSION['newProductId'] ?>"> 
                                     
                                 </div>
                                

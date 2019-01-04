@@ -20,7 +20,7 @@ nav, footer, .white-bg {
 }
 
 .card {
-    background-color: white!important;
+    background-color: transparent!important;
 }
 
 .card-body {
