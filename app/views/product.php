@@ -104,7 +104,7 @@ if(isset($_SESSION['id'])) {
         <!-- PRODUCT RATING -->
         <div class="row pl-4 mb-5">
           <div class="col-7 pl-0">
-            <?
+            <?php
               $sql = "SELECT AVG(product_rating) as averageProductRating FROM tbl_ratings WHERE product_id = ?";
               $statement = $conn->prepare($sql);
               $statement->execute([$id]);
@@ -403,7 +403,7 @@ if(isset($_SESSION['id'])) {
           <a class='btn btn-lg btn-purple py-3' style='width:40%;' data-id='<?= $id ?>' role='button' data-variationid='<?=$variationId?>' data-name='<?=$variationName?>' id="btn_add_to_cart">
             &nbsp;Add To Cart
           </a>
-          <?php } }?>
+          <?php } } ?>
 
 
         </div>
@@ -456,7 +456,7 @@ if(isset($_SESSION['id'])) {
 
                 <!-- LAST ACTIVITY -->
                 <div class="row justify-content-center text-gray">
-                  <?
+                  <?php
                     $sql = "SELECT last_login FROM tbl_users WHERE id = ?";
                     $statement = $conn->prepare($sql);
                     $statement->execute([$sellerId]);	
@@ -882,7 +882,7 @@ if(isset($_SESSION['id'])) {
                           </div>
                         </div>
                       
-                        <?php }?>
+                        <?php } ?>
                           
                       </div>
 
@@ -1495,7 +1495,7 @@ if(isset($_SESSION['id'])) {
     </div>
   </div>
 
-    <? } else { echo ""; } ?>
+    <?php } else { echo ""; } ?>
   <!-- /RELATED PRODUCTS -->
  
 
@@ -1599,9 +1599,6 @@ if(isset($_SESSION['id'])) {
 
 </body>
 </html> 
-
-  
-    
 
 <?php require_once "../partials/footer.php";?>
 <?php require_once "../partials/modal_container.php"; ?>
