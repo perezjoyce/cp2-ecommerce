@@ -9,6 +9,8 @@ $id = $_GET['id'];
 
 if(isset($_SESSION['id'])) {
   $userId = $_SESSION['id'];
+  $currentUser = getUser($conn, $userId);
+  $isSeller = $currentUser['isSeller'];
 }
 ?>
 
@@ -33,7 +35,7 @@ if(isset($_SESSION['id'])) {
     <div class="row bg-white mb-5 rounded p-lg-5 py-md-5">
         
       <!-- FIRST COLUMN (PICS) -->
-      <div class="col-lg-5 col-md-5 col-sm-12">
+      <div class="col-lg-5 col-md-6 col-sm-12">
         <input type="hidden" id='iframeId'>
         <!-- IFRAME -->
         <div class="row mb-3">
@@ -74,9 +76,11 @@ if(isset($_SESSION['id'])) {
       </div>
       <!-- /FIRST COLUMN (PICS) -->
 
+     
 
       <!-- SECOND COLUMN (PRODUCT DETAILS) -->
-      <div class="col-lg-7 col-md-7 col-sm-12 px-lg-5">
+      <div class="col-lg-7 col-md-6 col-sm-12 px-lg-5">
+      <br class='vanish-lg vanish-md'>
           <?php
         
             $sql = "SELECT * FROM tbl_items WHERE id = ?";
@@ -97,78 +101,84 @@ if(isset($_SESSION['id'])) {
         ?>
 
         <!-- PRODUCT NAME -->
-        <div class="row pl-4 mb-2">
+        <div class="row pl-4">
           <h1><?= ucwords(strtolower($name)); ?></h1>
         </div>    
           
         <!-- PRODUCT RATING -->
-        <div class="row pl-4 mb-5">
-          <div class="col-7 pl-0">
-            <?php
-              $sql = "SELECT AVG(product_rating) as averageProductRating FROM tbl_ratings WHERE product_id = ?";
-              $statement = $conn->prepare($sql);
-              $statement->execute([$id]);
-              $row = $statement->fetch();
-              $averageRating = $row['averageProductRating'];
-              $aveRating = ($averageRating/5)*100;
-              $aveRating = round($aveRating, 1);
-            ?>
 
-            <!-- FOR DEBUGGING PURPOSES -->
-            <input type="hidden" value='<?= $aveRating ?>' id='average_product_rating'>
-            <!-- AVE PRODUCT RATING AS STARS -->
-            <!-- NUMBER OF REVIEWS -->
-            <span id='average_product_stars'>
-            </span>
-            <span>&nbsp;&nbsp;</span>
-        
-              <?php 
+        <div class="row pl-4 mb-4">
+          <div class="col-12 pl-0">
+            <div class="d-flex flex-row">
+              <?php
+                $sql = "SELECT AVG(product_rating) as averageProductRating FROM tbl_ratings WHERE product_id = ?";
+                $statement = $conn->prepare($sql);
+                $statement->execute([$id]);
+                $row = $statement->fetch();
+                $averageRating = $row['averageProductRating'];
+                $aveRating = ($averageRating/5)*100;
+                $aveRating = round($aveRating, 1);
+              ?>
+              <!-- FOR DEBUGGING PURPOSES -->
+              <input type="hidden" value='<?= $aveRating ?>' id='average_product_rating'>
+              <!-- AVE PRODUCT RATING AS STARS -->
+              <div class='flex' style='flex: 1 0 1%'>
+                <div id='average_product_stars'>
+                </div>
+              </div>
+            
+            
+              <div class='flex' style='flex: 2 5 50px; margin: 0 10px'>
+                <!-- NUMBER OF REVIEWS -->
+                <?php 
 
-            $totalProductRating = countRatingsPerProduct($conn, $id);
+                  $totalProductRating = countRatingsPerProduct($conn, $id);
 
-            if (isset($_SESSION['cart_session'])) { 
-              if ($totalProductRating === 0 || $totalProductRating == "") { ?>
-            <span class='rating-count<?=$id?>'>
-              <!-- no value -->
-            </span>
-            <span class='rating-word'>
-              <?= "&nbsp;No reviews yet" ?>
-            </span>
-                <?php } elseif($totalProductRating == 1){?>
-            <span class='rating-count<?=$id?>'>
-              <?= $totalProductRating ?>
-            </span>
-            <span class='rating-word'>
-              <?= "&nbsp;Review" ?>
-            </span>
-                <?php } else {?>
-            <span class='rating-count<?=$id?>'>
-              <?= $totalProductRating ?>
-            </span>
-            <span class='rating-word'>
-              <?= "&nbsp;Reviews" ?>
-            </span>
+                  if (isset($_SESSION['cart_session'])) { 
+                    if ($totalProductRating === 0 || $totalProductRating == "") { ?>
+                  <span class='rating-count<?=$id?>'>
+                    <!-- no value -->
+                  </span>
+                  <span class='rating-word'>
+                    <?= "&nbsp;No reviews yet" ?>
+                  </span>
+                      <?php } elseif($totalProductRating == 1){?>
+                  <span class='rating-count<?=$id?>'>
+                    <?= $totalProductRating ?>
+                  </span>
+                  <span class='rating-word'>
+                    <?= "&nbsp;Review" ?>
+                  </span>
+                      <?php } else {?>
+                  <span class='rating-count<?=$id?>'>
+                    <?= $totalProductRating ?>
+                  </span>
+                  <span class='rating-word'>
+                    <?= "&nbsp;Reviews" ?>
+                  </span>
                 <?php } } ?> 
-          </div>
-        
-          <div class="col">
-            <div class='flex-fill'>
+              </div>
+            
+
+            <div class='' style='flex:5'>
             
 
               <?php 
                 if(isset($_SESSION['id'])) {
                     if (checkIfInWishlist($conn,$id) == 0) {
               ?>
-                <a class='mt-3 heart-toggler' data-id='<?= $id ?>' role='button' data-enabled="0">
+                <a class='heart-toggler' data-id='<?= $id ?>' role='button' data-enabled="0" style='float:right'>
                   <span class='wish_heart'><i class='far fa-heart text-red' id></i></span>
                   <span class='product_wish_count'><?= getProductWishlishtCount($conn,$id) ?></span>
+                  <span>Favorites</span>
                 </a>
           
               <?php  } else { ?>
 
-                <a class='mt-3 heart-toggler' data-id='<?= $id ?>' data-enabled="1">
+                <a class='heart-toggler' data-id='<?= $id ?>' data-enabled="1" style='float:right'>
                   <span class='wish_heart'><i class='fas fa-heart text-red'></i></span> 
                   <span class='product_wish_count'><?= getProductWishlishtCount($conn,$id) ?></span>
+                  <span>Favorites</span>
                 </a>
 
               <!-- IF LOGGED OUT -->
@@ -176,20 +186,25 @@ if(isset($_SESSION['id'])) {
                 if(getProductWishlishtCount($conn,$id) >= 1) {
               ?>
                 
-                <a class='mt-3 btn_wishlist_logout_view' data-id='<?= $id ?>' disabled style='cursor:default;'>
+                <a class='btn_wishlist_logout_view' data-id='<?= $id ?>' disabled style='cursor:default; float:right'>
                   <i class='far fa-heart text-red'></i> 
                   <span class='product_wish_count'><?= getProductWishlishtCount($conn,$id) ?></span>
+                  <span>Favorites</span>
                 </a>
                 
               <?php } else { ?>
-                <a class='mt-3 btn_wishlist_logout_view' data-id='<?= $id ?>' disabled style='cursor:default;'>
+                <a class='btn_wishlist_logout_view' data-id='<?= $id ?>' disabled style='cursor:default; float:right'>
                   <i class='far fa-heart text-gray'></i> 
                   <span class='product_wish_count text-gray'>0</span>
+                  <span>Favorites</span>
                 </a>
                 
               <?php } } ?>
-              &nbsp;Favorites  
+              
             </div>
+
+            </div>
+
           </div>  
         </div>
 
@@ -203,19 +218,19 @@ if(isset($_SESSION['id'])) {
       <!-- SHIPPING FEE -->
       <?php if(displayFreeShippingMinimum($conn,$id)) { ?>
         <div class="row mb-3">
-          <div class="col-lg-3 col-md-3">
+          <div class="col-lg-3 col-md-4 col-sm-4">
             <div>Shipping Fee</div>
           </div>
-          <div class="col-lg-4 col-md-4">
+          <div class="col-lg-4 col-md-2 col-sm-2">
             <div class="row">
               &#8369;&nbsp;
               <span id='shipping_fee'><?= displayShippingFee($conn,$id) ?></span>            
             </div>
           </div>
 
-          <div class="col">
-            <div class="row">
-              <div class='d-flex flex-row border mr-4 text-center p-1 bg-light'>
+          <div class="col-lg-5 col-md-6 col-sm-5">
+            <div class="row px-md-3 px-sm-5">
+              <div class='d-flex flex-row border text-center p-1 bg-light'>
                   <!-- <div id='free-delivery-img'></div> -->
                   <!-- <img src="../assets/images/discount-gradient.png" alt="discount" style='height:15px;width:15px;'> -->
                   &nbsp;
@@ -229,10 +244,10 @@ if(isset($_SESSION['id'])) {
         </div>
       <?php } else { ?>
         <div class="row mb-5">
-          <div class="col-lg-3 col-md-4">
+          <div class="col-lg-5 col-md-6 col-sm-6">
             <div>Shipping Fee</div>
           </div>
-          <div class="col-lg-4 col-md-4">
+          <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="row">
               &#8369;&nbsp;
               <span id='shipping_fee'><?= displayShippingFee($conn,$id) ?></span>            
@@ -243,7 +258,7 @@ if(isset($_SESSION['id'])) {
 
         <!-- BRAND -->
         <div class="row mb-5">
-          <div class="col-3">
+          <div class="col-lg-3 col-md-4 col-sm-4">
             <div>Brand</div>
           </div>
           <div class="col">
@@ -263,7 +278,7 @@ if(isset($_SESSION['id'])) {
 
         <!-- VARIATION -->
         <div class="row mb-5">
-          <div class="col-3">
+          <div class="col-lg-3 col-md-4 col-sm-4">
             <div>Variation</div>
           </div>
           <div class="col">
@@ -320,9 +335,9 @@ if(isset($_SESSION['id'])) {
         </div>
         
         <!-- QUANTITY --> 
-        <div class="row mb-5">
+        <div class="row mb-4">
           <?php $totalStocksAvailable = getTotalProductStocks($conn,$id) ?>
-          <div class="col-lg-3 col-md-3">
+          <div class="col-lg-3 col-md-3 col-sm-4">
             <div>Quantity</div>
           </div>
           <div class="col pl-0">
@@ -384,7 +399,7 @@ if(isset($_SESSION['id'])) {
                     if($vname == 'None') {
           ?>
           <!-- SINCE BUTTON HAS NO VARIATION THERE IS NO NEED TO ADD IT TO CART AGAIN ANYMORE -->
-          <button class='btn btn-lg btn-gray py-3' style='width:40%;' data-id='<?= $id ?>' role='button' data-variationid='<?=$variationId?>' data-name='<?=$variationName?>' id="btn_add_to_cart_again" disabled>
+          <button class='btn btn-lg btn-gray py-3' data-id='<?= $id ?>' role='button' data-variationid='<?=$variationId?>' data-name='<?=$variationName?>' id="btn_add_to_cart_again" disabled>
               &nbsp;Item Already In Cart
           </button>
 
@@ -394,13 +409,13 @@ if(isset($_SESSION['id'])) {
                       if($count) {
           ?>  
 
-          <button class='btn btn-lg btn-purple-reverse py-3' style='width:50%;' data-id='<?= $id ?>' role='button' data-variationid='<?=$variationId?>' data-name='<?=$variationName?>' id="btn_add_to_cart_again">
+          <button class='btn btn-lg btn-purple-reverse py-3' data-id='<?= $id ?>' role='button' data-variationid='<?=$variationId?>' data-name='<?=$variationName?>' id="btn_add_to_cart_again">
               &nbsp;Add To Cart Again
           </button>
 
           <?php } else { ?>
           
-          <a class='btn btn-lg btn-purple py-3' style='width:40%;' data-id='<?= $id ?>' role='button' data-variationid='<?=$variationId?>' data-name='<?=$variationName?>' id="btn_add_to_cart">
+          <a class='btn btn-lg btn-purple py-3' data-id='<?= $id ?>' role='button' data-variationid='<?=$variationId?>' data-name='<?=$variationName?>' id="btn_add_to_cart">
             &nbsp;Add To Cart
           </a>
           <?php } } ?>
@@ -417,7 +432,7 @@ if(isset($_SESSION['id'])) {
     <div class="row bg-white rounded mb-5 px-5">
 
       <!-- SELLER DETAILS -->
-      <div class="col-lg-2 col-md-3 col-sm-12 mr-5 white-bg py-5">
+      <div class="col-lg-2 col-md-3 col-sm-12 mr-lg-5 white-bg py-5">
 
         <div class='row mb-4 py-5 border'>
             <div class="col-12">
@@ -531,7 +546,7 @@ if(isset($_SESSION['id'])) {
                     <!-- FOLLWERS -->
                     <small class="d-flex flex-row mb-3">
                       <div style='width:45%;'>Followers</div>
-                      <div>fds</div>
+                      <div><?= countFollowers ($conn, $storeId) ?></div>
                     </small>
 
                     <!-- PRODUCTS COUNT -->
@@ -551,19 +566,10 @@ if(isset($_SESSION['id'])) {
 
                     <!-- JOINED -->
                     <small class="d-flex flex-row mb-4">
-                        <?php
-                          $sql = "SELECT DATE_FORMAT(date_created, '%M %d, %Y') AS 'dateJoined' FROM tbl_stores WHERE id = ?";
-                          $statement = $conn->prepare($sql);
-                          $statement->execute([$storeId]);
-                          $row = $statement->fetch();
-                          $dateJoined = $row['dateJoined'];	
-                          $month = substr($dateJoined,0,3);
-                          $daysYear = substr(strstr($dateJoined," "), 1);
-                          $dateJoined = $month." ".$daysYear
-                        ?>
+                        
                       <div style='width:45%;'>Joined</div>
                       <div>
-                        <?=  $dateJoined ?>
+                        <?=  getMembershipDate($conn, $storeId) ?>
                       </div>
                       <!-- https://stackoverflow.com/questions/6823133/how-to-remove-first-word-from-a-php-string -->
                     </small>
@@ -579,7 +585,7 @@ if(isset($_SESSION['id'])) {
                     &nbsp;Message Seller
                   </a>
 
-                  <a href='store.php?id=<?=$storeId?>' class='btn btn-block border text-secondary mx-3 py-2'>
+                  <a href='store-profile.php?id=<?=$storeId?>' class='btn btn-block border text-secondary mx-3 py-2'>
                     <i class="fas fa-store"></i>
                     &nbsp;View Shop
                   </a>
@@ -608,7 +614,7 @@ if(isset($_SESSION['id'])) {
           <div class="col-lg-12">
             
             <!-- TABS -->
-            <div class="row my-5">
+            <div class="row my-lg-5 mt-md-5">
               <div class="col-12">
                 <div class="tab border-bottom d-flex flex-row">
                   <button class="tablinks flex-fill active" onclick="openTab(event, 'info_content')">
@@ -644,7 +650,7 @@ if(isset($_SESSION['id'])) {
                               while($row = $statement->fetch()) { 
                                 $description = $row['description'];
                           ?>
-                            <li style='line-height:1.8; flex: 1 0 50%' class='pb-5 pl-5 product_details'><?=$description?></li>
+                            <li style='line-height:1.8; flex: 1 0 50%' class='pb-5 pl-lg-5 pl-md-5 pl-sm-4 product_details'><?=$description?></li>
                           <?php } } ?>
                         </ul>
                         
@@ -902,9 +908,11 @@ if(isset($_SESSION['id'])) {
                       <div class="col text-right">
                         <div>
                           <div class="flex-fill input-group" id='funnel_dropdown'>
-                            <div class="input-group-prepend pt-2 px-2" style='background-color:#f5f5f5;'>
-                              <i class="fas fa-filter text-secondary"></i>
-                              &nbsp;Filter:
+                            <div class="input-group-prepend p-2">
+                              <div class="d-flex align-items-center">
+                                <i class="fas fa-filter text-secondary"></i>
+                                &nbsp;Filter:
+                              </div>
                             </div>
                             <select class="custom-select border-0 pt-2" id="sort_ratings" onchange="sort_ratings" data-id='<?= $id ?>' data-storeid='<?=$storeId?>'>
                               <option value="6" selected>All stars</option>
@@ -1019,11 +1027,11 @@ if(isset($_SESSION['id'])) {
                                       $reviewImageUrl = $row2['url'];
                                   ?>
 
-                                <img src="<?=$reviewImageUrl?>" 
+                                <img src="<?= BASE_URL . "/" .$reviewImageUrl?>" 
                                     alt="review_image" style='width:70px;max-height:80px;cursor: zoom-in;' 
                                     class='review_thumbnail mr-2' 
                                     data-id='<?=$reviewImageId?>' data-clientid='<?=$clientId?>'
-                                    data-url='<?=$reviewImageUrl?>'>
+                                    data-url='<?= BASE_URL . "/" .$reviewImageUrl ?>'>
 
                                   <?php } } ?>
                               
@@ -1047,7 +1055,7 @@ if(isset($_SESSION['id'])) {
                             <div class="col mb-2 pt-4 px-5 seller_response_container" style='background:#eff0f5'>
                               <!-- SELLER DETAILS -->
                               <div class="row flex-row text-gray mb-4"> 
-                                <a href="store.php?id=<?=$storeId ?>"></a>
+                                <a href="store-profile.php?id=<?=$storeId ?>"></a>
                                 <img src="<?=$storeLogo?>" alt="<?=$storeName?>" style='width:30px;max-height:30px;' class='circle'>
                                 <div>
                                   <div>&nbsp;<?=$storeName?></div>
@@ -1084,10 +1092,10 @@ if(isset($_SESSION['id'])) {
                     <div class="row pb-5">
 
                       <!-- FREQUENTLY ASKED -->
-                      <div class="col-6">
+                      <div class="col-lg-6 col-md-6 col-sm-12 pt-md-4 pt-sm-4">
                         <div class="row mb-4">
                           <!-- <img src="../assets/images/question-gradient-filled.png" alt="verified_user" style='height:20px;width:20px;'> -->
-                          <h4 class='py-1 text-secondary'>Frequently Asked</h4>
+                          <div class='py-1 text-secondary'>FREQUENTLY ASKED</div>
                         </div>
 
                         <div class="row">
@@ -1132,9 +1140,9 @@ if(isset($_SESSION['id'])) {
                       </div>
                       
                       <!-- OTHER QUESTIONS-->
-                      <div class="col-6">
+                      <div class="col-lg-6 col-md-6 col-sm-12 pt-md-4 pt-sm-4">
                         <div class="row mb-4">
-                          <h4 class='py-1 text-secondary'>Other Questions</h4>
+                          <div class='py-1 text-secondary'>OTHER QUESTIONS</div>
                         </div>
 
                         <div class="row">
@@ -1595,8 +1603,25 @@ if(isset($_SESSION['id'])) {
 
     </div>
   </div>
+  
+  
+   <?php 
+    
+    //CHECK IF CLIENT IS A SELLER AND THE OWNER OF THE PAGE 
+    if(isset($_SESSION['id'])){
+      if ($isSeller && $currentUser['id'] == $sellerId) {
+        echo "";
+      } else { 
+        echo include '../partials/message_box.php'; 
+      }
+    } 
+    
+    
+  
+    
+  ?> 
 
-
+  
 </body>
 </html> 
 

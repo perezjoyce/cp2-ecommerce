@@ -49,22 +49,22 @@
 			<integer>1</integer>
 			<key>contentSelection</key>
 			<data>
-			YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFy
-			Y2hpdmVyVCR0b3ASAAGGoK8QDwcIFRYXGBkfICEoLDA1OlUkbnVs
-			bNMJCgsMEBRXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6MNDg+A
-			AoADgASjERITgAWABoAKgA5UdHlwZVRyb3dzVGtleXNfECZTZWxl
-			Y3Rpb25EZXRhaWxUeXBlUHJpbWFyeUtleWVkRGV0YWlsc9MJCgsa
-			HB6hG4AHoR2ACIAJUjM0CdIiIyQlWiRjbGFzc25hbWVYJGNsYXNz
-			ZXNfEBNOU011dGFibGVEaWN0aW9uYXJ5oyQmJ1xOU0RpY3Rpb25h
-			cnlYTlNPYmplY3TSCgspK6EqgAuADdILLS4vWU5TLnN0cmluZ4AM
-			Umlk0iIjMTJfEA9OU011dGFibGVTdHJpbmejMTM0WE5TU3RyaW5n
-			WE5TT2JqZWN00iIjNjdeTlNNdXRhYmxlQXJyYXmjNjg5V05TQXJy
-			YXlYTlNPYmplY3TSIiMmO6ImPFhOU09iamVjdF8QD05TS2V5ZWRB
-			cmNoaXZlctE/QFRkYXRhgAEACAARABoAIwAtADIANwBJAE8AVgBe
-			AGkAcAB0AHYAeAB6AH4AgACCAIQAhgCLAJAAlQC+AMUAxwDJAMsA
-			zQDPANIA0wDYAOMA7AECAQYBEwEcASEBIwElAScBLAE2ATgBOwFA
-			AVIBVgFfAWgBbQF8AYABiAGRAZYBmQGiAbQBtwG8AAAAAAAAAgEA
-			AAAAAAAAQQAAAAAAAAAAAAAAAAAAAb4=
+			YnBsaXN0MDDUAQIDBAUGOTpYJHZlcnNpb25YJG9iamVjdHNZJGFy
+			Y2hpdmVyVCR0b3ASAAGGoK0HCBUWFxgZHSQoLDE2VSRudWxs0wkK
+			CwwQFFdOUy5rZXlzWk5TLm9iamVjdHNWJGNsYXNzow0OD4ACgAOA
+			BKMREhOABYAGgAiADFR0eXBlVHJvd3NUa2V5c18QJlNlbGVjdGlv
+			bkRldGFpbFR5cGVQcmltYXJ5S2V5ZWREZXRhaWxz0wkKCxobHKCg
+			gAfSHh8gIVokY2xhc3NuYW1lWCRjbGFzc2VzXxATTlNNdXRhYmxl
+			RGljdGlvbmFyeaMgIiNcTlNEaWN0aW9uYXJ5WE5TT2JqZWN00goL
+			JSehJoAJgAvSCykqK1lOUy5zdHJpbmeAClJpZNIeHy0uXxAPTlNN
+			dXRhYmxlU3RyaW5noy0vMFhOU1N0cmluZ1hOU09iamVjdNIeHzIz
+			Xk5TTXV0YWJsZUFycmF5ozI0NVdOU0FycmF5WE5TT2JqZWN00h4f
+			IjeiIjhYTlNPYmplY3RfEA9OU0tleWVkQXJjaGl2ZXLROzxUZGF0
+			YYABAAgAEQAaACMALQAyADcARQBLAFIAWgBlAGwAcAByAHQAdgB6
+			AHwAfgCAAIIAhwCMAJEAugDBAMIAwwDFAMoA1QDeAPQA+AEFAQ4B
+			EwEVARcBGQEeASgBKgEtATIBRAFIAVEBWgFfAW4BcgF6AYMBiAGL
+			AZQBpgGpAa4AAAAAAAACAQAAAAAAAAA9AAAAAAAAAAAAAAAAAAAB
+			sA==
 			</data>
 			<key>contentSortColIsAsc</key>
 			<true/>
@@ -91,9 +91,73 @@ SELECT a.*, o.address_id FROM  tbl_addresses a JOIN tbl_orders o ON o.address_id
 
 SELECT * FROM tbl_addresses WHERE `user_id` = 2 AND id != 20;
 
-SELECT a.name, o.address_id, o.billing_address_id FROM tbl_addresses a JOIN tbl_orders o ON o.address_id=a.id WHERE cart_session = ?</string>
+SELECT * FROM tbl_orders WHERE cart_session = '5c20ef753ce09' ;
+
+SELECT i.id as 'productId', i.name,i.price,i.img_path, c.date_created FROM tbl_items i JOIN tbl_carts c JOIN tbl_variations v ON v.product_id=i.id AND c.variation_id=v.id WHERE user_id = 23 ;
+SELECT * FROM tbl_addresses WHERE user_id = 1;
+
+SELECT w.*, p.img_path, p.name, p.price
+                FROM tbl_wishlists w 
+                JOIN tbl_items p on p.id=w.product_id 
+                WHERE user_id= 2;
+                
+       SELECT i.id as 'productId', i.name,i.price,i.img_path, c.user_id as 'userId', v.id as 'variationId', o.status_id
+                FROM tbl_items i
+                JOIN tbl_carts c 
+                JOIN tbl_variations v 
+                JOIN tbl_orders o
+                ON v.product_id=i.id 
+                AND c.variation_id=v.id 
+                WHERE 'userId' = 2 AND o.status_id = 1
+                GROUP BY name
+                ORDER BY date_created DESC LIMIT 12;
+                
+                
+SELECT o.purchase_date, o.status_id, c.user_id, c.variation_id, i.name, i.price,i.img_path, i.id as 'productId' FROM tbl_orders o JOIN tbl_carts c JOIN tbl_items i JOIN tbl_variations v ON o.cart_session=c.cart_session AND c.variation_id=v.id AND v.product_id=i.id WHERE status_id != 2 AND c.user_id = 2 GROUP BY productId LIMIT 12;
+
+SELECT o.*, s.name as 'status' FROM tbl_orders o JOIN tbl_status s ON o.status_id=s.id WHERE `user_id` = 2 AND status_id = 2 ORDER BY o.purchase_date DESC;
+
+
+SELECT o.status_id, o.purchase_date, o.cart_session, o.user_id, i.id as 'product_id', i.name as 'product_name', i.price, i.img_path, i.store_id FROM tbl_orders o JOIN tbl_variations v JOIN tbl_items i ON v.product_id = i.id AND o.user_id=i.id  WHERE o.user_id = 2 AND o.status_id = 2 GROUP BY 'product_id';
+
+SELECT o.cart_session,o.purchase_date, c.variation_id, c.user_id, i.id as 'product_id', i.name, i.price, i.img_path, i.store_id FROM tbl_orders o JOIN tbl_carts c JOIN tbl_items i WHERE status_id = 2 AND c.user_id = 2 GROUP BY i.name ORDER BY o.purchase_date;
+
+SELECT cart_session, i.*, v.product_id FROM tbl_orders JOIN tbl_items i JOIN tbl_variations v ON v.product_id=i.id WHERE user_id = 2 and status_id = 2 GROUP BY id;
+
+SELECT o.cart_session, c.variation_id, c.user_id,i.id as 'product_id' FROM tbl_orders o JOIN tbl_carts c JOIN tbl_items i JOIN tbl_variations v ON c.cart_session=o.cart_session AND v.product_id=i.id WHERE c.user_id = 2 GROUP BY product_id;
+
+
+
+SELECT cart_session,purchase_date FROM tbl_orders WHERE user_id = 2 AND status_id = 2 ORDER BY purchase_date DESC;
+-- fetch cart_session
+SELECT variation_id FROM tbl_carts WHERE cart_session = '5c0d425621f1f';
+-- fetch variation id 
+SELECT * FROM tbl_variations WHERE id = 1;
+-- fetch name,and product id
+-- SELECT name, price, img_path, store_id FROM tbl_items WHERE id = 1;
+SELECT v.id as 'variationId', v.variation_name as 'variationName', i.id as 'productId', i.name as 'productName', i.price, i.img_path, i.store_id FROM tbl_variations v JOIN tbl_items i ON v.product_id=i.id WHERE v.id = 1 GROUP BY i.id;
+
+SELECT i.id as 'productId', i.price, i.img_path, i.name as 'productName',s.id as 'storeId', s.name as 'storeName', s.store_address, s.logo FROM tbl_items i JOIN tbl_stores s ON i.store_id=s.id WHERE i.id = 1
+
+INSERT INTO tbl_rating_images (url, rating_id) VALUES ('shitImage', 23);
+
+SELECT r.id as 'rating_id', r.product_id, r.user_id, r.rating_is_final, ri.is_final FROM tbl_ratings r JOIN tbl_rating_images ri ON ri.rating_id=r.id WHERE r.product_id=1 AND r.user_id=2;
+
+CREATE TABLE tbl_messages (
+id INT(11) AUTO_INCREMENT UNIQUE NOT NULL,
+sender INT(11),
+receiver INT(11),
+date_sent TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY(id),
+FOREIGN KEY (sender) REFERENCES tbl_users(id) ON UPDATE CASCADE ON DELETE SET NULL
+);
+
+
+SELECT u.*, m.* FROM tbl_messages m 
+            JOIN tbl_users u on u.id=m.user_id        
+            WHERE conversation_id=3 ORDER BY m.date;</string>
 			<key>table</key>
-			<string>tbl_orders</string>
+			<string>tbl_messages</string>
 			<key>view</key>
 			<string>SP_VIEW_CUSTOMQUERY</string>
 			<key>windowVerticalDividerPosition</key>
@@ -108,26 +172,48 @@ SELECT a.name, o.address_id, o.billing_address_id FROM tbl_addresses a JOIN tbl_
 	<array/>
 	<key>queryHistory</key>
 	<array>
-		<string>SELECT a.name, o.address_id, o.billing_address_id FROM tbl_addresses a JOIN tbl_orders o ON o.address_id=a.id</string>
-		<string>SELECT a.name, o.address_id, o.billing_id FROM tbl_addresses a JOIN tbl_orders o ON o.address_id=a.id</string>
-		<string>SELECT a.name, o.address_id, o.billing_id FROM tbl_addresses a JOIN tbl_orders o ON o.address_id=a.id WHERE cart_session = ?</string>
-		<string>SELECT a.name, o.* FROM tbl_addresses a JOIN tbl_orders o ON o.address_id=a.id</string>
-		<string>SELECT a.name, o.* FROM tbl_addresses a JOIN tbl_orders o ON o.address_id=id</string>
-		<string>SELECT * FROM tbl_addresses WHERE `user_id` = 2 AND id != 20</string>
-		<string>SELECT * FROM tbl_addresses WHERE `user_id` = 2</string>
-		<string>SELECT a.*, o.* FROM  tbl_addresses a JOIN tbl_orders o ON o.address_id=a.id</string>
-		<string>SELECT a.*, o* FROM  tbl_addresses a JOIN tbl_orders o ON o.address_id=a.id</string>
-		<string>SELECT a.*, o.address_id FROM  tbl_addresses a JOIN tbl_orders o ON o.address_id=a.id</string>
-		<string>SELECT a.*, o.address_id FROM  tbl_addresses a JOIN tbl_orders o ON o.address_id=a.id WHERE</string>
-		<string>SELECT a.*, o.address_id FROM  tbl_addresses a JOIN tbl_orders o ON o.address_id=a.id WHERE cart_session = '5c20ef753ce09'</string>
-		<string>SELECT a.*, o.address_id FROM  tbl_addresses a JOIN tbl_orders o ON o.addresss_id=a.id WHERE cart_session = '5c20ef753ce09'</string>
-		<string>SELECT a.*, o.address_id FROM  tbl_address a JOIN tbl_orders o ON o.addresss_id=a.id WHERE cart_session = '5c20ef753ce09'</string>
-		<string>SELECT a.*, o.address_id ON tbl_address a JOIN tbl_orders o ON o.addresss_id=a.id WHERE cart_session = '5c20ef753ce09'</string>
-		<string>SELECT addr.*, prov.provDesc as province_name,city.citymunDesc as city_name, brgy.brgyDesc as barangay_name FROM tbl_addresses addr JOIN tbl_regions reg on reg.id=addr.region_id JOIN tbl_provinces prov on prov.regCode=reg.regCode JOIN tbl_cities city on city.provCode=prov.provCode JOIN tbl_barangays brgy on brgy.citymunCode=city.citymunCode WHERE addr.id=20</string>
-		<string>SELECT addr.*, prov.provDesc as province_name,city.citymunDesc as city_name, brgy.brgyDesc as barangay_name FROM tbl_addresses addr JOIN tbl_regions reg on reg.id=addr.region_id JOIN tbl_provinces prov on prov.regCode=reg.regCode JOIN tbl_cities city on city.provCode=prov.provCode JOIN tbl_barangays brgy on brgy.citymunCode=city.citymunCode</string>
-		<string>SELECT addr.*, prov.provDesc as province_name,city.citymunDesc as city_name, brgy.brgyDesc as barangay_name FROM tbl_addresses addr JOIN tbl_regions reg on reg.id=addr.region_id JOIN tbl_provinces prov on prov.regCode=reg.regCode JOIN tbl_cities city on city.provCode=prov.provCode JOIN tbl_barangays brgy on brgy.citymunCode=city.citymunCode WHERE addr.id=20 GROUP BY addr.id</string>
-		<string>SELECT addr.*, prov.provDesc as province_name,city.citymunDesc as city_name, brgy.brgyDesc as barangay_name FROM tbl_addresses addr JOIN tbl_regions reg on reg.id=addr.region_id JOIN tbl_provinces prov on prov.regCode=reg.regCode JOIN tbl_cities city on city.provCode=prov.provCode JOIN tbl_barangays brgy on brgy.citymunCode=city.citymunCode WHERE addr.id=20 GROUP BY add.id</string>
-		<string>SELECT c.cart_session, i.store_id, SUM(i.price * c.quantity) AS 'grandTotal', s.name, s.standard_shipping, s.free_shipping_minimum FROM tbl_items i JOIN tbl_carts c JOIN tbl_variations v JOIN tbl_stores s ON v.product_id=i.id AND c.variation_id=v.id AND i.store_id=s.id WHERE c.cart_session = '5c23b57c3ea59' GROUP BY store_id</string>
+		<string>SELECT s.free_shipping_minimum, i.store_id, i.id FROM tbl_stores s 
+        JOIN tbl_items i ON i.store_id = s.id WHERE store_id = 1 GROUP BY store_id</string>
+		<string>SELECT s.free_shipping_minimum, i.store_id, i.id FROM tbl_stores s 
+        JOIN tbl_items i ON i.store_id = s.id WHERE store_id = 1</string>
+		<string>SELECT s.free_shipping_minimum, i.store_id, i.id FROM tbl_stores s 
+        JOIN tbl_items i ON i.store_id = s.id WHERE store_id = 11</string>
+		<string>SELECT s.free_shipping_minimum, i.store_id, i.id FROM tbl_stores s 
+        JOIN tbl_items i ON i.store_id = s.id</string>
+		<string>SELECT s.standard_shipping, i.store_id, i.id FROM tbl_stores s 
+        JOIN tbl_items i ON i.store_id = s.id WHERE store_id = 1 GROUP BY store_id</string>
+		<string>SELECT s.standard_shipping, i.store_id, i.id FROM tbl_stores s 
+        JOIN tbl_items i ON i.store_id = s.id WHERE store_id = 1</string>
+		<string>SELECT s.standard_shipping, i.store_id, i.id FROM tbl_stores s 
+        JOIN tbl_items i ON i.store_id = s.id</string>
+		<string>SELECT s.standard_shipping, i.store_id, i.id FROM tbl_stores s 
+        JOIN tbl_items i ON i.store_id = s.id WHERE i.store_id = 11</string>
+		<string>SELECT i.store_id, AVG(product_rating) as 'averageRating' FROM tbl_ratings LEFT JOIN tbl_items i ON product_id = i.id WHERE store_id = 1</string>
+		<string>SELECT i.id, i.store_id, AVG(product_rating) as 'averageRating' FROM tbl_ratings LEFT JOIN tbl_items i ON product_id = i.id WHERE store_id = 1</string>
+		<string>SELECT * FROM tbl_stores WHERE name = %1%accessible</string>
+		<string>SELECT * FROM tbl_stores WHERE name = 1</string>
+		<string>SELECT * FROM tbl_conversations 
+                                                    WHERE `from` = 2 OR `to` = 2</string>
+		<string>OR `to` = 2</string>
+		<string>SELECT * FROM tbl_conversations 
+                                                    WHERE `from` = 2</string>
+		<string>SELECT * FROM tbl_conversations 
+                                                    WHERE `from` =2 OR `to` = 2</string>
+		<string>SELECT u.*, m.* FROM tbl_messages m 
+            JOIN tbl_users u on u.id=m.user_id        
+            WHERE conversation_id=3 ORDER BY m.date</string>
+		<string>SELECT u.*, m.* FROM tbl_messages m 
+            JOIN tbl_users u on u.id=m.user_id        
+            WHERE conversation_id=3 ORDER BY m.date DESC</string>
+		<string>CREATE TABLE tbl_messages (
+id INT(11) AUTO_INCREMENT UNIQUE NOT NULL,
+sender INT(11),
+receiver INT(11),
+date_sent TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY(id),
+FOREIGN KEY (sender) REFERENCES tbl_users(id) ON UPDATE CASCADE ON DELETE SET NULL
+)</string>
+		<string>SELECT r.id as 'rating_id', r.product_id, r.user_id, r.rating_is_final, ri.is_final FROM tbl_ratings r JOIN tbl_rating_images ri ON ri.rating_id=r.id WHERE r.product_id=1 AND r.user_id=2</string>
 	</array>
 	<key>rdbms_type</key>
 	<string>mysql</string>

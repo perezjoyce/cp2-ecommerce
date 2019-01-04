@@ -274,64 +274,51 @@ $(document).ready( () => {
 
 
 	// EDITING USER PROFILE
-	$(document).on('submit', '#form_edit_user', function(e){
-		e.preventDefault();
-		processEditForm();
-	});
+	// $(document).on('submit', '#form_edit_user', function(e){
+	// 	e.preventDefault();
+	// 	processEditForm();
+	// });
 
-	function processEditForm() {
-		//get values
+	$(document).on('click', '#btn_edit_user', function(){
+
+	
 		let fname = $("#fname").val();
 		let lname = $("#lname").val();
 		let email = $("#email").val();
 		let username = $("#username").val();
 		let password = $("#password").val();
 		let id = $("#id").val();
-		let countU = username.length;
-		let countP = password.length;
-
 		let error_flag = 0;
 
-		//First name verification
-		if(fname == ""){
-			$("#fname").next().html("First name is required!");
+		if(email == "" || username == "" || password == "") {
+			$("#edit_user_error").css("color", "#f64f59");
+			$("#edit_user_error").text("Please fill out all fields with asterisk."); 
 			error_flag = 1;
 		} else {
-			$("#fname").next().html("");
-		}
 
-		//Last name verification
-		if(lname == ""){
-			$("#lname").next().html("Last name is required!");
-			error_flag = 1;
-		} else {
-			$("#lname").next().html("");
-		}
+			let countU = username.length;
+			// let countP = password.length;
 
-		//email verification
-		if(email == ""){
-			$("#email").next().html("Email address is required!");
-			error_flag = 1;
-		} else {
-			$("#email").next().html("");
-		}
+			$("#edit_user_error").text(""); 
 
-		//username verification
-		if(username == ""){
-			$("#username").next().html("Username is required!");
-			error_flag = 1;
-		} else {
-			$("#username").next().html("");
-		}
+			if (countU < 5) {
+				$("#username").next().css("color", "#f64f59");
+				$("#username").next().text("Username needs at least 5 characters.");
+				error_flag = 1;
+			} else {
+				$("#username").next().text("");
+			}
+	
+			// if (countP < 8) {
+			// 	$("#registration_password_validation").css("color", "##f64f59");
+			// 	$("#registration_password_validation").text("Password needs at least 8 characters.");
+			// 	error_flag = 1;
+			// } else {
+			// 	$("#registration_password_validation").text("");
+				
+			}
 
-		//password verification
-		if(password == ""){
-			$("#password").next().html("Password is required!");
-			error_flag = 1;
-		} else {
-			$("#password").next().html("");
-		}
-
+		
 
 		if(error_flag == 0) {
 		
@@ -346,70 +333,77 @@ $(document).ready( () => {
 				"success": (dataFromPHP) => {
 
 					if (dataFromPHP == "invalidEmail") {
-						$("#email").next().css("color", "red");
+						$("#email").next().css("color", "#f64f59");
 						$("#email").next().html("Please enter a valid email."); 
 					} else if (dataFromPHP == "emailExists") {
-						$("#email").next().css("color", "red");
-						$("#email").next().html("Email address already taken."); 
+						$("#email").next().css("color", "#f64f59");
+						$("#email").next().html("Email address is already taken."); 
 					} else if (dataFromPHP == "sameEmail" || dataFromPHP == "success"){
+
+						let answer = confirm('Do you want to save changes?');
+							if(answer == true) {
 						
-						// CHECK USERNAME AVAILABILITY
-						$.ajax({
-						"url": "../controllers/process_edit_uname.php",
-						"data": {
-								"username" : username,
-								"id": id
-								},
-						"type": "POST",
-						"success": (dataFromPHP) => {
-							if (dataFromPHP == "userExists") {
-								$("#username").next().css("color", "red");
-								$("#username").next().html("User exists."); 
-							} else if (dataFromPHP == "success" || dataFromPHP == "sameUser") {
-								
-								// CHECK CORRECTNESS OF PASSWORD AND IF CORRECT UPDATE DATA
-								$.ajax({
-									"url": "../controllers/process_edit_user.php",
-									"data": { 
-											"id" : id,
-											"fname" : fname,
-											"lname" : lname,
-											"email" : email,
-											"username" : username,
-											"password" : password
-											 },
-									"type": "POST",
-									"success": (dataFromPHP) => {
-					
-										if (dataFromPHP == "incorrectPassword") {
-											$("#password").next().css("color", "red");
-											$("#password").next().html("Incorrect password."); 
-										 
-										} else if ($.parseJSON(dataFromPHP)) {
-											let data = $.parseJSON(dataFromPHP);
-											location.href="profile.php?id=" + data.id; 
-					
-										} else {
-											$("#edit_user_error").css("color", "red");
-											$("#edit_user_error").append("Error in password validation encountered.");	
-										} 
-									}
-								});
-							} else {
-								$("#edit_user_error").css("color", "red");
-								$("#edit_user_error").append("Error in username validation encountered."); 
-							}	
+							// CHECK USERNAME AVAILABILITY
+							$.ajax({
+							"url": "../controllers/process_edit_uname.php",
+							"data": {
+									"username" : username,
+									"id": id
+									},
+							"type": "POST",
+							"success": (dataFromPHP) => {
+								if (dataFromPHP == "userExists") {
+									$("#username").next().css("color", "#f64f59");
+									$("#username").next().html("User exists."); 
+								} else if (dataFromPHP == "success" || dataFromPHP == "sameUser") {
+									
+									// CHECK CORRECTNESS OF PASSWORD AND IF CORRECT UPDATE DATA
+									$.ajax({
+										"url": "../controllers/process_edit_user.php",
+										"data": { 
+												"id" : id,
+												"fname" : fname,
+												"lname" : lname,
+												"email" : email,
+												"username" : username,
+												"password" : password
+												},
+										"type": "POST",
+										"success": (dataFromPHP) => {
+											
+											if (dataFromPHP == "incorrectPassword") {
+												$("#password").next().css("color", "#f64f59");
+												$("#password").next().html("Your password is incorrect."); 
+											
+											} else if (dataFromPHP == "success") {
+												
+												alert('Your changes has been saved.');
+												window.location.reload();
+												
+											} else {
+												$("#edit_user_error").css("color", "#f64f59");
+												$("#edit_user_error").append("Error in password validation encountered.");	
+											} 
+										}
+									});
+								} else {
+									$("#edit_user_error").css("color", "#f64f59");
+									$("#edit_user_error").append("Error in username validation encountered."); 
+								}	
+							}
+							});
+
 						}
-						});
+
 
 					} else {
-						$("#edit_user_error").css("color", "red");
+						$("#edit_user_error").css("color", "#f64f59");
 						$("#edit_user_error").append("Error in email validation encountered."); 
 					}	
 				}
 			});
 		}
-	}
+	})
 
 
 	// DISPLAYING ADDRESS WINDOW IN PROFILE
@@ -438,13 +432,15 @@ $(document).ready( () => {
 		let streetBldgUnit = $('#streetBldgUnit').val();
 		let landmark = $('#landmark').val();
 		let addressType = $('#addressType').val();
+		let password = $("#password").val();
 
-		if(regionId == "..." || provinceId == "..." || cityMunId == "..." || brgyId == "..." || streetBldgUnit == "" || addressType == "...") {
-			$("#shipping_error_message").css("color", "red");
-			$("#shipping_error_message").text('Please fill out all fields with asterisk.');
+		if(password == "" || regionId == "..." || provinceId == "..." || cityMunId == "..." || brgyId == "..." || streetBldgUnit == "" || addressType == "...") {
+			$("#address_error_message").css("color", "red");
+			$("#address_error_message").text('Please fill out all fields with asterisk.');
 			
 		} else {
-			$.post("../controllers/process_save_address.php", {
+			$.post("../controllers/process_save_profile_address.php", {
+				password, password,
 				regionId:regionId,
 				provinceId:provinceId,
 				cityMunId:cityMunId,
@@ -453,16 +449,46 @@ $(document).ready( () => {
 				landmark:landmark,
 				addressType:addressType
 			}, function(data) {
-				$("#shipping_error_message").css("color", "green");
-				$("#shipping_error_message").text(data);
 
-				$(document).on('click', '.save_address_edit', function(){
-					$(this).attr('data-dismiss','modal');
-				});
+				if(data == "success") {
+					alert("Your changes has been saved.");
+					window.location.reload();
+				}else if(data=='fail') {
+					$("#address_error_message").css("color", "red");
+					$("#address_error_message").text('Your password is incorrect.');
+				}else{
+					$("#address_error_message").css("color", "red");
+					$("#address_error_message").text('Please try again.');
+				}
+				
+
+				// $(document).on('click', '.save_address_edit', function(){
+				// 	$(this).attr('data-dismiss','modal');
+				// });
 					
 			});
 		}		
 	});
+
+	// VIEWING PASSWORD
+	$(document).on('click', '.btn_view_profile_password', function(){
+
+		let x = document.getElementById("password");
+
+		if (x.type === "password") {
+			x.type = "text";
+		  	$('.eye').removeClass('fa-eye-slash');
+			$('.eye').addClass('fa-eye');
+		} else {
+		  x.type = "password";
+		  	$('.eye').removeClass('fa-eye');
+			$('.eye').addClass('fa-eye-slash');
+		}
+
+	})
+	
+		
+	
 
 	// ================================ CATALOG PAGE  ================================ //
 	// =============================================================================== //
@@ -615,20 +641,23 @@ $(document).ready( () => {
 	
 	// AVERAGE PRODUCT RATING AS STARS ON PRODUCT PAGE
 	$(function() {
+
 	let averageRating = $("#average_product_rating").val();
+		// averageRating = averageRating*2;
 		// alert(averageRating)
+
 		function addScore(score, $domElement) {
-			var starWidth = "<style>.stars-container:after { width: " + score + "%} </style>";
+			// score = averageRating * 2;
+			var starWidth = "<style>.stars-container:after { width: " + score*2 + "%} </style>";
 			$("<span class='stars-container'>")
 			.text("★★★★★")
 			.append($(starWidth))
 			.appendTo($domElement);
 		}
 
-		addScore(averageRating, $("#average_product_stars"));
-
+		
 		function addScore2(score2, $domElement2) {
-			score2 = score2 * 2;
+			score2 = score2 / 2;
 			var starWidth2 = "<style>.stars-container-big:after { width: " + score2 + "%} </style>";
 			$("<span class='stars-container-big'>")
 			.text("★★★★★")
@@ -636,6 +665,7 @@ $(document).ready( () => {
 			.appendTo($domElement2);
 		}
 		addScore2(averageRating, $("#average_product_stars_big"));
+		addScore(averageRating, $("#average_product_stars"));
 	});
 
 
@@ -885,8 +915,8 @@ $(document).ready( () => {
 			}
 		
 		}
-		
 
+		
 	}
 
 
@@ -923,13 +953,14 @@ $(document).ready( () => {
 
 
 	// DISPLAYING MODAL
-	$(document).on('click', '.modal-link', function(){
+	$(document).on('click', '.modal-link', function(e){
+		e.preventDefault();
 		const url = $(this).data('url');
 		const id = $(this).data('id');
 
 		$.get(url, {'id': id},function(response){
-			$('#modalContainer .modal-body').html("");
-			$('#modalContainer .modal-body').html(response);
+			$('#modalContainer .modal-content').html("");
+			$('#modalContainer .modal-content').html(response);
 			$('#modalContainer').modal();
 		});
 	});
@@ -937,7 +968,8 @@ $(document).ready( () => {
 
 
 	// DISPLAYING MODAL - BIG
-	$(document).on('click', '.modal-link-big', function(){
+	$(document).on('click', '.modal-link-big', function(e){
+		e.preventDefault();
 		const url = $(this).data('url');
 		const id = $(this).data('id');
 
@@ -1011,6 +1043,11 @@ $(document).ready( () => {
 
 	$('#profileDropdown').mouseover(()=>{
 		$('#profileDropdown_menu').show();
+		$('#cartDropdown_menu').hide();
+	});
+
+	$('#profileDropdown').click(()=>{
+		$('.dropdown-menu').toggle();
 		$('#cartDropdown_menu').hide();
 	});
 
@@ -1180,7 +1217,7 @@ $(document).ready( () => {
 						$('#cartDropdown_menu').prepend(response.newProduct);
 					
 					// UPDATE ADD TO CART BUTTON
-					$(that).replaceWith("<button class='btn btn-lg btn-disabled py-3' style='width:40%;' data-id='" + productId + "'role='button'" + 
+					$(that).replaceWith("<button class='btn btn-lg btn-disabled py-3' data-id='" + productId + "'role='button'" + 
 						"id='btn_add_to_cart_again' disabled>" +
 						"Item Added To Cart!</button>");
 					
@@ -1253,7 +1290,7 @@ $(document).ready( () => {
 						$('#cartDropdown_menu').prepend(response.newProduct);
 					
 					// UPDATE ADD TO CART BUTTON
-					$(that).replaceWith("<button class='btn btn-lg btn-disabled py-3' style='width:40%;' data-id='" + productId + "'role='button'" + 
+					$(that).replaceWith("<button class='btn btn-lg btn-disabled py-3' data-id='" + productId + "'role='button'" + 
 						"disabled>" +
 						"Item Added To Cart!</button>");
 					
@@ -1323,7 +1360,7 @@ $(document).ready( () => {
 
 				// update button
 				$("#btn_add_to_cart_again").replaceWith(
-					"<a class='btn btn-lg btn-purple py-3' style='width:40%;height:50px;'" +  
+					"<a class='btn btn-lg btn-purple py-3' style='height:50px;'" +  
 					"data-variationid='"+ variationId +"' role='button'" +
 					"data-id='"+ productId +"' id='btn_add_to_cart'" +
 					"data-name='"+variationName+"'>" + "Add to Cart</a>");
@@ -1951,7 +1988,8 @@ $(document).ready( () => {
 	// =============================================================================== //
 
 	// ORDER CONFIRMATION
-	$(document).on('click', '#btn_order_confirmation', function(){
+	$(document).on('click', '#btn_order_confirmation', function(e){
+		e.preventDefault();
 
 		// DELETE ERROR MESSAGE IN CASE MERON
 		$("#billing_info_error").text("");
@@ -2089,25 +2127,574 @@ $(document).ready( () => {
 
 	});
 
-	//VIEW ORDER HISTORY
+	//REVIEW PRODUCT MODAL ON PROFILE PAGE
 	$(document).on('click', '.btn_review_product', function(){
 		let productId = $(this).data('productid');
 		let url = $(this).data('url');
-		$(this).addClass('modal-link');
+		//$(this).addClass('modal-link');
 		
 		$.post(url, {
 			productId: productId
 		}, function(response){
 			$('#modalContainer .modal-content').html(response);
-			
+			$('#modalContainer').modal('show');
 			// $("#modalContainer").on('shown.bs.modal', function(){
 			// 	$('#modalContainer .modal-content').html(response);
 			// });
-			
+
+			$("#fileBox").on('change', function(){
+				$('#fileBox__label').find('span').text('1 file chosen');	
+			});
+
+			$("#fileBoxSave").on('click', function(){
+				
+				var file_data = $('#fileBox').prop('files')[0]; 
+				var form_data = new FormData();       
+				var ratingId = $(this).data('ratingid');           
+				form_data.append('upload', file_data);
+				form_data.append('rating_id', ratingId);
+				$.ajax({
+					url: '../../app/controllers/process_upload_review_images.php', // point to server-side PHP script 
+					dataType: 'text',  // what to expect back from the PHP script, if anything
+					cache: false,
+					contentType: false,
+					processData: false,
+					data: form_data,                         
+					type: 'post',
+					success: function(php_script_response){
+						$.get('../../app/controllers/process_get_review_images.php', {ratingId: ratingId}, function(response){
+							$("#review_images_container").html(response);
+						});
+					}
+				});
+			});
 		});
 	});
-		
 	
+	//reader.onloadstart = ...
+	//reader.onprogress = ... <-- Allows you to update a progress bar.
+	//reader.onabort = ...
+	//reader.onerror = ...
+	//reader.onloadend = ...
+	
+	// UPLOADING IMAGES ON REVIEW PRODUCT MODAL
+	// https://stackoverflow.com/questions/4006520/using-html5-file-uploads-with-ajax-and-jquery
+	function shipOff(event) {
+		var file_data = event.target.result;
+		var fileName = document.getElementById('fileBox').files[0].name; //Should be 'picture.jpg';
+	
+		//$.post('../../app/controllers/process_upload_review_images.php', { data: result, name: fileName }, function(){
+
+		var form_data = new FormData();                  
+		form_data.append('upload', urlencode(file_data));
+		$.ajax({
+			url: '../../app/controllers/process_upload_review_images.php', // point to server-side PHP script 
+			dataType: 'text',  // what to expect back from the PHP script, if anything
+			cache: false,
+			contentType: false,
+			processData: false,
+			data: form_data,                         
+			type: 'post',
+			success: function(php_script_response){
+				alert(php_script_response); // display response from the PHP script, if any
+			}
+		});
+	}
+
+	// FETCHING RATING SCORE ON REVIEW PRODUCT MODAL ON PROFILE PAGE
+	$(document).on('click', '.product_rating_score', function(){
+		let ratingId = $('#rating_id_hidden').val();
+		let ratingScore = $(this).val();
+		ratingScore = parseInt(ratingScore);
+		$('#rating_score_hidden').val(ratingScore);
+
+		let answer = confirm("Would you like to save this rating? You won't be able to change this rating afterwards if you click OK.");
+
+		if(answer == true) {
+			if(ratingScore == 1) {
+				$('#product_rating_score').replaceWith(
+					"<div>" +
+					"<span class='star2x'>★</span>" +
+					"<span class='star2x-gray'>★</span>" +
+					"<span class='star2x-gray'>★</span>" +
+					"<span class='star2x-gray'>★</span>" +
+					"<span class='star2x-gray'>★</span>" +
+					"</div>");
+			}else if(ratingScore == 2) {
+				$('#product_rating_score').replaceWith(
+					"<div>" +
+					"<span class='star2x'>★&nbsp;</span>" +
+					"<span class='star2x'>★&nbsp;</span>" +
+					"<span class='star2x-gray'>★&nbsp;</span>" +
+					"<span class='star2x-gray'>★&nbsp;</span>" +
+					"<span class='star2x-gray'>★</span>" +
+					"</div>");
+			}else if(ratingScore == 3) {
+				$('#product_rating_score').replaceWith(
+					"<div>" +
+					"<span class='star2x'>★&nbsp;</span>" +
+					"<span class='star2x'>★&nbsp;</span>" +
+					"<span class='star2x'>★&nbsp;</span>" +
+					"<span class='star2x-gray'>★&nbsp;</span>" +
+					"<span class='star2x-gray'>★</span>" +
+					"</div>");
+			}else if(ratingScore == 4) {
+				$('#product_rating_score').replaceWith(
+					"<div>" +
+					"<span class='star2x'>★&nbsp;</span>" +
+					"<span class='star2x'>★&nbsp;</span>" +
+					"<span class='star2x'>★&nbsp;</span>" +
+					"<span class='star2x'>★&nbsp;</span>" +
+					"<span class='star2x-gray'>★</span>" +
+					"</div>");
+			}else{
+				$('#product_rating_score').replaceWith(
+					"<div>" +
+					"<span class='star2x'>★&nbsp;</span>" +
+					"<span class='star2x'>★&nbsp;</span>" +
+					"<span class='star2x'>★&nbsp;</span>" +
+					"<span class='star2x'>★&nbsp;</span>" +
+					"<span class='star2x'>★</span>" +
+					"</div>");
+			}
+
+			$.post('../../app/controllers/process_save_rating_as_final.php', {
+				ratingId:ratingId,
+				ratingScore:ratingScore
+			});
+		} 
+
+	})
+
+	// SAVING DATE IN REVIEW PRODUCT MODAL
+	$(document).on('click', '#btn_submit_review', function(){
+		let productId = $(this).data('productid');
+		let ratingId = $('#rating_id_hidden').val();
+		let ratingScore = $('#rating_score_hidden').val();
+		let productReview = $('#product_review').val();
+
+		$.post('../../app/controllers/process_save_rating_and_review.php', {
+			ratingId:ratingId,
+			ratingScore:ratingScore,
+			productReview:productReview
+		}, function(response){
+			if(response=='success'){
+				alert('Thanks! Your review has been submitted.');
+				window.location.reload();
+				$('.btn_products_to_review'+productId).html("<small class='text-gray font-weight-light'>REVIEWED</small>");
+			}
+		})
+
+	})
+
+	//SENDING MESSAGES FROM PROFILE PAGE
+	// $(document).on('keypress', '#messageTextarea', function(e){
+	// 	if(e.which == 13) {
+	// 		let message = $(this).val();
+	// 		if(message != ""){
+				
+	// 			$(this).val();
+	// 		}
+	// 	}
+	// });
+
+	// FETCHING MESSAGES IN CHATBOX
+	$('#messageBox__button').on('click', function(e){
+		e.preventDefault();
+		$(".conversations").toggle();
+		let data = {
+			sellerId: $(this).data('sellerid')
+		};
+
+		$.get("../../app/controllers/process_generate_conversation.php", data, function(response){
+			// update message item list to show seller at the top
+
+			let data = $.parseJSON(response);
+			$('#message_box .message_items').html(data.messageItemSelected);
+			$('#message_box .message_details-container').html(data.messageDetails);
+			$('#message_details-conversationId').val(data.conversationId);
+			// update the message details to show the text conversation with seller
+
+			let container = $('#message_box .message_details-container');
+			container.scrollTop(container[0].scrollHeight);
+		});
+	});
+
+	// FETCHING MESSAGES IN PROFILE INBOX
+	$(document).on('click', '.selected_conversation', function(e){
+		e.preventDefault();
+		let data = {
+			sellerId: $(this).data('sellerid'),
+			conversationId: $(this).data('conversationid')
+		};
+		
+		$.get("../../app/controllers/process_fetch_conversations.php", data, function(response){
+			let data = $.parseJSON(response);
+
+			$('#profile_conversation_id').val(data.conversationId);
+			$('#profile_message_container').html(data.messageDetails);
+			let container = $('#profile_message_container');
+			container.scrollTop(container[0].scrollHeight);
+
+
+		});
+	})
+
+
+	//SENDING MESSAGES THROUGH CHATBOX
+	$(document).on('keyup', '#message_input', function(e) {
+		if(e.keyCode == 13) {
+			let data = {
+				sellerId: $(this).data('sellerid'),
+				conversationId: $('#message_details-conversationId').val(),
+				message: $(this).val()
+			}
+			$.post('../../app/controllers/process_send_message.php', data,
+				function(response){
+				// let data = $.parseJSON(response);
+
+					
+				let container = $('#message_box .message_details-container');
+				container.html(response);
+				container.scrollTop(container[0].scrollHeight);
+				
+			});
+
+			$(this).val("");
+		}
+	})
+
+	//SENDING MESSAGES THROUGH PROFILE INBOX
+	$(document).on('keyup', '#profile_message_input', function(e) {
+		if(e.keyCode == 13) {
+			let data = {
+				sellerId: $(this).data('sellerid'),
+				conversationId: $('#profile_conversation_id').val(),
+				message: $(this).val()
+			}
+			$.post('../../app/controllers/process_send_message.php', data,
+				function(response){
+				// let data = $.parseJSON(response);
+				
+				let container = $('#profile_message_container');
+				container.html(response);
+				container.scrollTop(container[0].scrollHeight);
+					
+				
+			});
+
+			$(this).val("");
+		}
+	})
+
+	// SEARCHING FOR STORENAME IN MESSAGE BOX
+	$(document).on('keypress', '#search_store_name', function(e) {
+		
+		// if(e.keyCode == 13) {
+			let storeName = $(this).val();
+
+			$.get('../../app/controllers/process_search_store_message.php', {storeName:storeName},
+				function(response){
+				// let data = $.parseJSON(response);
+				
+				if(response == 'fail'){
+					$('#sender_container').html("<tr><td><small>Sorry. There is no store with this name in your inbox.</small></td></tr>");
+					setTimeout(function(){window.location.reload()}, 2000);
+				}else{
+					$('#sender_container').html(response);
+				}
+					
+			});
+		// }
+		
+	})
+
+	// ==================================== STORE ================================= //
+	// =============================================================================== //
+	// =============================================================================== //
+
+	//HEADER
+	$(document).on('click', '.underline', function(){
+		// e.preventDefault(e);
+		//setTimeout(function(){window.location.reload()}, 300);
+		$('.underline').removeClass('border-bottom');
+		$(this).addClass('border-bottom');
+	})
+
+	//TOOLTIP
+	$(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+	})
+	
+	//EDITING DESCRIPTION 
+	$(document).on('click','#btn_edit_store_description',function(){
+		let data = {
+			storeId: $(this).data('storeid'),
+			description: $('#store_description').val()
+		}
+
+		$.post('../../app/controllers/process_edit_store_description.php', data,
+				function(response){
+				$('#store_profile_description').html(response);
+			});
+
+	})
+	
+	//EDITING STORE DETAILS
+	$(document).on('click','.btn_edit_store_details',function(){
+		let data = {
+			storeId: $(this).data('storeid'),
+			address: $('#store_address').val(),
+			hours: $('#store_hours').val(),
+			standard: $('#store_standard_fee').val(),
+			free: $('#store_free_shipping').val()
+		}
+
+		$.post('../../app/controllers/process_edit_store_details.php', data,
+			function(response){
+			let dataFromPHP = $.parseJSON(response);
+
+			if(dataFromPHP.where == 'details'){
+				$('#store_profile_address').html(dataFromPHP.address);
+				$('#store_profile_hours').html(dataFromPHP.hours);
+			}
+			
+			if(dataFromPHP.where == 'fees'){
+				$('#store_profile_standard_fee').html(dataFromPHP.standard);
+				$('#store_profile_free_shipping').html(dataFromPHP.free);
+			}
+		});
+	})
+
+	//SEARCHING FOR PRODUCTS IN STORE PROFILE
+	$(document).on('keypress', '#store_page_search', function(e) {
+		e.preventDefault;
+
+		if(e.keyCode == 13) {
+			let data = {
+				storeId: $(this).data('storeid'),
+				searchkey: $(this).val()
+			}
+
+			$.get('../../app/controllers/process_search_store_products.php', data,
+				function(response){
+				$('#store_page_product_container').html(response);
+
+				if(response == "fail") {
+					$('#store_page_product_container').html("Sorry. No items were found.");
+					setTimeout(function(){window.location.reload()}, 2000);
+				}
+				
+			});
+
+		}
+	})
+
+	//FOLLOW A SHOP
+	$(document).on('click', '#btn_follow', function(){
+		 storeId = $(this).data('id');
+	
+		$.post('../../app/controllers/process_follow_store.php', { storeId:storeId },
+			function(response){
+
+				if(response == "followed"){
+					$('#btn_follow_container').html("<button class='btn border text-gray' id='btn_follow' data-id='"+storeId+"'>&#8722; Unfollow</button");
+				} else if(response == "unfollowed") {
+					$('#btn_follow_container').html("<button class='btn btn-purple text-light' id='btn_follow' data-id='"+storeId+"'>&#8722; Unfollow</button");
+				} else {
+					alert("fail");
+				}
+		});
+	})
+
+
+	// SEARCHING FOR CLIENT NAME IN MESSAGE BOX
+	$(document).on('keypress', '#search_client_name', function(e) {
+	
+		if(e.keyCode == 13) {
+			let keypress = $(this).val();
+
+			$.get('../../app/controllers/process_search_client_name.php', {keypress:keypress},
+				function(response){
+				// let data = $.parseJSON(response);
+				
+				if(response == 'fail'){
+					$('#sender_container').html("<tr><td><small>Sorry. There is no client with this name in your inbox.</small></td></tr>");
+					setTimeout(function(){window.location.reload()}, 2000);
+				}else{
+					$('#sender_container').html(response);
+				}
+					
+			});
+		}
+		
+	})
+
+
+	//FETCHING PARENT CATEGORY AND POSTING SUBCATEGORIES
+	$(document).on("change", "#product_category", function(){
+		let categoryId = $(this).val();
+		
+		$.post("../controllers/process_display_subcategories.php", {categoryId:categoryId},function(data){
+			let selected = "<option selected>Choose...</option>";
+			$('#product_subcategory').empty().append(data);
+			$('#product_subcategory').prepend(selected);
+		});
+	});
+
+	
+	  
+	// FETCHING SUBCATEGORIES AND POSTING BRAND NAME
+	$(document).on("change", "#product_subcategory", function(){
+		let subcategoryId = $(this).val();
+
+		$.post("../controllers/process_display_brands.php", {subcategoryId:subcategoryId},function(data){
+			let selected = "<option selected>Choose...</option>";
+			$('#product_brand').empty().append(data);
+			$('#product_brand').prepend(selected);
+		});
+	  });
+	
+	
+	// SAVE & EDIT NEW PRODUCT
+	$(document).on('click', '.save_new_product', function(){
+		let data = {
+			newProductId:$(this).data('productid'),
+			storeId:$(this).data('id'),
+			name:$("#product_name").val(),
+			categoryId:$("#product_category").val(),
+			subcategoryId:$("#product_subcategory").val(),
+			brandId:$("#product_brand").val(),
+			price:$("#product_price").val()
+		} 
+
+		$.post("../controllers/process_add_new_product.php", data ,function(response){
+			
+			let dataFromPHP = $.parseJSON(response);
+			// let selected = "<option selected>Choose...</option>";
+
+			$("#product_name").val(dataFromPHP.name);
+			$("#product_price").val(dataFromPHP.price);
+
+			$("#product_category").prepend(dataFromPHP.category);
+			// $("#product_category").val(dataFromPHP.category);
+			$('#product_subcategory').prepend(dataFromPHP.subcategory);
+			// $("#product_subcategory").val(dataFromPHP.subcategory);
+			$("#product_brand").prepend(dataFromPHP.brand);
+			// $("#product_brand").val(dataFromPHP.brand);
+			$("#new_product_id").val(dataFromPHP.id);
+			alert("Saved!");
+			window.location.reload();
+		});
+		
+	})
+
+	//SAVE & EDIT PRODUCT DETAIL
+	$(document).on('click', '#btn_save_product_detail', function(){
+
+		$(".product_description").each(function(i, el){
+			let data = { 
+				description: $(this).val(),
+				descriptionId:$(this).data('descriptionid'),
+				productId: $(this).data('id')
+			}
+
+			that = this;
+
+			$.post('../controllers/process_add_new_product_details.php', data, function(response){
+				$(that).val(response);
+			})
+		})	
+			alert("Saved!");
+			window.location.reload();
+
+	})
+
+	//ADD PRODUCT DETAIL ROW
+	$(document).on('click', '#btn_add_product_detail',function(){
+		let productId = $(this).data('id');
+		$('.product_detail').append("<div class='input-group mb-4'>"+
+		"<div class='input-group-prepend' style='background:white;'>"+
+		"<span class='input-group-text border-0 text-secondary' style='background:white;'>&#9679;</span></div>"+
+		"<textarea class='form-control product_description'"+
+		"data-id='"+productId+"' aria-label='With textarea'></textarea></div>");
+	})
+
+	//SAVE & EDIT PRODUCT VARIATION
+	$(document).on('click','.btn_save_product_variation',function(){
+		
+		$(".new_variation_name").each(function(i,el){
+			let data = {
+				productId:$(this).data('id'),
+				variationId: $(this).data('variationid'),
+				variationName: $(this).val(),
+				variationStock: $(this).next().val()
+			}
+
+			that = this;
+
+			if(data['variationName'] != "" || data['variationStock'] != "" || data['variationStock'] != 0){
+				$.post('../controllers/process_add_new_product_variation.php', data, function(response){
+					let dataFromPHP = $.parseJSON(response);
+					$('.new_variation_name').val(dataFromPHP.variationName);
+					$('.new_variation_stock').val(dataFromPHP.variationStock);
+				})
+			}
+
+		})
+			alert("Saved!");
+			window.location.reload();
+	})
+
+	//ADD PRODUCT VARIATION ROW
+	$(document).on('click', '#btn_add_product_variation',function(){
+		let productId = $(this).data('id');
+	$('.product_variation').append("<div class='input-group mb-4'>"+
+		"<div class='input-group-prepend'>" +
+		"<span class='input-group-text border-0 text-secondary' style='background:white;'>&#9679;</span></div>"+
+		"<input type='text' class='form-control new_variation_name' data-id='"+productId+"' placeholder='Name'>"+
+		"<input type='number' class='form-control new_variation_stock' data-id='"+productId+"' placeholder='Available Stock'></div>");
+	})
+
+
+	//SAVE & EDIT PRODUCT FAQs
+	$(document).on('click','.btn_save_product_faq',function(){
+			
+		$(".new_question").each(function(i,el){
+			let data = {
+				productId:$(this).data('id'),
+				faqId: $(this).data('faqid'),
+				question: $(this).val(),
+				answer: $(this).next().val()
+			}
+
+			that = this;
+
+			if(data['question'] != "" || data['answer'] != ""){
+				$.post('../controllers/process_add_new_product_faq.php', data, function(response){
+					let dataFromPHP = $.parseJSON(response);
+					$('.new_question').val(dataFromPHP.question);
+					$('.new_answer').val(dataFromPHP.answer);
+				})
+			}
+
+		})
+			alert("Saved!");
+			window.location.reload();
+	})
+
+	//ADD PRODUCT FAQ ROW
+	$(document).on('click', '.btn_add_product_faq',function(){
+		let productId = $(this).data('id');
+	$('.product_faq').append("<div class='input-group mb-4'>"+
+		"<div class='input-group-prepend'>" +
+		"<span class='input-group-text border-0 text-secondary' style='background:white;'>&#9679;</span></div>"+
+		"<input type='text' class='form-control new_question' data-id='"+productId+"' placeholder='Question' maxlength='50'>"+
+		"<input type='text' class='form-control new_answer' data-id='"+productId+"' placeholder='Answer' maxlength='50'></div>");
+	})
+
+
+
 
 
 });

@@ -34,7 +34,7 @@
         if($profile_pic == "") {
             $profile_pic = DEFAULT_PROFILE; 
         } else {
-            $profile_pic = BASE_URL . $profile_pic . "_80x80.jpg";
+            $profile_pic = BASE_URL ."/". $profile_pic . "_80x80.jpg";
         } 
     }  
        
@@ -50,21 +50,25 @@
             <div class="col">
 
                 <!-- PROFILE -->
-                <div class='container p-lg-5 p-md-5 rounded mb-5' style='background:white;'>
+                <div class='container p-5 rounded mb-5' style='background:white;'>
                     <div class="row mb-3">
-                        <div class="col-12">
-                            <div class='d-flex flex-row'>
+                        <div class="col-12 d-flex">
+                            <div class='flex-fill d-sm-flex d-flex flex-lg-row flex-md-row flex-sm-column'>
                                 <div class='flex-fill'>
-                                    <div class="d-flex align-items-center">
+                                    <div class="d-flex flex-lg-row flex-md-row align-items-center flex-sm-column">
                                         <div class='pr-3'>
-                                            <img src='<?= $profile_pic ?>'  class="user-photo circle" height="90px;">
+                                            <img src='<?= $profile_pic ?>'  class="profile_user_photo rounded-circle">
                                         </div>
-                                        <div class="d-flex flex-column">
+                                        <div class="d-flex flex-column text-lg-left text-md-left text-sm-center">
                                             <div>
+                                                <?php if($fname && $lname) { ?>
                                                 <h3><?= $fname . " " . $lname ?></h3>
+                                                <?php } else { ?> 
+                                                <h3><?= $username ?></h3>
+                                                <?php } ?>
                                             </div>
                                             
-                                            <div class="text-gray">
+                                            <div class="text-gray mr-sm-4">
                                                 <?
                                                     $sql = "SELECT last_login FROM tbl_users WHERE id = ?";
                                                     $statement = $conn->prepare($sql);
@@ -105,9 +109,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class='flex-fill text-right'>
+                                <div class='flex-fill text-lg-right text-sm-center'>
                                     <div class="d-flex flex-column">
-                                        <a class='nav-link modal-link px-0' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
+                                        <a class='nav-link modal-link px-0' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_user_pic_modal.php' role='button'>
                                             <i class="fas fa-camera"></i>
                                             Update Image
                                         </a>
@@ -156,6 +160,7 @@
                                     <div class="col">
                                         <div class="container px-0">
 
+                                            <?php if ($fname && $lname) { ?>
                                             <div class="row my-5">
                                                 <div class="col-3">
                                                     Name
@@ -164,8 +169,9 @@
                                                     <?= $fname . " " . $lname ?>
                                                 </div>
                                             </div>  
-
+                                            
                                             <div class="row mb-5">
+                                            <?php } else { echo "<div class='row my-5'>"; } ?>
                                                 <div class="col-3">
                                                     Username
                                                 </div>
@@ -245,45 +251,134 @@
                                                 
                                                 <tr>
 
-                                                    <!-- PURCHASE DATE -->
-                                                    <td>
-                                                        <div class='py-3 text-secondary'><?=date("M d, Y", strtotime($purchaseDate))?></div>
-                                                    </td>
-                                                    
-                                                    
-                                                    <!-- IMAGE, NAME AND VARIATION -->
-                                                    <td class='mx-0'> 
-                                                        <div class='py-3'><?=$transactionCode ?></div>
-                                                    </td>
+                                                    <div>
 
-                                                    <!-- STATUS-->
-                                                    <!-- <td class='mx-0'> 
-                                                        <div class='py-3 text-gray'><?= ucfirst($status) ?></div>
-                                                    </td> -->
-
-                                                    <!-- VIEW -->
-                                                    <td>
-                                                        <div class="py-3">
+                                                        <!-- PURCHASE DATE -->
+                                                        <td>
                                                             <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                                <i class="fas fa-file-download text-gray"></i>
+                                                                <div class='py-3 text-secondary'><?=date("M d, Y", strtotime($purchaseDate))?></div>
                                                             </a>
-                                                        </div>
-                                                    </td>
+                                                        </td>
+                                                        
+                                                        
+                                                        <!-- IMAGE, NAME AND VARIATION -->
+                                                        <td class='mx-0'> 
+                                                            <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
+                                                                <div class='py-3'><?=$transactionCode ?></div>
+                                                            </a>
+                                                        </td>
+
+                                                        <!-- STATUS-->
+                                                        <!-- <td class='mx-0'> 
+                                                            <div class='py-3 text-gray'><?= ucfirst($status) ?></div>
+                                                        </td> -->
+
+                                                        <!-- VIEW -->
+                                                        <td>
+                                                            <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
+                                                                <i class="far fa-file-pdf text-gray py-3"></i>
+                                                            </a>
+                                                        </td>
+                                                        
+                                                    </div>
                                                     
                                                 </tr>
                                                 <?php } ?>
                     
                                             </table>
 
-                                            <?php } ?>
+                                            
                                         
                                         </div>
                                     </div>
                                 </div>
+                                <?php } ?>
+
+                                <!-- CONFIRMED TRANSACTIONS -->
+                                <?php
+                                    $sql = "SELECT o.*, s.name as 'status' FROM tbl_orders o JOIN tbl_status s ON o.status_id=s.id WHERE `user_id` = ? AND status_id = 2 ORDER BY o.purchase_date DESC";
+                                                $statement = $conn->prepare($sql);
+                                                $statement->execute([$id]);
+                                                $count = $statement->rowCount();
+                            
+                                            if($count) {
+                                ?>
+                                <div class="row border-top">
+                                    <div class="col px-2">
+                                        <div class="container px-0">
+                                            <table class="table table-hover borderless mt-4 text-center">
+                                                <tr>
+                                                    <h4 class='text-gray pl-3 mt-5'>Confirmed Orders</h4>
+                                                    
+                                                </tr>
+                                                
+                                                <tr>
+                                                    <thead class='text-secondary bg-gray'>
+                                                        <th>Date</th>
+                                                        <th>Transaction Code</th>
+                                                        <!-- <th>Status</th> -->
+                                                        <th>View</th>
+                                                    </thead>
+                                                </tr>                               
+                        
+                                                <?php 
+                                                        while($row = $statement->fetch()){ 
+                                                        $transactionId = $row['id'];
+                                                        $transactionCode = $row['transaction_code'];
+                                                        $purchaseDate = $row['purchase_date'];
+                                                        // $status = $row['status'];
+                                                        $orderHistoryCartSession = $row['cart_session'];
+                                            
+                                                ?>
+                                                
+                                                <tr>
+
+                                                    <div>
+
+                                                        <!-- PURCHASE DATE -->
+                                                        <td>
+                                                            <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
+                                                                <div class='py-3 text-secondary'><?=date("M d, Y", strtotime($purchaseDate))?></div>
+                                                            </a>
+                                                        </td>
+                                                        
+                                                        
+                                                        <!-- IMAGE, NAME AND VARIATION -->
+                                                        <td class='mx-0'> 
+                                                            <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
+                                                                <div class='py-3'><?=$transactionCode ?></div>
+                                                            </a>
+                                                        </td>
+
+                                                        <!-- STATUS-->
+                                                        <!-- <td class='mx-0'> 
+                                                            <div class='py-3 text-gray'><?= ucfirst($status) ?></div>
+                                                        </td> -->
+
+                                                        <!-- VIEW -->
+                                                        <td>
+                                                            <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
+                                                                <i class="far fa-file-pdf text-gray py-3"></i>
+                                                            </a>
+                                                        </td>
+                                                        
+                                                    </div>
+                                                    
+                                                </tr>
+                                                <?php } ?>
+                    
+                                            </table>
+
+                                            
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php } ?>
 
                                 <!-- COMPLETED TRANSACTIONS -->
                                 <?php
-                                    $sql = "SELECT o.*, s.name as 'status' FROM tbl_orders o JOIN tbl_status s ON o.status_id=s.id WHERE `user_id` = ? AND status_id = 2 ORDER BY o.purchase_date DESC";
+                                    $sql = "SELECT o.*, s.name as 'status' FROM tbl_orders o JOIN tbl_status s ON o.status_id=s.id WHERE `user_id` = ? AND status_id = 3 ORDER BY o.purchase_date DESC";
                                             $statement = $conn->prepare($sql);
                                             $statement->execute([$id]);
                                             $count = $statement->rowCount();
@@ -325,13 +420,17 @@
 
                                                     <!-- PURCHASE DATE -->
                                                     <td>
-                                                        <div class='py-3 text-secondary'><?=date("M d, Y", strtotime($purchaseDate))?></div>
+                                                        <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
+                                                            <div class='py-3 text-secondary'><?=date("M d, Y", strtotime($purchaseDate))?></div>
+                                                        </a>
                                                     </td>
                                                     
                                                     
                                                     <!-- IMAGE, NAME AND VARIATION -->
                                                     <td class='mx-0'> 
-                                                        <div class='py-3'><?=$transactionCode ?></div>
+                                                        <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
+                                                            <div class='py-3'><?=$transactionCode ?></div>
+                                                        </a>
                                                     </td>
 
                                                     <!-- STATUS-->
@@ -341,11 +440,9 @@
 
                                                     <!-- VIEW -->
                                                     <td>
-                                                        <div class="py-3">
                                                         <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                                <i class="fas fa-file-download text-gray"></i>
-                                                            </a>
-                                                        </div>
+                                                            <i class="fas fa-file-download text-gray py-3"></i>
+                                                        </a>
                                                     </td>
                                                     
                                                 </tr>
@@ -353,17 +450,18 @@
                     
                                             </table>
 
-                                            <?php } ?>
+                                            
 
                                         </div>
 
                                     </div>
                                 </div>
+                                <?php } ?>
 
 
                                 <!-- CANCELLED TRANSACTIONS -->
                                 <?php
-                                    $sql = "SELECT o.*, s.name as 'status' FROM tbl_orders o JOIN tbl_status s ON o.status_id=s.id WHERE `user_id` = ? AND status_id = 3 ORDER BY o.purchase_date DESC";
+                                    $sql = "SELECT o.*, s.name as 'status' FROM tbl_orders o JOIN tbl_status s ON o.status_id=s.id WHERE `user_id` = ? AND status_id = 4 ORDER BY o.purchase_date DESC";
                                             $statement = $conn->prepare($sql);
                                             $statement->execute([$id]);
                                             $count = $statement->rowCount();
@@ -405,13 +503,17 @@
 
                                                     <!-- PURCHASE DATE -->
                                                     <td>
-                                                        <div class='py-3 text-secondary'><?=date("M d, Y", strtotime($purchaseDate))?></div>
+                                                        <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
+                                                            <div class='py-3 text-secondary'><?=date("M d, Y", strtotime($purchaseDate))?></div>
+                                                        </a>
                                                     </td>
                                                     
                                                     
                                                     <!-- IMAGE, NAME AND VARIATION -->
                                                     <td class='mx-0'> 
-                                                        <div class='py-3'><?=$transactionCode ?></div>
+                                                        <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
+                                                            <div class='py-3'><?=$transactionCode ?></div>
+                                                        </a>
                                                     </td>
 
                                                     <!-- STATUS-->
@@ -421,11 +523,9 @@
 
                                                     <!-- VIEW -->
                                                     <td>
-                                                        <div class="py-3">
                                                         <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                                <i class="fas fa-file-download text-gray"></i>
-                                                            </a>
-                                                        </div>
+                                                            <i class="fas fa-file-download text-gray py-3"></i>
+                                                        </a>
                                                     </td>
                                                     
                                                 </tr>
@@ -433,14 +533,16 @@
                     
                                             </table>
 
-                                            <?php } ?>
+                                            
 
                                         </div>
 
                                     </div>
                                 </div>
+                                <?php } ?>
 
                             </div>
+                            
 
 
                              <!-- PRODUCTS TO REVIEW -->
@@ -456,22 +558,22 @@
                                 </div>
                                 
                                 <div class="row border-top">
+                                        <?php 
+                                            $sql = "SELECT cart_session,purchase_date 
+                                                    FROM tbl_orders WHERE `user_id` = ? 
+                                                    AND status_id = 2 ORDER BY purchase_date DESC";
+                                                $statement = $conn->prepare($sql);
+                                                $statement->execute([$id]);
+                                                $count = $statement->rowCount();
+
+                                                if($count) {
+                                        ?>
                                     <div class="col px-0">
                                         <div class="container px-2">
-                                               
                                             <table class="table table-hover borderless mt-4">
-                                                
-                                            
-                        
-                                                <?php 
-                                                    $sql = "SELECT cart_session,purchase_date 
-                                                            FROM tbl_orders WHERE `user_id` = ? 
-                                                            AND status_id = 2 ORDER BY purchase_date DESC";
-                                                        $statement = $conn->prepare($sql);
-                                                        $statement->execute([$id]);
-                                                        $count = $statement->rowCount();
-                                     
-                                                    if($count) {
+
+ 
+                                                <?php
                                                     while($row = $statement->fetch()){ 
                                                         $completeOrderSession = $row['cart_session'];
 
@@ -503,16 +605,20 @@
                                                     <!-- IMAGE, NAME AND VARIATION -->
                                                     <td class='mx-0 flex-fill'> 
                                                         <!-- <input type="text" value='<?=$completeOrderSession?>'> -->
-                                                        <a href="product.php?id=<?=$completeOrderProductId?>" target='_blank'>
+                                                        <a data-url="../partials/templates/review_product_modal.php" 
+                                                                data-productid='<?=$completeOrderProductId?>' 
+                                                                class='btn btn_review_product btn_products_to_review<?=$completeOrderProductId?>' 
+                                                                style='cursor:pointer;size:15px;'>
+                                                            
                                                             <div class='d-flex flex-row align-items-center' style='justify-content:flex-start;'>
                                                                 <div class='flex pr-2'>
-                                                                    <img src='<?=$completeOrderLogo?>' style='width:100px;height:100px;'>
+                                                                    <img src='<?=$completeOrderLogo?>' style='width:80px;height:80px;'>
                                                                 </div>   
                                                                 <div class='flex-fill'>
-                                                                    <div class='d-flex flex-column'>
+                                                                    <div class='d-flex flex-column text-left'>
                                                                     
                                                                             <div>
-                                                                                <h4 class='text-secondary'><?= $completeOrderProductName ?></h4>
+                                                                                <div class='text-secondary'><?= $completeOrderProductName ?></div>
                                                                             </div>
                                                                             <div>
                                                                                 <div class='text-gray'><?= $completeOrderVariationName ?></div>
@@ -531,18 +637,19 @@
 
                                                     <!-- RATING MODAL -->
                                                     <td class='flex'>
-                                                     
-                                                        <div class="py-2">
-                                                            <a data-url="../partials/templates/review_product_modal.php" data-productid='<?=$completeOrderProductId?>' class='btn btn-block border btn_review_product' style='cursor:pointer;size:15px;'>
-                                                                <small class='text-gray'>REVIEW PRODUCT</small>
-                                                            </a>
-                                                        </div>
-
+                                                        <a data-url="../partials/templates/review_product_modal.php" 
+                                                                data-productid='<?=$completeOrderProductId?>' 
+                                                                class='btn btn_review_product btn_products_to_review<?=$completeOrderProductId?> py-2' 
+                                                                style='cursor:pointer;size:15px;'>
+                                                           
+                                                                <?=changeWordInsideProductRatingButton($conn,$completeOrderProductId)?>
+                                                            
+                                                        </a>
                                                     </td>
                                                     
                                                 </tr>
                         
-                                                <?php } } } }?>
+                                                <?php } } } ?>
                                             
 
 
@@ -551,6 +658,7 @@
                                         </div>
 
                                     </div>
+                                    <?php } ?>
                                 </div>
                             </div>
 
@@ -571,7 +679,7 @@
                                                 <h4>Addresses</h4>
                                             </div>
                                             <div class='flex-fill text-right'>
-                                                <a class='nav-link modal-link' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_modal.php' role='button'>
+                                                <a class='nav-link modal-link' href='#' data-id='<?= $id ?>' data-url='../partials/templates/edit_address_modal.php' role='button'>
                                                     <i class="far fa-edit"></i>
                                                     Edit
                                                 </a>
@@ -684,15 +792,15 @@
                                                     <!-- IMAGE, NAME AND VARIATION -->
                                                     <td class='mx-0'> 
                                                         <a href="product.php?id=<?=$productId?>" target='_blank'>
-                                                            <div class='d-flex flex-row align-items-center' style='justify-content:flex-start;'>
+                                                            <div class='d-flex flex-row align-items-center mx-0 px-1' style='justify-content:flex-start;'>
                                                                 <div class='flex pr-2'>
-                                                                    <img src='<?=$image?>' style='width:100px;height:100px;'>
+                                                                    <img src='<?=$image?>' style='width:80px;height:80px;'>
                                                                 </div>   
                                                                 <div class='flex-fill'>
                                                                     <div class='d-flex flex-column'>
                                                                     
                                                                             <div>
-                                                                                <h4 class='text-secondary'><?= $name ?></h4>
+                                                                                <div class='text-secondary'><?= $name ?></div>
                                                                             </div>
                                                                             <div>
                                                                                 <span class='text-gray'>&#8369;&nbsp;</span>
@@ -731,6 +839,113 @@
                                 </div>
                             </div>
                             
+
+                            <!-- MESSAGES -->
+                            <div class="container p-5 rounded mb-5" style='background:white;height:650px;'>
+                                <div class="row mb-3">
+                                    <div class="col-4">   
+                                        <h4>Inbox</h4>  
+                                    </div>
+                                    <div class="col">
+                                        <!-- <input type="text" 
+                                            placeholder="&#128269;" 
+                                            class='border-bottom border-top-0 border-right-0 border-left-0' 
+                                            id='search_store_name' style='width:100%;'>
+                                    </div> -->
+                                        <div class="input-group" style='width:100%;'>
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text border-right-0 border-left-0 border-top-0" style='background:white;'>
+                                                    <i class="fas fa-search" style='background:white;'></i>
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control border-right-0 border-left-0 border-top-0" id="search_store_name">
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                
+                                <div class='row'>
+                                    <!-- SELLERS/STORES -->
+                                    <div class="col-lg-3 col-md-3 col-sm-3 mx-0 px-0" style='background:white;height:530px;overflow-y:auto;'>
+                                       
+                                        <table class="table table-hover borderless" id='sender_container'>
+                                            
+                                        
+                    
+                                            <?php 
+                                                // CHECK IF THERE IS AN EXISTING CONVERSATIONS INITIATED BY THE BUYER
+                                                $sql = "SELECT * FROM tbl_conversations 
+                                                WHERE `from` = ? "; // named parameters
+                                                $statement = $conn->prepare($sql);
+                                                $statement->execute([$id]);
+                                                if($statement->rowCount()) {
+                                                    while($row = $statement->fetch()){
+                                                    $conversationId = $row['id'];  
+                                                    $sellerId = $row['to'];
+
+                                            ?>
+                                            
+
+                                            
+                                            <tr>
+                                                
+                                                
+                                                <!-- IMAGE, NAME AND VARIATION -->
+                                                <td> 
+                                                    <a data-sellerid='<?= $sellerId ?>' data-conversationid='<?=$conversationId?>' class='selected_conversation'>
+                                                        <div class='d-flex flex-row align-items-center' style='justify-content:flex-start;'>
+                                                            <div class='flex'>
+                                                                <img src='<?=getStoreLogo ($conn,$sellerId)?>' style='width:40px;height:40px;' class='circle'>
+                                                            </div>   
+                                                            <div class='flex-fill vanish-sm vanish-md'>
+                                                                <div class='d-flex flex-column'>
+                                                                
+                                                                        
+                                                                    <small class='text-secondary'><?= getStoreName ($conn,$sellerId) ?></small>
+                                                                    <!-- DATE SENT -->
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a> 
+                                                </td>
+
+                            
+                                            </tr>
+                    
+                                            <?php } } ?>
+                                        
+
+
+                                        </table>
+                                        
+                                    </div>
+                                    
+                                    <!-- MESSAGES -->
+                                    <div class="col mx-0 px-0 no-gutters">
+                                        <div class="container border-bottom-0  mx-0 px-0 no-gutters">
+                                            <input type='hidden' id='profile_conversation_id'>    
+                                            <div class="row no-gutters">
+                                                <div class="col-12" id='profile_message_container' style='background:white;height:460px;overflow-y:auto;'>
+                                                <!-- WHERE FETCHED MESSAGES ARE DISPLAYED -->
+                                                </div>
+                                            </div>
+                                            <div class="row no-gutters">
+                                                <div class="col-12">
+                                                    <form>
+                                                        <textarea class="form-control border-0" 
+                                                            id="profile_message_input" 
+                                                            data-sellerid='<?= $sellerId ?>' 
+                                                            style='width:100%;background:#eff0f5;resize:none;' 
+                                                            rows='3'></textarea>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                            
 
                         </div>
@@ -739,67 +954,6 @@
 
                 </div>
                 <!-- /SECOND ROW -->
-
-
-                <!-- MESSEGING -->
-                <div class="container p-5 rounded mb-5" style='background:white;' id="main-wrapper">
-                    <div class="row mb-3">
-                        <div class="col">
-                            <div class='d-flex flex-row'>
-                                <div class='flex-fill'>
-                                    <h4>Messages</h4>
-                                </div>
-                                <div class='flex-fill text-right'>
-                                    <a class='nav-link modal-link' href='#' data-id='<?= $id ?>' data-url='../partials/templates/edit_user_modal.php' role='button'>
-                                        <i class="far fa-edit"></i>
-                                        Edit
-                                    </a>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="row border-top">
-                        <!-- LEFT OF MAIN BAR -->
-                        <div class="col-lg-6 col-md-4 col-sm-12">
-                            <div class="container px-0">
-
-                                <div class="row my-5">
-                                    <div class="col-3">
-                                        Name
-                                    </div>
-                                    <div class="col">
-                                        <?= $fname . " " . $lname ?>
-                                    </div>
-                                </div>  
-
-                                <div class="row mb-5">
-                                    <div class="col-3">
-                                        Username
-                                    </div>
-                                    <div class="col">
-                                        <?= $username ?>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-3">
-                                        Email
-                                    </div>
-                                    <div class="col">
-                                        <?= hide_email($email) ?>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <!-- /LEFT OF MAIN BAR -->
-
-                       
-                    </div>
-                </div>
 
 
 

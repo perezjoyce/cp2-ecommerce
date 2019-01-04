@@ -1,3 +1,4 @@
+<?php require_once "../../config.php";?>
 <?php require_once "../partials/header.php";?>
 <?php require_once "../controllers/connect.php";?>
 
@@ -172,7 +173,7 @@
               <div class="row">
                 <a href="product.php?id=<?= $id ?>">
                   <div class='card border-0' style='width:184.5px;'>
-                    <a href="store.php?id=<?= $row['id'] ?>">
+                    <a href="store-profile.php?id=<?= $row['id'] ?>">
                       <img class='card-img-top' src="<?= $item_img ?>">
                     </a> 
                   </div>
@@ -182,7 +183,7 @@
               <div class="row">
                 <a href="product.php?id=<?= $id ?>">
                   <div class='card border-0' style='width:184.5px;'>
-                    <a href="store.php?id=<?= $row['id'] ?>">
+                    <a href="store-profile.php?id=<?= $row['id'] ?>">
                       <img class='card-img-top' src="<?= $item_img ?>">
                     </a> 
                   </div>
@@ -226,7 +227,7 @@
           <div class="col-lg-2 col-md-3">
             <a href="product.php?id=<?= $id ?>">
               <div class = 'card border-0'>
-                <a href="store.php?id=<?= $row['id'] ?>">
+                <a href="store-profile.php?id=<?= $row['id'] ?>">
                   <img class='card-img-top' src="<?= $item_img ?>">
                 </a> 
               </div>

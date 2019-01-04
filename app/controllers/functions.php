@@ -150,7 +150,7 @@
         return $rating;
     }
 
-    // CHANGE BEGINNING LETTER TO UPPERCASE
+    // CHANGE BEGINNING LETTER TO UPPERCASE --> ucwords?
     function capitalizeFirstLetter($word) {
         return str_replace('( ', '(', ucwords(str_replace('(', '( ', ucwords(strtolower($word)))));
     }
@@ -163,7 +163,159 @@
         $row = $statement->fetch();
         $username = $row['username'];
 
-        return ucwords($username);
+        return strtoupper($username);
+    }
+
+    // GET FIRST NAME
+    function getFirstName ($conn,$userId) {
+        $sql = " SELECT * FROM tbl_users WHERE `id`=? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$userId]);
+        $row = $statement->fetch();
+        $firstName = $row['first_name'];
+
+        return strtoupper($firstName);
+    }
+
+    // GET LASTNAME
+    function getLastName ($conn,$userId) {
+        $sql = " SELECT * FROM tbl_users WHERE `id`=? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$userId]);
+        $row = $statement->fetch();
+        $lastName = $row['last_name'];
+
+        return strtoupper($lastName);
+    }
+
+    // GET NAME FROM BILLIG ID
+    function getWhoWillPay ($conn,$billingAddressId){
+        $sql = " SELECT * FROM tbl_addresses WHERE `id`=? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$billingAddressId]);
+        $row = $statement->fetch();
+        $name = $row['name'];
+
+        return $name;
+    }
+
+    // GET STORE NAME
+    function getStore ($conn,$storeId) {
+        $sql = " SELECT * FROM tbl_stores WHERE `id`=? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$storeId]);
+        if($statement->rowCount()) {
+            return $statement->fetch();
+        }
+
+        throw new \Exception("No store with ID: $storeId");
+    }
+
+    // GET STORE NAME
+    function getStoreName ($conn,$userId) {
+        $sql = " SELECT * FROM tbl_stores WHERE `user_id`=? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$userId]);
+        $row = $statement->fetch();
+        $storeName = $row['name'];
+
+        return $storeName;
+    }
+
+    // GET STORE LOGO
+    function getStoreLogo ($conn,$userId) {
+        $sql = " SELECT * FROM tbl_stores WHERE `user_id`=? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$userId]);
+        $row = $statement->fetch();
+        $storeLogo = $row['logo'];
+
+        return $storeLogo;
+    }
+
+    // GET AVERAGE RATING PER STORE
+    function getAverageStoreRating ($conn, $storeId) {
+       
+        $sql = "SELECT i.store_id, AVG(product_rating) as 'averageRating' FROM tbl_ratings LEFT JOIN tbl_items i ON product_id = i.id WHERE store_id = ?";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$storeId]);
+        $row = $statement->fetch();
+        $averageStoreRating = $row['averageRating'];	
+        $averageStoreRating = round($averageStoreRating,1);
+
+        return $averageStoreRating;
+                        
+    }
+
+    // GET STORE DESCRIPTION
+    function getStoreDescription ($conn,$userId) {
+        $sql = " SELECT * FROM tbl_stores WHERE `user_id`=? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$userId]);
+        $row = $statement->fetch();
+        $storeDescription = $row['description'];
+
+        return $storeDescription;
+    }
+
+    // GET STORE DESCRIPTION
+    function getStoreAddress ($conn,$userId) {
+        $sql = " SELECT * FROM tbl_stores WHERE `user_id`=? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$userId]);
+        $row = $statement->fetch();
+        $storeAddress = $row['store_address'];
+
+        return $storeAddress;
+    }
+
+    // GET STORE BUSINESS HOURS
+    function getStoreHours ($conn,$userId) {
+        $sql = " SELECT * FROM tbl_stores WHERE `user_id`=? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$userId]);
+        $row = $statement->fetch();
+        $storeHours = $row['hours'];
+
+        return $storeHours;
+    }
+
+    // GET STORE ID FROM USER ID
+    function getStoreId ($conn,$userId) {
+        $sql = " SELECT * FROM tbl_stores WHERE `user_id`=? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$userId]);
+        $row = $statement->fetch();
+        $storeId = $row['id'];
+
+        return $storeId;
+    }
+
+    // COUNT STORE FOLLOWERS 
+    function countFollowers ($conn, $storeId) {
+        $sql = " SELECT COUNT(*) AS 'followers' FROM tbl_followers WHERE store_id = ? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$storeId]);
+        $row = $statement->fetch();
+        $storeFollowers = $row['followers'];
+
+        return $storeFollowers;
+    }
+
+    // GET MEMBERSHIP DATE
+    function getMembershipDate($conn, $storeId) {
+        
+        $sql = "SELECT DATE_FORMAT(date_created, '%M %d, %Y') AS 'dateJoined' FROM tbl_stores WHERE id = ?";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$storeId]);
+        $row = $statement->fetch();
+        $dateJoined = $row['dateJoined'];	
+        $month = substr($dateJoined,0,3);
+        $daysYear = substr(strstr($dateJoined," "), 1);
+        $dateJoined = $month." ".$daysYear;
+
+        return $dateJoined;
+                    
     }
 
     // GET PROFILE PIC 
@@ -196,11 +348,12 @@
         $statement->execute([$productId]);
         $row = $statement->fetch();
         $shippingFee = $row['standard_shipping'];
-        $shippingFee = number_format((float)$shippingFee, 2, '.', '');    
+        $shippingFee = number_format((float)$shippingFee, 2, '.', ',');    
         return $shippingFee;
 
     }
 
+    
     // SHOW MINIMUM AMOUNT REQUIRED TO AVAIL FREE SHIPPING
     function displayFreeShippingMinimum($conn,$productId) {
         $sql = "SELECT s.free_shipping_minimum, i.store_id, i.id FROM tbl_stores s 
@@ -209,21 +362,56 @@
         $statement->execute([$productId]);
         $row = $statement->fetch();
         $freeShippingMinimum =$row['free_shipping_minimum'];
-        $freeShippingMinimum = number_format((float)$freeShippingMinimum, 2, '.', '');    
+        $freeShippingMinimum = number_format((float)$freeShippingMinimum, 2, '.', ',');    
 
         if($freeShippingMinimum != 0 || !$freeShippingMinimum ){
             return $freeShippingMinimum;
         }
     }
 
+    // SHOW SHIPPING FEE FROM STORE ID
+    function displayStoreShippingFee($conn,$storeId) {
+        $sql = "SELECT s.standard_shipping, i.store_id, i.id FROM tbl_stores s 
+        JOIN tbl_items i ON i.store_id = s.id WHERE store_id = ? GROUP BY store_id";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$storeId]);
+        $row = $statement->fetch();
+        $storeShippingFee = $row['standard_shipping'];
+        $storeShippingFe = number_format((float)$storeShippingFee, 2, '.', ',');    
+        return $storeShippingFe;
+
+    }
+
+    // SHOW FREE SHIPPING FROM STORE ID
+    function displayStoreFreeShipping($conn,$storeId) {
+        $sql = "        SELECT s.free_shipping_minimum, i.store_id, i.id FROM tbl_stores s 
+        JOIN tbl_items i ON i.store_id = s.id WHERE store_id = ? GROUP BY store_id";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$storeId]);
+        $row = $statement->fetch();
+        $storeFreeShipping =$row['free_shipping_minimum'];
+        $storeFreeShipping = number_format((float) $storeFreeShipping, 2, '.', ',');    
+
+        if( $storeFreeShipping != 0 || !$storeFreeShipping){
+            return $storeFreeShipping;
+        }
+    }
+
     //DISPLAY GRANDTOTAL (WITHOUT SHIPPING)
     function displayGrandTotal($conn, $cartSession) {
-        $sql = "SELECT c.cart_session, SUM(i.price * c.quantity) AS 'grandTotal' FROM tbl_items i JOIN tbl_carts c JOIN tbl_variations v ON v.product_id=i.id AND c.variation_id=v.id WHERE c.cart_session = ? ";
+        $sql = "SELECT c.cart_session, SUM(i.price * c.quantity) 
+        AS 'grandTotal' 
+        FROM tbl_items i 
+        JOIN tbl_carts c 
+        JOIN tbl_variations v 
+        ON v.product_id=i.id 
+        AND c.variation_id=v.id 
+        WHERE c.cart_session = ? ";
         $statement = $conn->prepare($sql);
         $statement->execute([$cartSession]);
         $row = $statement->fetch();
         $grandTotal = $row['grandTotal'];
-        $grandTotal = number_format((float)$grandTotal, 2, '.', '');    
+        $grandTotal = number_format((float)$grandTotal, 2, '.', ',');    
         
         return $grandTotal;
     }
@@ -317,7 +505,7 @@
         $row = $statement->fetch();
         $sRegionName = $row['regDesc'];
 
-        echo  $sRegionName;
+        return  $sRegionName;
     }
 
     // GET PROVINCE NAME
@@ -329,7 +517,7 @@
         $sProvName = $row['provDesc'];
         $sProvName = ucwords(strtolower($sProvName));
 
-        echo  $sProvName;
+        return  $sProvName;
     }
 
     // GET CITY NAME 
@@ -341,7 +529,7 @@
         $sCityName = $row['citymunDesc'];
         $sCityName = ucwords(strtolower($sCityName));
 
-        echo $sCityName;
+        return $sCityName;
     }
 
     // GET BRGY NAME
@@ -353,7 +541,7 @@
         $sBrgyName = $row['brgyDesc'];
         $sBrgyName = ucwords(strtolower($sBrgyName));
 
-        echo $sBrgyName;
+        return $sBrgyName;
     }
 
     //GET MODE OF PAYMENT
@@ -368,7 +556,17 @@
             $paymentModeName = 'Cash On Delivery (COD)';
         }
 
-        echo $paymentModeName;
+        return $paymentModeName;
+    }
+
+    function getModeOfPaymentShort($conn, $paymentModeId){
+        $sql = "SELECT `name` FROM tbl_payment_modes WHERE id = ?";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$paymentModeId]);	
+        $row = $statement->fetch();
+        $paymentModeName = $row['name'];
+
+        return $paymentModeName;
     }
 
 
@@ -382,5 +580,144 @@
         $status = ucfirst($status);
         
         // var_dump($status);die();
-        echo $status;
+        return $status;
+    }
+
+    // CHANGE WORD INSIDE THE PRODUCT RATING
+    function changeWordInsideProductRatingButton($conn,$productId){
+
+        $userId = $_SESSION['id'];
+        $sql = " SELECT r.product_id, r.user_id, r.rating_is_final, ri.is_final 
+        FROM tbl_ratings r JOIN tbl_rating_images ri 
+        ON ri.rating_id=r.id WHERE r.product_id=? 
+        AND r.user_id=? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$productId, $userId]);
+        $count = $statement->rowCount();
+
+        if($count) {
+        $row = $statement->fetch();
+        $finalRatingScore = $row['rating_is_final'];
+        $isFinal = $row['is_final']; // DONE WHEN SUBMIT BUTTON IS CLICKED. ALL DATA INSIDE IS CONSIDERED FINAL WHETHER FILLED OUT OR NOT.
+
+            if($finalRatingScore == 0 && $finalImages == 0){
+                echo "<small class='text-gray font-weight-light'>REVIEW PRODUCT</small>";
+            }else {
+                echo "<small class='text-gray font-weight-light'>REVIEWED</small>";
+            }
+
+        } else {
+            echo "<small class='text-gray font-weight-light'>REVIEW PRODUCT</small>";
+        }
+    }
+
+    function getUser($conn, $userId) {
+        $sql = "SELECT * FROM tbl_users WHERE id=?";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$userId]);
+        if($statement->rowCount()) {
+            $row = $statement->fetch();
+            return $row;
+        }
+
+        throw new \Exception("No user fetched");
+    }
+
+    function getCurrentFile() {
+        return basename($_SERVER['PHP_SELF']);
+    }
+
+    function isCurrentPage($pageName) {
+        if(strpos(getCurrentFile(), $pageName) !== false) {
+            return true;
+        }
+    }
+
+    // GET NAME FROM SHIPPING ADDRESS ID
+    function getNameFromShippingAddressId($conn,$shippingAddressId){
+        $sql = "SELECT * FROM tbl_addresses WHERE id = ?";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$shippingAddressId]);	
+        $row = $statement->fetch();
+        $recepient = $row['name'];
+        $recepient = ucwords(strtolower($recepient));
+       
+        return $recepient;
+    }
+
+    // GET CATEGORY NAME
+    function getCategoryRow($conn,$productSubCategoryId){
+        $sql = "SELECT * FROM tbl_categories WHERE id = ?";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$productSubCategoryId]);	
+        $row = $statement->fetch();
+   
+        return $row;
+    }
+
+    // GET PARENT CATEGORY
+    function getCategoryName($conn,$categoryId){
+        $sql = "SELECT * FROM tbl_categories WHERE id = ?";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$categoryId]);	
+        $row = $statement->fetch();
+        $categoryName = $row['name'];
+   
+        return $categoryName;
+    }
+
+    
+
+    // GET BRAND NAME
+    function getBrandName($conn,$brandId){
+        $sql = "SELECT * FROM tbl_brands WHERE id = ?";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$brandId]);	
+        $row = $statement->fetch();
+        $brandName = $row['brand_name'];
+   
+        return $brandName;
+    }
+
+    // CONVERT TO DECIMAL
+    function convertToDecimal($number){
+       echo number_format((float)$number, 2, '.', ',');  
+    }
+
+    // GET LAST LOGIN
+    function getLastLogin($conn, $userId){
+        $sql3 = "SELECT last_login FROM tbl_users WHERE id = ?";
+        $statement3 = $conn->prepare($sql3);
+        $statement3->execute([$userId]);	
+        $row3 = $statement3->fetch();
+        $lastLogin = $row3['last_login'];
+        $datetime1 = new DateTime($lastLogin);
+        $datetime2 = new DateTime();
+        $interval = $datetime1->diff($datetime2);
+        $ago = "";
+
+        
+        if($interval->format('%w') != 0) {
+            $ago = $interval->format('Active %w weeks ago');
+        } else {
+            if($interval->format('%d') != 0) {
+                $ago = $interval->format('Active %d days ago ');
+            } else {
+                if($interval->format('%h') != 0) {
+                    $ago = $interval->format('Active %h hrs ago');
+                } elseif($interval->format('%i') != 0) {
+                    $ago = $interval->format('Active %i minutes ago');
+                } else {
+                    $ago = "
+                    <small>
+                        <i class='fas fa-circle text-success'>&nbsp;</i>
+                    </small>
+                    Active Now
+                    ";
+                }
+            }
+            
+        }
+
+        echo $ago;
     }

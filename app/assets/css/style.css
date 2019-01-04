@@ -20,7 +20,7 @@ nav, footer, .white-bg {
 }
 
 .card {
-    background-color: white!important;
+    background-color: transparent!important;
 }
 
 .card-body {
@@ -32,13 +32,13 @@ h1, h2, h3, h4, h5 {
     font-family: 'Roboto-Regular', 'Tahoma', sans-serif!important;
 }
 
-p, div, a, small, button, .text-responsive {
+p, div, a, small, .small, button, .text-responsive {
     font-family: 'Open Sans', 'Tahoma', sans-serif!important;
 }
 /* FONT SIZE  & STYLE*/
 html {
     /* font size root */
-    font-size: 12px;
+    font-size: 13px;
     /* background-color: #000000; */
 }
 
@@ -108,9 +108,12 @@ card-title {
     clip-path: circle(46% at 50% 50%);
 }
 
-.user-photo {
-    max-width: 80px;
+.profile_user_photo {
+   width:100px;
+   height:100px;
 }
+
+
 
 #product-review {
     resize: none;
@@ -129,12 +132,12 @@ a.btn-border {
 
 
 .text-purple {
-    color: #c471ed!important;
+    color: #8e44ad!important;
 }
 
 .purple-link:focus,
 .purple-link:hover {
-    color: #c471ed!important;
+    color: #8e44ad!important;
     font-weight: bolder!important;
 }
 
@@ -150,6 +153,8 @@ div.card:hover {
 .text-gray {
     color: darkgray!important;
 }
+
+
 
 
 
@@ -184,25 +189,34 @@ div.card:hover {
 }
 
 .btn-purple-reverse {
-    background: #edd4f9;
-    border: 1px solid #c471ed!important;
-    color: #9c5abd!important;
+    background: white;
+    border: 2px solid #8e44ad!important;
+    color: #8e44ad!important;
     font-weight:500;
 }
+.btn-purple-reverse:hover {
+    background: #8e44ad!important;
+    border: 2px solid #8e44ad!important;
+    color: white!important;
+    font-weight:500;
+}
+
 
 
 
 .btn-purple:hover  {
-    background: #edd4f9;
-    border: 1px solid #c471ed!important;
-    color: #9c5abd!important;
+    background: white;
+    border: 2px solid #8e44ad!important;
+    color: #8e44ad!important;
     font-weight:500;
 }
 
 .btn-purple{
-    background:  #c471ed;
+    background:  #8e44ad;
     /* border: 1px solid#894fa5!important; */
+    border: 2px solid #8e44ad!important;
     color: white!important;
+    
     font-weight:500;
 }
 
@@ -227,7 +241,7 @@ div.card:hover {
 }
 
 .btn-gray:hover {
-    color:  #c471ed!important;
+    color:  #8e44ad!important;
    
 } 
 
@@ -245,6 +259,17 @@ div.card:hover {
 }
 
 /* STARS */
+.star2x {
+    content:'★';
+    zoom:400%;
+    color:gold!important;
+}
+
+.star2x-gray {
+    content:'★';
+    zoom:400%;
+    color:lightgray!important;
+}
 
 .star {
     content:'★';
@@ -321,6 +346,7 @@ div.card:hover {
   
 
 .stars-container {
+    width: 130px;
     position: relative;
     display: inline-block;
     color: transparent;
@@ -328,20 +354,20 @@ div.card:hover {
   
 .stars-container:before {
     position: absolute;
-    top: 0;
+    top: -5px;
     left: 0;
     content: '★★★★★';
-    zoom:100%;
+    zoom:200%;
     color: lightgray;
 }
   
 .stars-container:after {
     position: absolute;
-    top: 0;
+    top: -5px;
     left: 0;
     content: '★★★★★';
     color: gold;
-    zoom:100%;
+    zoom:200%;
     overflow: hidden;
 }
 
@@ -389,8 +415,8 @@ width: 30%;
 
 /* Create an active/current tablink class */
 .tab button.active {
-color: #c471ed;
-border-bottom: 2px solid #c471ed;
+color: #8e44ad;
+border-bottom: 2px solid #8e44ad;
 }
 
 /* Style the tab content */
@@ -441,7 +467,7 @@ border-top: none;
 
 .product_details::before {
     content: "\2022";
-    color: #c471ed;
+    color: #8e44ad;
     font-weight: bold;
     display: inline-block; 
     width: 1.5em;
@@ -455,6 +481,8 @@ textarea {
 textarea:focus, textarea:active {
     box-shadow: none!important;
     background: #eff0f5!important;
+    border-color:white;
+    outline:none!important;
 }
 
 
@@ -516,7 +544,7 @@ input#register_password:focus,
 input#cpass:focus {
     -webkit-box-shadow: none!important;
     box-shadow: none!important;
-    border-bottom: 1px solid #c471ed!important;
+    border-bottom: 1px solid #8e44ad!important;
 }
 
 div#login_image {
@@ -546,6 +574,97 @@ div#login_ad {
 div#login_image {
     background-image: url("../../assets/images/sample.jpg")!important;
 }
+
+/* ================================ Message Box =================================== */
+
+#message_box {
+    position: fixed;
+    z-index: 100;
+    bottom: 30px;
+    right: 30px;
+    height: 40px;
+    width: 40px;
+    border-radius: 100px;
+    
+}
+
+.message_box__relative {
+    position: relative;
+}
+
+#message_box .conversations {
+    position: absolute;
+    width: 700px;
+    height: 300px;
+    left: -700px;
+    top: -261px;
+    background-color: #eff0f5;
+    display: flex;
+    flex-direction: row;
+}
+
+.conversations .message_items {
+    display: flex;
+    flex-direction: column;
+}
+
+.message_items__message {
+    display: flex;
+}
+
+.message_items__message:nth-child(odd) {
+    background-color: #efefef;
+    width: 240px;
+}
+
+.message_details {
+    flex-grow: 1;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.message_details textarea{
+    align-self: flex-end;
+    width: 100%;
+    background:#eff0f5!important;
+}
+
+.message_details-container {
+    flex: 1;
+    height: 270px;
+    border: 1px solid gray;
+    border-bottom: 0;
+    overflow-y: scroll;
+}
+
+.my-message {
+    background-color: #12c2e9;
+    border-radius: 10px!important;
+    min-height: 40px;
+    border-collapse: separate;
+    min-width: 180px;
+    text-align: left;
+    padding: 8px 10px;
+    float: right;
+    clear: both;
+}
+
+.seller-message {
+   
+
+    background-color: #dcdede;
+    border-radius: 10px!important;
+    min-height: 40px;
+    border-collapse: separate;
+    min-width: 180px;
+    text-align: left;
+    padding: 8px 10px;
+    float: left;
+    clear: both;
+}
+
+
 
 /* ================================ CART MODAL =================================== */
 
@@ -742,6 +861,34 @@ div#login_image {
 
 /* ================================ HEADER & FOOTER =================================== */
 
+.dropdown-item {
+    z-index:7!important;
+}
+
+.dropdown-menu {
+    right: 0;
+    left: initial;
+}
+
+.sticky-top {
+    z-index: 6!important;
+}
+
+#header-logo {
+    background-image: url("../images/kangaroo-logo.png")!important; 
+    height: 2.8em;
+    width: 2.8em;
+    padding-top: -5px;
+    background-repeat: no-repeat;
+    background-size: 2.8em;
+    background-position: 100%;
+    padding: 0;
+    margin:0;
+    /* border: 1px solid white;
+    border-radius: 10%; */
+    
+}
+
 
 #cart-img {
     background-image: url("../images/shopping-cart-white.png")!important; 
@@ -755,13 +902,18 @@ div#login_image {
     margin:0;
 }
 
-nav.navbar-main,
+.navbar-main,
 footer#footer-main {
-    background: #12c2e9; 
-    background: -webkit-linear-gradient(to right, #12c2e9, #c471ed, #f64f59); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59);/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
+   /* background: #8e44ad!important; */
+   /* background: #ad5389;  fallback for old browsers */
+/* background: -webkit-linear-gradient(to right, #3c1053, #ad5389);  Chrome 10-25, Safari 5.1-6 */
+/* background: linear-gradient(to right, #3c1053, #ad5389); W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+background: #c31432;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #240b36, #c31432);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #240b36, #c31432); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
+
+}
 .badge {
     background-color: gold!important;
     color: black!important; 
@@ -784,7 +936,7 @@ footer#footer-main {
     height: 0;
     position: absolute;
     top: -10px;
-    right: 218px;
+    right: 22px;
     border-bottom: 10px solid #fff;
     border-left: 11px solid transparent;
     border-right: 11px solid transparent;
@@ -867,6 +1019,42 @@ a.hover_btn:active {
    border:0!important;
 }
 
+/*============================ STORE PHP ==========================*/
+.store_page_logo {
+    width:13em;
+    height:13em;
+}
+
+.rating-font {
+    font-size:5em;
+}
+
+.border-bottom,
+.underline {
+    border-bottom: 2px solid;
+}
+
+/* .underline {
+    text-decoration: underline;
+} */
+
+input:active,
+input:hover,
+input:focus{
+    box-shadow:none!important;
+    outline:none!important;
+    border-color:lightgray!important;
+    /* background-color:transparent; */
+}
+
+.navbar-toggler,
+.navbar-toggler:active,
+.navbar-toggler:focus,
+.navbar-toggler:hover{
+    box-shadow:none!important;
+    outline:none!important;
+    background-color:transparent;
+}
 
 /*============================ DESKTOP ==========================*/
 
@@ -888,7 +1076,10 @@ a.hover_btn:active {
     }
     
     .livesearch-item{
-        width: 48vw!important;
+        /* min-width: 35.9vw!important; */
+        /* max-width:41.7vw!important; */
+        min-width:43.5em!important;
+        max-width:43.5em!important;
         background:  #fff;
         font-size: 14px!important;
         padding-top: 10px;
@@ -898,17 +1089,15 @@ a.hover_btn:active {
 
 
     #cartDropdown_menu {
-        min-width:21em!important;
+        left:-150px;
+        top: 50px;
     }
 
-    #profileDropdown {
+    /* #profileDropdown {
         padding-top:14px;
-    }
+    } */
 
-    #profileDropdown_menu {
-        margin-top:6px!important;
-    }
-
+    
     #login-reg-header {
         width: 9vw!important;
         font-size: 10px!important;
@@ -919,7 +1108,8 @@ a.hover_btn:active {
         /* margin-left: 10em!important; */
         /* min-width: 30em!important; */
         /* width: 38em!important; */
-        width: 48vw!important;
+        /* width: 48vw!important; */
+        /* width:auto; */
         background-image: url("../../assets/images/search-gradient.png")!important;
         background-repeat: no-repeat;
         background-size: 1.2em;
@@ -928,6 +1118,17 @@ a.hover_btn:active {
         -webkit-box-shadow: none!important;
         box-shadow: none!important;
     }
+
+    /* PRODUCT PAGE */
+    #btn_add_to_cart,
+    #btn_add_to_cart_again {
+        width:50%;
+    }
+
+    /* PROFILE PAGE */
+    /* .eye-profile {
+        padding:7px;
+    } */
 
     /* REUSABLE */
 	.vanish-lg {
@@ -960,7 +1161,7 @@ a.hover_btn:active {
         font-size: 1rem;
     }
 
-    p, div, a.btn, button, .text-responsive, .product_details, textarea, label {
+    p, div, a.btn, button, .text-responsive, .product_details, textarea, label, .small, {
         font-size: 0.8rem!important;
     }
 
@@ -979,22 +1180,26 @@ a.hover_btn:active {
 
     
     .livesearch-item{
-        width: 50vw!important;
+        width: 40.9vw!important;
         background:  #fff;
         font-size: 12px!important;
         padding-top: 10px;
         padding-bottom: 10px;
         z-index: 10;
     }
+    
 
-    #profileDropdown {
+    /* #profileDropdown {
         padding-top:10px;
     }
+    
 
     #profileDropdown_menu {
-        margin-top:4px!important;
-        /* max-width: 1em!important; */
-    }
+        display: block;
+        position: absolute;
+        top: 25px;
+        left: 24em;
+    } */
 
     #cartDropdown_menu {
         min-width:15em!important;
@@ -1008,7 +1213,7 @@ a.hover_btn:active {
     }
     
     #search-header {
-        width: 50vw!important;
+        /* width: 50vw!important; */
         background-image: url("../../assets/images/search-gradient.png")!important;
         background-repeat: no-repeat;
         background-size: 1.2em;
@@ -1027,7 +1232,86 @@ a.hover_btn:active {
 
 	.appear-md {
 		display: block;
-	}
+    }
+    
+    /* ================================ PROFILE.PHP  =================================== */
+    .rating {
+        float:left;
+    }
+
+    /* :not(:checked) is a filter, so that browsers that don’t support :checked don’t 
+    follow these rules. Every browser that supports :checked also supports :not(), so
+    it doesn’t make the test unnecessarily selective */
+    .rating:not(:checked) > input {
+        position:absolute;
+        top:-9999px;
+        clip:rect(0,0,0,0);
+    }
+
+    .rating:not(:checked) > label {
+        float:right;
+        width:1.2em;
+        padding:0 .1em;
+        overflow:hidden;
+        white-space:nowrap;
+        cursor:pointer;
+        font-size:400%;
+        line-height:1.2;
+        color:#ddd;
+        /* text-shadow:1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5); */
+    }
+
+    .rating:not(:checked) > label:before {
+        content: '★ ';
+    }
+
+    .rating > input:checked ~ label {
+        color: #ffc107;
+        /* text-shadow:1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5); */
+    }
+
+    .rating:not(:checked) > label:hover,
+    .rating:not(:checked) > label:hover ~ label {
+        color: gold;
+        /* text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5); */
+    }
+
+    .rating > input:checked + label:hover,
+    .rating > input:checked + label:hover ~ label,
+    .rating > input:checked ~ label:hover,
+    .rating > input:checked ~ label:hover ~ label,
+    .rating > label:hover ~ input:checked ~ label {
+        color: #ea0;
+        /* text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5); */
+    }
+
+    .rating > label:active {
+        position:relative;
+        top:2px;
+        left:5px;
+    }
+
+    .stars-container {
+        width: 104px;
+    }
+
+    /* PRODUCT PAGE */
+    #btn_add_to_cart,
+    #btn_add_to_cart_again {
+        width:50%;
+    }
+
+    /* CHATBOX */
+    #message_box .conversations {
+        position: absolute;
+        width: 657px;
+        height: 300px;
+        left: -653px;
+        top: -261px;
+        background-color: #eff0f5;
+        display: flex;
+        flex-direction: row;
+    }
 }
 
 /*==============================MOBILE==============================*/
@@ -1039,34 +1323,47 @@ a.hover_btn:active {
     /* the following adjusts according to the root */
     h1 {
         /* 21px */
-        font-size: 1.2rem; 
+        font-size: 1.8rem; 
     }
     
     h2 {
         /* 18 px */
-        font-size: 1rem;
+        font-size: 1.6rem;
     }
     
         /* 15px */
     h3 {
-        font-size: 0.9rem;
+        font-size: 1.5rem;
     }
 
-    p, div, a.btn, button, .text-responsive ,.product_details, textarea, label {
-        font-size: 0.8rem!important;
+    h4 {
+        font-size: 1.2rem;
     }
 
+    p, div, a.btn, button, .text-responsive ,.product_details, textarea, label, .small {
+        font-size: 1rem!important;
+    }
+
+
+    #livesearch {
+        /* padding-left: 28px; */
+        position: absolute;
+        z-index: 2!important;
+        margin-top: 3em!important;
+    }
 
     /* HEADER */
-
     .livesearch-item{
-        width: 95vw!important;
+        width:79.5vw!important;
         background:  #fff;
-        font-size: 12px!important;
+        font-size: 14px!important;
         padding-top: 10px;
         padding-bottom: 10px;
         z-index: 5;
     }
+
+
+    
 
 
     #website_name {
@@ -1082,7 +1379,7 @@ a.hover_btn:active {
     }
     
     #search-header {
-        width: 90vw!important;
+        /* width: 100%; */
         background-image: url("../../assets/images/search-gradient.png")!important;
         background-repeat: no-repeat;
         background-size: 1.2em;
@@ -1105,5 +1402,202 @@ a.hover_btn:active {
 
 	.appear-sm {
 		display: block;
+    }
+    
+    /* ================================ PROFILE.PHP  =================================== */
+    .rating {
+        float:left;
+    }
+
+    /* :not(:checked) is a filter, so that browsers that don’t support :checked don’t 
+    follow these rules. Every browser that supports :checked also supports :not(), so
+    it doesn’t make the test unnecessarily selective */
+    .rating:not(:checked) > input {
+        position:absolute;
+        top:-9999px;
+        clip:rect(0,0,0,0);
+    }
+
+    .rating:not(:checked) > label {
+        float:right;
+        width:1.2em;
+        padding:0 .1em;
+        overflow:hidden;
+        white-space:nowrap;
+        cursor:pointer;
+        font-size:400%;
+        line-height:1.2;
+        color:#ddd;
+        /* text-shadow:1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5); */
+    }
+
+    .rating:not(:checked) > label:before {
+        content: '★ ';
+    }
+
+    .rating > input:checked ~ label {
+        color: #ffc107;
+        /* text-shadow:1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5); */
+    }
+
+    .rating:not(:checked) > label:hover,
+    .rating:not(:checked) > label:hover ~ label {
+        color: gold;
+        /* text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5); */
+    }
+
+    .rating > input:checked + label:hover,
+    .rating > input:checked + label:hover ~ label,
+    .rating > input:checked ~ label:hover,
+    .rating > input:checked ~ label:hover ~ label,
+    .rating > label:hover ~ input:checked ~ label {
+        color: #ea0;
+        /* text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5); */
+    }
+
+    .rating > label:active {
+        position:relative;
+        top:2px;
+        left:5px;
+    }
+
+    .col-sm-1 { 
+		width: 8.33%; 
+	} 
+
+	.col-sm-2 { 
+		width: 16.66%; 
 	}
+
+	.col-sm-3 { 
+		width: 25%; 
+	}
+
+	.col-sm-4 { 
+		width: 33.33%; 
+	}
+
+	.col-sm-5 { 
+		width: 41.66%; 
+	}
+
+	.col-sm-6 { 
+		width: 50%; 
+	}
+
+	.col-sm-7 { 
+		width: 58.33%; 
+	}
+
+	.col-sm-8 { 
+		width: 66.66%; 
+	}
+
+	.col-sm-9 { 
+		width: 75%; 
+	}
+
+	.col-sm-10 { 
+		width: 83.33%; 
+	}
+
+	.col-sm-11 { 
+		width: 91.66%; 
+	}
+
+	.col-sm-12 { 
+		width: 100%; 
+		/*100 divided by 12 x 12*/
+    }
+    
+    .text-sm-center {
+        text-align: center;
+    }
+
+    .text-sm-right {
+        text-align: right;
+    }
+
+    .mt-sm-5 {
+        margin-top: 3em;
+    }
+
+    .pl-sm-4 {
+        padding-left:2em;
+    }
+
+    .pt-sm-4 {
+        padding-top:2em;
+    }
+
+    .px-sm-0{
+        padding-left:0;
+        padding-right:0;
+    }
+
+    .px-sm-1{
+        padding-left:1em;
+        padding-right:1em;
+    }
+
+    .px-sm-2{
+        padding-left:1.5em;
+        padding-right:1.5em;
+    }
+
+    .px-sm-3{
+        padding-left:2em;
+        padding-right:2em;
+    }
+
+    .float-sm-right{
+        float: right;
+    }
+
+    #profileDropdown_menu {
+        /* display: block; */
+        /* position: absolute; */
+        top:25px;
+        width:50%;
+    }
+
+   
+    .stars-container {
+        width: 104px;
+    }
+
+    /* PRODUCT PAGE */
+    #btn_add_to_cart,
+    #btn_add_to_cart_again {
+        width:100%;
+    }
+
+    
+    
+
+    #message_box .conversations {
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        left: -241px;
+        top: -303px;
+        background-color: #eff0f5;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* SHOP */
+    .store_page_logo {
+        width:8em;
+        height:8em;
+    }
+
+    .flex-sm-column {
+        flex-direction: column;
+    }
+
+    .mr-sm-4 {
+        margin-right: 1.5rem;
+    }
+   
 }

@@ -366,7 +366,7 @@
 
                                     <div class="col-4">
                                                 
-                                        <a class='btn btn-lg btn-block py-3 btn-purple modal-link<?= $modalLinkClassPrefix ?> mt-5' data-url='../partials/templates/billing_info_modal.php' id='btn_add_address' role='button'>
+                                        <a class='btn btn-lg btn-block py-3 btn-purple mt-5' data-url='../partials/templates/billing_info_modal.php' id='btn_add_address' role='button'>
                                             Go To Payment&nbsp;
                                             <i class="fas fa-angle-double-right"></i>
                                         </a>

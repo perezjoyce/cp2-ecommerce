@@ -254,7 +254,7 @@
                                                 <td> 
                                                     <div class='d-flex flex-row' style='justify-content:flex-start;'>
                                                         <div class='flex pr-2'>
-                                                            <a href="store.php?id=<?=$storeId?>">
+                                                            <a href="store-profile.php?id=<?=$storeId?>">
                                                                 <img src='<?=$storeLogo?>' style='width:50px;height:50px;' class='circle'> 
                                                             </a>
                                                         </div>   

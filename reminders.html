@@ -59,7 +59,7 @@ reviews to purchased status only so that only users who purchased a product will
 33. DONE -- catalog overlaps with search results
 34. DONE -- cart overview doesn't scroll when too many items are inside it already
 35. DONE -- badge moves
-> placed it outside cart
+    > placed it outside cart
 36. DONE -- right col of product page is not responsive to screen size
 37. DONE -- datetime in product page is wrong...i only update time upon login...what if user never logs out?
 38. DONE -- fix tabs javascript so that progress only loads when reviews tab is clicked
@@ -73,24 +73,32 @@ reviews to purchased status only so that only users who purchased a product will
     >added type='button' to prevent default behavior of button in a form (i.e., submit)
 45. DONE -- JS 1953: reponsenses == error;
     >i was using the word response in both outer and inner AJAX
-46. SEND MESSAGE TO SELLER
-47. PAYPAL 
 48. DONE -- TRANSFERRED ORIG BILLING INFO MODAL CONTENT TO BILLING_INFO_MODAL_SPARE.PHP SO I CAN CREATE ORDER SUMMARY AND CONFIRMATION PAGE
-49. TWO TRANSACTION CODES ARE SENT PER TRANSACTION
-50. SESSION WON'T UNSET IF USER DOESN'T PRESS PRINT 
-
-note: STORE.PHP CONTAINS PROFILE PAGE WITH SIDE BUTTONS
-
+49. DONE -- TWO TRANSACTION CODES ARE SENT PER TRANSACTION
+    >I PLACED UNSET SESSION WITHIN THE CONFIRMATION MODAL
+    >window.location.reload();
+50. DONE -- SESSION WON'T UNSET IF USER DOESN'T PRESS PRINT 
+    >I PLACED UNSET SESSION WITHIN THE CONFIRMATION MODAL
+    >window.location.reload();
+51. DONE -- WHEN I OPEN REVIEW PRODUCT MODAL, CLOSE IT AND THEN OPEN A DIFF MODAL (E.G. UUPLOAD PROFILE PIC), THE WRONG MODAL IS SHOWN
+    > I was opening modal body instead of content. The modal that was being targeted ddn't ahve a modal body
+46. DONE -- SEND MESSAGE TO SELLER
+47. PAYPAL 
+48. DONE -- HEADER IN PROFILE IS DOES NOT FIT MOBILE SCREEN
+49. DONE -- review IMAGES DON'T APPEAR
+50. DISCARD -- LIMIT REVIEW PICS TO 3
+51. DONE -- CHATBOX IS MISSING IN PRODUCT PAGES
 
 
 
 CLEANDED:
-====containers start on space 3
 1. CATALOG.PHP
 2. HEADER
 3. FOOTER
 4. MODAL CONTAINER
 5. REGISTER.PHP 
+6. CATEGORIES
+
 
 
 
@@ -123,10 +131,11 @@ DISCARDED -- SAVE CART -- CART SESSION IS SAVED SO PRODUCTS THERE CAN BE POSTED 
 5. PAYPAL 
 
 
+
 D. PRODUCT PAGE
 DONE -- LIKE FLIPKART & TOKOPEDIA
 DONE -- SHOP OVERVIEW SECTION LIKE SHOPEE
--- FOLLOWERS
+DONE -- FOLLOWERS
 DONE -- COUNT PEOPLE WHO MARKED ITEM AS FAVORITE ON PRODUCT PAGE PER SE
 DONE -- PRODUCT INFO
 DONE -- REVIEWS
@@ -144,18 +153,21 @@ DONE -- OVERFLOW AND SCROLL IF THERE ARE MANY IMAGES
 E. PROFILE 
 DISCARDED -- COMBINE SHOPEE AND LAZADA (MAS OK LAZADA)
 DONE -- ORDER HISTORY
+FOLLOWING 
+UNFOLLOW
+
 3. MESSAGES
 4. NOTIFICATIONS
 DICARDED --  fix adding items from wishlist to cart -- DISCARDED SINCE WE REQUIRE VARIATION NOW
 
 F. SELLER PAGE
-1. WHEN VIEWED BY USERS, LIKE SHOPEE https://shopee.ph/amazfit_philippines?page=0&sortBy=ctime
+1. DONE -- WHEN VIEWED BY USERS, LIKE SHOPEE https://shopee.ph/amazfit_philippines?page=0&sortBy=ctime
 
 G. ADMIN page
 1. CAN CHANGE ADS AND IMAGES ON MODALS
 
 H. HEADER
-1. CART QUICK VIEW SHOULD ONLY BE AVAILABLE IN LG AND MD SCREENS OR JUST SHOW BUTTONS AND REMOVE NAVBAR COLLAPSE
+1. DONE -- CART QUICK VIEW SHOULD ONLY BE AVAILABLE IN LG AND MD SCREENS OR JUST SHOW BUTTONS AND REMOVE NAVBAR COLLAPSE
 
 I. INDEX page
 1. DONE -- VIEW MORE
@@ -190,27 +202,111 @@ REPLACE NO PRODUCTS FOUND WITH PICTURE OF SAD FACE AND SOMETHING ELSE
 
 
 
-index -- 80%
->header navbar upon login
->ads
-
-catalog -- 50%
->sort bugs
->card ratings
-
-product -- 80%
->link to shope
-
-header and profile
-cart
-seller
-admin
 
 
 
+correct measurements. i had to undo changes because their size affect the star ratings:
 
-TO DO:
-1. CART & PROFILE -- 3 DAYS ONLY (THIRD DAY TODAY)
-3. SELLER -- 3 DAYS
-4. ADMIN -- 3 DAYS
-5. CONTENT AND BUGS -- 3 DAYS
+tablet
+
+h1 {
+        /* 21px */
+        font-size: 1.6rem; 
+    }
+    
+    h2 {
+        /* 18 px */
+        font-size: 1.4rem;
+    }
+    
+        /* 15px */
+    h3 {
+        font-size: 1.2rem;
+    }
+
+    h4 {
+        font-size: 1rem;
+    }
+
+
+    mobile 
+
+    h1 {
+        /* 21px */
+        font-size: 1.2rem; 
+    }
+    
+    h2 {
+        /* 18 px */
+        font-size: 1.1rem;
+    }
+    
+        /* 15px */
+    h3 {
+        font-size: 1rem;
+    }
+
+    h4 {
+        font-size: .9rem;
+    }
+
+    p, div, a.btn, button, .text-responsive ,.product_details, textarea, label, .small, .col{
+        font-size: .8rem!important;
+    }
+
+
+    <!-- IF USER IS LOGGED IN AND USER IS NOT THE SELLER -->
+    DONE -- chat
+    DONE -- header should only be visible to seller of that page if it is another user, it should show the usual header
+    order summary should only include orders from a client FOR the seller (should not include other sellers)
+   
+
+    TO DO:
+    1. STORE PAGE (LIKE PROFILE BUT WITH PRODUCTS, RATINGS AND REVIEWS AREA..REVIEWS AREA IS LIKE COMMENT SECTION)
+    2. STORE BACKEND (ADD, EDIT, DELETE PRODUCT, PROCESS ORDER STATUS, REPORT TO ADMIN, MESSENGING)
+    3. ADMIN BACKEND (APPROVE STORES APPLICATION, BAN STORES, ADD, DELETE EDIT ADS)
+    
+    
+    REMINDERS:
+    1. STAR RATINGS NEED TO BE FIXED
+    2. ALL CATALOG SORTING ACTS NEED TO BE REVIEWED AND FIXEDSS
+    3. CHECK ALL ACROSS ALL SCREEN SIZES
+    DONE -- store header
+    DONE -- review IMAGES DON'T APPEAR
+    DONE -- HEADER IN PROFILE IS DOES NOT FIT MOBILE SCREEN
+    4. +SEND BUTTON FOR TEXTAREAS
+    5. +KEYPRESS FOR INPUT FIELDS
+
+
+
+    TO DO:
+    DONE -- FIX EDIT USER PROFILE MODAL
+    DONE -- FIX EDIT EDIT ADDRESS MODAL
+    DONE -- CREATE MESSENGING 
+    DONE -- CREATE STORE INTERFACE
+    PROFILE following 
+    STORE BACKEND
+    DEACTIVATE ACCOUNT
+    EDIT PASSWORD
+    WHEN ORDER IS APPROVED -- QUANTITY IS ADJUSTED
+    BACKGROUNDS
+    NOTIFY THAT ORDER HAS BEEN RECEIVED
+    NOTIFY THAT MESSAGE HAS BEEN RECEIVED
+    badge
+    IF PENDING, SEND MESSAGE GIVING ACCOUNT NUMBER
+    IF NOT SELLER, MY SHOP ON DROPDOWN SHOULD LEAD TO REGISTRATION PAGE FOR PEOPLE WHO WISH TO BECOME SELLERS
+    CONTACT INFO IN SHIPPING INFO MODA, BILLING INFO MODAL, PROFILE AND, SHIPPING PAGES
+
+    ERRORS:
+    DONE -- UNDERLINE ON SELLER HEADER BECOMES MISSING UPON RELOAD
+    DONE -- STORE CAN'T BE VIEWED BY NON-LOGGED IN GUESTS
+    orders dropdown opens when the main dropdown is opened
+
+    // MESSAGE NOTIFICATIONS FOR ALL PARTIES INVOVLED
+
+    // OPEN A STORE REQUIREMENTS
+    >OWNER
+    >OWNDER ID
+    >ADDRESS
+    >GOV'T PERMIT
+    >STORE NAME
