@@ -87,7 +87,6 @@ if(isset($_SESSION['id'])) {
                   $statement = $conn->prepare($sql);
                   $statement->execute([$id]);
                   $row = $statement->fetch();
-          
                   $name = $row['name'];     
                   $price = $row['price'];
                   $price = number_format((float)$price, 2, '.', '');
@@ -206,6 +205,7 @@ if(isset($_SESSION['id'])) {
                   </div>
 
                 </div>  
+
               </div>
 
               <!-- PRICE -->
@@ -845,7 +845,27 @@ if(isset($_SESSION['id'])) {
                                     
                               </div>
                             </div>
+<<<<<<< HEAD
                             
+=======
+                          </div>
+                          <div class="col-2 text-center pt-1">
+                            <span>
+                              <?php 
+                              if($oneStarRatingCount == null) {
+                                echo "0";
+                              } else {
+                                echo $oneStarRatingCount;
+                              }
+                              ?>
+                            </span>
+                          </div>
+                        </div>
+                      
+                        <?php } ?>
+                          
+                      </div>
+>>>>>>> 3451c5c7e725aa04bef6affc14015afa734798ab
 
                             <!-- ASK A QUESTION -->
                             <?php 
@@ -1664,9 +1684,6 @@ if(isset($_SESSION['id'])) {
   
 </body>
 </html> 
-
-  
-    
 
 <?php require_once "../partials/footer.php";?>
 <?php require_once "../partials/modal_container.php"; ?>
