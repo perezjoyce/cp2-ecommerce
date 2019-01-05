@@ -650,7 +650,7 @@ if(isset($_SESSION['id'])) {
                         <div class="row">
                           <!-- <div class="col-1"></div> -->
                           <div class="col">
-                            <!-- <ul class='d-flex flex-wrap'> -->
+                              <!-- <ul class='d-flex flex-wrap'> -->
                               <ul>
                                 <?php
                                   $sql = "SELECT * FROM tbl_item_descriptions WHERE product_id = ?";
@@ -666,13 +666,222 @@ if(isset($_SESSION['id'])) {
                                     <?= $description ?>
                                   </li>
                                 <?php } } ?>
-                            </ul>
+                              </ul>
                             
                           </div>
+                          
                         </div>
                       </div>
                     </div>
                     
+                    <!-- Q&As -->
+                    <div id="questions_content" class="tabcontent">
+                      <div class="container px-4">
+                        <div class="row">
+
+                          <!-- FREQUENTLY ASKED -->
+                          <div class="col-lg-6 col-md-6 col-sm-12 pt-md-4 pt-sm-4">
+                            <div class="row mb-4">
+                              <!-- <img src="../assets/images/question-gradient-filled.png" alt="verified_user" style='height:20px;width:20px;'> -->
+                              <div class='py-1 text-secondary'>FREQUENTLY ASKED</div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-12 pl-0" style="overflow-x:scroll;max-height:400px;">
+                                
+
+                                      <?php
+                                        $sql = "SELECT q.*,u.username FROM tbl_questions_answers q JOIN tbl_users u ON q.user_id = u.id WHERE product_id = ? AND faq = 'yes' ";
+                                        $statement = $conn->prepare($sql);
+                                        $statement->execute([$id]);
+                                        $count = $statement->rowCount();
+                                      
+                                        if($count) {
+                                          while($row = $statement->fetch()) {
+                                            $question = $row['question'];
+                                            $answer = $row['answer'];
+                                      ?>
+
+                                    
+                                      <div class="d-flex flex-column pb-5">
+                                        <div>
+                                          <!-- <i class="fas fa-question-circle text-purple"></i> -->
+                                          <span class='text-purple'>
+                                            <?=$question?>
+                                          </span>
+                                        </div>
+                                        <div class='pt-2'>
+                                          <?=$answer?>
+                                        </div>
+                                      </div>
+                                    
+                                  
+
+                                    <?php } } ?>
+                                    
+                              </div>
+                            </div>
+   
+                          </div>
+                          
+                          <!-- OTHER QUESTIONS-->
+                          <div class="col-lg-6 col-md-6 col-sm-12 pt-md-4 pt-sm-4">
+                            <div class="row mb-4">
+                              <div class='py-1 text-secondary'>OTHER QUESTIONS</div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-12 px-0" style="overflow-x:scroll;max-height:400px;">
+                                
+
+                                      <?php
+                                        $sql = "SELECT q.*,u.username FROM tbl_questions_answers q JOIN tbl_users u ON q.user_id = u.id WHERE product_id = ? AND faq = 'no' ";
+                                        $statement = $conn->prepare($sql);
+                                        $statement->execute([$id]);
+                                        $count = $statement->rowCount();
+                                      
+                                        if($count) {
+                                          while($row = $statement->fetch()) {
+                                            $question = $row['question'];
+                                            $answer = $row['answer'];
+                                            $whoAskedId = $row['user_id'];
+                                            $whoAsked = $row['username'];
+                                            $dateAsked = $row['date_asked'];
+                                            $dateAnswered = $row['date_answered'];
+
+                                      ?>
+
+                                    
+                                      <div class="d-flex flex-column pb-5">
+                                        <div>
+                                          <!-- <img src="../assets/images/question-gradient.png" alt="verified_user" style='height:20px;width:20px;'> -->
+                                          <span class='text-purple'>
+                                            <?=$question?>
+                                          </span>
+                                        </div>
+                                        <div class='text-gray pb-3'>
+                                          <small><?=$whoAsked?>&nbsp;</small>
+                                          <small>
+                                            <?php
+                                              $datetime1 = new DateTime($dateAsked);
+                                              $datetime2 = new DateTime();
+                                              $interval = $datetime1->diff($datetime2);
+                                              $ago = "";
+
+                          
+                                              if($interval->format('%w') != 0) {
+                                                  $ago = $interval->format('- %w weeks ago');
+                                              } else {
+                                                if($interval->format('%d') != 0) {
+                                                  $ago = $interval->format('- %d days ago ');
+                                                } else {
+                                                  if($interval->format('%h') != 0) {
+                                                    $ago = $interval->format('- %h hrs ago');
+                                                  } elseif($interval->format('- %i') != 0) {
+                                                    $ago = $interval->format('- %i minutes ago');
+                                                  } else {
+                                                    $ago = "- just now";
+                                                  }
+                                                } 
+                                              }
+
+                                              echo $ago;
+                                            ?>
+
+                                          </small>
+                                        </div>
+                                          <?php if($answer != null){ ?>
+
+                                        <div class='pt-2'>
+                                          <div><?=$answer?></div>
+                                          <div class='text-gray'>
+                                            <small><?=$storeName?></small>
+                                            <small>
+                                              <?php 
+                                            
+                                                $datetimeA = new DateTime($dateAsked);
+                                                $datetimeB = new DateTime($dateAnswered);
+                                                $interval2 = $datetimeB->diff($datetimeA);
+                                                $ago2 = "";
+
+                            
+                                                if($interval2->format('%w') != 0) {
+                                                    $ago2 = $interval2->format('- answered within %w week/s');
+                                                } else {
+                                                  if($interval2->format('%d') != 0) {
+                                                    $ago2 = $interval2->format('- answered within %d day/s');
+                                                  } else {
+                                                    if($interval2->format('%h') != 0) {
+                                                      $ago2 = $interval2->format('- asnwered within %h hr/s');
+                                                    } elseif($interval2->format('%i') != 0) {
+                                                      $ago2 = $interval2->format('- answered within %i min/s');
+                                                    } else {
+                                                      $ago2 = $interval2->format('- answered within %s sec/s');
+                                                    }
+                                                  } 
+                                                }
+
+                                                echo $ago2;
+                                            
+                                            
+                                              ?>
+                                            </small>
+                                          </div>
+                                        </div>
+
+                                          <?php } else { ?>
+
+                                        <div class='pt-2'>
+                                          <div class='text-gray'>Waiting for seller's response.</div>
+                                        </div>
+
+                                          <?php } ?>
+
+                                      </div>
+                                    
+                                  
+
+                                    <?php } } ?>
+                                    
+                              </div>
+                            </div>
+                            
+
+                            <!-- ASK A QUESTION -->
+                            <?php 
+                              if(isset($_SESSION['id'])) {
+                                
+                            ?>
+                            <div class="row my-5">
+                              <div class="col-12 px-0">
+                                <form action='process_ask_about_product' method='POST'>
+                                  <div class="form">
+                                    <div class="form-group px-0">
+                                      <label for="post_question">
+                                        <h4>Ask A Question</h4>
+                                      </label>
+                                      <textarea class="form-control border-0" id="product_question" style='width:100%;background:#eff0f5;' rows='3'></textarea>
+                                    </div>
+                                  </div>
+
+                                  <div class="d-flex flex-row">
+                                    <a class="btn btn-purple" data-userid='<?=$userId?>' data-productid='<?=$id?>'role='button' id='btn_ask_question'>
+                                      Send
+                                      <i class="far fa-paper-plane"></i>
+                                    </a>
+                                    <small id='post_question_notification' class='text-red ml-4 pt-1'></small>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                            <?php } ?>
+                            
+                          </div>
+
+                        </div>
+                      </div>
+                    </div> 
+
                     <!-- PRODUCT REVIEWS -->
                     <div id="reviews_content" class="tabcontent">
                       <div class="container">
@@ -685,17 +894,22 @@ if(isset($_SESSION['id'])) {
                           <div class="col-lg-2 col-md-3 col-sm-12">    
                             <div class="row pt-2">
                               <div class="col-12 d-flex flex-column">
+
                                 <div class="row">
                                   
                                     <h1 style='font-size:50px'>
                                       <?= number_format((float)$averageRating, 1, '.', '')?>
                                     </h1>
-                                    <h3 class='text-gray pt-5'>&nbsp;/&nbsp;5</h3>
+                                    <h3 class='text-gray pt-5'>
+                                      &nbsp;/&nbsp;5
+                                    </h3>
                                 
                                 </div>
+
                                 <div class="row">
                                   <div id='average_product_stars_big' class='pb-4'></div>
                                 </div>
+
                                 <div class='row text-gray'>
                                   <?php 
                                   
@@ -722,8 +936,11 @@ if(isset($_SESSION['id'])) {
                                     <span class='rating-word'>
                                       <?= "&nbsp;Reviews" ?>
                                     </span>
+
                                   <?php } } ?>
+
                                 </div>
+
                               </div>
                             </div>
                           </div>
@@ -810,15 +1027,18 @@ if(isset($_SESSION['id'])) {
                             </div>
 
                             <div class="row pt-2 no-gutters">
+
                               <div class="col-2 text-center">
                                 <span>4&nbsp;</span>
                                 <span class='star'>★</span>
                               </div>
+
                               <div class="col-8">
                                 <div class="product_rating_bar">
                                   <div id="rating_bar4" class='rating_bar'></div>
                                 </div>
                               </div>
+
                               <div class="col-2 text-center pt-1">
                                 <span>
                                   <?php 
@@ -830,18 +1050,22 @@ if(isset($_SESSION['id'])) {
                                   ?>
                                 </span>
                               </div>
+
                             </div>
 
                             <div class="row pt-2 no-gutters">
+
                               <div class="col-2 text-center">
                                 <span>3&nbsp;</span>
                                 <span class='star'>★</span>
                               </div>
+
                               <div class="col-8">
                                 <div class="product_rating_bar">
                                   <div id="rating_bar3" class='rating_bar'></div>
                                 </div>
                               </div>
+
                               <div class="col-2 text-center pt-1">
                                 <span>
                                   <?php 
@@ -853,6 +1077,7 @@ if(isset($_SESSION['id'])) {
                                   ?>
                                 </span>
                               </div>
+
                             </div>
 
                             <div class="row pt-2 no-gutters">
@@ -928,6 +1153,7 @@ if(isset($_SESSION['id'])) {
                                     &nbsp;Filter:
                                   </div>
                                 </div>
+
                                 <select class="custom-select border-0 pt-2" id="sort_ratings" onchange="sort_ratings" data-id='<?= $id ?>' data-storeid='<?=$storeId?>'>
                                   <option value="6" selected>All stars</option>
                                   <option value="5"> 5 stars </option>
@@ -936,6 +1162,7 @@ if(isset($_SESSION['id'])) {
                                   <option value="2"> 2 stars </option>
                                   <option value="1"> 1 star </option>
                                 </select>
+
                               </div> 
                             </div>
                           </div>
@@ -1067,10 +1294,11 @@ if(isset($_SESSION['id'])) {
                               <div class="row my-4">
                                 <div class="col-1"></div>
                                 <div class="col mb-2 pt-4 px-5 seller_response_container" style='background:#eff0f5'>
+                                  
                                   <!-- SELLER DETAILS -->
                                   <div class="row flex-row text-gray mb-4"> 
                                     <a href="store-profile.php?id=<?=$storeId ?>"></a>
-                                    <img src="<?=$storeLogo?>" alt="<?=$storeName?>" style='width:30px;max-height:30px;' class='circle'>
+                                    <img src="<?= BASE_URL . '/' . $storeLogo . '.jpg' ?>" alt="<?=$storeName?>" style='width:30px;max-height:30px;' class='circle'>
                                     <div>
                                       <div>&nbsp;<?=$storeName?></div>
                                       <small class='text-purple'>
@@ -1079,6 +1307,7 @@ if(isset($_SESSION['id'])) {
                                       </small>
                                     </div>
                                   </div>
+
                                   <div class="row">
                                     <p style='line-height:1.5em;'><?=$sellerResponse?></p>
                                   </div>
@@ -1091,224 +1320,17 @@ if(isset($_SESSION['id'])) {
                             </div>
                           </div>
                           <!-- ADJUSTING FIXING THIS -->
-                          <?php } ?>
+                          <?php } } ?>
                         </div>
                         
 
                       </div>
                       <!-- /CONTAINER -->
-                      <?php } ?>
+                      
                     </div>
+                   
                     
-                    <!-- Q&As -->
-                    <div id="questions_content" class="tabcontent">
-                      <div class="container px-4">
-                        <div class="row pb-5">
-
-                          <!-- FREQUENTLY ASKED -->
-                          <div class="col-lg-6 col-md-6 col-sm-12 pt-md-4 pt-sm-4">
-                            <div class="row mb-4">
-                              <!-- <img src="../assets/images/question-gradient-filled.png" alt="verified_user" style='height:20px;width:20px;'> -->
-                              <div class='py-1 text-secondary'>FREQUENTLY ASKED</div>
-                            </div>
-
-                            <div class="row">
-                              <div class="col-12 pl-0" style="overflow-x:scroll;max-height:400px;">
-                                
-
-                                      <?php
-                                        $sql = "SELECT q.*,u.username FROM tbl_questions_answers q JOIN tbl_users u ON q.user_id = u.id WHERE product_id = ? AND faq = 'yes' ";
-                                        $statement = $conn->prepare($sql);
-                                        $statement->execute([$id]);
-                                        $count = $statement->rowCount();
-                                      
-                                        if($count) {
-                                          while($row = $statement->fetch()) {
-                                            $question = $row['question'];
-                                            $answer = $row['answer'];
-                                      ?>
-
-                                    
-                                      <div class="d-flex flex-column pb-5">
-                                        <div>
-                                          <!-- <i class="fas fa-question-circle text-purple"></i> -->
-                                          <span class='text-purple'>
-                                            <?=$question?>
-                                          </span>
-                                        </div>
-                                        <div class='pt-2'>
-                                          <?=$answer?>
-                                        </div>
-                                      </div>
-                                    
-                                  
-
-                                    <?php } } ?>
-                                    
-                              </div>
-                            </div>
-                                
-
-                              
-                            
-                          </div>
-                          
-                          <!-- OTHER QUESTIONS-->
-                          <div class="col-lg-6 col-md-6 col-sm-12 pt-md-4 pt-sm-4">
-                            <div class="row mb-4">
-                              <div class='py-1 text-secondary'>OTHER QUESTIONS</div>
-                            </div>
-
-                            <div class="row">
-                              <div class="col-12 px-0" style="overflow-x:scroll;max-height:400px;">
-                                
-
-                                      <?php
-                                        $sql = "SELECT q.*,u.username FROM tbl_questions_answers q JOIN tbl_users u ON q.user_id = u.id WHERE product_id = ? AND faq = 'no' ";
-                                        $statement = $conn->prepare($sql);
-                                        $statement->execute([$id]);
-                                        $count = $statement->rowCount();
-                                      
-                                        if($count) {
-                                          while($row = $statement->fetch()) {
-                                            $question = $row['question'];
-                                            $answer = $row['answer'];
-                                            $whoAskedId = $row['user_id'];
-                                            $whoAsked = $row['username'];
-                                            $dateAsked = $row['date_asked'];
-                                            $dateAnswered = $row['date_answered'];
-
-                                      ?>
-
-                                    
-                                      <div class="d-flex flex-column pb-5">
-                                        <div>
-                                          <!-- <img src="../assets/images/question-gradient.png" alt="verified_user" style='height:20px;width:20px;'> -->
-                                          <span class='text-purple'>
-                                            <?=$question?>
-                                          </span>
-                                        </div>
-                                        <div class='text-gray pb-3'>
-                                          <small><?=$whoAsked?>&nbsp;</small>
-                                          <small>
-                                            <?php
-                                              $datetime1 = new DateTime($dateAsked);
-                                              $datetime2 = new DateTime();
-                                              $interval = $datetime1->diff($datetime2);
-                                              $ago = "";
-
-                          
-                                              if($interval->format('%w') != 0) {
-                                                  $ago = $interval->format('- %w weeks ago');
-                                              } else {
-                                                if($interval->format('%d') != 0) {
-                                                  $ago = $interval->format('- %d days ago ');
-                                                } else {
-                                                  if($interval->format('%h') != 0) {
-                                                    $ago = $interval->format('- %h hrs ago');
-                                                  } elseif($interval->format('- %i') != 0) {
-                                                    $ago = $interval->format('- %i minutes ago');
-                                                  } else {
-                                                    $ago = "- just now";
-                                                  }
-                                                } 
-                                              }
-
-                                              echo $ago;
-                                            ?>
-
-                                          </small>
-                                        </div>
-                                          <?php if($answer != null){ ?>
-
-                                        <div class='pt-2'>
-                                          <div><?=$answer?></div>
-                                          <div class='text-gray'>
-                                            <small><?=$storeName?></small>
-                                            <small>
-                                              <?php 
-                                            
-                                                $datetimeA = new DateTime($dateAsked);
-                                                $datetimeB = new DateTime($dateAnswered);
-                                                $interval2 = $datetimeB->diff($datetimeA);
-                                                $ago2 = "";
-
-                            
-                                                if($interval2->format('%w') != 0) {
-                                                    $ago2 = $interval2->format('- answered within %w week/s');
-                                                } else {
-                                                  if($interval2->format('%d') != 0) {
-                                                    $ago2 = $interval2->format('- answered within %d day/s');
-                                                  } else {
-                                                    if($interval2->format('%h') != 0) {
-                                                      $ago2 = $interval2->format('- asnwered within %h hr/s');
-                                                    } elseif($interval2->format('%i') != 0) {
-                                                      $ago2 = $interval2->format('- answered within %i min/s');
-                                                    } else {
-                                                      $ago2 = $interval2->format('- answered within %s sec/s');
-                                                    }
-                                                  } 
-                                                }
-
-                                                echo $ago2;
-                                            
-                                            
-                                              ?>
-                                            </small>
-                                          </div>
-                                        </div>
-
-                                          <?php } else { ?>
-
-                                        <div class='pt-2'>
-                                          <div class='text-gray'>Waiting for seller's response.</div>
-                                        </div>
-
-                                          <?php } ?>
-
-                                      </div>
-                                    
-                                  
-
-                                    <?php } } ?>
-                                    
-                              </div>
-                            </div>
-                            
-
-                            <!-- ASK A QUESTION -->
-                            <?php 
-                              if(isset($_SESSION['id'])) {
-                                
-                            ?>
-                            <div class="row mt-5">
-                              <div class="col-12 px-0">
-                                <form action='process_ask_about_product' method='POST'>
-                                  <div class="form">
-                                    <div class="form-group px-0">
-                                      <label for="post_question">
-                                        <h4>Ask A Question</h4>
-                                      </label>
-                                      <textarea class="form-control border-0" id="product_question" style='width:100%;background:#eff0f5;' rows='3'></textarea>
-                                    </div>
-                                  </div>
-
-                                  <div class="d-flex flex-row">
-                                    <a class="btn btn-purple" data-userid='<?=$userId?>' data-productid='<?=$id?>'role='button' id='btn_ask_question'>
-                                      Send
-                                      <i class="far fa-paper-plane"></i>
-                                    </a>
-                                    <small id='post_question_notification' class='text-red ml-4 pt-1'></small>
-                                  </div>
-                                </form>
-                              </div>
-                            </div>
-                            <?php } ?>
-                            
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    
 
 
                   </div>
