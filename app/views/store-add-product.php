@@ -85,11 +85,11 @@
                                                 $brandId = $row['brand_id'];
 
                                                 //FETCH PARENT CATEGORY NAME
-                                                $sql = "SELECT name FROM tbl_categories WHERE id =?";
-                                                $statement = $conn->prepare($sql);
-                                                $statement->execute([$parentCategoryId]);
-                                                $row = $statement->fetch();
-                                                $parentCategoryName = $row['name'];
+                                                $sql2 = "SELECT name FROM tbl_categories WHERE id =?";
+                                                $statement2 = $conn->prepare($sql2);
+                                                $statement2->execute([$parentCategoryId]);
+                                                $row2 = $statement2->fetch();
+                                                $parentCategoryName = $row2['name'];
                                             }
                                         
                                         ?>
@@ -101,7 +101,7 @@
                                             <div class="row mt-5">
                                                 <div class="col">
                                                     <form action="../controllers/process_add_new_product.php" method="POST" id="form_add_new_product">
-                                                        <input type="text" id="new_product_id" value="<?= isset($newProductId) ? $newProductId : null ; ?>">
+                                                    <input type="hidden" id="new_product_id" value="<?= isset($newProductId) ? $newProductId : null ; ?>">
 
                                                         <!-- PRODUCT NAME -->
                                                         <div class="form-group row mb-5">
@@ -237,20 +237,25 @@
                                                         <div class="container px-0 product_detail">
 
                                                             <?php 
-                                                                $sql = "SELECT * FROM tbl_item_descriptions WHERE product_id = ?";
-                                                                $statement = $conn->prepare($sql);
-                                                                $statement->execute([$newProductId]);
-                                                                $count = $statement->rowCount();
+                                                                if(isset($newProductId)) {
+                                                                $sqld = "SELECT * FROM tbl_item_descriptions WHERE product_id = ?";
+                                                                $statementd = $conn->prepare($sqld);
+                                                                $statementd->execute([$newProductId]);
+                                                                $countd = $statementd->rowCount();
 
-                                                                if($count) {
-                                                                    while($row = $statement->fetch()){
-                                                                    $descriptionId = $row['id'];
-                                                                    $description = $row['description'];
+                                                                if($countd) {
+                                                                    while($rowd = $statementd->fetch()){
+                                                                    $descriptionId = $rowd['id'];
+                                                                    $description = $rowd['description'];
                                                             ?>
 
                                                                 <div class="input-group mb-4">
                                                                     <div class="input-group-prepend" style="background:white;">
-                                                                        <span class="input-group-text border-0 text-secondary" style="background:white;">&#9679;</span>
+                                                                        <button class="input-group-text border-0 text-gray font-weight-light btn_delete_new_detail"
+                                                                            type='button'
+                                                                            data-descriptionid='<?=$descriptionId?>'
+                                                                            style="background:white;cursor:pointer">&times;
+                                                                        </button> 
                                                                     </div>
                                                                     <textarea class="form-control product_description" 
                                                                         data-descriptionid='<?=$descriptionId?>' 
@@ -282,13 +287,46 @@
                                                                 </div>
                                                                 <textarea class="form-control product_description" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' aria-label="With textarea"></textarea>
                                                             </div>
+                                                            <?php } } else { ?>
+                                                                <div class="input-group mb-4">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text border-0 text-secondary" style="background:white;">&#9679;</span>
+                                                                </div>
+                                                                <textarea class="form-control product_description" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' aria-label="With textarea"></textarea>
+                                                            </div>
+
+                                                            <div class="input-group mb-4">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text border-0 text-secondary" style="background:white;">&#9679;</span>
+                                                                </div>
+                                                                <textarea class="form-control product_description" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' aria-label="With textarea"></textarea>
+                                                            </div>
+
+                                                            <div class="input-group mb-4">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text border-0 text-secondary" style="background:white;">&#9679;</span>
+                                                                </div>
+                                                                <textarea class="form-control product_description" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' aria-label="With textarea"></textarea>
+                                                            </div>
                                                             <?php } ?>
                                                         </div>
 
-                                                       
+
+                                                        <!-- ERROR -->
+                                                        <div class="container">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <div id="description_error" class='text-red'></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
                                                         
                                                                     
-                                                        <?php if($count) { ?>
+                                                        <?php 
+                                                            if(isset($newProductId)) {
+                                                                if($countd) { 
+                                                        ?>
                                                         <!-- BUTTON -->
                                                         <div class="container px-0 mt-5">
                                                             <div class="row">
@@ -326,7 +364,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <?php } ?>       
+                                                        <?php } } ?>       
 
                                                     </form>
                                                 </div>
@@ -353,7 +391,7 @@
                                         <h4>
                                             <span class='vanish-lg vanish-md'>3.</span>
                                             <span class='vanish-sm'>2.</span>
-                                            &nbsp;Add Product Variations & Stocks
+                                            &nbsp;Add Variations & Stocks
                                         </h4>
                                         <div class="row pl-5 my-3">
                                             <small class='text-secondary'>
@@ -374,7 +412,8 @@
                                                     <form action="../controllers/process_add_new_product_variation.php" method="POST" id="form_product_variation">
                                                         <div class="container px-0 product_variation">
                                                                 <?php 
-                                                                    $sql = "SELECT * FROM tbl_variations WHERE product_id = ?";
+                                                                    if(isset($newProductId)) {
+                                                                    $sql = "SELECT * FROM tbl_variations WHERE product_id = ? ORDER BY id";
                                                                     $statement = $conn->prepare($sql);
                                                                     $statement->execute([$newProductId]);
                                                                     $count = $statement->rowCount();
@@ -384,11 +423,16 @@
                                                                         $variationId = $row['id'];
                                                                         $variationName = $row['variation_name'];
                                                                         $variationStock = $row['variation_stock'];
+                                                                    
                                                                 ?>
 
                                                             <div class="input-group mb-4">
                                                                 <div class="input-group-prepend">
-                                                                    <span class="input-group-text border-0 text-secondary" style="background:white;">&#9679;</span>
+                                                                    <button class="input-group-text border-0 text-gray font-weight-light btn_delete_new_variation"
+                                                                        type='button'
+                                                                        data-variationid='<?=$variationId?>'
+                                                                        style="background:white;cursor:pointer">&times;
+                                                                    </button>                                                                
                                                                 </div>
                                                                 <input type="text" class="form-control new_variation_name" 
                                                                     value="<?=$variationName?>"
@@ -428,12 +472,51 @@
                                                                 <input type="text" class="form-control new_variation_name" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Name'>
                                                                 <input type="number" class="form-control new_variation_stock" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Available Stock' min="1" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57" title="Numbers only">
                                                             </div>
+
+                                                            <?php } } else { ?>
+
+                                                            <div class="input-group mb-4">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text border-0 text-secondary" style="background:white;">&#9679;</span>
+                                                                </div>
+                                                                <input type="text" class="form-control new_variation_name" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Name'>
+                                                                <input type="number" class="form-control new_variation_stock" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Available Stock' min="1" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57" title="Numbers only">
+                                                            </div>
+
+                                                            <div class="input-group mb-4">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text border-0 text-secondary" style="background:white;">&#9679;</span>
+                                                                </div>
+                                                                <input type="text" class="form-control new_variation_name" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Name'>
+                                                                <input type="number" class="form-control new_variation_stock" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Available Stock' min="1" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57" title="Numbers only">
+                                                            </div>
+
+                                                            <div class="input-group mb-4">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text border-0 text-secondary" style="background:white;">&#9679;</span>
+                                                                </div>
+                                                                <input type="text" class="form-control new_variation_name" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Name'>
+                                                                <input type="number" class="form-control new_variation_stock" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Available Stock' min="1" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57" title="Numbers only">
+                                                            </div>
+
                                                             <?php } ?>
+                                                        </div>
+                                                        
+                                                        <!-- ERROR -->
+                                                        <div class="container">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <div id="variation_error" class='text-red'></div>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                       
                                                            
                                                         <!-- BUTTONS -->
-                                                        <?php if($count) { ?>
+                                                        <?php 
+                                                            if(isset($newProductId)) {
+                                                                if($count) { 
+                                                        ?>
                                                             <div class="container px-0 mt-5">
                                                                 <div class="row">
                                                                     <div class="col-lg-4"></div>
@@ -470,7 +553,7 @@
                                                             </div>
                                                             
                                                         
-                                                        <?php } ?>
+                                                        <?php } } ?>
                                                         
 
                                                     </form>
@@ -487,7 +570,7 @@
                                 <div class="row mb-3">
                                     <div class="col">
                                         <h4>
-                                            4. FAQs
+                                            4. Share FAQs
                                         </h4>
                                     </div>
                                 </div>
@@ -501,22 +584,28 @@
                                                     <form action="../controllers/process_add_new_product_faq.php" method="POST" id="form_new_product_faq">
                                                         <div class="container px-0 product_faq">
                                                                 <?php 
-                                                                    $yes = 'yes';
-                                                                    $sql = "SELECT * FROM tbl_questions_answers WHERE product_id = ? AND faq = ?";
-                                                                    $statement = $conn->prepare($sql);
-                                                                    $statement->execute([$newProductId, $yes]);
-                                                                    $count = $statement->rowCount();
+                                                                    if(isset($newProductId)) {
+                                                                        $yes = 'yes';
+                                                                        $sqlf = "SELECT * FROM tbl_questions_answers WHERE product_id = ? AND faq = ?";
+                                                                        // echo $sql;die();
+                                                                        $statementf = $conn->prepare($sqlf);
+                                                                        $statementf->execute([$newProductId, $yes]);
+                                                                        $countf = $statementf->rowCount();
 
-                                                                    if($count) {
-                                                                        while($row = $statement->fetch()){
-                                                                        $faqId = $row['id'];
-                                                                        $question = $row['question'];
-                                                                        $answer = $row['answer'];
+                                                                        if($countf) {
+                                                                            while($rowf = $statementf->fetch()){
+                                                                            $faqId = $rowf['id'];
+                                                                            $question = $rowf['question'];
+                                                                            $answer = $rowf['answer'];
                                                                 ?>
 
                                                             <div class="input-group mb-4">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text border-0 text-secondary" style="background:white;">&#9679;</span>
+                                                                <div class="input-group-append">
+                                                                    <button class="input-group-text border-0 text-gray font-weight-light btn_delete_new_faq"
+                                                                        type='button'
+                                                                        data-faqid='<?=$faqId?>'
+                                                                        style="background:white;cursor:pointer">&times;
+                                                                    </button>
                                                                 </div>
                                                                 <input type="text" class="form-control new_question" 
                                                                     value="<?=$question?>"
@@ -556,12 +645,51 @@
                                                                 <input type="text" class="form-control new_question" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Question' maxlength='50'>
                                                                 <input type="text" class="form-control new_answer" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Answer' maxlength='50'>
                                                             </div>
+
+                                                            <?php } } else { ?>
+
+                                                             <div class="input-group mb-4">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text border-0 text-secondary" style="background:white;">&#9679;</span>
+                                                                </div>
+                                                                <input type="text" class="form-control new_question" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Question' maxlength='50'>
+                                                                <input type="text" class="form-control new_answer" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Answer' maxlength='50'>
+                                                            </div>
+
+                                                            <div class="input-group mb-4">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text border-0 text-secondary" style="background:white;">&#9679;</span>
+                                                                </div>
+                                                                <input type="text" class="form-control new_question" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Question' maxlength='50'>
+                                                                <input type="text" class="form-control new_answer" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Answer' maxlength='50'>
+                                                            </div>
+
+                                                            <div class="input-group mb-4">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text border-0 text-secondary" style="background:white;">&#9679;</span>
+                                                                </div>
+                                                                <input type="text" class="form-control new_question" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Question' maxlength='50'>
+                                                                <input type="text" class="form-control new_answer" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Answer' maxlength='50'>
+                                                            </div>
+
                                                             <?php } ?>
+                                                        </div>
+
+                                                        <!-- ERROR -->
+                                                        <div class="container">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <div id="faq_error" class='text-red'></div>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                       
                                                            
                                                         <!-- BUTTONS -->
-                                                        <?php if($count) { ?>
+                                                        <?php 
+                                                            if(isset($newProductId)) {
+                                                                if($countf) { 
+                                                        ?>
                                                             <div class="container px-0 mt-5">
                                                                 <div class="row">
                                                                     <div class="col-lg-4"></div>
@@ -598,7 +726,7 @@
                                                             </div>
                                                             
                                                         
-                                                        <?php } ?>
+                                                        <?php } } ?>
                                                         
 
                                                     </form>
@@ -647,15 +775,15 @@
 
                                     if(!$img_path){
                                  ?>
-                                <a class='btn py-3 btn-purple-reverse modal-link' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_product_pic_modal.php' role='button'>
+                                <a class='btn py-3 btn-purple-reverse modal-link' data-id='<?= $storeId ?>' data-url='../partials/templates/upload_product_pic_modal.php' role='button'>
                                     <i class="fas fa-camera pr-2"></i>
-                                    <small class='pr-2'>ADD RIMARY IMAGE</small>
+                                    <small class='pr-2'>ADD PRIMARY IMAGE</small>
                                     <i class="far fa-question-circle text-gray" data-toggle="tooltip" title="This will be your product's profile picture." data-original-title="#"></i>
                                 </a>
 
                                 <?php } else {?>
 
-                                 <a class='btn py-3 btn-purple-reverse modal-link' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_product_pic_modal.php' role='button'>
+                                 <a class='btn py-3 btn-purple-reverse modal-link' data-id='<?= $storeId ?>' data-url='../partials/templates/upload_product_pic_modal.php' role='button'>
                                     <i class="fas fa-camera pr-2"></i>
                                     <small class='pr-2'>EDIT PRIMARY IMAGE</small>
                                     <i class="far fa-question-circle text-gray" data-toggle="tooltip" title="This will be your product's profile picture." data-original-title="#"></i>
@@ -670,7 +798,7 @@
                             <div class='d-flex flex-row'>
                                 <!-- STILL NEEDS TO PASS VALUE THROUGH GET TO upload_product_pic_modal.php -->
                                     <!-- TO EDIT, ON CLICK PASS VALUE TO HIDDEN URL THEN WHEN USER CLICKS EDIT, YOU KNOW ALREADY WHAT IMG ID TO EDIT -->
-                                <a class='btn py-3 btn-purple-reverse modal-link' href='#' data-id='<?= $id ?>' data-url='../partials/templates/upload_other_product_pics_modal.php' role='button'>
+                                <a class='btn py-3 btn-purple-reverse modal-link' data-id='<?= $storeId ?>' data-url='../partials/templates/upload_other_product_pics_modal.php' role='button'>
                                     <i class="fas fa-camera pr-2"></i>
                                     <small class='pr-2'>ADD ANOTHER IMAGE</small>
                                 </a>
@@ -682,84 +810,83 @@
 
 
                 <!-- PRODUCT IMAGES -->
-                <div class="container mb-5 p-0" id='store_page_product_container'>
+                <div class="container p-0 <?= isset($newProductId) ? 'mb-5' : null ;?>">
                     
                     <div class="row no-gutters justify-content-left">
                       
-
-                        <div class="col-lg-3 col-md-4 col-sm-6 p-2">
-                            <a href=#>
-                                <div class='card border-0' style='background:none;'>
-                                    <?php 
+                                <?php 
                                     if(isset($_SESSION['newProductId'])) {
                                         $default = "https://via.placeholder.com/250x250";
-                                        $sql = "SELECT img_path FROM tbl_items WHERE id =?";
+                                        $sql = "SELECT * FROM tbl_items WHERE id =?";
                                         $statement = $conn->prepare($sql);
                                         $statement->execute([$newProductId]);
                                         $row = $statement->fetch();
                                         $img_path = $row['img_path'];
+                                        $id = $row['id'];
 
                                         if($img_path){
                                             $img_path = BASE_URL."/".$img_path.".jpg";
-                                            echo  "<img class='card-img-top' src='$img_path' style='width:250px;height:250px;background-color:transparent;'>";
-                                        } else {
-                                            echo "<img class='card-img-top' src='$default' style='width:250px;height:250px;background-color:transparent;'>";
-                                        }
-                                    }
-                                    ?>
+                                ?>
                                     
-                                </div>
-                            </a>
-                        </div>
-                    
 
-                            <?php 
+                        <div class="col-lg-3 col-md-4 col-sm-6 p-2"> 
+                            <div class='card border-0' style='background:none;width:250px;height:250px;'>   
+                                <button class="btn_delete_primary_pic text-gray font-weight-light text-left border-0 pl-2"
+                                    type='button'
+                                    data-id='<?= $id ?>'
+                                    style="background:transparent;cursor:pointer;z-index:5;width:250px;">&times;
+                                </button>      
+                                <img class='card-img-top' src='<?= $img_path ?>' style='width:250px;height:250px;background-color:transparent;'>
+                            </div>
+                        </div>
+                            <?php } else { ?>
+                    
+                        <div class="col-lg-3 col-md-4 col-sm-6 p-2">
+                            <div class='card border-0' style='background:none;width:250px;height:250px;'>  
+                                <img class='card-img-top' src='<?= $default ?>' style='width:250px;height:250px;background-color:transparent;'>
+                            </div>
+                        </div>
+                            
+                            <?php } } 
                                 $default = "https://via.placeholder.com/250x250";
                             if(isset($_SESSION['newProductId'])){
                                     $sql = "SELECT * FROM tbl_product_images WHERE product_id =?";
                                     $statement = $conn->prepare($sql);
-                                    $statement->execute([$newProductId]);                                    
+                                    $statement->execute([$newProductId]);                                
                                     $count = $statement->rowCount();
 
                                 if($count){
                                     while($row = $statement->fetch()){
-                                        $imgId = $row['id'];
+                                        $id = $row['id'];
                                         $img_path = $row['url'];
-                                        $img_path = BASE_URL."/".$img_path.".jpg";
+                                        if($img_path) {
+                                            $img_path = BASE_URL."/".$img_path.".jpg";
                             ?>
 
                         <div class="col-lg-3 col-md-4 col-sm-6 p-2">
-                            <a href='#' data-imgid='<?=$imgId?>'>
-                                <div class='card border-0' style='background:none;'>
-                                    <img class='card-img-top' src='<?=$img_path?>' style='width:250px;height:250px;background-color:transparent;'>
-                                </div>
-                            </a>
+                            <div class='card border-0' style='background:none;width:250px;height:250px;'>
+                                <button class="btn_delete_other_pic text-gray font-weight-light text-left border-0 pl-2"
+                                    type='button'
+                                    data-id='<?= $id ?>'
+                                    style="background:transparent;cursor:pointer;z-index:5;width:250px;">&times;
+                                </button> 
+                                <img class='card-img-top' src='<?=$img_path?>' style='width:250px;height:250px;background-color:transparent;'>
+                            </div>
                         </div>        
                                     
-                            <?php } } else { ?>
+                            <?php } } } else { ?>
                         <div class="col-lg-3 col-md-4 col-sm-6 p-2">
-                            <a href='#'>
-                                <div class='card border-0' style='background:none;'>
-                                    <img class='card-img-top' src='<?=$default?>' style='width:250px;height:250px;background-color:transparent;'>
-                                </div>
-                            </a>
+                            <div class='card border-0' style='background:none;width:250px;height:250px;'>
+                                <img class='card-img-top' src='<?=$default?>' style='width:250px;height:250px;background-color:transparent;'>
+                            </div>
                         </div>
                             
-                           <?php } } else { ?>
-                        <div class="col-lg-3 col-md-4 col-sm-6 p-2">
-                            <a href='#'>
-                                <div class='card border-0' style='background:none;'>
-                                    <img class='card-img-top' src='<?=$default?>' style='width:250px;height:250px;background-color:transparent;'>
-                                </div>
-                            </a>
-                        </div>
-                           <?php } ?>
-
+                           <?php } } ?>
                     </div>
                 </div>
 
                  <!-- HEADING -->
-                 <div class='container p-5 rounded mb-5' style='background:white;'>
+                 <div class='container p-5 rounded' style='background:white;'>
                     <div class="row mx-0 d-flex align-items-center">
 
                         <div class='flex-fill'>
@@ -769,11 +896,12 @@
                         <div class='flex-fill d-flex flex-row'>  
                                 <div class="col-6 flex-fill"></div>
                                 <div class="col-6 flex-fill">
-                                <!-- open product.php?id=$newProductId in different page and end/unset session here -->
-                                <a class='nav-link btn btn-lg btn-purple' href='#' target="_blank" data-id='<?= $id ?>' data-url='../partials/templates/upload_product_pic_modal.php' role='button'>
-                                    
-                                    <small>POST PRODUCT</small>
-                                </a>
+                                    <?php  if(isset($newProductId)) { ?>
+                                    <!-- open product.php?id=$newProductId in different page and end/unset session here -->
+                                    <a class='btn btn-lg btn-purple' target="_blank" data-id='<?= $newProductId ?>' data-url='../controllers/process_unset_new_product.php' type='submit' id='btn_unset_new_product'>
+                                        <small>POST PRODUCT</small>
+                                    </a>
+                                    <?php } ?>
                                 </div>
                         </div>
 

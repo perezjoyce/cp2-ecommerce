@@ -14,11 +14,11 @@ if(isset($_GET['id'])) {
     $url = "";
     $arrow ="";
 
-    if($origin == "http://localhost/tuitt/cp2-ecommerce/app/views/index.php"){
+    if($origin == BASE_URL . "/app/views/index.php"){
         $whereUserIsFrom = "Home";
         $url = "index.php";
         $arrow = "<i class='fas fa-angle-right text-purple'></i>";
-    }elseif($origin == "http://localhost/tuitt/cp2-ecommerce/app/views/catalog.php?id=$id"){
+    }elseif($origin == BASE_URL . "app/views/catalog.php?id=$id"){
         $whereUserIsFrom = "Catalog";
         $url = "catalog.php?id=$id";
         $arrow = "<i class='fas fa-angle-right text-purple'></i>";

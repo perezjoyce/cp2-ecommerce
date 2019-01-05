@@ -24,9 +24,9 @@
                                 <div class="form-group flex-fill">
                                     <input type="file" name="upload" class='btn py-2'>
                                     <!-- STORE ID -->
-                                    <input type="hidden" name="id" value="<?= $_GET['id'] ?>"> 
+                                    <input type="text" name="id" value="<?= $_GET['id'] ?>"> 
                                     <!-- PRODUCT ID TO BE FETCHED FROM store-add-product -->
-                                    <input type="hidden" name="productId" value="<?= $_SESSION['newProductId'] ?>"> 
+                                    <input type="text" name="productId" value="<?= $_SESSION['newProductId'] ?>"> 
                                     
                                 </div>
                                

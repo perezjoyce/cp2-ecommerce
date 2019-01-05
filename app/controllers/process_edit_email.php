@@ -1,9 +1,10 @@
 <?php
+	require_once "connect.php";
+	require_once '../sources/pdo/src/PDO.class.php';
 	session_start();
 
 	if(isset($_SESSION['id'])) {
 		
-		require_once "connect.php";
 		if (isset($_POST['email'])) {
 			$user_id = $_POST['id'];
 			$email = $_POST['email']; 

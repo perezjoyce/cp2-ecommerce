@@ -1,4 +1,5 @@
 <?php 
+    require_once "../../config.php";
 
     //HIDE EMAIL
     function hide_email($email){
@@ -420,7 +421,7 @@
     // DISPLAY BREADCRUMB 
     function displayBreadcrumbs ($conn,$productId,$origin) {
         $sql = "SELECT i.name as 'product_name', i.brand_id 
-        as 'brand_id',c.name as 'category_name', c.parent_category_id, c.id 
+        as 'brand_id', i.store_id, c.name as 'category_name', c.parent_category_id, c.id 
         AS 'category_id',b.brand_name as 'brand_name' FROM tbl_ratings r 
         JOIN tbl_categories c JOIN tbl_items i JOIN tbl_brands b ON i.category_id = c.id 
         AND r.product_id = i.id AND i.brand_id=b.id WHERE product_id = ? GROUP BY product_id";
@@ -433,6 +434,7 @@
         $categoryName = $row['category_name'];
         $parentCategoryId = $row['parent_category_id']; // to fetch parent name later on
         $brandName = $row['brand_name'];
+        $storeId = $row['store_id'];
 
 
         $sql = "SELECT * FROM tbl_categories WHERE id = ? ";
@@ -445,17 +447,24 @@
         $url = "";
         $arrow ="";
 
-        if($origin == "http://localhost/tuitt/cp2-ecommerce/app/views/index.php"){
+        if($origin == BASE_URL . "/app/views/index.php"){
             $whereUserIsFrom = "Home";
             $url = "index.php";
             $arrow = "<i class='fas fa-angle-right text-gray'></i>";
-        }elseif($origin == "http://localhost/tuitt/cp2-ecommerce/app/views/catalog.php?id=$productId"){
+            $vanish = "";
+        }elseif($origin == BASE_URL . "/app/views/catalog.php?id=$productId"){
             $whereUserIsFrom = "Catalog";
             $url = "catalog.php?id=$productId";
             $arrow = "<i class='fas fa-angle-right text-gray'></i>";
+            $vanish = "";
+        }elseif($origin == BASE_URL . "/app/views/store-add-product.php?id=$storeId") {
+            $whereUserIsFrom ="My Store";
+            $url = "";
+            $vanish = "";
         }else {
             $whereUserIsFrom ="";
             $url = "";
+            $vanish = "vanish-sm vanish-md vanish-lg";
         }
 
         // var_dump($origin);die();
@@ -474,19 +483,19 @@
                 </a>
             </span>
             <span>
-                <i class='fas fa-angle-right text-gray'></i>
+                <i class='fas fa-angle-right text-gray $vanish'></i>
                 <a href='#' class='text-gray'>
                     &nbsp;$categoryName&nbsp;
                 </a>
             </span>
             <span>
-                <i class='fas fa-angle-right text-gray'></i>
+                <i class='fas fa-angle-right text-gray $vanish'></i>
                 <a href='#' class='text-gray'>
                     &nbsp;$brandName&nbsp;
                 </a>
             </span>
             <span>
-                <i class='fas fa-angle-right text-gray'></i>
+                <i class='fas fa-angle-right text-gray $vanish'></i>
                 <a href='#' class='text-gray'>
                     &nbsp;$productName
                 </a>

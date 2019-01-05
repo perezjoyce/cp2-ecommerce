@@ -1,7 +1,6 @@
     <!-- EXTRA SPACE -->
     <div class="container">
-      <div class="row my-5">
-      </div>
+      <div class="row my-5"></div>
     </div>
       
   
@@ -91,7 +90,7 @@
           </div>  
 
           <div class="col-lg-4 col-md-4 col-sm-7">
-          <br class='vanish-lg vanish-md'>
+            <br class='vanish-lg vanish-md'>
             <div class="d-flex flex-column px-lg-3 pl-md-3">
               <div class="flex-fill px-lg-5">
                 <h3 class='text-light'>Exclusive Deals & Offers</h3>
@@ -139,7 +138,6 @@
         <div class="col-12 text-center">
           <a href="https://perezjoyce.github.io/portfolio/" target="_blank" class='purple-link'>Joyce Perez</a>  &copy; <a href="#" class='modal-link purple-link' data-url='../partials/templates/disclaimer_modal.php'>Disclaimer</a>
         </div>
-
       </div>
     </div>
     
