@@ -1,6 +1,6 @@
 <?php
 
-    session_start(); 
+    require_once('../../../config.php'); 
 
     // require_once "../../controllers/connect.php";
     function getPreselectedAddress($addressId, $conn) {
@@ -406,6 +406,20 @@
                             </div>
                                 
 
+                        </form>
+
+                        <form action="<?= BASE_URL ?>/app/controllers/process_charge.php" method="post" id="stripe_pay_button" class='hidden'>
+                            <?php $totalAmount = $_SESSION['total_amount'] ?>
+                            <script
+                                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                data-key="pk_test_akuLqp7kIjCHQQJoK1oB7ol6"
+                                data-amount="<?= number_format($totalAmount,2, "","") ?>"
+                                data-name="Shoperoo"
+                                data-description="Checkout Payment"
+                                data-label="Credit Card Payment"
+                                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                data-locale="auto">
+                            </script>
                         </form>
 
 

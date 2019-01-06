@@ -2015,7 +2015,7 @@ $(document).ready( () => {
 			flag = 1;
 		} 
 
-		if(!addressId || addressId == ""){	
+		if(!addressId || addressId == "") {	
 			
 			$.post('../controllers/process_save_new_billing_address.php', {
 				regionId:regionId, 
@@ -2059,6 +2059,13 @@ $(document).ready( () => {
 
 		}
 		
+	});
+
+	$(document).on('change', '#modeOfPayment', function() {
+		if(this.value == 3) {
+			$('#btn_order_confirmation').hide();
+			$('#stripe_pay_button').show();
+		}
 	});
 
 
