@@ -26,7 +26,7 @@
                                     <!-- STORE ID -->
                                     <input type="text" name="id" value="<?= $_GET['id'] ?>"> 
                                     <!-- PRODUCT ID TO BE FETCHED FROM store-add-product -->
-                                    <input type="text" name="<?=isset($_GET['productid']) ? 'productid' : 'productId'?>" value="<?=isset($_GET['productid']) ? $_GET['productid'] : isset($_SESSION['newProductId'])?>"> 
+                                    <input type="text" name="<?=isset($_GET['productid']) ? 'productid' : 'productId'?>" value="<?=isset($_GET['productid']) ? $_GET['productid'] : $_SESSION['newProductId'] ?>"> 
                     
                                     
                                 </div>

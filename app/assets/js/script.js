@@ -2568,7 +2568,7 @@ $(document).ready( () => {
 			'price' : $("#product_price").val()
 		} 
 
-		flag = 0;
+		let flag = 0;
 
 		if(data.name.length < 1){
 			$('#basic_info_error').text('Please fill out all fields.');

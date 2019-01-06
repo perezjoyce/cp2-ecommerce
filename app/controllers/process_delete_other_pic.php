@@ -7,7 +7,7 @@
   if(isset($_POST['id'])){
       $id = $_POST['id']; 
 
-    $sql = "SELECT * FROM tbl_product_images WHERE id = ?";
+    $sql = "SELECT * FROM tbl_product_images WHERE id =?";
     $statement = $conn->prepare($sql);
     $statement->execute([$id]);
     $row = $statement->fetch();

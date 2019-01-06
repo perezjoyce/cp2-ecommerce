@@ -101,7 +101,7 @@
                                             <div class="row mt-5">
                                                 <div class="col">
                                                     <form action="../controllers/process_add_new_product.php" method="POST" id="form_add_new_product">
-                                                    <input type="hidden" id="new_product_id" value="<?= isset($newProductId) ? $newProductId : null ; ?>">
+                                                    <input type="text" id="new_product_id" value="<?= isset($newProductId) ? $newProductId : null ; ?>">
 
                                                         <!-- PRODUCT NAME -->
                                                         <div class="form-group row mb-5">
@@ -774,15 +774,15 @@
                         <div class='flex-fill'>  
                             <div class='d-flex flex-row'>
                                 <?php if(isset($_SESSION['newProductId'])) {
-                                    $sql = "SELECT img_path FROM tbl_items WHERE id =?";
+                                    $default = "https://via.placeholder.com/250x250";
+                                    $sql = "SELECT * FROM tbl_product_images WHERE product_id =? AND is_primary = 1";
                                     $statement = $conn->prepare($sql);
-                                    $statement->execute([$newProductId]);
-                                    $row = $statement->fetch();
-                                    $img_path = $row['img_path'];
+                                    $statement->execute([$newProductId]);                                
+                                    $count = $statement->rowCount();
 
-                                    if(!$img_path){
+                                    if(!$count){
                                  ?>
-                                <a class='btn py-3 btn-purple-reverse modal-link' data-id='<?= $storeId ?>' data-url='../partials/templates/upload_product_pic_modal.php' role='button'>
+                                <a class='btn py-3 btn-purple-reverse modal-link' data-id='<?= $storeId ?>' data-url='../partials/templates/upload_product_pic_modal.php?id=<?=$storeId?>' role='button'>
                                     <i class="fas fa-camera pr-2"></i>
                                     <small class='pr-2'>ADD PRIMARY IMAGE</small>
                                     <i class="far fa-question-circle text-gray" data-toggle="tooltip" title="This will be your product's profile picture." data-original-title="#"></i>
@@ -790,7 +790,7 @@
 
                                 <?php } else {?>
 
-                                 <a class='btn py-3 btn-purple-reverse modal-link' data-id='<?= $storeId ?>' data-url='../partials/templates/upload_product_pic_modal.php' role='button'>
+                                 <a class='btn py-3 btn-purple-reverse modal-link' data-id='<?= $storeId ?>' data-url='../partials/templates/upload_product_pic_modal.php?id=<?=$storeId?>' role='button'>
                                     <i class="fas fa-camera pr-2"></i>
                                     <small class='pr-2'>EDIT PRIMARY IMAGE</small>
                                     <i class="far fa-question-circle text-gray" data-toggle="tooltip" title="This will be your product's profile picture." data-original-title="#"></i>
@@ -805,7 +805,7 @@
                             <div class='d-flex flex-row'>
                                 <!-- STILL NEEDS TO PASS VALUE THROUGH GET TO upload_product_pic_modal.php -->
                                     <!-- TO EDIT, ON CLICK PASS VALUE TO HIDDEN URL THEN WHEN USER CLICKS EDIT, YOU KNOW ALREADY WHAT IMG ID TO EDIT -->
-                                <a class='btn py-3 btn-purple-reverse modal-link' data-id='<?= $storeId ?>' data-url='../partials/templates/upload_other_product_pics_modal.php' role='button'>
+                                <a class='btn py-3 btn-purple-reverse modal-link' data-id='<?= $storeId ?>' data-url='../partials/templates/upload_other_product_pics_modal.php?id=<?=$storeId?>' role='button'>
                                     <i class="fas fa-camera pr-2"></i>
                                     <small class='pr-2'>ADD ANOTHER IMAGE</small>
                                 </a>
@@ -824,21 +824,22 @@
                                 <?php 
                                     if(isset($_SESSION['newProductId'])) {
                                         $default = "https://via.placeholder.com/250x250";
-                                        $sql = "SELECT * FROM tbl_items WHERE id =?";
+                                        $sql = "SELECT * FROM tbl_product_images WHERE product_id =? AND is_primary = 1";
                                         $statement = $conn->prepare($sql);
-                                        $statement->execute([$newProductId]);
-                                        $row = $statement->fetch();
-                                        $img_path = $row['img_path'];
-                                        $id = $row['id'];
+                                        $statement->execute([$newProductId]);                                
+                                        $count = $statement->rowCount();
 
-                                        if($img_path){
+                                        if($count){
+                                            $row = $statement->fetch();
+                                            $id = $row['id'];
+                                            $img_path = $row['url'];
                                             $img_path = BASE_URL."/".$img_path.".jpg";
                                 ?>
                                     
 
                         <div class="col-lg-3 col-md-4 col-sm-6 p-2"> 
                             <div class='card border-0' style='background:none;width:250px;height:250px;'>   
-                                <button class="btn_delete_primary_pic text-gray font-weight-light text-left border-0 pl-2"
+                                <button class="btn_delete_other_pic text-gray font-weight-light text-left border-0 pl-2"
                                     type='button'
                                     data-id='<?= $id ?>'
                                     style="background:transparent;cursor:pointer;z-index:5;width:250px;">&times;
@@ -857,7 +858,7 @@
                             <?php } } 
                                 $default = "https://via.placeholder.com/250x250";
                             if(isset($_SESSION['newProductId'])){
-                                    $sql = "SELECT * FROM tbl_product_images WHERE product_id =?";
+                                    $sql = "SELECT * FROM tbl_product_images WHERE product_id=? AND is_primary=0";
                                     $statement = $conn->prepare($sql);
                                     $statement->execute([$newProductId]);                                
                                     $count = $statement->rowCount();

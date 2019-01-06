@@ -21,14 +21,14 @@
     if ($_FILES['upload']['size'] > 2000000) {
         // REDIRECTING PAGE WITH ERROR MSG IN URL QUERY STRING
         $errorMsg = urlencode("Sorry, your file is too large.");
-        header("Location: ../views/store-add-product.php?id=$storeId&uploadError=" . $errorMsg);
+        header("Location: ../views/store-add-product.php?id=$storeId&productId=$productId&uploadError=" . $errorMsg);
         exit;
     } 
 
     // to limit type of files 
     if ($imageFileType != 'jpg' && $imageFileType != 'png' && $imageFileType != 'jpeg') {
         $errorMsg = urlencode("Only JPG, JPEG and PNG Files are allowed.");
-        header("Location: ../views/store-add-product.php?id=$storeId&uploadError=" . $errorMsg);
+        header("Location: ../views/store-add-product.php?id=$storeId&productId=$productId&uploadError=" . $errorMsg);
         exit;
     }
 
@@ -62,27 +62,30 @@
                     $uploader->Clean();
                 }
 
-                $sql = "SELECT * FROM tbl_items WHERE id = ?";
+                $sql = "SELECT * FROM tbl_product_images WHERE product_id = ? AND is_primary =?";
                 $statement = $conn->prepare($sql);
-                $statement->execute([$productId]);
-                $imageDetails = $statement->fetch();
+                $statement->execute([$productId,1]);
+                $row = $statement->fetch();
 
-                $sql = "UPDATE tbl_items SET img_path=null WHERE id = ?";
-                $statement = $conn->prepare($sql);
-                $statement->execute([$id]);
-                unlink( "../../" . $imageDetails['img_path'].".jpg");
-                unlink( "../../" . $imageDetails['img_path']."_80x80.jpg");
+                if($statement->rowCount()) {
+                    $row = $statement->fetch();
+                    unlink( "../../" . $row['url'].".jpg");
+                    unlink( "../../" . $row['url']."_80x80.jpg");
 
-               
-                $sql = "UPDATE tbl_items SET img_path='uploads/$id/$storeId/$productId/$filename' WHERE id = ? ";
-                $statement = $conn->prepare($sql);
-                $statement->execute([$productId]);
-                header("Location: ../views/store-add-product.php?id=$storeId");
+                    $sql = "UPDATE tbl_product_images SET `url`='uploads/$id/$storeId/$productId/$filename' WHERE id = ? AND is_primary=1";
+                    $statement = $conn->prepare($sql);
+                    $statement->execute([$productId]);
+    
+                } else {
+                    $sql = "INSERT INTO tbl_product_images(`url`, `product_id`, is_primary) VALUES(?, ?, 1)";
+                    $statement = $conn->prepare($sql);
+                    $filePath = "uploads/$id/$storeId/$productId/$filename";
+                    $statement->execute([$filePath, $productId]);
+                }
+
+                header("Location: ../views/store-add-product.php?id=$storeId&productId=$productId");
                 
-            // } else {
-
-            // }
-
+       
            
 
         

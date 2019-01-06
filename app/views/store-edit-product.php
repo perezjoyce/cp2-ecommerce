@@ -765,28 +765,30 @@
                     <div class="row mx-0 d-flex align-items-center">
 
                         <div class='flex-fill'>
-                            <h4>5. Upload Product Images</h4>
+                            <h4>Product Images</h4>
 
-                            <div class="text-gray pl-4">
+                            <div class="text-gray">
                                 <small>File size: Max of 1MB</small>
                             </div>
-                            <div class="text-gray pl-4">
+                            <div class="text-gray">
                                 <small>File extension: jpg, jpeg, png</small>
                             </div>
                         </div>
 
                         <div class='flex-fill'>  
                             <div class='d-flex flex-row'>
-                                <?php if(isset($productId)) {
-                                    $sql = "SELECT img_path FROM tbl_items WHERE id =?";
+                                <?php 
+                                 if(isset($productId)) {
+                                    $default = "https://via.placeholder.com/250x250";
+                                    $sql = "SELECT * FROM tbl_product_images WHERE product_id =? AND is_primary = 1";
                                     $statement = $conn->prepare($sql);
-                                    $statement->execute([$productId]);
-                                    $row = $statement->fetch();
-                                    $img_path = $row['img_path'];
+                                    $statement->execute([$productId]);                                
+                                    $count = $statement->rowCount();
 
-                                    if(!$img_path){
+                                    if(!$count){
+                                    
                                  ?>
-                                <a class='btn py-3 btn-purple-reverse modal-link' data-id='<?= $storeId ?>' data-url='../partials/templates/upload_product_pic_modal.php' role='button'>
+                                <a class='btn py-3 btn-purple-reverse modal-link' data-id='<?= $storeId ?>' data-url='../partials/templates/upload_product_pic_modal.php?id=<?=$storeId?>&productid=<?=$productId?>' role='button'>
                                     <i class="fas fa-camera pr-2"></i>
                                     <small class='pr-2'>ADD PRIMARY IMAGE</small>
                                     <i class="far fa-question-circle text-gray" data-toggle="tooltip" title="This will be your product's profile picture." data-original-title="#"></i>
@@ -828,21 +830,22 @@
                                 <?php 
                                     if(isset($productId)) {
                                         $default = "https://via.placeholder.com/250x250";
-                                        $sql = "SELECT * FROM tbl_items WHERE id =?";
+                                        $sql = "SELECT * FROM tbl_product_images WHERE product_id =? AND is_primary = 1";
                                         $statement = $conn->prepare($sql);
-                                        $statement->execute([$productId]);
-                                        $row = $statement->fetch();
-                                        $img_path = $row['img_path'];
-                                        $id = $row['id'];
+                                        $statement->execute([$productId]);                                
+                                        $count = $statement->rowCount();
 
-                                        if($img_path){
+                                        if($count){
+                                            $row = $statement->fetch();
+                                            $id = $row['id'];
+                                            $img_path = $row['url'];
                                             $img_path = BASE_URL."/".$img_path.".jpg";
                                 ?>
                                     
 
                         <div class="col-lg-3 col-md-4 col-sm-6 p-2"> 
                             <div class='card border-0' style='background:none;width:250px;height:250px;'>   
-                                <button class="btn_delete_primary_pic text-gray font-weight-light text-left border-0 pl-2"
+                                <button class="btn_delete_other_pic text-gray font-weight-light text-left border-0 pl-2"
                                     type='button'
                                     data-id='<?= $id ?>'
                                     style="background:transparent;cursor:pointer;z-index:5;width:250px;">&times;
@@ -861,7 +864,7 @@
                             <?php } } 
                                 $default = "https://via.placeholder.com/250x250";
                                 if(isset($productId)) {
-                                    $sql = "SELECT * FROM tbl_product_images WHERE product_id =?";
+                                    $sql = "SELECT * FROM tbl_product_images WHERE product_id =? AND is_primary = 0";
                                     $statement = $conn->prepare($sql);
                                     $statement->execute([$productId]);                                
                                     $count = $statement->rowCount();

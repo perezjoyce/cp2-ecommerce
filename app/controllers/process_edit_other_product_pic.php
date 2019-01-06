@@ -64,9 +64,9 @@
 
                 $img_path= "uploads/$id/$storeId/$productId/$filename";
                
-                $sql = "INSERT INTO tbl_product_images(`url`,product_id) VALUES(?,?)";
+                $sql = "INSERT INTO tbl_product_images(`url`,product_id,is_primary) VALUES(?,?,?)";
                 $statement = $conn->prepare($sql);
-                $statement->execute([$img_path,$productId]);
+                $statement->execute([$img_path,$productId,0]);
                 header("Location: ../views/store-edit-product.php?id=$storeId&productid=$productId");
                 
             // } else {
