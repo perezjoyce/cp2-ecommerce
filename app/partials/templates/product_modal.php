@@ -1,10 +1,61 @@
-<?php require_once "../partials/header.php";?>
-<?php require_once "../controllers/connect.php";?>
-<?php require_once "../controllers/functions.php";?>
-<?php include_once "../partials/categories.php"; ?>
-
 
 <?php 
+
+    require_once '../../sources/pdo/src/PDO.class.php';
+    require_once '../../../config.php';
+
+	//set values
+	$host = "localhost";
+	$db_username = "root";
+	$db_password = "";
+	$db_name = "db_demoStoreNew";
+
+	$conn = new PDO("mysql:host=$host;dbname=$db_name",$db_username,$db_password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+	//check connection
+	if(!$conn) {
+		die("Connection failed: " . mysqli_error($conn));
+    }
+    
+    require_once "../../controllers/functions.php";
+
+  // UPDATE LAST ACTIVITY    
+  if(isset($_SESSION['id'])){
+    $id = $_SESSION['id']; // userId
+    $sql = "UPDATE tbl_users SET last_login = now() WHERE id = ?";
+    $statement = $conn->prepare($sql);
+    $statement->execute([$id]);
+
+    $sql = " SELECT * FROM tbl_users WHERE id = ? ";
+    $statement = $conn->prepare($sql);
+    $statement->execute([$id]);
+    $row = $statement->fetch();
+
+    
+        $profile_pic = $row['profile_pic'];
+
+        if($profile_pic == "") {
+            $profile_pic = DEFAULT_PROFILE; 
+            $prefix = "rounded";
+        } else {
+            $profile_pic = BASE_URL ."/". $profile_pic . "_80x80.jpg";
+            $prefix = "";
+        } 
+
+  }
+
+  if(!isset($_SESSION['cart_session'])) {
+    $_SESSION['cart_session'] = uniqid();
+    
+  }
+
+  $cartSession = $_SESSION['cart_session'];
+  $sql = " SELECT * FROM tbl_carts WHERE cart_session=?";
+  $statement = $conn->prepare($sql);
+  $statement->execute([$cartSession]);
+
+
 $id = $_GET['id'];
 
 if(isset($_SESSION['id'])) {
@@ -12,20 +63,11 @@ if(isset($_SESSION['id'])) {
   $currentUser = getUser($conn, $userId);
   $isSeller = $currentUser['isSeller'];
 }
+    
+  
+
 ?>
 
-
-  <!-- BREADCRUMBS -->
-  <!-- <div class="container">
-    <div class="row my-4">
-      <div class="col-12">
-     
-          @$origin = $_SERVER['HTTP_REFERER'];
-          displayBreadcrumbs($conn, $id, $origin); 
-        
-      </div>
-    </div>
-  </div> -->
 
       <!-- PRODUCT PAGE MAIN CONTAINER -->
       <div class="container mt-5">
@@ -1343,327 +1385,5 @@ if(isset($_SESSION['id'])) {
       </div>
    
 
-
-        <!-- THIRD ROW APPEARS DIFFERENTLY DEPENDING ON NO OF PRODUCTS -->
-        <?php 
-
-          $sql = "SELECT * FROM tbl_items WHERE id != ? AND store_id != ? AND category_id = ? LIMIT 12 ";
-          $statement = $conn->prepare($sql);
-          $statement->execute([$id,$storeId,$categoryId]);
-        
-          if($statement->rowCount() >= 6){
-        ?>
-
-        <!-- RELATED PRODUCTS -->
-        <div class="container mb-5">  
-            <!-- LABEL -->
-            <div class="row">
-              <div class="col-6">
-                  <h4 class='pl-3'>
-                  &nbsp;RELATED PRODUCTS
-                  </h4>
-              </div>
-            </div>
-            <!-- CARDS -->
-            <div class="row no-gutters autoplay justify-content-left">
-
-              <?php
-                  while($row = $statement->fetch()){
-                    $id = $row['id'];
-                    $name = $row['name'];
-                    $price = $row['price'];
-                    $price = number_format((float)$price, 2, '.', '');
-                    $description = $row['description'];
-                    $item_img = $row['img_path'];
-              ?>
-
-              <div class="col-lg-2 col-md-3">
-                <a href="product.php?id=<?= $id ?>">
-                  <div class='card h-700 border-0'>
-                    <a href="product.php?id=<?= $row['id'] ?>">
-                      <img class='card-img-top' src="<?= $item_img ?>">
-
-                      <div class="card-body pr-0">
-
-                        <div>
-                          <?= $name ?>
-                        </div>
-                        <div>&#8369; 
-                          <?= $price ?> 
-                        </div>
-
-                        <div class='d-flex flex-row mt-3'>
-
-                          <!-- WISHLIST BUTTONS -->
-                          <div class='' style='cursor:default;'>
-
-                              <?php if(checkIfInWishlist($conn,$id) == 1 ) { ?>
-                              
-                                <i class='fas fa-heart text-red'></i> 
-                                <span class='text-gray product-wish-count<?= $id ?>'>
-                                  <small><?= getProductWishlishtCount($conn, $id) ?></small>
-                                </span>
-
-                              <?php } else { 
-                                
-                                if(getProductWishlishtCount($conn, $id) == 0) { ?>
-
-                                <i class='far fa-heart text-gray'></i> 
-                                <span class='text-gray product-wish-count<?= $id ?>'>
-                                  <small><?= getProductWishlishtCount($conn, $id) ?></small>
-                                </span>
-
-                                <?php } else { ?>
-
-                                <i class='far fa-heart text-red'></i> 
-                                <span class='text-gray product-wish-count<?= $id ?>'>
-                                  <small><?= getProductWishlishtCount($conn, $id) ?></small>
-                                </span>
-
-                              <?php   } }  ?>
-                            
-                          </div>
-                                
-
-                          <!-- AVERAGE STAR RATING -->
-                          <div class='flex-fill' style="display:flex; flex-direction: column; width:81%; align-items:flex-end">  
-                            <div class='stars-outer' 
-                              data-productrating='<?=getAveProductReview($conn, $id)?>' 
-                              data-productid='<?=$id?>' 
-                              id='average_product_stars2<?=$id?>'>
-                              <span class='stars-inner'></span>
-                            </div>
-                          </div>
-                          <!-- /AVERAGE STAR RATING -->
-
-                        </div>
-
-                      </div>
-                      <!-- /CARD BODY -->
-                    </a> 
-                  </div>
-                </a>
-              </div>
-                  
-              <?php } ?>
-
-            </div>
-            <!-- /CARDS -->
-        </div>
-      
-          <?php } elseif($statement->rowCount() > 0 && $statement->rowCount() < 6) { ?>
-        <div class="container mb-5">
-          <!-- LABEL -->
-          <div class="row">
-            <div class="col-6">
-              <h4 class='pl-3'>
-              RELATED PRODUCTS
-              </h4>
-            </div>
-            <div class="col-6 text-right pt-2">View All&nbsp;<i class="fas fa-angle-double-right"></i></i></div>
-          </div>
-          <!-- CARDS -->
-          <div class="row no-gutters pl-3">
-              <?php 
-                while($row = $statement->fetch()){
-                  $id = $row['id'];
-                  $name = $row['name'];
-                  $price = $row['price'];
-                  $price = number_format((float)$price, 2, '.', '');
-                  $description = $row['description'];
-                  $item_img = $row['img_path'];
-              ?>
-            <div class="col-lg-2 col-md-3 col-sm-6 px-1 pb-2">
-              <a href="product.php?id=<?= $id ?>">
-                <div class = 'card h-700 border-0' style='width:150px;'>
-                  <img class='card-img-top' src="<?= $item_img ?>" > 
-                  <div class="card-body pr-0">
-
-                    <div class='font-weight-bold'>
-                      <?= $name ?>
-                    </div>
-
-                    <div>&#8369; 
-                      <?= $price ?> 
-                    </div>
-
-                    <div class='d-flex flex-row mt-3'>
-                      
-                      <!-- WISHLIST BUTTONS -->
-                      <div class='flex-fill' style='cursor:default;'>
-
-                        <?php if(checkIfInWishlist($conn,$id) == 1 ) { ?>
-
-                          <i class='fas fa-heart text-red'></i> 
-                          <span class='text-gray product-wish-count<?= $id ?>'>
-                            <small><?= getProductWishlishtCount($conn, $id) ?></small>
-                          </span>
-
-                        <?php } else { 
-                          
-                          if(getProductWishlishtCount($conn, $id) == 0) { ?>
-
-                          <i class='far fa-heart text-gray'></i> 
-                          <span class='text-gray product-wish-count<?= $id ?>'>
-                            <small><?= getProductWishlishtCount($conn, $id) ?></small>
-                          </span>
-
-                          <?php } else { ?>
-
-                          <i class='far fa-heart text-red'></i> 
-                          <span class='text-gray product-wish-count<?= $id ?>'>
-                            <small><?= getProductWishlishtCount($conn, $id) ?></small>
-                          </span>
-
-                        <?php   } }  ?>
-                      </div>
-                      <!-- /WISH LIST BUTTONS -->
-
-                      <!-- AVERAGE STAR RATING -->
-                      <div class='flex-fill' style="display:flex; flex-direction: column; width:81%; align-items:flex-end">  
-                        <div class='stars-outer' 
-                          data-productrating='<?=getAveProductReview($conn, $id)?>' 
-                          data-productid='<?=$id?>' 
-                          id='average_product_stars2<?=$id?>'>
-                          <span class='stars-inner'></span>
-                        </div>
-                      </div>
-                      <!-- /AVERAGE STAR RATING -->    
-                    </div>
-
-                  </div>
-                  <!-- /.CARD BODY -->
-                </div>
-                <!-- /.CARD -->
-              </a>
-            
-              <?php } ?> 
-            </div>
-          </div>
-        </div>
-        
-    
-        <?php } else { echo ""; } ?>
-        <!-- /RELATED PRODUCTS -->
-  
-
-      
-      <!-- PRODUCTS FROM SELLER -->
-      <div class="container mb-5" style="width:100%;">
-        <div class="pl-3 row">
-          <div class="col-6">
-            <h4>
-              &nbsp;OTHER PRODUCTS FROM SHOP
-            </h4>
-          </div>
-        </div>
-        <div class="row no-gutters autoplay justify-content-left">
-            <?php 
-              $productId = $_GET['id'];
-              $sql2 = "SELECT * FROM tbl_items WHERE id != ? AND store_id = ? LIMIT 12 ";
-              $statement2 = $conn->prepare($sql2);
-              $statement2->execute([$productId,$storeId]);
-
-              if($statement2->rowCount()){
-                while($row2 = $statement2->fetch()){
-                  $id = $row2['id'];
-                  $name = $row2['name'];
-                  $price = $row2['price'];
-                  $price = number_format((float)$price, 2, '.', '');
-                  $description = $row2['description'];
-                  $item_img = $row2['img_path'];
-            ?>
-          
-          <div class="col-lg-2 col-md-3">
-            <a href="product.php?id=<?= $id ?>">
-              <div class='card h-700 border-0' style='width:100%;'>
-                <a href="product.php?id=<?= $row2['id'] ?>">
-                  <img class='card-img-top' src="<?= $item_img ?>">
-
-                  <div class="card-body pr-0">
-                    <div>
-                      <?= $name ?>
-                    </div>
-                    <div>&#8369; 
-                      <?= $price ?> 
-                    </div>
-
-                    <div class='d-flex flex-row mt-3'>
-                    
-                      <!-- WISHLIST BUTTONS -->
-                      <div class='flex-fill' style='cursor:default;'>
-
-                        <?php if(checkIfInWishlist($conn,$id) == 1 ) { ?>
-
-                          <i class='fas fa-heart text-red'></i> 
-                          <span class='text-gray product-wish-count<?= $id ?>'>
-                            <small><?= getProductWishlishtCount($conn, $id) ?></small>
-                          </span>
-
-                        <?php } else { 
-                          
-                          if(getProductWishlishtCount($conn, $id) == 0) { ?>
-
-                          <i class='far fa-heart text-gray'></i> 
-                          <span class='text-gray product-wish-count<?= $id ?>'>
-                            <small><?= getProductWishlishtCount($conn, $id) ?></small>
-                          </span>
-
-                          <?php } else { ?>
-
-                          <i class='far fa-heart text-red'></i> 
-                          <span class='text-gray product-wish-count<?= $id ?>'>
-                            <small><?= getProductWishlishtCount($conn, $id) ?></small>
-                          </span>
-
-                        <?php   } }  ?>
-                      </div>
-                            
-                    
-
-                      <!-- AVERAGE STAR RATING -->
-                      <div class='flex-fill' style="display:flex; flex-direction: column; width:81%; align-items:flex-end">  
-                        <div class='stars-outer' 
-                          data-productrating='<?=getAveProductReview($conn, $id)?>' 
-                          data-productid='<?=$id?>' 
-                          id='average_product_stars2<?=$id?>'>
-                          <span class='stars-inner'></span>
-                        </div>
-                      </div>
-                      <!-- /AVERAGE STAR RATING -->
-                    </div>
-
-                  </div>
-                </a> 
-              </div>
-            </a>
-          </div>
-          
-                
-            <?php } } ?>
-
-        </div>
-      </div>
   
   
-      <?php 
-      
-      //CHECK IF CLIENT IS A SELLER AND THE OWNER OF THE PAGE 
-      if(isset($_SESSION['id'])){
-        if ($isSeller && $currentUser['id'] == $sellerId) {
-          echo "";
-        } else { 
-          echo include '../partials/message_box.php'; 
-        }
-      } 
-      
-    ?> 
-
-
-  
-</body>
-</html> 
-
-<?php require_once "../partials/footer.php";?>
-<?php require_once "../partials/modal_container.php"; ?>
-<?php require_once "../partials/modal_container_big.php"; ?>

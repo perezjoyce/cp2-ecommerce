@@ -226,12 +226,12 @@
                                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                                 <!-- ONCE CLICKED, BUTTON WILL BE CHANGED -->
                                                                
-                                                                <a class="dropdown-item" href="#"><small>VIEW</small></a>
+                                                                <a class="dropdown-item btn_store_products_view" data-href='<?= BASE_URL ."/app/partials/templates/product_modal.php?id=". $productId?>'><small>VIEW</small></a>
                                                                 
                                                                 <!-- ONCE CLICKED, WILL BE TRANSFERRED TO SHIPPING -->
-                                                                <a class="dropdown-item" href="store-update-product.php?id=<?=$storeId?>"><small>UPDATE</small></a>
+                                                                <a class="dropdown-item" href="store-edit-product.php?id=<?=$storeId?>&productid=<?=$productId?>"><small>EDIT</small></a>
                                                                 <!-- ONCE CLICKED, WILL BE TRANSFERRED TO ORDER HISTORY -->
-                                                                <a class="dropdown-item" href="#"><small>DELETE</small></a>
+                                                                <a class="dropdown-item btn_delete_product" data-productId='<?= $productId ?>' href="#"><small>DELETE</small></a>
                                                                 
                                                         </div>
                                                         <!-- put dropdown with two buttons: SEND MESSAGE, CONFIRM, CANCELL, COMPLETE -->

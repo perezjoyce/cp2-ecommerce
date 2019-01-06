@@ -19,14 +19,15 @@
 
                 <div class="row">
                     <div class="col">
-                        <form action="../controllers/process_upload_other_product_pic.php" method="POST" enctype="multipart/form-data">
+                        <form action='<?= isset($_GET['productid']) ? "../controllers/process_edit_other_product_pic.php" : "../controllers/process_upload_other_product_pic.php" ?>'  method="POST" enctype="multipart/form-data">
                             <div class="d-flex align-items-center py-0">
                                 <div class="form-group flex-fill">
                                     <input type="file" name="upload" class='btn py-2'>
                                     <!-- STORE ID -->
                                     <input type="text" name="id" value="<?= $_GET['id'] ?>"> 
                                     <!-- PRODUCT ID TO BE FETCHED FROM store-add-product -->
-                                    <input type="text" name="productId" value="<?= $_SESSION['newProductId'] ?>"> 
+                                    <input type="text" name="<?=isset($_GET['productid']) ? 'productid' : 'productId'?>" value="<?=isset($_GET['productid']) ? $_GET['productid'] : isset($_SESSION['newProductId'])?>"> 
+                    
                                     
                                 </div>
                                

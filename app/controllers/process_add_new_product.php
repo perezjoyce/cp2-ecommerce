@@ -6,7 +6,8 @@ require_once "connect.php";
 require_once "functions.php";
 
 if(isset($_POST['newProductId'])){
-    
+
+    $response = [];
     $newProductId = $_POST['newProductId'];
     $storeId = $_POST['storeId'];
     $name = $_POST['name'];
@@ -14,9 +15,20 @@ if(isset($_POST['newProductId'])){
     $categoryId = $_POST['categoryId'];
     $subcategoryId = $_POST['subcategoryId'];
     $brandId = $_POST['brandId'];
+
+    $sql = "SELECT * FROM tbl_items WHERE `name`=? AND id!=? AND store_id=?";
+    $statement = $conn->prepare($sql);
+    $statement->execute([$name, $newProductId, $storeId]);
+    $count = $statement->rowCount();
+
+    if($count){
+        $response = ['status'=> 'duplicate'];
+        
+    } else {
     $sql = "UPDATE tbl_items SET `name`=?, price=?, category_id=?,brand_id=?,store_id=? WHERE id =?";
         $statement = $conn->prepare($sql);
         $statement->execute([$name, $price, $subcategoryId, $brandId, $storeId,$newProductId]);
+    }
     
 } else {
 
@@ -27,15 +39,23 @@ if(isset($_POST['newProductId'])){
     $subcategoryId = $_POST['subcategoryId'];
     $brandId = $_POST['brandId'];
 
-    // INSERT DATA
-    $sql = "INSERT INTO tbl_items(`name`,price,category_id,brand_id,store_id) VALUES(?,?,?,?,?)";
+    $sql = "SELECT * FROM tbl_items WHERE `name`=? AND store_id=?";
     $statement = $conn->prepare($sql);
-    $statement->execute([$name, $price, $subcategoryId, $brandId, $storeId]);
-    
-    //FETCH LAST INSERTED ID
-    $newProductId = $conn->lastInsertId();
-    $_SESSION['newProductId'] = $newProductId;
+    $statement->execute([$name, $storeId]);
+    $count = $statement->rowCount();
 
+    if($count)  {
+        $response = ['status'=> 'duplicate'];
+    } else {
+        // INSERT DATA
+        $sql = "INSERT INTO tbl_items(`name`,price,category_id,brand_id,store_id) VALUES(?,?,?,?,?)";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$name, $price, $subcategoryId, $brandId, $storeId]);
+        
+        //FETCH LAST INSERTED ID
+        $newProductId = $conn->lastInsertId();
+        $_SESSION['newProductId'] = $newProductId;
+    }
 }
 
     //FETCH CATEGORY AND BRAND NAMES
@@ -61,8 +81,7 @@ if(isset($_POST['newProductId'])){
     $row = $statement->fetch();
     $categoryName = $row['name'];
 
-    $response = [];
-    $response = ['id' => $newProductId, 'name' => 
+    $response = ['status' => 'success', 'id' => $newProductId, 'name' => 
             $name, 'price' => $price, 'category' => $categoryName, 
             'subcategory' => $subCategoryName, 'brand' => $brandName];
     

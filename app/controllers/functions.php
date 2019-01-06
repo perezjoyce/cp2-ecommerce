@@ -1,5 +1,5 @@
 <?php 
-    require_once "../../config.php";
+    // require_once "../../config.php";
 
     //HIDE EMAIL
     function hide_email($email){
@@ -412,7 +412,7 @@
         $statement->execute([$cartSession]);
         $row = $statement->fetch();
         $grandTotal = $row['grandTotal'];
-        $grandTotal = number_format((float)$grandTotal, 2, '.', ',');    
+        $grandTotal = number_format((float)$grandTotal, 2, '.', '');    
         
         return $grandTotal;
     }

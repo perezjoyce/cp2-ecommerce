@@ -2559,34 +2559,65 @@ $(document).ready( () => {
 	// SAVE & EDIT NEW PRODUCT
 	$(document).on('click', '.save_new_product', function(){
 		let data = {
-			newProductId:$(this).data('productid'),
-			storeId:$(this).data('id'),
-			name:$("#product_name").val(),
-			categoryId:$("#product_category").val(),
-			subcategoryId:$("#product_subcategory").val(),
-			brandId:$("#product_brand").val(),
-			price:$("#product_price").val()
+			'newProductId' : $(this).data('productid'),
+			'storeId' : $(this).data('id'),
+			'name' : $("#product_name").val(),
+			'categoryId' : $("#product_category").val(),
+			'subcategoryId' : $("#product_subcategory").val(),
+			'brandId' : $("#product_brand").val(),
+			'price' : $("#product_price").val()
 		} 
 
-		$.post("../controllers/process_add_new_product.php", data ,function(response){
-			
-			let dataFromPHP = $.parseJSON(response);
-			// let selected = "<option selected>Choose...</option>";
+		flag = 0;
 
-			$("#product_name").val(dataFromPHP.name);
-			$("#product_price").val(dataFromPHP.price);
+		if(data.name.length < 1){
+			$('#basic_info_error').text('Please fill out all fields.');
+			setTimeout(function(){$('#basic_info_error').empty("")}, 1500);
+			flag = 0;
+		}
 
-			$("#product_category").prepend(dataFromPHP.category);
-			// $("#product_category").val(dataFromPHP.category);
-			$('#product_subcategory').prepend(dataFromPHP.subcategory);
-			// $("#product_subcategory").val(dataFromPHP.subcategory);
-			$("#product_brand").prepend(dataFromPHP.brand);
-			// $("#product_brand").val(dataFromPHP.brand);
-			$("#new_product_id").val(dataFromPHP.id);
-			alert("Saved!");
-			window.location.reload();
-		});
-		
+		if(data.subcategoryId == "Choose...") {
+			$('#basic_info_error').text('Please fill out all fields.');
+			setTimeout(function(){$('#basic_info_error').empty("")}, 1500);
+			flag = 0;
+		}
+
+		if(data.brandId == "Choose..."){
+			$('#basic_info_error').text('Please fill out all fields.');
+			setTimeout(function(){$('#basic_info_error').empty("")}, 1500);
+			flag = 0;
+		}
+
+		if(data.price.length < 1) {
+			$('#basic_info_error').text('Please fill out all fields.');
+			setTimeout(function(){$('#basic_info_error').empty("")}, 1500);
+			flag = 0;
+		}
+
+		if(flag == 0 && data.name.length > 1 && data.price.length > 1 ) {
+			$.post("../controllers/process_add_new_product.php", data ,function(response){
+				
+				let dataFromPHP = $.parseJSON(response);
+				// let selected = "<option selected>Choose...</option>";
+				if(dataFromPHP.status == 'duplicate'){
+					$('#basic_info_error').text('Please use a different name to avoid duplication.');
+					setTimeout(function(){$('#basic_info_error').empty("")}, 1500);
+				} else {
+					$("#product_name").val(dataFromPHP.name);
+					$("#product_price").val(dataFromPHP.price);
+
+					$("#product_category").prepend(dataFromPHP.category);
+					// $("#product_category").val(dataFromPHP.category);
+					$('#product_subcategory').prepend(dataFromPHP.subcategory);
+					// $("#product_subcategory").val(dataFromPHP.subcategory);
+					$("#product_brand").prepend(dataFromPHP.brand);
+					// $("#product_brand").val(dataFromPHP.brand);
+					$("#new_product_id").val(dataFromPHP.id);
+					alert("Saved!");
+					window.location.reload();
+				}
+			});
+		}
 	})
 
 	//SAVE & EDIT PRODUCT DETAIL
@@ -2821,15 +2852,15 @@ $(document).ready( () => {
 		})
 	})
 
-	$(window).on('unload', function() {
-		$(window).scrollTop(0);
-	 });
+	// $(window).on('unload', function() {
+	// 	$(window).scrollTop(0);
+	//  });
 
-	 $(window).on('beforeunload', function() {
-		$(window).scrollTop(0);
-	});
+	//  $(window).on('beforeunload', function() {
+	// 	$(window).scrollTop(0);
+	// });
 
-
+	//END NEW PRODUCT SESSION AND REDIRECT TO PRODUCT PAGE
 	$(document).on('click','#btn_unset_new_product',function(){
 		let url = $(this).data('url');
 		$.post(url,function(response){
@@ -2838,6 +2869,63 @@ $(document).ready( () => {
 		})
 
 	})
+
+
+	// DELETE PRODUCT
+	$(document).on('click', '.btn_delete_product', function(){
+		let productId = $(this).data('productid');
+
+		let answer = window.confirm("Would you like to delete this product? This cannot be undone.");
+
+		if(answer == true) {
+			$.post('../controllers/process_delete_product.php',{productId:productId},function(response){
+				window.location.reload();
+			})
+		}
+	});
+
+	//VIEW PRODUCT
+	$(document).on('click', '.btn_store_products_view', function(){
+		let url = $(this).data('href');
+	
+		$.get(url,function(response){
+			$("#modalContainerBig .modal-content").html(response);
+			$("#modalContainerBig").modal('show');
+
+			let averageRating = $("#average_product_rating").val();
+			averageRating = averageRating*2;
+			// alert(averageRating)
+
+			function addScore(score, $domElement) {
+				// score = averageRating * 2;
+				var starWidth = "<style>.stars-container:after { width: " + score*2 + "%} </style>";
+				$("<span class='stars-container'>")
+				.text("★★★★★")
+				.append($(starWidth))
+				.appendTo($domElement);
+			}
+
+		
+			function addScore2(score2, $domElement2) {
+				score2 = score2 / 2;
+				var starWidth2 = "<style>.stars-container-big:after { width: " + score2 + "%} </style>";
+				$("<span class='stars-container-big'>")
+				.text("★★★★★")
+				.append($(starWidth2))
+				.appendTo($domElement2);
+			}
+			addScore2(averageRating, $("#average_product_stars_big"));
+			addScore(averageRating, $("#average_product_stars"));
+		});
+	});
+
+
+	
+	
+
+
+
+
 
 });
 
