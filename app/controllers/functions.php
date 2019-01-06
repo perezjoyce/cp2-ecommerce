@@ -730,3 +730,14 @@
 
         echo $ago;
     }
+
+//SHOW PRIMARY PRODUCT IMAGE
+function showPrimaryProductImage($conn,$productId){
+    $sql = "SELECT * FROM tbl_product_images WHERE id = ? AND is_primary = 1";
+    $statement = $conn->prepare($sql);
+    $statement->execute([$productId]);	
+    $row = $statement->fetch();
+    $url = $row['url'];
+
+    return $url;
+}

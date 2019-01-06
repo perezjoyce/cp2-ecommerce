@@ -101,10 +101,10 @@
                                             <div class="row mt-5">
                                                 <div class="col">
                                                     <form action="../controllers/process_add_new_product.php" method="POST" id="form_add_new_product">
-                                                    <input type="text" id="new_product_id" value="<?= isset($newProductId) ? $newProductId : null ; ?>">
+                                                    <input type="hidden" id="new_product_id" value="<?= isset($newProductId) ? $newProductId : null ; ?>">
 
                                                         <!-- PRODUCT NAME -->
-                                                        <div class="form-group row mb-5">
+                                                        <div class="form-group row mb-4">
                                                             <label for='product_name' class='col-lg-3 col-md-3 col-sm-12'>Name</label>
                                                             <div class="input-group col-lg-9 col-md-9 col-sm-12">
                                                                 <input type="text" class='form-control' id='product_name'
@@ -113,7 +113,7 @@
                                                         </div>
 
                                                         <!-- PARENT CATEGORY -->
-                                                        <div class="form-group row mb-5">
+                                                        <div class="form-group row mb-4">
                                                             <label for='product_category' class='col-lg-3 col-md-3 col-sm-12'>Category</label>
                                                             <div class="input-group col-lg-9 col-md-9 col-sm-12">
                                                                 <select class="custom-select" id="product_category">
@@ -139,7 +139,7 @@
 
                                                         
                                                         <!-- SUBCATEGORY -->
-                                                        <div class="form-group row mb-5">
+                                                        <div class="form-group row mb-4">
                                                             <label for='product_subcategory' class='col-lg-3 col-md-3 col-sm-12'>Type</label>
                                                             <div class="input-group col-lg-9 col-md-9 col-sm-12">
                                                                 <select class="custom-select" id="product_subcategory">
@@ -154,7 +154,7 @@
                                                         </div>
 
                                                         <!-- BRAND -->
-                                                        <div class="form-group row mb-5">
+                                                        <div class="form-group row mb-4">
                                                             <label for='product_brand' class='col-lg-3 col-md-3 col-sm-12'>Brand</label>
                                                             <div class="input-group col-lg-9 col-md-9 col-sm-12">
                                                                 <select class="custom-select" id="product_brand">
@@ -170,7 +170,7 @@
 
 
                                                         <!-- PRICE -->
-                                                        <div class="form-group row mb-5">
+                                                        <div class="form-group row mb-4">
                                                             <label for='unsername' class='col-lg-3 col-md-3 col-sm-12'>Price</label>
                                                             <div class="input-group col-lg-9 col-md-9 col-sm-12">
                                                                 <div class="input-group-prepend">
@@ -294,6 +294,21 @@
                                                                 </div>
                                                                 <textarea class="form-control product_description" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' aria-label="With textarea"></textarea>
                                                             </div>
+
+                                                            <div class="input-group mb-4">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text border-0 text-secondary" style="background:white;">&#9679;</span>
+                                                                </div>
+                                                                <textarea class="form-control product_description" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' aria-label="With textarea"></textarea>
+                                                            </div>
+
+                                                            <div class="input-group mb-4">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text border-0 text-secondary" style="background:white;">&#9679;</span>
+                                                                </div>
+                                                                <textarea class="form-control product_description" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' aria-label="With textarea"></textarea>
+                                                            </div>
+
                                                             <?php } } else { ?>
                                                                 <div class="input-group mb-4">
                                                                 <div class="input-group-prepend">
@@ -480,7 +495,39 @@
                                                                 <input type="number" class="form-control new_variation_stock" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Available Stock' min="1" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57" title="Numbers only">
                                                             </div>
 
+                                                            <div class="input-group mb-4">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text border-0 text-secondary" style="background:white;">&#9679;</span>
+                                                                </div>
+                                                                <input type="text" class="form-control new_variation_name" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Name'>
+                                                                <input type="number" class="form-control new_variation_stock" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Available Stock' min="1" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57" title="Numbers only">
+                                                            </div>
+
+                                                            <div class="input-group mb-4">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text border-0 text-secondary" style="background:white;">&#9679;</span>
+                                                                </div>
+                                                                <input type="text" class="form-control new_variation_name" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Name'>
+                                                                <input type="number" class="form-control new_variation_stock" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Available Stock' min="1" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57" title="Numbers only">
+                                                            </div>
+
                                                             <?php } } else { ?>
+
+                                                            <div class="input-group mb-4">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text border-0 text-secondary" style="background:white;">&#9679;</span>
+                                                                </div>
+                                                                <input type="text" class="form-control new_variation_name" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Name'>
+                                                                <input type="number" class="form-control new_variation_stock" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Available Stock' min="1" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57" title="Numbers only">
+                                                            </div>
+
+                                                            <div class="input-group mb-4">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text border-0 text-secondary" style="background:white;">&#9679;</span>
+                                                                </div>
+                                                                <input type="text" class="form-control new_variation_name" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Name'>
+                                                                <input type="number" class="form-control new_variation_stock" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Available Stock' min="1" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57" title="Numbers only">
+                                                            </div>
 
                                                             <div class="input-group mb-4">
                                                                 <div class="input-group-prepend">
@@ -653,6 +700,22 @@
                                                                 <input type="text" class="form-control new_answer" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Answer' maxlength='50'>
                                                             </div>
 
+                                                             <div class="input-group mb-4">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text border-0 text-secondary" style="background:white;">&#9679;</span>
+                                                                </div>
+                                                                <input type="text" class="form-control new_question" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Question' maxlength='50'>
+                                                                <input type="text" class="form-control new_answer" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Answer' maxlength='50'>
+                                                            </div>
+
+                                                            <div class="input-group mb-4">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text border-0 text-secondary" style="background:white;">&#9679;</span>
+                                                                </div>
+                                                                <input type="text" class="form-control new_question" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Question' maxlength='50'>
+                                                                <input type="text" class="form-control new_answer" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Answer' maxlength='50'>
+                                                            </div>
+
                                                             <?php } } else { ?>
 
                                                              <div class="input-group mb-4">
@@ -678,6 +741,23 @@
                                                                 <input type="text" class="form-control new_question" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Question' maxlength='50'>
                                                                 <input type="text" class="form-control new_answer" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Answer' maxlength='50'>
                                                             </div>
+
+                                                                                                 <div class="input-group mb-4">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text border-0 text-secondary" style="background:white;">&#9679;</span>
+                                                                </div>
+                                                                <input type="text" class="form-control new_question" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Question' maxlength='50'>
+                                                                <input type="text" class="form-control new_answer" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Answer' maxlength='50'>
+                                                            </div>
+
+                                                            <div class="input-group mb-4">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text border-0 text-secondary" style="background:white;">&#9679;</span>
+                                                                </div>
+                                                                <input type="text" class="form-control new_question" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Question' maxlength='50'>
+                                                                <input type="text" class="form-control new_answer" data-id='<?= isset($newProductId) ? $newProductId : null ; ?>' placeholder='Answer' maxlength='50'>
+                                                            </div>
+                                                            
 
                                                             <?php } ?>
                                                         </div>
@@ -895,18 +975,18 @@
 
                  <!-- HEADING -->
                  <div class='container p-5 rounded' style='background:white;'>
-                    <div class="row mx-0 d-flex align-items-center">
+                    <div class="row mx-0 d-flex flex-lg-row flex-md-row flex-sm-column">
 
                         <div class='flex-fill'>
                             <h4>6. Post Your Product</h4>
                         </div>
 
                         <div class='flex-fill d-flex flex-row'>  
-                                <div class="col-6 flex-fill"></div>
-                                <div class="col-6 flex-fill">
+                                <div class="col flex-fill"></div>
+                                <div class="col-lg-6 col-md-12 col-sm-12 flex-fill">
                                     <?php  if(isset($newProductId)) { ?>
                                     <!-- open product.php?id=$newProductId in different page and end/unset session here -->
-                                    <a class='btn btn-lg btn-purple' target="_blank" data-id='<?= $newProductId ?>' data-url='../controllers/process_unset_new_product.php' type='submit' id='btn_unset_new_product'>
+                                    <a class='btn btn-lg btn-purple border text-purple py-lg-3 px-lg-5' target="_blank" data-id='<?= $newProductId ?>' data-url='../controllers/process_unset_new_product.php' id='btn_unset_new_product'>
                                         <small>POST PRODUCT</small>
                                     </a>
                                     <?php } ?>

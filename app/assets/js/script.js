@@ -2920,7 +2920,36 @@ $(document).ready( () => {
 	});
 
 
-	
+	$(document).on('click', '.sort_inventory', function(){
+		let data = {
+			'columnName' : $(this).data('column'),
+			'storeId' : $(this).data('storeid'),
+			'order' : $(this).data('order')
+		}
+
+		$.post('../controllers/process_sort_inventory.php',data,function(response){
+			$("#data-container").html(response);
+		})
+	})
+
+	$(document).on('keypress', '#btn_search_inventory', function(e){
+		if(e.which == 13) {
+			let data = {
+				'storeId' : $(this).data('storeid'),
+				'searchkey' : $(this).val()
+			}
+
+			$.post('../controllers/process_search_inventory.php',data,function(response){
+				if(response == 'fail' ){
+					$('#data-container').html("<tr class='mt-5 pt-5'><td class='mt-5 pt-5 font-weight-light'>Sorry. The search key doesn't match anything in your inventory.</td></tr>");
+					setTimeout(function(){window.location.reload()}, 2000);
+				} else {
+					$("#data-container").html(response);
+				}
+			})
+		}
+
+	})
 	
 
 

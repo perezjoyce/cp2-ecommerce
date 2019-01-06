@@ -56,26 +56,24 @@
                 $uploader->image_y = 80;
                 $uploader->image_ratio_y = false;
                 $uploader->image_ratio = true;
-                $handle->image_ratio_crop = 'TBLR';
+                $uploader->image_ratio_crop = 'TBLR';
                 $uploader->Process($target_dir); // actual uploading of new photo with new size
                 if ($uploader->processed) {
                     $uploader->Clean();
                 }
 
-                $sql = "SELECT * FROM tbl_product_images WHERE product_id = ? AND is_primary =?";
+                $sql = "SELECT * FROM tbl_product_images WHERE product_id = ? AND is_primary=1";
                 $statement = $conn->prepare($sql);
-                $statement->execute([$productId,1]);
-                $row = $statement->fetch();
+                $statement->execute([$productId]);                
 
                 if($statement->rowCount()) {
                     $row = $statement->fetch();
                     unlink( "../../" . $row['url'].".jpg");
                     unlink( "../../" . $row['url']."_80x80.jpg");
 
-                    $sql = "UPDATE tbl_product_images SET `url`='uploads/$id/$storeId/$productId/$filename' WHERE id = ? AND is_primary=1";
+                    $sql = "UPDATE tbl_product_images SET `url`='uploads/$id/$storeId/$productId/$filename' WHERE product_id= ? AND is_primary=1";
                     $statement = $conn->prepare($sql);
-                    $statement->execute([$productId]);
-    
+                    $res = $statement->execute([$productId]);
                 } else {
                     $sql = "INSERT INTO tbl_product_images(`url`, `product_id`, is_primary) VALUES(?, ?, 1)";
                     $statement = $conn->prepare($sql);
@@ -84,9 +82,4 @@
                 }
 
                 header("Location: ../views/store-add-product.php?id=$storeId&productId=$productId");
-                
-       
-           
-
-        
     }
