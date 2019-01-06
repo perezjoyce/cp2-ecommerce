@@ -251,7 +251,7 @@
             ON o.cart_session=c.cart_session 
             AND c.variation_id=v.id 
             AND v.product_id=i.id 
-            WHERE status_id != 2 
+            WHERE o.status_id != 2 
             AND c.user_id = ? GROUP BY productId LIMIT 12";
 
         $statement = $conn->prepare($sql);

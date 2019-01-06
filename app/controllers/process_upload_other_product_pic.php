@@ -1,5 +1,6 @@
 <?php
     session_start();
+    require_once '../sources/pdo/src/PDO.class.php';
     require_once "connect.php";
     require_once "functions.php";
     require_once "../sources/class.upload.php";
@@ -20,14 +21,14 @@
     if ($_FILES['upload']['size'] > 2000000) {
         // REDIRECTING PAGE WITH ERROR MSG IN URL QUERY STRING
         $errorMsg = urlencode("Sorry, your file is too large.");
-        header("Location: ../views/store-add-product.php?id=$storeId&uploadError=" . $errorMsg);
+        header("Location: ../views/store-add-product.php?id=$storeId&productId=$productId&uploadError=" . $errorMsg);
         exit;
     } 
 
     // to limit type of files 
     if ($imageFileType != 'jpg' && $imageFileType != 'png' && $imageFileType != 'jpeg') {
         $errorMsg = urlencode("Only JPG, JPEG and PNG Files are allowed.");
-        header("Location: ../views/store-add-product.php?id=$storeId&uploadError=" . $errorMsg);
+        header("Location: ../views/store-add-product.php?id=$storeId&productId=$productId&uploadError=" . $errorMsg);
         exit;
     }
 
@@ -62,11 +63,11 @@
                 }
 
                 $img_path= "uploads/$id/$storeId/$productId/$filename";
-               
-                $sql = "INSERT INTO tbl_product_images(`url`,product_id) VALUES(?,?)";
+                
+                $sql = "INSERT INTO tbl_product_images(`url`,product_id, is_primary) VALUES(?,?,?)";
                 $statement = $conn->prepare($sql);
-                $statement->execute([$img_path,$productId]);
-                header("Location: ../views/store-add-product.php?id=$storeId");
+                $statement->execute([$img_path,$productId,0]);
+                header("Location: ../views/store-add-product.php?id=$storeId&productId=$productId");
                 
             // } else {
 

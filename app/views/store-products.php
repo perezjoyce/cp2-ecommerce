@@ -60,11 +60,11 @@
                         <div class="col">
                             <div class="input-group input-group-lg">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text border-right-0 border-left-0 border-top-0" id="store_page_search_button" style='background:white;'>
+                                    <span class="input-group-text border-right-0 border-left-0 border-top-0" style='background:white;'>
                                         <i class="fas fa-search" style='background:white;'></i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control border-right-0 border-left-0 border-top-0" id="store_page_search">
+                                <input type="text" class="form-control border-right-0 border-left-0 border-top-0" id="btn_search_inventory" data-storeid='<?=$storeId?>'>
                             </div>
                         </div>
 						
@@ -83,10 +83,22 @@
                                 <tr class='py-0'>
 
                                     <td width='10%'>Id</td>
-                                    <td width='20%'>Product</td>
-                                    <td width='20%'>Price</td>
+                                    <td width='20%'>
+                                        <i class="fas fa-angle-up text-gray pr-2 sort_inventory" data-storeid='<?=$storeId?>' data-column="name" data-order='ASC' style='cursor: pointer;'></i>
+                                        Product
+                                        <i class="fas fa-angle-down text-gray pl-2 sort_inventory" data-storeid='<?=$storeId?>' data-column="name" data-order='DESC' style='cursor: pointer;'></i>
+                                    </td>
+                                    <td width='20%'>
+                                        <i class="fas fa-angle-up text-gray pr-2 sort_inventory" data-storeid='<?=$storeId?>' data-column="price" data-order='ASC' style='cursor: pointer;'></i>
+                                        Price
+                                        <i class="fas fa-angle-down text-gray pl-2 sort_inventory" data-storeid='<?=$storeId?>' data-column="price" data-order='DESC' style='cursor: pointer;'></i>
+                                    </td>
                                     <td width='15%'>Variation & Stock</td>
-                                    <td width='20%'>Total Stocks</td>
+                                    <td width='20%'>
+                                        <i class="fas fa-angle-up text-gray pr-2 sort_inventory" data-storeid='<?=$storeId?>' data-column="stocks" data-order='ASC' style='cursor: pointer;'></i>
+                                        Total Stocks
+                                        <i class="fas fa-angle-down text-gray pl-2 sort_inventory" data-storeid='<?=$storeId?>' data-column="stocks" data-order='DESC' style='cursor: pointer;'></i>
+                                    </td>
                                     <td width='15%'>Action</td>
 
                                     
@@ -99,7 +111,7 @@
                     <div class="row">
                         <div class="col px-2">
                             <div class="container px-0" style='background:white;height:600px;overflow-y:auto;'>
-                                <table class="table table-hover borderless text-center">
+                                <table class="table table-hover borderless text-center" id='data-container'>
                                     
                                 <?php 
                                     $sql = "SELECT * FROM tbl_items WHERE store_id = ?";
@@ -156,8 +168,8 @@
                                                 </a>
                                             </td>
 
-                                             <!-- VARIATION -->
-                                             <td class='mx-0' width='15%'>
+                                            <!-- VARIATION -->
+                                            <td class='mx-0' width='15%'>
                                                 <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
                                                     <div class='py-3 text-gray'>
                                                         <div class="dropdown show">
@@ -172,27 +184,27 @@
                                                                             <th class='width:50%;'><small class='font-weight-bold'>VARIATION</small></th>
                                                                             <th class='width:50%;'><small class='font-weight-bold'>STOCK</small></th>
                                                                         </tr>
-                                                                <!-- ONCE CLICKED, BUTTON WILL BE CHANGED -->
-                                                               <?php 
-                                                                    $sql2 = "SELECT * FROM tbl_variations WHERE product_id =?";
-                                                                    $statement2 = $conn->prepare($sql2);
-                                                                    $statement2->execute([$productId]);
+                                                                                <!-- ONCE CLICKED, BUTTON WILL BE CHANGED -->
+                                                                            <?php 
+                                                                                    $sql2 = "SELECT * FROM tbl_variations WHERE product_id =?";
+                                                                                    $statement2 = $conn->prepare($sql2);
+                                                                                    $statement2->execute([$productId]);
 
-                                                                    $count2 = $statement2->rowCount();
+                                                                                    $count2 = $statement2->rowCount();
 
-                                                                    if($count2) {
-                                                                        while($row2 = $statement2->fetch()){
-                                                                        $variationName = $row2['variation_name'];
-                                                                        $variationStock = $row2['variation_stock'];
-                                                               ?>
-                                                                
+                                                                                    if($count2) {
+                                                                                        while($row2 = $statement2->fetch()){
+                                                                                        $variationName = $row2['variation_name'];
+                                                                                        $variationStock = $row2['variation_stock'];
+                                                                            ?>
+                                                                                
                                                                         <tr>
                                                                             <td><small><?= $variationName ?></small></td>
                                                                             <td><small><?= $variationStock ?></small></td>
                                                                         </tr>
                                                                     
                                                                
-                                                                <?php } } ?>
+                                                                            <?php } } ?>
                                                                     </table>
                                                                 </a>
                                                                 
@@ -226,15 +238,22 @@
                                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                                 <!-- ONCE CLICKED, BUTTON WILL BE CHANGED -->
                                                                
-                                                                <a class="dropdown-item" href="#"><small>VIEW</small></a>
+                                                                <a class="dropdown-item btn_store_products_view" data-href='<?= BASE_URL ."/app/partials/templates/product_modal.php?id=". $productId?>'>
+                                                                    <small>VIEW</small>
+                                                                </a>
                                                                 
                                                                 <!-- ONCE CLICKED, WILL BE TRANSFERRED TO SHIPPING -->
-                                                                <a class="dropdown-item" href="store-update-product.php?id=<?=$storeId?>"><small>UPDATE</small></a>
+                                                                <a class="dropdown-item" href="store-edit-product.php?id=<?=$storeId?>&productid=<?=$productId?>">
+                                                                    <small>EDIT</small>
+                                                                </a>
                                                                 <!-- ONCE CLICKED, WILL BE TRANSFERRED TO ORDER HISTORY -->
-                                                                <a class="dropdown-item" href="#"><small>DELETE</small></a>
+                                                                <a class="dropdown-item btn_delete_product" data-productId='<?= $productId ?>' href="#">
+                                                                    <small>DELETE</small>
+                                                                </a>
                                                                 
+                                                            </div>
+                                                            <!-- put dropdown with two buttons: SEND MESSAGE, CONFIRM, CANCELL, COMPLETE -->
                                                         </div>
-                                                        <!-- put dropdown with two buttons: SEND MESSAGE, CONFIRM, CANCELL, COMPLETE -->
                                                     </div>
                                                 </a>
                                             </td>

@@ -3,6 +3,7 @@
 session_start(); 
 require_once "connect.php";
 require_once "functions.php";
+require_once '../sources/pdo/src/PDO.class.php';
 
 if($_POST['description']){
     $productId = $_POST['productId'];

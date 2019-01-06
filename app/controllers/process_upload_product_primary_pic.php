@@ -1,5 +1,6 @@
 <?php
     session_start();
+    require_once '../sources/pdo/src/PDO.class.php';
     require_once "connect.php";
     require_once "functions.php";
     require_once "../sources/class.upload.php";
@@ -20,14 +21,14 @@
     if ($_FILES['upload']['size'] > 2000000) {
         // REDIRECTING PAGE WITH ERROR MSG IN URL QUERY STRING
         $errorMsg = urlencode("Sorry, your file is too large.");
-        header("Location: ../views/store-add-product.php?id=$storeId&uploadError=" . $errorMsg);
+        header("Location: ../views/store-add-product.php?id=$storeId&productId=$productId&uploadError=" . $errorMsg);
         exit;
     } 
 
     // to limit type of files 
     if ($imageFileType != 'jpg' && $imageFileType != 'png' && $imageFileType != 'jpeg') {
         $errorMsg = urlencode("Only JPG, JPEG and PNG Files are allowed.");
-        header("Location: ../views/store-add-product.php?id=$storeId&uploadError=" . $errorMsg);
+        header("Location: ../views/store-add-product.php?id=$storeId&productId=$productId&uploadError=" . $errorMsg);
         exit;
     }
 
@@ -55,23 +56,30 @@
                 $uploader->image_y = 80;
                 $uploader->image_ratio_y = false;
                 $uploader->image_ratio = true;
-                $handle->image_ratio_crop = 'TBLR';
+                $uploader->image_ratio_crop = 'TBLR';
                 $uploader->Process($target_dir); // actual uploading of new photo with new size
                 if ($uploader->processed) {
                     $uploader->Clean();
                 }
 
-               
-                $sql = "UPDATE tbl_items SET img_path='uploads/$id/$storeId/$productId/$filename' WHERE id = ? ";
+                $sql = "SELECT * FROM tbl_product_images WHERE product_id = ? AND is_primary=1";
                 $statement = $conn->prepare($sql);
-                $statement->execute([$productId]);
-                header("Location: ../views/store-add-product.php?id=$storeId");
-                
-            // } else {
+                $statement->execute([$productId]);                
 
-            // }
+                if($statement->rowCount()) {
+                    $row = $statement->fetch();
+                    unlink( "../../" . $row['url'].".jpg");
+                    unlink( "../../" . $row['url']."_80x80.jpg");
 
-           
+                    $sql = "UPDATE tbl_product_images SET `url`='uploads/$id/$storeId/$productId/$filename' WHERE product_id= ? AND is_primary=1";
+                    $statement = $conn->prepare($sql);
+                    $res = $statement->execute([$productId]);
+                } else {
+                    $sql = "INSERT INTO tbl_product_images(`url`, `product_id`, is_primary) VALUES(?, ?, 1)";
+                    $statement = $conn->prepare($sql);
+                    $filePath = "uploads/$id/$storeId/$productId/$filename";
+                    $statement->execute([$filePath, $productId]);
+                }
 
-        
+                header("Location: ../views/store-add-product.php?id=$storeId&productId=$productId");
     }

@@ -1,5 +1,6 @@
 <?
 session_start(); 
+require_once '../sources/pdo/src/PDO.class.php';
 require_once "connect.php";
 
 
@@ -32,6 +33,11 @@ if(isset($_POST['modeOfPaymentId'])) {
         $row2 = $statement2->fetch();
         $paymentModeName = $row2['name'];
         $_SESSION['paymentMode'] = $paymentModeName;
+
+        //UPDATE STATUS OF ORDER IN TBL CARTS (1 IS PENDING)
+        $sql3 = "UPDATE tbl_carts SET status_id = 1 WHERE cart_session=?";
+        $statement3 = $conn->prepare($sql3);
+        $statement3->execute([$cartSession]);
     
    }
 

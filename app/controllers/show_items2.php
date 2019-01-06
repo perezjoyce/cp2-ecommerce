@@ -1,6 +1,7 @@
 <?php
 	// connect to database
-	include_once "connect.php";
+	require_once '../sources/pdo/src/PDO.class.php';
+	require_once "connect.php";
 
 	$categoryId = $_POST['categoryId'];
 

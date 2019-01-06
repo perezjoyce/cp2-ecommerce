@@ -1,5 +1,6 @@
 <?php
-	session_start();
+    session_start();
+    require_once '../sources/pdo/src/PDO.class.php';
 	require_once "connect.php";
 	require_once "../controllers/functions.php";
 

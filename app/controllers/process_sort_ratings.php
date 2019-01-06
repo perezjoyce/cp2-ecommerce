@@ -1,6 +1,7 @@
 <?php
 	// connect to database
-	session_start();
+    session_start();
+    require_once '../sources/pdo/src/PDO.class.php';
 	require_once "connect.php";
     require_once "functions.php";
     // require_once "../assets/js/script.js";

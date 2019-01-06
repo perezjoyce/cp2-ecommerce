@@ -2559,55 +2559,110 @@ $(document).ready( () => {
 	// SAVE & EDIT NEW PRODUCT
 	$(document).on('click', '.save_new_product', function(){
 		let data = {
-			newProductId:$(this).data('productid'),
-			storeId:$(this).data('id'),
-			name:$("#product_name").val(),
-			categoryId:$("#product_category").val(),
-			subcategoryId:$("#product_subcategory").val(),
-			brandId:$("#product_brand").val(),
-			price:$("#product_price").val()
+			'newProductId' : $(this).data('productid'),
+			'storeId' : $(this).data('id'),
+			'name' : $("#product_name").val(),
+			'categoryId' : $("#product_category").val(),
+			'subcategoryId' : $("#product_subcategory").val(),
+			'brandId' : $("#product_brand").val(),
+			'price' : $("#product_price").val()
 		} 
 
-		$.post("../controllers/process_add_new_product.php", data ,function(response){
-			
-			let dataFromPHP = $.parseJSON(response);
-			// let selected = "<option selected>Choose...</option>";
+		let flag = 0;
 
-			$("#product_name").val(dataFromPHP.name);
-			$("#product_price").val(dataFromPHP.price);
+		if(data.name.length < 1){
+			$('#basic_info_error').text('Please fill out all fields.');
+			setTimeout(function(){$('#basic_info_error').empty("")}, 1500);
+			flag = 0;
+		}
 
-			$("#product_category").prepend(dataFromPHP.category);
-			// $("#product_category").val(dataFromPHP.category);
-			$('#product_subcategory').prepend(dataFromPHP.subcategory);
-			// $("#product_subcategory").val(dataFromPHP.subcategory);
-			$("#product_brand").prepend(dataFromPHP.brand);
-			// $("#product_brand").val(dataFromPHP.brand);
-			$("#new_product_id").val(dataFromPHP.id);
-			alert("Saved!");
-			window.location.reload();
-		});
-		
+		if(data.subcategoryId == "Choose...") {
+			$('#basic_info_error').text('Please fill out all fields.');
+			setTimeout(function(){$('#basic_info_error').empty("")}, 1500);
+			flag = 0;
+		}
+
+		if(data.brandId == "Choose..."){
+			$('#basic_info_error').text('Please fill out all fields.');
+			setTimeout(function(){$('#basic_info_error').empty("")}, 1500);
+			flag = 0;
+		}
+
+		if(data.price.length < 1) {
+			$('#basic_info_error').text('Please fill out all fields.');
+			setTimeout(function(){$('#basic_info_error').empty("")}, 1500);
+			flag = 0;
+		}
+
+		if(flag == 0 && data.name.length > 1 && data.price.length > 1 ) {
+			$.post("../controllers/process_add_new_product.php", data ,function(response){
+				
+				let dataFromPHP = $.parseJSON(response);
+				// let selected = "<option selected>Choose...</option>";
+				if(dataFromPHP.status == 'duplicate'){
+					$('#basic_info_error').text('Please use a different name to avoid duplication.');
+					setTimeout(function(){$('#basic_info_error').empty("")}, 1500);
+				} else {
+					$("#product_name").val(dataFromPHP.name);
+					$("#product_price").val(dataFromPHP.price);
+
+					$("#product_category").prepend(dataFromPHP.category);
+					// $("#product_category").val(dataFromPHP.category);
+					$('#product_subcategory').prepend(dataFromPHP.subcategory);
+					// $("#product_subcategory").val(dataFromPHP.subcategory);
+					$("#product_brand").prepend(dataFromPHP.brand);
+					// $("#product_brand").val(dataFromPHP.brand);
+					$("#new_product_id").val(dataFromPHP.id);
+					alert("Saved!");
+					window.location.reload();
+				}
+			});
+		}
 	})
 
 	//SAVE & EDIT PRODUCT DETAIL
 	$(document).on('click', '#btn_save_product_detail', function(){
 
+		let promiseSaveDetails = [];
 		$(".product_description").each(function(i, el){
-			let data = { 
-				description: $(this).val(),
-				descriptionId:$(this).data('descriptionid'),
-				productId: $(this).data('id')
-			}
 
-			that = this;
+			promiseSaveDetails[i] = new Promise(function(resolve,reject){
+				let descriptionId = $(el).data('descriptionid');
+				let data = { 
+					'description' : $(el).val(),
+					'descriptionId' : descriptionId,
+					'productId' : $(el).data('id')
+				}
 
-			$.post('../controllers/process_add_new_product_details.php', data, function(response){
-				$(that).val(response);
-			})
-		})	
+				let flag = 0;
+
+				if(data['description'] == "" || data['description'] == null && typeof description !== "undefined" ){
+					reject("Please write a description before first.");
+					flag = 1;
+				}
+
+				if(flag == 0 && data.description.length > 0 ){
+
+					$.post('../controllers/process_add_new_product_details.php', data, function(response){
+						if(response == 'duplicate') {
+							reject('Please write a different description.');
+						} else {
+							resolve('Saved!');
+						}
+					})
+				} else {
+					resolve('continue saving others');
+				}
+			})		
+		})
+
+		Promise.all(promiseSaveDetails).then(function(results){
 			alert("Saved!");
 			window.location.reload();
-
+		}).catch(function(error){
+			$('#description_error').text(error);
+			setTimeout(function(){$('#description_error').empty("")}, 1500);
+		});
 	})
 
 	//ADD PRODUCT DETAIL ROW
@@ -2620,32 +2675,69 @@ $(document).ready( () => {
 		"data-id='"+productId+"' aria-label='With textarea'></textarea></div>");
 	})
 
-	//SAVE & EDIT PRODUCT VARIATION
-	$(document).on('click','.btn_save_product_variation',function(){
-		
-		$(".new_variation_name").each(function(i,el){
-			let data = {
-				productId:$(this).data('id'),
-				variationId: $(this).data('variationid'),
-				variationName: $(this).val(),
-				variationStock: $(this).next().val()
-			}
+	//DELETE PRODUCT DETAIL
+	$(document).on('click', '.btn_delete_new_detail',function(){
+		let descriptionId = $(this).data('descriptionid');
 
-			that = this;
-
-			if(data['variationName'] != "" || data['variationStock'] != "" || data['variationStock'] != 0){
-				$.post('../controllers/process_add_new_product_variation.php', data, function(response){
-					let dataFromPHP = $.parseJSON(response);
-					$('.new_variation_name').val(dataFromPHP.variationName);
-					$('.new_variation_stock').val(dataFromPHP.variationStock);
-				})
-			}
-
-		})
-			alert("Saved!");
+		$.post('../controllers/process_delete_description.php',{descriptionId:descriptionId},function(response){
 			window.location.reload();
+		})
 	})
 
+	//SAVE & EDIT PRODUCT VARIATION
+	$(document).on('click','.btn_save_product_variation',function(){
+
+			let promiseSaveVariations = [];
+
+			$(".new_variation_name").each(function(i, el){
+				
+				promiseSaveVariations[i] = new Promise(function(resolve, reject){
+					let variationId = $(el).data('variationid');
+					let data = {
+						'productId': $(el).data('id'),
+						'variationId': variationId,
+						'variationName': $(el).val(),
+						'variationStock': $(el).next().val()
+					}
+
+					let flag = 0;
+
+					if(data['variationName'] == "" || data['variationName'] == null || data['variationName'] == 0 && typeof variationId !== "undefined" ){
+						reject("Please fill out both sides.");
+						flag = 1;
+					}
+
+					if (data['variationStock'] == "" || data['variationStock'] == null || data['variationStock'] == 0 && typeof variationId !== "undefined"  ){
+						flag = 1;
+						reject("Please fill out both sides.");
+					}
+					
+					if(flag == 0 && data.variationName.length > 0 && data.variationStock > 0) {
+
+						$.post('../controllers/process_add_new_product_variation.php', data, function(response){
+							
+							if(response == 'duplicate') {
+								reject('Please use a different variation name.');
+							} else {
+								resolve('Saved!');
+							}
+						})
+					} else {
+						resolve('continue saving others');
+					}
+				});
+			});
+
+			Promise.all(promiseSaveVariations).then(function(results){
+				alert("Saved!");
+				window.location.reload();
+			}).catch(function(error){
+				$('#variation_error').text(error);
+				setTimeout(function(){$('#variation_error').empty("")}, 1500);
+			});
+	});
+
+	
 	//ADD PRODUCT VARIATION ROW
 	$(document).on('click', '#btn_add_product_variation',function(){
 		let productId = $(this).data('id');
@@ -2656,32 +2748,72 @@ $(document).ready( () => {
 		"<input type='number' class='form-control new_variation_stock' data-id='"+productId+"' placeholder='Available Stock'></div>");
 	})
 
+	//DELETE PRODUCT VARIATION ROW
+	$(document).on('click', '.btn_delete_new_variation',function(){
+		let variationId = $(this).data('variationid');
+
+		$.post('../controllers/process_delete_variation.php',{variationId:variationId},function(response){
+			window.location.reload();
+		})
+	})
+
 
 	//SAVE & EDIT PRODUCT FAQs
 	$(document).on('click','.btn_save_product_faq',function(){
+
+		let promiseSaveFaqs = [];
 			
 		$(".new_question").each(function(i,el){
+
+			promiseSaveFaqs[i] = new Promise(function(resolve,reject){
+			let faqId = $(el).data('faqid');
 			let data = {
-				productId:$(this).data('id'),
-				faqId: $(this).data('faqid'),
-				question: $(this).val(),
-				answer: $(this).next().val()
+				'productId' : $(el).data('id'),
+				'faqId' : faqId,
+				'question' : $(el).val(),
+				'answer' : $(el).next().val()
 			}
 
-			that = this;
+				let flag = 0;
 
-			if(data['question'] != "" || data['answer'] != ""){
-				$.post('../controllers/process_add_new_product_faq.php', data, function(response){
-					let dataFromPHP = $.parseJSON(response);
-					$('.new_question').val(dataFromPHP.question);
-					$('.new_answer').val(dataFromPHP.answer);
-				})
-			}
+				if(data['question'] == "" || data['question'] == null && typeof faqId !== "undefined" ){
+					flag = 1;
+					reject("Please fill out both sides.");
+				}
 
-		})
+				if(data['answer'] == "" || data['answer'] == null && typeof faqId !== "undefined" ){
+					flag = 1;
+					reject("Please fill out both sides.");
+				}
+
+				if(flag == 0 && data.question.length > 0 && data.answer.length > 0){
+
+					$.post('../controllers/process_add_new_product_faq.php', data, function(response){
+						
+						if(response == 'duplicate') {
+							reject('Please ask a different question.');
+						} else {
+							resolve('Saved!');
+						}
+					})
+
+				} else {
+					resolve('continue saving others');
+				}
+			});
+		});
+
+		Promise.all(promiseSaveFaqs).then(function(results){
 			alert("Saved!");
 			window.location.reload();
-	})
+		}).catch(function(error){
+			$("#faq_error").text(error);
+			setTimeout(function(){$('#faq_error').empty("")}, 1500);
+		});
+	});
+
+
+
 
 	//ADD PRODUCT FAQ ROW
 	$(document).on('click', '.btn_add_product_faq',function(){
@@ -2692,6 +2824,172 @@ $(document).ready( () => {
 		"<input type='text' class='form-control new_question' data-id='"+productId+"' placeholder='Question' maxlength='50'>"+
 		"<input type='text' class='form-control new_answer' data-id='"+productId+"' placeholder='Answer' maxlength='50'></div>");
 	})
+
+	//DELETE PRODUCT VARIATION ROW
+	$(document).on('click', '.btn_delete_new_faq',function(){
+		let faqId = $(this).data('faqid');
+		$.post('../controllers/process_delete_faq.php',{faqId:faqId},function(response){
+			window.location.reload();
+		})
+	})
+
+	//DELETE PRIMARY PICTURE OF PRODUCT
+	$(document).on('click', '.btn_delete_primary_pic',function(e){
+		
+		let id = $(this).data('id');
+		$.post('../controllers/process_delete_primary_pic.php',{id:id},function(response){
+			e.preventDefault();
+			window.location.reload();
+		})
+	})
+
+	//DELETE OTHER PICTURES IN PRODUCT
+	$(document).on('click', '.btn_delete_other_pic',function(e){
+		
+		let id = $(this).data('id');
+		$.post('../controllers/process_delete_other_pic.php',{id:id},function(response){
+			window.location.reload();
+		})
+	})
+
+	// $(window).on('unload', function() {
+	// 	$(window).scrollTop(0);
+	//  });
+
+	//  $(window).on('beforeunload', function() {
+	// 	$(window).scrollTop(0);
+	// });
+
+	//END NEW PRODUCT SESSION AND REDIRECT TO PRODUCT PAGE
+	$(document).on('click','#btn_unset_new_product',function(){
+		let url = $(this).data('url');
+		$.post(url,function(response){
+			window.location.reload();
+			window.open(response);
+		})
+
+	})
+
+
+	// DELETE PRODUCT
+	$(document).on('click', '.btn_delete_product', function(){
+		let productId = $(this).data('productid');
+
+		let answer = window.confirm("Would you like to delete this product? This cannot be undone.");
+
+		if(answer == true) {
+			$.post('../controllers/process_delete_product.php',{productId:productId},function(response){
+				window.location.reload();
+			})
+		}
+	});
+
+	//VIEW PRODUCT
+	$(document).on('click', '.btn_store_products_view', function(){
+		let url = $(this).data('href');
+	
+		$.get(url,function(response){
+			$("#modalContainerBig .modal-content").html(response);
+			$("#modalContainerBig").modal('show');
+
+			let averageRating = $("#average_product_rating").val();
+			averageRating = averageRating*2;
+			// alert(averageRating)
+
+			function addScore(score, $domElement) {
+				// score = averageRating * 2;
+				var starWidth = "<style>.stars-container:after { width: " + score*2 + "%} </style>";
+				$("<span class='stars-container'>")
+				.text("★★★★★")
+				.append($(starWidth))
+				.appendTo($domElement);
+			}
+
+		
+			function addScore2(score2, $domElement2) {
+				score2 = score2 / 2;
+				var starWidth2 = "<style>.stars-container-big:after { width: " + score2 + "%} </style>";
+				$("<span class='stars-container-big'>")
+				.text("★★★★★")
+				.append($(starWidth2))
+				.appendTo($domElement2);
+			}
+			addScore2(averageRating, $("#average_product_stars_big"));
+			addScore(averageRating, $("#average_product_stars"));
+		});
+	});
+
+
+	$(document).on('click', '.sort_inventory', function(){
+		let data = {
+			'columnName' : $(this).data('column'),
+			'storeId' : $(this).data('storeid'),
+			'order' : $(this).data('order')
+		}
+
+		$.post('../controllers/process_sort_inventory.php',data,function(response){
+			$("#data-container").html(response);
+		})
+	})
+
+	// SEARCH INVENTORY
+	$(document).on('keypress', '#btn_search_inventory', function(e){
+		if(e.which == 13) {
+			let data = {
+				'storeId' : $(this).data('storeid'),
+				'searchkey' : $(this).val()
+			}
+
+			$.post('../controllers/process_search_inventory.php',data,function(response){
+				if(response == 'fail' ){
+					$('#data-container').html("<tr class='mt-5 pt-5'><td class='mt-5 pt-5 font-weight-light'>Sorry. The search key doesn't match anything in your inventory.</td></tr>");
+					setTimeout(function(){window.location.reload()}, 2000);
+				} else {
+					$("#data-container").html(response);
+				}
+			})
+		}
+
+	})
+
+
+
+	//VIEW PRODUCT
+	$(document).on('click', '.btn_view_new_order', function(){
+		let url = $(this).data('href');
+	
+		$.get(url,function(response){
+			$("#modalContainerBig .modal-content").html(response);
+			$("#modalContainerBig").modal('show');
+		});
+	});
+
+	
+	$(document).on('click', '.btn_cancel_order', function(){
+
+		let answer = confirm('Do you want to cancel this order? This cannot be undone.');
+			
+			if(answer == true) {
+				let data = {
+					"cartSession" : $(this).data('cartsession'),
+					"storeId" : $(this).data('storeid')
+			}
+
+			$.post('../controllers/process_cancel_order.php',data,function(response){
+
+				if(response == 'success') {
+					alert("Order has been cancelled!");
+					// setTimeout(function(){window.location.reload()}, 2000);
+				}
+			
+			})
+		}
+
+	});
+
+	
+
+	
 
 
 

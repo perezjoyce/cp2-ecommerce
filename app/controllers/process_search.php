@@ -1,5 +1,5 @@
 <?php
-    
+    require_once '../sources/pdo/src/PDO.class.php';
     include_once "connect.php";
 
 	$searchkey = $_GET['searchKey'];

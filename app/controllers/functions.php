@@ -1,4 +1,6 @@
 <?php 
+    // require_once '../sources/pdo/src/PDO.class.php';
+    // require_once "../../config.php";
 
     //HIDE EMAIL
     function hide_email($email){
@@ -362,8 +364,6 @@
         $statement->execute([$productId]);
         $row = $statement->fetch();
         $freeShippingMinimum =$row['free_shipping_minimum'];
-        $freeShippingMinimum = number_format((float)$freeShippingMinimum, 2, '.', ',');    
-
         if($freeShippingMinimum != 0 || !$freeShippingMinimum ){
             return $freeShippingMinimum;
         }
@@ -377,20 +377,22 @@
         $statement->execute([$storeId]);
         $row = $statement->fetch();
         $storeShippingFee = $row['standard_shipping'];
-        $storeShippingFe = number_format((float)$storeShippingFee, 2, '.', ',');    
-        return $storeShippingFe;
-
+        $storeShippingFee = number_format((float)$storeShippingFee, 2, '.', ',');    
+        return $storeShippingFee;
     }
 
     // SHOW FREE SHIPPING FROM STORE ID
-    function displayStoreFreeShipping($conn,$storeId) {
+    function displayStoreFreeShipping($conn,$storeId, $format=true) {
         $sql = "        SELECT s.free_shipping_minimum, i.store_id, i.id FROM tbl_stores s 
         JOIN tbl_items i ON i.store_id = s.id WHERE store_id = ? GROUP BY store_id";
         $statement = $conn->prepare($sql);
         $statement->execute([$storeId]);
         $row = $statement->fetch();
         $storeFreeShipping =$row['free_shipping_minimum'];
-        $storeFreeShipping = number_format((float) $storeFreeShipping, 2, '.', ',');    
+
+        if($format) : 
+            $storeFreeShipping = number_format((float)$storeFreeShipping, 2, '.', ',');    
+        endif;
 
         if( $storeFreeShipping != 0 || !$storeFreeShipping){
             return $storeFreeShipping;
@@ -411,16 +413,33 @@
         $statement->execute([$cartSession]);
         $row = $statement->fetch();
         $grandTotal = $row['grandTotal'];
-        $grandTotal = number_format((float)$grandTotal, 2, '.', ',');    
+        $grandTotal = number_format((float)$grandTotal, 2, '.', '');    
         
         return $grandTotal;
     }
-    
+
+    //DIPLAY GRANDTOTAL OR SELLER IN CART (NO SHIPPING)
+    function displayGrandTotalOfSeller($conn, $cartSession, $storeId) {
+        $sql = "SELECT c.cart_session, i.store_id, SUM(i.price * c.quantity) 
+        AS 'grandTotal' 
+        FROM tbl_items i 
+        JOIN tbl_carts c 
+        JOIN tbl_variations v 
+        ON v.product_id=i.id 
+        AND c.variation_id=v.id 
+        WHERE c.cart_session=? AND store_id=?";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$cartSession, $storeId]);
+        $row = $statement->fetch();
+        $grandTotal = $row['grandTotal'];
+        $grandTotal = number_format((float)$grandTotal, 2, '.', '');    
+        return $grandTotal;
+    }
 
     // DISPLAY BREADCRUMB 
     function displayBreadcrumbs ($conn,$productId,$origin) {
         $sql = "SELECT i.name as 'product_name', i.brand_id 
-        as 'brand_id',c.name as 'category_name', c.parent_category_id, c.id 
+        as 'brand_id', i.store_id, c.name as 'category_name', c.parent_category_id, c.id 
         AS 'category_id',b.brand_name as 'brand_name' FROM tbl_ratings r 
         JOIN tbl_categories c JOIN tbl_items i JOIN tbl_brands b ON i.category_id = c.id 
         AND r.product_id = i.id AND i.brand_id=b.id WHERE product_id = ? GROUP BY product_id";
@@ -433,6 +452,7 @@
         $categoryName = $row['category_name'];
         $parentCategoryId = $row['parent_category_id']; // to fetch parent name later on
         $brandName = $row['brand_name'];
+        $storeId = $row['store_id'];
 
 
         $sql = "SELECT * FROM tbl_categories WHERE id = ? ";
@@ -445,17 +465,24 @@
         $url = "";
         $arrow ="";
 
-        if($origin == "http://localhost/tuitt/cp2-ecommerce/app/views/index.php"){
+        if($origin == BASE_URL . "/app/views/index.php"){
             $whereUserIsFrom = "Home";
             $url = "index.php";
             $arrow = "<i class='fas fa-angle-right text-gray'></i>";
-        }elseif($origin == "http://localhost/tuitt/cp2-ecommerce/app/views/catalog.php?id=$productId"){
+            $vanish = "";
+        }elseif($origin == BASE_URL . "/app/views/catalog.php?id=$productId"){
             $whereUserIsFrom = "Catalog";
             $url = "catalog.php?id=$productId";
             $arrow = "<i class='fas fa-angle-right text-gray'></i>";
+            $vanish = "";
+        }elseif($origin == BASE_URL . "/app/views/store-add-product.php?id=$storeId") {
+            $whereUserIsFrom ="My Store";
+            $url = "";
+            $vanish = "";
         }else {
             $whereUserIsFrom ="";
             $url = "";
+            $vanish = "vanish-sm vanish-md vanish-lg";
         }
 
         // var_dump($origin);die();
@@ -474,19 +501,19 @@
                 </a>
             </span>
             <span>
-                <i class='fas fa-angle-right text-gray'></i>
+                <i class='fas fa-angle-right text-gray $vanish'></i>
                 <a href='#' class='text-gray'>
                     &nbsp;$categoryName&nbsp;
                 </a>
             </span>
             <span>
-                <i class='fas fa-angle-right text-gray'></i>
+                <i class='fas fa-angle-right text-gray $vanish'></i>
                 <a href='#' class='text-gray'>
                     &nbsp;$brandName&nbsp;
                 </a>
             </span>
             <span>
-                <i class='fas fa-angle-right text-gray'></i>
+                <i class='fas fa-angle-right text-gray $vanish'></i>
                 <a href='#' class='text-gray'>
                     &nbsp;$productName
                 </a>
@@ -721,3 +748,14 @@
 
         echo $ago;
     }
+
+//SHOW PRIMARY PRODUCT IMAGE
+function showPrimaryProductImage($conn,$productId){
+    $sql = "SELECT * FROM tbl_product_images WHERE id = ? AND is_primary = 1";
+    $statement = $conn->prepare($sql);
+    $statement->execute([$productId]);	
+    $row = $statement->fetch();
+    $url = $row['url'];
+
+    return $url;
+}

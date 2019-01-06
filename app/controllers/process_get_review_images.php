@@ -1,4 +1,5 @@
 <?php
+require_once '../sources/pdo/src/PDO.class.php';
 require_once "connect.php";
 
 $q = "SELECT * FROM tbl_rating_images WHERE rating_id=?";

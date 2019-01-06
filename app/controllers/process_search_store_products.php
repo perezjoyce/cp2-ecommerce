@@ -1,4 +1,5 @@
 <?php
+    require_once '../sources/pdo/src/PDO.class.php';
     require_once "connect.php";
     require_once "functions.php";
     require_once "../../config.php";
@@ -20,8 +21,8 @@
             $price = number_format((float)$price, 2, '.', '');
             $item_img = $row['img_path'];
             // REPLACE WITH BELOW ONCE PRODUCTS HAVE BEEN UPLOADED
-            // $item_img = BASE_URL ."/".$item_img .".jpg"; 
-            $item_img = $item_img;
+            $item_img = BASE_URL ."/".$item_img .".jpg"; 
+            // $item_img = $item_img;
 
                 echo 
 

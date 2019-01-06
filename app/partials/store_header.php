@@ -59,8 +59,8 @@
     <link rel="shortcut icon" href="../assets/images/kangaroo-logo.png">
 
     <!-- GOOGLE FONTS -->
-    <link href="https://fonts.googleapis.com/css?family=Fredoka+One|Open+Sans:300,400,400italic,600|Roboto" rel="stylesheet">
-
+    <!-- <link href="https://fonts.googleapis.com/css?family=Fredoka+One|Open+Sans:300,400,400italic,600|Roboto" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css?family=Lato|Rubik" rel="stylesheet">
     <!-- FONTAWESOME -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
@@ -171,12 +171,12 @@
                         <!-- <div class="col-6"> -->
                                 <div class="d-flex align-items-center">
                                     <div id='header-logo'></div>&nbsp;
-                                    <a class="navbar-brand text-light flex-fill" href="index.php" id="website_name">
+                                    <a class="navbar-brand flex-fill" href="index.php" id="website_name">
                                         Shoperoo
                                     </a>
 
                                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                                        <span class="navbar-toggler-icon py-1 border-0"><i class="fas fa-bars text-light"></i></i></span>
+                                        <span class="navbar-toggler-icon py-1 border-0"><i class="fas fa-bars"></i></i></span>
                                     </button>
                                 </div>
 
@@ -187,14 +187,14 @@
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item pl-lg-5 pl-md-4">
-                                    <a class="nav-link text-light font-weight-bold" href="store-profile.php?id=<?=$storeId?>"> 
+                                    <a class="nav-link font-weight-bold" href="store-profile.php?id=<?=$storeId?>"> 
                                         <div class='<?= isCurrentPage('profile') ? "underline" : "" ?>' >SHOP PROFILE</div>
                                     </a>
                                 </li>
 
                                 <div class='d-flex flex-row'>
                                     <li class="nav-item dropdown pl-lg-5 pl-md-4 d-flex flex-row">
-                                        <a class="nav-link text-light font-weight-bold" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" > 
+                                        <a class="nav-link font-weight-bold" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" > 
                                             <div class="d-flex flex-row">
                                                 <div class='<?= isCurrentPage('product') ? "underline" : "" ?> dropdown-toggle'>
                                                     PRODUCTS
@@ -216,7 +216,7 @@
 
                                 <div class='d-flex flex-row'>
                                     <li class="nav-item dropdown pl-lg-5 pl-md-4 d-flex flex-row">
-                                        <a class="nav-link text-light font-weight-bold" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                                        <a class="nav-link font-weight-bold" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
                                             <div class="d-flex flex-row">
                                                 
                                                 <div class='<?= isCurrentPage('order') ? "underline" : "" ?> dropdown-toggle'>
@@ -246,7 +246,7 @@
 
                                 <div class='d-flex flex-row'>
                                     <li class="nav-item pl-lg-5 pl-md-4 d-flex flex-row">
-                                        <a class="nav-link text-light font-weight-bold" href="store-messages.php?id=<?=$storeId?>"> 
+                                        <a class="nav-link font-weight-bold" href="store-messages.php?id=<?=$storeId?>"> 
                                             <div class='<?= isCurrentPage('messages') ? "underline" : "" ?>'>MESSAGES</div>
                                         </a>
                                     </li>

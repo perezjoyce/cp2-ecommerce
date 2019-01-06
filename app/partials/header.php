@@ -59,7 +59,8 @@
     <link rel="shortcut icon" href="../assets/images/kangaroo-logo.png">
 
     <!-- GOOGLE FONTS -->
-    <link href="https://fonts.googleapis.com/css?family=Fredoka+One|Open+Sans:300,400,400italic,600|Roboto" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Fredoka+One|Open+Sans:300,400,400italic,600|Roboto" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css?family=Lato|Rubik" rel="stylesheet">
 
     <!-- FONTAWESOME -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -181,7 +182,7 @@
                         <!-- <div class="col-6"> -->
                                 <div class="d-flex align-items-center">
                                     <div id='header-logo'></div>&nbsp;
-                                    <a class="navbar-brand text-light" href="index.php" id="website_name">
+                                    <a class="navbar-brand" href="index.php" id="website_name">
                                         Shoperoo
                                     </a>
                                    
@@ -212,7 +213,7 @@
                                                 <!-- CART -->
                                                 <div class="nav-item dropdown">
 
-                                                    <a class='nav-link text-light py-0 pl-3 pr-0' id="cartDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <a class='nav-link py-0 pl-3 pr-0' id="cartDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         <div class='d-flex flex-row'>
                                                         
                                                             <div id='cart-img'></div>

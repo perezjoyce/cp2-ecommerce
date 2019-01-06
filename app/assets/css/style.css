@@ -15,7 +15,7 @@ body{
     line-height: 1.35;
 }
 
-nav, footer, .white-bg {
+.white-bg {
     background-color:#ffffff!important;
 }
 
@@ -29,43 +29,22 @@ nav, footer, .white-bg {
 
 
 h1, h2, h3, h4, h5 {
-    font-family: 'Roboto-Regular', 'Tahoma', sans-serif!important;
+    /* font-family: 'Roboto-Regular', 'Tahoma', sans-serif!important; */
+    font-family: 'Lato', sans-serif;
 }
 
 p, div, a, small, .small, button, .text-responsive {
-    font-family: 'Open Sans', 'Tahoma', sans-serif!important;
+    /* font-family: 'Open Sans', 'Tahoma', sans-serif!important; */
+    font-family: 'Rubik', sans-serif;
 }
+
 /* FONT SIZE  & STYLE*/
 html {
     /* font size root */
-    font-size: 13px;
+    font-size: 14px;
     /* background-color: #000000; */
 }
 
-p, .product_details, label {
-    font-size: 1rem;
-}
-
-
-/* the following adjusts according to the root */
-h1 {
-    /* 21px */
-    font-size: 2.4rem; 
-}
-
-h2 {
-    /* 18 px */
-    font-size: 1.7rem;
-}
-
-    /* 15px */
-h3 {
-    font-size: 1.5rem;
-}
-
-h4 {
-    font-size: 1.25rem;
-}
 
 
 
@@ -904,16 +883,11 @@ div#login_image {
 
 .navbar-main,
 footer#footer-main {
-   /* background: #8e44ad!important; */
-   /* background: #ad5389;  fallback for old browsers */
-/* background: -webkit-linear-gradient(to right, #3c1053, #ad5389);  Chrome 10-25, Safari 5.1-6 */
-/* background: linear-gradient(to right, #3c1053, #ad5389); W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-background: #c31432;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #240b36, #c31432);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #240b36, #c31432); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-
+    color:#212121;
+    background:#f5f5f5;
 }
+
+
 .badge {
     background-color: gold!important;
     color: black!important; 
@@ -1063,10 +1037,10 @@ input:focus{
 
     /* HEADER */
 
-    #website_name {
+    /* #website_name {
         font-family: 'Fredoka One', cursive!important;
         font-size: 3em!important;
-    }
+    } */
 
     #livesearch {
         /* padding-left: 28px; */
@@ -1138,6 +1112,7 @@ input:focus{
 	.appear-lg {
 		display: block;
     }
+
     
 }
 
