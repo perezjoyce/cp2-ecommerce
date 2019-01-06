@@ -60,11 +60,14 @@
                         <div class="col">
                             <div class="input-group input-group-lg">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text border-right-0 border-left-0 border-top-0" id="store_page_search_button" style='background:white;'>
+                                    <span class="input-group-text border-right-0 border-left-0 border-top-0" style='background:white;'>
                                         <i class="fas fa-search" style='background:white;'></i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control border-right-0 border-left-0 border-top-0" id="store_page_search">
+                                <input type="text" class="form-control border-right-0 border-left-0 border-top-0" 
+                                    id="btn_search_orders" 
+                                    placeholder='Search using transaction codes'
+                                    data-storeid='<?=$storeId?>'>
                             </div>
                         </div>
 						
@@ -104,16 +107,14 @@
                             <table class="table borderless text-center bg-gray mb-0">
                                 <tr class='py-0'>
                                 
-                                    <td width='10%'>Time Ago</td>
+                                    <td width='15%'>Time Ago</td>
                                     <td width='15%'>Client</td>
                                     <!-- <td width='15%'>Transaction Code</td> -->
-                                    <td width='10%'>Product Id</td>
-                                    <td width='10%'>Variation</td>
-                                    <td width='10%'>Price</td>
-                                    <td width='10%'>Quantity</td>
+                                    <td width='20%'>Transaction Code</td>
+                                    <td width='15%'>Mode of Payment</td>
                                     <td width='15%'>Amount</td>
-                                    <td width='10%'>View</td>
-                                    <td width='10%'>Action</td>
+                                    <td width='5%'>View</td>
+                                    <td width='15%'>Action</td>
 
                                     
                                 </tr> 
@@ -124,7 +125,7 @@
                     <div class="row">
                         <div class="col px-2">
                             <div class="container px-0" style='background:white;height:600px;overflow-y:auto;font-size:12px;'>
-                                <table class="table table-hover borderless text-center">
+                                <table class="table table-hover borderless text-center" id='data-container'>
                                     
                                         <?php 
                                             while($row = $statement->fetch()){ 
@@ -146,7 +147,7 @@
                                     
                                     <tr>
                                         <!-- PURCHASE DATE -->
-                                        <td class='mx-0' width='10%'>
+                                        <td class='mx-0' width='15%'>
                                             <div class='py-4 text-secondary'>
                                                 <?php 
 
@@ -208,39 +209,21 @@
                                         </td>
                                             
 
-                                        <!-- PRODUCT ID & NAME -->
-                                        <td class='mx-0' width='10%'> 
-                                            <div class="d-flex flex-row justify-content-center py-4">
-                                                <div>
-                                                    <?= $productId ?>
-                                                </div>
-                                                <a data-toggle="tooltip" title="<?= $productName ?>" data-original-title="#">
-                                                    &nbsp;<i class="far fa-question-circle text-gray"></i>
-                                                </a>
+                                        <!-- TRANSACTION CODE -->
+                                        <td class='mx-0' width='20%'> 
+                                            <div class='py-4 text-secondary'>
+                                                <?= $transactionCode ?>
                                             </div>
                                         </td>
 
-                                        <!-- VARIATION NAME -->
-                                        <td class='mx-0' width='10%'> 
+                                        <!-- MODE OF PAYMENT -->
+                                        <td class='mx-0' width='15%'> 
                                             <div class='py-4 text-secondary'>
-                                                <?= $variationName ?>
+                                                <?= getModeOfPayment($conn, $paymentModeId) ?>
                                             </div>
                                         </td>
 
-                                        <!-- PRICE -->
-                                        <td class='mx-0' width='10%'> 
-                                            <div class='py-4 text-secondary'>
-                                                &#8369;&nbsp;
-                                                <?= number_format((float)$price, 2, '.', ','); ?>
-                                            </div>
-                                        </td>
-
-                                            <!-- QUANTITY -->
-                                            <td class='mx-0' width='10%'> 
-                                            <div class='py-4 text-secondary'>
-                                                <?= $quantity ?>
-                                            </div>
-                                        </td>
+                                     
 
                                         <!-- AMOUNT DUE -->
                                         <td class='mx-0' width='15%'>
@@ -275,14 +258,14 @@
                                         </td>
 
                                         <!-- VIEW -->
-                                        <td class='mx-0' width='10%'>
+                                        <td class='mx-0' width='5%'>
                                             <a data-href="../partials/templates/new_order_summary_modal.php?id=<?=$storeId?>&cart=<?=$newOrderCartSession?>" class='border-0 btn_view_new_order' style='cursor:pointer;size:15px;'>
                                                 <i class="far fa-file-pdf text-gray py-4" style='width:100%;'></i>
                                             </a>
                                         </td>
 
                                         <!-- ACTION -->
-                                        <td class='mx-0' width='10%'> 
+                                        <td class='mx-0' width='15%'> 
                                             <div class='py-2 text-gray'>
                                                 <div class="dropdown show">
                                                     <a class="btn border dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -290,12 +273,8 @@
                                                     </a>
 
                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                        <!-- ONCE CLICKED, BUTTON WILL BE CHANGED -->
-                                                        <?php if($paymentModeId == 2) { ?>
-                                                        <a class="dropdown-item" href="#"><small>MESSAGE CLIENT</small></a>
-                                                        <?php } else { echo ""; } ?>
                                                         <!-- ONCE CLICKED, WILL BE TRANSFERRED TO SHIPPING -->
-                                                        <a class="dropdown-item" href="#"><small>CONFIRM ORDER</small></a>
+                                                        <a class="dropdown-item btn_confirm_order" href="#" data-cartsession='<?=$newOrderCartSession?>' data-storeid='<?=$storeId?>' data-storename='<?=$storeName?>'><small>CONFIRM ORDER</small></a>
                                                         <!-- ONCE CLICKED, WILL BE TRANSFERRED TO ORDER HISTORY -->
                                                         <a class="dropdown-item btn_cancel_order" href="#" data-cartsession='<?=$newOrderCartSession?>' data-storeid='<?=$storeId?>'><small>CANCEL ORDER</small></a>
                                                     </div>

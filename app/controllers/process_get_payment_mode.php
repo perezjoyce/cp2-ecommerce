@@ -2,17 +2,13 @@
 session_start(); 
 require_once '../sources/pdo/src/PDO.class.php';
 require_once "connect.php";
+require_once "functions.php";
 
 
 if(isset($_POST['modeOfPaymentId'])) {
    $payment_mode_id = $_POST['modeOfPaymentId'];
    $cartSession = $_SESSION['cart_session'];
    $userId = $_SESSION['id'];
-    //  SET UNIQUE TRANSACTION CODE  
-    // $_SESSION['transaction_code'];
-    $unique_num = str_replace(".","",microtime(true)).rand(000,999);
-    $unique_mix = substr(hash('sha256', mt_rand()), 0, 10);
-    $_SESSION['transaction_code'] = $unique_num . " - " . $unique_mix;
     $transactionCode = $_SESSION['transaction_code'];
 
 
@@ -23,15 +19,15 @@ if(isset($_POST['modeOfPaymentId'])) {
 
         
    if($count) {
-    $sql = " UPDATE tbl_orders SET payment_mode_id = ?, transaction_code = ? WHERE `user_id` = ?  AND cart_session = ? ";
-    $statement = $conn->prepare($sql);
-    $result = $statement->execute([$payment_mode_id, $transactionCode, $userId, $cartSession]);
+    $sql2 = " UPDATE tbl_orders SET payment_mode_id = ?, transaction_code = ? WHERE `user_id` = ?  AND cart_session = ? ";
+    $statement2 = $conn->prepare($sql2);
+    $result2 = $statement2->execute([$payment_mode_id, $transactionCode, $userId, $cartSession]);
 
-        $sql2= " SELECT name FROM tbl_payment_modes WHERE id = ?";
-        $statement2 = $conn->prepare($sql2);
-        $statement2->execute([$payment_mode_id]);
-        $row2 = $statement2->fetch();
-        $paymentModeName = $row2['name'];
+        $sql3= " SELECT name FROM tbl_payment_modes WHERE id = ?";
+        $statement3 = $conn->prepare($sql3);
+        $statement3->execute([$payment_mode_id]);
+        $row3 = $statement3->fetch();
+        $paymentModeName = $row3['name'];
         $_SESSION['paymentMode'] = $paymentModeName;
 
         //UPDATE STATUS OF ORDER IN TBL CARTS (1 IS PENDING)
@@ -41,40 +37,35 @@ if(isset($_POST['modeOfPaymentId'])) {
     
    }
 
-   $message =   "<form>
-                    <h4>Order Confirmation</h4>
-                    <div style='padding-top:18px;'>Hi, there!</div> 
-                    <div style='padding-top:20px;'>Your order has been received and is being processed. Below is your transaction code:</div>
-
+   $messageForBuyer =   
+                "<form>
+                    <h4>Shoperoo Order Receipt</h4>
+                    <div style='padding-top:18px;'>Hi there!</div> 
+                    <div style='padding-top:20px;'>Your order, with the following transaction code, is being processed:</div>
                     <h4 style='color:#c471ed;'>$transactionCode</h4>
-
-                    <div>You will receive a confirmation message from the seller/s within the day.</div>
+                    <div>You will get confirmation message from the seller afterwards.</div>
                     <div>Thank you for shopping with us!</div>   
-
                     <div style='padding-top:30px;font-weight:bold;'>Team Shoperoo</div>
                     <div style='padding-top:10px;'>shoperoo@gmail.com</div>
                     <div>+06907-1234-4560</div>
                     <div>+06919-1454-1160</div>
                 </form>";
 
-                if($result) {
+
+
+
+                if($result2) {
 
                     require '../../vendor/autoload.php';
                     require '../../vendor/phpmailer/phpmailer/src/PHPMailer.php';
                     require '../../vendor/phpmailer/phpmailer/src/Exception.php';
-        
+
+                    $buyerEmail = getEmail($conn,$userId);
                     $mail = new PHPMailer\PHPMailer\PHPMailer(true);
-        
-                    //GET USER'S EMAIL // ===> buhayin email variable instead of querying database
-                    // $sql = " SELECT * FROM tbl_users WHERE user_id = $userId";
-                    // $result = mysqli_query($conn, $sql);
-                    // $row = mysqli_fetch_assoc($result);
-                    // $email = $row['email'];
-        
                     $staff_email = 'jpgarcia.ph@gmail.com'; // where the email is comming from // replace with admin email in the future
-                    $users_email =  'japerez.ph@gmail.com';//Where the email will go // replace with $email
-                    $email_subject = 'Order Confirmation';
-                    $email_body = $message;
+                    $users_email = $buyerEmail;//Where the email will go // replace with $email
+                    $email_subject = 'Shoperoo Order Confirmation';
+                    $email_body = $messageForBuyer;
         
                     try{
                         $mail->isSMTP();
@@ -91,19 +82,82 @@ if(isset($_POST['modeOfPaymentId'])) {
                         $mail->Body = $email_body;
                         $mail->send();
         
-                        echo "success";
+                        echo "Message sent to buyer!".$buyerEmail;
         
         
                         }catch (Exception $e){
-                            echo "Sorry ".$mail->ErrorInfo;
+                            echo "Buyer Side: Sorry".$mail->ErrorInfo;
                         }
+                    }
+                    
+
+                    if($result2) {
+                    //GET EMAIL ADDRESSES OF SELLERS
+                    $sql4 = "SELECT c.*, i.store_id 
+                        FROM tbl_carts c 
+                        JOIN tbl_variations v 
+                        JOIN tbl_items i 
+                        ON v.product_id=i.id 
+                        AND c.variation_id=v.id 
+                        WHERE cart_session = ?";
+                        $statement4 = $conn->prepare($sql4);
+                        $statement4->execute([$cartSession]);
+                        $count4 = $statement4->rowCount();
+
+
+                    if($count4){     
+
+                    $messageForSeller =   
+                        "<form>
+                            <h4>Your Client is Waiting!</h4>
+                            <div style='padding-top:18px;'>Hello, Seller!</div> 
+                            <div style='padding-top:20px;'>You have received an order with the following transaction code:</div>
         
-                } else {
-                     echo "Sorry, email not sent";
+                            <h4 style='color:#c471ed;'>$transactionCode</h4>
+                            <div>Please confirmation as soon as possible.</div>
+                            <div>Thank you!</div>   
+                            <div style='padding-top:30px;font-weight:bold;'>Team Shoperoo</div>
+                            <div style='padding-top:10px;'>shoperoo@gmail.com</div>
+                            <div>+06907-1234-4560</div>
+                            <div>+06919-1454-1160</div>
+                        </form>";
+
+
+                        while($row4 = $statement4->fetch()){  
+                            $storeId = $row4['store_id'];
+                            $sellerEmail = getSellerEmail($conn,$storeId);
+                            // var_dump($sellerEmail);die();
+                            $mail2 = new PHPMailer\PHPMailer\PHPMailer(true);
+                
+                            $staff_email2 = 'jpgarcia.ph@gmail.com'; // where the email is comming from // replace with admin email in the future
+                            $users_email2 = $sellerEmail;//Where the email will go // replace with $email
+                            $email_subject2 = 'Shoperoo Order Alert!';
+                            $email_body2 = $messageForSeller;
+        
+                            try{
+                                $mail2->isSMTP();
+                                $mail2->Host = 'smtp.gmail.com';
+                                $mail2->SMTPAuth = true;
+                                $mail2->Username = $staff_email2;
+                                $mail2->Password = '8London*'; // totoong password
+                                $mail2->SMTPSecure = 'tls';
+                                $mail2->Port = 587;
+                                $mail2->setFrom($staff_email2,'Shoperoo');
+                                $mail2->addAddress($users_email2);
+                                $mail2->isHTML(true);
+                                $mail2->Subject = $email_subject2;
+                                $mail2->Body = $email_body2;
+                                $mail2->send();
+                
+                                echo "Message sent to seller!".$sellerEmail;
+                
+                
+                            } catch (Exception $e2){
+                                    echo "Seller Side: Sorry ".$mail2->ErrorInfo;
+                                }
+                        }
                 }
-        
-
-
-}
+        }
+    }
 
 ?>

@@ -2964,9 +2964,8 @@ $(document).ready( () => {
 		});
 	});
 
-	
+	// CANCEL ORDER
 	$(document).on('click', '.btn_cancel_order', function(){
-
 		let answer = confirm('Do you want to cancel this order? This cannot be undone.');
 			
 			if(answer == true) {
@@ -2979,13 +2978,100 @@ $(document).ready( () => {
 
 				if(response == 'success') {
 					alert("Order has been cancelled!");
-					// setTimeout(function(){window.location.reload()}, 2000);
+					setTimeout(function(){window.location.reload()}, 1000);
 				}
+			})
+		}
+	});
+
+	// CONFIRM ORDER
+	$(document).on('click', '.btn_confirm_order', function(){
+		let answer = confirm('Do you want to confirm this order?');
 			
+			if(answer == true) {
+				let data = {
+					"cartSession" : $(this).data('cartsession'),
+					"storeId" : $(this).data('storeid'),
+					"storeName" : $(this).data('storename')
+			}
+
+			// alert(data.storeName);
+
+			$.post('../controllers/process_confirm_order.php',data,function(response){
+
+				if(response == 'success') {
+					alert("Order has been confirmed!");
+					setTimeout(function(){window.location.reload()}, 1000);
+				}
+			})
+		}
+	});
+
+
+	// SEARCH INVENTORY
+	$(document).on('keypress', '#btn_search_orders', function(e){
+		if(e.which == 13) {
+			let data = {
+				'storeId' : $(this).data('storeid'),
+				'searchkey' : $(this).val()
+			}
+
+			$.post('../controllers/process_search_orders.php',data,function(response){
+				if(response == 'fail' ){
+					$('#data-container').html("<tr class='mt-5 pt-5'><td class='mt-5 pt-5 font-weight-light'>Sorry. The search key doesn't match anything in your inventory.</td></tr>");
+					setTimeout(function(){window.location.reload()}, 2000);
+				} else {
+					$("#data-container").html(response);
+				}
 			})
 		}
 
+	})
+
+
+	// CONFIRM ORDER
+	$(document).on('click', '.btn_complete_order', function(){
+		let answer = confirm('Do you want to mark this order as complete?');
+			
+			if(answer == true) {
+				let data = {
+					"cartSession" : $(this).data('cartsession'),
+					"storeId" : $(this).data('storeid'),
+					"storeName" : $(this).data('storename')
+			}
+
+			// alert(data.storeName);
+
+			$.post('../controllers/process_complete_order.php',data,function(response){
+
+				if(response == 'success') {
+					alert("Order transaction has been completed!");
+					setTimeout(function(){window.location.reload()}, 1000);
+				}
+			})
+		}
 	});
+	
+
+	// SEARCH INVENTORY
+	$(document).on('keypress', '#btn_search_shipping', function(e){
+		if(e.which == 13) {
+			let data = {
+				'storeId' : $(this).data('storeid'),
+				'searchkey' : $(this).val()
+			}
+
+			$.post('../controllers/process_search_shipping.php',data,function(response){
+				if(response == 'fail' ){
+					$('#data-container').html("<tr class='mt-5 pt-5'><td class='mt-5 pt-5 font-weight-light'>Sorry. The search key doesn't match anything in your inventory.</td></tr>");
+					setTimeout(function(){window.location.reload()}, 2000);
+				} else {
+					$("#data-container").html(response);
+				}
+			})
+		}
+
+	})
 
 	
 

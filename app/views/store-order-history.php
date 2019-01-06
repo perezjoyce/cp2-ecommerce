@@ -34,7 +34,7 @@
     $storeRating = getAverageStoreRating ($conn, $storeId);
     $storeMembershipDate = getMembershipDate($conn, $storeId);
     $storeShippingFee = displayStoreShippingFee($conn,$storeId);
-    $storeFreeShippingMinimum = displayStoreFreeShipping($conn,$storeId);
+    $storeFreeShippingMinimum = displayStoreFreeShipping($conn,$storeId, false);
     $fname = getFirstName ($conn,$id);
     $lname = getLastName ($conn,$id);
 ?>
@@ -54,10 +54,10 @@
                 <!-- SEARCH BAR -->
                 <div class='container p-5 rounded' style='background:white;'>
                     <div class="row mx-0">
-                        <div class="col-6">
+                        <div class="col">
                             <h4>Order History</h4>
                         </div>
-                        <div class="col">
+                        <!-- <div class="col">
                             <div class="input-group input-group-lg">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text border-right-0 border-left-0 border-top-0" id="store_page_search_button" style='background:white;'>
@@ -66,22 +66,33 @@
                                 </div>
                                 <input type="text" class="form-control border-right-0 border-left-0 border-top-0" id="store_page_search">
                             </div>
-                        </div>
+                        </div> -->
 						
 					</div>
                 </div>
 
                 
                 
-                <!-- ORDER HISTORY -->
+                <!-- NEW ORDERS -->
                 <div class="container px-5 pb-5 rounded" style='background:white;'>
                                
                                 
-                    <!-- PENDING TRANSACTIONS -->
                     <?php
-                    $sql = "SELECT o.*, s.name as `status` FROM tbl_orders o JOIN tbl_status s ON o.status_id=s.id WHERE status_id = 3 OR status_id = 4  AND `user_id` = ? ORDER BY o.purchase_date DESC";
+                    $sql = "SELECT o.payment_mode_id,o.billing_address_id, o.purchase_date, o.transaction_code, o.id 
+                            AS 'transaction_id', o.status_id, o.cart_session, o.user_id, c.variation_id, c.quantity, v.variation_name 
+                            AS 'variation_name', i.id 
+                            AS 'product_id', i.name 
+                            AS 'product_name', i.store_id, i.price 
+                            FROM tbl_carts c 
+                            JOIN tbl_variations v 
+                            JOIN tbl_items i 
+                            JOIN tbl_orders o 
+                            ON v.product_id=i.id 
+                            AND c.variation_id=v.id 
+                            AND o.cart_session=c.cart_session 
+                            WHERE c.status_id = ? and store_id = ?";
                                 $statement = $conn->prepare($sql);
-                                $statement->execute([$id]);
+                                $statement->execute([3,$storeId]);
                                 $count = $statement->rowCount();
             
                             if($count) {
@@ -93,11 +104,16 @@
                             <table class="table borderless text-center bg-gray mb-0">
                                 <tr class='py-0'>
                                 
-                                    <td width='20%'>Date</td>
-                                    <td width='30%'>Transaction Code</td>
-                                    <td width='20%'>Payment Mode</td>
-                                    <td width='15%'>Status</td>
-                                    <td width='15%'>View</td>
+                                    <td width='15%'>Time Ago</td>
+                                    <td width='15%'>Client</td>
+                                    <!-- <td width='15%'>Transaction Code</td> -->
+                                    <td width='15%'>Product Id</td>
+                                    <td width='15%'>Variation</td>
+                                    <td width='15%'>Price</td>
+                                    <td width='15%'>Quantity</td>
+                                    <!-- <td width='15%'>Amount</td> -->
+                                    <td width='10%'>View</td>
+       
                                     
                                 </tr> 
                             </table>
@@ -106,66 +122,105 @@
                     </div>
                     <div class="row">
                         <div class="col px-2">
-                            <div class="container px-0" style='background:white;height:600px;overflow-y:auto;'>
+                            <div class="container px-0" style='background:white;height:600px;overflow-y:auto;font-size:12px;'>
                                 <table class="table table-hover borderless text-center">
                                     
-                                    <?php 
+                                        <?php 
                                             while($row = $statement->fetch()){ 
-                                            $transactionId = $row['id'];
-                                            $transactionCode = $row['transaction_code'];
-                                            $purchaseDate = $row['purchase_date'];
-                                            $status = $row['status'];
-                                            $orderHistoryCartSession = $row['cart_session'];
-                                            $paymentModeId = $row['payment_mode_id'];
-                                    ?>
+                                                $purchaseDate = $row['purchase_date'];
+                                                $transactionId = $row['transaction_id'];
+                                                $transactionCode = $row['transaction_code'];
+                                                $clientId = $row['user_id'];
+                                                $whoWillPay = $row['billing_address_id'];
+                                                $productId = $row['product_id'];
+                                                $productName = $row['product_name'];
+                                                $variationId = $row['variation_id'];
+                                                $variationName = $row['variation_name'];
+                                                $quantity = $row['quantity'];
+                                                $price = $row['price'];
+                                                // $status = $row['status'];
+                                                $newOrderCartSession = $row['cart_session'];
+                                                $paymentModeId = $row['payment_mode_id'];
+                                        ?>
                                     
                                     <tr>
+                                        <!-- PURCHASE DATE -->
+                                        <td class='mx-0' width='15%'>
+                                            <div class='py-4 text-secondary'><?=date("M d, Y", strtotime($purchaseDate))?>
+                                        </td>
 
-                                        <div>
+                                        <!-- CLIENT -->
+                                        <td class='mx-0' width='15%'> 
+                                            <div class='py-4 text-secondary'>
+                                                <?php 
+                                                
+                                                $fname = getFirstName($conn, $clientId);
+                                                $lname = getLastName($conn, $clientId);
+                                                if($fname && $lname) {
+                                                    $name = $fname . " " . $lname;
+                                                } else { 
 
-                                            <!-- PURCHASE DATE -->
-                                            <td class='mx-0' width='20%'>
-                                                <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                    <div class='py-3 text-secondary'><?=date("M d, Y", strtotime($purchaseDate))?></div>
-                                                </a>
-                                            </td>
+                                                    if(!$whoWillPay){
+                                                        $name = "";
+                                                    } else {
+                                                        $name = getWhoWillPay($conn,$whoWillPay);
+                                                    }
+                                                }
+                                                
+                                                echo ucwords(strtolower($name));
+                                                    
+                                                ?>
+                                            </div>
+                                        </td>
                                             
-                                            
-                                            <!-- TRANSACTION CODE -->
-                                            <td class='mx-0' width='30%'> 
-                                                <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                    <div class='py-3'><?=$transactionCode ?></div>
-                                                </a>
-                                            </td>
 
-                                            <!-- PAYMENT METHOD -->
-                                            <td class='mx-0' width='20%'> 
-                                                <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                    <div class='py-3'>
-                                                        <?= getModeOfPaymentShort($conn, $paymentModeId) ?>
-                                                    </div>
+                                        <!-- PRODUCT ID & NAME -->
+                                        <td class='mx-0' width='15%'> 
+                                            <div class="d-flex flex-row justify-content-center py-4">
+                                                <div>
+                                                    <?= $productId ?>
+                                                </div>
+                                                <a data-toggle="tooltip" title="<?= $productName ?>" data-original-title="#">
+                                                    &nbsp;<i class="far fa-question-circle text-gray"></i>
                                                 </a>
-                                            </td>
+                                            </div>
+                                        </td>
 
-                                            <!-- STATUS-->
+                                        <!-- VARIATION NAME -->
+                                        <td class='mx-0' width='15%'> 
+                                            <div class='py-4 text-secondary'>
+                                                <?= $variationName ?>
+                                            </div>
+                                        </td>
+
+                                        <!-- PRICE -->
+                                        <td class='mx-0' width='15%'> 
+                                            <div class='py-4 text-secondary'>
+                                                &#8369;&nbsp;
+                                                <?= number_format((float)$price, 2, '.', ','); ?>
+                                            </div>
+                                        </td>
+
+                                            <!-- QUANTITY -->
                                             <td class='mx-0' width='15%'> 
-                                                <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                    <div class='py-3 text-gray'>
-                                                        <?= ucfirst($status) ?>
-                                                    </div>
-                                                </a>
-                                            </td>
+                                            <div class='py-4 text-secondary'>
+                                                <?= $quantity ?>
+                                            </div>
+                                        </td>
 
-                                            <!-- VIEW -->
-                                            <td class='mx-0' width='15%'>
-                                                <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                    <i class="far fa-file-pdf text-gray py-3" style='width:100%;'></i>
-                                                </a>
-                                            </td>
-                                            
-                                        </div>
                                         
+
+                                        <!-- VIEW -->
+                                        <td class='mx-0' width='10%'>
+                                            <a data-href="../partials/templates/new_order_summary_modal.php?id=<?=$storeId?>&cart=<?=$newOrderCartSession?>" class='border-0 btn_view_new_order' style='cursor:pointer;size:15px;'>
+                                                <i class="far fa-file-pdf text-gray py-4" style='width:100%;'></i>
+                                            </a>
+                                        </td>
+
+                                        
+
                                     </tr>
+                                    
                                     <?php } ?>
         
                                 </table>

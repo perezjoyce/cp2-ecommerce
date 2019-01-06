@@ -224,6 +224,14 @@
         return $storeName;
     }
 
+    function getStoreNameFromStoreId($conn, $storeId){
+        $sql = " SELECT * FROM tbl_stores WHERE id=? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$storeId]);
+        $row = $statement->fetch();
+        $storeName = $row['name'];
+    }
+
     // GET STORE LOGO
     function getStoreLogo ($conn,$userId) {
         $sql = " SELECT * FROM tbl_stores WHERE `user_id`=? ";
@@ -579,9 +587,9 @@
         $row = $statement->fetch();
         $paymentModeName = $row['name'];
 
-        if($paymentModeName == 'COD') {
-            $paymentModeName = 'Cash On Delivery (COD)';
-        }
+        // if($paymentModeName == 'COD') {
+        //     $paymentModeName = 'Cash On Delivery (COD)';
+        // }
 
         return $paymentModeName;
     }
@@ -629,7 +637,7 @@
 
             if($finalRatingScore == 0 && $finalImages == 0){
                 echo "<small class='text-gray font-weight-light'>REVIEW PRODUCT</small>";
-            }else {
+            } else {
                 echo "<small class='text-gray font-weight-light'>REVIEWED</small>";
             }
 
@@ -758,4 +766,26 @@ function showPrimaryProductImage($conn,$productId){
     $url = $row['url'];
 
     return $url;
+}
+
+//GET EMAIL FROM USER ID
+function getEmail($conn,$userId){
+    $sql = "SELECT * FROM tbl_users WHERE id = ?";
+    $statement = $conn->prepare($sql);
+    $statement->execute([$userId]);	
+    $row = $statement->fetch();
+    $email = $row['email'];
+
+    return $email;
+}
+
+//GET EMAIL FROM STORE ID
+function getSellerEmail($conn,$storeId) {
+    $sql = "SELECT s.id AS 'store_id',s.user_id, u.email FROM tbl_items i JOIN tbl_stores s JOIN tbl_users u ON s.user_id=u.id AND i.store_id=s.id WHERE `store_id`=? GROUP BY s.id";
+    $statement = $conn->prepare($sql);
+    $statement->execute([$storeId]);	
+    $row = $statement->fetch();
+    $email = $row['email'];
+
+    return $email;
 }

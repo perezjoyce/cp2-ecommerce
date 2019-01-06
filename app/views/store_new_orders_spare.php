@@ -34,7 +34,7 @@
     $storeRating = getAverageStoreRating ($conn, $storeId);
     $storeMembershipDate = getMembershipDate($conn, $storeId);
     $storeShippingFee = displayStoreShippingFee($conn,$storeId);
-    $storeFreeShippingMinimum = displayStoreFreeShipping($conn,$storeId);
+    $storeFreeShippingMinimum = displayStoreFreeShipping($conn,$storeId, false);
     $fname = getFirstName ($conn,$id);
     $lname = getLastName ($conn,$id);
 ?>
@@ -55,20 +55,16 @@
                 <div class='container p-5 rounded' style='background:white;'>
                     <div class="row mx-0">
                         <div class="col-6">
-                            <h4>For Shipping</h4>
+                            <h4>New Orders</h4>
                         </div>
                         <div class="col">
                             <div class="input-group input-group-lg">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text border-right-0 border-left-0 border-top-0" style='background:white;'>
+                                    <span class="input-group-text border-right-0 border-left-0 border-top-0" id="store_page_search_button" style='background:white;'>
                                         <i class="fas fa-search" style='background:white;'></i>
                                     </span>
                                 </div>
-                                <input type="text" 
-                                    class="form-control border-right-0 border-left-0 border-top-0" 
-                                    data-storeid='<?=$storeId?>'
-                                    id="btn_search_shipping" 
-                                    placeholder='Search using transaction codes'>
+                                <input type="text" class="form-control border-right-0 border-left-0 border-top-0" id="store_page_search">
                             </div>
                         </div>
 						
@@ -82,10 +78,21 @@
                                
                                 
                     <?php
-                    $sql = " SELECT o.payment_mode_id, o.address_id as 'shipping_address_id', o.billing_address_id, o.purchase_date, o.transaction_code, o.id as 'transaction_id', o.status_id, o.cart_session, o.user_id , i.store_id, i.price
-                    FROM  tbl_orders o JOIN tbl_carts c JOIN tbl_items i JOIN tbl_variations v ON v.product_id = i.id AND c.variation_id=v.id AND o.cart_session=c.cart_session WHERE store_id = ? AND c.status_id = 2 ORDER BY purchase_date DESC ";
+                    $sql = "SELECT o.payment_mode_id,o.billing_address_id, o.purchase_date, o.transaction_code, o.id 
+                            AS 'transaction_id', o.status_id, o.cart_session, o.user_id, c.variation_id, c.quantity, v.variation_name 
+                            AS 'variation_name', i.id 
+                            AS 'product_id', i.name 
+                            AS 'product_name', i.store_id, i.price 
+                            FROM tbl_carts c 
+                            JOIN tbl_variations v 
+                            JOIN tbl_items i 
+                            JOIN tbl_orders o 
+                            ON v.product_id=i.id 
+                            AND c.variation_id=v.id 
+                            AND o.cart_session=c.cart_session 
+                            WHERE c.status_id = ? and store_id = ? GROUP BY o.cart_session";
                                 $statement = $conn->prepare($sql);
-                                $statement->execute([$storeId]);
+                                $statement->execute([1,$storeId]);
                                 $count = $statement->rowCount();
             
                             if($count) {
@@ -97,20 +104,16 @@
                             <table class="table borderless text-center bg-gray mb-0">
                                 <tr class='py-0'>
                                 
-                                    <td width='15%'>Time Ago</td>
-                                    <td width='15%'>Recepient</td>
-                                    <td width='25%'>Address</td>
-                                    <!-- <td width='15%'>Contact Number</td> -->
-                                    <!-- <td width='15%'>Tracking Number</td> -->
-                                    <td width='15%'>
-                                        Amount Due
-                                        <a data-toggle="tooltip" title="For COD Only" data-original-title="#">
-                                            &nbsp;<i class="far fa-question-circle text-gray"></i>
-                                        </a>
-                                    </td>
-                                    <td width='15%'>View</td>
-                                    <!-- IF COD, STATE HOW MUCH IS DUE -->
-                                    <td width='15%'>Action</td>
+                                    <td width='10%'>Time Ago</td>
+                                    <td width='15%'>Client</td>
+                                    <!-- <td width='15%'>Transaction Code</td> -->
+                                    <td width='10%'>Product Id</td>
+                                    <td width='10%'>Variation</td>
+                                    <td width='10%'>Price</td>
+                                    <td width='10%'>Quantity</td>
+                                    <td width='15%'>Amount</td>
+                                    <td width='10%'>View</td>
+                                    <td width='10%'>Action</td>
 
                                     
                                 </tr> 
@@ -121,7 +124,7 @@
                     <div class="row">
                         <div class="col px-2">
                             <div class="container px-0" style='background:white;height:600px;overflow-y:auto;font-size:12px;'>
-                                <table class="table table-hover borderless text-center" id='data-container'>
+                                <table class="table table-hover borderless text-center">
                                     
                                         <?php 
                                             while($row = $statement->fetch()){ 
@@ -129,36 +132,21 @@
                                                 $transactionId = $row['transaction_id'];
                                                 $transactionCode = $row['transaction_code'];
                                                 $clientId = $row['user_id'];
-                                                // $whoWillPay = $row['billing_address_id'];
-                                                $shippingAddressId = $row['shipping_address_id'];
-                                                // $productId = $row['product_id'];
-                                                // $productName = $row['product_name'];
-                                                // $variationId = $row['variation_id'];
-                                                // $variationName = $row['variation_name'];
-                                                // $quantity = $row['quantity'];
-                                                // $price = $row['price'];
+                                                $whoWillPay = $row['billing_address_id'];
+                                                $productId = $row['product_id'];
+                                                $productName = $row['product_name'];
+                                                $variationId = $row['variation_id'];
+                                                $variationName = $row['variation_name'];
+                                                $quantity = $row['quantity'];
+                                                $price = $row['price'];
                                                 // $status = $row['status'];
                                                 $newOrderCartSession = $row['cart_session'];
                                                 $paymentModeId = $row['payment_mode_id'];
-
-                                                // FETCH ADDRESS
-                                                $sql2 = "SELECT * FROM tbl_addresses WHERE id = ?";
-                                                $statement2 = $conn->prepare($sql2);
-                                                $statement2->execute([$shippingAddressId]);	
-                                                $count2 = $statement2->rowCount();
-
-                                                // FETCH TOTAL PRICE
-                                                $sql3 = "SELECT SUM(quantity*price) as 'subtotal_for_items', c.cart_session, c.variation_id, c.quantity, v.variation_name, v.product_id, i.price, i.store_id FROM tbl_carts c JOIN tbl_variations v JOIN tbl_items i ON c.variation_id=v.id AND v.product_id=i.id WHERE  cart_session = ? AND store_id = ?";
-                                                $statement3 = $conn->prepare($sql3);
-                                                $statement3->execute([$newOrderCartSession,$storeId]);	
-                                                $count3 = $statement3->rowCount();
                                         ?>
-                                       
                                     
                                     <tr>
-
                                         <!-- PURCHASE DATE -->
-                                        <td class='mx-0' width='15%'>
+                                        <td class='mx-0' width='10%'>
                                             <div class='py-4 text-secondary'>
                                                 <?php 
 
@@ -195,67 +183,68 @@
                                             </div>
                                         </td>
 
-                                        <!-- RECEPIENT -->
+                                        <!-- CLIENT -->
                                         <td class='mx-0' width='15%'> 
                                             <div class='py-4 text-secondary'>
-                                                <?= getNameFromShippingAddressId($conn,$shippingAddressId) ?>
-                                            </div>
-                                        </td>
-                                        
-                                        
-                                        <!-- RECEPIENTS ADDRESS -->
-                                        <td class='mx-0 text-center' width='25%'> 
-                                            <div class="py-4 px-2 text-secondary">
-                                                <?php
+                                                <?php 
                                                 
-                                                    if($count2) {
-                                                        $row2 = $statement2->fetch();
-                                                        $landmark = $row2['landmark'];
-                                                        $landmark = ucwords(strtolower($landmark));
+                                                $fname = getFirstName($conn, $clientId);
+                                                $lname = getLastName($conn, $clientId);
+                                                if($fname && $lname) {
+                                                    $name = $fname . " " . $lname;
+                                                } else { 
 
-                                                        $street = $row2['street_bldg_unit'];
-                                                        $street = ucwords(strtolower($street));
-
-                                                        $regionId = $row2['region_id'];
-                                                        $provId = $row2['province_id'];
-                                                        $cityId = $row2['city_id'];
-                                                        $brgyId = $row2['brgy_id'];
+                                                    if(!$whoWillPay){
+                                                        $name = "";
+                                                    } else {
+                                                        $name = getWhoWillPay($conn,$whoWillPay);
                                                     }
+                                                }
+                                                
+                                                echo ucwords(strtolower($name));
+                                                    
                                                 ?>
-                                                <?=$street?>,&nbsp;
-                                                <?= getBrgyName($conn, $brgyId) ?>,&nbsp;
-                                                <?= getCityName($conn, $cityId) ?>,&nbsp;
-                                                <?= getProvinceName($conn, $provId) ?>,
-                                                <?= getRegionName($conn, $regionId) ?>
-                                                <br>
-                                                <span class='text-gray'>
-                                                    <?=$landmark?>
-                                                </span>
                                             </div>
                                         </td>
-                                        
+                                            
 
-
-                                        <!-- CONTACT NUMBER -->
-                                        <!-- <td class='mx-0 py-3' width='15%'>
-                                            <a data-url="../partials/templates/view_order_summary_modal.php" data-id='$orderHistoryCartSession class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                -
-                                            </a>
-                                        </td> -->
-                                        
-
-                                            <!-- TRACKING NUMBER -->
-                                            <!-- <td class='mx-0' width='15%'> 
-                                            <div class='py-4 text-secondary'>
-                                                <input type="text" style='width:100%;'>
+                                        <!-- PRODUCT ID & NAME -->
+                                        <td class='mx-0' width='10%'> 
+                                            <div class="d-flex flex-row justify-content-center py-4">
+                                                <div>
+                                                    <?= $productId ?>
+                                                </div>
+                                                <a data-toggle="tooltip" title="<?= $productName ?>" data-original-title="#">
+                                                    &nbsp;<i class="far fa-question-circle text-gray"></i>
+                                                </a>
                                             </div>
-                                        </td> -->
+                                        </td>
 
-                                        
-                                            <!-- SHIPPING FEE -->
-                                            <td class='mx-0' width='15%'> 
+                                        <!-- VARIATION NAME -->
+                                        <td class='mx-0' width='10%'> 
                                             <div class='py-4 text-secondary'>
+                                                <?= $variationName ?>
+                                            </div>
+                                        </td>
 
+                                        <!-- PRICE -->
+                                        <td class='mx-0' width='10%'> 
+                                            <div class='py-4 text-secondary'>
+                                                &#8369;&nbsp;
+                                                <?= number_format((float)$price, 2, '.', ','); ?>
+                                            </div>
+                                        </td>
+
+                                            <!-- QUANTITY -->
+                                            <td class='mx-0' width='10%'> 
+                                            <div class='py-4 text-secondary'>
+                                                <?= $quantity ?>
+                                            </div>
+                                        </td>
+
+                                        <!-- AMOUNT DUE -->
+                                        <td class='mx-0' width='15%'>
+                                            <div class='py-4 text-secondary'>
                                                 <?php  
                                                     $sql3 = "SELECT SUM(quantity*price) as 'subtotal_for_items', c.cart_session, c.variation_id, c.quantity, v.variation_name, v.product_id, i.price, i.store_id FROM tbl_carts c JOIN tbl_variations v JOIN tbl_items i ON c.variation_id=v.id AND v.product_id=i.id WHERE  cart_session = ? AND store_id = ?";
                                                     $statement3 = $conn->prepare($sql3);
@@ -279,35 +268,50 @@
                                                         echo "&#8369;&nbsp;".$grandTotalFee;
                                                     }
                                             
-                                                ?>
+                                                    ?>
                                                     <input type="hidden" value='<?=$subTotalForItems?>'>
                                                     <input type="hidden" value='<?=$storeFreeShippingMinimum?>'>
-
                                             </div>
                                         </td>
 
-                                            <!-- VIEW -->
-                                        <td class='mx-0' width='15%'>
+                                        <!-- VIEW -->
+                                        <td class='mx-0' width='10%'>
                                             <a data-href="../partials/templates/new_order_summary_modal.php?id=<?=$storeId?>&cart=<?=$newOrderCartSession?>" class='border-0 btn_view_new_order' style='cursor:pointer;size:15px;'>
                                                 <i class="far fa-file-pdf text-gray py-4" style='width:100%;'></i>
                                             </a>
                                         </td>
 
                                         <!-- ACTION -->
-                                        <td class='mx-0' width='15%'>                                                     
-                                            <div class='py-4 font-weight-light'>       
-                                                <!-- ONCE CLICKED, WILL BE TRANSFERRED TO ORDER HISTORY -->
-                                                <a class="btn border btn_complete_order" data-cartsession='<?=$newOrderCartSession?>' data-storeid='<?=$storeId?>' data-storename='<?=$storeName?>'><small>MARK AS COMPLETE</small></a>                                                                
-                                            </div> 
+                                        <td class='mx-0' width='10%'> 
+                                            <div class='py-2 text-gray'>
+                                                <div class="dropdown show">
+                                                    <a class="btn border dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <small>CHOOSE 1</small>    
+                                                    </a>
+
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                        <!-- ONCE CLICKED, BUTTON WILL BE CHANGED -->
+                                                        <?php if($paymentModeId == 2) { ?>
+                                                        <a class="dropdown-item" href="#"><small>MESSAGE CLIENT</small></a>
+                                                        <?php } else { echo ""; } ?>
+                                                        <!-- ONCE CLICKED, WILL BE TRANSFERRED TO SHIPPING -->
+                                                        <a class="dropdown-item" href="#"><small>CONFIRM ORDER</small></a>
+                                                        <!-- ONCE CLICKED, WILL BE TRANSFERRED TO ORDER HISTORY -->
+                                                        <a class="dropdown-item btn_cancel_order" href="#" data-cartsession='<?=$newOrderCartSession?>' data-storeid='<?=$storeId?>'><small>CANCEL ORDER</small></a>
+                                                    </div>
+                                                    <!-- put dropdown with two buttons: SEND MESSAGE, CONFIRM, CANCELL, COMPLETE -->
+                                                </div>
+                                            </div>
                                         </td>
 
-        
-                                            
                                     </tr>
-                                        <?php } ?>
+                                    
+                                    <?php } ?>
         
                                 </table>
 
+                                
+                            
                             </div>
                         </div>
                     </div>

@@ -164,6 +164,12 @@ require_once "functions.php";
         $response = ['newProduct' => $newProductAdded, 'itemsInCart' =>  $itemsInCart, 'button' => $button];
         echo json_encode($response);
         
+        //  SET UNIQUE TRANSACTION CODE  (SET THIS EARLY COZ IT APPEARS DELAYED WHEN DONE DURING CONFIRMATION)
+        // $_SESSION['transaction_code'];
+        $unique_num = str_replace(".","",microtime(true)).rand(000,999);
+        $unique_mix = substr(hash('sha256', mt_rand()), 0, 10);
+        $_SESSION['transaction_code'] = $unique_num . " - " . $unique_mix;
+        $transactionCode = $_SESSION['transaction_code'];
             
     
 

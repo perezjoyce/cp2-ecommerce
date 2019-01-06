@@ -249,7 +249,6 @@
                                         <table class="table table-hover borderless">
                                             
                                             <tr id="table-header" class='text-secondary bg-gray border-bottom'>
-                                                <th class='text-center'> ID </th>
                                                 <th class='text-center'> ITEM </th>
                                                 <th class='text-center'> VARIATION </th>
                                                 <th class='text-center'> PRICE </th>
@@ -291,23 +290,19 @@
                                             <tr class='text-secondary'>
                                                 <!-- IMAGE -->
                                                 <td> 
-                                                    <div class='text-center justify-content-center pt-3'>
-                                                        <?=$productId?>
-                                                    </div>
-                                                </td>
-                                                <!-- IMAGE -->
-                                                <td> 
-                                                    <div class='d-flex justify-content-start pl-lg-5' style='justify-content:flex-start;'>
-                                                        <a href="product.php?id=<?=$productId?>" class='pr-2'>
-                                                            <img src='<?=$image?>' style='width:50px;height:50px;'>
-                                                        </a> 
-                                                        <div class='pt-3'><?=$name?></div>
+                                                    <div class='text-center d-flex justify-content-center' style='justify-content:flex-start;'>
+                                                        <div class='pr-2'>
+                                                            <a href="product.php?id=<?=$productId?>">
+                                                                <img src='<?=$image?>' style='width:50px;height:50px;'>
+                                                            </a> 
+                                                        </div> 
+                                                        <div><?=$name?></div>
                                                     </div>
                                                 </td>
                                                 
                                                 <!-- VARIATION -->
                                                 <td> 
-                                                    <div class='text-center justify-content-center pt-3'>
+                                                    <div class='text-center justify-content-center'>
                                                         <?=$variationName?>
                                                     </div>
                                                 </td>
@@ -315,7 +310,7 @@
                                                 
                                                 <!-- PRICE -->
                                                 <td> 
-                                                    <div class='text-center justify-content-center pt-3'>
+                                                    <div class='text-center justify-content-center'>
                                                         <span>&#8369; </span>
                                                         <span><?=$price?></span>
                                                     </div>
@@ -323,7 +318,7 @@
                                             
                                                 <!-- QUANTITY -->
                                                 <td> 
-                                                    <div class='text-center justify-content-center pt-3'>
+                                                    <div class='text-center justify-content-center'>
                                                         <?=$quantity?>
                                                     </div>
                                                 </td>
@@ -331,12 +326,10 @@
                                                 
                                                 
                                                 
-                                                    <!-- UNIT PRICE X QUANTITY -->
-                                                <td>
-                                                    <div class='text-center justify-content-center pt-3'>
-                                                        <span>&#8369; </span>
-                                                        <span class="subtotal_price<?=$variationId?>"> <?= number_format((float)$subtotalPrice, 2, '.', ',') ?> </span> 
-                                                    </div>
+                                                <!-- UNIT PRICE X QUANTITY -->
+                                                <td class='text-center justify-content-center'>
+                                                    <span>&#8369; </span>
+                                                    <span class="subtotal_price<?=$variationId?>"> <?= number_format((float)$subtotalPrice, 2, '.', ',') ?> </span> 
                                                 </td>
                         
                                             </tr>
@@ -346,7 +339,7 @@
 
                                             <!-- GRAND TOTAL /SUBTOTAL CART ITEMS -->
                                             <tr class='tr-gray text-secondary font-weight-bold text-center'>
-                                                <td colspan='5' class='text-right'>SUBTOTAL (Cart Items)</td>
+                                                <td colspan='4' class='text-right'>SUBTOTAL (Cart Items)</td>
                                                 <td> 
                                                     <span>&#8369;</span>
                                                     <span id='grand_total_price'> 
