@@ -2932,6 +2932,7 @@ $(document).ready( () => {
 		})
 	})
 
+	// SEARCH INVENTORY
 	$(document).on('keypress', '#btn_search_inventory', function(e){
 		if(e.which == 13) {
 			let data = {
@@ -2950,6 +2951,44 @@ $(document).ready( () => {
 		}
 
 	})
+
+
+
+	//VIEW PRODUCT
+	$(document).on('click', '.btn_view_new_order', function(){
+		let url = $(this).data('href');
+	
+		$.get(url,function(response){
+			$("#modalContainer .modal-content").html(response);
+			$("#modalContainer").modal('show');
+		});
+	});
+
+	
+	$(document).on('click', '.btn_cancel_order', function(){
+
+		let answer = confirm('Do you want to cancel this order? This cannot be undone.');
+			
+			if(answer == true) {
+				let data = {
+					"cartSession" : $(this).data('cartsession'),
+					"storeId" : $(this).data('storeid')
+			}
+
+			$.post('../controllers/process_cancel_order.php',data,function(response){
+
+				if(response == 'success') {
+					alert("Order has been cancelled!");
+					// setTimeout(function(){window.location.reload()}, 2000);
+				}
+			
+			})
+		}
+
+	});
+
+	
+
 	
 
 

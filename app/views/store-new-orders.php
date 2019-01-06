@@ -34,7 +34,7 @@
     $storeRating = getAverageStoreRating ($conn, $storeId);
     $storeMembershipDate = getMembershipDate($conn, $storeId);
     $storeShippingFee = displayStoreShippingFee($conn,$storeId);
-    $storeFreeShippingMinimum = displayStoreFreeShipping($conn,$storeId);
+    $storeFreeShippingMinimum = displayStoreFreeShipping($conn,$storeId, false);
     $fname = getFirstName ($conn,$id);
     $lname = getLastName ($conn,$id);
 ?>
@@ -78,10 +78,21 @@
                                
                                 
                     <?php
-                    $sql = " SELECT  o.payment_mode_id, o.billing_address_id, o.purchase_date, o.transaction_code, o.id AS 'transaction_id', o.status_id, o.cart_session, o.user_id , c.variation_id, c.quantity, v.variation_name as 'variation_name', i.id as 'product_id', i.name as 'product_name', i.store_id, i.price
-                    FROM  tbl_orders o JOIN tbl_carts c JOIN tbl_items i JOIN tbl_variations v ON v.product_id = i.id AND c.variation_id=v.id AND o.cart_session=c.cart_session WHERE store_id = ? AND status_id = 1 ORDER BY purchase_date DESC ";
+                    $sql = "SELECT o.payment_mode_id,o.billing_address_id, o.purchase_date, o.transaction_code, o.id 
+                            AS 'transaction_id', o.status_id, o.cart_session, o.user_id, c.variation_id, c.quantity, v.variation_name 
+                            AS 'variation_name', i.id 
+                            AS 'product_id', i.name 
+                            AS 'product_name', i.store_id, i.price 
+                            FROM tbl_carts c 
+                            JOIN tbl_variations v 
+                            JOIN tbl_items i 
+                            JOIN tbl_orders o 
+                            ON v.product_id=i.id 
+                            AND c.variation_id=v.id 
+                            AND o.cart_session=c.cart_session 
+                            WHERE c.status_id = ? and store_id = ?";
                                 $statement = $conn->prepare($sql);
-                                $statement->execute([$storeId]);
+                                $statement->execute([1,$storeId]);
                                 $count = $statement->rowCount();
             
                             if($count) {
@@ -93,14 +104,16 @@
                             <table class="table borderless text-center bg-gray mb-0">
                                 <tr class='py-0'>
                                 
-                                    <td width='12.5%'>Time Ago</td>
+                                    <td width='10%'>Time Ago</td>
                                     <td width='15%'>Client</td>
                                     <!-- <td width='15%'>Transaction Code</td> -->
-                                    <td width='15%'>Product Id</td>
-                                    <td width='15%'>Variation Name</td>
-                                    <td width='15%'>Quantity</td>
-                                    <td width='15%'>View</td>
-                                    <td width='12.5%'>Action</td>
+                                    <td width='10%'>Product Id</td>
+                                    <td width='10%'>Variation</td>
+                                    <td width='10%'>Price</td>
+                                    <td width='10%'>Quantity</td>
+                                    <td width='15%'>Amount</td>
+                                    <td width='10%'>View</td>
+                                    <td width='10%'>Action</td>
 
                                     
                                 </tr> 
@@ -110,10 +123,10 @@
                     </div>
                     <div class="row">
                         <div class="col px-2">
-                            <div class="container px-0" style='background:white;height:600px;overflow-y:auto;'>
+                            <div class="container px-0" style='background:white;height:600px;overflow-y:auto;font-size:12px;'>
                                 <table class="table table-hover borderless text-center">
                                     
-                                    <?php 
+                                        <?php 
                                             while($row = $statement->fetch()){ 
                                                 $purchaseDate = $row['purchase_date'];
                                                 $transactionId = $row['transaction_id'];
@@ -129,157 +142,170 @@
                                                 // $status = $row['status'];
                                                 $newOrderCartSession = $row['cart_session'];
                                                 $paymentModeId = $row['payment_mode_id'];
-                                    ?>
+                                        ?>
                                     
                                     <tr>
+                                        <!-- PURCHASE DATE -->
+                                        <td class='mx-0' width='10%'>
+                                            <div class='py-4 text-secondary'>
+                                                <?php 
 
-                                        <div>
-
-                                            <!-- PURCHASE DATE -->
-                                            <td class='mx-0' width='12.5%'>
-                                                <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                    <div class='py-3 text-secondary'>
-                                                        <?php 
-
-                                                            $datetime1 = new DateTime($purchaseDate);
-                                                            $datetime2 = new DateTime();
-                                                            $interval = $datetime1->diff($datetime2);
-                                                            $ago = "";
+                                                    $datetime1 = new DateTime($purchaseDate);
+                                                    $datetime2 = new DateTime();
+                                                    $interval = $datetime1->diff($datetime2);
+                                                    $ago = "";
 
 
-                                                            if($interval->format('%w') != 0) {
-                                                                $ago = $interval->format('%w weeks ago');
+                                                    if($interval->format('%w') != 0) {
+                                                        $ago = $interval->format('%w weeks ago');
+                                                    } else {
+                                                        if($interval->format('%d') != 0) {
+                                                            $ago = $interval->format('%d days ago ');
+                                                        } else {
+                                                            if($interval->format('%h') != 0) {
+                                                                $ago = $interval->format('%h hrs ago');
+                                                            } elseif($interval->format('%i') != 0) {
+                                                                $ago = $interval->format('%i minutes ago');
                                                             } else {
-                                                                if($interval->format('%d') != 0) {
-                                                                    $ago = $interval->format('%d days ago ');
-                                                                } else {
-                                                                    if($interval->format('%h') != 0) {
-                                                                        $ago = $interval->format('%h hrs ago');
-                                                                    } elseif($interval->format('%i') != 0) {
-                                                                        $ago = $interval->format('%i minutes ago');
-                                                                    } else {
-                                                                        $ago = "
-                                                                        <small>
-                                                                            <i class='fas fa-circle text-success'>&nbsp;</i>
-                                                                        </small>
-                                                                        Just Now
-                                                                        ";
-                                                                    }
-                                                                }
-                                                                
-                                                            }
-
-                                                            echo $ago;
-                                                        ?>
-                                                    </div>
-                                                </a>
-                                            </td>
-
-                                            <!-- CLIENT -->
-                                            <td class='mx-0' width='15%'> 
-                                                <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                    <div class='py-3 text-secondary'>
-                                                        <?php 
-                                                        
-                                                        $fname = getFirstName($conn, $clientId);
-                                                        $lname = getLastName($conn, $clientId);
-                                                        if($fname && $lname) {
-                                                           $name = $fname . " " . $lname;
-                                                        } else { 
-
-                                                            if(!$whoWillPay){
-                                                                $name = "";
-                                                            } else {
-                                                                $name = getWhoWillPay($conn,$whoWillPay);
+                                                                $ago = "
+                                                                <small>
+                                                                    <i class='fas fa-circle text-success'>&nbsp;</i>
+                                                                </small>
+                                                                Just Now
+                                                                ";
                                                             }
                                                         }
                                                         
-                                                        echo ucwords(strtolower($name));
-                                                            
-                                                        ?>
-                                                    </div>
-                                                </a>
-                                            </td>
-                                            
-                                            
-                                            <!-- TRANSACTION CODE -->
-                                            <!-- <td class='mx-0' width='15%'> 
-                                                <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                    <div class='py-3 text-secondary'><?=$transactionCode ?></div>
-                                                </a>
-                                            </td> -->
+                                                    }
 
-                                            <!-- PRODUCT ID & NAME -->
-                                            <td class='mx-0' width='15%'> 
-                                                <div class="d-flex align-items-center py-3">
-                                                    <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='btn_view_order_history flex-fill text-right text-secondary' style='cursor:pointer;size:15px;'>
-                                                        <div >
-                                                            <?= $productId ?>
-                                                        </div>
-                                                        <a data-toggle="tooltip" title="<?= $productName ?>" data-original-title="#" class='flex-fill text-left'>
-                                                            &nbsp;<i class="far fa-question-circle text-gray"></i>
-                                                        </a>
+                                                    echo $ago;
+                                                ?>
+                                            </div>
+                                        </td>
+
+                                        <!-- CLIENT -->
+                                        <td class='mx-0' width='15%'> 
+                                            <div class='py-4 text-secondary'>
+                                                <?php 
+                                                
+                                                $fname = getFirstName($conn, $clientId);
+                                                $lname = getLastName($conn, $clientId);
+                                                if($fname && $lname) {
+                                                    $name = $fname . " " . $lname;
+                                                } else { 
+
+                                                    if(!$whoWillPay){
+                                                        $name = "";
+                                                    } else {
+                                                        $name = getWhoWillPay($conn,$whoWillPay);
+                                                    }
+                                                }
+                                                
+                                                echo ucwords(strtolower($name));
+                                                    
+                                                ?>
+                                            </div>
+                                        </td>
+                                            
+
+                                        <!-- PRODUCT ID & NAME -->
+                                        <td class='mx-0' width='10%'> 
+                                            <div class="d-flex flex-row justify-content-center py-4">
+                                                <div>
+                                                    <?= $productId ?>
+                                                </div>
+                                                <a data-toggle="tooltip" title="<?= $productName ?>" data-original-title="#">
+                                                    &nbsp;<i class="far fa-question-circle text-gray"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+
+                                        <!-- VARIATION NAME -->
+                                        <td class='mx-0' width='10%'> 
+                                            <div class='py-4 text-secondary'>
+                                                <?= $variationName ?>
+                                            </div>
+                                        </td>
+
+                                        <!-- PRICE -->
+                                        <td class='mx-0' width='10%'> 
+                                            <div class='py-4 text-secondary'>
+                                                &#8369;&nbsp;
+                                                <?= number_format((float)$price, 2, '.', ','); ?>
+                                            </div>
+                                        </td>
+
+                                            <!-- QUANTITY -->
+                                            <td class='mx-0' width='10%'> 
+                                            <div class='py-4 text-secondary'>
+                                                <?= $quantity ?>
+                                            </div>
+                                        </td>
+
+                                        <!-- AMOUNT DUE -->
+                                        <td class='mx-0' width='15%'>
+                                            <div class='py-4 text-secondary'>
+                                                <?php  
+                                                    $sql3 = "SELECT SUM(quantity*price) as 'subtotal_for_items', c.cart_session, c.variation_id, c.quantity, v.variation_name, v.product_id, i.price, i.store_id FROM tbl_carts c JOIN tbl_variations v JOIN tbl_items i ON c.variation_id=v.id AND v.product_id=i.id WHERE  cart_session = ? AND store_id = ?";
+                                                    $statement3 = $conn->prepare($sql3);
+                                                    $statement3->execute([$newOrderCartSession,$storeId]);	
+                                                    $count3 = $statement3->rowCount();
+
+                                                    if($count3){
+                                                        
+                                                        $row3 = $statement3->fetch();
+                                                        $subTotalForItems = $row3['subtotal_for_items'];
+                                                        
+                                                        if($subTotalForItems >= $storeFreeShippingMinimum){
+                                                            $subTotalForShipping = 0;
+                                                        } else {
+                                                            $subTotalForShipping = $storeShippingFee;
+                                                        }
+
+                                                        $grandTotalFee = $subTotalForItems + $subTotalForShipping;
+                                                        $grandTotalFee = number_format((float)$grandTotalFee, 2, '.', ',');
+
+                                                        echo "&#8369;&nbsp;".$grandTotalFee;
+                                                    }
+                                            
+                                                    ?>
+                                                    <input type="hidden" value='<?=$subTotalForItems?>'>
+                                                    <input type="hidden" value='<?=$storeFreeShippingMinimum?>'>
+                                            </div>
+                                        </td>
+
+                                        <!-- VIEW -->
+                                        <td class='mx-0' width='10%'>
+                                            <a data-href="../partials/templates/new_order_summary_modal.php?id=<?=$storeId?>&cart=<?=$newOrderCartSession?>" class='border-0 btn_view_new_order' style='cursor:pointer;size:15px;'>
+                                                <i class="far fa-file-pdf text-gray py-4" style='width:100%;'></i>
+                                            </a>
+                                        </td>
+
+                                        <!-- ACTION -->
+                                        <td class='mx-0' width='10%'> 
+                                            <div class='py-2 text-gray'>
+                                                <div class="dropdown show">
+                                                    <a class="btn border dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <small>CHOOSE 1</small>    
                                                     </a>
 
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                        <!-- ONCE CLICKED, BUTTON WILL BE CHANGED -->
+                                                        <?php if($paymentModeId == 2) { ?>
+                                                        <a class="dropdown-item" href="#"><small>MESSAGE CLIENT</small></a>
+                                                        <?php } else { echo ""; } ?>
+                                                        <!-- ONCE CLICKED, WILL BE TRANSFERRED TO SHIPPING -->
+                                                        <a class="dropdown-item" href="#"><small>CONFIRM ORDER</small></a>
+                                                        <!-- ONCE CLICKED, WILL BE TRANSFERRED TO ORDER HISTORY -->
+                                                        <a class="dropdown-item btn_cancel_order" href="#" data-cartsession='<?=$newOrderCartSession?>' data-storeid='<?=$storeId?>'><small>CANCEL ORDER</small></a>
+                                                    </div>
+                                                    <!-- put dropdown with two buttons: SEND MESSAGE, CONFIRM, CANCELL, COMPLETE -->
                                                 </div>
-                                               
-                                            </td>
+                                            </div>
+                                        </td>
 
-                                            <!-- VARIATION NAME -->
-                                            <td class='mx-0' width='15%'> 
-                                                <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                    <div class='py-3 text-secondary'>
-                                                        <?= $variationName ?>
-                                                    </div>
-                                                </a>
-                                            </td>
-
-                                             <!-- QUANTITY -->
-                                             <td class='mx-0' width='15%'> 
-                                                <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                    <div class='py-3 text-secondary'>
-                                                        <?= $quantity ?>
-                                                    </div>
-                                                </a>
-                                            </td>
-
-                                            <!-- VIEW -->
-                                            <td class='mx-0' width='15%'>
-                                                <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                    <i class="far fa-file-pdf text-gray py-3" style='width:100%;'></i>
-                                                </a>
-                                            </td>
-
-                                            <!-- ACTION -->
-                                            <td class='mx-0' width='12.5%'> 
-                                                <a data-url="../partials/templates/view_order_summary_modal.php" data-id='<?=$orderHistoryCartSession?>' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                    <div class='py-3 text-gray'>
-                                                        <div class="dropdown show">
-                                                            <a class="btn border dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                <small>CHOOSE 1</small>    
-                                                            </a>
-
-                                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                                <!-- ONCE CLICKED, BUTTON WILL BE CHANGED -->
-                                                                <?php if($paymentModeId == 2) { ?>
-                                                                <a class="dropdown-item" href="#"><small>MESSAGE CLIENT</small></a>
-                                                                <?php } else { echo ""; } ?>
-                                                                <!-- ONCE CLICKED, WILL BE TRANSFERRED TO SHIPPING -->
-                                                                <a class="dropdown-item" href="#"><small>CONFIRM ORDER</small></a>
-                                                                <!-- ONCE CLICKED, WILL BE TRANSFERRED TO ORDER HISTORY -->
-                                                                <a class="dropdown-item" href="#"><small>CANCEL ORDER</small></a>
-                                                                
-                                                        </div>
-                                                        <!-- put dropdown with two buttons: SEND MESSAGE, CONFIRM, CANCELL, COMPLETE -->
-                                                    </div>
-                                                </a>
-                                            </td>
-
-                                            
-                                            
-                                        </div>
-                                        
                                     </tr>
+                                    
                                     <?php } ?>
         
                                 </table>

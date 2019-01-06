@@ -2,6 +2,7 @@
 require_once "connect.php";
 require_once "../../config.php";
 require_once "functions.php";
+require_once '../sources/pdo/src/PDO.class.php';
 
     if(isset($_POST['storeId'])){
         $storeId = $_POST['storeId'];

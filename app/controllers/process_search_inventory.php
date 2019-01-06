@@ -1,4 +1,5 @@
 <?php
+require_once '../sources/pdo/src/PDO.class.php';
 require_once "connect.php";
 require_once "../../config.php";
 require_once "functions.php";
@@ -147,10 +148,4 @@ require_once "functions.php";
 
                 
 <?php } } else {
-    echo "<tr class='mt-5 pt-5'><td class='mt-5 pt-5 font-weight-lighter'>Sorry. The search key doesn't match anything in your inventory.</td></tr>";
-} } ?>
-
-
-
-
-
+    echo "fail"; } } ?>
