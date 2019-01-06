@@ -643,6 +643,26 @@ div#login_image {
     clear: both;
 }
 
+.hidden {
+    display: none;
+}
+
+button[class^=stripe-button-el] {
+    float: right;
+    width: 310px;
+}
+
+button[class^=stripe-button-el] span {
+    background: #edd4f9!important;
+    border: 1px solid #c471ed!important;
+    color: #9c5abd!important;
+    font-weight: 500;
+    height: 40px;
+    background-image: initial;
+    padding: 48px;
+    padding-top: 16px;
+}
+
 
 
 /* ================================ CART MODAL =================================== */

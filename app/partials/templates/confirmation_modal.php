@@ -115,7 +115,7 @@
                                         
                                     </div>
                                     <div class="col">
-                                        <h4 class='text-purple font-weight-bold'><?=$_SESSION['transaction_code']?></h4>
+                                        <h4 class='text-purple font-weight-bold'><?= isset($_SESSION['transaction_code']) ? $_SESSION['transaction_code'] : ''?></h4>
                                     </div>
                                 </div>
 

@@ -186,6 +186,7 @@
                                         <span id='grand_total_price'> 
                                             <?php
                                                 $cartTotal = displayGrandTotal($conn, $cartSession);
+
                                                 $cartTotal = number_format((float)$cartTotal, 2, '.', ',');
                                                 echo $cartTotal;
                                             ?> 
@@ -358,6 +359,7 @@
                                                             <h3 id='grand_total_price'> 
                                                                 <?php 
                                                                     $superGrandTotal = $totalForItems + $combinedShippingFee;
+                                                                    $_SESSION['total_amount'] = $superGrandTotal;
                                                                     $grandTotal = number_format((float)$superGrandTotal, 2, '.', ','); 
                                                                     echo $grandTotal;
                                                                 ?>
