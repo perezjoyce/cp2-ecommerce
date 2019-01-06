@@ -90,7 +90,7 @@
                             ON v.product_id=i.id 
                             AND c.variation_id=v.id 
                             AND o.cart_session=c.cart_session 
-                            WHERE c.status_id = ? and store_id = ?";
+                            WHERE c.status_id = ? and store_id = ? GROUP BY o.cart_session";
                                 $statement = $conn->prepare($sql);
                                 $statement->execute([1,$storeId]);
                                 $count = $statement->rowCount();

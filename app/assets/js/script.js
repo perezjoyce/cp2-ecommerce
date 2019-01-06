@@ -2959,8 +2959,8 @@ $(document).ready( () => {
 		let url = $(this).data('href');
 	
 		$.get(url,function(response){
-			$("#modalContainer .modal-content").html(response);
-			$("#modalContainer").modal('show');
+			$("#modalContainerBig .modal-content").html(response);
+			$("#modalContainerBig").modal('show');
 		});
 	});
 
