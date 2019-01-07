@@ -51,11 +51,11 @@
                 // SET PERMISSION ON FOLDER. TYPE IN TERMINAL : sudo chmod -R  777 app/controllers/uploads/ for file permission for the folder
 
                 // resize uploaded file and copy in another file
-                $uploader->file_new_name_body = $filename . "_600";
+                $uploader->file_new_name_body = $filename . "_300";
                 //$uploader->process($target_dir);
                 $uploader->image_resize = true;
                 $uploader->image_convert = 'jpg';
-                $uploader->image_y = 600;                
+                $uploader->image_y = 300;                
                 $uploader->image_ratio_x = true;         
                 $uploader->image_ratio_crop = 'TBLR';
                 $uploader->process($target_dir); // actual uploading of new photo with new size
@@ -70,7 +70,7 @@
                 if($statement->rowCount()) {
                     $row = $statement->fetch();
                     unlink( "../../" . $row['url'].".jpg");
-                    unlink( "../../" . $row['url']."_600.jpg");
+                    unlink( "../../" . $row['url']."_300.jpg");
 
                     $sql = "UPDATE tbl_product_images SET `url`='uploads/$id/$storeId/$productId/$filename' WHERE product_id = ? AND is_primary=1";
                     $statement = $conn->prepare($sql);
