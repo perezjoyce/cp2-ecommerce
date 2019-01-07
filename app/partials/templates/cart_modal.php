@@ -1,18 +1,10 @@
 <?php 
 
-    session_start(); 
+    require_once '../../../config.php';
     require_once '../../sources/pdo/src/PDO.class.php';
     require_once '../../controllers/functions.php';
-
-	//set values
-	$host = "localhost";
-	$db_username = "root";
-	$db_password = "";
-	$db_name = "db_demoStoreNew";
-
-	$conn = new PDO("mysql:host=$host;dbname=$db_name",$db_username,$db_password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+    require_once '../../controllers/connect.php';
+    
     $cartSession = $_SESSION['cart_session'];
     
     $sql = "SELECT v.product_id as 'productId', v.variation_stock, v.variation_name, c.variation_id, c.quantity, c.cart_session, p.img_path, p.name, p.price
@@ -27,7 +19,6 @@
             $subtotalPrice = 0;
         
             if($count) {
-  
 ?>
 
 
