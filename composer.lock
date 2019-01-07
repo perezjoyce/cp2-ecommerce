@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7cd72c86693b41a5cbe6dc744a5fbbb3",
+    "content-hash": "466bebc2277256193e53ca7f8a8de39c",
     "packages": [
         {
             "name": "phpmailer/phpmailer",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPMailer/PHPMailer.git",
-                "reference": "028aceea3da6c45c99fc8dc62fb92e2d90faa2d8"
+                "reference": "481715d711f4f363b499883205590e4df9e49fd3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/028aceea3da6c45c99fc8dc62fb92e2d90faa2d8",
-                "reference": "028aceea3da6c45c99fc8dc62fb92e2d90faa2d8",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/481715d711f4f363b499883205590e4df9e49fd3",
+                "reference": "481715d711f4f363b499883205590e4df9e49fd3",
                 "shasum": ""
             },
             "require": {
@@ -70,7 +70,7 @@
                 }
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "time": "2018-11-16T13:18:48+00:00"
+            "time": "2018-12-17T14:48:41+00:00"
         },
         {
             "name": "stripe/stripe-php",
@@ -136,6 +136,8 @@
     },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": "~7.1.0"
+    },
     "platform-dev": []
 }

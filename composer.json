@@ -2,6 +2,6 @@
 	"require" : {
 		"phpmailer/phpmailer" : "dev-master",
 		"stripe/stripe-php": "^6.28",
-		"php": "~7.2.0"
+		"php": "~7.1.0"
 	}
 }
