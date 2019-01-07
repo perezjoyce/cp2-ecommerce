@@ -844,20 +844,20 @@
                                     
 
                         <div class="col-lg-3 col-md-4 col-sm-6 p-2"> 
-                            <div class='card border-0' style='background:none;width:250px;height:250px;'>   
+                            <div class='card border-0' style='background:none;width:250px;height:300px;'>   
                                 <button class="btn_delete_other_pic text-gray font-weight-light text-left border-0 pl-2"
                                     type='button'
                                     data-id='<?= $id ?>'
                                     style="background:transparent;cursor:pointer;z-index:5;width:250px;">&times;
                                 </button>      
-                                <img class='card-img-top' src='<?= $img_path ?>' style='width:250px;height:250px;background-color:transparent;'>
+                                <img class='card-img-top' src='<?= $img_path ?>' style='width:250px;height:300px;background-color:transparent;'>
                             </div>
                         </div>
                             <?php } else { ?>
                     
                         <div class="col-lg-3 col-md-4 col-sm-6 p-2">
-                            <div class='card border-0' style='background:none;width:250px;height:250px;'>  
-                                <img class='card-img-top' src='<?= $default ?>' style='width:250px;height:250px;background-color:transparent;'>
+                            <div class='card border-0' style='background:none;width:250px;height:300px;'>  
+                                <img class='card-img-top' src='<?= $default ?>' style='width:250px;height:300px;background-color:transparent;'>
                             </div>
                         </div>
                             

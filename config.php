@@ -15,8 +15,8 @@ date_default_timezone_set('Asia/Manila');
 
 //@todo: Should be on a separate config file that is ignored by git
 $stripe = [
-  "secret_key"      => "sk_test_bcP36XRzX0jZ99KxNI4aa3IL",
-  "publishable_key" => "pk_test_akuLqp7kIjCHQQJoK1oB7ol6",
+  "secret_key"      => "sk_test_aDXjl0xtprhGg8R2qOX7sB2v",
+  "publishable_key" => "pk_test_9E7pw13w0KyKbxHiDhAYGT57",
 ];
 
 \Stripe\Stripe::setApiKey($stripe['secret_key']);
