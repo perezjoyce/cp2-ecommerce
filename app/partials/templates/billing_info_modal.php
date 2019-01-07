@@ -403,7 +403,7 @@
                             <script
                                 src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                                 data-key="<?= $stripe['publishable_key'] ?>"
-                                data-amount="<?= number_format($totalAmount,2, "","") ?>"
+                                data-amount="<?= str_replace(".", "", number_format($totalAmount,2, "",".")) ?>"
                                 data-name="Mamaroo"
                                 data-description="Checkout Payment"
                                 data-label="Credit Card Payment"
