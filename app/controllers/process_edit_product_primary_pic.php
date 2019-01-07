@@ -55,8 +55,8 @@
                 //$uploader->process($target_dir);
                 $uploader->image_resize = true;
                 $uploader->image_convert = 'jpg';
-                $uploader->image_y = 300;                
-                $uploader->image_ratio_x = true;         
+                $uploader->image_x = 300;                
+                $uploader->image_ratio_y = true;         
                 $uploader->image_ratio_crop = 'TBLR';
                 $uploader->process($target_dir); // actual uploading of new photo with new size
                 if ($uploader->processed) {
