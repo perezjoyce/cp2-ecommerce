@@ -4,8 +4,8 @@
 
 	//set values
 	$host = "localhost";
-	$db_username = "root";
-	$db_password = "";
+	$db_username = "japerez";
+	$db_password = "16b786e8";
 	$db_name = "db_demoStoreNew";
 
 	$conn = new PDO("mysql:host=$host;dbname=$db_name",$db_username,$db_password);
