@@ -630,13 +630,13 @@ if(isset($_SESSION['id'])) {
                 <div class="row my-lg-5 mt-md-5">
                   <div class="col-12">
                     <div class="tab border-bottom d-flex flex-row">
-                      <button class="tablinks flex-fill active" onclick="openTab(event, 'info_content')">
+                      <button class="tablinks flex-fill active" onclick="window.openTab(event, 'info_content')">
                         <h4>Product Details</h4>
                       </button>
-                      <button class="tablinks flex-fill progress-x" onclick="openTab(event, 'reviews_content')">
+                      <button class="tablinks flex-fill progress-x" onclick="window.openTab(event, 'reviews_content')">
                         <h4>Reviews</h4>
                       </button>
-                      <button class="tablinks flex-fill" onclick="openTab(event, 'questions_content')">
+                      <button class="tablinks flex-fill" onclick="window.openTab(event, 'questions_content')">
                         <h4>Q&As</h4>
                       </button>
                     </div>
