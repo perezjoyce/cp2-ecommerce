@@ -44,7 +44,7 @@
             // if(!$img_path){
 
                 $uploader->file_new_name_body = $filename; // rename uploaded file
-                $uploader->Process($target_dir); // actual uploading process
+                $uploader->process($target_dir); // actual uploading process
                 //move_uploaded_file($_FILES['upload']['tmp_name'], $target_file);
                 // SET PERMISSION ON FOLDER. TYPE IN TERMINAL : sudo chmod -R  777 app/controllers/uploads/ for file permission for the folder
 
@@ -52,10 +52,10 @@
                 $uploader->file_new_name_body = $filename . "_600";
                 $uploader->image_resize = true;
                 $uploader->image_convert = 'jpg';
-                $uploader->image_x = 600;                
-                $uploader->image_ratio_y = true;                
+                $uploader->image_y = 600;                
+                $uploader->image_ratio_x = true;                
                 $uploader->image_ratio_crop = 'TBLR';
-                $uploader->Process($target_dir); // actual uploading of new photo with new size
+                $uploader->process($target_dir); // actual uploading of new photo with new size
                 if ($uploader->processed) {
                     $uploader->Clean();
                 }
