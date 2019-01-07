@@ -1,5 +1,4 @@
 <?php 
-  session_start(); 
   
   require_once "../../config.php";
   require_once "../controllers/connect.php";
@@ -149,7 +148,7 @@
                                                             $name = $row['name'];
                                                             $price = $row['price'];
                                                             $quantity = $row['quantity'];
-                                                            $image = $row['img_path'];  
+                                                            $image = BASE_URL . "/". $row['img_path'] . ".jpg";  
                                                     ?>
                                                         
                                                     <div class='dropdown-item' id='product-row<?=$variationId?>'>
@@ -429,7 +428,7 @@
                                                                 $name = $row['name'];
                                                                 $price = $row['price'];
                                                                 $quantity = $row['quantity'];
-                                                                $image = $row['img_path'];  
+                                                                $image = BASE_URL . "/". $row['img_path'] . ".jpg";  
                                                         ?>
                                                             
                                                         <div class='dropdown-item' id='product-row<?=$variationId?>'>

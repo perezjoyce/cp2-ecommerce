@@ -255,7 +255,7 @@
                                                                 $name = $row['name'];
                                                                 $price = $row['price'];
                                                                 $quantity = $row['quantity'];
-                                                                $image = $row['img_path'];  
+                                                                $image = BASE_URL . "/". $row['img_path'] . ".jpg";
                                                         ?>
                                                             
                                                         <div class='dropdown-item' id='product-row<?=$variationId?>'>

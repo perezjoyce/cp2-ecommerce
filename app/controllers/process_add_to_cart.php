@@ -1,6 +1,6 @@
 <?php
 
-session_start(); 
+require_once "../../config.php";
 require_once '../sources/pdo/src/PDO.class.php';
 require_once "connect.php";
 require_once "functions.php";
@@ -69,9 +69,7 @@ require_once "functions.php";
                     $name = $row['name'];
                     $price = $row['price'];
                     $quantity = $row['quantity'];
-                    $image = $row['img_path'];  
-
-                    
+                    $image = BASE_URL . "/" .$row['img_path'] . ".jpg";  
 
                     if($quantity > 1){
                         $quantityDisplay = "&nbsp;x&nbsp$quantity";
