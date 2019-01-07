@@ -73,7 +73,7 @@
     <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
 
     <!-- SLICK -->
-    <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/app/vendor/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/app/sources/slick/slick.css"/>
     <link href="../sources/slick/slick-theme.css" rel="stylesheet"/>
 
      <!-- Bootstrap CSS -->
