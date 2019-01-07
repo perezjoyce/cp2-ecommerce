@@ -12,7 +12,7 @@
 	$host = "db4free.net";
 	$db_username = "japerez";
 	$db_password = "joyce9422**";
-	$db_name = "db_demoStoreNew";
+	$db_name = "db_demostorenew";
 
 
 	$conn = new PDO("mysql:host=$host;dbname=$db_name",$db_username,$db_password);
