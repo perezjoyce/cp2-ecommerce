@@ -1,12 +1,8 @@
 <?php
-  require_once('../../config.php');
-  require_once('./connect.php');
-
+  require_once "../../config.php";
   require_once '../sources/pdo/src/PDO.class.php';
-  require_once './functions.php';
-
-  $conn = new PDO("mysql:host=$host;dbname=$db_name",$db_username,$db_password);
-  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  require_once "connect.php";
+  require_once "functions.php";
 
   $token  = $_POST['stripeToken'];
   $email  = $_POST['stripeEmail'];
@@ -24,7 +20,6 @@
       'amount'   => $amount,
       'currency' => 'usd',
   ]);
-
 
   // get cart 
   $sql = "
@@ -47,12 +42,18 @@
     $shoperooServiceCharge = $amount * .03; // 3% of total Amount
     $statement->execute([$storeId, $shoperooServiceCharge, 0, 'Service Charge to shopee: '. $userId]);
   }
+  $transactionCode = $_SESSION['transaction_code'];
+  session_start(); // INITIATE
+  unset($_SESSION["cart_session"]);
+  unset($_SESSION['paymentMode']);
+  unset($_SESSION['transaction_code']);
   
-
   // SEND an email to customer and seller for the info about the transaction
-    echo "Payment successful!";
-  echo "<script>
-    $.get('../../app/controllers/process_unset_session.php', function(){
-        setTimeout(function(){windlow.location.href='".BASE_URL."'}, 2000);
-    });
-  </script>";
+  // echo "Payment successful!";
+  // echo "<script>
+  //   $.get('../../app/controllers/process_unset_session.php', function(){
+  //       setTimeout(function(){windlow.location.href='".BASE_URL."'}, 2000);
+  //   });
+  // </script>";
+  // unset session
+  header('location: ../app/views/stripe_confirmation.php?transactionCode='.$transactionCode);
