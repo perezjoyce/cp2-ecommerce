@@ -11,7 +11,7 @@
 	//SCHOOL
 	$host = "db4free.net";
 	$db_username = "japerez";
-	$db_password = "joyce9422**";
+	$db_password = "6b7810fb";
 	$db_name = "db_demostorenew";
 
 
