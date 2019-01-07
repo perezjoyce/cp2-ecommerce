@@ -345,9 +345,12 @@
 
         </div>
       </div>
+    
 
-      <div class="row">
-        <div class="holder se-pre-con">
-            <div class="preloader"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        <div class="row">
+            <div class="col">
+                <div class="se-pre-con"></div>
+            </div>
         </div>
+        
     </div>
