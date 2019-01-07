@@ -543,8 +543,7 @@ if(isset($_SESSION['id'])) {
                             $sql = "SELECT i.id, i.store_id, AVG(product_rating) as 'averageRating' 
                             FROM tbl_ratings 
                             LEFT JOIN tbl_items i ON product_id = i.id 
-                            WHERE store_id = ?";
-                            var_dump($storeId); die();
+                            WHERE store_id = ? GROUP BY product_id";
                               $statement = $conn->prepare($sql);
                               $statement->execute([$storeId]);
                               $row = $statement->fetch();
