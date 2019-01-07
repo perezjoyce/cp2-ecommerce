@@ -26,7 +26,7 @@
 			$productId = $row['product_id'];
 			$price = $row['price'];
 			  // $item_img = $row['img_path'];
-			$item_img = productprofile($conn,$id);
+			$item_img = productprofile($conn,$productId);
 			$item_img = BASE_URL ."/".$item_img.".jpg";
 ?>
 			<div class='col-lg-3 col-md-3 px-1 pb-2'>
