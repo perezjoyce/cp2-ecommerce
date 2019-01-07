@@ -78,7 +78,9 @@
                                         $name = $row['name'];
                                         $price = $row['price'];
                                         $quantity = $row['quantity'];
-                                        $image = $row['img_path'];  
+                                        // $image = $row['img_path'];  
+                                        $image = productprofile($conn,$productId);
+                                        $image = BASE_URL ."/".$image.".jpg";
                                         $subtotalPrice = $price * $quantity;
                                         $totalStocksAvailable = getTotalProductStocks ($conn,$productId);
                                 ?>
@@ -227,6 +229,7 @@
                                                         $storeName = $row2['name'];  
                                                         $storeAddress = $row2['store_address'];
                                                         $storeLogo = $row2['logo'];   
+                                                        $storeLogo = BASE_URL ."/".$storeLogo.".jpg";
                                                         $totalPerStore = $row2['totalPerStore'];
                                                         $standardShipping = $row2['standard_shipping'];
                                                         $freeShippingMinimum = $row2['free_shipping_minimum'];                                                 
