@@ -973,7 +973,7 @@ a.footer-link {
 	width: 100%;
 	height: 100%;
 	z-index: 9999;
-	background: url("../images/preloader2.gif") center no-repeat #fff;
+	background: url("../images/preloader2.gif") center no-repeat transparent;
 }
   
 /*============================ INDEX ==========================*/

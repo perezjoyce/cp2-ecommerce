@@ -349,7 +349,7 @@
 
         <div class="row">
             <div class="col">
-                <div class="se-pre-con"></div>
+                <div class="se-pre-con loader"></div>
             </div>
         </div>
         

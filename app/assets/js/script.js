@@ -1,8 +1,15 @@
+
+// PAGE LOADER
+function showLoader()
+{
+    $(".loader").fadeIn("slow");
+}
+function hideLoader()
+{
+    $(".loader").fadeOut("slow");
+}
+
 $(document).ready( () => {
-
-	
-
-
 	// ================================ REGISTRATION  ================================ //
 	// =============================================================================== //
 	// =============================================================================== //
@@ -3086,11 +3093,6 @@ $(document).ready( () => {
 
 });
 
-// PAGE LOADER
-$(window).load(function() {
-	// Animate loader off screen
-	$(".se-pre-con").fadeOut("slow");;
-});
 
 
 
