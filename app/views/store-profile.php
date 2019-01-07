@@ -44,6 +44,7 @@
     $storeRating = getAverageStoreRating ($conn, $storeId);
     $storeMembershipDate = getMembershipDate($conn, $storeId);
     $storeShippingFee = displayStoreShippingFee($conn,$storeId);
+    // var_dump($storeShippingFee);die();
     $storeFreeShippingMinimum = displayStoreFreeShipping($conn,$storeId);
     $fname = getFirstName ($conn,$id);
     $lname = getLastName ($conn,$id);
@@ -353,7 +354,7 @@
                                                 </div>
                                                 <div class="col">
                                                     <span>&#8369;&nbsp;</span>
-                                                    <span id='store_profile_standard_fee'><?= $storeShippingFee ?></span>
+                                                    <span class='store_profile_standard_fee'><?= $storeShippingFee ?></span>
                                                 </div>
                                             </div>  
                                             
@@ -364,7 +365,7 @@
                                                 </div>
                                                 <div class="col">
                                                     <span>&nbsp;&#8369;</span>
-                                                    <span id='store_profile_free_shipping'><?= $storeFreeShippingMinimum ?></span>
+                                                    <span class='store_profile_free_shipping'><?= $storeFreeShippingMinimum ?></span>
                                                     <span>&nbsp;Minimum Spend</span>
                                                 </div>
                                             </div>
@@ -424,14 +425,16 @@
                                 $price = $row2['price'];
                                 $price = number_format((float)$price, 2, '.', '');
                                 $description = $row2['description'];
-                                $item_img = $row2['img_path'];
+                                $logo = productprofile($conn,$id);
+                                $logo = BASE_URL ."/".$logo.".jpg";
+                            
                         ?>
                     
                         <div class="col-lg-3 col-md-4 col-sm-6 p-2">
                             <a href="product.php?id=<?= $id ?>">
                             <div class='card border-0'>
                                 <a href="product.php?id=<?= $row2['id'] ?>">
-                                <img class='card-img-top' src="<?= $item_img ?>">
+                                <img class='card-img-top' src="<?= $logo ?>" style='height:400px;'>
 
                                 <div class="card-body pr-0">
                                     <div>

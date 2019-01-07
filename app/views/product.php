@@ -1374,14 +1374,15 @@ if(isset($_SESSION['id'])) {
                     $price = $row['price'];
                     $price = number_format((float)$price, 2, '.', '');
                     $description = $row['description'];
-                    $item_img = $row['img_path'];
+                    $logo = productprofile($conn,$id);
+                    $logo = BASE_URL. "/".$logo.".jpg";
               ?>
 
               <div class="col-lg-2 col-md-3">
                 <a href="product.php?id=<?= $id ?>">
                   <div class='card h-700 border-0'>
                     <a href="product.php?id=<?= $row['id'] ?>">
-                      <img class='card-img-top' src="<?= $item_img ?>">
+                      <img class='card-img-top' src="<?= $logo ?>" style='height:250px;'>
 
                       <div class="card-body pr-0">
 
@@ -1471,12 +1472,13 @@ if(isset($_SESSION['id'])) {
                   $price = $row['price'];
                   $price = number_format((float)$price, 2, '.', '');
                   $description = $row['description'];
-                  $item_img = $row['img_path'];
+                  $logo = productprofile($conn,$id);
+                  $logo = BASE_URL. "/".$logo.".jpg";
               ?>
             <div class="col-lg-2 col-md-3 col-sm-6 px-1 pb-2">
               <a href="product.php?id=<?= $id ?>">
-                <div class = 'card h-700 border-0' style='width:150px;'>
-                  <img class='card-img-top' src="<?= $item_img ?>" > 
+                <div class = 'card h-700 border-0'>
+                  <img class='card-img-top' src="<?= $logo ?>" style='height:250px;' > 
                   <div class="card-body pr-0">
 
                     <div class='font-weight-bold'>
@@ -1557,7 +1559,7 @@ if(isset($_SESSION['id'])) {
             </h4>
           </div>
         </div>
-        <div class="row no-gutters autoplay justify-content-left">
+        <div class="row no-gutters justify-content-left">
             <?php 
               $productId = $_GET['id'];
               $sql2 = "SELECT * FROM tbl_items WHERE id != ? AND store_id = ? LIMIT 12 ";
@@ -1571,14 +1573,15 @@ if(isset($_SESSION['id'])) {
                   $price = $row2['price'];
                   $price = number_format((float)$price, 2, '.', '');
                   $description = $row2['description'];
-                  $item_img = $row2['img_path'];
+                  $logo = productprofile($conn,$id);
+                  $logo = BASE_URL. "/".$logo.".jpg";
             ?>
           
-          <div class="col-lg-2 col-md-3">
+          <div class="col-lg-2 col-md-3 px-1">
             <a href="product.php?id=<?= $id ?>">
-              <div class='card h-700 border-0' style='width:100%;'>
+              <div class='card h-700 border-0'>
                 <a href="product.php?id=<?= $row2['id'] ?>">
-                  <img class='card-img-top' src="<?= $item_img ?>">
+                  <img class='card-img-top' src="<?= $logo ?>" style='height:250px;'>
 
                   <div class="card-body pr-0">
                     <div>

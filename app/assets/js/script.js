@@ -2469,6 +2469,8 @@ $(document).ready( () => {
 			if(dataFromPHP.where == 'fees'){
 				$('#store_profile_standard_fee').html(dataFromPHP.standard);
 				$('#store_profile_free_shipping').html(dataFromPHP.free);
+				$('.store_profile_standard_fee').html(dataFromPHP.standard);
+				$('.store_profile_free_shipping').html(dataFromPHP.free);
 			}
 		});
 	})

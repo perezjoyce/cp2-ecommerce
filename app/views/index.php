@@ -4,11 +4,16 @@
 
     <!-- ========== PAGE CONTENT =========== -->
 
-    <!-- CATEGORIES -->
-    <?php include_once "../partials/categories.php"; ?>
+    <!-- BANNER 1 -->
+    <div class="container-fluix mx-0 p-x-0" id='banner_ad-1'>
+      <div class="row">
+        <div class="col">
 
-    <!-- ADVERTISEMENTS -->
-    <div class="container mt-4">
+        </div>
+      </div>
+    </div>
+    <!-- BANNER 2 -->
+    <!-- <div class="container mt-4">
 
       <div class="row mx-0">
         <div class="col-8 p-0">
@@ -30,14 +35,14 @@
                 <img class="d-block w-100" src="https://via.placeholder.com/800x250" alt="Third slide">
               </div>
             </div>
-            <!-- <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="sr-only">Previous</span>
-            </a> -->
-            <!-- <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            </a> 
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="sr-only">Next</span>
-            </a> -->
+            </a>
           </div>
 
         </div>
@@ -56,12 +61,66 @@
           </div>
         </div>
       </div>
+    </div> -->
 
-     
-    </div>
-    
+
+    <!-- CATEGORIES -->
+    <!-- <div class="container-fluid" id="class-carousel">
+      <div class="row">
+
+        <div class="col-12 px-0">
+
+          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+
+            </ol>
+
+            <div class="carousel-inner">
+
+              <div class="carousel-item active">
+                <div class="d-block class-carousel carousel-1"></div>
+              </div>
+              
+              <div class="carousel-item">
+                <div class="d-block class-carousel carousel-2"></div>
+              </div>
+
+              <div class="carousel-item">
+                <div class="d-block class-carousel carousel-3"></div>
+              </div>
+
+              <div class="carousel-item">
+                <div class="d-block class-carousel carousel-4"></div>
+              </div>
+
+            </div>
+
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+              
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+            
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <?php include_once "../partials/categories.php"; ?>
+
+    <br><br>
+
     <!-- COMPANY DESCRIPTIONS -->
-    <div class="container mb-4">
+    <div class="container my-5 py-3 rounded" style='background:white;'>
       <div class="row mx-0 text-center">
         <div class="col d-flex flex-row">
 
@@ -71,7 +130,7 @@
               </div>
             </div>
 
-            <div class="d-flex flex-column">
+            <div class="d-flex flex-column pt-3">
               <div class='description-header'>
                 100% Mom-Approved
               </div>
@@ -88,7 +147,7 @@
               </div>
             </div>
 
-            <div class="d-flex flex-column">
+            <div class="d-flex flex-column pt-3">
               <div class='description-header'>
                 Lowest Prices
               </div>
@@ -105,7 +164,7 @@
               </div>
             </div>
 
-            <div class="d-flex flex-column">
+            <div class="d-flex flex-column pt-3">
               <div class='description-header'>
                 Free Delivery & COD Available
               </div>
@@ -122,7 +181,7 @@
               </div>
             </div>
 
-            <div class="d-flex flex-column">
+            <div class="d-flex flex-column pt-3">
               <div class='description-header'>
                 Same Day Shipping
               </div>
@@ -139,78 +198,27 @@
       </div>
     </div>
 
+    <br>
+
+   
     <!-- VIEWED PRODUCTS, WISHLIST ITEMS AND CART ITEMS THAT WERE NOT PURCHASED, IF LOGGED IN OR SESSION IS NOT DESTROYED -->
     
     <!-- FEATURED SHOPS -->
-    <div class="container mb-5 vanish-sm">
+    <div class="container my-5 vanish-sm">
+
       <div class="row">
         <div class="col-6">
-            <h4>
+            <h5>
               FEATURED SHOPS
-            </h4>
+            </h5>
         </div>
         <div class="col-6 text-right pt-2">View All&nbsp;<i class="fas fa-angle-double-right"></i></i></div>
       </div>
-      <div class="row no-gutters autoplay">
-        <?php 
 
-          $sql = " SELECT * FROM tbl_items LIMIT 12 ";
-          $statement = $conn->prepare($sql);
-          $statement->execute();
-          //$result = mysqli_query($conn,$sql);
-
-          //CHECK IF THERE'S DATA
-          if($statement->rowCount()){
-            //CREATE A ROW VARIABLE
-            while($row = $statement->fetch()){
-              $id = $row['id'];
-              $name = $row['name'];
-              $price = $row['price'];
-              $description = $row['description'];
-              $item_img = $row['img_path'];
-          ?>
-          <div class="col-lg-2 col-md-3 slick-item">
-              <div class="row">
-                <a href="product.php?id=<?= $id ?>">
-                  <div class='card border-0' style='width:184.5px;'>
-                    <a href="store-profile.php?id=<?= $row['id'] ?>">
-                      <img class='card-img-top' src="<?= $item_img ?>">
-                    </a> 
-                  </div>
-                </a>
-              </div>
-
-              <div class="row">
-                <a href="product.php?id=<?= $id ?>">
-                  <div class='card border-0' style='width:184.5px;'>
-                    <a href="store-profile.php?id=<?= $row['id'] ?>">
-                      <img class='card-img-top' src="<?= $item_img ?>">
-                    </a> 
-                  </div>
-                </a>
-              </div>
-            
-          </div>
-              
-        <?php }} ?>
-
-      </div>
-    </div>
-
-    <!-- SM FEATURED SHOPS -->
-    <div class="container mb-5 vanish-lg vanish-md">
-      <div class="row">
-        <div class="col-6">
-            <h4>
-              FEATURED SHOPS
-            </h4>
-        </div>
-        <div class="col-6 text-right pt-2">View All&nbsp;<i class="fas fa-angle-double-right"></i></i></div>
-      </div>
       <div class="row no-gutters">
         <?php 
 
-          $sql = " SELECT * FROM tbl_items LIMIT 3 ";
+          $sql = " SELECT * FROM tbl_stores LIMIT 6 ";
           $statement = $conn->prepare($sql);
           $statement->execute();
           //$result = mysqli_query($conn,$sql);
@@ -221,17 +229,18 @@
             while($row = $statement->fetch()){
               $id = $row['id'];
               $name = $row['name'];
-              $price = $row['price'];
-              $item_img = $row['img_path'];
+              $logo = $row['logo'];
           ?>
-          <div class="col-lg-2 col-md-3">
+          <div class="col-lg-2 col-md-3 col-sm-6 pb-2">
             <a href="product.php?id=<?= $id ?>">
-              <div class = 'card border-0'>
-                <a href="store-profile.php?id=<?= $row['id'] ?>">
-                  <img class='card-img-top' src="<?= $item_img ?>">
-                </a> 
+              <div class = 'card h-700 border-0'> 
+                  <div class='card border' style='height:auto;'>
+                    <a href="store-profile.php?id=<?= $row['id'] ?>">
+                      <img class='card-img-top' src='<?= BASE_URL ."/".$logo .".jpg" ?>'>
+                    </a> 
+                  </div>
+                </a>
               </div>
-            </a>
           </div>
               
         <?php }} ?>
@@ -239,126 +248,26 @@
       </div>
     </div>
 
-    <!-- JUST FOR YOU/ RECENT SEARCHES/ -->
-    <?php 
-      if(isset($_SESSION['id'])){
-        $sql = "SELECT o.purchase_date, o.status_id, c.user_id, c.variation_id, i.name, i.price,i.img_path, i.id 
-            as 'productId' 
-            FROM tbl_orders o 
-            JOIN tbl_carts c 
-            JOIN tbl_items i 
-            JOIN tbl_variations v 
-            ON o.cart_session=c.cart_session 
-            AND c.variation_id=v.id 
-            AND v.product_id=i.id 
-            WHERE o.status_id != 2 
-            AND c.user_id = ? GROUP BY productId LIMIT 12";
+    <br>
 
-        $statement = $conn->prepare($sql);
-        $statement->execute([$_SESSION['id']]);
+   
 
-        if($statement->rowCount()){
-    ?>
-    <div class="container mb-5">
-      <div class="row">
-        <div class="col-6 pl-4">
-            <h4>
-              JUST FOR YOU
-            </h4>
-        </div>
-        <div class="col-6 text-right pt-2">View All&nbsp;<i class="fas fa-angle-double-right"></i></i></div>
-      </div>
-
-      <div class="row no-gutters">
-
-        <?php
-          while($row = $statement->fetch()){
-            $id = $row['productId'];
-            $name = $row['name'];
-            $price = $row['price'];
-            $item_img = $row['img_path'];
-          ?>
-
-        <div class="col-lg-2 col-md-3 col-sm-6 px-1 pb-2">
-          <a href="product.php?id=<?= $id ?>">
-            <div class = 'card h-700 border-0'>
-              <img class='card-img-top' src="<?= $item_img ?>" > 
-              <div class="card-body pr-0">
-                <div class='font-weight-bold'>
-                  <?= $name ?>
-                </div>
-                <div>&#8369; <?= $price ?> </div>
-
-                <div class='d-flex flex-row mt-3'>
-                
-                  <!-- WISHLIST BUTTONS -->
-                  <div class='flex-fill' style='cursor:default;'>
-
-                    <?php if(checkIfInWishlist($conn,$id) == 1 ) { ?>
-
-                      <i class='fas fa-heart text-red'></i> 
-                      <span class='product-wish-count<?= $id ?>'>
-                        <small><?= getProductWishlishtCount($conn, $id) ?></small>
-                      </span>
-
-                    <?php } else { 
-                      
-                      if(getProductWishlishtCount($conn, $id) == 0) { ?>
-
-                      <i class='far fa-heart text-gray'></i> 
-                      <span class='text-gray product-wish-count<?= $id ?>'>
-                        <small><?= getProductWishlishtCount($conn, $id) ?></small>
-                      </span>
-
-                      <?php } else { ?>
-
-                      <i class='far fa-heart text-red'></i> 
-                      <span class='text-gray product-wish-count<?= $id ?>'>
-                        <small><?= getProductWishlishtCount($conn, $id) ?></small>
-                      </span>
-
-                    <?php   } }  ?>
-                  </div>
-
-                  <!-- AVERAGE STAR RATING -->
-                  <div class='flex-fill' style="display:flex; flex-direction: column; width:81%; align-items:flex-end">  
-                    <div class='stars-outer' 
-                      data-productrating='<?=getAveProductReview($conn, $id)?>' 
-                      data-productid='<?=$id?>' 
-                      id='average_product_stars2<?=$id?>'>
-                      <span class='stars-inner'></span>
-                    </div>
-                  </div>
-                  <!-- /AVERAGE STAR RATING -->
-                </div>
-
-              </div>
-              <!-- /.CARD BODY -->
-            </div>
-            <!-- /.CARD -->
-          </a>
-        </div>
-        
-        <?php } ?>
-      </div>
-    </div>
-    <?php } } ?>
-
+   
 
     <!-- TRENDING PRODUCTS -->
     <div class="container mb-5">
       <div class="row">
-        <div class="col-6 pl-4">
-            <h4>
+        <div class="col-6">
+            <h5>
               TRENDING PRODUCTS
-            </h4>
+            </h5>
         </div>
         <div class="col-6 text-right pt-2">View All&nbsp;<i class="fas fa-angle-double-right"></i></i></div>
       </div>
       <div class="row no-gutters">
         <?php 
 
-          $sql = " SELECT * FROM tbl_items LIMIT 24";
+          $sql = "SELECT pi.*,s.id AS 'store_id', i.id AS 'product_id',i.price, i.name FROM tbl_product_images pi JOIN tbl_stores s JOIN tbl_items i ON i.store_id=s.id AND pi.product_id=i.id  WHERE is_primary = 1 ";
           $statement = $conn->prepare($sql);
           $statement->execute();
           //$result = mysqli_query($conn,$sql);
@@ -367,15 +276,16 @@
           if($statement->rowCount()){
             //CREATE A ROW VARIABLE
             while($row = $statement->fetch()){
-              $id = $row['id'];
+              $id = $row['product_id'];
               $name = $row['name'];
               $price = $row['price'];
-              $item_img = $row['img_path'];
+              $logo = $row['url'];
+              $logo = BASE_URL . "/".$logo .".jpg";
           ?>
-          <div class="col-lg-2 col-md-3 col-sm-6 px-1 pb-2">
+          <div class="col-lg-3 col-md-3 col-sm-6 pb-2 px-1">
             <a href="product.php?id=<?= $id ?>">
               <div class = 'card h-700 border-0'>
-                <img class='card-img-top' src="<?= $item_img ?>" > 
+                <img class='card-img-top' src="<?= $logo ?>" style='height:400px;'> 
                 <div class="card-body pr-0">
                   <div class='font-weight-bold'>
                     <?= $name ?>
@@ -387,34 +297,43 @@
                     <!-- WISHLIST BUTTONS -->
                     <div class='flex-fill' style='cursor:default;'>
 
-                      <?php if(checkIfInWishlist($conn,$id) == 1 ) { ?>
+                      <?php 
+                        if(isset($_SESSION['id'])) {
+                            if (checkIfInWishlist($conn,$id) == 0) {
+                      ?>
+                        <a class='heart-toggler' data-id='<?= $id ?>' role='button' data-enabled="0" style='float:right'>
+                          <span class='wish_heart'><i class='far fa-heart text-red' id></i></span>
+                          <span class='product_wish_count'><?= getProductWishlishtCount($conn,$id) ?></span>
+                        </a>
+                  
+                      <?php  } else { ?>
 
-                        <i class='fas fa-heart text-red'></i> 
-                        <span class='product-wish-count<?= $id ?>'>
-                          <small><?= getProductWishlishtCount($conn, $id) ?></small>
-                        </span>
+                        <a class='heart-toggler' data-id='<?= $id ?>' data-enabled="1" style='float:right'>
+                          <span class='wish_heart'><i class='fas fa-heart text-red'></i></span> 
+                          <span class='product_wish_count'><?= getProductWishlishtCount($conn,$id) ?></span>
+                        </a>
 
-                      <?php } else { 
+                      <!-- IF LOGGED OUT -->
+                      <?php }  } else { 
+                        if(getProductWishlishtCount($conn,$id) >= 1) {
+                      ?>
                         
-                        if(getProductWishlishtCount($conn, $id) == 0) { ?>
-
-                        <i class='far fa-heart text-gray'></i> 
-                        <span class='text-gray product-wish-count<?= $id ?>'>
-                          <small><?= getProductWishlishtCount($conn, $id) ?></small>
-                        </span>
-
-                        <?php } else { ?>
-
-                        <i class='far fa-heart text-red'></i> 
-                        <span class='text-gray product-wish-count<?= $id ?>'>
-                          <small><?= getProductWishlishtCount($conn, $id) ?></small>
-                        </span>
-
-                      <?php   } }  ?>
+                        <a class='btn_wishlist_logout_view' data-id='<?= $id ?>' disabled style='cursor:default; float:right'>
+                          <i class='far fa-heart text-red'></i> 
+                          <span class='product_wish_count'><?= getProductWishlishtCount($conn,$id) ?></span>
+                        </a>
+                        
+                      <?php } else { ?>
+                        <a class='btn_wishlist_logout_view' data-id='<?= $id ?>' disabled style='cursor:default; float:right'>
+                          <i class='far fa-heart text-gray'></i> 
+                          <span class='product_wish_count text-gray'>0</span>
+                        </a>
+                        
+                      <?php } } ?>
                     </div>
 
                     <!-- AVERAGE STAR RATING -->
-                    <div class='flex-fill' style="display:flex; flex-direction: column; width:81%; align-items:flex-end">  
+                    <div class='flex-fill pr-3' style="display:flex; flex-direction: column; width:81%; align-items:flex-end">  
                       <div class='stars-outer' 
                         data-productrating='<?=getAveProductReview($conn, $id)?>' 
                         data-productid='<?=$id?>' 

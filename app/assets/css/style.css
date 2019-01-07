@@ -10,7 +10,7 @@
 }
 
 body{
-    color: #1d2129;
+    color:#3F3F3F;
     background-color: #f5f5f5;
     line-height: 1.35;
 }
@@ -77,6 +77,18 @@ a {
     text-decoration: none !important;
     cursor: pointer;
 }
+
+a:hover, input{
+    text-decoration: none !important;
+    color: inherit;
+}
+
+#website_name{
+    font-size: 2.2rem;
+}
+
+
+
 
 card-title {
     color: black;
@@ -890,7 +902,7 @@ button[class^=stripe-button-el] span {
 
 
 #cart-img {
-    background-image: url("../images/shopping-cart-white.png")!important; 
+    background-image: url("../images/shopping-cart-brown.png")!important; 
     height: 2.8em;
     width: 2.8em;
     padding-top: -5px;
@@ -901,10 +913,15 @@ button[class^=stripe-button-el] span {
     margin:0;
 }
 
-.navbar-main,
-footer#footer-main {
+.navbar-main {
     color:#212121;
     background:#f5f5f5;
+}
+
+footer#footer-main {
+    background: #12c2e9;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #f64f59, #c471ed, #12c2e9);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #f64f59, #c471ed, #12c2e9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 
@@ -1049,6 +1066,66 @@ input:focus{
     outline:none!important;
     background-color:transparent;
 }
+
+/*============================ BANNER ADS ==========================*/
+
+#website-name {
+    color:#3F3F3F;
+}
+#banner_ad-1{
+    background: url(../../assets/images/ad-5.jpg);
+	background-repeat: no-repeat;
+    background-size: cover;
+	height: 81vh;
+	position: relative;
+	background-position-y: center;
+	background-position-x: right;
+}
+/* .carousel-inner .carousel-item {
+	transition: -webkit-transform 2s ease-in-out;
+	transition: transform 2s ease-in-out;
+    transition: transform 2s ease, -webkit-transform 2s ease-in-out;
+}
+
+.carousel-1 {
+	background-image: url(../../assets/images/ad-5.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+	height: 81vh;
+	position: relative;
+	background-position-y: center;
+	background-position-x: right;
+}
+
+.carousel-2 {
+	background: url(../../assets/images/ad-1.jpeg);
+	background-repeat: no-repeat;
+    background-size: cover;
+	height: 81vh;
+	position: relative;
+	background-position-y: bottom;
+	background-position-x: right;
+}
+
+.carousel-3 {
+	background: url(../../assets/images/ad-3.jpeg);
+	background-repeat: no-repeat;
+    background-size: cover;
+	height: 81vh;
+	position: relative;
+	background-position-y: center;
+	background-position-x: right;
+}
+
+.carousel-4 {
+	background: url(../../assets/images/ad-2.jpg);
+	background-repeat: no-repeat;
+    background-size: cover;
+	height: 81vh;
+	position: relative;
+	background-position-y: center;
+	background-position-x: right;
+} */
 
 /*============================ DESKTOP ==========================*/
 

@@ -379,8 +379,7 @@
 
     // SHOW SHIPPING FEE FROM STORE ID
     function displayStoreShippingFee($conn,$storeId) {
-        $sql = "SELECT s.standard_shipping, i.store_id, i.id FROM tbl_stores s 
-        JOIN tbl_items i ON i.store_id = s.id WHERE store_id = ? GROUP BY store_id";
+        $sql = "SELECT * FROM tbl_stores WHERE id = ?";
         $statement = $conn->prepare($sql);
         $statement->execute([$storeId]);
         $row = $statement->fetch();
@@ -389,10 +388,10 @@
         return $storeShippingFee;
     }
 
+
     // SHOW FREE SHIPPING FROM STORE ID
     function displayStoreFreeShipping($conn,$storeId, $format=true) {
-        $sql = "        SELECT s.free_shipping_minimum, i.store_id, i.id FROM tbl_stores s 
-        JOIN tbl_items i ON i.store_id = s.id WHERE store_id = ? GROUP BY store_id";
+        $sql = "SELECT * FROM tbl_stores WHERE id = ?";
         $statement = $conn->prepare($sql);
         $statement->execute([$storeId]);
         $row = $statement->fetch();
@@ -788,4 +787,14 @@ function getSellerEmail($conn,$storeId) {
     $email = $row['email'];
 
     return $email;
+}
+
+function productprofile($conn,$productId){
+    $sql = "SELECT * FROM tbl_product_images WHERE product_id = ? AND is_primary = 1";
+    $statement = $conn->prepare($sql);
+    $statement->execute([$productId]);	
+    $row = $statement->fetch();
+    $url = $row['url'];
+
+    return $url;
 }

@@ -5,14 +5,14 @@
       
   
     <!-- FOOTER -->
-    <footer class="py-5 white-bg" id='footer-main'>
+    <footer class="py-5 white-bg" id='footer-main' style='font-size:12px;'>
       <div class="container">
         <div class="row">
           <div class="col-lg-2 col-md-2 col-sm-4">
             <div class="d-flex flex-column">
-             <h3 class='text-light pb-3'>About</h3>
+             <h6 class='text-light pb-3'>ABOUT</h6>
               <a href="#" class='text-light footer-link'>About Us</a>
-              <a href="#" class='text-light footer-link'>Blog</a>
+              <a href="#" class='text-light footer-link font-weight-light'>Blog</a>
               <a href="#" class='text-light footer-link'>Press</a>
               <a href="#" class='text-light footer-link'>Careers</a>
               <a href="#" class='text-light footer-link'>Contact Us</a>
@@ -24,7 +24,7 @@
 
           <div class="col-lg-2 col-md-2 col-sm-4">
             <div class="d-flex flex-column">
-              <h3 class='text-light pb-3'>Help</h3>
+              <h6 class='text-light pb-3'>HELP</h6>
               <a href="#" class='text-light footer-link'>FAQs</a>
               <a href="#" class='text-light footer-link'>Payment</a>
               <a href="#" class='text-light footer-link'>Shipping</a>
@@ -36,7 +36,7 @@
 
           <div class="col-lg-2 col-md-2 col-sm-4">
             <div class="d-flex flex-column">
-              <h3 class='text-light pb-3'>Policy</h3>
+              <h6 class='text-light pb-3'>POLICY</h6>
               <a href="#" class='text-light footer-link'>Security</a>
               <a href="#" class='text-light footer-link'>Privacy</a>
               <a href="#" class='text-light footer-link'>Return Policy</a>
@@ -48,12 +48,12 @@
 
           <div class="col-lg-2 col-md-2 col-sm-5">
             <br class='vanish-lg vanish-md'>
-            <h3 class='text-light pb-lg-3 pb-md-3 vanish-lg vanish-md'>Follow Us</h3>
+            <h6 class='text-light pb-lg-3 pb-md-3 vanish-lg vanish-md'>FOLLOW US</h6>
             <div class="d-flex flex-lg-column flex-md-column flex-sm-row">
-              <h3 class='text-light pb-lg-3 pb-md-3 vanish-sm'>Follow Us</h3>
+              <h6 class='text-light pb-lg-3 pb-md-3 vanish-sm'>FOLLOW US</h6>
               
               
-              <a href="https://www.facebook.com" class='text-light footer-link pt-2' target="_blank">
+              <a href="https://www.facebook.com" class='text-light footer-link pt-1' target="_blank">
                 <span class='vanish-lg vanish-md pt-2'></span>
                 <span class="fa-stack">
                   <i class="fa fa-circle fa-stack-2x icon-background"></i>
@@ -62,7 +62,7 @@
                 <span class="vanish-md vanish-sm">Facebook</span>
               </a>
 
-              <a href="https://www.instagram.com" class='text-light footer-link pt-2' target="_blank">
+              <a href="https://www.instagram.com" class='text-light footer-link pt-1' target="_blank">
                 <span class="fa-stack">
                   <i class="fa fa-circle fa-stack-2x icon-background"></i>
                   <i class="fab fa-instagram fa-stack-1x text-purple"></i>
@@ -70,7 +70,7 @@
                 <span class="vanish-md vanish-sm">Instagram</span>
               </a>
 
-              <a href="https://pinterest.com" class='text-light footer-link pt-lg-2 pt-2' target="_blank">
+              <a href="https://pinterest.com" class='text-light footer-link pt-lg-2 pt-1' target="_blank">
                 <span class="fa-stack">
                   <i class="fa fa-circle fa-stack-2x icon-background"></i>
                   <i class="fab fa-pinterest-p fa-stack-1x text-danger"></i>
@@ -78,7 +78,7 @@
                 <span class="vanish-md vanish-sm">Pinterest</span>
               </a>
 
-              <a href="https://twitter.com" class='text-light footer-link pt-lg-2 pt-2' target="_blank">
+              <a href="https://twitter.com" class='text-light footer-link pt-lg-2 pt-1' target="_blank">
                 <span class="fa-stack">
                   <i class="fa fa-circle fa-stack-2x icon-background"></i>
                   <i class="fab fa-twitter fa-stack-1x text-primary"></i>
@@ -93,7 +93,7 @@
             <br class='vanish-lg vanish-md'>
             <div class="d-flex flex-column px-lg-3 pl-md-3">
               <div class="flex-fill px-lg-5">
-                <h3 class='text-light'>Exclusive Deals & Offers</h3>
+                <h6 class='text-light'>EXCLUSIVE DEALS & OFFERS</h6>
               </div>
 
               <div class="flex-fill mt-3 px-lg-5">

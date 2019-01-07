@@ -2,6 +2,7 @@
 session_start(); 
 require_once '../sources/pdo/src/PDO.class.php';
 require_once "connect.php";
+require_once "functions.php";
 
 $userId = $_SESSION['id'];
 $sellerId = $_GET['sellerId'];
@@ -55,9 +56,11 @@ $sellerId = $_GET['sellerId'];
         $lastMessengerName = $sellerRow['name'];
         $lastMessage = "";
         $messageDetails = "";
+        $logo = productprofile($conn,$sellerRow['logo']);
+        $logo = BASE_URL . "/".$logo .".jpg";
 
         $messageItemSelected = "<div class='message_items__message'>
-                    <img src='".$sellerRow['logo']."' height='60' width='60' class='circle'>
+                    <img src='".$logo."' height='60' width='60' class='circle'>
                     <div class='m_partial_container'>
                         <em>".$lastMessengerName."</em>
                         <div class='message_partial'>".substr($lastMessage, 0, 20)."...</div>

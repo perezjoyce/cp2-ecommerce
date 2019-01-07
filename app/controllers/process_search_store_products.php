@@ -19,10 +19,9 @@
             $name = $row['name'];
             $price = $row['price'];
             $price = number_format((float)$price, 2, '.', '');
-            $item_img = $row['img_path'];
-            // REPLACE WITH BELOW ONCE PRODUCTS HAVE BEEN UPLOADED
-            $item_img = BASE_URL ."/".$item_img .".jpg"; 
-            // $item_img = $item_img;
+            $logo = productprofile($conn,$id);
+            $logo = BASE_URL ."/".$logo.".jpg";
+           
 
                 echo 
 
@@ -31,7 +30,7 @@
                     <a href='product.php?id=<?= $id ?>'>
                         <div class='card border-0'>
                             <a href='product.php?id=<?= $id ?>'>
-                                <img class='card-img-top' src='$item_img'>
+                                <img class='card-img-top' src='$logo'>
                                 <div class='card-body pr-0'>
                                     <div>
                                         $name

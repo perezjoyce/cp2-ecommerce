@@ -6,7 +6,7 @@
                     <!-- <div class="row text-center"> -->
                     <div class="d-flex flex-row">
                         <?php 
-                            $sql = " SELECT * FROM tbl_categories LIMIT 8";
+                            $sql = " SELECT * FROM tbl_categories WHERE parent_category_id is null";
                             $statement = $conn->prepare($sql);
                             $statement->execute();
                             

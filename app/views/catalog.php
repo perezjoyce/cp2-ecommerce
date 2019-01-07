@@ -246,14 +246,16 @@
 										$id = $row['id'];
 										$name = $row['name'];
 										$price = $row['price'];
-										$item_img = $row['img_path'];
+										// $item_img = $row['img_path'];
+										$item_img = productprofile($conn,$productId);
+										$item_img = BASE_URL ."/".$item_img.".jpg";
 						?>
 						
 						<!-- PRODUCT CARDS -->
 						<div class='col-lg-3 col-md-3 col-sm-12 px-1 pb-2'>
 							<a href='product.php?id=<?= $productId ?>'>
 								<div class = 'card h-700 border-0'>
-									<img class='card-img-top' src='<?= $item_img ?>'>
+									<img class='card-img-top' src='<?= $item_img ?>' style='height:250px;'>
 									<div class='card-body pr-1'>
 										<div class='font-weight-bold'>
 											<?= $name ?>

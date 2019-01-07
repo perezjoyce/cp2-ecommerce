@@ -60,7 +60,8 @@
 
     <!-- GOOGLE FONTS -->
     <!-- <link href="https://fonts.googleapis.com/css?family=Fredoka+One|Open+Sans:300,400,400italic,600|Roboto" rel="stylesheet"> -->
-    <link href="https://fonts.googleapis.com/css?family=Lato|Rubik" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato|Rubik|Pacifico|Fredoka+One" rel="stylesheet">
+   
     <!-- FONTAWESOME -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
@@ -171,7 +172,7 @@
                         <!-- <div class="col-6"> -->
                                 <div class="d-flex align-items-center">
                                     <div id='header-logo'></div>&nbsp;
-                                    <a class="navbar-brand flex-fill" href="index.php" id="website_name">
+                                    <a class="navbar-brand flex-fill" href="index.php" id="website_name" style='font-family:Fredoka One;'>
                                         Shoperoo
                                     </a>
 

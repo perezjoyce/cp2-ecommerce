@@ -1,9 +1,10 @@
 <?php
 	// connect to database
-	session_start();
+	// session_start();
 	require_once '../sources/pdo/src/PDO.class.php';
 	require_once "connect.php";
 	require_once "../controllers/functions.php";
+	require_once "../../config.php";
 
 	$rating = $_POST['rating'];
 
@@ -67,12 +68,14 @@
                 $name = $row['name'];
                 $id = $row['id'];
                 $price = $row['price'];
-                $item_img = $row['img_path'];
+				// $item_img = $row['img_path'];
+				$item_img = productprofile($conn,$productId);
+				$item_img = BASE_URL ."/".$item_img.".jpg";
 ?>
 			<div class='col-lg-3 col-md-3 px-1 pb-2'>
 				<a href='product.php?id=<?=$id?>'>
 					<div class = 'card h-700 border-0'>
-						<img class='card-img-top' src='<?=$item_img?>'>
+						<img class='card-img-top' src='<?=$item_img?>' style='height:250px;'>
 						<div class='card-body'>
 							<div class='font-weight-bold'><?=$name?></div>
 							<div>&#8369;<?=$row['price'] ?></div>
