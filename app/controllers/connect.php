@@ -3,14 +3,20 @@
 	include_once '../sources/pdo/src/PDO.class.php';
 
 	//set values
-	$host = "localhost";
+
+	// $host = "localhost";
+	// $db_username = "root";
+	// $db_password = "";
+	// $db_name = "db_demoStoreNew";
+
+	//SCHOOL
+	$host = "db4free.net";
 	$db_username = "japerez";
 	$db_password = "16b786e8";
-	$db_name = "db_demoStoreNew";
+	$db_name = "db_demostorenew";
 
 	$conn = new PDO("mysql:host=$host;dbname=$db_name",$db_username,$db_password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
 
 	//establish connection to database
 	//$conn = mysqli_connect($host, $db_username, $db_password, $db_name);
