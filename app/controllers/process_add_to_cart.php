@@ -69,7 +69,8 @@ require_once "functions.php";
                     $name = $row['name'];
                     $price = $row['price'];
                     $quantity = $row['quantity'];
-                    $image = BASE_URL . "/" .$row['img_path'] . ".jpg";  
+                    $image = productprofile($conn, $productId);
+                    $image = BASE_URL . "/". $image. ".jpg";
 
                     if($quantity > 1){
                         $quantityDisplay = "&nbsp;x&nbsp$quantity";
