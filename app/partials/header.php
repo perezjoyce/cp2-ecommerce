@@ -332,24 +332,33 @@
 
     <!-- ALERTS -->
     <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          
-          <?php if(isset($_GET['uploadError'])): ?>
-            <div class="alert alert-info"><?= $_GET['uploadError'] ?></div>
-          <?php endif; ?> 
-          
-          <?php if(isset($_GET['msg'])): ?>
-            <div class="alert alert-info">Please log in using your account first.</div>
-          <?php endif; ?> 
+        <div class="row">
+            <div class="col-lg-12">
+            
+            <?php if(isset($_GET['uploadError'])): ?>
+                <div class="alert alert-info"><?= $_GET['uploadError'] ?></div>
+            <?php endif; ?> 
+            
+            <?php if(isset($_GET['msg'])): ?>
+                <div class="alert alert-info">Please log in using your account first.</div>
+            <?php endif; ?> 
 
+            </div>
         </div>
-      </div>
-    
+        
 
         <div class="row">
             <div class="col">
-                <div class="se-pre-con loader"></div>
+                <div class="lds-roller">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
             </div>
         </div>
         
