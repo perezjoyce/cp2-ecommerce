@@ -53,7 +53,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Shoperoo</title>
+    <title>Mamaroo</title>
 
     <!-- ICON -->
     <link rel="shortcut icon" href="../assets/images/kangaroo-logo.png">

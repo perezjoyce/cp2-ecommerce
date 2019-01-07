@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once('vendor/autoload.php');
-define('BASE_URL', 'https://immense-shelf-32059.herokuapp.com');
+define('BASE_URL', 'https://mamaroo.herokuapp.com');
 define('BASE_DIR', '/');
 // define ('DEFAULT_PROFILE' , 'https://png.pngtree.com/svg/20161021/user_avatar_35720.png');
 define ('DEFAULT_PROFILE' , BASE_URL."/app/assets/images/user_default_img.png" );
