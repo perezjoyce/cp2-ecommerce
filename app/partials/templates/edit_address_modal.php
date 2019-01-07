@@ -1,7 +1,9 @@
 <?php
 
-    session_start(); 
-    //require_once "../../controllers/connect.php";
+require_once '../../../config.php';
+require_once '../../sources/pdo/src/PDO.class.php';
+require_once '../../controllers/functions.php';
+require_once '../../controllers/connect.php';
 
     function getPreselectedAddress($addressId, $conn) {
         $statement = $conn->prepare("SELECT * FROM tbl_addresses WHERE id=?");
@@ -52,16 +54,7 @@
         return $addressData;
     }
 
-    require_once '../../sources/pdo/src/PDO.class.php';
-
-	//set values
-	$host = "localhost";
-	$db_username = "root";
-	$db_password = "";
-	$db_name = "db_demoStoreNew";
-
-	$conn = new PDO("mysql:host=$host;dbname=$db_name",$db_username,$db_password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	
 
     if(!$_SESSION['id']) {
         // pass redirect url so that after logging in you will be able to return to the intended page, in this case check-out

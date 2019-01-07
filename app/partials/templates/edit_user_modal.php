@@ -1,17 +1,9 @@
 <?php 
   // TO DISPLAY CURRENT USER DATA
-  session_start(); 
-  require_once "../../controllers/functions.php";
-  include_once '../../sources/pdo/src/PDO.class.php';
-
-  //set values
-  $host = "localhost";
-  $db_username = "root";
-  $db_password = "";
-  $db_name = "db_demoStoreNew";
-
-  $conn = new PDO("mysql:host=$host;dbname=$db_name",$db_username,$db_password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  require_once '../../../config.php';
+  require_once '../../sources/pdo/src/PDO.class.php';
+  require_once '../../controllers/functions.php';
+  require_once '../../controllers/connect.php';
 
   $id = $_GET['id'];
     
