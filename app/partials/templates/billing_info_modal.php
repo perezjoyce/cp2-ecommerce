@@ -402,9 +402,9 @@
                             <?php $totalAmount = $_SESSION['total_amount'] ?>
                             <script
                                 src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                data-key="pk_test_akuLqp7kIjCHQQJoK1oB7ol6"
+                                data-key="<?= $stripe['publishable_key'] ?>"
                                 data-amount="<?= number_format($totalAmount,2, "","") ?>"
-                                data-name="Shoperoo"
+                                data-name="Mamaroo"
                                 data-description="Checkout Payment"
                                 data-label="Credit Card Payment"
                                 data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
