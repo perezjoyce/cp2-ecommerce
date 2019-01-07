@@ -50,10 +50,8 @@
   
   // SEND an email to customer and seller for the info about the transaction
   // echo "Payment successful!";
-  // echo "<script>
-  //   $.get('../../app/controllers/process_unset_session.php', function(){
-  //       setTimeout(function(){windlow.location.href='".BASE_URL."'}, 2000);
-  //   });
-  // </script>";
+  echo "<script>
+      setTimeout(function(){windlow.location.href='".BASE_URL."/app/views/stripe_confirmation.php?transactionCode=$transactionCode}, 1500);
+  </script>";
   // unset session
-  header('location: ../app/views/stripe_confirmation.php?transactionCode='.$transactionCode);
+  //header('location: ../app/views/stripe_confirmation.php?transactionCode='.$transactionCode);
