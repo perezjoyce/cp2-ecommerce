@@ -1,5 +1,5 @@
 <?
-session_start(); 
+require_once '../../../config.php';
 require_once '../sources/pdo/src/PDO.class.php';
 require_once "connect.php";
 require_once "functions.php";
@@ -10,7 +10,7 @@ if(isset($_POST['modeOfPaymentId'])) {
    $cartSession = $_SESSION['cart_session'];
    $userId = $_SESSION['id'];
     $transactionCode = $_SESSION['transaction_code'];
-
+    
 
    $sql = " SELECT * FROM tbl_orders WHERE cart_session = ? AND `user_id` = ? ";
    $statement = $conn->prepare($sql);

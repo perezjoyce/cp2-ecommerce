@@ -7,72 +7,21 @@
 	require_once "../../config.php";
 
     $minPrice = $_POST['minPrice'];
-    $maxPrice = $_POST['maxPrice'];
-	$categoryId = $_POST['categoryId'];
-	$brandId = $_POST['brandId'];
-	$categoryId = (int)$categoryId;
-	$data = '';
-
-	$sql = "SELECT * FROM tbl_categories WHERE id=?";
+	$maxPrice = $_POST['maxPrice'];
+	
+	$sql = "SELECT * FROM `tbl_items` WHERE price BETWEEN 1000 AND 3000 ORDER BY price";
 	$statement = $conn->prepare($sql);
-	$statement->execute([$categoryId]);	
-	$row = $statement->fetch();
-	$parentCategoryId = $row['parent_category_id'];
+	$statement->execute();	
+	$count = $statement->rowCount();
 
-	if($brandId) {
-		$brandJoin = " AND i.brand_id=?";
-	} else {
-		$brandJoin = "";
-	}
-
-	//IF NULL, THEN CATEGORY IS A PARENT CATEGORY
-    if($parentCategoryId === null) { // rating
-        
-
-        $sql = "SELECT i.*, 
-            c.parent_category_id, c.id AS 'categoryId', 
-            AVG(product_rating) AS 'averageRating'
-            FROM tbl_ratings r 
-            JOIN tbl_categories c 
-            JOIN tbl_items i 
-            ON i.category_id = c.id 
-            AND r.product_id = i.id  
-            WHERE parent_category_id = ?
-            $brandJoin
-            GROUP BY product_id ORDER BY price";
-				
-		
-	} else {
-        $sql = "SELECT i.*, 
-        c.parent_category_id, c.id AS 'categoryId', 
-        AVG(product_rating) AS 'averageRating'
-        FROM tbl_ratings r 
-        JOIN tbl_categories c 
-        JOIN tbl_items i 
-        ON i.category_id = c.id 
-        AND r.product_id = i.id  
-        WHERE category_id = ?
-        $brandJoin
-        GROUP BY product_id ORDER BY price";
-	}
-
-	$statement = $conn->prepare($sql);
-	$param = [$categoryId];
-	if($brandId) {
-		$param[] = $brandId;
-	}
-    $statement->execute($param); 
-	if($statement->rowCount()) {
+	if($count){
 		while($row = $statement->fetch()){
-			$price = $row['price'];
-			
-            if($price >= $minPrice && $price <= $maxPrice) {
-                $name = $row['name'];
-                $id = $row['id'];
-                $price = $row['price'];
-				// $item_img = $row['img_path'];
-				$item_img = productprofile($conn,$productId);
-				$item_img = BASE_URL ."/".$item_img.".jpg";
+			$id = $row['id'];
+			$item_img = productprofile($conn, $id);
+			$item_img = BASE_URL . "/". $image. ".jpg";
+			$name = $row['name'];
+	
+
 ?>
 			<div class='col-lg-3 col-md-3 px-1 pb-2'>
 				<a href='product.php?id=<?=$id?>'>
@@ -116,7 +65,7 @@
 										
 
 									<!-- AVERAGE STAR RATING -->
-									<div class='flex-fill' style="display:flex; flex-direction: column; width:81%; align-items:flex-end">  
+									<div class='flex-fill' style="display:flex; flex-direction: column; width:81%; align-items:flex-end pr-3">  
 									<div class='stars-outer' 
 										data-productrating='<?=getAveProductReview($conn, $id)?>' 
 										data-productid='<?=$id?>' 
@@ -133,7 +82,7 @@
 			</div>
 	<?php 
 		}
-	} } else {
+	} else {
 		$data = "Sorry, no products found!";
 	}
 

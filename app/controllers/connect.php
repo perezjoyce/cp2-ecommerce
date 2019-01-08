@@ -1,6 +1,6 @@
 <?php
 
-	include_once '../sources/pdo/src/PDO.class.php';
+	require_once '../sources/pdo/src/PDO.class.php';
 
 	//set values
 
