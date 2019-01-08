@@ -179,19 +179,24 @@ div.card:hover {
     margin:0;
 }
 
-.stripe-button-el span,
+
 .btn-purple-reverse {
     background: white!important;
     border: 2px solid #8e44ad!important;
     color: #8e44ad!important;
     font-weight:500!important;
 }
-.stripe-button-el span:hover,
+
 .btn-purple-reverse:hover {
     background: #8e44ad!important;
     border: 2px solid #8e44ad!important;
     color: white!important;
     font-weight:500!important;
+}
+
+.stripe-button-el span {
+    font-size:18px!important;
+    font-weight:500!important
 }
 
 /* #btn_order_confirmation:hover,

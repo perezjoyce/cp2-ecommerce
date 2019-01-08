@@ -36,14 +36,14 @@ if(isset($_POST['modeOfPaymentId'])) {
 
    $messageForBuyer =   
                 "<form>
-                    <h4>Shoperoo Order Receipt</h4>
+                    <h4>Mamaroo Order Receipt</h4>
                     <div style='padding-top:18px;'>Hi there!</div> 
                     <div style='padding-top:20px;'>Your order, with the following transaction code, is being processed:</div>
                     <h4 style='color:#c471ed;'>$transactionCode</h4>
                     <div>You will get confirmation message from the seller afterwards.</div>
                     <div>Thank you for shopping with us!</div>   
-                    <div style='padding-top:30px;font-weight:bold;'>Team Shoperoo</div>
-                    <div style='padding-top:10px;'>shoperoo@gmail.com</div>
+                    <div style='padding-top:30px;font-weight:bold;'>Team Mamaroo</div>
+                    <div style='padding-top:10px;'>mamaroo@gmail.com</div>
                     <div>+06907-1234-4560</div>
                     <div>+06919-1454-1160</div>
                 </form>";
@@ -61,18 +61,19 @@ if(isset($_POST['modeOfPaymentId'])) {
                     $mail = new PHPMailer\PHPMailer\PHPMailer(true);
                     $staff_email = 'jpgarcia.ph@gmail.com'; // where the email is comming from // replace with admin email in the future
                     $users_email = $buyerEmail;//Where the email will go // replace with $email
-                    $email_subject = 'Shoperoo Order Confirmation';
+                    $email_subject = 'Mamaroo Order Confirmation';
                     $email_body = $messageForBuyer;
         
                     try{
                         $mail->isSMTP();
                         $mail->Host = 'smtp.gmail.com';
+                        $mail->CharSet = 'UTF-8';
                         $mail->SMTPAuth = true;
                         $mail->Username = $staff_email;
                         $mail->Password = '8London*'; // totoong password
                         $mail->SMTPSecure = 'tls';
                         $mail->Port = 587;
-                        $mail->setFrom($staff_email,'Shoperoo');
+                        $mail->setFrom($staff_email,'Mamaroo');
                         $mail->addAddress($users_email);
                         $mail->isHTML(true);
                         $mail->Subject = $email_subject;
@@ -113,8 +114,8 @@ if(isset($_POST['modeOfPaymentId'])) {
                             <h4 style='color:#c471ed;'>$transactionCode</h4>
                             <div>Please confirmation as soon as possible.</div>
                             <div>Thank you!</div>   
-                            <div style='padding-top:30px;font-weight:bold;'>Team Shoperoo</div>
-                            <div style='padding-top:10px;'>shoperoo@gmail.com</div>
+                            <div style='padding-top:30px;font-weight:bold;'>Team Mamaroo</div>
+                            <div style='padding-top:10px;'>mamaroo@gmail.com</div>
                             <div>+06907-1234-4560</div>
                             <div>+06919-1454-1160</div>
                         </form>";
@@ -128,7 +129,7 @@ if(isset($_POST['modeOfPaymentId'])) {
                 
                             $staff_email2 = 'jpgarcia.ph@gmail.com'; // where the email is comming from // replace with admin email in the future
                             $users_email2 = $sellerEmail;//Where the email will go // replace with $email
-                            $email_subject2 = 'Shoperoo Order Alert!';
+                            $email_subject2 = 'Mamaroo Order Alert!';
                             $email_body2 = $messageForSeller;
         
                             try{
@@ -139,7 +140,7 @@ if(isset($_POST['modeOfPaymentId'])) {
                                 $mail2->Password = '8London*'; // totoong password
                                 $mail2->SMTPSecure = 'tls';
                                 $mail2->Port = 587;
-                                $mail2->setFrom($staff_email2,'Shoperoo');
+                                $mail2->setFrom($staff_email2,'Mamaroo');
                                 $mail2->addAddress($users_email2);
                                 $mail2->isHTML(true);
                                 $mail2->Subject = $email_subject2;

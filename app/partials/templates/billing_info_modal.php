@@ -431,6 +431,12 @@
                                             data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
                                             data-locale="auto">
                                         </script>
+                                        <script>
+                                            // Hide default stripe button, be careful there if you
+                                            // have more than 1 button of that class
+                                            document.getElementsByClassName("stripe-button-el")[0].style.display = 'none';
+                                        </script>
+                                        <a type="submit" class="btn btn-lg btn-block py-3 btn-purple" id='btn_stripe'>Use Credit Card</a>
                                     </form>
                                 </div>
                             </div>

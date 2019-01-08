@@ -2071,8 +2071,8 @@ $(document).ready( () => {
 		if(this.value == 3) {
 			// $('#btn_order_confirmation').hide();
 			$('#billing_info_buttons').hide();
-			$('#stripe_pay_button').show();
-			$('#stripe_buttons').show();
+			// $('#stripe_pay_button').show();
+			$('#btn btn-lg btn-block py-3 btn-purple').show();
 		}
 	});
 
