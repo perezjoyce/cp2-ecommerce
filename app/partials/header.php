@@ -244,8 +244,7 @@
                                                             if(!$count) {
                                                         ?>
                                                         
-                                                        <a class="dropdown-item pb-5 text-center" href='#' id='header-empty-cart'>
-                                                            <!-- <div><small> Your shopping cart is empty</small></div> -->
+                                                        <a class="dropdown-item pb-5 text-center" href='#' id='header-empty-cart' style='width:10em;'>
                                                         </a>
 
                                                         <?php } else { 

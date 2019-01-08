@@ -963,11 +963,21 @@ a.footer-link {
 }
 
 #header-empty-cart {
-    height: 4em!important;
-    width: 4em!important;
-    background-size: 4em!important;
-    background-repeat: no-repeat!important;
-    background-image: url("../images/empty_cart.gif")!important; 
+    background-repeat: no-repeat;
+    background-image: url("../images/empty-cart.gif"); 
+    background-size: cover;
+    position: relative;
+	background-position-y: center;
+    background-position-x: right;
+    height:10em;
+
+    /* background-image: url(../../assets/images/ad-5.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+	height: 81vh;
+	position: relative;
+	background-position-y: center;
+	background-position-x: right; */
 }
 
 
