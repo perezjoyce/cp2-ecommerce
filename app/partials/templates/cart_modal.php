@@ -404,6 +404,5 @@
 <!-- /CONTAINER-FLUID -->
 
 
-<?php require_once "../modal_container.php"; ?>
 <?php require_once "../modal_container_big.php"; ?>
 

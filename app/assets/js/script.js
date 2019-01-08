@@ -3088,14 +3088,14 @@ $(document).ready( () => {
 
 	})
 
-	$(document).on('click', '#cartModal',function(){
-		let url = $(this).data('url');
+	// $(document).on('click', '#cartModal',function(){
+	// 	let url = $(this).data('url');
 	
-		$.get(url,function(response){
-			$("#modalContainerBig .modal-content").html(response);
-			$("#modalContainerBig").modal('show');
-		});
-	})
+	// 	$.get(url,function(response){
+	// 		$("#modalContainerBig .modal-content").html(response);
+	// 		$("#modalContainerBig").modal('show');
+	// 	});
+	// })
 	
 
 });

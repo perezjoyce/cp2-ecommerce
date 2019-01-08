@@ -1,8 +1,5 @@
 <?php
     require_once '../../../config.php';
-    require_once '../../sources/pdo/src/PDO.class.php';
-    require_once '../../controllers/functions.php';
-    require_once '../../controllers/connect.php';
 
     function getPreselectedAddress($addressId, $conn) {
         $statement = $conn->prepare("SELECT a.*, o.address_id FROM  tbl_addresses a JOIN tbl_orders o ON o.address_id=a.id WHERE cart_session = ? ");
