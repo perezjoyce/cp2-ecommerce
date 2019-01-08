@@ -968,7 +968,7 @@ a.footer-link {
     background-size: cover;
     position: relative;
 	background-position-y: center;
-    background-position-x: right;
+    background-position-x: center;
     height:10em;
 
     /* background-image: url(../../assets/images/ad-5.jpg);

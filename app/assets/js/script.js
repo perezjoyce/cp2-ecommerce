@@ -1,8 +1,8 @@
 $(document).ready( () => {
 
-	$(window).load(function(){
-		$('.lds-roller').fadeOut('slow',function(){$(this).remove();});
-	});
+	// $(window).load(function(){
+	// 	$('.lds-roller').fadeOut('slow',function(){$(this).remove();});
+	// });
 
 	// $('.lds-roller').fadeOut(3000);
 	// ================================ REGISTRATION  ================================ //
