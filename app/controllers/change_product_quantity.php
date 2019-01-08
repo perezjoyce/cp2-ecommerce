@@ -1,7 +1,5 @@
 <?php
-session_start(); 
-require_once '../sources/pdo/src/PDO.class.php';
-require_once "connect.php";
+require_once '../../config.php';
 $cartSession = $_SESSION['cart_session'];
 
 if(isset($_POST['value'])) {
