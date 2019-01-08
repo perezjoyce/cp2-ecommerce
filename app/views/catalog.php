@@ -2,8 +2,8 @@
 <?php require_once "../controllers/connect.php";?>
 <?php require_once "../controllers/functions.php";?>
 <?php require_once "../partials/header.php";?>
-<?php include_once "../partials/categories.php"; ?>
-<?php include_once "../partials/breadcrumbs.php"; ?>
+<?php require_once "../partials/categories.php"; ?>
+<?php require_once "../partials/breadcrumbs.php"; ?>
 
 		<!-- PAGE CONTENT -->
 

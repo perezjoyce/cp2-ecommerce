@@ -2,7 +2,7 @@
 <?php require_once "../partials/header.php";?>
 <?php require_once "../controllers/connect.php";?>
 <?php require_once "../controllers/functions.php";?>
-<?php include_once "../partials/categories.php"; ?>
+<?php require_once "../partials/categories.php"; ?>
 
 
 <?php 
@@ -1667,7 +1667,7 @@ if(isset($_SESSION['id'])) {
         if ($isSeller && $currentUser['id'] == $sellerId) {
           echo "";
         } else { 
-          echo include '../partials/message_box.php'; 
+          echo require_once '../partials/message_box.php'; 
         }
       } 
       

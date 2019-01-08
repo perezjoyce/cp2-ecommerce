@@ -115,7 +115,7 @@
       </div>
     </div> -->
 
-    <?php include_once "../partials/categories.php"; ?>
+    <?php require_once "../partials/categories.php"; ?>
 
     <br><br>
 
