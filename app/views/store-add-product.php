@@ -101,7 +101,7 @@
                                             <div class="row mt-5">
                                                 <div class="col">
                                                     <form action="../controllers/process_add_new_product.php" method="POST" id="form_add_new_product">
-                                                    <input type="hidden" id="new_product_id" value="<?= isset($newProductId) ? $newProductId : null ; ?>">
+                                                    <input type="text" id="new_product_id" value="<?= isset($newProductId) ? $newProductId : null ; ?>">
 
                                                         <!-- PRODUCT NAME -->
                                                         <div class="form-group row mb-4">
