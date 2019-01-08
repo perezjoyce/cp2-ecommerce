@@ -2610,7 +2610,7 @@ $(document).ready( () => {
 		}
 
 		if(flag == 0 && data.name.length > 1 && data.price.length > 1 ) {
-			$.post("../controllers/process_add_new_product.php", data ,function(response){
+			$.post("../controllers/_product.php", data ,function(response){
 				
 				let dataFromPHP = $.parseJSON(response);
 				// let selected = "<option selected>Choose...</option>";
