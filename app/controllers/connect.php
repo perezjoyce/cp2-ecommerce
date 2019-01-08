@@ -1,6 +1,6 @@
 <?php
 
-	require_once '../sources/pdo/src/PDO.class.php';
+	require_once '../../sources/pdo/src/PDO.class.php';
 
 	//set values
 	$host = "db4free.net";
