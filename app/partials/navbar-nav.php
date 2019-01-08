@@ -2,7 +2,7 @@
 <?php
     // session_start(); 
     require_once "../../config.php";
-    require_once BASE_DIR . "/controllers/connect.php";
+    // require_once BASE_DIR . "/controllers/connect.php";
     
     $cartSession = $_SESSION['cart_session'];
     $sql = " SELECT * FROM tbl_carts WHERE cart_session=?";
