@@ -336,7 +336,14 @@ if(isset($_SESSION['id'])) {
 
                     } } } ?>
                     <!-- HIDDEN FOR DEBUGGING PURPOSES -->
-                    <input type="hidden" id='variation_stock_hidden' value='<?$variationStock?>'>
+                    <input type="hidden" id='variation_stock_hidden' value='<?
+                      if(isset($variationStock)) {
+                        echo $variationStock;
+                      } else {
+                        $variationStock = getTotalProductStocks ($conn,$productId);
+                        echo $variationStock;
+                      }
+                      ?>'>
                     <input type="hidden" id='variation_name_hidden' value='<?$variationName?>'>
                     <input type="hidden" id='variation_id_hidden' value='<?=$variationId?>'>
                   </div>

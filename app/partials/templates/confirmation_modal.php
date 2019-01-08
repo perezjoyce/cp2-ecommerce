@@ -136,10 +136,11 @@ require_once '../../controllers/connect.php';
                                         <div>
                                             <?php 
                                                 if(isset($_SESSION['paymentMode'])){
-                                                    if($_SESSION['paymentMode'] ==  'COD') {
+                                                    $paymentMode = $_SESSION['paymentMode'];
+                                                    if($paymentMode ==  'COD') {
                                                         echo "Cash On Delivery (COD)";
                                                     }else {
-                                                        echo $_SESSION['paymentMode'];
+                                                        echo $paymentMode;
                                                     }
                                                 }else {
                                                     getModeOfPayment($conn, $paymentModeId);
