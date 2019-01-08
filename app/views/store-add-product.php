@@ -244,7 +244,8 @@
                                                         <div class="container px-0 product_detail">
 
                                                             <?php 
-                                                                if(isset($newProductId)) {
+                                                                if(isset($_SESSION['newProductId'])) {
+                                                                    $newProductId = $_SESSION['newProductId'];
                                                                 $sqld = "SELECT * FROM tbl_item_descriptions WHERE product_id = ?";
                                                                 $statementd = $conn->prepare($sqld);
                                                                 $statementd->execute([$newProductId]);
@@ -346,7 +347,8 @@
                                                         
                                                                     
                                                         <?php 
-                                                            if(isset($newProductId)) {
+                                                            if(isset($_SESSION['newProductId'])) {
+                                                                $newProductId = $_SESSION['newProductId'];
                                                                 if($countd) { 
                                                         ?>
                                                         <!-- BUTTON -->
@@ -434,7 +436,8 @@
                                                     <form action="../controllers/process_add_new_product_variation.php" method="POST" id="form_product_variation">
                                                         <div class="container px-0 product_variation">
                                                                 <?php 
-                                                                    if(isset($newProductId)) {
+                                                                    if(isset($_SESSION['newProductId'])) {
+                                                                        $newProductId = $_SESSION['newProductId'];
                                                                     $sql = "SELECT * FROM tbl_variations WHERE product_id = ? ORDER BY id";
                                                                     $statement = $conn->prepare($sql);
                                                                     $statement->execute([$newProductId]);
@@ -568,7 +571,8 @@
                                                            
                                                         <!-- BUTTONS -->
                                                         <?php 
-                                                            if(isset($newProductId)) {
+                                                            if(isset($_SESSION['newProductId'])) {
+                                                                $newProductId = $_SESSION['newProductId'];
                                                                 if($count) { 
                                                         ?>
                                                             <div class="container px-0 mt-5">
@@ -638,7 +642,8 @@
                                                     <form action="../controllers/process_add_new_product_faq.php" method="POST" id="form_new_product_faq">
                                                         <div class="container px-0 product_faq">
                                                                 <?php 
-                                                                    if(isset($newProductId)) {
+                                                                    if(isset($_SESSION['newProductId'])) {
+                                                                        $newProductId = $_SESSION['newProductId'];
                                                                         $yes = 'yes';
                                                                         $sqlf = "SELECT * FROM tbl_questions_answers WHERE product_id = ? AND faq = ?";
                                                                         // echo $sql;die();
@@ -774,7 +779,8 @@
                                                            
                                                         <!-- BUTTONS -->
                                                         <?php 
-                                                            if(isset($newProductId)) {
+                                                            if(isset($_SESSION['newProductId'])) {
+                                                                $newProductId = $_SESSION['newProductId'];
                                                                 if($countf) { 
                                                         ?>
                                                             <div class="container px-0 mt-5">
@@ -854,6 +860,7 @@
                         <div class='flex-fill'>  
                             <div class='d-flex flex-row'>
                                 <?php if(isset($_SESSION['newProductId'])) {
+                                    $newProductId = $_SESSION['newProductId'];
                                     $default = "https://via.placeholder.com/250x250";
                                     $sql = "SELECT * FROM tbl_product_images WHERE product_id =? AND is_primary = 1";
                                     $statement = $conn->prepare($sql);
@@ -903,6 +910,7 @@
                       
                                 <?php 
                                     if(isset($_SESSION['newProductId'])) {
+                                        $newProductId = $_SESSION['newProductId'];
                                         $default = "https://via.placeholder.com/250x250";
                                         $sql = "SELECT * FROM tbl_product_images WHERE product_id =? AND is_primary = 1";
                                         $statement = $conn->prepare($sql);
@@ -938,6 +946,7 @@
                             <?php } } 
                                 $default = "https://via.placeholder.com/250x250";
                             if(isset($_SESSION['newProductId'])){
+                                $newProductId = $_SESSION['newProductId'];
                                     $sql = "SELECT * FROM tbl_product_images WHERE product_id=? AND is_primary=0";
                                     $statement = $conn->prepare($sql);
                                     $statement->execute([$newProductId]);                                
@@ -984,7 +993,9 @@
                         <div class='flex-fill d-flex flex-row'>  
                                 <div class="col flex-fill"></div>
                                 <div class="col-lg-6 col-md-12 col-sm-12 flex-fill">
-                                    <?php  if(isset($newProductId)) { ?>
+                                    <?php  if(isset($_SESSION['newProductId'])) { 
+                                    $newProductId = $_SESSION['newProductId'];
+                                    ?>
                                     <!-- open product.php?id=$newProductId in different page and end/unset session here -->
                                     <a class='btn btn-lg btn-purple border text-purple py-lg-3 px-lg-5' target="_blank" data-id='<?= $newProductId ?>' data-url='../controllers/process_unset_new_product.php' id='btn_unset_new_product'>
                                         <small>POST PRODUCT</small>
