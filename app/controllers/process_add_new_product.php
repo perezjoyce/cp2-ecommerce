@@ -79,7 +79,7 @@ $response = [];
             $statement6 = $conn->prepare($sql6);
             $statement6->execute([$name, $price, $subcategoryId, $brandId, $storeId]);
 
-            $var_dum($name);die();
+            var_dum($name);die();
             
             //FETCH LAST INSERTED ID
             $newProductId = $conn->lastInsertId();
