@@ -1,6 +1,6 @@
 <?php
 
-	require_once '../sources/pdo/src/PDO.class.php';
+	require_once '../../sources/pdo/src/PDO.class.php';
 
 	//set values
 	$host = "localhost";
@@ -18,4 +18,6 @@
 	//check connection
 	if(!$conn) {
 		die("Connection failed: " . mysqli_error($conn));
-	}
+    }
+    
+?>
