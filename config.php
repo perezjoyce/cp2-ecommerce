@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once('vendor/autoload.php');
+define('BASE_DIR', dirname(__FILE__)) . "/";
+require_once( BASE_DIR . 'vendor/autoload.php');
 define('BASE_URL', 'https://mamaroo.herokuapp.com');
 define('BASE_DIR', dirname(__FILE__)) . "/";
 // define ('DEFAULT_PROFILE' , 'https://png.pngtree.com/svg/20161021/user_avatar_35720.png');
