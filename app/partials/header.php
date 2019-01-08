@@ -245,8 +245,7 @@
                                                         ?>
                                                         
                                                         <a class="dropdown-item pb-5 text-center" href='#' id='header-empty-cart'>
-                                                            <img src="http://www.aimilayurveda.com/catalog/view/theme/aimil/assets/images/empty.png" alt="empty_cart" style='width:10em;'>
-                                                            <div><small> Your shopping cart is empty</small></div>
+                                                            <!-- <div><small> Your shopping cart is empty</small></div> -->
                                                         </a>
 
                                                         <?php } else { 
