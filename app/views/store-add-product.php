@@ -108,7 +108,7 @@
                                                             <label for='product_name' class='col-lg-3 col-md-3 col-sm-12'>Name</label>
                                                             <div class="input-group col-lg-9 col-md-9 col-sm-12">
                                                                 <input type="text" class='form-control' id='product_name'
-                                                                maxlength="40" value='<?= isset($name) ? $name : null ; ?>'>
+                                                                maxlength="40" value='<?= isset($name) ? $name : "" ; ?>'>
                                                             </div>
                                                         </div>
 
