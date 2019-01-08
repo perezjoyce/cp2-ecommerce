@@ -9,6 +9,7 @@ define ('DEFAULT_PRODUCT_IMG' , 'https://via.placeholder.com/350x25');
 date_default_timezone_set('Asia/Manila');
 
 require_once BASE_DIR . '/app/controllers/functions.php';
+require_once BASE_DIR . '/app/sources/pdo/src/PDO.class.php';
 
 //set values
 $host = "db4free.net";
