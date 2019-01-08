@@ -130,14 +130,7 @@
                                     </div>
                                     <div class="col">
                                         <div>
-                                            <?php 
-                                                if(isset($_SESSION['paymentMode'])){
-                                                    $paymentMode = $_SESSION['paymentMode'];
-                                                    echo $paymentMode;
-                                                }else {
-                                                    echo getModeOfPayment($conn, $paymentModeId);
-                                                }
-                                            ?>
+                                            <?= isset($_SESSION['paymentMode']) ? $_SESSION['paymentMode'] : getModeOfPayment($conn, $paymentModeId) ?>
                                         </div>
                                     </div>
                                 </div>

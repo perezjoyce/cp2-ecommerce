@@ -1,8 +1,6 @@
 <?php require_once "../../config.php";?>
 <?php require_once "../partials/header.php";?>
-<?php require_once "../controllers/connect.php";?>
-<?php require_once "../controllers/functions.php";?>
-
+<?php require_once "../partials/categories.php"; ?>
 <?php 
 
     if(!isset($_SESSION['id'])) {
@@ -594,6 +592,7 @@
                                                                     $completeOrderProductName = $row3['productName'];
                                                                     $completeOrderPrice = $row3['price'];
                                                                     $completeOrderLogo = $row3['img_path'];
+                                                                    $completeOrderLogo = BASE_URL. "/".$completeOrderLogo.".jpg";
                                                                     $completeOrderStoreId = $row3['store_id'];
 
                                                 ?>
