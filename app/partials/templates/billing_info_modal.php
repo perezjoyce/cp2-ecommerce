@@ -358,7 +358,7 @@
                             
                             
 
-                            <div class="container px-0 mb-5">
+                            <div class="container px-0 mb-5" id='billing_info_buttons'>
                                 <!-- CHECKOUT BUTTON -->
                                 <div class="row">
                                     <div class="col-4">
@@ -395,7 +395,7 @@
 
                         </form>
 
-                        <div class="container px-0 mb-5">
+                        <div class="container px-0 mb-5 hidden" id='stripe_buttons'>
                             <!-- CHECKOUT BUTTON -->
                             <div class="row">
                                 <div class="col-4">
@@ -408,7 +408,7 @@
                                     ?>
                                     
                                     <a class='btn btn-lg btn-block py-3 btn-purple back modal-link<?= $modalLinkClassPrefix?> mt-5'
-                                        data-url="../partials/templates/shipping_info_modal.php" role='button'>
+                                        data-url="../partials/templates/shipping_info_modal.php" role='button' id='btn_back_to_shipping'>
                                         <i class="fas fa-angle-double-left"></i>
                                         &nbsp;Edit Shipping Info
                                     </a>
@@ -427,7 +427,7 @@
                                             data-amount="<?= str_replace(".", "", number_format($totalAmount,2, "",".")) ?>"
                                             data-name="Mamaroo"
                                             data-description="Checkout Payment"
-                                            data-label="Credit Card Payment"
+                                            data-label="Pay With Card"
                                             data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
                                             data-locale="auto">
                                         </script>
