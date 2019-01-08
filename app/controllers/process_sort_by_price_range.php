@@ -8,17 +8,19 @@
 
     $minPrice = $_POST['minPrice'];
 	$maxPrice = $_POST['maxPrice'];
+	$data = "";
 	
-	$sql = "SELECT * FROM `tbl_items` WHERE price BETWEEN 1000 AND 3000 ORDER BY price";
+	$sql = "SELECT * FROM `tbl_items` WHERE price BETWEEN ? AND ? ORDER BY price";
 	$statement = $conn->prepare($sql);
-	$statement->execute();	
+	$statement->execute([$minPrice, $maxPrice]);	
 	$count = $statement->rowCount();
 
 	if($count){
 		while($row = $statement->fetch()){
 			$id = $row['id'];
+			$price = $row['price'];
 			$item_img = productprofile($conn, $id);
-			$item_img = BASE_URL . "/". $image. ".jpg";
+			$item_img = BASE_URL . "/". $item_img. ".jpg";
 			$name = $row['name'];
 	
 
