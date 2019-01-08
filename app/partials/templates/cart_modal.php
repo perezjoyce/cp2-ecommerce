@@ -1,9 +1,28 @@
 <?php 
 
-    require_once '../../../config.php';
+    // require_once '../../../config.php';
     require_once BASE_DIR . '/app/sources/pdo/src/PDO.class.php';
     require_once '../../controllers/functions.php';
     require_once '../../controllers/connect.php';
+
+    session_start();
+    require_once('vendor/autoload.php');
+    define('BASE_URL', 'https://mamaroo.herokuapp.com');
+    define('BASE_DIR', dirname(__FILE__)) . "/";
+    // define ('DEFAULT_PROFILE' , 'https://png.pngtree.com/svg/20161021/user_avatar_35720.png');
+    define ('DEFAULT_PROFILE' , BASE_URL."/app/assets/images/user_default_img.png" );
+    define ('DEFAULT_PRODUCT_IMG' , 'https://via.placeholder.com/350x25');
+    date_default_timezone_set('Asia/Manila');
+
+    //@todo: Should be on a separate config file that is ignored by git
+    $stripe = [
+    "secret_key"      => "sk_test_aDXjl0xtprhGg8R2qOX7sB2v",
+    "publishable_key" => "pk_test_9E7pw13w0KyKbxHiDhAYGT57",
+    ];
+
+    \Stripe\Stripe::setApiKey($stripe['secret_key']);
+
+    // ======
     
     $cartSession = $_SESSION['cart_session'];
     
