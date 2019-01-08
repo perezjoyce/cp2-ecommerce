@@ -87,8 +87,8 @@
   
 
   
-  <body>
-      
+  <body onload="myFunction()">
+    <div id="loader"></div>
 
     <!-- NAVIGATION  -->
     <div class="container">
@@ -345,21 +345,5 @@
 
             </div>
         </div>
-        
-
-        <div class="row">
-            <div class="col">
-                <div class="lds-roller">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-            </div>
-        </div>
-        
+    
     </div>

@@ -1,9 +1,13 @@
 $(document).ready( () => {
 
-	// $(window).load(function(){
-	// 	$('.lds-roller').fadeOut('slow',function(){$(this).remove();});
-	// });
+	function myFunction() {
+		myVar = setTimeout(showPage, 3000);
+	}
 
+	function showPage() {
+		document.getElementById("loader").style.display = "none";
+		document.getElementById("myDiv").style.display = "block";
+	}
 	// $('.lds-roller').fadeOut(3000);
 	// ================================ REGISTRATION  ================================ //
 	// =============================================================================== //
