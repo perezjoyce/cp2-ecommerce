@@ -370,11 +370,11 @@
                                             }
                                         ?>
                                         
-                                        <button class='btn btn-lg btn-block py-3 btn-purple back modal-link<?= $modalLinkClassPrefix?> mt-5'
-                                            data-url="../partials/templates/shipping_info_modal.php" type='button'>
+                                        <a class='btn btn-lg btn-block py-3 btn-purple back modal-link<?= $modalLinkClassPrefix?> mt-5'
+                                            data-url="../partials/templates/shipping_info_modal.php" role='button'>
                                             <i class="fas fa-angle-double-left"></i>
                                             &nbsp;Edit Shipping Info
-                                        </button>
+                                        </a>
 
                                     </div>
 
@@ -383,10 +383,10 @@
                                     </div>
 
                                     <div class="col-4">
-                                        <button class='btn btn-lg btn-block py-3 btn-purple mt-5 modal-link<?= $modalLinkClassPrefix?>' 
-                                            data-url='../partials/templates/confirmation_modal.php' id='btn_order_confirmation' type='button'>
+                                        <a class='btn btn-lg btn-block py-3 btn-purple mt-5 modal-link<?= $modalLinkClassPrefix?>' 
+                                            data-url='../partials/templates/confirmation_modal.php' id='btn_order_confirmation' role='button'>
                                             Confirm Order
-                                        </button>
+                                        </a>
 
                                     </div>
                                 </div>
@@ -395,19 +395,47 @@
 
                         </form>
 
-                        <form action="<?= BASE_URL ?>/app/controllers/process_charge.php" method="post" id="stripe_pay_button" class='hidden'>
-                            <?php $totalAmount = $_SESSION['total_amount'] ?>
-                            <script
-                                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                data-key="<?= $stripe['publishable_key'] ?>"
-                                data-amount="<?= str_replace(".", "", number_format($totalAmount,2, "",".")) ?>"
-                                data-name="Mamaroo"
-                                data-description="Checkout Payment"
-                                data-label="Credit Card Payment"
-                                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-                                data-locale="auto">
-                            </script>
-                        </form>
+                        <div class="container px-0 mb-5">
+                            <!-- CHECKOUT BUTTON -->
+                            <div class="row">
+                                <div class="col-4">
+
+                                    <?php 
+                                        $modalLinkClassPrefix = ''; 
+                                        if(isset($_SESSION['id'])) {
+                                            $modalLinkClassPrefix='-big';
+                                        }
+                                    ?>
+                                    
+                                    <a class='btn btn-lg btn-block py-3 btn-purple back modal-link<?= $modalLinkClassPrefix?> mt-5'
+                                        data-url="../partials/templates/shipping_info_modal.php" role='button'>
+                                        <i class="fas fa-angle-double-left"></i>
+                                        &nbsp;Edit Shipping Info
+                                    </a>
+
+                                </div>
+
+                                <div class="col-4"></div>
+
+                                <div class="col-4">
+                                    
+                                    <form action="<?= BASE_URL ?>/app/controllers/process_charge.php" method="post" id="stripe_pay_button" class='hidden'>
+                                        <?php $totalAmount = $_SESSION['total_amount'] ?>
+                                        <script
+                                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                            data-key="<?= $stripe['publishable_key'] ?>"
+                                            data-amount="<?= str_replace(".", "", number_format($totalAmount,2, "",".")) ?>"
+                                            data-name="Mamaroo"
+                                            data-description="Checkout Payment"
+                                            data-label="Credit Card Payment"
+                                            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                            data-locale="auto">
+                                        </script>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
 
 
 
