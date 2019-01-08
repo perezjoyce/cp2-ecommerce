@@ -386,8 +386,8 @@
                 
                 <div class="row">
                     <div class='col-12 mb-5 text-center'>
-                        <img src="http://www.aimilayurveda.com/catalog/view/theme/aimil/assets//images/empty.png" alt="empty_cart">
-                        <div> Your shopping cart is empty</div>
+                        <div id='header-empty-cart'></div>
+                        <div><small> Your shopping cart is empty</small></div>
                     </div>
                 </div>
 
@@ -404,5 +404,4 @@
 <!-- /CONTAINER-FLUID -->
 
 
-<?php require_once "../modal_container_big.php"; ?>
 
