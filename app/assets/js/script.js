@@ -3089,7 +3089,7 @@ $(document).ready( () => {
 	})
 
 	$(document).on('click', '#cartModal',function(){
-		let url = $(this).data('href');
+		let url = $(this).data('url');
 	
 		$.get(url,function(response){
 			$("#modalContainerBig .modal-content").html(response);
