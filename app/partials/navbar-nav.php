@@ -24,7 +24,7 @@
 
                             <!-- CART -->
                             <li class="nav-item mr-5">
-                                <a class='nav-link modal-link-big text-light' 
+                                <a class='nav-link modal-link text-light' 
                                     href='#' 
                                     data-id='<?= $_GET['id'] ?>' 
                                     data-url='../partials/templates/cart_modal.php' 
