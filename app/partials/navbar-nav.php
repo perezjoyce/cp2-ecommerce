@@ -1,7 +1,7 @@
 
 <?php
-    session_start(); 
-    require_once "../controllers/connect.php";
+    // session_start(); 
+    // require_once "../controllers/connect.php";
     
     $cartSession = $_SESSION['cart_session'];
     $sql = " SELECT * FROM tbl_carts WHERE cart_session=?";
