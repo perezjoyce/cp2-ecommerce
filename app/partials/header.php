@@ -87,8 +87,8 @@
   
 
   
-  <body onload="myFunction()">
-    <div id="loader"></div>
+  <body>
+    <!-- <div id="loader"></div> -->
 
     <!-- NAVIGATION  -->
     <div class="container">
@@ -344,3 +344,5 @@
         </div>
     
     </div>
+
+    
