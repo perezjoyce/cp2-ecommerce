@@ -2072,7 +2072,7 @@ $(document).ready( () => {
 			// $('#btn_order_confirmation').hide();
 			$('#billing_info_buttons').hide();
 			// $('#stripe_pay_button').show();
-			$('#btn btn-lg btn-block py-3 btn-purple').show();
+			$('#stripe_buttons').css('display','block');
 		}
 	});
 

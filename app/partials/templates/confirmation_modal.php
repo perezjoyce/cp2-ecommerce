@@ -133,13 +133,9 @@
                                             <?php 
                                                 if(isset($_SESSION['paymentMode'])){
                                                     $paymentMode = $_SESSION['paymentMode'];
-                                                    if($paymentMode ==  'COD') {
-                                                        echo "Cash On Delivery (COD)";
-                                                    }else {
-                                                        echo $paymentMode;
-                                                    }
+                                                    echo $paymentMode;
                                                 }else {
-                                                    getModeOfPayment($conn, $paymentModeId);
+                                                    echo getModeOfPayment($conn, $paymentModeId);
                                                 }
                                             ?>
                                         </div>

@@ -1,9 +1,5 @@
 <?php
-
-require_once '../../../config.php';
-require_once '../../sources/pdo/src/PDO.class.php';
-require_once '../../controllers/functions.php';
-require_once '../../controllers/connect.php';
+    require_once '../../../config.php';
 
     function getPreselectedAddress($addressId, $conn) {
         $statement = $conn->prepare("SELECT * FROM tbl_addresses WHERE id=?");

@@ -395,7 +395,7 @@
 
                         </form>
 
-                        <div class="container px-0 mb-5 hidden" id='stripe_buttons'>
+                        <div class="container px-0 mb-5" id='stripe_buttons' style='display:none;'>
                             <!-- CHECKOUT BUTTON -->
                             <div class="row">
                                 <div class="col-4">

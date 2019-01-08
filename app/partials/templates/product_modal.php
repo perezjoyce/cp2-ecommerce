@@ -1,16 +1,12 @@
-
 <?php 
 require_once '../../../config.php';
-require_once '../../sources/pdo/src/PDO.class.php';
-require_once '../../controllers/functions.php';
-require_once '../../controllers/connect.php';
 
 	//check connection
 	if(!$conn) {
 		die("Connection failed: " . mysqli_error($conn));
-    }
+  }
     
-    require_once "../../controllers/functions.php";
+
 
   // UPDATE LAST ACTIVITY    
   if(isset($_SESSION['id'])){
