@@ -1,6 +1,6 @@
 <?php 
     // require_once '../sources/pdo/src/PDO.class.php';
-    require_once '../../config.php';
+    // require_once "../../config.php";
 
     //HIDE EMAIL
     function hide_email($email){
