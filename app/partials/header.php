@@ -1,7 +1,7 @@
 <?php 
   
   require_once "../../config.php";
-  require_once "../controllers/connect.php";
+  // require_once "../controllers/connect.php";
   require_once "../controllers/functions.php";
 
     // UPDATE LAST ACTIVITY    

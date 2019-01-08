@@ -1,6 +1,6 @@
 <?php require_once "../../config.php";?>
-<?php require_once "../partials/header.php";?>
-<?php require_once "../controllers/connect.php";?>
+<?php require_once BASE_DIR . "/app/partials/header.php";?>
+<?php // require_once "../controllers/connect.php"; ?>
 
     <!-- ========== PAGE CONTENT =========== -->
 
@@ -367,6 +367,6 @@
     </div>
   
 
-<?php require_once "../partials/footer.php";?>
-<?php require_once "../partials/modal_container.php"; ?>
-<?php require_once "../partials/modal_container_big.php"; ?>
+<?php require_once BASE_DIR . "/app/partials/footer.php";?>
+<?php require_once BASE_DIR . "/app/partials/modal_container.php"; ?>
+<?php require_once BASE_DIR . "/app/partials/modal_container_big.php"; ?>

@@ -8,6 +8,17 @@ define ('DEFAULT_PROFILE' , BASE_URL."/app/assets/images/user_default_img.png" )
 define ('DEFAULT_PRODUCT_IMG' , 'https://via.placeholder.com/350x25');
 date_default_timezone_set('Asia/Manila');
 
+require_once BASE_DIR . '/app/controllers/functions.php';
+
+//set values
+$host = "db4free.net";
+$db_username = "japerez";
+$db_password = "16b786e8";
+$db_name = "db_demostorenew";
+
+$conn = new PDO("mysql:host=$host;dbname=$db_name",$db_username,$db_password);
+$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
 // $host = "localhost";
 // $db_username = "root";
 // $db_password = "";
