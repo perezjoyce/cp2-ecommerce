@@ -3088,6 +3088,14 @@ $(document).ready( () => {
 
 	})
 
+	$(document).on('click', '#cartModal',function(){
+		let url = $(this).data('href');
+	
+		$.get(url,function(response){
+			$("#modalContainerBig .modal-content").html(response);
+			$("#modalContainerBig").modal('show');
+		});
+	})
 	
 
 });
