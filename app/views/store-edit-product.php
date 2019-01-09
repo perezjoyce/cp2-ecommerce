@@ -335,7 +335,7 @@
                                                             <div class="row">
                                                                 <div class="col-lg-4"></div>
                                                                 <div class="col-lg-4 col-md-6">
-                                                                    <a class='btn btn-block py-3 border pb-sm-5' id="btn_add_product_detail" role='button' data-id='<?= isset($productId) ? $productId : null ; ?>'>
+                                                                    <a class='btn btn-block py-3 border mb-sm-5' id="btn_add_product_detail" role='button' data-id='<?= isset($productId) ? $productId : null ; ?>'>
                                                                         <small>ADD</small>    
                                                                     </a>
                                                                 </div>
@@ -470,7 +470,7 @@
                                                                 <div class="row">
                                                                     <div class="col-lg-4"></div>
                                                                     <div class="col-lg-4 col-md-6">
-                                                                        <a class='btn btn-block py-3 border pb-sm-5' id="btn_add_product_variation" role='button' data-id='<?= isset($productId) ? $productId : null ; ?>'>
+                                                                        <a class='btn btn-block py-3 border mb-sm-5' id="btn_add_product_variation" role='button' data-id='<?= isset($productId) ? $productId : null ; ?>'>
                                                                             <small>ADD</small>    
                                                                         </a>
                                                                     </div>
@@ -488,7 +488,7 @@
                                                                 <div class="row">
                                                                     <div class="col-lg-4"></div>
                                                                     <div class="col-lg-4 col-md-6">
-                                                                        <a class='btn btn-block py-3 border pb-sm-5' id="btn_add_product_variation" role='button' data-id='<?= isset($productId) ? $productId : null ; ?>'>
+                                                                        <a class='btn btn-block py-3 border mb-sm-5' id="btn_add_product_variation" role='button' data-id='<?= isset($productId) ? $productId : null ; ?>'>
                                                                             <small>ADD</small>    
                                                                         </a>
                                                                     </div>
@@ -612,7 +612,7 @@
                                                                 <div class="row">
                                                                     <div class="col-lg-4"></div>
                                                                     <div class="col-lg-4 col-md-6">
-                                                                        <a class='btn btn-block py-3 border pb-sm-5 btn_add_product_faq' role='button' data-id='<?= isset($productId) ? $productId : null ; ?>'>
+                                                                        <a class='btn btn-block py-3 border mb-sm-5 btn_add_product_faq' role='button' data-id='<?= isset($productId) ? $productId : null ; ?>'>
                                                                             <small>ADD</small>    
                                                                         </a>
                                                                     </div>
@@ -630,7 +630,7 @@
                                                                 <div class="row">
                                                                     <div class="col-lg-4"></div>
                                                                     <div class="col-lg-4 col-md-6">
-                                                                        <a class='btn btn-block py-3 border pb-sm-5 btn_add_product_faq' role='button' data-id='<?= isset($productId) ? $productId : null ; ?>'>
+                                                                        <a class='btn btn-block py-3 border mb-sm-5 btn_add_product_faq' role='button' data-id='<?= isset($productId) ? $productId : null ; ?>'>
                                                                             <small>ADD</small>    
                                                                         </a>
                                                                     </div>
@@ -671,7 +671,7 @@
                 <div class='container p-5 rounded mb-5' style='background:white;'>
                     <div class="row mx-0 d-flex align-items-center">
 
-                        <div class='flex-fill pb-sm-5'>
+                        <div class='flex-fill mb-sm-5'>
                             <h4>Product Images</h4>
 
                             <div class="text-gray">
@@ -762,7 +762,7 @@
                         </div>
                             <?php } else { ?>
                     
-                        <div class="col-lg-3 col-md-4 col-sm-12 p-lg-2">
+                        <div class="col-lg-3 col-md-4 col-sm-6 p-lg-2">
                             <div class='card border-0' style='background:none;width:250px;height:250px;'>  
                                 <img class='card-img-top' src='<?= $default ?>' style='width:250px;height:250px;background-color:transparent;'>
                             </div>
@@ -810,7 +810,7 @@
                 <div class='container p-5 rounded' style='background:white;'>
                     <div class="row mx-0 d-flex align-items-center flex-lg-row flex-md-row flex-sm-column">
 
-                        <div class='flex-fill pb-sm-5'>
+                        <div class='flex-fill mb-sm-5'>
                             <h4>6. Post Your Product</h4>
                         </div>
 
