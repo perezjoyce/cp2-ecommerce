@@ -190,7 +190,7 @@
                     </div>
                     <div class="col px-0">
                         <div class="collapse navbar-collapse" id="navbarNav">
-                            <ul class="navbar-nav ml-auto">
+                            <ul class="navbar-nav ml-lg-auto ml-md-auto text-center">
                                 <li class="nav-item pl-lg-5 pl-md-4">
                                     <a class="nav-link" href="store-profile.php?id=<?=$storeId?>"> 
                                         <div class='<?= isCurrentPage('profile') ? "underline" : "" ?>' >SHOP PROFILE</div>

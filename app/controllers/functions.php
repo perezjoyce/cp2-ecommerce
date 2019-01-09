@@ -165,7 +165,7 @@
         $row = $statement->fetch();
         $username = $row['username'];
 
-        return strtoupper($username);
+        return $username;
     }
 
     // GET FIRST NAME

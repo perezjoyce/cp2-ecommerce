@@ -56,7 +56,7 @@
                     <div class="row">
 
                         <!-- FIRST ROW -->
-                        <div class="col-lg-6 col-md-6">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
 
                             
                             <!-- PRODUCT BASIC INFO -->
@@ -316,7 +316,7 @@
                                                                 <div class="col-lg-4"></div>
                                                                 <div class="col-lg-4 col-md-6">
 
-                                                                    <a class='btn btn-block py-3 border' id="btn_add_product_detail" role='button' data-id='<?= isset($productId) ? $productId : null ; ?>'>
+                                                                    <a class='btn btn-block py-3 border pb-sm-5' id="btn_add_product_detail" role='button' data-id='<?= isset($productId) ? $productId : null ; ?>'>
                                                                         <small>ADD</small>    
                                                                     </a>
 
@@ -335,7 +335,7 @@
                                                             <div class="row">
                                                                 <div class="col-lg-4"></div>
                                                                 <div class="col-lg-4 col-md-6">
-                                                                    <a class='btn btn-block py-3 border' id="btn_add_product_detail" role='button' data-id='<?= isset($productId) ? $productId : null ; ?>'>
+                                                                    <a class='btn btn-block py-3 border pb-sm-5' id="btn_add_product_detail" role='button' data-id='<?= isset($productId) ? $productId : null ; ?>'>
                                                                         <small>ADD</small>    
                                                                     </a>
                                                                 </div>
@@ -365,7 +365,7 @@
                     
                     
                         <!-- SECOND ROW -->
-                        <div class="col-lg-6 col-md-6">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
 
                             <!-- VARIATIONS -->
                             <div class="container p-5 rounded mb-5" style='background:white;'>
@@ -470,7 +470,7 @@
                                                                 <div class="row">
                                                                     <div class="col-lg-4"></div>
                                                                     <div class="col-lg-4 col-md-6">
-                                                                        <a class='btn btn-block py-3 border' id="btn_add_product_variation" role='button' data-id='<?= isset($productId) ? $productId : null ; ?>'>
+                                                                        <a class='btn btn-block py-3 border pb-sm-5' id="btn_add_product_variation" role='button' data-id='<?= isset($productId) ? $productId : null ; ?>'>
                                                                             <small>ADD</small>    
                                                                         </a>
                                                                     </div>
@@ -488,7 +488,7 @@
                                                                 <div class="row">
                                                                     <div class="col-lg-4"></div>
                                                                     <div class="col-lg-4 col-md-6">
-                                                                        <a class='btn btn-block py-3 border' id="btn_add_product_variation" role='button' data-id='<?= isset($productId) ? $productId : null ; ?>'>
+                                                                        <a class='btn btn-block py-3 border pb-sm-5' id="btn_add_product_variation" role='button' data-id='<?= isset($productId) ? $productId : null ; ?>'>
                                                                             <small>ADD</small>    
                                                                         </a>
                                                                     </div>
@@ -612,7 +612,7 @@
                                                                 <div class="row">
                                                                     <div class="col-lg-4"></div>
                                                                     <div class="col-lg-4 col-md-6">
-                                                                        <a class='btn btn-block py-3 border btn_add_product_faq' role='button' data-id='<?= isset($productId) ? $productId : null ; ?>'>
+                                                                        <a class='btn btn-block py-3 border pb-sm-5 btn_add_product_faq' role='button' data-id='<?= isset($productId) ? $productId : null ; ?>'>
                                                                             <small>ADD</small>    
                                                                         </a>
                                                                     </div>
@@ -630,7 +630,7 @@
                                                                 <div class="row">
                                                                     <div class="col-lg-4"></div>
                                                                     <div class="col-lg-4 col-md-6">
-                                                                        <a class='btn btn-block py-3 border btn_add_product_faq' role='button' data-id='<?= isset($productId) ? $productId : null ; ?>'>
+                                                                        <a class='btn btn-block py-3 border pb-sm-5 btn_add_product_faq' role='button' data-id='<?= isset($productId) ? $productId : null ; ?>'>
                                                                             <small>ADD</small>    
                                                                         </a>
                                                                     </div>
@@ -671,7 +671,7 @@
                 <div class='container p-5 rounded mb-5' style='background:white;'>
                     <div class="row mx-0 d-flex align-items-center">
 
-                        <div class='flex-fill'>
+                        <div class='flex-fill pb-sm-5'>
                             <h4>Product Images</h4>
 
                             <div class="text-gray">
@@ -695,7 +695,7 @@
                                     if(!$count){
                                     
                                  ?>
-                                <a class='btn py-3 btn-purple-reverse modal-link' data-id='<?= $storeId ?>' data-url='../partials/templates/upload_product_pic_modal.php?id=<?=$storeId?>&productid=<?=$productId?>' role='button'>
+                                <a class='btn py-3 btn-purple-reverse modal-link btn-sm-block' data-id='<?= $storeId ?>' data-url='../partials/templates/upload_product_pic_modal.php?id=<?=$storeId?>&productid=<?=$productId?>' role='button'>
                                     <i class="fas fa-camera pr-2"></i>
                                     <small class='pr-2'>ADD PRIMARY IMAGE</small>
                                     <i class="far fa-question-circle text-gray" data-toggle="tooltip" title="This will be your product's profile picture." data-original-title="#"></i>
@@ -703,7 +703,7 @@
 
                                 <?php } else { ?>
 
-                                 <a class='btn py-3 btn-purple-reverse modal-link' data-id='<?= $storeId ?>' data-url='../partials/templates/upload_product_pic_modal.php?id=<?=$storeId?>&productid=<?=$productId?>' role='button'>
+                                 <a class='btn py-3 btn-purple-reverse modal-link btn-sm-block' data-id='<?= $storeId ?>' data-url='../partials/templates/upload_product_pic_modal.php?id=<?=$storeId?>&productid=<?=$productId?>' role='button'>
                                     <i class="fas fa-camera pr-2"></i>
                                     <small class='pr-2'>EDIT PRIMARY IMAGE</small>
                                     <i class="far fa-question-circle text-gray" data-toggle="tooltip" title="This will be your product's profile picture." data-original-title="#"></i>
@@ -718,7 +718,7 @@
                             <div class='d-flex flex-row'>
                                 <!-- STILL NEEDS TO PASS VALUE THROUGH GET TO upload_product_pic_modal.php -->
                                     <!-- TO EDIT, ON CLICK PASS VALUE TO HIDDEN URL THEN WHEN USER CLICKS EDIT, YOU KNOW ALREADY WHAT IMG ID TO EDIT -->
-                                <a class='btn py-3 btn-purple-reverse modal-link' data-id='<?= $storeId ?>' data-url='../partials/templates/upload_other_product_pics_modal.php?id=<?=$storeId?>&productid=<?=$productId?>' role='button'>
+                                <a class='btn py-3 btn-gray text-secondary modal-link btn-sm-block' data-id='<?= $storeId ?>' data-url='../partials/templates/upload_other_product_pics_modal.php?id=<?=$storeId?>&productid=<?=$productId?>' role='button'>
                                     <i class="fas fa-camera pr-2"></i>
                                     <small class='pr-2'>ADD ANOTHER IMAGE</small>
                                 </a>
@@ -750,19 +750,19 @@
                                 ?>
                                     
 
-                        <div class="col-lg-3 col-md-4 col-sm-6 p-2"> 
-                            <div class='card border-0' style='background:none;width:250px;height:300px;'>   
+                        <div class="col-lg-3 col-md-4 col-sm-12 p-lg-2"> 
+                            <div class='card border-0' style='background:none;height:300px;'>   
                                 <button class="btn_delete_other_pic text-gray font-weight-light text-left border-0 pl-2"
                                     type='button'
                                     data-id='<?= $id ?>'
-                                    style="background:transparent;cursor:pointer;z-index:5;width:300px;">&times;
+                                    style="background:transparent;cursor:pointer;z-index:5;">&times;
                                 </button>      
-                                <img class='card-img-top' src='<?= $img_path ?>' style='width:250px;height:300px;background-color:transparent;'>
+                                <img class='card-img-top' src='<?= $img_path ?>' style='height:300px;background-color:transparent;'>
                             </div>
                         </div>
                             <?php } else { ?>
                     
-                        <div class="col-lg-3 col-md-4 col-sm-6 p-2">
+                        <div class="col-lg-3 col-md-4 col-sm-12 p-lg-2">
                             <div class='card border-0' style='background:none;width:250px;height:250px;'>  
                                 <img class='card-img-top' src='<?= $default ?>' style='width:250px;height:250px;background-color:transparent;'>
                             </div>
@@ -785,13 +785,13 @@
                             ?>
 
                         <div class="col-lg-3 col-md-4 col-sm-6 p-2">
-                            <div class='card border-0' style='background:none;width:250px;height:300px;'>
+                            <div class='card border-0' style='background:none;height:300px;'>
                                 <button class="btn_delete_other_pic text-gray font-weight-light text-left border-0 pl-2"
                                     type='button'
                                     data-id='<?= $id ?>'
-                                    style="background:transparent;cursor:pointer;z-index:5;width:300px;">&times;
+                                    style="background:transparent;cursor:pointer;z-index:5;">&times;
                                 </button> 
-                                <img class='card-img-top' src='<?=$img_path?>' style='width:250px;height:300px;background-color:transparent;'>
+                                <img class='card-img-top' src='<?=$img_path?>' style='height:300px;background-color:transparent;'>
                             </div>
                         </div>        
                                     
@@ -806,24 +806,21 @@
                     </div>
                 </div>
 
-                 <!-- HEADING -->
-                 <div class='container p-5 rounded' style='background:white;'>
-                    <div class="row mx-0 d-flex align-items-center">
+                <!-- HEADING -->
+                <div class='container p-5 rounded' style='background:white;'>
+                    <div class="row mx-0 d-flex align-items-center flex-lg-row flex-md-row flex-sm-column">
 
-                        <div class='flex-fill'>
+                        <div class='flex-fill pb-sm-5'>
                             <h4>6. Post Your Product</h4>
                         </div>
 
-                        <div class='flex-fill d-flex flex-row'>  
-                                <div class="col-6 flex-fill"></div>
-                                <div class="col-6 flex-fill">
-                                    <?php  if(isset($productId)) { ?>
-                                    <!-- open product.php?id=$newProductId in different page and end/unset session here -->
-                                    <a class="btn btn-lg btn-purple btn_store_products_view" data-href='<?= BASE_URL ."/app/partials/templates/product_modal.php?id=". $productId?>'>
-                                        <small>VIEW PRODUCT</small>
-                                    </a>
-                                    <?php } ?>
-                                </div>
+                        <div class='flex'>   
+                            <?php  if(isset($productId)) { ?>
+                            <!-- open product.php?id=$newProductId in different page and end/unset session here -->
+                            <a class="btn btn-lg btn-block btn-purple btn_store_products_view" data-href='<?= BASE_URL ."/app/partials/templates/product_modal.php?id=". $productId?>'>
+                                <small>VIEW PRODUCT</small>
+                            </a>
+                            <?php } ?>
                         </div>
 
 					</div>

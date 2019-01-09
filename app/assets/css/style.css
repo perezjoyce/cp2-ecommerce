@@ -1702,6 +1702,14 @@ input:focus{
         margin-top: 3em;
     }
 
+    .pb-sm-5{
+        padding-bottom:3em;
+    }
+
+    .btn-sm-block {
+        display: block;
+    }
+
     .pl-sm-4 {
         padding-left:2em;
     }
