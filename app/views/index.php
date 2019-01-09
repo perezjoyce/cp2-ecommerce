@@ -111,7 +111,7 @@
             </h5>
         </div>
         <div class="col-6 text-right pt-2">
-          <a href="catalog.php?id=<?=$_GET['id'] = 1 ?>">
+          <a href="catalog.php?id=<?=$_GET['id'] = 41 ?>">
             View All&nbsp;<i class="fas fa-angle-double-right"></i></i>
           </a>
         </div>
@@ -165,7 +165,7 @@
             </h5>
         </div>
         <div class="col text-right pt-2">
-          <a href="catalog.php?id=<?=$_GET['id'] = 1 ?>">
+          <a href="catalog.php?id=<?=$_GET['id'] = 41 ?>">
             View All&nbsp;<i class="fas fa-angle-double-right"></i></i>
           </a>
         </div>
