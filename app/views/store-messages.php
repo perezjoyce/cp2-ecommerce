@@ -1,7 +1,4 @@
 <?php require_once "../../config.php";?>
-<?php require_once "../controllers/connect.php";?>
-<?php require_once "../controllers/functions.php";?>
-<?php require_once "../partials/store_header.php";?>
 
 <?php 
     $id = $_GET['id'];
@@ -40,6 +37,8 @@
     $lname = getLastName ($conn,$id);
     
 ?>
+<?php require_once BASE_DIR . "/app/partials/store_header.php";?>
+
     <!-- PAGE CONTENT -->
     <br>
     <div class="container p-0 my-lg-5 mt-md-5">

@@ -655,7 +655,7 @@ div#login_image {
 }
 
 .my-message {
-    background-color: #12c2e9;
+    background-color: antiquewhite;
     border-radius: 10px!important;
     min-height: 40px;
     border-collapse: separate;
@@ -1123,7 +1123,7 @@ a.hover_btn:active {
 
 .border-bottom,
 .underline {
-    border-bottom: 2px solid;
+    border-bottom: 1px solid;
 }
 
 /* .underline {

@@ -188,14 +188,14 @@
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item pl-lg-5 pl-md-4">
-                                    <a class="nav-link font-weight-bold" href="store-profile.php?id=<?=$storeId?>"> 
+                                    <a class="nav-link" href="store-profile.php?id=<?=$storeId?>"> 
                                         <div class='<?= isCurrentPage('profile') ? "underline" : "" ?>' >SHOP PROFILE</div>
                                     </a>
                                 </li>
 
                                 <div class='d-flex flex-row'>
                                     <li class="nav-item dropdown pl-lg-5 pl-md-4 d-flex flex-row">
-                                        <a class="nav-link font-weight-bold" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" > 
+                                        <a class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" > 
                                             <div class="d-flex flex-row">
                                                 <div class='<?= isCurrentPage('product') ? "underline" : "" ?> dropdown-toggle'>
                                                     PRODUCTS
@@ -217,7 +217,7 @@
 
                                 <div class='d-flex flex-row'>
                                     <li class="nav-item dropdown pl-lg-5 pl-md-4 d-flex flex-row">
-                                        <a class="nav-link font-weight-bold" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                                        <a class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
                                             <div class="d-flex flex-row">
                                                 
                                                 <div class='<?= isCurrentPage('order') ? "underline" : "" ?> dropdown-toggle'>
@@ -241,17 +241,17 @@
                                             </a>
                                         </div>
                                     </li>
-                                    <li><span class='badge text-light my-0'>0</span></li>
+                                    <!-- <li><span class='badge text-light my-0'>0</span></li> -->
                                 </div>
                                 
 
                                 <div class='d-flex flex-row'>
                                     <li class="nav-item pl-lg-5 pl-md-4 d-flex flex-row">
-                                        <a class="nav-link font-weight-bold" href="store-messages.php?id=<?=$storeId?>"> 
+                                        <a class="nav-link" href="store-messages.php?id=<?=$storeId?>"> 
                                             <div class='<?= isCurrentPage('messages') ? "underline" : "" ?>'>MESSAGES</div>
                                         </a>
                                     </li>
-                                    <li><span class='badge text-light my-0 message-badge<?$storeId?>'>0</span></li></li>
+                                    <!-- <li><span class='badge text-light my-0 message-badge$storeId'>0</span></li></li> -->
                                 </div>
 
                             </ul>

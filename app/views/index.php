@@ -159,12 +159,12 @@
     <!-- TRENDING PRODUCTS -->
     <div class="container mb-5">
       <div class="row">
-        <div class="col-6">
+        <div class="col-8">
             <h5>
               TRENDING PRODUCTS
             </h5>
         </div>
-        <div class="col-6 text-right pt-2">
+        <div class="col text-right pt-2">
           <a href="catalog.php?id=<?=$_GET['id'] = 1 ?>">
             View All&nbsp;<i class="fas fa-angle-double-right"></i></i>
           </a>
