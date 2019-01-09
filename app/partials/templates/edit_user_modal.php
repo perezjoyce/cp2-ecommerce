@@ -12,7 +12,7 @@
     $lname = $row['last_name'];
     $email = $row['email'];
     $username = $row['username'];
-    $password = sha1($row['password']);
+    // $password = sha1($row['password']);
 
 ?>
 
