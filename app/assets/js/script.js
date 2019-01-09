@@ -1049,16 +1049,19 @@ $(document).ready( () => {
 	$('#cartDropdown').mouseover(()=>{
 		$('#cartDropdown_menu').show();
 		$('#profileDropdown_menu').hide();
+		$('#livesearch').hide();
 	});
 
 	$('#profileDropdown').mouseover(()=>{
 		$('#profileDropdown_menu').show();
 		$('#cartDropdown_menu').hide();
+		$('#livesearch').hide();
 	});
 
 	$('#profileDropdown').click(()=>{
-		$('.dropdown-menu').toggle();
+		$('#profileDropdown_menu').show();
 		$('#cartDropdown_menu').hide();
+		$('#livesearch').hide();
 	});
 
 	$('#profileDropdown_menu').mouseover(()=>{
@@ -1107,9 +1110,9 @@ $(document).ready( () => {
 			let str = $(this).val();
 
 			if (str.length==0) { 
-			document.getElementById("livesearch").innerHTML="";
-			//   document.getElementById("livesearch").style.border="0px";
-			return;
+				document.getElementById("livesearch").innerHTML="";
+				//   document.getElementById("livesearch").style.border="0px";
+				return;
 			}
 
 			if (window.XMLHttpRequest) {
@@ -1120,9 +1123,9 @@ $(document).ready( () => {
 			}
 
 			xmlhttp.onreadystatechange=function() {
-			if (this.readyState==4 && this.status==200) {
-				document.getElementById("livesearch").innerHTML=xmlhttp.responseText;
-			}
+				if (this.readyState==4 && this.status==200) {
+					document.getElementById("livesearch").innerHTML=xmlhttp.responseText;
+				}
 			}
 
 			xmlhttp.open("GET","../controllers/process_search.php?searchKey="+str,true);

@@ -24,7 +24,6 @@ if ($_FILES['upload']['size'] > 1000000) {
 
 else {
 
-
     $imgPath = $target_dir . $filename . ".jpg";
     if (move_uploaded_file($_FILES['upload']['tmp_name'], $imgPath)) {
         $sql = "INSERT INTO tbl_rating_images (url, rating_id) VALUES (?, ?) ";
