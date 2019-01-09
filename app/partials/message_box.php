@@ -5,7 +5,7 @@
 <div id='message_box'>
     <div class='message_box__relative'>
         <div class="conversations rounded" style='display:none;'>
-            <div class='message_items rounded-left'>
+            <div class='message_items rounded-left p-2'>
                 <div class='message_items__message rounded-left'>                    
                 </div>
             </div>

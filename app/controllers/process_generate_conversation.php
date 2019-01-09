@@ -60,8 +60,8 @@ $sellerId = $_GET['sellerId'];
         $messageItemSelected = "<div class='message_items__message'>
                     <img src='".$logo."' height='60' width='60' class='circle'>
                     <div class='m_partial_container'>
-                        <em>".$lastMessengerName."</em>
-                        <div class='message_partial'>".substr($lastMessage, 0, 20)."...</div>
+                        <div class='font-weight-bold pl-1'>".$lastMessengerName."</div>
+                        <div class='message_partial pl-1'><small>Please identify the product you are inquiring of.</small></div>
                     </div>
                 </div>";
 
