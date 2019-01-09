@@ -1,6 +1,7 @@
 <?php
 require_once '../../config.php';
-require_once "../sources/class.upload.php";
+require "../sources/class.upload.php";
+
 
 $id = $_SESSION['id']; //userId
 $storeId = $_POST['id'];
