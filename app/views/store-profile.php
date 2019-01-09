@@ -123,8 +123,7 @@
                                             <div class="text-gray" id='btn_follow_container'>
                                                 
                                                 <?php 
-                                                    $id = $_GET['id'];
-                                                    if($id){
+                                                    if(isset($_SESSION['id'])){
                                                         $sql = "SELECT * FROM tbl_followers WHERE user_id =? AND store_id =?";
                                                         $statement = $conn->prepare($sql);
                                                         $statement->execute([$currentUser['id'], $storeId]);
