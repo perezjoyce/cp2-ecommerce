@@ -589,10 +589,10 @@ div#login_ad {
 /* BACKGROUND IMAGES TO DELETE ONCE FUNCTIONALITY IS AVAILABLE */
 div#login_image {
     /* background-image: url("../../assets/images/sample.jpg")!important; */
-    background: url(../../assets/images/ad-2.jpg);
+    background: url(../../assets/images/ad-3.jpg);
 	background-repeat: no-repeat;
     background-size: cover;
-	height: 81vh;
+	height: auto;
 	position: relative;
 	background-position-y: center;
 	background-position-x: right;
@@ -600,10 +600,10 @@ div#login_image {
 
 
 div#cart-image {
-    background: url(../../assets/images/ad-4.jpg);
+    background: url(../../assets/images/ad-2.jpg);
 	background-repeat: no-repeat;
     background-size: cover;
-	height: 81vh;
+	height: auto;
 	position: relative;
 	background-position-y: center;
 	background-position-x: right;
