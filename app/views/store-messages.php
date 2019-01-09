@@ -18,22 +18,22 @@
         } else {
             echo '<script>history.go(-1);</script>';
         }
-    }  
+      
+        $storeId = $storeInfo['id'];
+        $storeName = $storeInfo['name'];
+        $storeLogo = $storeInfo['logo'];
+        $storeDescription = $storeInfo['description'];
+        $storeAddress = $storeInfo['store_address'];
+        $storeHours = $storeInfo['hours'];
+        $storeFollowers = countFollowers ($conn, $storeId);
+        $storeRating = getAverageStoreRating ($conn, $storeId);
+        $storeMembershipDate = getMembershipDate($conn, $storeId);
+        $storeShippingFee = displayStoreShippingFee($conn,$storeId);
+        $storeFreeShippingMinimum = displayStoreFreeShipping($conn,$storeId);
+        $fname = getFirstName ($conn,$id);
+        $lname = getLastName ($conn,$id);
 
-    
-    $storeId = $storeInfo['id'];
-    $storeName = $storeInfo['name'];
-    $storeLogo = $storeInfo['logo'];
-    $storeDescription = $storeInfo['description'];
-    $storeAddress = $storeInfo['store_address'];
-    $storeHours = $storeInfo['hours'];
-    $storeFollowers = countFollowers ($conn, $storeId);
-    $storeRating = getAverageStoreRating ($conn, $storeId);
-    $storeMembershipDate = getMembershipDate($conn, $storeId);
-    $storeShippingFee = displayStoreShippingFee($conn,$storeId);
-    $storeFreeShippingMinimum = displayStoreFreeShipping($conn,$storeId);
-    $fname = getFirstName ($conn,$id);
-    $lname = getLastName ($conn,$id);
+    }
     
 ?>
 <!-- require_once BASE_DIR . "/app/partials/store_header.php"; -->
@@ -85,7 +85,7 @@
                                             $conversationId = $row['id'];  
                                             $clientId = $row['from'];
 
-                                            $sql2 = "SELECT * FROM tbl_messages WHERE user_id = ? AND conversation_id =? GROUP BY conversation_id"; 
+                                            $sql2 = "SELECT * FROM tbl_messages WHERE `user_id` = ? AND conversation_id =? GROUP BY conversation_id"; 
                                             $statement2 = $conn->prepare($sql2);
                                             $statement2->execute([$clientId,$conversationId]);
                                             $count2 = $statement2->rowCount();
