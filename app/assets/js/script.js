@@ -259,7 +259,7 @@ $(document).ready( () => {
 						$('#login_username_email').css("border-bottom-color", "#c471ed");
 						$('#btn_view_login_password').css("border-bottom-color", "#c471ed");
 					} else if(response.status == 'redirect') {
-						window.location.reload();
+						// window.location.reload();
 						$('#cartModal').click();
 						// update header reload navbar-nav contents
 						$.get('../partials/navbar-nav.php', function(response){
@@ -1101,30 +1101,33 @@ $(document).ready( () => {
 	})
 		
 
-	$('#search-header').keyup(function(e) {
-		let str = $(this).val();
+	$(document).on('keypress','#search-header',function(e) {
 
-		if (str.length==0) { 
-		  document.getElementById("livesearch").innerHTML="";
-		//   document.getElementById("livesearch").style.border="0px";
-		  return;
+		if(e.which == 13) {
+			let str = $(this).val();
+
+			if (str.length==0) { 
+			document.getElementById("livesearch").innerHTML="";
+			//   document.getElementById("livesearch").style.border="0px";
+			return;
+			}
+
+			if (window.XMLHttpRequest) {
+			// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp=new XMLHttpRequest();
+			} else {  // code for IE6, IE5
+			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+
+			xmlhttp.onreadystatechange=function() {
+			if (this.readyState==4 && this.status==200) {
+				document.getElementById("livesearch").innerHTML=xmlhttp.responseText;
+			}
+			}
+
+			xmlhttp.open("GET","../controllers/process_search.php?searchKey="+str,true);
+			xmlhttp.send();
 		}
-
-		if (window.XMLHttpRequest) {
-		  // code for IE7+, Firefox, Chrome, Opera, Safari
-		  xmlhttp=new XMLHttpRequest();
-		} else {  // code for IE6, IE5
-		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-		}
-
-		xmlhttp.onreadystatechange=function() {
-		  if (this.readyState==4 && this.status==200) {
-			document.getElementById("livesearch").innerHTML=xmlhttp.responseText;
-		  }
-		}
-
-		xmlhttp.open("GET","../controllers/process_search.php?searchKey="+str,true);
-		xmlhttp.send();
 	});
 
 	// ======================================= INDEX ================================== //
@@ -2409,7 +2412,7 @@ $(document).ready( () => {
 	// SEARCHING FOR STORENAME IN MESSAGE BOX
 	$(document).on('keypress', '#search_store_name', function(e) {
 		
-		// if(e.keyCode == 13) {
+		if(e.keyCode == 13) {
 			let storeName = $(this).val();
 
 			$.get('../../app/controllers/process_search_store_message.php', {storeName:storeName},
@@ -2424,7 +2427,7 @@ $(document).ready( () => {
 				}
 					
 			});
-		// }
+		}
 		
 	})
 
@@ -2957,6 +2960,7 @@ $(document).ready( () => {
 
 	// SEARCH INVENTORY
 	$(document).on('keypress', '#btn_search_inventory', function(e){
+
 		if(e.which == 13) {
 			let data = {
 				'storeId' : $(this).data('storeid'),

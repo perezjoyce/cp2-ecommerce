@@ -314,9 +314,6 @@
     </div>
     <!-- /.CONTAINER -->
 
-    <!-- IF USER IS LOGGED IN AND USER IS NOT THE SELLER -->
-    <?php if(isset($_SESSION['id']) && !$isSeller){ include '../partials/message_box.php'; } ?>
-
 <?php require_once "../partials/footer.php";?>
 <?php require_once "../partials/modal_container.php";?>
 <?php require_once "../partials/modal_container_big.php"; ?>

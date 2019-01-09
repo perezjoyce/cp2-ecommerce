@@ -1460,7 +1460,7 @@ if(isset($_SESSION['id'])) {
         if ($isSeller && $currentUser['id'] == $sellerId) {
           echo "";
         } else { 
-          include '../partials/message_box.php'; 
+          require_once '../partials/message_box.php'; 
         }
       } 
       
