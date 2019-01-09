@@ -1,8 +1,5 @@
 <?php 
-
-    session_start(); 
-    require_once "../controllers/connect.php";
-    require_once "../controllers/functions.php";
+require_once "../../config.php";
 
     if(isset($_SESSION['id'])) {
 

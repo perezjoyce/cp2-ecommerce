@@ -1,8 +1,6 @@
 <?php 
-  require_once '../sources/pdo/src/PDO.class.php';
-  require_once "connect.php";
-  ///require "../../config.php";
-//   require_once '../../controllers/functions.php';
+  require_once '../../config.php';
+  require_once "../sources/class.upload.php";
 
   if(isset($_POST['id'])){
       $id = $_POST['id']; 

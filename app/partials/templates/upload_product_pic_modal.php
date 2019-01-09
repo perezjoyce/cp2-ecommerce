@@ -1,4 +1,8 @@
-<?php session_start(); ?>
+<?php 
+require_once '../../../config.php';
+require_once "../../sources/class.upload.php";
+
+?>
 <div class="container-fluid">
     <div class="row">
 

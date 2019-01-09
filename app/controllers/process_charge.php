@@ -1,8 +1,5 @@
 <?php
-  require_once "../../config.php";
-  require_once '../sources/pdo/src/PDO.class.php';
-  require_once "connect.php";
-  require_once "functions.php";
+ require_once '../../config.php';
 
   $token  = $_POST['stripeToken'];
   $email  = $_POST['stripeEmail'];

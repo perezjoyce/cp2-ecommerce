@@ -1,9 +1,5 @@
 <?php
-// ================= ERROR MESSAGE WHEN INPUT FIELDS ARE LEFT BLANK ===============
-// ================= ERROR WHEN REQUIRED LENGHT OF USERNAME IS NOT MET ===============
-
-	require_once "connect.php";
-	require_once '../sources/pdo/src/PDO.class.php';
+require_once '../../config.php';
 
 	$username = $_POST['username'];
 	$password = sha1($_POST['password']);

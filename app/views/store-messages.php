@@ -1,5 +1,4 @@
 <?php require_once "../../config.php";?>
-
 <?php 
     $id = $_GET['id'];
     if(empty($id)){ 
@@ -37,7 +36,8 @@
     $lname = getLastName ($conn,$id);
     
 ?>
-<?php require_once BASE_DIR . "/app/partials/store_header.php";?>
+<!-- require_once BASE_DIR . "/app/partials/store_header.php"; -->
+<?php require_once "../partials/store_header.php";?>
 
     <!-- PAGE CONTENT -->
     <br>

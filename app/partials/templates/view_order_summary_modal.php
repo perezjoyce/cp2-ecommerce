@@ -1,7 +1,6 @@
 <?php 
 require_once '../../../config.php';
-
-    $cartSession = $_POST['orderHistoryCartSession'];
+$cartSession = $_POST['orderHistoryCartSession'];
     
 ?>
 

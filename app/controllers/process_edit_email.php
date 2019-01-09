@@ -1,7 +1,5 @@
 <?php
-	require_once "connect.php";
-	require_once '../sources/pdo/src/PDO.class.php';
-	session_start();
+	require_once '../../config.php';
 
 	if(isset($_SESSION['id'])) {
 		

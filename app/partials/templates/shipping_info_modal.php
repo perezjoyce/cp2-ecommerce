@@ -1,5 +1,4 @@
 <?php
-
     require_once '../../../config.php';
 
     function getPreselectedAddress($addressId, $conn) {

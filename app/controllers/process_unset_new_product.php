@@ -1,5 +1,5 @@
 <?php 
-    require_once '../sources/pdo/src/PDO.class.php';
+    require_once '../../config.php';
     session_start(); // INITIATE
     if(isset($_SESSION['newProductId'])){
         $id = $_SESSION['newProductId'];

@@ -1,12 +1,4 @@
-    
-    <!-- <style>
-        .modal-body {
-            padding: 0!important;
-            border:0!important;
-        }
-    </style> -->
-
-    <!-- MODAL CONTAINER -->
+<!-- MODAL CONTAINER -->
     <div class="modal fade in" tabindex="-1" role="dialog" id="modalContainer">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">

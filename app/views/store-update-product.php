@@ -1,7 +1,4 @@
 <?php require_once "../../config.php";?>
-<?php require_once "../controllers/connect.php";?>
-<?php require_once "../controllers/functions.php";?>
-<?php require_once "../partials/store_header.php";?>
 
 <?php 
     
@@ -22,22 +19,25 @@
         } else {
             echo '<script>history.go(-1);</script>';
         }
-    }  
+    
 
-    $storeId = $storeInfo['id'];
-    $storeName = $storeInfo['name'];
-    $storeLogo = $storeInfo['logo'];
-    $storeDescription = $storeInfo['description'];
-    $storeAddress = $storeInfo['store_address'];
-    $storeHours = $storeInfo['hours'];
-    $storeFollowers = countFollowers ($conn, $storeId);
-    $storeRating = getAverageStoreRating ($conn, $storeId);
-    $storeMembershipDate = getMembershipDate($conn, $storeId);
-    $storeShippingFee = displayStoreShippingFee($conn,$storeId);
-    $storeFreeShippingMinimum = displayStoreFreeShipping($conn,$storeId);
-    $fname = getFirstName ($conn,$id);
-    $lname = getLastName ($conn,$id);
+        $storeId = $storeInfo['id'];
+        $storeName = $storeInfo['name'];
+        $storeLogo = $storeInfo['logo'];
+        $storeDescription = $storeInfo['description'];
+        $storeAddress = $storeInfo['store_address'];
+        $storeHours = $storeInfo['hours'];
+        $storeFollowers = countFollowers ($conn, $storeId);
+        $storeRating = getAverageStoreRating ($conn, $storeId);
+        $storeMembershipDate = getMembershipDate($conn, $storeId);
+        $storeShippingFee = displayStoreShippingFee($conn,$storeId);
+        $storeFreeShippingMinimum = displayStoreFreeShipping($conn,$storeId);
+        $fname = getFirstName ($conn,$id);
+        $lname = getLastName ($conn,$id);
+    }
 ?>
+
+<?php require_once "../partials/store_header.php";?>
     <!-- PAGE CONTENT -->
     <br>
     <div class="container p-0 my-lg-5 mt-md-5" id='store_page_container'>

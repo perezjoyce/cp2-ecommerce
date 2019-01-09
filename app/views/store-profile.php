@@ -1,22 +1,11 @@
 <?php require_once "../../config.php";?>
-<?php require_once "../controllers/connect.php";?>
-<?php require_once "../controllers/functions.php";?>
-
 <?php 
-    // if(!isset($_SESSION['id'])) {
-    //     // ob_clean();
-    //     // header("location: index.php?msg=NotLoggedIn"); // doesn't work because header already exists
-    //     // ECHO THIS TO REDIRECT YOU TO HEADER
-    //     echo "<script>window.location.href='".BASE_URL."/app/views/'</script>";
-    // }
-
     $id = $_GET['id'];
     if(empty($id)) {
         header("location: index.php");
     } else {
 
         // get the store information
-
         $storeInfo = $storeId = getStore ($conn,$id);
         $id = isset($_SESSION['id']) ? $_SESSION['id'] : null;
         try {
@@ -26,28 +15,27 @@
             $currentUser = null;
             $isSeller = null;
         }
-    }  
-
-    if ($isSeller && $currentUser && $currentUser['id'] == $storeInfo['user_id']) {
-        require_once "../partials/store_header.php";
-    } else {
-        require_once "../partials/header.php";
+    
+        if ($isSeller && $currentUser && $currentUser['id'] == $storeInfo['user_id']) {
+            require_once "../partials/store_header.php";
+        } else {
+            require_once "../partials/header.php";
+        }
+            $storeId = $storeInfo['id'];
+            $storeName = $storeInfo['name'];
+            $storeLogo = $storeInfo['logo'];
+            $storeDescription = $storeInfo['description'];
+            $storeAddress = $storeInfo['store_address'];
+            $storeHours = $storeInfo['hours'];
+            $storeFollowers = countFollowers ($conn, $storeId);
+            $storeRating = getAverageStoreRating ($conn, $storeId);
+            $storeMembershipDate = getMembershipDate($conn, $storeId);
+            $storeShippingFee = displayStoreShippingFee($conn,$storeId);
+            // var_dump($storeShippingFee);die();
+            $storeFreeShippingMinimum = displayStoreFreeShipping($conn,$storeId);
+            $fname = getFirstName ($conn,$id);
+            $lname = getLastName ($conn,$id);
     }
-
-    $storeId = $storeInfo['id'];
-    $storeName = $storeInfo['name'];
-    $storeLogo = $storeInfo['logo'];
-    $storeDescription = $storeInfo['description'];
-    $storeAddress = $storeInfo['store_address'];
-    $storeHours = $storeInfo['hours'];
-    $storeFollowers = countFollowers ($conn, $storeId);
-    $storeRating = getAverageStoreRating ($conn, $storeId);
-    $storeMembershipDate = getMembershipDate($conn, $storeId);
-    $storeShippingFee = displayStoreShippingFee($conn,$storeId);
-    // var_dump($storeShippingFee);die();
-    $storeFreeShippingMinimum = displayStoreFreeShipping($conn,$storeId);
-    $fname = getFirstName ($conn,$id);
-    $lname = getLastName ($conn,$id);
 ?>
     <!-- PAGE CONTENT -->
     <br>

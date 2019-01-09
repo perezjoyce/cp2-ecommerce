@@ -1,7 +1,5 @@
 <?php 
-  require_once '../sources/pdo/src/PDO.class.php';
-  require_once "connect.php";
-//   require_once '../../controllers/functions.php';
+  require_once '../../config.php';
 
   if(isset($_POST['variationId'])){
       $variationId = $_POST['variationId'];

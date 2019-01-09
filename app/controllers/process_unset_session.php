@@ -1,5 +1,5 @@
 <?php 
-    require_once '../sources/pdo/src/PDO.class.php';
+    require_once '../../config.php';
 	session_start(); // INITIATE
     unset($_SESSION["cart_session"]);
     unset($_SESSION['paymentMode']);

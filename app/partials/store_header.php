@@ -1,8 +1,5 @@
 <?php 
-  require_once "../../config.php";
-  require_once "../controllers/connect.php";
-  require_once "../controllers/functions.php";
-
+  require_once '../../../config.php';
 
     // UPDATE LAST ACTIVITY    
   if(isset($_SESSION['id'])){

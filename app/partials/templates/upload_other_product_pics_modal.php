@@ -1,4 +1,8 @@
-<?php session_start(); ?>
+<?php
+
+require_once '../../../config.php';
+
+?>
 <div class="container-fluid">
     <div class="row">
 

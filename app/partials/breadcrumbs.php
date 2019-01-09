@@ -1,4 +1,5 @@
 <?php 
+require_once '../../../config.php';
 
 // BREADCRUMBS
 if(isset($_GET['id'])) {

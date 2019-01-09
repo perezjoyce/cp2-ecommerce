@@ -1,3 +1,5 @@
+<?php require_once '../../config.php';
+require_once "../../sources/class.upload.php";?>
 <?php require_once "../partials/header.php";?>
 <?php include_once "../partials/categories.php"; ?>
 <?php require_once "../controllers/connect.php";?>
