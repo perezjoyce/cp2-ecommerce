@@ -152,8 +152,8 @@ $(document).ready( () => {
 									// let data = $.parseJSON(dataFromPHP);
 									// location.href="profile.php?id=" + data.id;
 								} else if (dataFromPHP == "success") {
-									alert('You are now a registered Mamaroo user! Please login with your email or username and password.');
-									location.href="index.php";
+									alert('Hooray! You are now a registered Mamaroo user! Please login with your email or username and password.');
+									// location.href="index.php";
 									
 								} else {
 									$("#registration_error_message").css("color", "#c471ed");
