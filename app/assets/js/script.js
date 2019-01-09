@@ -2637,7 +2637,7 @@ $(document).ready( () => {
 					// $("#product_brand").val(dataFromPHP.brand);
 					$("#new_product_id").val(dataFromPHP.id);
 					alert("Saved!");
-					// window.location.reload();
+					window.location.reload();
 				}
 			});
 		}
