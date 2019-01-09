@@ -2,9 +2,8 @@
 <?php 
     $id = $_GET['id'];
    
-
     // get the store information
-    $storeInfo = getStore ($conn,$id);
+    $storeInfo = getStore($conn,$id);
     $id = isset($_SESSION['id']) ? $_SESSION['id'] : null;
     try {
         $currentUser = getUser($conn, $id);
@@ -15,9 +14,9 @@
     }
     
     if ($isSeller && $currentUser && $currentUser['id'] == $storeInfo['user_id']) {
-        require_once "../partials/store_header.php";
+        include "../partials/store_header.php";
     } else {
-        require_once "../partials/header.php";
+        include "../partials/header.php";
     }
         $storeId = $storeInfo['id'];
         $storeName = $storeInfo['name'];
