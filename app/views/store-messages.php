@@ -141,7 +141,7 @@
                                     <?php } ?> 
                                 </tr>
 
-                               <?php } else { echo ""; }?>
+                               <?php } else { echo ""; } ?>
                                             
 
 

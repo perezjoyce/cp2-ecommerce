@@ -676,7 +676,7 @@
                                                             </div>
 
                                                             
-                                                                <?php } } else {?>
+                                                                <?php } } else { ?>
                                                             
                                                             <div class="input-group mb-4">
                                                                 <div class="input-group-prepend">
@@ -872,7 +872,7 @@
                                     <i class="far fa-question-circle text-gray" data-toggle="tooltip" title="This will be your product's profile picture." data-original-title="#"></i>
                                 </a>
 
-                                <?php } else {?>
+                                <?php } else { ?>
 
                                  <a class='btn py-3 btn-purple-reverse modal-link' data-id='<?= $storeId ?>' data-url='../partials/templates/upload_product_pic_modal.php?id=<?=$storeId?>' role='button'>
                                     <i class="fas fa-camera pr-2"></i>

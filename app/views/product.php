@@ -384,11 +384,11 @@ if(isset($_SESSION['id'])) {
                       
                       <!-- GRAMMAR -->
                         <?php
-                          if($totalStocksAvailable == 1) {
+                          if($totalStocksAvailable == 1){
                         ?>
                       <span class='variation_display'>&nbsp;piece available</span>
                         
-                        <?php }else{ ?>
+                        <?php } else { ?>
                   
                       <span class='variation_display'>&nbsp;pieces available</span>
                       <?php } ?>
@@ -937,7 +937,7 @@ if(isset($_SESSION['id'])) {
                                     <span class='rating-word'>
                                       <?= "&nbsp;Review" ?>
                                     </span>
-                                        <?php } else {?>
+                                        <?php } else { ?>
                                     <span class='rating-count<?=$id?>'>
                                       <?= $totalProductRating ?>
                                     </span>
@@ -1135,7 +1135,7 @@ if(isset($_SESSION['id'])) {
                               </div>
                             </div>
                           
-                            <?php }?>
+                            <?php } ?>
                               
                           </div>
 
