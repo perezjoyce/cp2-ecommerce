@@ -64,7 +64,7 @@
                               <input type="text" class='form-control' id='email'
                                   value="<?= hide_email($email) ?>">
                           </div>
-                          <div class='validation'></div>
+                          <div id='email-validation'></div>
                       </div>
 
 
@@ -75,7 +75,7 @@
                               <input type="text" class='form-control' id='username'
                                   value="<?= $username ?>">
                           </div>
-                          <div class='validation'></div>
+                          <div id='username-validation'></div>
                       </div>
 
                       

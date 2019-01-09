@@ -308,11 +308,11 @@ $(document).ready( () => {
 			$("#edit_user_error").text(""); 
 
 			if (countU < 5) {
-				$("#username").next().css("color", "#f64f59");
-				$("#username").next().text("Username needs at least 5 characters.");
+				$("#username-validation").css("color", "#f64f59");
+				$("#username-validation").text("Username needs at least 5 characters.");
 				error_flag = 1;
 			} else {
-				$("#username").next().text("");
+				$("#username-validation").text("");
 			}
 	
 			// if (countP < 8) {
@@ -339,11 +339,11 @@ $(document).ready( () => {
 				"success": (dataFromPHP) => {
 
 					if (dataFromPHP == "invalidEmail") {
-						$("#email").next().css("color", "#f64f59");
-						$("#email").next().html("Please enter a valid email."); 
+						$("#email-validation").css("color", "#f64f59");
+						$("#email-validation").text("Please enter a valid email."); 
 					} else if (dataFromPHP == "emailExists") {
-						$("#email").next().css("color", "#f64f59");
-						$("#email").next().html("Email address is already taken."); 
+						$("#email-validation").css("color", "#f64f59");
+						$("#email-validation").text("Email address is already taken."); 
 					} else if (dataFromPHP == "sameEmail" || dataFromPHP == "success"){
 
 
@@ -358,8 +358,8 @@ $(document).ready( () => {
 							"type": "POST",
 							"success": (dataFromPHP) => {
 								if (dataFromPHP == "userExists") {
-									$("#username").next().css("color", "#f64f59");
-									$("#username").next().html("User exists."); 
+									$("#username-validation").css("color", "#f64f59");
+									$("#username-validation").text("User exists."); 
 								} else if (dataFromPHP == "success" || dataFromPHP == "sameUser") {
 									
 									// CHECK CORRECTNESS OF PASSWORD AND IF CORRECT UPDATE DATA
@@ -403,7 +403,7 @@ $(document).ready( () => {
 
 					} else {
 						$("#edit_user_error").css("color", "#f64f59");
-						$("#edit_user_error").append("Error in email validation encountered."); 
+						$("#edit_user_error").text("Error in email validation encountered."); 
 					}	
 				}
 			});
