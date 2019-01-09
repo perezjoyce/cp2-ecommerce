@@ -55,11 +55,11 @@
                             <table class="table table-hover borderless">
                                 
                                 <tr class='text-secondary bg-gray border-bottom'>
-                                    <th></th>
-                                    <th> ITEM </th>
-                                    <th> UNIT PRICE </th>
-                                    <th class='text-center'> QUANTITY </th>
-                                    <th class='text-center'> UNIT PRICE &nbsp;x &nbsp; QUANTITY </th>
+                                    <th style='width:5%;'></th>
+                                    <th style='width:25%;'> ITEM </th>
+                                    <th style='width:20%;'> UNIT PRICE </th>
+                                    <th class='text-center' style='width:30%;'> QUANTITY </th>
+                                    <th class='text-center' style='width:20%;'> UNIT PRICE &nbsp;x &nbsp; QUANTITY </th>
 
                                 </tr>
                                 
@@ -84,7 +84,7 @@
                                 
                                 <tr>
                                     <!-- DELETE BUTTON -->
-                                    <td>
+                                    <td style='width:5%;'>
                                         <div class='text-left' style='align-self:end;'>
                                             <a data-productid='<?=$productId?>' data-vname='<?=$variationName?>' data-variationid='<?= $variationId ?>' data-quantity='<?=$quantity?>' role='button' class='btn_delete_item text-gray flex-fill font-weight-light' style='font-size:16px;'>
                                             &times;
@@ -93,7 +93,7 @@
                                     </td>
                                     
                                     <!-- IMAGE, NAME AND VARIATION -->
-                                    <td> 
+                                    <td style='width:25%;'> 
                                         <div class='d-flex flex-row' style='justify-content:flex-start;'>
                                             <div class='flex pr-2'>
                                                 <a href="product.php?id=<?=$productId?>">
@@ -110,10 +110,10 @@
                                     </td>
                                     
                                     <!-- PRICE -->
-                                    <td>&#8369; <span class="unitPrice<?=$variationId?>"> <?= number_format((float)$price, 2, '.', ',') ?> </span> </td>
+                                    <td style='width:20%;'>&#8369; <span class="unitPrice<?=$variationId?>"> <?= number_format((float)$price, 2, '.', ',') ?> </span> </td>
                                     
                                     <!-- QUANTITY -->
-                                    <td> 
+                                    <td style='width:30%;'> 
                                         <div class='d-flex flex-column'>
                                             <div class='flex-fill'>
                                                 <div class="input-group justify-content-center">
@@ -157,7 +157,7 @@
                                     
                                     
                                     <!-- UNIT PRICE X QUANTITY -->
-                                    <td class='text-center'>
+                                    <td class='text-center' style='width:20%;'>
                                         <span>&#8369; </span>
                                         <span class="subtotal_price<?=$variationId?>"> <?= number_format((float)$subtotalPrice, 2, '.', ',') ?> </span> 
                                     </td>
@@ -293,88 +293,85 @@
                                         </table>
                                     </div>
 
-                                    <div class="col-1"></div>
-
                                     <!-- SUPER GRAND TOTAL -->
                                     <div class="col">
-
-                                      
-                                            <div>
-                                                <h4 class='text-secondary'>Grand Total</h4>
-                                            </div>
-                                            <table class="table table-hover borderless mt-5">
-                                                
-                                                <tr class='text-secondary bg-gray text-center border-bottom'>
-                                                    <th class='text-left'>SUBTOTALS</th>
-                                                    <th> AMOUNT </th>
-                                                    
-                                                </tr>
-                                                                            
-                                                <!-- CART ITEMS -->
-                                                <tr>
-                                                    <td> 
-                                                        Cart Items
-                                                    </td>
-                                                    <td class='text-center'>
-                                                        <?php 
-                                                            $totalForItems = displayGrandTotal($conn, $cartSession); 
-                                                            // echo $totalForItems;
-                                                            $finalItemsFee = number_format((float)$totalForItems, 2, '.', ',');    
-                                                            echo "₱&nbsp;$totalForItems";
-                                                        // ?>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>
-                                                        Shipping Fee(s)
-                                                    </td>
-                                                    <td class='text-center'>
-                                                        <?php
-                                                            $finalShippingFee = number_format((float)$combinedShippingFee, 2, '.', ',');    
-                                                            echo "₱&nbsp;$combinedShippingFee";
-                                                            // echo $combinedShippingFee;
-                                                        ?>
-                                                    </td>
-                                                </tr>
-
-
-                                                <!-- SHIPPING FEE TOTAL -->
-                                                <tr class='tr-gray text-secondary font-weight-bold text-center'>
-                                                    <td colspan='1' class='text-right pt-3'>GRAND TOTAL</td>
-                                                    <!-- <td></td> -->
-                                                    <td> 
-                                                        <div class='d-flex flex-row justify-content-center'>
-                                                            <h3>&#8369;&nbsp;</h3>
-                                                            <h3 id='grand_total_price'> 
-                                                                <?php 
-                                                                    $superGrandTotal = $totalForItems + $combinedShippingFee;
-                                                                    $_SESSION['total_amount'] = $superGrandTotal;
-                                                                    $grandTotal = number_format((float)$superGrandTotal, 2, '.', ','); 
-                                                                    echo $grandTotal;
-                                                                ?>
-                                                            </h3>
-                                                        </div>
-                                                    </td>
-                                                </tr>  
-
-                                            </table>
-                                   
-                                        
-                                        <!-- CHECKOUT BUTTON -->
-                                        <div class="row">
-                                            <div class="col">
-                                                <?php 
-                                                    $modalLinkClassPrefix = ''; 
-                                                    if(isset($_SESSION['id'])) {
-                                                        $modalLinkClassPrefix='-big';
-                                                    }
-                                                ?>
-                                                <a class='btn btn-lg btn-block py-3 btn-purple modal-link<?= $modalLinkClassPrefix ?> mt-5' data-grandtotal='<?=$superGrandTotal?>'  data-url='../partials/templates/shipping_info_modal.php' id='btn_cart'>Check Out</a>
-                                            </div>
+                                        <div>
+                                            <h4 class='text-secondary'>Grand Total</h4>
                                         </div>
+                                        <table class="table table-hover borderless mt-5">
+                                            
+                                            <tr class='text-secondary bg-gray text-center border-bottom'>
+                                                <th class='text-left'>SUBTOTALS</th>
+                                                <th> AMOUNT </th>
+                                                
+                                            </tr>
+                                                                        
+                                            <!-- CART ITEMS -->
+                                            <tr>
+                                                <td> 
+                                                    Cart Items
+                                                </td>
+                                                <td class='text-center'>
+                                                    <?php 
+                                                        $totalForItems = displayGrandTotal($conn, $cartSession); 
+                                                        // echo $totalForItems;
+                                                        $finalItemsFee = number_format((float)$totalForItems, 2, '.', ',');    
+                                                        echo "₱&nbsp;$totalForItems";
+                                                    // ?>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    Shipping Fee(s)
+                                                </td>
+                                                <td class='text-center'>
+                                                    <?php
+                                                        $finalShippingFee = number_format((float)$combinedShippingFee, 2, '.', ',');    
+                                                        echo "₱&nbsp;$combinedShippingFee";
+                                                        // echo $combinedShippingFee;
+                                                    ?>
+                                                </td>
+                                            </tr>
+
+
+                                            <!-- SHIPPING FEE TOTAL -->
+                                            <tr class='tr-gray text-secondary font-weight-bold text-center'>
+                                                <td colspan='1' class='text-right pt-3'>GRAND TOTAL</td>
+                                                <!-- <td></td> -->
+                                                <td> 
+                                                    <div class='d-flex flex-row justify-content-center'>
+                                                        <h3>&#8369;&nbsp;</h3>
+                                                        <h3 id='grand_total_price'> 
+                                                            <?php 
+                                                                $superGrandTotal = $totalForItems + $combinedShippingFee;
+                                                                $_SESSION['total_amount'] = $superGrandTotal;
+                                                                $grandTotal = number_format((float)$superGrandTotal, 2, '.', ','); 
+                                                                echo $grandTotal;
+                                                            ?>
+                                                        </h3>
+                                                    </div>
+                                                </td>
+                                            </tr>  
+
+                                        </table>
                                     </div>
                                 </div>
+
+                                <!-- CHECKOUT BUTTON -->
+                                <div class="row">  
+                                    <div class="col"></div>        
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <?php 
+                                            $modalLinkClassPrefix = ''; 
+                                            if(isset($_SESSION['id'])) {
+                                                $modalLinkClassPrefix='-big';
+                                            }
+                                        ?>
+                                        <a class='btn btn-lg btn-block py-3 btn-purple modal-link<?= $modalLinkClassPrefix ?> mt-5' data-grandtotal='<?=$superGrandTotal?>'  data-url='../partials/templates/shipping_info_modal.php' id='btn_cart'>Check Out</a>
+                                    </div>
+                                </div>
+                                        
                             </div>
 
                         </form>
