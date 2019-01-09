@@ -1,10 +1,10 @@
 <?php require_once "../../config.php";?>
 <?php 
     
-    $id = $_GET['id'];
-    if(empty($id)){ 
-        header("location: index.php");
+    if(empty($_GET['id'])){ 
+        header("Location: index.php");
     } else {
+        $id = $_GET['id'];
 
         $storeInfo = $storeId = getStore ($conn,$id);
         $id = $_SESSION['id'];
@@ -12,29 +12,33 @@
         $isSeller = $currentUser['isSeller'] == "yes" ? 1 : 0;   
         
         $userIsStoreOwner = false;
-        //IF USER IS NOT STORE OWNER, REDIRECT TO ORIGIN
-        if($id === $storeInfo['user_id']) {
-            $userIsStoreOwner = true;
-        } else {
-            echo '<script>history.go(-1);</script>';
-        }
-    }  
 
-    $storeId = $storeInfo['id'];
-    $storeName = $storeInfo['name'];
-    $storeLogo = $storeInfo['logo'];
-    $storeDescription = $storeInfo['description'];
-    $storeAddress = $storeInfo['store_address'];
-    $storeHours = $storeInfo['hours'];
-    $storeFollowers = countFollowers ($conn, $storeId);
-    $storeRating = getAverageStoreRating ($conn, $storeId);
-    $storeMembershipDate = getMembershipDate($conn, $storeId);
-    $storeShippingFee = displayStoreShippingFee($conn,$storeId);
-    $storeFreeShippingMinimum = displayStoreFreeShipping($conn,$storeId, false);
-    $fname = getFirstName ($conn,$id);
-    $lname = getLastName ($conn,$id);
+            //IF USER IS NOT STORE OWNER, REDIRECT TO ORIGIN
+            if($id === $storeInfo['user_id']) {
+                $userIsStoreOwner = true;
+            } else {
+                echo '<script>history.go(-1);</script>';
+            }
+        
+        $storeId = $storeInfo['id'];
+        $storeName = $storeInfo['name'];
+        $storeLogo = $storeInfo['logo'];
+        $storeDescription = $storeInfo['description'];
+        $storeAddress = $storeInfo['store_address'];
+        $storeHours = $storeInfo['hours'];
+        $storeFollowers = countFollowers ($conn, $storeId);
+        $storeRating = getAverageStoreRating ($conn, $storeId);
+        $storeMembershipDate = getMembershipDate($conn, $storeId);
+        $storeShippingFee = displayStoreShippingFee($conn,$storeId);
+        $storeFreeShippingMinimum = displayStoreFreeShipping($conn,$storeId, false);
+        $fname = getFirstName ($conn,$id);
+        $lname = getLastName ($conn,$id);
+
+    require_once "../partials/store_header.php";
+    
+    } 
+    
 ?>
-<?php require_once "../partials/store_header.php";?>
     <!-- PAGE CONTENT -->
     <br>
     <div class="container p-0 my-lg-5 mt-md-5">
@@ -90,7 +94,7 @@
                             ON v.product_id=i.id 
                             AND c.variation_id=v.id 
                             AND o.cart_session=c.cart_session 
-                            WHERE c.status_id = ? and store_id = ? GROUP BY o.cart_session";
+                            WHERE c.status_id = ? and store_id = ? GROUP BY `transaction_id`";
                                 $statement = $conn->prepare($sql);
                                 $statement->execute([1,$storeId]);
                                 $count = $statement->rowCount();
