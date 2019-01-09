@@ -76,25 +76,22 @@
                                 <tr>
                                     <?php 
                                         // CHECK IF THERE IS AN EXISTING CONVERSATIONS INITIATED BY THE BUYER
-                                        $sql = "SELECT * FROM tbl_conversations WHERE `to` = ? "; 
+                                        $sql = "SELECT c.*, m.* 
+                                                FROM tbl_conversations c 
+                                                JOIN tbl_messages m 
+                                                ON m.conversation_id=c.id 
+                                                WHERE `to` = ? 
+                                                GROUP BY conversation_id "; 
                                         $statement = $conn->prepare($sql);
                                         $statement->execute([$storeInfo['user_id']]);
+                                        $count = $statement->rowCount();
 
-                                        if($statement->rowCount()) {
+                                        if($count) {
                                             while($row = $statement->fetch()){
                                             $conversationId = $row['id'];  
                                             $clientId = $row['from'];
-
-                                            $sql2 = "SELECT * FROM tbl_messages WHERE `user_id` = ? AND conversation_id =?"; 
-                                            $statement2 = $conn->prepare($sql2);
-                                            $statement2->execute([$clientId,$conversationId]);
-                                            $count2 = $statement2->rowCount();
-
-                                            if($count2){
-                                                                    
-                                                while($row2 = $statement2->fetch()){ 
-                                                    $message = $row2['message'];
-                                                    $date = $row2['date'];
+                                            $message = $row['message'];
+                                            $date = $row['date'];
 
                                     ?>
 
@@ -144,7 +141,7 @@
                                     <?php } ?> 
                                 </tr>
 
-                               <?php } else echo ""; } }?>
+                               <?php } else { echo ""; }?>
                                             
 
 
