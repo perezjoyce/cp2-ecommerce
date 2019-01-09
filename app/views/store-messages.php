@@ -76,12 +76,11 @@
                                 <tr>
                                     <?php 
                                         // CHECK IF THERE IS AN EXISTING CONVERSATIONS INITIATED BY THE BUYER
-                                        $sql = "SELECT c.*, m.* 
+                                        $sql = "SELECT c.id, m.user_id, m.message, m.date 
                                                 FROM tbl_conversations c 
                                                 JOIN tbl_messages m 
                                                 ON m.conversation_id=c.id 
-                                                WHERE `to` = ? 
-                                                GROUP BY conversation_id "; 
+                                                WHERE `to` = ? GROUP BY `from` "; 
                                         $statement = $conn->prepare($sql);
                                         $statement->execute([$storeInfo['user_id']]);
                                         $count = $statement->rowCount();
@@ -89,7 +88,7 @@
                                         if($count) {
                                             while($row = $statement->fetch()){
                                             $conversationId = $row['id'];  
-                                            $clientId = $row['from'];
+                                            $clientId = $row['user_id'];
                                             $message = $row['message'];
                                             $date = $row['date'];
 
