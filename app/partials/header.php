@@ -150,15 +150,20 @@
                                     <i class="far fa-edit pr-2"></i>
                                     <small>MY PROFILE</small>
                                 </a>
-                                <a class="dropdown-item py-3" href='store-profile.php?id=<?= getStoreId ($conn,$id) ?>'>
+                                <a class="dropdown-item py-3" href='store-profile.php?id=<?php
+                                    $sId = getStoreId ($conn,$id);
+                                    if(!$sId) {
+                                        // FOR NOW. NEXT TIME, THIS SHOULD LEAD TO AN APPLICATION PAGE FOR SELLERS.
+                                        header("Location: ../views/index.php");
+                                    } else {
+                                        echo $sId;
+                                    }
+                                     
+                                     ?>'>
                                     <i class="fas fa-store pr-2"></i>
                                     <small>MY SHOP</small>
                                 </a>
-                                <!-- <a class="dropdown-item mb-4 btn_view_wishList" data-id='<?= $id ?>'>
-                                    <i class="far fa-heart mr-2"></i>
-                                    Wish List
-                                    <span class='badge text-light user_wish_count'><?= getWishlishtCount($conn) ?></span>
-                                </a> -->
+                                
                                 <div class="dropdown-divider py-0"></div>
                                 <a class="dropdown-item py-3" href='../controllers/process_logout.php?id=<?=$id?>'>
                                     <i class='fas fa-sign-in-alt pr-2'></i>

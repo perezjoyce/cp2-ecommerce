@@ -25,7 +25,7 @@ $(document).ready( () => {
 		  x.type = "password";
 		  	$('.eye').removeClass('fa-eye');
 			$('.eye').addClass('fa-eye-slash');
-			$('#btn_view_registration_password').css("border-bottom-color", "#c471ed");
+			// $('#btn_view_registration_password').css("border-bottom-color", "#c471ed");
 		}
 	}
 
@@ -184,19 +184,19 @@ $(document).ready( () => {
 		  x.type = "password";
 		  	$('.eye').removeClass('fa-eye');
 			$('.eye').addClass('fa-eye-slash');
-			$('#btn_view_login_password').css("border-bottom-color", "#c471ed");
+			// $('#btn_view_login_password').css("border-bottom-color", "#c471ed");
 		}
 	}
 	
 
 	// ADJUSTING BORDER OF EYE BUTTON -- not working
-	$(document).on('focus', '#login_password', ()=> {
-		$('#btn_view_login_password').css("border-bottom-color", "#c471ed");
-	});
+	// $(document).on('focus', '#login_password', ()=> {
+	// 	$('#btn_view_login_password').css("border-bottom-color", "#c471ed");
+	// });
 
-	$(document).on('blur', '#login_password', ()=> {
-		$('#btn_view_login_password').css("border-bottom-color", "lightgray");
-	});
+	// $(document).on('blur', '#login_password', ()=> {
+	// 	$('#btn_view_login_password').css("border-bottom-color", "lightgray");
+	// });
 
 	// LOGIN
 	$(document).on("click", "#btn_login", ()=> {
@@ -212,11 +212,11 @@ $(document).ready( () => {
 			$("#login_error_message").html(""); 
 			$("#login_username_email").next().css("color", "#c471ed");
 			$("#login_username_email").next().html("Email or Username is required.");
-			$('#login_username_email').css("border-bottom-color", "#c471ed");
+			// $('#login_username_email').css("border-bottom-color", "#c471ed");
 			error_flag = 1;
 		} else {
 			$("#login_username_email").next().html("");
-			$('#login_username_email').css("border-bottom-color", "black");
+			// $('#login_username_email').css("border-bottom-color", "black");
 		}
 
 		//password verification
@@ -224,14 +224,14 @@ $(document).ready( () => {
 			$("#login_error_message").html(""); 
 			$("#login_password_validation").css("color", "#c471ed");
 			$("#login_password_validation").text("Password is required.");
-			$("#login_password_validation").css("border-bottom-color", "#c471ed");
-			$('#login_password').css("border-bottom-color", "#c471ed");
-			$('#btn_view_login_password').css("border-bottom-color", "#c471ed");
+			// $("#login_password_validation").css("border-bottom-color", "#c471ed");
+			// $('#login_password').css("border-bottom-color", "#c471ed");
+			// $('#btn_view_login_password').css("border-bottom-color", "#c471ed");
 			error_flag = 1;
 		} else {
 			$("#login_password_validation").text("");
-			$('#login_password').css("border-bottom-color", "black");
-			$('#btn_view_login_password').css("border-bottom-color", "black");
+			// $('#login_password').css("border-bottom-color", "black");
+			// $('#btn_view_login_password').css("border-bottom-color", "black");
 		}
 
 
@@ -254,10 +254,10 @@ $(document).ready( () => {
 					} else if (response.status == "loginFailed") {
 						$("#login_error_message").css("color", "#c471ed");
 						$("#login_error_message").html(response.message); 
-						$('#login_password').css("border-bottom-color", "#c471ed");
+						// $('#login_password').css("border-bottom-color", "#c471ed");
 						$('#login_username_email').next().css("color", "#c471ed");
-						$('#login_username_email').css("border-bottom-color", "#c471ed");
-						$('#btn_view_login_password').css("border-bottom-color", "#c471ed");
+						// $('#login_username_email').css("border-bottom-color", "#c471ed");
+						// $('#btn_view_login_password').css("border-bottom-color", "#c471ed");
 					} else if(response.status == 'redirect') {
 						// window.location.reload();
 						$('#cartModal').click();
@@ -268,10 +268,10 @@ $(document).ready( () => {
 					} else {
 						$("#login_error_message").css("color", "#c471ed");
 						$("#login_error_message").html(response.message); 
-						$('#login_password').css("border-bottom-color", "#c471ed");
+						// $('#login_password').css("border-bottom-color", "#c471ed");
 						$('#login_username_email').next().css("color", "#c471ed");
-						$('#login_username_email').css("border-bottom-color", "#c471ed");
-						$('#btn_view_login_password').css("border-bottom-color", "#c471ed");
+						// $('#login_username_email').css("border-bottom-color", "#c471ed");
+						// $('#btn_view_login_password').css("border-bottom-color", "#c471ed");
 					}
 				}
 			});

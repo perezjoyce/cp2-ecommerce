@@ -1,11 +1,11 @@
 <?php require_once "../../config.php";?>
 <?php 
-    $id = $_GET['id'];
-    if(empty($id)){ 
-        header("location: index.php");
+    
+    if(empty($_GET['id'])){ 
+        header("Location: index.php");
     } else {
-
-        $storeInfo = $storeId = getStore ($conn,$id);
+        $id = $_GET['id'];
+        $storeInfo = getStore ($conn,$id);
         $id = $_SESSION['id'];
         $currentUser = getUser($conn, $id);
         $isSeller = $currentUser['isSeller'] == "yes" ? 1 : 0;   

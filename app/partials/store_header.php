@@ -37,7 +37,14 @@
     $fname = getFirstName ($conn,$id);
     $lname = getLastName ($conn,$id);
     
-    
+    if($storeLogo == null) {
+        $storeLogo = DEFAULT_PROFILE; 
+        $prefix = "rounded";
+    } else {
+        $storeLogo = BASE_URL ."/". $storeLogo . "_80x80.jpg";
+        $prefix = "";
+    } 
+
 
 ?>
 
@@ -121,7 +128,7 @@
     
                         <div class='dropdown py-1' id='profileDropdownContainer'>
                         <a class='dropdown-toggle py-1 text-right' id="profileDropdown" role="button" data-toggle="dropdown">
-                                    <?= "<img src='../../".getProfilePic($conn, $id)."_80x80.jpg' height='20' class='circle mr-1'>" ?>
+                                    <img src='<?= $storeLogo ?>' height='20' class='<?= $prefix ?>circle pr-1'>
                                     <small>HELLO,&nbsp;</small>
                                     <small>
                                         <?= $storeName ?>
