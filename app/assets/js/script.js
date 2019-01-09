@@ -259,8 +259,8 @@ $(document).ready( () => {
 						$('#login_username_email').css("border-bottom-color", "#c471ed");
 						$('#btn_view_login_password').css("border-bottom-color", "#c471ed");
 					} else if(response.status == 'redirect') {
-						$('#cartModal').click();
 						window.location.reload();
+						$('#cartModal').click();
 						// update header reload navbar-nav contents
 						$.get('../partials/navbar-nav.php', function(response){
 							$('#navbar-nav').replaceWith(response);
