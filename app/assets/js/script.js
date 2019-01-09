@@ -260,6 +260,7 @@ $(document).ready( () => {
 						$('#btn_view_login_password').css("border-bottom-color", "#c471ed");
 					} else if(response.status == 'redirect') {
 						$('#cartModal').click();
+						window.location.reload();
 						// update header reload navbar-nav contents
 						$.get('../partials/navbar-nav.php', function(response){
 							$('#navbar-nav').replaceWith(response);
@@ -1378,7 +1379,7 @@ $(document).ready( () => {
 				if (data == 0) {
 					$("#item-count").text(data);
 					$('#cartDropdown_menu').html("<a class='dropdown-item pb-5 text-center' href='#'>" +
-						"<img src='http://www.aimilayurveda.com/catalog/view/theme/aimil/assets/images/empty.png' alt='empty_cart' style='width:10em;'>" +
+						"<div id='header-empty-cart'></div>" +
 						"<div><small>Your shopping cart is empty</small></div></a>");
 				} else {
 					$("#item-count").text(data);			
