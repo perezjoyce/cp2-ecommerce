@@ -10,7 +10,7 @@
                 </div>
             </div>
             <div class="message_details pl-0">
-                <div class="message_details-container rounded-top">                
+                <div class="message_details-container rounded-top p-1">                
                 </div>
                 <input type='hidden' id='message_details-conversationId'>
                 <textarea class='rounded-bottom' id="message_input" data-sellerid="<?= $sellerId ?>" style='resize:none;background:#eff0f5;'></textarea>

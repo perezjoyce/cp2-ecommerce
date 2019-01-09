@@ -81,9 +81,9 @@ $sellerId = $_GET['sellerId'];
             
         } else {
             $messageItemSelected = "<div class='message_items__message'>
-                <img src='".$sellerRow['logo']."' height='60' width='60' class='circle'>
+                <img src='".$logo."' height='60' width='60' class='circle'>
                 <div class='m_partial_container'>
-                    <em>".$lastMessengerName."</em>
+                    <div class='font-weight-bold'>".$lastMessengerName."</div>
                     <div class='message_partial'></div>
                 </div>
             </div>";
