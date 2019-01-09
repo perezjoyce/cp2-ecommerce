@@ -15,6 +15,7 @@
         //IF USER IS NOT STORE OWNER, REDIRECT TO ORIGIN
         if($id === $storeInfo['user_id']) {
             $userIsStoreOwner = true;
+            require_once "../partials/store_header.php";
         } else {
             echo '<script>history.go(-1);</script>';
         }
@@ -37,7 +38,6 @@
     
 ?>
 <!-- require_once BASE_DIR . "/app/partials/store_header.php"; -->
-<?php require_once "../partials/store_header.php";?>
 
     <!-- PAGE CONTENT -->
     <br>
@@ -133,14 +133,10 @@
                                             </a> 
                                         </td>
 
-                                    
-
-
-
                                     <?php } ?> 
                                 </tr>
 
-                               <?php } else { echo ""; } ?>
+                               <?php } else { echo "You don't have messages yet."; } ?>
                                             
 
 
