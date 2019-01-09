@@ -1,7 +1,7 @@
 <?php 
     require_once '../../../config.php';
     $cartSession = $_SESSION['cart_session'];
-    
+    $paymentMode = $_SESSION['paymentMode'];
 ?>
 
 
@@ -9,7 +9,7 @@
     <div class="row">
 
         <div class="col-lg-4 ml-0 py-0 px-0 my-0 ml-0 d-none d-lg-block d-xl-block">
-            <div id='login_image'></div>
+            <div id='cart_image'></div>
             <!-- <div id='login_ad'>
                 <h1>fdsfsd</h1>
             </div> -->
@@ -96,7 +96,7 @@
                                     <div class="col-4">
                                             
                                         <div>
-                                            <h4 class='text-secondary'>Transaction Code</h4>
+                                            <h5 class='text-secondary'>Transaction Code</h5>
                                         </div>
                                         
                                         
@@ -111,7 +111,7 @@
                                 <div class="row mt-5">
                                     <div class="col-4">  
                                         <div>
-                                            <h4 class='text-secondary'>Transaction Date</h4>
+                                            <h5 class='text-secondary'>Transaction Date</h5>
                                         </div>
                                     </div>
                                     <div class="col">
@@ -125,7 +125,7 @@
                                 <div class="row mt-5">
                                     <div class="col-4">  
                                         <div>
-                                            <h4 class='text-secondary'>Mode Of Payment</h4>
+                                            <h5 class='text-secondary'>Mode Of Payment</h5>
                                         </div>
                                     </div>
                                     <div class="col">
@@ -141,7 +141,7 @@
                                     <div class="col-12">
                                             
                                         <div>
-                                            <h4 class='text-secondary'>Shipping & Billing Info</h4>
+                                            <h5 class='text-secondary'>Shipping & Billing Info</h5>
                                         </div>
                                         <table class="table table-hover borderless mt-5 text-center">
                                             <thead>
@@ -208,7 +208,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <div class='mb-5'>
-                                            <h4 class='text-secondary'>Cart Items</h4>
+                                            <h5 class='text-secondary'>Cart Items</h5>
                                         </div>
      
                                         <!-- ITEMS SUMMARY -->
@@ -317,7 +317,7 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div>
-                                            <h4 class='text-secondary'>Shipping Fee</h4>
+                                            <h5 class='text-secondary'>Shipping Fee</h5>
                                         </div>
                                         <table class="table table-hover borderless mt-5">
                                             
@@ -419,7 +419,7 @@
                                     <!-- SUPER GRAND TOTAL -->
                                     <div class="col">
                                             <div>
-                                                <h4 class='text-secondary'>Grand Total</h4>
+                                                <h5 class='text-secondary'>Grand Total</h5>
                                             </div>
                                             <table class="table table-hover borderless mt-5">
                                                 
