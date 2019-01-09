@@ -1,5 +1,5 @@
 <?php
-require_once '../../../config.php';
+// require_once '../../../config.php';
 ?>
     <!-- CATEGORIES: FOR INDEX AND CATALOG PAGE ONLY -->
     <div class="container-fluid border-bottom white-bg">
