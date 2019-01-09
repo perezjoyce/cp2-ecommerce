@@ -14,9 +14,9 @@
     }
     
     if ($isSeller && $currentUser && $currentUser['id'] == $storeInfo['user_id']) {
-        include "../partials/store_header.php";
+        require_once "../partials/store_header.php";
     } else {
-        include "../partials/header.php";
+        require_once "../partials/header.php";
     }
         $storeId = $storeInfo['id'];
         $storeName = $storeInfo['name'];
@@ -32,6 +32,7 @@
         $storeFreeShippingMinimum = displayStoreFreeShipping($conn,$storeId);
         $fname = getFirstName ($conn,$id);
         $lname = getLastName ($conn,$id);
+
     
 ?>
     <!-- PAGE CONTENT -->
@@ -498,7 +499,7 @@
     <!-- /.CONTAINER -->
 
     <!-- IF USER IS LOGGED IN AND USER IS NOT THE SELLER -->
-    <?php if(isset($_SESSION['id']) && !$isSeller){ include '../partials/message_box.php'; } ?>
+    <?php if(isset($_SESSION['id']) && !$isSeller){ require_once '../partials/message_box.php'; } ?>
 
 <?php require_once "../partials/footer.php";?>
 <?php require_once "../partials/modal_container.php";?>

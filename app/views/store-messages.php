@@ -85,7 +85,7 @@
                                             $conversationId = $row['id'];  
                                             $clientId = $row['from'];
 
-                                            $sql2 = "SELECT * FROM tbl_messages WHERE `user_id` = ? AND conversation_id =? GROUP BY conversation_id"; 
+                                            $sql2 = "SELECT * FROM tbl_messages WHERE `user_id` = ? AND conversation_id =?"; 
                                             $statement2 = $conn->prepare($sql2);
                                             $statement2->execute([$clientId,$conversationId]);
                                             $count2 = $statement2->rowCount();
