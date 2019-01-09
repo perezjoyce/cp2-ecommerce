@@ -1103,7 +1103,7 @@ $(document).ready( () => {
 
 	$(document).on('keypress','#search-header',function(e) {
 
-		if(e.which == 13) {
+		// if(e.which == 13) {
 			let str = $(this).val();
 
 			if (str.length==0) { 
@@ -1127,7 +1127,7 @@ $(document).ready( () => {
 
 			xmlhttp.open("GET","../controllers/process_search.php?searchKey="+str,true);
 			xmlhttp.send();
-		}
+		// }
 	});
 
 	// ======================================= INDEX ================================== //
@@ -2662,7 +2662,7 @@ $(document).ready( () => {
 
 				let flag = 0;
 
-				if(data['description'] == "" || data['description'] == null && typeof description !== "undefined" ){
+				if(data['description'] == "" || data['description'] == null && descriptionId !== null ){
 					reject("Please write a description before first.");
 					flag = 1;
 				}
@@ -2728,12 +2728,12 @@ $(document).ready( () => {
 
 					let flag = 0;
 
-					if(data['variationName'] == "" || data['variationName'] == null || data['variationName'] == 0 && typeof variationId !== "undefined" ){
+					if(data['variationName'] == "" || data['variationName'] == null || data['variationName'] == 0 && variationId !== null ){
 						reject("Please fill out both sides.");
 						flag = 1;
 					}
 
-					if (data['variationStock'] == "" || data['variationStock'] == null || data['variationStock'] == 0 && typeof variationId !== "undefined"  ){
+					if (data['variationStock'] == "" || data['variationStock'] == null || data['variationStock'] == 0 && variationId !== null ){
 						flag = 1;
 						reject("Please fill out both sides.");
 					}
@@ -2802,12 +2802,12 @@ $(document).ready( () => {
 
 				let flag = 0;
 
-				if(data['question'] == "" || data['question'] == null && typeof faqId !== "undefined" ){
+				if(data['question'] == "" || data['question'] == null && typeof faqId !== null ){
 					flag = 1;
 					reject("Please fill out both sides.");
 				}
 
-				if(data['answer'] == "" || data['answer'] == null && typeof faqId !== "undefined" ){
+				if(data['answer'] == "" || data['answer'] == null && typeof faqId !== null ){
 					flag = 1;
 					reject("Please fill out both sides.");
 				}
