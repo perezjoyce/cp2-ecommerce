@@ -138,10 +138,9 @@
                                                 <button class='btn border text-gray' id='btn_follow' data-id='<?=$storeId?>'>
                                                     &#8722; Unfollow
                                                 </button>
-                                                <?php } ?>
+                                                <?php } } else { echo ""; } ?>
                                             </div>
-                                        <?php } else { echo ""; } 
-                                        } ?>
+                                       <?php } ?>
                                     </div>
                                 </div>
                                 
