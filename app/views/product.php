@@ -599,10 +599,10 @@ if(isset($_SESSION['id'])) {
                   
                     <!-- BUTTONS -->
                     <div class="row">
-                      <a href='#' class='btn btn-block border text-purple mx-3 mb-2 py-2 modal-link' id="chatbox" data-url="../partials/templates/chatbox_modal.php">
+                      <!-- <a href='#' class='btn btn-block border text-purple mx-3 mb-2 py-2 modal-link' id="chatbox" data-url="../partials/templates/chatbox_modal.php">
                         <i class="far fa-comment"></i>
                         &nbsp;Message Seller
-                      </a>
+                      </a> -->
 
                       <a href='store-profile.php?id=<?=$storeId?>' class='btn btn-block border text-secondary mx-3 py-2'>
                         <i class="fas fa-store"></i>

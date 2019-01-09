@@ -141,7 +141,7 @@
                                                 </button>
                                                 <?php } ?>
                                             </div>
-                                        <?php } ?>
+                                        <?php } } ?>
                                     </div>
                                 </div>
                                 
