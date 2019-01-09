@@ -42,6 +42,7 @@ $sellerId = $_GET['sellerId'];
         $sellerStatement->execute([$sellerId]);
 
         $sellerRow = $sellerStatement->fetch();
+        
 
         // fetch the last message
         $sql = "SELECT u.*, m.* FROM tbl_messages m 
@@ -53,7 +54,7 @@ $sellerId = $_GET['sellerId'];
         $lastMessengerName = $sellerRow['name'];
         $lastMessage = "";
         $messageDetails = "";
-        $logo = productprofile($conn,$sellerRow['logo']);
+        $logo = $sellerRow['logo'];
         $logo = BASE_URL . "/".$logo .".jpg";
 
         $messageItemSelected = "<div class='message_items__message'>
