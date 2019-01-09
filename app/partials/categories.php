@@ -1,10 +1,10 @@
     <!-- CATEGORIES: FOR INDEX AND CATALOG PAGE ONLY -->
-    <div class="container-fluid border-bottom vanish-sm white-bg">
-        <div class="row px-5">
+    <div class="container-fluid border-bottom white-bg">
+        <div class="row px-lg-5 px-md-5">
             <div class="col-12 text-center">
                 <div class="container">
                     <!-- <div class="row text-center"> -->
-                    <div class="d-flex flex-row">
+                    <div class="d-flex flex-lg-row flex-md-row flex-sm-column">
                         <?php 
                             $sql = " SELECT * FROM tbl_categories WHERE parent_category_id is null";
                             $statement = $conn->prepare($sql);
@@ -25,6 +25,5 @@
 
                 </div>
             </div>
-            <div class="col-1"></div>
         </div>  
     </div>

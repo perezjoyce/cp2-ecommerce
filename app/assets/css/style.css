@@ -194,9 +194,12 @@ div.card:hover {
     font-weight:500!important;
 }
 
-.stripe-button-el span {
+.btn_stripe {
     font-size:18px!important;
-    font-weight:500!important
+    font-weight:500!important;
+    background: #8e44ad!important;
+    border: 2px solid #8e44ad!important;
+    color: white!important;
 }
 
 /* #btn_order_confirmation:hover,
@@ -1294,6 +1297,8 @@ input:focus{
 /*==============================TABLET ==============================*/
 
 @media only screen and (min-width:426px) and (max-width:960px) { 
+    /* BANNER AD */
+
 
     /* FONT SIZE */
     h1 {
@@ -1467,6 +1472,16 @@ input:focus{
 /*==============================MOBILE==============================*/
 
 @media only screen and (max-width:425px) { 
+    /* BANNER AD 1 */
+    #banner_ad-1 {
+        background: url(../../assets/images/ad-5.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 39vh;
+        position: relative;
+        background-position-y: right;
+        background-position-x: left;
+    }
 
     /* FONT SIZE */
     

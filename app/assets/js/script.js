@@ -292,7 +292,7 @@ $(document).ready( () => {
 		let lname = $("#lname").val();
 		let email = $("#email").val();
 		let username = $("#username").val();
-		let password = $("#password").val();
+		let password = $("#password-profile").val();
 		let id = $("#id").val();
 		let error_flag = 0;
 
@@ -346,8 +346,7 @@ $(document).ready( () => {
 						$("#email").next().html("Email address is already taken."); 
 					} else if (dataFromPHP == "sameEmail" || dataFromPHP == "success"){
 
-						let answer = confirm('Do you want to save changes?');
-							if(answer == true) {
+
 						
 							// CHECK USERNAME AVAILABILITY
 							$.ajax({
@@ -399,7 +398,7 @@ $(document).ready( () => {
 							}
 							});
 
-						}
+						
 
 
 					} else {
@@ -479,7 +478,7 @@ $(document).ready( () => {
 	// VIEWING PASSWORD
 	$(document).on('click', '.btn_view_profile_password', function(){
 
-		let x = document.getElementById("password");
+		let x = document.getElementById("password-profile");
 
 		if (x.type === "password") {
 			x.type = "text";

@@ -779,7 +779,8 @@
                                                         $productId = $row['product_id'];
                                                         $name = $row['name'];
                                                         $price = $row['price'];
-                                                        $image = $row['img_path'];
+                                                        $item_img = productprofile($conn,$productId);
+										                $item_img = BASE_URL ."/".$item_img.".jpg";
 
                                                 ?>
                                                 
@@ -793,7 +794,7 @@
                                                         <a href="product.php?id=<?=$productId?>" target='_blank'>
                                                             <div class='d-flex flex-row align-items-center mx-0 px-1' style='justify-content:flex-start;'>
                                                                 <div class='flex pr-2'>
-                                                                    <img src='<?=$image?>' style='width:80px;height:80px;'>
+                                                                    <img src='<?=$item_img?>' style='width:80px;height:80px;'>
                                                                 </div>   
                                                                 <div class='flex-fill'>
                                                                     <div class='d-flex flex-column'>
@@ -881,6 +882,8 @@
                                                     while($row = $statement->fetch()){
                                                     $conversationId = $row['id'];  
                                                     $sellerId = $row['to'];
+                                                    $logo = getStoreLogo ($conn,$sellerId);
+                                                    $logo = BASE_URL ."/". $logo .".jpg";
 
                                             ?>
                                             
@@ -894,7 +897,7 @@
                                                     <a data-sellerid='<?= $sellerId ?>' data-conversationid='<?=$conversationId?>' class='selected_conversation'>
                                                         <div class='d-flex flex-row align-items-center' style='justify-content:flex-start;'>
                                                             <div class='flex'>
-                                                                <img src='<?=getStoreLogo ($conn,$sellerId)?>' style='width:40px;height:40px;' class='circle'>
+                                                                <img src='<?= $logo ?>' style='width:40px;height:40px;' class='circle'>
                                                             </div>   
                                                             <div class='flex-fill vanish-sm vanish-md'>
                                                                 <div class='d-flex flex-column'>

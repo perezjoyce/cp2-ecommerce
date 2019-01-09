@@ -94,7 +94,7 @@
     <div class="container">
         <div class="row py-0">
             <?php if(!isset($_SESSION['id'])){ ?>
-            <div class="col-10">
+            <div class="col-6">
             </div>
             <div class="col px-lg-0">
                 <div class="d-flex flex-row">
@@ -131,7 +131,7 @@
                     </div>
                 </div> -->
               
-                <div class="col">
+                <div class="col-12">
                     <div class='flex-fill text-lg-right text-md-right text-sm-right'>
     
                         <div class='dropdown py-1' id='profileDropdownContainer'>

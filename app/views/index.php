@@ -8,112 +8,10 @@
     <div class="container-fluix mx-0 p-x-0" id='banner_ad-1'>
       <div class="row">
         <div class="col">
-
         </div>
       </div>
     </div>
-    <!-- BANNER 2 -->
-    <!-- <div class="container mt-4">
-
-      <div class="row mx-0">
-        <div class="col-8 p-0">
-
-          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img class="d-block w-100" src="https://via.placeholder.com/800x250" alt="First slide">
-              </div>
-              <div class="carousel-item">
-                <img class="d-block w-100" src="https://via.placeholder.com/800x250" alt="Second slide">
-              </div>
-              <div class="carousel-item">
-                <img class="d-block w-100" src="https://via.placeholder.com/800x250" alt="Third slide">
-              </div>
-            </div>
-             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
-            </a> 
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
-            </a>
-          </div>
-
-        </div>
-
-        <div class="col ml-1">
-          <div class="row mb-1">
-            <div id="index-advertisement-top">
-                <img class="d-block w-100" src="https://via.placeholder.com/800x250">
-            </div>
-          </div>
-
-          <div class="row">
-            <div id="index-advertisement-bottom">
-                <img class="d-block w-100" src="https://via.placeholder.com/800x250">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
-
-    <!-- CATEGORIES -->
-    <!-- <div class="container-fluid" id="class-carousel">
-      <div class="row">
-
-        <div class="col-12 px-0">
-
-          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-
-            <ol class="carousel-indicators">
-              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-
-            </ol>
-
-            <div class="carousel-inner">
-
-              <div class="carousel-item active">
-                <div class="d-block class-carousel carousel-1"></div>
-              </div>
-              
-              <div class="carousel-item">
-                <div class="d-block class-carousel carousel-2"></div>
-              </div>
-
-              <div class="carousel-item">
-                <div class="d-block class-carousel carousel-3"></div>
-              </div>
-
-              <div class="carousel-item">
-                <div class="d-block class-carousel carousel-4"></div>
-              </div>
-
-            </div>
-
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
-            </a>
-              
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
-            </a>
-            
-          </div>
-        </div>
-      </div>
-    </div> -->
+    
 
     <?php require_once "../partials/categories.php"; ?>
 
@@ -121,8 +19,8 @@
 
     <!-- COMPANY DESCRIPTIONS -->
     <div class="container my-5 py-3 rounded" style='background:white;'>
-      <div class="row mx-0 text-center">
-        <div class="col d-flex flex-row">
+      <div class="row my-lg-5 mx-0 text-center">
+        <div class="col d-flex flex-lg-row flex-md-row flex-sm-column">
 
           <div class="flex-fill py-3">
             <div class="d-flex justify-content-center">
@@ -204,7 +102,7 @@
     <!-- VIEWED PRODUCTS, WISHLIST ITEMS AND CART ITEMS THAT WERE NOT PURCHASED, IF LOGGED IN OR SESSION IS NOT DESTROYED -->
     
     <!-- FEATURED SHOPS -->
-    <div class="container my-5 vanish-sm">
+    <div class="container my-5">
 
       <div class="row">
         <div class="col-6">
@@ -212,7 +110,11 @@
               FEATURED SHOPS
             </h5>
         </div>
-        <div class="col-6 text-right pt-2">View All&nbsp;<i class="fas fa-angle-double-right"></i></i></div>
+        <div class="col-6 text-right pt-2">
+          <a href="catalog.php?id=<?=$_GET['id'] = 1 ?>">
+            View All&nbsp;<i class="fas fa-angle-double-right"></i></i>
+          </a>
+        </div>
       </div>
 
       <div class="row no-gutters">
@@ -262,7 +164,11 @@
               TRENDING PRODUCTS
             </h5>
         </div>
-        <div class="col-6 text-right pt-2">View All&nbsp;<i class="fas fa-angle-double-right"></i></i></div>
+        <div class="col-6 text-right pt-2">
+          <a href="catalog.php?id=<?=$_GET['id'] = 1 ?>">
+            View All&nbsp;<i class="fas fa-angle-double-right"></i></i>
+          </a>
+        </div>
       </div>
       <div class="row no-gutters">
         <?php 
@@ -282,7 +188,7 @@
               $logo = $row['url'];
               $logo = BASE_URL . "/".$logo .".jpg";
           ?>
-          <div class="col-lg-3 col-md-3 col-sm-6 pb-2 px-1">
+          <div class="col-lg-3 col-md-4 col-sm-6 pb-2 px-1">
             <a href="product.php?id=<?= $id ?>">
               <div class = 'card h-700 border-0'>
                 <img class='card-img-top' src="<?= $logo ?>" style='height:400px;'> 
@@ -358,11 +264,11 @@
     <!-- BUTTON -- LOAD MORE PRODUCTS -->
     <div class="container">
       <div class="row">
-        <div class="col-4"></div>
-        <div class="col-4">
+        <div class="col"></div>
+        <div class="col-lg-4 col-md-6">
           <a href="catalog.php?id=<?=$_GET['id'] = 1 ?>" class="btn btn-lg btn-block border hover_btn">See More Products</a>
         </div>
-        <div class="col-4"></div>
+        <div class="col"></div>
       </div>
     </div>
   

@@ -419,10 +419,10 @@
 
                                 <div class="col-4">
                                     
-                                    <form action="<?= BASE_URL ?>/app/controllers/process_charge.php" method="post" id="stripe_pay_button" class='hidden'>
+                                    <form action="<?= BASE_URL ?>/app/controllers/process_charge.php" method="post" id="stripe_pay_button">
                                         <?php $totalAmount = $_SESSION['total_amount'] ?>
                                         <script
-                                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                            src="https://checkout.stripe.com/checkout.js" class="stripe-button stripe-button-el"
                                             data-key="<?= $stripe['publishable_key'] ?>"
                                             data-amount="<?= str_replace(".", "", number_format($totalAmount,2, "",".")) ?>"
                                             data-name="Mamaroo"
