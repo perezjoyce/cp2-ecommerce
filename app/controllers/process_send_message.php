@@ -1,18 +1,18 @@
 <?php 
 require_once '../../config.php';
 
-
-$message = $_POST['message'];
-$userId= $_SESSION['id'];
-$conversationId = $_POST['conversationId'];
-$sellerId = $_POST['sellerId'];
-$sql = "INSERT INTO tbl_messages SET message=?, user_id=?, date=now(), conversation_id=?";
-$statement = $conn->prepare($sql);
-$statement->execute([
-    $message,
-    $userId,
-    $conversationId
-]);
+if(isset($_SESSION['id'])){
+    $message = $_POST['message'];
+    $userId= $_SESSION['id'];
+    $conversationId = $_POST['conversationId'];
+    $sellerId = $_POST['sellerId'];
+    $sql = "INSERT INTO tbl_messages SET message=?, user_id=?, date=now(), conversation_id=?";
+    $statement = $conn->prepare($sql);
+    $statement->execute([
+        $message,
+        $userId,
+        $conversationId
+    ]);
 
 
 $sql = "SELECT u.*, m.* FROM tbl_messages m 
@@ -41,3 +41,7 @@ if($statement2->rowCount()) {
 // ]);
 
 echo $messageDetails;
+
+} else {
+    echo "Please log in first so seller can respond to your message.";
+}

@@ -638,12 +638,14 @@ div#login_image {
     padding: 10px;
     display: flex;
     flex-direction: column;
+    /* border: 2px solid lightgray!important; */
 }
 
 .message_details textarea{
     align-self: flex-end;
     width: 100%;
     background:#eff0f5!important;
+    border: 2px solid lightgray!important;
 }
 
 .message_details-container {
@@ -652,6 +654,7 @@ div#login_image {
     border: 1px solid gray;
     border-bottom: 0;
     overflow-y: scroll;
+    border: 2px solid lightgray!important;
 }
 
 .my-message {
