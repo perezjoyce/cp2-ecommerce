@@ -1,6 +1,6 @@
 <?php 
-require_once '../../../config.php';
-require_once "../../sources/class.upload.php";
+// require_once '../../../config.php';
+// require_once "../../sources/class.upload.php";
 ?>
 <div id='message_box'>
     <div class='message_box__relative'>
