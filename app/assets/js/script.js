@@ -148,9 +148,13 @@ $(document).ready( () => {
 								if (dataFromPHP == "userExists") {
 									$("#registration_username_validation").text("color", "#c471ed");
 									$("#registration_username_validation").text("User exists."); 
-								} else if ($.parseJSON(dataFromPHP)) {
-									let data = $.parseJSON(dataFromPHP);
-									location.href="profile.php?id=" + data.id;
+								// } else if ($.parseJSON(dataFromPHP)) {
+									// let data = $.parseJSON(dataFromPHP);
+									// location.href="profile.php?id=" + data.id;
+								} else if (dataFromPHP == "success") {
+									alert('You are now a registered Mamaroo user! Please login with your email or username and password.');
+									location.href="index.php";
+									
 								} else {
 									$("#registration_error_message").css("color", "#c471ed");
 									$("#registration_error_message").text("Error encountered. Please try again."); 

@@ -26,7 +26,8 @@
 			if($result) {
 				//GET LAST ID TO BE ABLE TO BE DIRECTED TO CORRECT PROFILE PAGE WHEN REGISTRATION IS SUCCESSFULLY DONE.
 				$last_id = $conn->lastInsertId();
-				echo json_encode(["id" => $last_id]);
+				// echo json_encode(["id" => $last_id]);
+				echo "success";
 			} else {
 				echo "fail";
 			}
