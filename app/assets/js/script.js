@@ -377,8 +377,8 @@ $(document).ready( () => {
 										"success": (dataFromPHP) => {
 											
 											if (dataFromPHP == "incorrectPassword") {
-												$("#password").next().css("color", "#f64f59");
-												$("#password").next().html("Your password is incorrect."); 
+												$("#edit_user_error").css("color", "#f64f59");
+												$("#edit_user_error").text("Your password is incorrect."); 
 											
 											} else if (dataFromPHP == "success") {
 												
@@ -387,13 +387,13 @@ $(document).ready( () => {
 												
 											} else {
 												$("#edit_user_error").css("color", "#f64f59");
-												$("#edit_user_error").append("Error in password validation encountered.");	
+												$("#edit_user_error").text("Error in password validation encountered.");	
 											} 
 										}
 									});
 								} else {
 									$("#edit_user_error").css("color", "#f64f59");
-									$("#edit_user_error").append("Error in username validation encountered."); 
+									$("#edit_user_error").text("Error in username validation encountered."); 
 								}	
 							}
 							});
@@ -2515,8 +2515,10 @@ $(document).ready( () => {
 
 				if(response == "followed"){
 					$('#btn_follow_container').html("<button class='btn border text-gray' id='btn_follow' data-id='"+storeId+"'>&#8722; Unfollow</button");
+					window.location.reload();
 				} else if(response == "unfollowed") {
-					$('#btn_follow_container').html("<button class='btn btn-purple text-light' id='btn_follow' data-id='"+storeId+"'>&#8722; Unfollow</button");
+					$('#btn_follow_container').html("<button class='btn btn-purple text-light' id='btn_follow' data-id='"+storeId+"'>&#8722; Follow</button");
+					window.location.reload();
 				} else {
 					alert("fail");
 				}

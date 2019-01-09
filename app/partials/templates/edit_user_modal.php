@@ -83,7 +83,7 @@
                       <div class="form-group row mb-5">
                           <label for='password-profile' class='col-lg-3 col-md-3 col-sm-12'>Password*</label>
                           <div class="input-group col-lg-9 col-md-9 col-sm-12">
-                              <input type="password" class='form-control border-right-0 pr-0' id='password-profile' placeholder='....'>
+                              <input type="password" class='form-control border-right-0 pr-0' id='password-profile'>
                               <a class="btn hide btn_view_profile_password border border-left-0 mx-0 px-0 eye-profile">
                                   <i class="fas fa-eye-slash eye text-secondary bg-light hide pr-2"></i>
                               </a>
