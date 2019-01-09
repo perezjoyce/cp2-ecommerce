@@ -62,10 +62,11 @@
                       <div class="form-group row mb-5">
                           <label for='email' class='col-lg-3 col-md-3 col-sm-12'>Email*</label>
                           <div class="input-group col-lg-9 col-md-9 col-sm-12">
-                              <input type="text" class='form-control' id='email'
+                                <input type="text" class='form-control' id='email'
                                   value="<?= hide_email($email) ?>">
+                                <div id='email-validation'></div>
                           </div>
-                          <div id='email-validation'></div>
+                          
                       </div>
 
 
@@ -73,10 +74,11 @@
                       <div class="form-group row mb-5">
                           <label for='unsername' class='col-lg-3 col-md-3 col-sm-12'>Username*</label>
                           <div class="input-group col-lg-9 col-md-9 col-sm-12">
-                              <input type="text" class='form-control' id='username'
+                                <input type="text" class='form-control' id='username'
                                   value="<?= $username ?>">
+                                <div id='username-validation'></div>
                           </div>
-                          <div id='username-validation'></div>
+                          
                       </div>
 
                       

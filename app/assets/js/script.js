@@ -382,7 +382,7 @@ $(document).ready( () => {
 											
 											} else if (dataFromPHP == "success") {
 												
-												alert('Your changes has been saved.');
+												alert('Your changes have been saved.');
 												window.location.reload();
 												
 											} else {
@@ -437,7 +437,7 @@ $(document).ready( () => {
 		let streetBldgUnit = $('#streetBldgUnit').val();
 		let landmark = $('#landmark').val();
 		let addressType = $('#addressType').val();
-		let password = $("#password").val();
+		let password = $("#password-address").val();
 
 		if(password == "" || regionId == "..." || provinceId == "..." || cityMunId == "..." || brgyId == "..." || streetBldgUnit == "" || addressType == "...") {
 			$("#address_error_message").css("color", "red");
@@ -456,7 +456,7 @@ $(document).ready( () => {
 			}, function(data) {
 
 				if(data == "success") {
-					alert("Your changes has been saved.");
+					alert("Your changes have been saved.");
 					window.location.reload();
 				}else if(data=='fail') {
 					$("#address_error_message").css("color", "red");
