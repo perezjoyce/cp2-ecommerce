@@ -123,12 +123,14 @@
                                             <div class="text-gray" id='btn_follow_container'>
                                                 
                                                 <?php 
-                                                    $sql = "SELECT * FROM tbl_followers WHERE user_id =? AND store_id =?";
-                                                    $statement = $conn->prepare($sql);
-                                                    $statement->execute([$currentUser['id'], $storeId]);
-                                                    $count = $statement->rowCount();
+                                                   
+                                                    if(isset($_GET['id'])){
+                                                        $sql = "SELECT * FROM tbl_followers WHERE user_id =? AND store_id =?";
+                                                        $statement = $conn->prepare($sql);
+                                                        $statement->execute([$currentUser['id'], $storeId]);
+                                                        $count = $statement->rowCount();
 
-                                                    if(!$count) {
+                                                        if(!$count) {
                                                 ?>
                                                 <button class='btn btn-purple' id='btn_follow' data-id='<?=$storeId?>'>
                                                     &#65291; Follow
