@@ -553,8 +553,7 @@
                                                         $completeOrderPrice = $row['price'];
                                                         $completeOrderLogo = productprofile($conn,$completeOrderProductId);
                                                         $completeOrderLogo = BASE_URL. "/".$completeOrderLogo.".jpg";
-                                                        $completeOrderStoreId = $row3['store_id'];
-  ]
+                                                        $completeOrderStoreId = $row['store_id'];
                                                 ?>
                                         
                                                 
