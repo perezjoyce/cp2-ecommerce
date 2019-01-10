@@ -3,7 +3,7 @@
     
     $id = $_GET['id'];
     if(empty($id)){ 
-        header("Location: index.php");
+        echo "<script>window.location.href='".BASE_URL."/app/views/'</script>";
     } else {
 
         $storeInfo = getStore ($conn,$id);

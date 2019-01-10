@@ -2,7 +2,8 @@
 <?php 
     
     if(empty($_GET['id'])){ 
-        header("Location: index.php");
+        echo "<script>window.location.href='".BASE_URL."/app/views/'</script>";
+        // header("Location: index.php");
     } else {
         $id = $_GET['id'];
 

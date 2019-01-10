@@ -52,6 +52,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+    <!--FACEBOOK-->
+    <!-- <meta property="og:image" content="https://www.website.com/logo.jpg">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1024">
+    <meta property="og:image:height" content="1024">
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://mamaroo.herokuapp.com"/>
+    <meta property="og:title" content="Mamaroo" />
+    <meta property="og:description" content="Website description." /> -->
+
     <title>Mamaroo</title>
 
     <!-- ICON -->

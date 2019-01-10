@@ -14,7 +14,8 @@
 
     $id = $_GET['id'];
     if(empty($id)) {
-        header("location: index.php");
+        echo "<script>window.location.href='".BASE_URL."/app/views/'</script>";
+        exit;
     } else {
 
         $id = $_SESSION['id'];
