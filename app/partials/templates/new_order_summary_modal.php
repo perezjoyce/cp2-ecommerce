@@ -270,8 +270,8 @@ require_once '../../../config.php';
                                                     $name = $row['name'];
                                                     $price = $row['price'];
                                                     $quantity = $row['quantity'];
-                                                    $image = showPrimaryProductImage($conn,$productId);
-                                                    $image =  BASE_URL."/". $image . ".jpg";
+                                                    $image = productprofile($conn,$productId);
+                                                    $image = BASE_URL ."/".$image.".jpg";
                                                     $subtotalPrice = $price * $quantity;
                                                     $totalStocksAvailable = getTotalProductStocks ($conn,$productId);
                                             ?>
