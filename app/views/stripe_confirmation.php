@@ -2,24 +2,20 @@
 <?php require_once BASE_DIR . "/app/partials/header_stripe.php";?>
 <?php 
 
-$transactionCode = $_SESSION['transactionCode'];
+$transactionCode = $_GET['transactionCode'];
+$transactionCode = base64_decode($transactionCode);
 $cartSession = $_SESSION['cart_session'];
 $userId = $_SESSION['id'];
 
 ?>
 
-<div class="container-fluid rounded" id='confirmation_modal' style="background:white;">
+<div class="container-fluid" id='confirmation_modal'>
     <div class="row">
 
         <div class="col" id='printThis'>
 
-            <div class="row float-right">
-                <button id='close_modal' type="button" class="close mr-3 mt-2" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" class='font-weight-light text-secondary' style='font-size:20px;'>&times;</span>
-                </button>
-            </div>
-
-            <div class="container px-5 pb-2 pt-5 mb-4">
+            
+            <div class="container px-5 pb-2 pt-5 mb-4 rounded" style="background:white;">
                 <input type="hidden" value='1' id='variation_id_hidden_modal'>
                 <div class="row mb-5 mt-4"> 
                     <div class='col'>
@@ -513,7 +509,6 @@ $userId = $_SESSION['id'];
 </div>
 
 
-
 <?php require_once BASE_DIR . "/app/partials/footer.php";?>
 <?php require_once BASE_DIR . "/app/partials/modal_container.php"; ?>
 <?php require_once BASE_DIR . "/app/partials/modal_container_big.php"; ?>
@@ -526,7 +521,7 @@ $userId = $_SESSION['id'];
        $.get("../controllers/process_unset_session.php", function(data) {
 			let response = $.parseJSON(data);
 			if(response.message == 'success'){
-			    window.location.reload();
+                window.location.href="index.php?id=<?= $userId ?>";
 			}
         });
         
@@ -536,7 +531,7 @@ $userId = $_SESSION['id'];
         $.get("../controllers/process_unset_session.php", function(data) {
 			let response = $.parseJSON(data);
 			if(response.message == 'success'){
-                header("Location: ../views/index.php?id=".$userId);
+                window.location.href="index.php?id=<?= $userId ?>";
 			}
         });
     })
