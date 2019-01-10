@@ -528,7 +528,7 @@
                                                     JOIN tbl_items i 
                                                     ON c.variation_id=v.id 
                                                     AND v.product_id=i.id 
-                                                    WHERE user_id = 23 
+                                                    WHERE `user_id` = ? 
                                                     AND status_id = 3 
                                                     GROUP BY productId 
                                                     ORDER BY date_created DESC";
