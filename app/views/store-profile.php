@@ -185,7 +185,7 @@
                                 
                                 <div class="row">
                                     <div class="col"> 
-                                       <div class="mt-5" id='store_profile_description'>
+                                       <div class="mt-5" id='store_profile_description' style='line-height:1.8;'>
                                            <?= $storeDescription ?>
                                        </div>
                                     </div>
@@ -266,7 +266,7 @@
                                     <div class="col">
                                         <div class='d-flex flex-row'>
                                             <div class='flex-fill'>
-                                                <h4>Shoperoo Stats</h4>
+                                                <h4>Mamaroo Stats</h4>
                                             </div>
                                         </div>
                                     </div>
@@ -277,7 +277,7 @@
                                         <div class="container px-0">
 
                                             <div class="row my-4">
-                                                <div class="col-3 pt-5">
+                                                <div class="col-4 pt-5">
                                                     Rating
                                                 </div>
                                                 <div class="col">

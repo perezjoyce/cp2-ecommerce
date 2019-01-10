@@ -52,7 +52,7 @@
                 <div class='container p-5 rounded' style='background:white;'>
                     <div class="row mx-0">
                         <div class="col">
-                            <h4>Order History</h4>
+                            <h4>Cancelled Orders</h4>
                         </div>
                         <!-- <div class="col">
                             <div class="input-group input-group-lg">
