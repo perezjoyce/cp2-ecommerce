@@ -274,7 +274,7 @@ $userId = $_SESSION['id'];
                                                 
                                                 <!-- UNIT PRICE X QUANTITY -->
                                                 <td class='text-center justify-content-center'>
-                                                    <span>&#8369; </span>
+                                                    <span>&#36;</span>
                                                     <span class="subtotal_price<?=$variationId?>"> <?= number_format((float)$subtotalPrice, 2, '.', ',') ?> </span> 
                                                 </td>
                         
@@ -287,7 +287,7 @@ $userId = $_SESSION['id'];
                                             <tr class='tr-gray text-secondary font-weight-bold text-center'>
                                                 <td colspan='2' class='text-right'>SUBTOTAL (Cart Items)</td>
                                                 <td> 
-                                                    <span>&#8369;</span>
+                                                    <span>&#36;</span>
                                                     <span id='grand_total_price'> 
                                                         <?php
                                                             $cartTotal = displayGrandTotal($conn, $cartSession);
@@ -386,7 +386,7 @@ $userId = $_SESSION['id'];
                                                             } else {
                                                                 $combinedShippingFee = $combinedShippingFee + $standardShipping;
                                                                 $standardShipping = number_format((float)$standardShipping, 2, '.', ',');
-                                                                echo "₱&nbsp;$standardShipping";
+                                                                echo "&#36;&nbsp;$standardShipping";
                                                             }
                                                         
                                                         ?>
@@ -400,7 +400,7 @@ $userId = $_SESSION['id'];
                                             <tr class='tr-gray text-secondary font-weight-bold text-center'>
                                                 <td colspan='2' class='text-right'>SUBTOTAL (Shipping Fee)</td>
                                                 <!-- <td></td> -->
-                                                <td> &#8369;<span id='grand_total_price'> <?= number_format((float)$combinedShippingFee, 2, '.', ','); ?> </span> </td>
+                                                <td>&#36;<span id='grand_total_price'> <?= number_format((float)$combinedShippingFee, 2, '.', ','); ?> </span> </td>
                                             </tr>  
 
                                         </table>
@@ -431,7 +431,7 @@ $userId = $_SESSION['id'];
                                                             $totalForItems = displayGrandTotal($conn, $cartSession); 
                                                             // echo $totalForItems;
                                                             $finalItemsFee = number_format((float)$totalForItems, 2, '.', ',');    
-                                                            echo "₱&nbsp;$totalForItems";
+                                                            echo "&#36;&nbsp;$totalForItems";
                                                         // ?>
                                                     </td>
                                                 </tr>
@@ -443,7 +443,7 @@ $userId = $_SESSION['id'];
                                                     <td class='text-center'>
                                                         <?php
                                                             $finalShippingFee = number_format((float)$combinedShippingFee, 2, '.', ',');    
-                                                            echo "₱&nbsp;$combinedShippingFee";
+                                                            echo "&#36;&nbsp;$combinedShippingFee";
                                                             // echo $combinedShippingFee;
                                                         ?>
                                                     </td>
@@ -456,7 +456,7 @@ $userId = $_SESSION['id'];
                                                     <!-- <td></td> -->
                                                     <td> 
                                                         <div class='d-flex flex-row justify-content-center'>
-                                                            <h3>&#8369;&nbsp;</h3>
+                                                            <h3>&#36;&nbsp;</h3>
                                                             <h3 id='grand_total_price'> 
                                                                 <?php 
                                                                     $superGrandTotal = $totalForItems + $combinedShippingFee;

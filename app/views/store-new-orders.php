@@ -149,8 +149,9 @@
                                     <tr>
                                         <!-- PURCHASE DATE -->
                                         <td class='mx-0' width='15%'>
-                                            <div class='py-4 text-secondary'>
-                                                <?php 
+                                            <div class='py-4 text-secondary' id='purchaseDateTimeAgo'><?=$purchaseDate?>
+                                            
+                                                <!-- 
 
                                                     $datetime1 = new DateTime($purchaseDate);
                                                     $datetime2 = new DateTime();
@@ -182,7 +183,7 @@
                                                     }
 
                                                     echo $ago;
-                                                ?>
+                                                 -->
                                             </div>
                                         </td>
 
@@ -250,7 +251,7 @@
                                                         $grandTotalFee = $subTotalForItems + $subTotalForShipping;
                                                         $grandTotalFee = number_format((float)$grandTotalFee, 2, '.', ',');
 
-                                                        echo "&#8369;&nbsp;".$grandTotalFee;
+                                                        echo "&#36;&nbsp;".$grandTotalFee;
                                                     }
                                             
                                                     ?>

@@ -17,8 +17,8 @@
 			$price = $row['price'];
 	      	$item_img = $row['img_path'];
 
-			  $data .= "  
-				<div class='col-lg-4 col-md-6 mb-5'>
+?>
+			<div class='col-lg-4 col-md-6 mb-5'>
 					<div class='col-lg-4 col-md-6 mb-5'>
 					<a href='product.php?id=$id'>
 						<div class = 'card h-700'>
@@ -73,7 +73,8 @@
 							</div>
 						</div>
 					</a>
-				</div>";
+				</div>
+<?php
 		}
 	} else {
 		$data = "No records found!";

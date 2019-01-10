@@ -269,7 +269,7 @@
                                                             } else {
                                                                 $combinedShippingFee = $combinedShippingFee + $standardShipping;
                                                                 $standardShipping = number_format((float)$standardShipping, 2, '.', ',');
-                                                                echo "₱&nbsp;$standardShipping";
+                                                                echo "&#36;&nbsp;$standardShipping";
                                                             }
                                                         
                                                         ?>
@@ -287,7 +287,7 @@
                                             <tr class='tr-gray text-secondary font-weight-bold text-center'>
                                                 <td colspan='2' class='text-right'>SUBTOTAL (Shipping Fee)</td>
                                                 <!-- <td></td> -->
-                                                <td> &#8369;<span id='grand_total_price'> <?= number_format((float)$combinedShippingFee, 2, '.', ','); ?> </span> </td>
+                                                <td>&#8369;<span id='grand_total_price'> <?= number_format((float)$combinedShippingFee, 2, '.', ','); ?> </span> </td>
                                             </tr>  
 
                                         </table>
@@ -316,7 +316,7 @@
                                                         $totalForItems = displayGrandTotal($conn, $cartSession); 
                                                         // echo $totalForItems;
                                                         $finalItemsFee = number_format((float)$totalForItems, 2, '.', ',');    
-                                                        echo "₱&nbsp;$totalForItems";
+                                                        echo "&#36;&nbsp;$totalForItems";
                                                     // ?>
                                                 </td>
                                             </tr>
@@ -328,7 +328,7 @@
                                                 <td class='text-center'>
                                                     <?php
                                                         $finalShippingFee = number_format((float)$combinedShippingFee, 2, '.', ',');    
-                                                        echo "₱&nbsp;$combinedShippingFee";
+                                                        echo "&#36;&nbsp;$combinedShippingFee";
                                                         // echo $combinedShippingFee;
                                                     ?>
                                                 </td>

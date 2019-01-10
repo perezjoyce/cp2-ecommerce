@@ -184,7 +184,7 @@ require_once '../../config.php';
                                     $grandTotalFee = $subTotalForItems + $subTotalForShipping;
                                     $grandTotalFee = number_format((float)$grandTotalFee, 2, '.', ',');
 
-                                    echo "&#8369;&nbsp;".$grandTotalFee;
+                                    echo "&#36;&nbsp;".$grandTotalFee;
                                 }
                         
                             ?>

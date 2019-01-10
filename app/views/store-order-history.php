@@ -101,7 +101,7 @@
                             <table class="table borderless text-center bg-gray mb-0">
                                 <tr class='py-0'>
                                 
-                                    <td width='15%'>Time Ago</td>
+                                    <td width='15%'>Date</td>
                                     <td width='15%'>Client</td>
                                     <!-- <td width='15%'>Transaction Code</td> -->
                                     <td width='15%'>Product Id</td>
@@ -193,7 +193,7 @@
                                         <!-- PRICE -->
                                         <td class='mx-0' width='15%'> 
                                             <div class='py-4 text-secondary'>
-                                                &#8369;&nbsp;
+                                                &#36;&nbsp;
                                                 <?= number_format((float)$price, 2, '.', ','); ?>
                                             </div>
                                         </td>

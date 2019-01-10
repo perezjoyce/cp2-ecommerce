@@ -279,7 +279,7 @@
                                                             } else {
                                                                 $combinedShippingFee = $combinedShippingFee + $standardShipping;
                                                                 $standardShipping = number_format((float)$standardShipping, 2, '.', ',');
-                                                                echo "₱&nbsp;$standardShipping";
+                                                                echo "&#36;&nbsp;$standardShipping";
                                                             }
                                                         
                                                         ?>
@@ -330,7 +330,7 @@
                                                             $totalForItems = displayGrandTotal($conn, $cartSession); 
                                                             // echo $totalForItems;
                                                             $finalItemsFee = number_format((float)$totalForItems, 2, '.', ',');    
-                                                            echo "₱&nbsp;$totalForItems";
+                                                            echo "&#36;&nbsp;$totalForItems";
                                                         // ?>
                                                     </td>
                                                 </tr>
@@ -342,7 +342,7 @@
                                                     <td class='text-center'>
                                                         <?php
                                                             $finalShippingFee = number_format((float)$combinedShippingFee, 2, '.', ',');    
-                                                            echo "₱&nbsp;$combinedShippingFee";
+                                                            echo "&#36;&nbsp;$combinedShippingFee";
                                                             // echo $combinedShippingFee;
                                                         ?>
                                                     </td>

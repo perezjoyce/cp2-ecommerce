@@ -464,7 +464,7 @@
                                                         Cart Items
                                                     </td>
                                                     <td class='text-center'>
-                                                        ₱&nbsp;
+                                                        &#36;&nbsp;
                                                         <?= $cartTotalDisplay ?>
                                                     </td>
                                                 </tr>

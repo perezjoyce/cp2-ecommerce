@@ -157,39 +157,8 @@
 
                                         <!-- PURCHASE DATE -->
                                         <td class='mx-0' width='15%'>
-                                            <div class='py-4 text-secondary'>
-                                                <?php 
-
-                                                    $datetime1 = new DateTime($purchaseDate);
-                                                    $datetime2 = new DateTime();
-                                                    $interval = $datetime1->diff($datetime2);
-                                                    $ago = "";
-
-
-                                                    if($interval->format('%w') != 0) {
-                                                        $ago = $interval->format('%w weeks ago');
-                                                    } else {
-                                                        if($interval->format('%d') != 0) {
-                                                            $ago = $interval->format('%d days ago ');
-                                                        } else {
-                                                            if($interval->format('%h') != 0) {
-                                                                $ago = $interval->format('%h hrs ago');
-                                                            } elseif($interval->format('%i') != 0) {
-                                                                $ago = $interval->format('%i minutes ago');
-                                                            } else {
-                                                                $ago = "
-                                                                <small>
-                                                                    <i class='fas fa-circle text-success'>&nbsp;</i>
-                                                                </small>
-                                                                Just Now
-                                                                ";
-                                                            }
-                                                        }
-                                                        
-                                                    }
-
-                                                    echo $ago;
-                                                ?>
+                                            <div class='py-4 text-secondary'id='purchaseDateTimeAgo'>
+                                                <?=$purchaseDate?>
                                             </div>
                                         </td>
 
@@ -274,7 +243,7 @@
                                                         $grandTotalFee = $subTotalForItems + $subTotalForShipping;
                                                         $grandTotalFee = number_format((float)$grandTotalFee, 2, '.', ',');
 
-                                                        echo "&#8369;&nbsp;".$grandTotalFee;
+                                                        echo "&#36;&nbsp;".$grandTotalFee;
                                                     }
                                             
                                                 ?>

@@ -3115,11 +3115,16 @@ $(document).ready( () => {
 	var utcDateTime = $('#lastLoginTimeAgo').text();
 	var agoTime = moment.utc(utcDateTime).fromNow();
 	if(agoTime == "a few seconds ago") {
-		$('#lastLoginTimeAgo').html("<i class='fas fa-circle text-success'>&nbsp;</i>Active Now");
+		$('#lastLoginTimeAgo').html("<small><i class='fas fa-circle text-success'>&nbsp;</i></small>Active Now");
 	  } else {
 		$('#lastLoginTimeAgo').text(agoTime);
 	  }
 
+	var utcDateTime2 = $('#purchaseDateTimeAgo').text();
+	var agoTime2 = moment.utc(utcDateTime2).fromNow();
+	$('#purchaseDateTimeAgo').text(agoTime2);
+	
+	
 	
 
 	

@@ -32,7 +32,7 @@
                                     <div>
                                         $name
                                     </div>
-                                    <div>&#8369; 
+                                    <div>&#36; 
                                         $price
                                     </div>
 

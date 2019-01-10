@@ -159,7 +159,7 @@
                                             <td class='mx-0' width='20%'> 
                                                 <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
                                                     <div class='py-3 text-secondary'>
-                                                        <span>&#8369;&nbsp;</span>
+                                                        <span>&#36;&nbsp;</span>
                                                         <span><?= $productPrice ?></span>
                                                     </div>
                                                 </a>

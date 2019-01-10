@@ -21,7 +21,7 @@
 						<img class='card-img-top' src='<?=$item_img?>'>
 						<div class='card-body'>
 							<div class='font-weight-bold'><?=$name?></div>
-							<div>&#8369;<?=$row['price'] ?></div>
+							<div>&#36;<?=$row['price'] ?></div>
 
 							<!-- WISHLIST BUTTONS -->
 							<div class='d-flex flex-column'>

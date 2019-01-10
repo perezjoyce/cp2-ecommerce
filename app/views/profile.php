@@ -67,44 +67,6 @@
                                                 <?php } ?>
                                             </div>
                                             
-                                            <div class="text-gray mr-sm-4">
-                                                <?
-                                                    $sql = "SELECT last_login FROM tbl_users WHERE id = ?";
-                                                    $statement = $conn->prepare($sql);
-                                                    $statement->execute([$id]);	
-                                                    $row = $statement->fetch();
-                                                    $lastLogin = $row['last_login'];
-                                                    $datetime1 = new DateTime($lastLogin);
-                                                    $datetime2 = new DateTime();
-                                                    $interval = $datetime1->diff($datetime2);
-                                                    $ago = "";
-
-                                                    
-                                                    if($interval->format('%w') != 0) {
-                                                        $ago = $interval->format('Active %w weeks ago');
-                                                    } else {
-                                                        if($interval->format('%d') != 0) {
-                                                            $ago = $interval->format('Active %d days ago ');
-                                                        } else {
-                                                            if($interval->format('%h') != 0) {
-                                                                $ago = $interval->format('Active %h hrs ago');
-                                                            } elseif($interval->format('%i') != 0) {
-                                                                $ago = $interval->format('Active %i minutes ago');
-                                                            } else {
-                                                                $ago = "
-                                                                <small>
-                                                                    <i class='fas fa-circle text-success'>&nbsp;</i>
-                                                                </small>
-                                                                Active Now
-                                                                ";
-                                                            }
-                                                        }
-                                                        
-                                                    }
-                                                ?>
-                                                <small><?=$ago?></small>
-                                             </div>
-
                                         </div>
                                     </div>
                                 </div>

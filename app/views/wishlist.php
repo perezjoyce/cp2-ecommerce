@@ -62,7 +62,7 @@
                         </td>
 
                         <td>
-                                &#8369; 
+                                &#36; 
                             <span class='unitPrice'> 
                                 $price 
                             </span> </td>
