@@ -128,7 +128,7 @@
     
                         <div class='dropdown py-1' id='profileDropdownContainer'>
                         <a class='dropdown-toggle py-1 text-right' id="profileDropdown" role="button" data-toggle="dropdown">
-                                    <img src='<?= $storeLogo ?>' height='20' class='<?= $prefix ?>circle pr-1'>
+                                    <img src='<?= $storeLogo ?>' height='20' class='<?= $prefix ?>circle mr-1'>
                                     <small>HELLO,&nbsp;</small>
                                     <small>
                                         <?= $storeName ?>
