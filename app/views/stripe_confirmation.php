@@ -1,5 +1,5 @@
 <?php require_once "../../config.php";?>
-<?php require_once BASE_DIR . "/app/partials/header.php";?>
+<?php require_once BASE_DIR . "/app/partials/header_stripe.php";?>
 <?php 
 
 $transactionCode = $_SESSION['transactionCode'];

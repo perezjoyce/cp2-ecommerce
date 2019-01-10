@@ -98,16 +98,6 @@
             <div class="col px-lg-0">
                 <div class="d-flex flex-row">
                 
-                  
-
-                    <!-- <div class='flex-fill text-lg-right text-md-right text-sm-center'>
-                        <a class='nav-link border-0 text-lg-right text-md-right text-sm-center py-1' href="#" role='button'> 
-                            <small>
-                                TRACK MY ORDER
-                            </small>
-                        </a>
-                    </div> -->
-
                     
                     <div class='flex-fill text-lg-right text-md-right text-sm-right'>
                         <a class='nav-link modal-link border-0 text-lg-right text-md-right text-sm-right py-1' data-url='../partials/templates/login_modal.php' role='button'> 
@@ -119,16 +109,7 @@
                     </div>
 
             <?php } else { ?>
-                <!-- <div class="col-6">
-                    <div class='flex-fill text-lg-left text-md-left text-sm-left'>
-                        <a class='nav-link modal-link border-0 py-1' data-url='../partials/templates/login_modal.php' role='button'> 
-                            <i class="far fa-envelope pr-1 text-secondary"></i>
-                            <small>
-                                MESSAGES
-                            </small>
-                        </a>
-                    </div>
-                </div> -->
+                
               
                 <div class="col-12">
                     <div class='flex-fill text-lg-right text-md-right text-sm-right'>
@@ -150,16 +131,7 @@
                                     <i class="far fa-edit pr-2"></i>
                                     <small>MY PROFILE</small>
                                 </a>
-                                <a class="dropdown-item py-3" href='store-profile.php?id=<?php
-                                    $sId = getStoreId ($conn,$id);
-                                    if(!$sId) {
-                                        // FOR NOW. NEXT TIME, THIS SHOULD LEAD TO AN APPLICATION PAGE FOR SELLERS.
-                                        header("Location: ../views/index.php");
-                                    } else {
-                                        echo $sId;
-                                    }
-                                     
-                                     ?>'>
+                                <a class="dropdown-item py-3" href='store-profile.php?id=<?=getStoreId ($conn,$id)?>'>
                                     <i class="fas fa-store pr-2"></i>
                                     <small>MY SHOP</small>
                                 </a>
