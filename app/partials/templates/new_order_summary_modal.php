@@ -305,7 +305,7 @@ require_once '../../../config.php';
                                                 <!-- PRICE -->
                                                 <td> 
                                                     <div class='text-center justify-content-center pt-3'>
-                                                        <span>&#8369; </span>
+                                                        <span>&#36; </span>
                                                         <span><?=$price?></span>
                                                     </div>
                                                 </td>
@@ -323,7 +323,7 @@ require_once '../../../config.php';
                                                     <!-- UNIT PRICE X QUANTITY -->
                                                 <td>
                                                     <div class='text-center justify-content-center pt-3'>
-                                                        <span>&#8369; </span>
+                                                        <span>&#36;</span>
                                                         <span class="subtotal_price<?=$variationId?>"> <?= number_format((float)$subtotalPrice, 2, '.', ',') ?> </span> 
                                                     </div>
                                                 </td>
@@ -337,7 +337,7 @@ require_once '../../../config.php';
                                             <tr class='tr-gray text-secondary font-weight-bold text-center'>
                                                 <td colspan='5' class='text-right'>SUBTOTAL (Cart Items)</td>
                                                 <td> 
-                                                    <span>&#8369;</span>
+                                                    <span>&#36;</span>
                                                     <span id='grand_total_price'> 
                                                         <?php
                                                             $cartTotal = displayGrandTotalOfSeller($conn, $cartSession, $storeId);
@@ -440,7 +440,7 @@ require_once '../../../config.php';
                                                 <td>
                                                     <input type="hidden" value='<?=$cartTotal?>'> 
                                                     <input type="hidden" value='<?=$freeShippingMinimum?>'> 
-                                                    &#8369;<span id='grand_total_price'> <?= number_format((float)$finalShippingFee, 2, '.', ','); ?> </span> 
+                                                    &#36;<span id='grand_total_price'> <?= number_format((float)$finalShippingFee, 2, '.', ','); ?> </span> 
                                                 </td>
                                             </tr>  
 
@@ -478,7 +478,7 @@ require_once '../../../config.php';
                                                         Shipping Fee
                                                     </td>
                                                     <td class='text-center'>
-                                                         &#8369;<span> <?= number_format((float)$finalShippingFee, 2, '.', ','); ?> </span> 
+                                                        &#36;<span> <?= number_format((float)$finalShippingFee, 2, '.', ','); ?> </span> 
                                                     </td>
                                                 </tr>
 
@@ -488,7 +488,7 @@ require_once '../../../config.php';
                                                     <td colspan='1' class='text-right pt-3 text-secondary '>GRAND TOTAL</td>
                                                     <td> 
                                                         <div class='d-flex flex-row justify-content-center'>
-                                                            <h3 class='text-purple'>&#8369;&nbsp;</h3>
+                                                            <h3 class='text-purple'>&#36;&nbsp;</h3>
                                                             <h3 id='grand_total_price' class='text-purple'> 
                                                                 <?php 
                                                                     $grandtotal = $finalShippingFee + $cartTotal;

@@ -90,7 +90,7 @@ require_once '../../../config.php';
                                         <div class="card" style="width:100%;border:0;">
                                             <div class="card-body">
                                                 <h5 class="card-title"><?=$productName?></h5>
-                                                <p class="card-text"> &#8369;&nbsp;<?=$price?></p>
+                                                <p class="card-text">&#36;&nbsp;<?=$price?></p>
                                             </div>
                                             <ul class="list-group list-group-flush">
                                                 <a href="store-profile.php?id=<?=$storeId?>"></a>

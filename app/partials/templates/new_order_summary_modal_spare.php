@@ -303,7 +303,7 @@
                                                 <!-- PRICE -->
                                                 <td> 
                                                     <div class='text-center justify-content-center'>
-                                                        <span>&#8369; </span>
+                                                        <span>&#36; </span>
                                                         <span><?=$price?></span>
                                                     </div>
                                                 </td>
@@ -320,7 +320,7 @@
                                                 
                                                 <!-- UNIT PRICE X QUANTITY -->
                                                 <td class='text-center justify-content-center'>
-                                                    <span>&#8369; </span>
+                                                    <span>&#36;</span>
                                                     <span class="subtotal_price<?=$variationId?>"> <?= number_format((float)$subtotalPrice, 2, '.', ',') ?> </span> 
                                                 </td>
                         
@@ -333,7 +333,7 @@
                                             <tr class='tr-gray text-secondary font-weight-bold text-center'>
                                                 <td colspan='4' class='text-right'>SUBTOTAL (Cart Items)</td>
                                                 <td> 
-                                                    <span>&#8369;</span>
+                                                    <span>&#36;</span>
                                                     <span id='grand_total_price'> 
                                                         <?php
                                                             $cartTotal = displayGrandTotalOfSeller($conn, $cartSession, $storeId);
@@ -436,7 +436,7 @@
                                                 <td>
                                                     <input type="hidden" value='<?=$cartTotal?>'> 
                                                     <input type="hidden" value='<?=$freeShippingMinimum?>'> 
-                                                    &#8369;<span id='grand_total_price'> <?= number_format((float)$finalShippingFee, 2, '.', ','); ?> </span> 
+                                                    &#36;<span id='grand_total_price'> <?= number_format((float)$finalShippingFee, 2, '.', ','); ?> </span> 
                                                 </td>
                                             </tr>  
 
@@ -474,7 +474,7 @@
                                                         Shipping Fee
                                                     </td>
                                                     <td class='text-center'>
-                                                         &#8369;<span> <?= number_format((float)$finalShippingFee, 2, '.', ','); ?> </span> 
+                                                    &#36;<span> <?= number_format((float)$finalShippingFee, 2, '.', ','); ?> </span> 
                                                     </td>
                                                 </tr>
 
@@ -484,7 +484,7 @@
                                                     <td colspan='1' class='text-right pt-3 text-secondary '>GRAND TOTAL</td>
                                                     <td> 
                                                         <div class='d-flex flex-row justify-content-center'>
-                                                            <h3 class='text-purple'>&#8369;&nbsp;</h3>
+                                                            <h3 class='text-purple'>&#36;&nbsp;</h3>
                                                             <h3 id='grand_total_price' class='text-purple'> 
                                                                 <?php 
                                                                     $grandtotal = $finalShippingFee + $cartTotal;

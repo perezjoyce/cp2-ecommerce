@@ -120,7 +120,7 @@
                                     </td>
                                     
                                     <!-- PRICE -->
-                                    <td>&#8369; <span class="unitPrice<?=$variationId?>"> <?= number_format((float)$price, 2, '.', ',') ?> </span> </td>
+                                    <td>&#36; <span class="unitPrice<?=$variationId?>"> <?= number_format((float)$price, 2, '.', ',') ?> </span> </td>
                                     
                                     <!-- QUANTITY -->
                                     <td> 
@@ -168,7 +168,7 @@
                                     
                                     <!-- UNIT PRICE X QUANTITY -->
                                     <td class='text-center'>
-                                        <span>&#8369; </span>
+                                        <span>&#36;</span>
                                         <span class="subtotal_price<?=$variationId?>"> <?= number_format((float)$subtotalPrice, 2, '.', ',') ?> </span> 
                                     </td>
             
@@ -181,7 +181,7 @@
                                 <tr class='tr-gray text-secondary font-weight-bold text-center'>
                                     <td colspan='4' class='text-right'>SUBTOTAL (Cart Items)</td>
                                     <td> 
-                                        <span>&#8369;</span>
+                                        <span>&#36;</span>
                                         <span id='grand_total_price'> 
                                             <?php
                                                 $cartTotal = displayGrandTotal($conn, $cartSession);
@@ -297,7 +297,7 @@
                                             <tr class='tr-gray text-secondary font-weight-bold text-center'>
                                                 <td colspan='2' class='text-right'>SUBTOTAL (Shipping Fee)</td>
                                                 <!-- <td></td> -->
-                                                <td> &#8369;<span id='grand_total_price'> <?= number_format((float)$combinedShippingFee, 2, '.', ','); ?> </span> </td>
+                                                <td> &#36;<span id='grand_total_price'> <?= number_format((float)$combinedShippingFee, 2, '.', ','); ?> </span> </td>
                                             </tr>  
 
                                         </table>
@@ -355,7 +355,7 @@
                                                     <!-- <td></td> -->
                                                     <td> 
                                                         <div class='d-flex flex-row justify-content-center'>
-                                                            <h3>&#8369;&nbsp;</h3>
+                                                            <h3>&#36;&nbsp;</h3>
                                                             <h3 id='grand_total_price'> 
                                                                 <?php 
                                                                     $superGrandTotal = $totalForItems + $combinedShippingFee;

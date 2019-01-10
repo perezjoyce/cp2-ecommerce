@@ -196,7 +196,7 @@
                   <div class='font-weight-bold'>
                     <?= $name ?>
                   </div>
-                  <div>&#8369; <?= $price ?> </div>
+                  <div>&#36; <?= $price ?> </div>
 
                   <div class='d-flex flex-row mt-3'>
                  

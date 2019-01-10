@@ -193,7 +193,7 @@
                                         <!-- PRICE -->
                                         <td class='mx-0' width='15%'> 
                                             <div class='py-4 text-secondary'>
-                                                &#8369;&nbsp;
+                                                &#36;&nbsp;
                                                 <?= number_format((float)$price, 2, '.', ','); ?>
                                             </div>
                                         </td>

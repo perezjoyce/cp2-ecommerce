@@ -209,7 +209,7 @@ if(isset($_SESSION['id'])) {
 
               <!-- PRICE -->
               <div class="row pl-4">
-                <h1 class='font-weight-bold text-purple'>&#8369;&nbsp;<?= $price?></h1>
+                <h1 class='font-weight-bold text-purple'>&#36;&nbsp;<?= $price?></h1>
               </div>
 
               <hr class='mt-4 mb-5'>
@@ -225,7 +225,7 @@ if(isset($_SESSION['id'])) {
 
                 <div class="col-lg-4 col-md-2 col-sm-2">
                   <div class="row">
-                    &#8369;&nbsp;
+                    &#36;&nbsp;
                     <span id='shipping_fee'><?= displayShippingFee($conn,$id) ?></span>            
                   </div>
                 </div>
@@ -238,7 +238,7 @@ if(isset($_SESSION['id'])) {
                         &nbsp;
                         <small class='text-purple'>FREE SHIPPING</small>
                         <small class='text-gray'>
-                          With a minimum spend of &#8369;&nbsp;<?=displayFreeShippingMinimum($conn,$id);?> from seller.
+                          With a minimum spend of &#36;&nbsp;<?=displayFreeShippingMinimum($conn,$id);?> from seller.
                         </small>
                     </div>
                   </div>
@@ -254,7 +254,7 @@ if(isset($_SESSION['id'])) {
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-6">
                   <div class="row">
-                    &#8369;&nbsp;
+                    &#36;&nbsp;
                     <span id='shipping_fee'><?= displayShippingFee($conn,$id) ?></span>            
                   </div>
                 </div>
@@ -1353,7 +1353,7 @@ if(isset($_SESSION['id'])) {
                     <div>
                       <?= $name ?>
                     </div>
-                    <div>&#8369; 
+                    <div>&#36;
                       <?= $price ?> 
                     </div>
 

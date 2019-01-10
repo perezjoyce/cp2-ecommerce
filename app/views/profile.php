@@ -586,7 +586,7 @@
                                                                                 <div class='text-gray'><?= $completeOrderVariationName ?></div>
                                                                             </div>
                                                                             <div>
-                                                                                <span class='text-gray'>&#8369;&nbsp;</span>
+                                                                                <span class='text-gray'>&#36;&nbsp;</span>
                                                                                 <span class='text-gray'><?= $completeOrderPrice ?></span>
                                                                             </div>
                                                                     
@@ -766,7 +766,7 @@
                                                                                 <div class='text-secondary'><?= $name ?></div>
                                                                             </div>
                                                                             <div>
-                                                                                <span class='text-gray'>&#8369;&nbsp;</span>
+                                                                                <span class='text-gray'>&#36;&nbsp;</span>
                                                                                 <span class='text-gray'><?= $price ?></span>
                                                                             </div>
                                                                     

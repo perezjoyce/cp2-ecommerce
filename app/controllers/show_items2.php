@@ -27,7 +27,7 @@
 								<div class='font-weight-bold'>
 									$name
 								</div>
-								<div>&#8369; $row[price]</div>
+								<div>&#36; $row[price]</div>
 
 								<!-- WISHLIST BUTTONS -->
 								<div class='d-flex flex-column'>
