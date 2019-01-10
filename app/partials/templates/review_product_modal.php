@@ -1,5 +1,6 @@
 <?php 
 require_once '../../../config.php';
+require_once "../../sources/class.upload.php";
 
     $productId = $_POST['productId'];
     $userId = $_SESSION['id'];
@@ -72,11 +73,15 @@ require_once '../../../config.php';
                                     $row = $statement->fetch();
                                     $productName = $row['productName'];
                                     $price = $row['price'];
-                                    $image = $row['img_path'];
+                                    $image = productprofile($conn,$productId);
+                                    $image = BASE_URL. "/".$image.".jpg";
+                                    
                                     $storeId = $row['storeId'];
+                                    $storeLogo = $row['logo'];
                                     $storeName = $row['storeName'];
                                     $storeAddress = $row['store_address'];
-                                    $storeLogo = $row['logo'];
+                            
+                                   
                             ?>                                
 
                             <div class="container my-5 px-0">
@@ -98,7 +103,7 @@ require_once '../../../config.php';
                                                     <div class='d-flex align-items-center'>
                                                         
                                                         <div class='pr-3'>
-                                                            <img src="<?=$storeLogo?>" alt="<?=$storeName?>" class='circle' style='height:40px;'>
+                                                            <img src='<?=BASE_URL ."/". $storeLogo . ".jpg"?>' alt="<?=$storeName?>?>" alt="<?=$storeName?>" class='circle' style='height:40px;'>
                                                         </div>
                                                         <div class='d-flex flex-column'>
                                                         
