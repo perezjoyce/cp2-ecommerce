@@ -209,7 +209,7 @@
 
                                         <!-- VIEW -->
                                         <td class='mx-0' width='10%'>
-                                            <a data-href="../partials/templates/new_order_summary_modal.php?id=<?=$storeId?>&cart=<?=$newOrderCartSession?>" class='border-0 btn_view_new_order' style='cursor:pointer;size:15px;'>
+                                            <a data-href="../partials/templates/history_order_summary_modal.php?id=<?=$storeId?>&cart=<?=$newOrderCartSession?>" class='border-0 btn_view_new_order' style='cursor:pointer;size:15px;'>
                                                 <i class="far fa-file-pdf text-gray py-4" style='width:100%;'></i>
                                             </a>
                                         </td>

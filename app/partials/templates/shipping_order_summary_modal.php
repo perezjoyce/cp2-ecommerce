@@ -1,20 +1,29 @@
 <?php 
-    require_once '../../../config.php';
-    $cartSession = $_SESSION['cart_session'];
-    $paymentMode = $_SESSION['paymentMode'];
+require_once '../../../config.php';
+
+
+    $userId = $_SESSION['id']; //userid
+    $storeId = $_GET['id'];
+    $cartSession = $_GET['cart'];
+   
+    $storeName = getStoreName ($conn,$userId);
+    $storeLogo = getStoreLogo ($conn,$userId);
+    $storeAddress = getStoreAddress ($conn,$userId);
+    $storeHours = getStoreHours ($conn,$userId);
+    $storeFollowers = countFollowers ($conn, $storeId);
+    $storeRating = getAverageStoreRating ($conn, $storeId);
+    $storeMembershipDate = getMembershipDate($conn, $storeId);
+    $storeShippingFee = displayStoreShippingFee($conn,$storeId);
+    $storeFreeShippingMinimum = displayStoreFreeShipping($conn,$storeId);
+    
 ?>
 
+<input type="hidden" value='<?=$cartSession?>'>
+<input type="hidden" value='<?=$storeId?>'>
 
 <div class="container-fluid" id='confirmation_modal'>
     <div class="row">
-
-        <div class="col-lg-4 ml-0 py-0 px-0 my-0 ml-0 d-none d-lg-block d-xl-block">
-            <div id='cart_image'></div>
-            <!-- <div id='login_ad'>
-                <h1>fdsfsd</h1>
-            </div> -->
-        </div>
-
+        
         <div class="col" style='height:80vh;overflow-y:auto;' id='printThis'>
 
             <div class="row float-right">
@@ -27,7 +36,7 @@
                 <input type="hidden" value='1' id='variation_id_hidden_modal'>
                 <div class="row mb-5 mt-4"> 
                     <div class='col'>
-                       <h3>Your Order Summary</h3>
+                       <h3>Order Summary</h3>
                     </div>
                 </div>
                 <div class="row">
@@ -48,7 +57,7 @@
                                     $transactionCode = $row['transaction_code'];
                                     $paymentModeId = $row['payment_mode_id'];
                                     $shippingAddressId = $row['address_id'];
-                                    $status = $row['status_id'];
+                                    $statusId = $row['status_id'];
                                     $billingAddressId = $row['billing_address_id'];
 
                                     //SHIPPING INFO
@@ -96,15 +105,13 @@
                                     <div class="col-4">
                                             
                                         <div>
-                                            <h5 class='text-secondary'>Transaction Code</h5>
+                                            <div class='text-secondary'>Transaction Code</div>
                                         </div>
                                         
                                         
                                     </div>
                                     <div class="col">
-                                        <input  type='text' value='<?=$paymentModeId?>'>
-                                        <input  type='text' value='<?=$paymentMode?>'>
-                                        <h4 class='text-purple font-weight-bold'><?= isset($_SESSION['transaction_code']) ? $_SESSION['transaction_code'] : ''?></h4>
+                                        <h4 class='text-purple font-weight-bold'><?=$transactionCode?></h3>
                                     </div>
                                 </div>
 
@@ -113,12 +120,26 @@
                                 <div class="row mt-5">
                                     <div class="col-4">  
                                         <div>
-                                            <h5 class='text-secondary'>Transaction Date</h5>
+                                            <div class='text-secondary'>Transaction Date</div>
                                         </div>
                                     </div>
-                                    <div class="col">
+                                    <div class="col text-secondary">
                                         <div>
                                             <?=$purchaseDate?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- TRANSACTION DATE -->
+                                <div class="row mt-5">
+                                    <div class="col-4">  
+                                        <div>
+                                            <div class='text-secondary'>Status</div>
+                                        </div>
+                                    </div>
+                                    <div class="col text-secondary">
+                                        <div>
+                                            Confirmed
                                         </div>
                                     </div>
                                 </div>
@@ -127,12 +148,12 @@
                                 <div class="row mt-5">
                                     <div class="col-4">  
                                         <div>
-                                            <h5 class='text-secondary'>Mode Of Payment</h5>
+                                            <div class='text-secondary'>Mode Of Payment</div>
                                         </div>
                                     </div>
-                                    <div class="col">
+                                    <div class="col text-secondary">
                                         <div>
-                                            <?= isset($_SESSION['paymentMode']) ? $_SESSION['paymentMode'] : getModeOfPayment($conn, $paymentModeId) ?>
+                                            <?=getModeOfPayment($conn, $paymentModeId)?>
                                         </div>
                                     </div>
                                 </div>
@@ -143,7 +164,7 @@
                                     <div class="col-12">
                                             
                                         <div>
-                                            <h5 class='text-secondary'>Shipping & Billing Info</h5>
+                                            <div class='text-secondary'>Shipping & Billing Info</div>
                                         </div>
                                         <table class="table table-hover borderless mt-5 text-center">
                                             <thead>
@@ -155,7 +176,7 @@
                                             </thead>
                                                                         
                                             <tbody>
-                                                <tr>
+                                                <tr class='text-secondary'>
                                                     <td> 
                                                         Shipping
                                                     </td>
@@ -178,7 +199,7 @@
                                                     </td>
                                                 </tr>
 
-                                                <tr class='tr-gray'>
+                                                <tr class='tr-gray text-secondary'>
                                                     <td>
                                                         Billing
                                                     </td>
@@ -210,14 +231,17 @@
                                 <div class="row">
                                     <div class="col">
                                         <div class='mb-5'>
-                                            <h5 class='text-secondary'>Cart Items</h5>
+                                            <div class='text-secondary'>Cart Items</div>
                                         </div>
      
                                         <!-- ITEMS SUMMARY -->
                                         <table class="table table-hover borderless">
                                             
                                             <tr id="table-header" class='text-secondary bg-gray border-bottom'>
-                                                <th> ITEM </th>
+                                                <th class='text-center'> ID </th>
+                                                <th class='text-center'> ITEM </th>
+                                                <th class='text-center'> VARIATION </th>
+                                                <th class='text-center'> PRICE </th>
                                                 <th class='text-center'> QUANTITY </th>
                                                 <th class='text-center'> UNIT PRICE &nbsp;x &nbsp; QUANTITY </th>
 
@@ -226,14 +250,14 @@
                     
                                             <?php 
 
-                                                $sql = "SELECT v.product_id as 'productId', v.variation_stock, v.variation_name, c.variation_id, c.quantity, c.cart_session, p.img_path, p.name, p.price
+                                                $sql = "SELECT v.product_id as 'productId', v.variation_stock, v.variation_name, c.variation_id, c.quantity, c.cart_session,p.store_id, p.img_path, p.name, p.price
                                                 FROM tbl_carts c 
                                                 JOIN tbl_items p 
                                                 JOIN tbl_variations v
-                                                ON v.product_id = p.id AND c.variation_id=v.id WHERE cart_session= ?";
+                                                ON v.product_id = p.id AND c.variation_id=v.id WHERE cart_session= ? AND store_id = ?";
                                                 //$result = mysqli_query($conn, $sql);
                                                 $statement = $conn->prepare($sql);
-                                                $statement->execute([$cartSession]);
+                                                $statement->execute([$cartSession,$storeId]);
                                                 $count = $statement->rowCount();
                                                 $subtotalPrice = 0;
 
@@ -246,7 +270,6 @@
                                                     $name = $row['name'];
                                                     $price = $row['price'];
                                                     $quantity = $row['quantity'];
-                                                    // $image = $row['img_path'];  
                                                     $image = productprofile($conn,$productId);
                                                     $image = BASE_URL ."/".$image.".jpg";
                                                     $subtotalPrice = $price * $quantity;
@@ -254,38 +277,55 @@
                                             ?>
 
                                             
-                                            <tr>
-                                                <!-- IMAGE, NAME AND VARIATION -->
+                                            <tr class='text-secondary'>
+                                                <!-- IMAGE -->
                                                 <td> 
-                                                    <div class='d-flex flex-row' style='justify-content:flex-start;'>
-                                                        <div class='flex pr-2'>
-                                                            <a href="product.php?id=<?=$productId?>">
-                                                                <img src='<?=$image?>' style='width:50px;height:50px;'>
-                                                            </a> 
-                                                        </div>   
-                                                        <div class='flex-fill'>
-                                                            <div class='d-flex flex-column'>
-                                                                <?= $name ?>
-                                                                <div class='text-gray italics'><?= $variationName ?></div>
-                                                                <div class='text-gray italics'><span class="unitPrice<?=$variationId?>"> <?= number_format((float)$price, 2, '.', ',') ?> </span></div>
-                                                            </div>
-                                                        </div>
+                                                    <div class='text-center justify-content-center pt-3'>
+                                                        <?=$productId?>
+                                                    </div>
+                                                </td>
+                                                <!-- IMAGE -->
+                                                <td> 
+                                                    <div class='d-flex justify-content-start pl-lg-5' style='justify-content:flex-start;'>
+                                                        <a href="product.php?id=<?=$productId?>" class='pr-2'>
+                                                            <img src='<?=$image?>' style='width:50px;height:50px;'>
+                                                        </a> 
+                                                        <div class='pt-3'><?=$name?></div>
                                                     </div>
                                                 </td>
                                                 
+                                                <!-- VARIATION -->
+                                                <td> 
+                                                    <div class='text-center justify-content-center pt-3'>
+                                                        <?=$variationName?>
+                                                    </div>
+                                                </td>
+                                                
+                                                
+                                                <!-- PRICE -->
+                                                <td> 
+                                                    <div class='text-center justify-content-center pt-3'>
+                                                        <span>&#8369; </span>
+                                                        <span><?=$price?></span>
+                                                    </div>
+                                                </td>
                                             
                                                 <!-- QUANTITY -->
                                                 <td> 
-                                                    <div class='text-center justify-content-center'>
+                                                    <div class='text-center justify-content-center pt-3'>
                                                         <?=$quantity?>
                                                     </div>
                                                 </td>
+
                                                 
                                                 
-                                                <!-- UNIT PRICE X QUANTITY -->
-                                                <td class='text-center justify-content-center'>
-                                                    <span>&#8369; </span>
-                                                    <span class="subtotal_price<?=$variationId?>"> <?= number_format((float)$subtotalPrice, 2, '.', ',') ?> </span> 
+                                                
+                                                    <!-- UNIT PRICE X QUANTITY -->
+                                                <td>
+                                                    <div class='text-center justify-content-center pt-3'>
+                                                        <span>&#8369; </span>
+                                                        <span class="subtotal_price<?=$variationId?>"> <?= number_format((float)$subtotalPrice, 2, '.', ',') ?> </span> 
+                                                    </div>
                                                 </td>
                         
                                             </tr>
@@ -295,15 +335,16 @@
 
                                             <!-- GRAND TOTAL /SUBTOTAL CART ITEMS -->
                                             <tr class='tr-gray text-secondary font-weight-bold text-center'>
-                                                <td colspan='2' class='text-right'>SUBTOTAL (Cart Items)</td>
+                                                <td colspan='5' class='text-right'>SUBTOTAL (Cart Items)</td>
                                                 <td> 
                                                     <span>&#8369;</span>
                                                     <span id='grand_total_price'> 
                                                         <?php
-                                                            $cartTotal = displayGrandTotal($conn, $cartSession);
-                                                            $cartTotal = number_format((float)$cartTotal, 2, '.', ',');
-                                                            echo $cartTotal;
+                                                            $cartTotal = displayGrandTotalOfSeller($conn, $cartSession, $storeId);
+                                                            $cartTotalDisplay = number_format((float)$cartTotal, 2, '.', ',');
+                                                            echo $cartTotalDisplay;
                                                         ?> 
+                                                        <!-- <input type="text" value="<?=$cartTotal?>"> -->
                                                     </span> 
                                                 </td>
                                             </tr>  
@@ -317,9 +358,10 @@
                             <!-- SHIPPING AND TOTALS -->
                             <div class="container my-5 px-0">
                                 <div class="row">
-                                    <div class="col-6">
+
+                                    <div class="col">
                                         <div>
-                                            <h5 class='text-secondary'>Shipping Fee</h5>
+                                            <div class='text-secondary'>Shipping Fee</div>
                                         </div>
                                         <table class="table table-hover borderless mt-5">
                                             
@@ -331,55 +373,27 @@
                                             </tr>
                                             
                     
-                                            <?php 
-                                                $sql2 = "SELECT c.cart_session, i.store_id, 
-                                                    SUM(i.price * c.quantity) AS 'totalPerStore', s.logo, s.store_address, s.name, s.standard_shipping, s.free_shipping_minimum 
-                                                    FROM tbl_items i 
-                                                    JOIN tbl_carts c 
-                                                    JOIN tbl_variations v 
-                                                    JOIN tbl_stores s 
-                                                    ON v.product_id=i.id 
-                                                    AND c.variation_id=v.id 
-                                                    AND i.store_id=s.id 
-                                                    WHERE c.cart_session = ? 
-                                                    GROUP BY store_id";
+                                            
 
-                                                    $statement2 = $conn->prepare($sql2);
-                                                    $statement2->execute([$cartSession]);
-                                                    $combinedShippingFee = 0;
-                                                    while($row2 = $statement2->fetch()) {
-                                                        $storeId = $row2['store_id'];
-                                                        $storeName = $row2['name'];  
-                                                        $storeAddress = $row2['store_address'];
-                                                        $storeLogo = $row2['logo'];   
-                                                        $storeLogo = BASE_URL ."/".$storeLogo.".jpg";
-                                                        $totalPerStore = $row2['totalPerStore'];
-                                                        $standardShipping = $row2['standard_shipping'];
-                                                        $freeShippingMinimum = $row2['free_shipping_minimum'];                                                 
-                                            ?>
-
-                                            <tr>
-                                                <!-- DELETE STORE AND ITS PRODUCTS BUTTON -->
-                                                <td class='pr-0'>
-                                                    <!-- <div class='text-left' style='align-self:end;'>
-                                                        <a data-productid='<?=$productId?>' data-vname='<?=$variationName?>' data-variationid='<?= $variationId ?>' data-quantity='<?=$quantity?>' role='button' class='btn_delete_item text-gray flex-fill font-weight-light' style='font-size:16px;'>
-                                                        &times;
-                                                        </a>
-                                                    </div> -->
-                                                </td>
+                                            <tr class='text-secondary'>
                                                 
                                                 <!-- STORE LOGO AND NAME -->
+                                                <td></td>
                                                 <td> 
                                                     <div class='d-flex flex-row' style='justify-content:flex-start;'>
                                                         <div class='flex pr-2'>
                                                             <a href="store-profile.php?id=<?=$storeId?>">
-                                                                <img src='<?=$storeLogo?>' style='width:50px;height:50px;' class='circle'> 
+                                                                <img src='<?php 
+                                                                    $logo = getStoreLogo ($conn,$userId);
+                                                                    $logo = BASE_URL."/". $logo . ".jpg";
+                                                                    echo $logo;
+                                                                ?>' style='width:50px;height:50px;' class='circle'> 
                                                             </a>
                                                         </div>   
                                                         <div class='flex-fill'>
                                                             <div class='d-flex flex-column'>
-                                                            <div class='pt-2'><?= $storeName ?></div> 
-                                                            <div class='text-gray'><?= $storeAddress ?></div>
+                                                            <div class='pt-2'><?= getStoreName($conn,$userId) ?></div> 
+                                                            <div class='text-gray'><?= getStoreAddress ($conn,$userId) ?></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -389,28 +403,45 @@
                                                 <!-- SHIPPING FEE -->
                                                 <td class='text-center'>
                                                     <div class='pt-2'>
-                                                        <?php 
 
-                                                            if($freeShippingMinimum != 0 && $totalPerStore >= $freeShippingMinimum) {
-                                                                echo "Free Shipping!";
+                                                        <?php 
+                                                            $standardShipping = displayStoreShippingFee($conn,$storeId);
+                                                            $freeShippingMinimumx = displayStoreFreeShipping($conn,$storeId, false);
+                                                            $freeShippingMinimum = number_format($freeShippingMinimumx,2,'.','');
+                                                            
+                                                            if($cartTotal >= $freeShippingMinimum ){
+                                                                echo "FREE!";
                                                             } else {
-                                                                $combinedShippingFee = $combinedShippingFee + $standardShipping;
-                                                                $standardShipping = number_format((float)$standardShipping, 2, '.', ',');
-                                                                echo "₱&nbsp;$standardShipping";
+                                                                echo $standardShipping;
                                                             }
-                                                        
                                                         ?>
+
+                                                      
+                                           
                                                     </div>
                                                 </td>
                                             </tr>
 
-                                            <?php } ?>
+                                         
 
                                             <!-- SHIPPING FEE TOTAL -->
                                             <tr class='tr-gray text-secondary font-weight-bold text-center'>
                                                 <td colspan='2' class='text-right'>SUBTOTAL (Shipping Fee)</td>
-                                                <!-- <td></td> -->
-                                                <td> &#8369;<span id='grand_total_price'> <?= number_format((float)$combinedShippingFee, 2, '.', ','); ?> </span> </td>
+                                                    <?php 
+                                                            $finalShippingFee = "";
+                                
+                                                            if($cartTotal >= $freeShippingMinimum ){
+                                                                $finalShippingFee = "0.00";
+                                                            } else {
+                                                                $finalShippingFee = $standardShipping;
+                                                            }
+                                                        ?>
+
+                                                <td>
+                                                    <input type="hidden" value='<?=$cartTotal?>'> 
+                                                    <input type="hidden" value='<?=$freeShippingMinimum?>'> 
+                                                    &#8369;<span id='grand_total_price'> <?= number_format((float)$finalShippingFee, 2, '.', ','); ?> </span> 
+                                                </td>
                                             </tr>  
 
                                         </table>
@@ -421,7 +452,7 @@
                                     <!-- SUPER GRAND TOTAL -->
                                     <div class="col">
                                             <div>
-                                                <h5 class='text-secondary'>Grand Total</h5>
+                                                <div class='text-secondary'>Grand Total</div>
                                             </div>
                                             <table class="table table-hover borderless mt-5">
                                                 
@@ -432,46 +463,37 @@
                                                 </tr>
                                                                             
                                                 <!-- CART ITEMS -->
-                                                <tr>
+                                                <tr class='text-secondary'>
                                                     <td> 
                                                         Cart Items
                                                     </td>
                                                     <td class='text-center'>
-                                                        <?php 
-                                                            $totalForItems = displayGrandTotal($conn, $cartSession); 
-                                                            // echo $totalForItems;
-                                                            $finalItemsFee = number_format((float)$totalForItems, 2, '.', ',');    
-                                                            echo "₱&nbsp;$totalForItems";
-                                                        // ?>
+                                                        ₱&nbsp;
+                                                        <?= $cartTotalDisplay ?>
                                                     </td>
                                                 </tr>
 
-                                                <tr>
+                                                <tr class='text-secondary'>
                                                     <td>
-                                                        Shipping Fee(s)
+                                                        Shipping Fee
                                                     </td>
                                                     <td class='text-center'>
-                                                        <?php
-                                                            $finalShippingFee = number_format((float)$combinedShippingFee, 2, '.', ',');    
-                                                            echo "₱&nbsp;$combinedShippingFee";
-                                                            // echo $combinedShippingFee;
-                                                        ?>
+                                                         &#8369;<span> <?= number_format((float)$finalShippingFee, 2, '.', ','); ?> </span> 
                                                     </td>
                                                 </tr>
 
 
-                                                <!-- SHIPPING FEE TOTAL -->
-                                                <tr class='tr-gray text-secondary font-weight-bold text-center'>
-                                                    <td colspan='1' class='text-right pt-3'>GRAND TOTAL</td>
-                                                    <!-- <td></td> -->
+                                               
+                                                <tr class='tr-gray font-weight-bold text-center'>
+                                                    <td colspan='1' class='text-right pt-3 text-secondary '>GRAND TOTAL</td>
                                                     <td> 
                                                         <div class='d-flex flex-row justify-content-center'>
-                                                            <h3>&#8369;&nbsp;</h3>
-                                                            <h3 id='grand_total_price'> 
+                                                            <h3 class='text-purple'>&#8369;&nbsp;</h3>
+                                                            <h3 id='grand_total_price' class='text-purple'> 
                                                                 <?php 
-                                                                    $superGrandTotal = $totalForItems + $combinedShippingFee;
-                                                                    $grandTotal = number_format((float)$superGrandTotal, 2, '.', ','); 
-                                                                    echo $grandTotal;
+                                                                    $grandtotal = $finalShippingFee + $cartTotal;
+                                                                    $grandtotalx = number_format((float)$grandtotal, 2, '.', ','); 
+                                                                    echo $grandtotalx;
                                                                 ?>
                                                             </h3>
                                                         </div>
@@ -487,7 +509,7 @@
                         <!-- CHECKOUT BUTTON -->
                             <div class="container my-5 px-0">
                                 <div class="row mt-5">
-                                    <div class="col-6"></div>
+                                    <div class="col-lg-8 col-md-6 col-sm-12"></div>
                                     <div class="col">
                                         <?php 
                                             $modalLinkClassPrefix = ''; 
@@ -495,7 +517,7 @@
                                                 $modalLinkClassPrefix='-big';
                                             }
                                         ?>
-                                        <a class='btn btn-lg btn-block py-3 btn-purple mt-5'  id='btnPrint'>
+                                        <a class='btn btn-lg btn-block py-3 btn-purple mt-5'  id='btn_print_order_copy'>
                                             Save As PDF&nbsp; 
                                             <i class="fas fa-file-download"></i>
                                         </a>
@@ -518,26 +540,3 @@
 
 </div>
 <!-- /CONTAINER-FLUID -->
-
-<?php 
-    //END SESSION AFTER DISPLAYING CONFIRMATION MODAL
-    //unset($_SESSION["cart_session"]);
-  
-
-?>
-
-
-<script>
-    // RELOAD THE PAGE TO GET NEW CART SESSION ID
-    $("#modalContainerBig").on('hidden.bs.modal', function(){
-       // ;
-
-       $.get("../controllers/process_unset_session.php", function(data) {
-			let response = $.parseJSON(data);
-			if(response.message == 'success'){
-			    window.location.reload();
-			}
-        });
-        
-    })
-</script>
