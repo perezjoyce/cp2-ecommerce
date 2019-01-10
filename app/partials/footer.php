@@ -53,7 +53,7 @@
               <h6 class='text-light pb-lg-3 pb-md-3 vanish-sm'>FOLLOW US</h6>
               
               
-              <a href="https://www.facebook.com" class='text-light footer-link pt-1' target="_blank">
+              <a href="#" class='text-light footer-link pt-1' target="_blank">
                 <span class='vanish-lg vanish-md pt-2'></span>
                 <span class="fa-stack">
                   <i class="fa fa-circle fa-stack-2x icon-background"></i>
@@ -62,7 +62,7 @@
                 <span class="vanish-md vanish-sm">Facebook</span>
               </a>
 
-              <a href="https://www.instagram.com" class='text-light footer-link pt-1' target="_blank">
+              <a href="#" class='text-light footer-link pt-1' target="_blank">
                 <span class="fa-stack">
                   <i class="fa fa-circle fa-stack-2x icon-background"></i>
                   <i class="fab fa-instagram fa-stack-1x text-purple"></i>
@@ -70,7 +70,7 @@
                 <span class="vanish-md vanish-sm">Instagram</span>
               </a>
 
-              <a href="https://pinterest.com" class='text-light footer-link pt-lg-2 pt-1' target="_blank">
+              <a href="#" class='text-light footer-link pt-lg-2 pt-1' target="_blank">
                 <span class="fa-stack">
                   <i class="fa fa-circle fa-stack-2x icon-background"></i>
                   <i class="fab fa-pinterest-p fa-stack-1x text-danger"></i>
@@ -78,7 +78,7 @@
                 <span class="vanish-md vanish-sm">Pinterest</span>
               </a>
 
-              <a href="https://twitter.com" class='text-light footer-link pt-lg-2 pt-1' target="_blank">
+              <a href="#" class='text-light footer-link pt-lg-2 pt-1' target="_blank">
                 <span class="fa-stack">
                   <i class="fa fa-circle fa-stack-2x icon-background"></i>
                   <i class="fab fa-twitter fa-stack-1x text-primary"></i>
