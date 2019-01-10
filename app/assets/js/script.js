@@ -3114,7 +3114,15 @@ $(document).ready( () => {
 
 	var utcDateTime = $('#lastLoginTimeAgo').text();
 	var agoTime = moment.utc(utcDateTime).fromNow();
-	$('#lastLoginTimeAgo').text(agoTime);
+	if(agoTime == "a few seconds ago") {
+		$('#lastLoginTimeAgo').html("<i class='fas fa-circle text-success'>&nbsp;</i>Active Now");
+	  } else {
+		$('#lastLoginTimeAgo').text(agoTime);
+	  }
+
+	
+
+	
 
 	// moment.utc('2019-01-10 17:48:13').toDate()
 
