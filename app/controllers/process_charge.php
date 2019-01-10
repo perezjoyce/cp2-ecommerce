@@ -41,9 +41,9 @@
   }
   $transactionCode = $_SESSION['transaction_code'];
   session_start(); // INITIATE
-  unset($_SESSION["cart_session"]);
+//   unset($_SESSION["cart_session"]);
 //   unset($_SESSION['paymentMode']);
-  unset($_SESSION['transaction_code']);
+//   unset($_SESSION['transaction_code']);
   
   // SEND an email to customer and seller for the info about the transaction
   // echo "Payment successful!";

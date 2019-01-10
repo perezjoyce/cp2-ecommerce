@@ -3,25 +3,14 @@
 <?php 
 
 $transactionCode = $_GET['transactionCode'];
-$transactionCode = base64_encode($transactionCode); 
-echo $transactionCode;
-
 $cartSession = $_SESSION['cart_session'];
-$paymentMode = $_SESSION['paymentMode'];
 
 ?>
 
-<div class="container-fluid" id='confirmation_modal'>
+<div class="container-fluid rounded" id='confirmation_modal' style="background:white;">
     <div class="row">
 
-        <div class="col-lg-4 ml-0 py-0 px-0 my-0 ml-0 d-none d-lg-block d-xl-block">
-            <div id='cart_image'></div>
-            <!-- <div id='login_ad'>
-                <h1>fdsfsd</h1>
-            </div> -->
-        </div>
-
-        <div class="col" style='height:80vh;overflow-y:auto;' id='printThis'>
+        <div class="col" id='printThis'>
 
             <div class="row float-right">
                 <button id='close_modal' type="button" class="close mr-3 mt-2" data-dismiss="modal" aria-label="Close">
@@ -108,9 +97,7 @@ $paymentMode = $_SESSION['paymentMode'];
                                         
                                     </div>
                                     <div class="col">
-                                        <input  type='text' value='<?=$paymentModeId?>'>
-                                        <input  type='text' value='<?=$paymentMode?>'>
-                                        <h4 class='text-purple font-weight-bold'><?= isset($_SESSION['transaction_code']) ? $_SESSION['transaction_code'] : ''?></h4>
+                                        <h4 class='text-purple font-weight-bold'><?=base64_encode($transactionCode)?></h4>
                                     </div>
                                 </div>
 
@@ -138,7 +125,7 @@ $paymentMode = $_SESSION['paymentMode'];
                                     </div>
                                     <div class="col">
                                         <div>
-                                            <?= isset($_SESSION['paymentMode']) ? $_SESSION['paymentMode'] : getModeOfPayment($conn, $paymentModeId) ?>
+                                           Credit Card
                                         </div>
                                     </div>
                                 </div>
