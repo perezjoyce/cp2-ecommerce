@@ -3111,8 +3111,11 @@ $(document).ready( () => {
 	// 		$("#modalContainerBig").modal('show');
 	// 	});
 	// })
-	
 
+	var utcTimeOffset = $('#lastLoginTimeAgo').text();
+	var userClientDateTime = moment(utcTimeOffset).utcOffset();
+	var timeAgo = timeago().format(userClientDateTime);
+	$('#lastLoginTimeAgo').text(timeAgo);
 });
 
 

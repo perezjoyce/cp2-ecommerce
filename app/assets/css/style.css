@@ -599,8 +599,14 @@ div#login_image {
 }
 
 
-div#cart_image {
+#cart_image {
     background-image: url("../../assets/images/ad-3.jpeg")!important;
+    background-repeat: no-repeat;
+    background-size: cover;
+	height: auto;
+	position: relative;
+	background-position-y: center;
+	background-position-x: right;
 }
 
 /* ================================ Message Box =================================== */

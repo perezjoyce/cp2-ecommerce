@@ -493,35 +493,35 @@ if(isset($_SESSION['id'])) {
                         $statement->execute([$sellerId]);	
                         $row = $statement->fetch();
                         $lastLogin = $row['last_login'];
-                        $datetime1 = new DateTime($lastLogin);
-                        $datetime2 = new DateTime();
-                        $interval = $datetime1->diff($datetime2);
-                        $ago = "";
+                        //$datetime1 = new DateTime($lastLogin);
+                        //$datetime2 = new DateTime();
+                        //$interval = $datetime1->diff($datetime2);
+                        //$ago = "";
 
                         
-                          if($interval->format('%w') != 0) {
-                              $ago = $interval->format('Active %w weeks ago');
-                          } else {
-                            if($interval->format('%d') != 0) {
-                              $ago = $interval->format('Active %d days ago ');
-                            } else {
-                              if($interval->format('%h') != 0) {
-                                $ago = $interval->format('Active %h hrs ago');
-                              } elseif($interval->format('%i') != 0) {
-                                $ago = $interval->format('Active %i minutes ago');
-                              } else {
-                                $ago = "
-                                <small>
-                                  <i class='fas fa-circle text-success'>&nbsp;</i>
-                                </small>
-                                Active Now
-                                  ";
-                              }
-                            }
+                          // if($interval->format('%w') != 0) {
+                          //     $ago = $interval->format('Active %w weeks ago');
+                          // } else {
+                          //   if($interval->format('%d') != 0) {
+                          //     $ago = $interval->format('Active %d days ago ');
+                          //   } else {
+                          //     if($interval->format('%h') != 0) {
+                          //       $ago = $interval->format('Active %h hrs ago');
+                          //     } elseif($interval->format('%i') != 0) {
+                          //       $ago = $interval->format('Active %i minutes ago');
+                          //     } else {
+                          //       $ago = "
+                          //       <small>
+                          //         <i class='fas fa-circle text-success'>&nbsp;</i>
+                          //       </small>
+                          //       Active Now
+                          //         ";
+                          //     }
+                          //   }
                             
-                          }
+                          // }
                       ?>
-                      <small><?=$ago?></small>
+                      <small id='lastLoginTimeAgo'><?=$lastLogin?></small>
                     </div>
 
                     <!-- SELLER NAME -->

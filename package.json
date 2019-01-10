@@ -1,0 +1,15 @@
+{
+  "name": "cp2-ecommerce",
+  "version": "1.0.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/tuitt/students/b6nc/perez-joyce/cp2-ecommerce.git"
+  },
+  "author": "Joyce Perez",
+  "license": "ISC",
+  "dependencies": {
+    "moment": "^2.23.0",
+    "timeago.js": "^4.0.0-beta.2"
+  }
+}

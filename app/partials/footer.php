@@ -170,8 +170,17 @@
     <!-- BOOTSTRAP JS -->
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+    <!-- BOOTSTRAP JS -->
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script src="<?= BASE_URL ?>/vendor/moment/moment.js"></script>
+
+    <script src="<?= BASE_URL ?>/vendor/timeago.js/dist/timeago.min.js"></script>
+
     <!-- EXTERNAL JS -->
     <script src="../assets/js/script.js"></script>
+
+    
   
   </body>
 </html>

@@ -13,6 +13,7 @@
     $id = $_GET['id'];
     if(empty($id)) {
         header("location: index.php");
+        exit;
     } else {
 
         $id = $_SESSION['id'];
