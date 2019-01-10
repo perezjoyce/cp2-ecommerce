@@ -11,8 +11,8 @@
     $row = $statement->fetch();
 
     
-    unlink( "../../" . $row['url'].".jpg");
-    unlink( "../../" . $row['url']."_80x80.jpg");
+    // unlink( "../../" . $row['url'].".jpg");
+    // unlink( "../../" . $row['url']."_80x80.jpg");
 
     $sql = "DELETE FROM tbl_product_images WHERE id = ?";
     $statement = $conn->prepare($sql);
