@@ -73,7 +73,7 @@
                                 <table class="table table-hover borderless" id='sender_container'>
                                                 
                                             
-                                <tr>
+                                <tr class='d-flex flex-column'>
                                     <?php 
                                         // CHECK IF THERE IS AN EXISTING CONVERSATIONS INITIATED BY THE BUYER
                                         $sql = "SELECT c.id, m.user_id, m.message, m.date 
