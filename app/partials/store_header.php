@@ -240,8 +240,12 @@
                                                 <small>FOR SHIPPING</small>
                                             </a>
                                             <a class="dropdown-item py-3" href="store-order-history.php?id=<?=$storeId?>">
-                                                <i class="fas fa-file-invoice pr-2 text-secondary"></i>
-                                                <small>RECORDS</small>
+                                                <i class="fas fa-clipboard-check pr-1 text-secondary"></i>
+                                                <small>COMPLETED ORDERS</small>
+                                            </a>
+                                            <a class="dropdown-item py-3" href="store-cancelled-orders.php?id=<?=$storeId?>">
+                                                <i class="fas fa-eraser pr-2 text-secondary"></i>
+                                                <small>CANCELLATIONS</small>
                                             </a>
                                         </div>
                                     </li>

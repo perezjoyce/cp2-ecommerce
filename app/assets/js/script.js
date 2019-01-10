@@ -3029,10 +3029,10 @@ $(document).ready( () => {
 
 			$.post('../controllers/process_confirm_order.php',data,function(response){
 
-				if(response == 'success') {
+				// if(response == 'success') {
 					alert("Order has been confirmed!");
 					setTimeout(function(){window.location.reload()}, 1000);
-				}
+				// }
 			})
 		}
 	});
@@ -3074,10 +3074,10 @@ $(document).ready( () => {
 
 			$.post('../controllers/process_complete_order.php',data,function(response){
 
-				if(response == 'success') {
+				// if(response == 'success') {
 					alert("Order transaction has been completed!");
 					setTimeout(function(){window.location.reload()}, 1000);
-				}
+				// }
 			})
 		}
 	});

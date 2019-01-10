@@ -89,7 +89,7 @@
                             AND o.cart_session=c.cart_session 
                             WHERE c.status_id = ? and store_id = ?";
                                 $statement = $conn->prepare($sql);
-                                $statement->execute([3,$storeId]);
+                                $statement->execute([4,$storeId]);
                                 $count = $statement->rowCount();
             
                             if($count) {
