@@ -17,12 +17,6 @@
 
         <div class="col" style='height:80vh;overflow-y:auto;' id='printThis'>
 
-            <div class="row float-right">
-                <button id='close_modal' type="button" class="close mr-3 mt-2" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" class='font-weight-light text-secondary' style='font-size:20px;'>&times;</span>
-                </button>
-            </div>
-
             <div class="container px-5 pb-2 pt-5 mb-4">
                 <input type="hidden" value='1' id='variation_id_hidden_modal'>
                 <div class="row mb-5 mt-4"> 
@@ -102,8 +96,8 @@
                                         
                                     </div>
                                     <div class="col">
-                                        <input  type='text' value='<?=$paymentModeId?>'>
-                                        <input  type='text' value='<?=$paymentMode?>'>
+                                        <input  type='hidden' value='<?=$paymentModeId?>'>
+                                        <input  type='hidden' value='<?=$paymentMode?>'>
                                         <h4 class='text-purple font-weight-bold'><?= isset($_SESSION['transaction_code']) ? $_SESSION['transaction_code'] : ''?></h4>
                                     </div>
                                 </div>

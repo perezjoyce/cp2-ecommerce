@@ -1,9 +1,10 @@
 <?php require_once "../../config.php";?>
-<?php require_once BASE_DIR . "/app/partials/header.php";?>
+<?php require_once BASE_DIR . "/app/partials/header_stripe.php";?>
 <?php 
 
-$transactionCode = $_GET['transactionCode'];
+$transactionCode = $_SESSION['transactionCode'];
 $cartSession = $_SESSION['cart_session'];
+$userId = $_SESSION['id'];
 
 ?>
 
@@ -97,7 +98,7 @@ $cartSession = $_SESSION['cart_session'];
                                         
                                     </div>
                                     <div class="col">
-                                        <h4 class='text-purple font-weight-bold'><?=base64_encode($transactionCode)?></h4>
+                                        <h4 class='text-purple font-weight-bold'><?=$transactionCode?></h4>
                                     </div>
                                 </div>
 
@@ -529,5 +530,14 @@ $cartSession = $_SESSION['cart_session'];
 			}
         });
         
+    })
+
+    $("#website_name").on("click",function(){
+        $.get("../controllers/process_unset_session.php", function(data) {
+			let response = $.parseJSON(data);
+			if(response.message == 'success'){
+                header("Location: ../views/index.php?id=".$userId);
+			}
+        });
     })
 </script>
