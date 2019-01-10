@@ -520,9 +520,18 @@
                                 
                                 <div class="row border-top">
                                         <?php 
-                                            $sql = "SELECT cart_session,purchase_date 
-                                                    FROM tbl_orders WHERE `user_id` = ? 
-                                                    AND status_id = 2 ORDER BY purchase_date DESC";
+                                            $sql = "SELECT c.*, v.variation_name, i.name 
+                                                    AS 'productName',i.price, i.id 
+                                                    AS 'productId', i.store_id 
+                                                    FROM tbl_carts c 
+                                                    JOIN tbl_variations v 
+                                                    JOIN tbl_items i 
+                                                    ON c.variation_id=v.id 
+                                                    AND v.product_id=i.id 
+                                                    WHERE user_id = 23 
+                                                    AND status_id = 3 
+                                                    GROUP BY productId 
+                                                    ORDER BY date_created DESC";
                                                 $statement = $conn->prepare($sql);
                                                 $statement->execute([$id]);
                                                 $count = $statement->rowCount();
@@ -537,27 +546,15 @@
                                                 <?php
                                                     while($row = $statement->fetch()){ 
                                                         $completeOrderSession = $row['cart_session'];
-
-                                                        $sql2 = "SELECT variation_id FROM tbl_carts WHERE cart_session = ?";
-                                                            $statement2 = $conn->prepare($sql2);
-                                                            $statement2->execute([$completeOrderSession]);
-                                                        
-                                                        while($row2 = $statement2->fetch()){ 
-                                                            $completeOrderVariationId = $row2['variation_id'];
-                                                            
-                                                            $sql3 = "SELECT v.id as 'variationId', v.variation_name as 'variationName', i.id as 'productId', i.name as 'productName', i.price, i.img_path, i.store_id FROM tbl_variations v JOIN tbl_items i ON v.product_id=i.id WHERE v.id = ? GROUP BY i.id";
-                                                                $statement3 = $conn->prepare($sql3);
-                                                                $statement3->execute([$completeOrderVariationId]);
-
-                                                                while($row3 = $statement3->fetch()){ 
-                                                                    $completeOrderVariationName = $row3['variationName'];
-                                                                    $completeOrderProductId = $row3['productId'];
-                                                                    $completeOrderProductName = $row3['productName'];
-                                                                    $completeOrderPrice = $row3['price'];
-                                                                    $completeOrderLogo = $row3['img_path'];
-                                                                    $completeOrderLogo = BASE_URL. "/".$completeOrderLogo.".jpg";
-                                                                    $completeOrderStoreId = $row3['store_id'];
-
+                                                        $completeOrderVariationId = $row['variation_id'];
+                                                        $completeOrderVariationName = $row['variation_name'];
+                                                        $completeOrderProductId = $row['productId'];
+                                                        $completeOrderProductName = $row['productName'];
+                                                        $completeOrderPrice = $row['price'];
+                                                        $completeOrderLogo = productprofile($conn,$completeOrderProductId);
+                                                        $completeOrderLogo = BASE_URL. "/".$completeOrderLogo.".jpg";
+                                                        $completeOrderStoreId = $row3['store_id'];
+  ]
                                                 ?>
                                         
                                                 
@@ -611,7 +608,7 @@
                                                     
                                                 </tr>
                         
-                                                <?php } } } ?>
+                                                <?php } } ?>
                                             
 
 

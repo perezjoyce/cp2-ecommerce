@@ -263,7 +263,7 @@
                                             </div>  
 
                                             <div class="row mb-5">
-                                                <div class="col-3">
+                                                <div class="col-4">
                                                     Followers
                                                 </div>
                                                 <div class="col">
@@ -272,7 +272,7 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-3">
+                                                <div class="col-4">
                                                     Member Since
                                                 </div>
                                                 <div class="col">
