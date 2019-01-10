@@ -75,7 +75,7 @@
 <div class="container-fluid">
     <div class="row">
 
-        <div class="col-lg-3 ml-0 py-0 px-0 my-0 ml-0 d-none d-lg-block d-xl-block">
+        <div class="col-lg-2 ml-0 py-0 px-0 my-0 ml-0 d-none d-lg-block d-xl-block">
             <div id='cart_image'></div>
             <!-- <div id='login_ad'>
                 <h1>fdsfsd</h1>

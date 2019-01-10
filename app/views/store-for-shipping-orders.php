@@ -161,7 +161,7 @@
                                                 <?php 
 
                                                     $datetime1 = new DateTime($purchaseDate);
-                                                    $datetime2 = new Date().getTimezoneOffset();
+                                                    $datetime2 = new DateTime();
                                                     $interval = $datetime1->diff($datetime2);
                                                     $ago = "";
 
