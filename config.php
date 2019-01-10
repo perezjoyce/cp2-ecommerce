@@ -33,6 +33,12 @@ $stripe = [
 
 \Stripe\Stripe::setApiKey($stripe['secret_key']);
 
+// use Aws\S3\S3Client;
+
+// $client = S3Client::factory(array(
+//     'profile' => '<profile in your aws credentials file>'
+// ));
+
 
 // WHEN IN WEB 
 // session_start();
