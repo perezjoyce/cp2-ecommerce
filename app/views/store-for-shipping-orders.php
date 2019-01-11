@@ -259,7 +259,7 @@
                                             <td class='mx-0' width='15%'>                                                     
                                                 <div class='py-4 font-weight-light'>       
                                                     <!-- ONCE CLICKED, WILL BE TRANSFERRED TO ORDER HISTORY -->
-                                                    <a class="btn border btn_complete_order" data-cartsession='<?=$newOrderCartSession?>' data-storeid='<?=$storeId?>' data-storename='<?=$storeName?>'><small>MARK AS COMPLETE</small></a>                                                                
+                                                    <a class="btn border btn_complete_order" data-cartsession='<?=$newOrderCartSession?>' data-storeid='<?=$storeId?>' data-storename='<?=$storeName?>'><small><span class='vanish-md vanish-sm'>MARK AS&nbsp;</span>COMPLETE</small></a>                                                                
                                                 </div> 
                                             </td>
 
