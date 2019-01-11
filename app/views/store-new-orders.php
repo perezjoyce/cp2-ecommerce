@@ -79,7 +79,7 @@
                 
                 
                 <!-- NEW ORDERS -->
-                <div class="container px-5 pb-5 rounded table-responsive-sm" style='background:white;'>
+                <div class="container px-5 pb-5 rounded" style='background:white;'>
                                
                                 
                     <?php
@@ -104,7 +104,7 @@
                     ?>
 
                     <div class="row">
-                        <div class="col-12 px-2 mb-0">
+                        <div class="col-12 px-2 mb-0 table-responsive-sm">
                             
                             <table class="table table-hover borderless text-center bg-gray mb-0">
                                 <thead>
@@ -122,9 +122,6 @@
                                 </thead>
                                 <tbody style='background:white;height:600px;overflow-y:auto;font-size:12px;' id='data-container'>
 
-                                
-                          
-                           
                                     <?php 
                                         while($row = $statement->fetch()){ 
                                             $purchaseDate = $row['purchase_date'];
@@ -287,7 +284,6 @@
                                         
                                     <?php } ?>
                                 </tbody>
-        
                             </table>
 
                                 

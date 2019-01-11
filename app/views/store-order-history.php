@@ -52,7 +52,7 @@
                 <!-- SEARCH BAR -->
                 <div class='container p-5 rounded' style='background:white;'>
                     <div class="row mx-0">
-                        <div class="col">
+                        <div class="col-lg-6 col-md-4 col-sm-12">
                             <h4>Completed Orders</h4>
                         </div>
                         <!-- <div class="col">
@@ -99,143 +99,133 @@
                     <div class="row">
                         <div class="col-12 px-2 mb-0 table-responsive-sm">
                             
-                            <table class="table borderless text-center bg-gray mb-0">
-                                <tr class='py-0'>
-                                
-                                    <td width='15%'>Date</td>
-                                    <td width='15%'>Client</td>
-                                    <!-- <td width='15%'>Transaction Code</td> -->
-                                    <td width='15%'>Product Id</td>
-                                    <td width='15%'>Variation</td>
-                                    <td width='15%'>Price</td>
-                                    <td width='15%'>Quantity</td>
-                                    <!-- <td width='15%'>Amount</td> -->
-                                    <td width='10%'>View</td>
-       
+                            <table class="table table-hover borderless text-center bg-gray mb-0">
+                                <thead>
+                                    <tr class='py-0'>
                                     
-                                </tr> 
-                            </table>
-                               
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col px-2">
-                            <div class="container px-0 table-responsive-sm" style='background:white;height:600px;overflow-y:auto;font-size:12px;'>
-                                <table class="table table-hover borderless text-center">
-                                    
-                                        <?php 
-                                            while($row = $statement->fetch()){ 
-                                                $purchaseDate = $row['purchase_date'];
-                                                $transactionId = $row['transaction_id'];
-                                                $transactionCode = $row['transaction_code'];
-                                                $clientId = $row['user_id'];
-                                                $whoWillPay = $row['billing_address_id'];
-                                                $productId = $row['product_id'];
-                                                $productName = $row['product_name'];
-                                                $variationId = $row['variation_id'];
-                                                $variationName = $row['variation_name'];
-                                                $quantity = $row['quantity'];
-                                                $price = $row['price'];
-                                                // $status = $row['status'];
-                                                $newOrderCartSession = $row['cart_session'];
-                                                $paymentModeId = $row['payment_mode_id'];
-                                        ?>
-                                    
-                                    <tr>
-                                        <!-- PURCHASE DATE -->
-                                        <td class='mx-0' width='15%'>
-                                            <div class='py-4 text-secondary'><?=date("M d, Y", strtotime($purchaseDate))?>
-                                        </td>
+                                        <td width='15%'>Date</td>
+                                        <td width='15%'>Client</td>
+                                        <!-- <td width='15%'>Transaction Code</td> -->
+                                        <td width='15%'>Product Id</td>
+                                        <td width='15%'>Variation</td>
+                                        <td width='15%'>Price</td>
+                                        <td width='15%'>Quantity</td>
+                                        <!-- <td width='15%'>Amount</td> -->
+                                        <td width='10%'>View</td>
+        
+                                        
+                                    </tr> 
+                                </thead>
+                                <tbody style='background:white;height:600px;overflow-y:auto;font-size:12px;'>
 
-                                        <!-- CLIENT -->
-                                        <td class='mx-0' width='15%'> 
-                                            <div class='py-4 text-secondary'>
-                                                <?php 
-                                                
-                                                $fname = getFirstName($conn, $clientId);
-                                                $lname = getLastName($conn, $clientId);
-                                                if($fname && $lname) {
-                                                    $name = $fname . " " . $lname;
-                                                } else { 
+  
+                                    <?php 
+                                        while($row = $statement->fetch()){ 
+                                            $purchaseDate = $row['purchase_date'];
+                                            $transactionId = $row['transaction_id'];
+                                            $transactionCode = $row['transaction_code'];
+                                            $clientId = $row['user_id'];
+                                            $whoWillPay = $row['billing_address_id'];
+                                            $productId = $row['product_id'];
+                                            $productName = $row['product_name'];
+                                            $variationId = $row['variation_id'];
+                                            $variationName = $row['variation_name'];
+                                            $quantity = $row['quantity'];
+                                            $price = $row['price'];
+                                            // $status = $row['status'];
+                                            $newOrderCartSession = $row['cart_session'];
+                                            $paymentModeId = $row['payment_mode_id'];
+                                    ?>
+                                    
+                                        <tr>
+                                            <!-- PURCHASE DATE -->
+                                            <td class='mx-0' width='15%'>
+                                                <div class='py-4 text-secondary'><?=date("M d, Y", strtotime($purchaseDate))?>
+                                            </td>
 
-                                                    if(!$whoWillPay){
-                                                        $name = "";
-                                                    } else {
-                                                        $name = getWhoWillPay($conn,$whoWillPay);
-                                                    }
-                                                }
-                                                
-                                                echo ucwords(strtolower($name));
+                                            <!-- CLIENT -->
+                                            <td class='mx-0' width='15%'> 
+                                                <div class='py-4 text-secondary'>
+                                                    <?php 
                                                     
-                                                ?>
-                                            </div>
-                                        </td>
+                                                    $fname = getFirstName($conn, $clientId);
+                                                    $lname = getLastName($conn, $clientId);
+                                                    if($fname && $lname) {
+                                                        $name = $fname . " " . $lname;
+                                                    } else { 
+
+                                                        if(!$whoWillPay){
+                                                            $name = "";
+                                                        } else {
+                                                            $name = getWhoWillPay($conn,$whoWillPay);
+                                                        }
+                                                    }
+                                                    
+                                                    echo ucwords(strtolower($name));
+                                                        
+                                                    ?>
+                                                </div>
+                                            </td>
+                                                
+
+                                            <!-- PRODUCT ID & NAME -->
+                                            <td class='mx-0' width='15%'> 
+                                                <div class="d-flex flex-row justify-content-center py-4">
+                                                    <div>
+                                                        <?= $productId ?>
+                                                    </div>
+                                                    <a data-toggle="tooltip" title="<?= $productName ?>" data-original-title="#">
+                                                        &nbsp;<i class="far fa-question-circle text-gray"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+
+                                            <!-- VARIATION NAME -->
+                                            <td class='mx-0' width='15%'> 
+                                                <div class='py-4 text-secondary'>
+                                                    <?= $variationName ?>
+                                                </div>
+                                            </td>
+
+                                            <!-- PRICE -->
+                                            <td class='mx-0' width='15%'> 
+                                                <div class='py-4 text-secondary'>
+                                                    &#36;&nbsp;
+                                                    <?= number_format((float)$price, 2, '.', ','); ?>
+                                                </div>
+                                            </td>
+
+                                                <!-- QUANTITY -->
+                                                <td class='mx-0' width='15%'> 
+                                                <div class='py-4 text-secondary'>
+                                                    <?= $quantity ?>
+                                                </div>
+                                            </td>
+
                                             
 
-                                        <!-- PRODUCT ID & NAME -->
-                                        <td class='mx-0' width='15%'> 
-                                            <div class="d-flex flex-row justify-content-center py-4">
-                                                <div>
-                                                    <?= $productId ?>
-                                                </div>
-                                                <a data-toggle="tooltip" title="<?= $productName ?>" data-original-title="#">
-                                                    &nbsp;<i class="far fa-question-circle text-gray"></i>
+                                            <!-- VIEW -->
+                                            <td class='mx-0' width='10%'>
+                                                <a data-href="../partials/templates/history_order_summary_modal.php?id=<?=$storeId?>&cart=<?=$newOrderCartSession?>" class='border-0 btn_view_new_order' style='cursor:pointer;size:15px;'>
+                                                    <i class="far fa-file-pdf text-gray py-4" style='width:100%;'></i>
                                                 </a>
-                                            </div>
-                                        </td>
+                                            </td>
 
-                                        <!-- VARIATION NAME -->
-                                        <td class='mx-0' width='15%'> 
-                                            <div class='py-4 text-secondary'>
-                                                <?= $variationName ?>
-                                            </div>
-                                        </td>
+                                            
 
-                                        <!-- PRICE -->
-                                        <td class='mx-0' width='15%'> 
-                                            <div class='py-4 text-secondary'>
-                                                &#36;&nbsp;
-                                                <?= number_format((float)$price, 2, '.', ','); ?>
-                                            </div>
-                                        </td>
-
-                                            <!-- QUANTITY -->
-                                            <td class='mx-0' width='15%'> 
-                                            <div class='py-4 text-secondary'>
-                                                <?= $quantity ?>
-                                            </div>
-                                        </td>
-
-                                        
-
-                                        <!-- VIEW -->
-                                        <td class='mx-0' width='10%'>
-                                            <a data-href="../partials/templates/history_order_summary_modal.php?id=<?=$storeId?>&cart=<?=$newOrderCartSession?>" class='border-0 btn_view_new_order' style='cursor:pointer;size:15px;'>
-                                                <i class="far fa-file-pdf text-gray py-4" style='width:100%;'></i>
-                                            </a>
-                                        </td>
-
-                                        
-
-                                    </tr>
+                                        </tr>
                                     
                                     <?php } ?>
-        
-                                </table>
+                                </tbody>
+                            </table>
 
-                                
-                            
-                            </div>
                         </div>
                     </div>
                     <?php } ?>
 
                                
                 </div>
-                            
 
-
-                
             </div>
             <!-- /MAIN BAR -->
 

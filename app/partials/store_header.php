@@ -172,7 +172,7 @@
         <div class="container">
 
                 <!-- <div class=""> -->
-                    <div class="col-lg-5 col-md-4 col-sm-12">
+                    <div class="col-lg-4 col-md-3 col-sm-12">
                         <!-- <div class="col-6"> -->
                                 <div class="d-flex align-items-center">
                                     <!-- <div id='header-logo'></div>&nbsp; -->
@@ -190,7 +190,7 @@
                     </div>
                     <div class="col px-0">
                         <div class="collapse navbar-collapse" id="navbarNav">
-                            <ul class="navbar-nav ml-lg-auto ml-md-auto">
+                            <ul class="navbar-nav ml-lg-auto ml-md-auto px-sm-1">
                                 <li class="nav-item pl-lg-5 pl-md-4">
                                     <a class="nav-link" href="store-profile.php?id=<?=$storeId?>"> 
                                         <div class='<?= isCurrentPage('profile') ? "underline" : "" ?>' >SHOP PROFILE</div>
