@@ -560,7 +560,7 @@ input#register_password:focus,
 input#cpass:focus {
     -webkit-box-shadow: none!important;
     box-shadow: none!important;
-    border-bottom: 1px solid #8e44ad!important;
+    border-bottom: 1px solid gray!important;
 }
 
 div#login_image {
