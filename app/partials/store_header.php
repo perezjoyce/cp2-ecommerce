@@ -262,6 +262,15 @@
                                     <!-- <li><span class='badge text-light my-0 message-badge$storeId'>0</span></li></li> -->
                                 </div>
 
+                                <div class='d-flex flex-row'>
+                                    <li class="nav-item pl-lg-5 pl-md-4 d-flex flex-row">
+                                        <a class="nav-link" href="store-account.php?id=<?=$storeId?>"> 
+                                            <div class='<?= isCurrentPage('messages') ? "underline" : "" ?>'>ACCOUNT</div>
+                                        </a>
+                                    </li>
+                                    <!-- <li><span class='badge text-light my-0 message-badge$storeId'>0</span></li></li> -->
+                                </div>
+
                             </ul>
                         </div>
                     </div>

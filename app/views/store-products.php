@@ -91,20 +91,38 @@
                                     <tr class='py-0'>
                                         <td width='10%'>Id</td>
                                         <td width='20%'>
-                                            <i class="fas fa-angle-up text-gray pr-2 sort_inventory" data-storeid='<?=$storeId?>' data-column="name" data-order='ASC' style='cursor: pointer;'></i>
-                                            Product
-                                            <i class="fas fa-angle-down text-gray pl-2 sort_inventory" data-storeid='<?=$storeId?>' data-column="name" data-order='DESC' style='cursor: pointer;'></i>
+                                            <div class="d-flex align-items-center text-center justify-content-center">
+                                                <div>
+                                                    Product
+                                                </div>
+                                                <div class='d-flex flex-column'>
+                                                    <i class="fas fa-angle-up text-gray pl-2 sort_inventory" data-storeid='<?=$storeId?>' data-column="name" data-order='ASC' style='cursor: pointer;'></i>
+                                                    <i class="fas fa-angle-down text-gray pl-2 sort_inventory" data-storeid='<?=$storeId?>' data-column="name" data-order='DESC' style='cursor: pointer;'></i>
+                                                </div>
+                                            </div>
                                         </td>
                                         <td width='20%'>
-                                            <i class="fas fa-angle-up text-gray pr-2 sort_inventory" data-storeid='<?=$storeId?>' data-column="price" data-order='ASC' style='cursor: pointer;'></i>
-                                            Price
-                                            <i class="fas fa-angle-down text-gray pl-2 sort_inventory" data-storeid='<?=$storeId?>' data-column="price" data-order='DESC' style='cursor: pointer;'></i>
+                                            <div class="d-flex align-items-center text-center justify-content-center">
+                                                <div>
+                                                    Price
+                                                </div>
+                                                <div class='d-flex flex-column'>
+                                                    <i class="fas fa-angle-up text-gray pl-2 sort_inventory" data-storeid='<?=$storeId?>' data-column="price" data-order='ASC' style='cursor: pointer;'></i>
+                                                    <i class="fas fa-angle-down text-gray pl-2 sort_inventory" data-storeid='<?=$storeId?>' data-column="price" data-order='DESC' style='cursor: pointer;'></i>
+                                                </div>
+                                            </div>
                                         </td>
                                         <td width='15%'>Variation & Stock</td>
                                         <td width='20%'>
-                                            <i class="fas fa-angle-up text-gray pr-2 sort_inventory" data-storeid='<?=$storeId?>' data-column="stocks" data-order='ASC' style='cursor: pointer;'></i>
-                                            Total Stocks
-                                            <i class="fas fa-angle-down text-gray pl-2 sort_inventory" data-storeid='<?=$storeId?>' data-column="stocks" data-order='DESC' style='cursor: pointer;'></i>
+                                            <div class="d-flex align-items-center text-center justify-content-center">
+                                                <div>
+                                                    Total Stocks
+                                                </div>
+                                                <div class='d-flex flex-column'>
+                                                    <i class="fas fa-angle-up text-gray pl-2 sort_inventory" data-storeid='<?=$storeId?>' data-column="stocks" data-order='ASC' style='cursor: pointer;'></i>
+                                                    <i class="fas fa-angle-down text-gray pl-2 sort_inventory" data-storeid='<?=$storeId?>' data-column="stocks" data-order='DESC' style='cursor: pointer;'></i>
+                                                </div>
+                                            </div>
                                         </td>
                                         <td width='15%'>Action</td>
                                     </tr> 

@@ -798,3 +798,33 @@ function productprofile($conn,$productId){
 
     return $url;
 }
+
+function showStoreCredit($conn, $storeId){
+    $sql = "SELECT SUM(credit) AS 'credit' FROM tbl_seller_account WHERE store_id = ?";
+    $statement = $conn->prepare($sql);
+    $statement->execute([$storeId]);	
+    $row = $statement->fetch();
+    $credit = $row['credit'];
+    $credit = number_format((float)$credit, 2, '.', ',');  
+    return $credit;
+}
+
+function showStoreDebit($conn, $storeId){
+    $sql = "SELECT SUM(debit) AS 'debit' FROM tbl_seller_account WHERE store_id = ?";
+    $statement = $conn->prepare($sql);
+    $statement->execute([$storeId]);	
+    $row = $statement->fetch();
+    $debit = $row['debit'];
+    $debit = number_format((float)$debit, 2, '.', ',');  
+    return $debit;
+}
+
+function showStoreBalance($conn, $storeId){
+    $sql = "SELECT SUM(credit) - SUM(debit) AS 'balance' FROM tbl_seller_account WHERE store_id = ?";
+    $statement = $conn->prepare($sql);
+    $statement->execute([$storeId]);	
+    $row = $statement->fetch();
+    $balance = $row['balance'];
+    $balance = number_format((float)$balance, 2, '.', ',');  
+    return $balance;
+}
