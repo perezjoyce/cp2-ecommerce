@@ -40,7 +40,7 @@
     $statement->execute([$storeId, $shoperooServiceCharge, 0, 'Service Charge to Mamaroo: '. $userId]);
   }
   $transactionCode = $_SESSION['transaction_code'];
-  session_start(); // INITIATE
+// INITIATE
 //   unset($_SESSION["cart_session"]);
 //   unset($_SESSION['paymentMode']);
 //   unset($_SESSION['transaction_code']);

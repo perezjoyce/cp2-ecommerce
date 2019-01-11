@@ -96,7 +96,7 @@
                     ?>
 
                     <div class="row">
-                        <div class="col-12 px-2 mb-0">
+                        <div class="col-12 px-2 mb-0 table-responsive-sm">
                             
                             <table class="table borderless text-center bg-gray mb-0">
                                 <tr class='py-0'>
@@ -119,7 +119,7 @@
                     </div>
                     <div class="row">
                         <div class="col px-2">
-                            <div class="container px-0" style='background:white;height:600px;overflow-y:auto;font-size:12px;'>
+                            <div class="container px-0 table-responsive-sm" style='background:white;height:600px;overflow-y:auto;font-size:12px;'>
                                 <table class="table table-hover borderless text-center">
                                     
                                         <?php 

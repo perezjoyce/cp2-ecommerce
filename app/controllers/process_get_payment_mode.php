@@ -156,6 +156,10 @@ if(isset($_POST['modeOfPaymentId'])) {
                         }
                 }
         }
+
+        // if($payment_mode_id == 3) {
+        //     echo "creditCard";
+        // }
     }
 
 ?>
