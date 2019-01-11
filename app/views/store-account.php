@@ -125,7 +125,7 @@
 
                                             <!-- CLIENT -->
                                             <td class='mx-0' width='25%'> 
-                                                <div class='py-4 text-secondary'>
+                                                <div class='d-flex flex-row justify-content-center text-secondary text-secondary'>
                                                     <div>&#36;&nbsp;</div>
                                                     <div><?=$credit?></div>
                                                 </div>
@@ -134,7 +134,7 @@
 
                                             <!-- PRODUCT ID & NAME -->
                                             <td class='mx-0' width='25%'> 
-                                                <div class='py-4 text-secondary'>
+                                                <div class='d-flex flex-row justify-content-center text-secondary text-secondary'>
                                                     <div>&#36;&nbsp;</div>
                                                     <div><?=$debit?></div>
                                                 </div>
@@ -178,16 +178,16 @@
                                     
                                         <tr>
                                             <!-- DEBIT -->
-                                            <td class='mx-0' width='33.33%'>
-                                                <div class='py-4 text-secondary'>
+                                            <td class='mx-0 font-weight-bold' width='33.33%'>
+                                                <div class='d-flex flex-row justify-content-center text-secondary'>
                                                     <div>&#36;&nbsp;</div>
                                                     <div><?=showStoreCredit($conn,$storeId)?></div>
                                                 <div>
                                             </td>
 
                                             <!-- CREDIT -->
-                                            <td class='mx-0' width='33.33%'> 
-                                                <div class='py-4 text-secondary'>
+                                            <td class='mx-0 font-weight-bold' width='33.33%'> 
+                                                <div class='d-flex flex-row justify-content-center text-secondary'>
                                                     <div>&#36;&nbsp;</div>
                                                     <div> <?=showStoreDebit($conn,$storeId)?></div>
                                                 </div>
@@ -195,8 +195,8 @@
                                                 
 
                                             <!-- PRODUCT ID & NAME -->
-                                            <td class='mx-0' width='33.33%'> 
-                                                <div class='py-4 text-secondary'>
+                                            <td class='mx-0 font-weight-bold' width='33.33%'> 
+                                                <div class='d-flex flex-row justify-content-center text-secondary'>
                                                     <div>&#36;&nbsp;</div>
                                                     <div> <?=showStoreBalance($conn,$storeId)?></div>
                                                 </div>

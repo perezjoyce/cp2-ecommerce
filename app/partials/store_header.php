@@ -193,7 +193,7 @@
                             <ul class="navbar-nav ml-lg-auto ml-md-auto px-sm-1">
                                 <li class="nav-item pl-lg-5 pl-md-4">
                                     <a class="nav-link" href="store-profile.php?id=<?=$storeId?>"> 
-                                        <div class='<?= isCurrentPage('profile') ? "underline" : "" ?>' >SHOP PROFILE</div>
+                                        <div class='<?= isCurrentPage('profile') ? "underline" : "" ?>' ><span class='vanish-md vanish-sm'>SHOP&nbsp;</span>PROFILE</div>
                                     </a>
                                 </li>
 
