@@ -56,7 +56,7 @@
                 <!-- SEARCH BAR -->
                 <div class='container p-5 rounded' style='background:white;'>
                     <div class="row mx-0">
-                        <div class="col-6">
+                        <div class="col-lg-6 col-md-4 col-sm-12">
                             <h4>New Orders</h4>
                         </div>
                         <div class="col">
@@ -79,7 +79,7 @@
                 
                 
                 <!-- NEW ORDERS -->
-                <div class="container px-5 pb-5 rounded" style='background:white;'>
+                <div class="container px-5 pb-5 rounded table-responsive-sm" style='background:white;'>
                                
                                 
                     <?php
@@ -104,7 +104,7 @@
                     ?>
 
                     <div class="row">
-                        <div class="col-12 px-2 mb-0 table-responsive-sm">
+                        <div class="col-12 px-2 mb-0">
                             
                             <table class="table borderless text-center bg-gray mb-0">
                                 <tr class='py-0'>
@@ -126,7 +126,7 @@
                     </div>
                     <div class="row">
                         <div class="col px-2">
-                            <div class="container px-0 table-responsive-sm" style='background:white;height:600px;overflow-y:auto;font-size:12px;'>
+                            <div class="container px-0" style='background:white;height:600px;overflow-y:auto;font-size:12px;'>
                                 <table class="table table-hover borderless text-center" id='data-container'>
                                     
                                         <?php 
