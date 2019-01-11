@@ -175,9 +175,9 @@
                     <div class="col-lg-5 col-md-4 col-sm-12">
                         <!-- <div class="col-6"> -->
                                 <div class="d-flex align-items-center">
-                                    <div id='header-logo'></div>&nbsp;
+                                    <!-- <div id='header-logo'></div>&nbsp; -->
                                     <a class="navbar-brand flex-fill" href="index.php" id="website_name" style='font-family:Fredoka One;'>
-                                        Shoperoo
+                                        Mamaroo
                                     </a>
 
                                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
