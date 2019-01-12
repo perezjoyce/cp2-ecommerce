@@ -4,10 +4,10 @@
     <!-- CATEGORIES: FOR INDEX AND CATALOG PAGE ONLY -->
     <div class="container-fluid border-bottom">
         <div class="row white-bg">
-            <div class="col-12 mx-0 px-0 d-flex flex-row text-center">
+            <div class="col-12">
                 <div class="container">
                     <div class="row">
-                        <div class="col">
+                        <div class="col d-flex flex-row text-center">
                
                 
                             <?php 
@@ -26,7 +26,7 @@
 
                             <?php } ?>
 
-                            
+
                         </div>
                     </div>  
                 </div>
