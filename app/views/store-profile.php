@@ -4,7 +4,7 @@
    
     // get the store information
     $storeInfo = getStore($conn,$id);
-    $id = isset($_SESSION['id']) ? $_SESSION['id'] : null;
+    $id = isset($_SESSION['id']) ? $_SESSION['id'] : null ;
     try {
         $currentUser = getUser($conn, $id);
         $isSeller = $currentUser['isSeller'] == "yes" ? 1 : 0;    
@@ -18,6 +18,7 @@
     } else {
         require_once "../partials/header.php";
     }
+        $sellerId = $storeInfo['user_id'];
         $storeId = $storeInfo['id'];
         $storeName = $storeInfo['name'];
         $storeLogo = $storeInfo['logo'];
@@ -66,7 +67,7 @@
                                                 <?
                                                     $sql = "SELECT last_login FROM tbl_users WHERE id = ?";
                                                     $statement = $conn->prepare($sql);
-                                                    $statement->execute([$id]);	
+                                                    $statement->execute([$sellerId]);	
                                                     $row = $statement->fetch();
                                                     $lastLogin = $row['last_login'];
                                                     
