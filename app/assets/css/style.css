@@ -1352,7 +1352,7 @@ input:focus{
         font-size: 1.2rem;
     }
 
-    p, div, a.btn, button, .text-responsive ,.product_details, textarea, label, .small {
+    a, p, div, a.btn, button, .text-responsive ,.product_details, textarea, label, .small {
         font-size: .85rem!important;
     }
 

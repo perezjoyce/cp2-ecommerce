@@ -19,7 +19,7 @@
 
     
     <!-- COMPANY DESCRIPTIONS -->
-    <div class="container my-5 py-3 vanish-sm">
+    <div class="container my-5 py-3">
       <div class="row my-lg-5 mx-0 text-center">
         <div class="col d-flex flex-lg-row flex-md-row rounded" style='background:white;'>
 
@@ -97,79 +97,6 @@
       </div>
     </div>
 
-    <div class="container my-5 py-3 vanish-lg vanish-md">
-      <div class="row my-lg-5 mx-0 text-center">
-        <div class="col d-flex flex-column rounded" style='background:white;'>
-
-          <div class="flex-fill py-3">
-            <div class="d-flex justify-content-center">
-              <div id='description-quality'>
-              </div>
-
-              <div class="d-flex flex-column pt-3">
-                <div class='description-header'>
-                  100% Mom-Approved
-                </div>
-
-                <div class="description-supporting-text">
-                  Guaranteed Safe Products
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-
-          <div class="flex-fill py-3">
-            <div class="d-flex justify-content-center">
-              <div id='description-save'>
-              </div>
-              <div class="d-flex flex-column pt-3">
-                <div class='description-header'>
-                  Lowest Prices
-                </div>
-                <div class="description-supporting-text">
-                  Shop & Save Money
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-          <div class="flex-fill py-3">
-            <div class="d-flex justify-content-center">
-              <div id='description-shipping'>
-              </div>
-              <div class="d-flex flex-column pt-3">
-                <div class='description-header'>
-                  Free Delivery & COD Available
-                </div>
-                <div class="description-supporting-text">
-                  Find Amazing Deals
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-          <div class="flex-fill py-3">
-            <div class="d-flex justify-content-center">
-              <div id='description-hours'>
-              </div>
-              <div class="d-flex flex-column pt-3">
-              <div class='description-header'>
-                  Same Day Shipping
-                </div>
-                <div class="description-supporting-text">
-                  Get Your Order in 24 Hours
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
  
     
     <!-- FEATURED SHOPS -->
