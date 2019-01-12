@@ -1336,16 +1336,20 @@ input:focus{
     
     h2 {
         /* 18 px */
-        font-size: 1.2rem;
+        font-size: 1.4rem;
     }
     
         /* 15px */
     h3 {
+        font-size: 1.2rem;
+    }
+
+    h4 {
         font-size: 1rem;
     }
 
-    p, div, a.btn, button, .text-responsive, .product_details, textarea, label, .small, {
-        font-size: 0.8rem!important;
+    p, div, a.btn, button, .text-responsive ,.product_details, textarea, label, .small {
+        font-size: .8rem!important;
     }
 
     /* HEADER */
@@ -1406,7 +1410,11 @@ input:focus{
         box-shadow: none!important;
     }
 
-    
+    /* FOOTER */
+    a.footer-link {
+        font-weight: 100!important;
+        font-size:11px;
+    }
 
     /* REUSABLE */
     .vanish-md {
@@ -1588,6 +1596,12 @@ input:focus{
         font-size: 10px;
         -webkit-box-shadow: none!important;
         box-shadow: none!important;
+    }
+
+    /* FOOTER */
+    a.footer-link {
+        font-weight:100!important;
+        font-size:10px;
     }
 
     /* PRODUCT PAGE */

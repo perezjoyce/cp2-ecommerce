@@ -12,36 +12,13 @@
       </div>
     </div>
 
-    <div class="container-fluid border-bottom">
-        <div class="row white-bg">
-            <div class="col-12 mx-0 px-0 d-flex flex-lg-row flex-md-row flex-sm-column text-center">
-               
-                
-                        <?php 
-                            $sql = " SELECT * FROM tbl_categories WHERE parent_category_id is null ";
-                            $statement = $conn->prepare($sql);
-                            $statement->execute();
-                            
-                            while($row = $statement->fetch()){  
-                        ?>
-
-                        <div class='flex-fill py-3 mx-0'>
-                            <a class='hover_bold' href="catalog.php?id=<?= $row['id']?>">
-                                <?= $row['name'] ?>
-                            </a>
-                        </div>
-
-                        <?php } ?>
-                   
-
-            </div>
-        </div>  
-    </div>
     
 
-    <!--  require_once "../partials/categories.php";  -->
 
-    <br><br>
+    <?php require_once "../partials/categories.php"; ?>
+
+    <br class='vanish-sm'>
+    <br class='vanish-sm'>
 
     <!-- COMPANY DESCRIPTIONS -->
     <div class="container my-5 py-3">
@@ -122,7 +99,7 @@
       </div>
     </div>
 
-    <br>
+    <br class='vanish-sm'>
    
     
     <!-- FEATURED SHOPS -->
@@ -157,7 +134,7 @@
               $name = $row['name'];
               $logo = $row['logo'];
           ?>
-          <div class="col-lg-2 col-md-2 col-sm-6">
+          <div class="col-lg-2 col-md-2 col-sm-4">
             <div class = 'card h-700 border-0'> 
               <div class='card border' style='height:auto;'>
                 <a href="store-profile.php?id=<?= $row['id'] ?>">
@@ -171,7 +148,7 @@
       </div>
     </div>
 
-    <br>
+    <br class='vanish-sm'>
 
    
     <!-- VIEWED PRODUCTS, WISHLIST ITEMS AND CART ITEMS THAT WERE NOT PURCHASED, IF LOGGED IN OR SESSION IS NOT DESTROYED -->

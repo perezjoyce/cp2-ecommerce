@@ -49,7 +49,7 @@
           <div class="col-lg-2 col-md-2 col-sm-5">
             <br class='vanish-lg vanish-md'>
             <h6 class='text-light pb-lg-3 pb-md-3 vanish-lg vanish-md'>FOLLOW US</h6>
-            <div class="d-flex flex-lg-column flex-md-column flex-sm-row">
+            <div class="d-flex flex-lg-column flex-md-column flex-sm-row text-center">
               <h6 class='text-light pb-lg-3 pb-md-3 vanish-sm'>FOLLOW US</h6>
               
               
@@ -93,7 +93,7 @@
             <br class='vanish-lg vanish-md'>
             <div class="d-flex flex-column px-lg-3 pl-md-3">
               <div class="flex-fill px-lg-5">
-                <h6 class='text-light'>EXCLUSIVE DEALS & OFFERS</h6>
+                <h6 class='text-light'>EXCLUSIVE <span class='vanish-sm'>DEALS &</span> OFFERS</h6>
               </div>
 
               <div class="flex-fill mt-3 px-lg-5">
