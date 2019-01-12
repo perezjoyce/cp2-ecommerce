@@ -99,7 +99,6 @@
     <br>
    
     
-    
     <!-- FEATURED SHOPS -->
     <div class="container my-5">
 
@@ -152,7 +151,7 @@
     <!-- VIEWED PRODUCTS, WISHLIST ITEMS AND CART ITEMS THAT WERE NOT PURCHASED, IF LOGGED IN OR SESSION IS NOT DESTROYED -->
    
 
-    <!-- TRENDING PRODUCTS -->
+    <!-- TRENDING PRODUCTS: SHOW TRENDING PRODUCTS BASED ON THE NUMBER OF TIMES PEOPLE ADDED THEM TO THEIR CART AND PROCEEDED TO CHECKOUT -->
     <div class="container mb-5">
 
       <div class="row">
@@ -171,7 +170,8 @@
       <div class="row no-gutters">
         <?php 
 
-          $sql = " SELECT c.*,v.product_id,i.name,i.price, pi.url, pi.is_primary 
+          $sql = " SELECT COUNT(variation_id) 
+                  AS 'popularity', c.*,v.product_id,i.name,i.price, pi.url, pi.is_primary 
                   FROM tbl_carts c 
                   JOIN tbl_items i 
                   JOIN tbl_variations v 
@@ -181,7 +181,9 @@
                   AND pi.product_id=i.id 
                   WHERE status_id IS NOT NULL 
                   AND is_primary = 1 
-                  GROUP BY variation_id ";
+                  GROUP BY variation_id 
+                  ORDER BY COUNT(variation_id) 
+                  DESC ";
           $statement = $conn->prepare($sql);
           $statement->execute();
           //$result = mysqli_query($conn,$sql);
