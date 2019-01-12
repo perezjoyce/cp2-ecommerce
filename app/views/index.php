@@ -97,9 +97,8 @@
     </div>
 
     <br>
-
    
-    <!-- VIEWED PRODUCTS, WISHLIST ITEMS AND CART ITEMS THAT WERE NOT PURCHASED, IF LOGGED IN OR SESSION IS NOT DESTROYED -->
+    
     
     <!-- FEATURED SHOPS -->
     <div class="container my-5">
@@ -153,7 +152,7 @@
     <br>
 
    
-
+    <!-- VIEWED PRODUCTS, WISHLIST ITEMS AND CART ITEMS THAT WERE NOT PURCHASED, IF LOGGED IN OR SESSION IS NOT DESTROYED -->
    
 
     <!-- TRENDING PRODUCTS -->
@@ -173,7 +172,17 @@
       <div class="row no-gutters">
         <?php 
 
-          $sql = "SELECT pi.*,s.id AS 'store_id', i.id AS 'product_id',i.price, i.name FROM tbl_product_images pi JOIN tbl_stores s JOIN tbl_items i ON i.store_id=s.id AND pi.product_id=i.id  WHERE is_primary = 1 ";
+          $sql = " SELECT c.*,v.product_id,i.name,i.price, pi.url, pi.is_primary 
+                  FROM tbl_carts c 
+                  JOIN tbl_items i 
+                  JOIN tbl_variations v 
+                  JOIN tbl_product_images pi 
+                  ON c.variation_id=v.id 
+                  AND v.product_id=i.id 
+                  AND pi.product_id=i.id 
+                  WHERE status_id IS NOT NULL 
+                  AND is_primary = 1 
+                  GROUP BY variation_id ";
           $statement = $conn->prepare($sql);
           $statement->execute();
           //$result = mysqli_query($conn,$sql);
