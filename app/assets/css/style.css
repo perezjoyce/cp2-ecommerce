@@ -1234,7 +1234,7 @@ input:focus{
 @media only screen and (min-width: 961px) {
     /********* INDEX **********/
     /* CARD IMAGES */
-    img.card-img {
+    a img.card-profilepic {
         height:370px!important;
     }
 
@@ -1324,7 +1324,7 @@ input:focus{
 
 @media only screen and (min-width:426px) and (max-width:960px) { 
     /* CARD IMAGES */
-    img.card-img {
+    a img.card-profilepic {
         height:320px!important;
     }
 
@@ -1417,7 +1417,7 @@ input:focus{
 		display: block;
     }
     
-    /* ================================ PROFILE.PHP  =================================== */
+    /* ========= PROFILE.PHP  ========== */
     .rating {
         float:left;
     }
@@ -1502,7 +1502,7 @@ input:focus{
 @media only screen and (max-width:425px) { 
     /********* INDEX **********/
     /* CARD IMAGES */
-    img.card-img {
+    a img.card-profilepic {
         height:230px!important;
     }
 
