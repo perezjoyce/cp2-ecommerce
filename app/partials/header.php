@@ -102,26 +102,31 @@
     <!-- NAVIGATION  -->
     <div class="container">
         <div class="row py-0">
+
             <?php if(!isset($_SESSION['id'])){ ?>
-            <div class="col px-lg-0">
-                <div class="d-flex flex-row">
-                
+                <div class="col px-lg-0">
+                    <div class="d-flex flex-row">
                     
-                    <div class='flex-fill text-lg-right text-md-right text-sm-right'>
-                        <a class='nav-link modal-link border-0 text-lg-right text-md-right text-sm-right py-1' data-url='../partials/templates/login_modal.php' role='button'> 
-                            <img src='<?= DEFAULT_PROFILE ?>' height='20' class='rounded-circle mr-1'>
-                            <small>
-                                LOGIN | REGISTER
-                            </small>
-                        </a>
+                        <div class='flex-fill text-lg-right text-md-right text-sm-right'>
+                            <a class='nav-link modal-link border-0 text-lg-right text-md-right text-sm-right py-1' data-url='../partials/templates/login_modal.php' role='button'> 
+                                <img src='<?= DEFAULT_PROFILE ?>' height='20' class='rounded-circle mr-1'>
+                                <small>
+                                    LOGIN | REGISTER
+                                </small>
+                            </a>
+                        </div>
+
                     </div>
+                </div>
 
             <?php } else { ?>
                 
               
-                <div class="col-12">
+            <div class="col-12">
+                <div class="d-flex flex-row">
+
                     <div class='flex-fill text-lg-right text-md-right text-sm-right'>
-    
+
                         <div class='dropdown py-1' id='profileDropdownContainer'>
                             <a class='dropdown-toggle py-1 text-right' id="profileDropdown" role="button" data-toggle="dropdown">
                                 <img src='<?= $profile_pic ?>' height='20' class='<?= $prefix ?>circle mr-1'>
@@ -129,22 +134,22 @@
                                 <small>
                                     <?= getUsername($conn,$id) ?>
                                 </small>
-                                <small>!</small>
-                                
+                                <small>!</small> 
                             </a>  
-                            
 
                             <div class="dropdown-menu py-0" aria-labelledby="profileDropdown" id='profileDropdown_menu' >
                                 <a class="dropdown-item py-3" href='profile.php?id=<?=$id?>'>
                                     <i class="far fa-edit pr-2"></i>
                                     <small>MY PROFILE</small>
                                 </a>
+
                                 <a class="dropdown-item py-3" href='store-profile.php?id=<?=getStoreId ($conn,$id)?>'>
                                     <i class="fas fa-store pr-2"></i>
                                     <small>MY SHOP</small>
                                 </a>
                                 
                                 <div class="dropdown-divider py-0"></div>
+
                                 <a class="dropdown-item py-3" href='../controllers/process_logout.php?id=<?=$id?>'>
                                     <i class='fas fa-sign-in-alt pr-2'></i>
                                     <small> LOG OUT</small>
@@ -153,159 +158,164 @@
                         </div>
 
                     </div>
-                    <?php } ?>
 
                 </div>
             </div>
+            
+            <?php } ?>
+
+
         </div>
     </div>
 
     <nav class="navbar navbar-main sticky-top">
         <div class="container">
 
-                <!-- <div class=""> -->
-                    <div class="col-lg-5 col-md-6 col-sm-12 pl-0">
-                        <!-- <div class="col-6"> -->
-                                <div class="d-flex align-items-center">
-                                    <!-- <div id='header-logo'></div>&nbsp; -->
-                                    <a class="navbar-brand" href="index.php" id="website_name" style='font-family:Fredoka One;color:#3F3F3F'>
-                                      Mamaroo  
-                                    </a>
-                                   
+                
+            <div class="col-lg-5 col-md-6 col-sm-12 pl-0">
+               
+                <div class="d-flex align-items-center">
+                    <!-- <div id='header-logo'></div>&nbsp; -->
+                    <a class="navbar-brand" href="index.php" id="website_name" style='font-family:Fredoka One;color:#3F3F3F'>
+                        Mamaroo  
+                    </a>
+                </div>
+                    
+            </div>
+
+            <div class="col-lg-7 col-md-6 col-sm-12 px-0">
+                <form id="search_form">
+                    <div class='form-row align-items-center'>
+                        
+                
+                            <div class="input-group input-group-lg col-12 px-0">
+
+                                <input type="text" class="form-control border border-0 text-responsive" 
+                                    id="search-header" 
+                                    placeholder="Search for products..." 
+                                    aria-label="Search"
+                                    value="<?= isset($_GET['searchKey']) ? $_GET['searchKey'] : "" ?>">
+                                <div class='dropdown' id='livesearch'>
+                                    <div class="dropdown-menu" aria-labelledby="livesearch"></div>
                                 </div>
                             
-                        <!-- </div> -->
-                    </div>
-                    <div class="col-lg-7 col-md-6 col-sm-12 px-0">
-                        <!-- <div class="col p-1"> -->
-                            <form id="search_form">
-                                <div class='form-row align-items-center'>
-                                    <!-- <div class="col-12"> -->
-                            
-                                        <div class="input-group input-group-lg col-12 px-0">
-                                            <input type="text" class="form-control border border-0 text-responsive" 
-                                                id="search-header" 
-                                                placeholder="Search for products..." 
-                                                aria-label="Search"
-                                                value="<?= isset($_GET['searchKey']) ? $_GET['searchKey'] : "" ?>"
-                                            >
-                                            <div class='dropdown' id='livesearch'>
-                                                <div class="dropdown-menu" aria-labelledby="livesearch"></div>
+                        
+                                <div class="input-group-append">
+
+                                    <!-- CART -->
+                                    <div class="nav-item dropdown">
+
+                                        <a class='nav-link py-0 pl-3 pr-0' id="cartDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <div class='d-flex flex-row'>
+                                            
+                                                <div id='cart-img'></div>
+                                                
+                                                <span>
+                                                    <span class='badge text-light' id="item-count">
+                                                        <?= itemsInCart($conn,$cartSession) ?>
+                                                    </span>
+                                                </span>
+
                                             </div>
-                                        
-                                    
-                                            <div class="input-group-append">
+                                        </a>
 
-                                                <!-- CART -->
-                                                <div class="nav-item dropdown">
+                                        <div class="dropdown-menu mt-2 pt-3" aria-labelledby="cartDropdown" style='width:17em;' id='cartDropdown_menu'>  
+                                            <?php 
+                                                $sql = "SELECT v.product_id as 'productId', v.variation_name, c.variation_id, c.quantity, c.cart_session, p.img_path, p.name, p.price
+                                                FROM tbl_carts c 
+                                                JOIN tbl_items p 
+                                                JOIN tbl_variations v
+                                                ON v.product_id = p.id 
+                                                AND c.variation_id=v.id 
+                                                WHERE cart_session= ?";
+                                                $statement = $conn->prepare($sql);
+                                                $statement->execute([$cartSession]);
 
-                                                    <a class='nav-link py-0 pl-3 pr-0' id="cartDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <div class='d-flex flex-row'>
-                                                        
-                                                            <div id='cart-img'></div>
-                                                            
-                                                            <span>
-                                                                
-                                                                <span class='badge text-light' id="item-count"><?= itemsInCart($conn,$cartSession) ?></span>
-                                                                
-                                                            </span>
-                                                        </div>
-                                                        
+                                                $count = $statement->rowCount();
+                                                if(!$count) {
+                                            ?>
+                                            
+                                                <a class="dropdown-item pb-5 text-center" href='#'>
+                                                    <div id='header-empty-cart'></div>
+                                                    <div>
+                                                        <small> Your shopping cart is empty</small>
+                                                    </div>
+                                                </a>
 
-                                                    </a>
-
-                                                    <div class="dropdown-menu mt-2 pt-3" aria-labelledby="cartDropdown" style='width:17em;' id='cartDropdown_menu'>  
-                                                        <?php 
-                                                            $sql = "SELECT v.product_id as 'productId', v.variation_name, c.variation_id, c.quantity, c.cart_session, p.img_path, p.name, p.price
-                                                            FROM tbl_carts c 
-                                                            JOIN tbl_items p 
-                                                            JOIN tbl_variations v
-                                                            ON v.product_id = p.id AND c.variation_id=v.id WHERE cart_session= ?";
-                                                            $statement = $conn->prepare($sql);
-                                                            $statement->execute([$cartSession]);
-
-                                                            $count = $statement->rowCount();
-                                                            if(!$count) {
-                                                        ?>
-                                                        
-                                                        <a class="dropdown-item pb-5 text-center" href='#'>
-                                                            <div id='header-empty-cart'></div>
-                                                            <div><small> Your shopping cart is empty</small></div>
-                                                        </a>
-
-                                                        <?php } else { 
-                                                            while($row = $statement->fetch()){
-                                                                $variationId = $row['variation_id'];
-                                                                $variationName = $row['variation_name'];
-                                                                $productId = $row['productId'];
-                                                                $name = $row['name'];
-                                                                $price = $row['price'];
-                                                                $quantity = $row['quantity'];
-                                                                $image = productprofile($conn, $productId);
-                                                                $image = BASE_URL . "/". $image. ".jpg";
-                                                        ?>
-                                                            
-                                                        <div class='dropdown-item' id='product-row<?=$variationId?>'>
-                                                            <div class='row mx-1'>
-                                                                <div class='d-flex flex-row' style='justify-content:flex-start;width:100%;'>
-                                                                    <div class='flex pr-2'>
-                                                                        <img src='<?=$image?>' style='width:35px;height:35px;'> 
-                                                                    </div>   
-                                                                    <div class='flex-fill'>
-                                                                        <div class='d-flex flex-column'>
-                                                                            <small><?= $name ?></small>
-                                                                            <small class='text-gray italics'><?= $variationName ?></small>
-                                                                            <small class='text-gray'>
-                                                                                <span><?=$price?></span>
-                                                                                <span></span>
-                                                                                <?php if($quantity > 1) { ?>
-                                                                                <span>&nbsp;x&nbsp;</span>
-                                                                                <span id='quantity_header<?=$variationId?>'><?=$quantity?></span>
-                                                                                <?php } ?>
-                                                                            </small>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class='flex-fill text-right' style='align-self:end;'>
-                                                                        <a data-productid='<?=$productId?>' data-vname='<?=$variationName?>' data-variationid='<?= $variationId ?>' data-quantity='<?=$quantity?>' role='button' class='btn_delete_item text-gray flex-fill font-weight-light' style='font-size:16px;'>
-                                                                        &times;
-                                                                        </a>
-                                                                    </div>
-                                                                    
+                                            <?php } else { 
+                                                while($row = $statement->fetch()){
+                                                    $variationId = $row['variation_id'];
+                                                    $variationName = $row['variation_name'];
+                                                    $productId = $row['productId'];
+                                                    $name = $row['name'];
+                                                    $price = $row['price'];
+                                                    $quantity = $row['quantity'];
+                                                    $image = productprofile($conn, $productId);
+                                                    $image = BASE_URL . "/". $image. ".jpg";
+                                            ?>
+                                                
+                                                <div class='dropdown-item' id='product-row<?=$variationId?>'>
+                                                    <div class='row mx-1'>
+                                                        <div class='d-flex flex-row' style='justify-content:flex-start;width:100%;'>
+                                                            <div class='flex pr-2'>
+                                                                <img src='<?=$image?>' style='width:35px;height:35px;'> 
+                                                            </div>   
+                                                            <div class='flex-fill'>
+                                                                <div class='d-flex flex-column'>
+                                                                    <small>
+                                                                        <?= $name ?>
+                                                                    </small>
+                                                                    <small class='text-gray italics'>
+                                                                        <?= $variationName ?>
+                                                                    </small>
+                                                                    <small class='text-gray'>
+                                                                        <span><?=$price?></span>
+                                                                        <?php if($quantity > 1) { ?>
+                                                                        <span>
+                                                                            &nbsp;x&nbsp;
+                                                                        </span>
+                                                                        <span id='quantity_header<?=$variationId?>'>
+                                                                            <?=$quantity?>
+                                                                        </span>
+                                                                        <?php } ?>
+                                                                    </small>
                                                                 </div>
                                                             </div>
+                                                            <div class='flex-fill text-right' style='align-self:end;'>
+                                                                <a data-productid='<?=$productId?>' data-vname='<?=$variationName?>' data-variationid='<?= $variationId ?>' data-quantity='<?=$quantity?>' role='button' class='btn_delete_item text-gray flex-fill font-weight-light' style='font-size:16px;'>
+                                                                &times;
+                                                                </a>
+                                                            </div>
+                                                            
                                                         </div>
-
-                                                        
-                                                            <?php } ?>
-
-                                                        <div class="dropdown-divider my-3"></div>
-                                                        <a class='dropdown-item mb-3'>
-                                                        <!-- data-id='$_GET['id']' REMOVED FROM THIS BUTTON-->
-                                                            <button class='modal-link-big btn btn-block btn-gradient' 
-                                                                data-url='../partials/templates/cart_modal.php' 
-                                                                role='button'
-                                                                id='cartModal'>
-                                                                Go To Cart
-                                                            </button>
-                                                        </a>        
-                                                        <?php } ?>
                                                     </div>
                                                 </div>
-                                                
-                                            </div>
+
+                                            
+                                            <?php } ?>
+
+                                                <div class="dropdown-divider my-3"></div>
+                                                <a class='dropdown-item mb-3'>
+                                                <button class='modal-link-big btn btn-block btn-gradient' 
+                                                    data-url='../partials/templates/cart_modal.php' 
+                                                    role='button'
+                                                    id='cartModal'>
+                                                    Go To Cart
+                                                </button>
+                                            </a>        
+                                            <?php } ?>
                                         </div>
-
-                                    <!-- </div> -->
-
-
+                                    </div>
+                                    
                                 </div>
-                            </form>
+                            </div>
 
-                        <!-- </div> -->
+                        
                     </div>
+                </form>
+            </div>
                     
-                <!-- </div> -->
-     
+
         </div>
     </nav>
 
@@ -314,19 +324,21 @@
     <!-- ALERTS -->
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col">
             
-            <?php if(isset($_GET['uploadError'])): ?>
-                <div class="alert alert-info"><?= $_GET['uploadError'] ?></div>
-            <?php endif; ?> 
-            
-            <?php if(isset($_GET['msg'])): ?>
-                <div class="alert alert-info">Please log in using your account first.</div>
-            <?php endif; ?> 
+                <?php if(isset($_GET['uploadError'])): ?>
+                    <div class="alert alert-info"><?= $_GET['uploadError'] ?>
+                </div>
+                <?php endif; ?> 
+                
+                <?php if(isset($_GET['msg'])): ?>
+                    <div class="alert alert-info">
+                        Please log in using your account first.
+                    </div>
+                <?php endif; ?> 
 
             </div>
         </div>
-    
     </div>
 
     
