@@ -100,7 +100,7 @@
                 <div class='text-light'>
                   &#10003;
                   &nbsp;
-                  <small>Get discounted deals <span class='vanish-sm'>from Mamaroo</span></small>
+                  <small>Get discounted deals <span class='vanish-sm vanish-md'>from Mamaroo</span></small>
                 </div>
               </div>
 

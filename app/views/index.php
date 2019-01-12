@@ -65,10 +65,10 @@
 
             <div class="d-flex flex-column pt-3">
               <div class='description-header'>
-                Free Delivery & COD Available
+                Free Delivery Available
               </div>
               <small class="description-supporting-text">
-                Find Amazing Deals
+                Minimum Spend Required
               </small>
             </div>
           </div>
