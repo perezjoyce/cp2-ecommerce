@@ -106,10 +106,10 @@
 							<div class='flex-fill mb-2'>Price Range </div>
 							<div class="flex-fill">
 								<div class="d-flex flex-row">
-									<input type="number" style='width:35%'; placeholder='Min' class='py-1 pl-2' id='price_range_min'>
+									<input type="number" style="width:40%;" placeholder='Min' class='py-1 pl-2' id='price_range_min'>
 									<div class='pt-2'>&#8212;</div>
-									<input type="number" style='width:35%'; placeholder='Max' class='py-1 pl-2' id='price_range_max'>
-									<button id='btn_price_range' class='btn border' style='width:20%';><i class="fas fa-caret-right"></i></button>
+									<input type="number" style="width:40%;" placeholder='Max' class='py-1 pl-2' id='price_range_max'>
+									<button id='btn_price_range' class='btn border' style="width:20%;"><i class="fas fa-caret-right"></i></button>
 								</div>
 							</div>
 						</div>

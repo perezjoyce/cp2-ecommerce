@@ -224,7 +224,7 @@ if(isset($_SESSION['id'])) {
 
                 <div class="col">
                
-                    <div class="d-flex flex-lg-row flex-md-row flex-sm-column text-center border bg-light p-2">
+                    <div class="d-flex flex-lg-row flex-md-column flex-sm-column text-center border bg-light p-2">
                         <small class='text-purple'>FREE SHIPPING</small>
                         <small class='text-gray'>
                           With a minimum spend of &#36;&nbsp;<?=displayFreeShippingMinimum($conn,$id);?> from seller.
@@ -344,7 +344,7 @@ if(isset($_SESSION['id'])) {
                   <div>Quantity</div>
                 </div>
                 <div class="col pl-0">
-                  <div class="d-flex flex-lg-row flex-md-row flex-sm-column mb-3">
+                  <div class="d-flex flex-lg-row flex-md-column flex-sm-column mb-3">
                     <!-- INPUT FIELD -->
                     <span class='flex-fill'>
                       <div class="input-group">

@@ -48,9 +48,9 @@
 
           <div class="col-lg-2 col-md-2 col-sm-5">
             <br class='vanish-lg vanish-md'>
-            <h6 class='text-light pb-lg-3 pb-md-3 vanish-lg vanish-md'>FOLLOW US</h6>
-            <div class="d-flex flex-lg-column flex-md-column flex-sm-row text-center">
-              <h6 class='text-light pb-lg-3 pb-md-3 vanish-sm'>FOLLOW US</h6>
+            <h6 class='text-light pb-lg-3 pb-md-3 vanish-lg vanish-md'>CONNECT</h6>
+            <div class="d-flex flex-lg-column flex-md-column flex-sm-row text-left">
+              <h6 class='text-light pb-lg-3 pb-md-3 vanish-sm'>CONNECT</h6>
               
               
               <a href="#" class='text-light footer-link pt-1' target="_blank">
@@ -89,18 +89,19 @@
             </div>
           </div>  
 
-          <div class="col-lg-4 col-md-4 col-sm-7">
+          <div class="col-lg-4 col-md-4 col-sm-7 pl-0">
             <br class='vanish-lg vanish-md'>
             <div class="d-flex flex-column px-lg-3 pl-md-3">
               <div class="flex-fill px-lg-5">
-                <h6 class='text-light'>EXCLUSIVE <span class='vanish-sm'>DEALS &</span> OFFERS</h6>
+                <h6 class='text-light'>EXCLUSIVE <span class='vanish-sm vanish-md'>DEALS &</span> OFFERS</h6>
               </div>
 
               <div class="flex-fill mt-3 px-lg-5">
                 <div class='text-light'>
                   &#10003;
                   &nbsp;
-                  <small>Get discounted deals <span class='vanish-sm vanish-md'>from Mamaroo</span></small>
+                  <div class='vanish-md vanish-sm'>Get discounted deals <span class='vanish-sm vanish-md'>from Mamaroo</span></div>
+                  <small class='vanish-lg'>Get discounted deals <span class='vanish-sm vanish-md'>from Mamaroo</span></small>
                 </div>
               </div>
 
@@ -108,7 +109,8 @@
                 <div class='text-light'>
                   &#10003;
                   &nbsp;
-                  <small>Join our promos & contests</small>
+                  <div class='vanish-md vanish-sm'>Join our promos & contests</div>
+                  <small class='vanish-lg'>Join our promos & contests</small>
                 </div>
               </div>
 
@@ -116,7 +118,8 @@
                 <div class='text-light'>
                   &#10003;
                   &nbsp;
-                  <small>Open your online shop for free</small>
+                  <div class='vanish-md vanish-sm'>Open your online shop for free</div>
+                  <small class='vanish-lg'>Open your online shop for free</small>
                 </div>
               </div>
 
