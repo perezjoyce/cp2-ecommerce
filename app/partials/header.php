@@ -103,8 +103,6 @@
     <div class="container">
         <div class="row py-0">
             <?php if(!isset($_SESSION['id'])){ ?>
-            <div class="col-6">
-            </div>
             <div class="col px-lg-0">
                 <div class="d-flex flex-row">
                 
@@ -166,7 +164,7 @@
         <div class="container">
 
                 <!-- <div class=""> -->
-                    <div class="col-lg-5 col-md-6 col-sm-12">
+                    <div class="col-lg-5 col-md-6 col-sm-12 pl-0">
                         <!-- <div class="col-6"> -->
                                 <div class="d-flex align-items-center">
                                     <!-- <div id='header-logo'></div>&nbsp; -->

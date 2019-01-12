@@ -5,7 +5,7 @@
     <!-- ========== PAGE CONTENT =========== -->
 
     <!-- BANNER 1 -->
-    <div class="container-fluix mx-0 p-x-0" id='banner_ad-1'>
+    <div class="container-fluid mx-0 px-0" id='banner_ad-1'>
       <div class="row">
         <div class="col">
         </div>
@@ -18,9 +18,9 @@
     <br><br>
 
     <!-- COMPANY DESCRIPTIONS -->
-    <div class="container my-5 py-3 rounded" style='background:white;'>
+    <div class="container my-5 py-3">
       <div class="row my-lg-5 mx-0 text-center">
-        <div class="col d-flex flex-lg-row flex-md-row flex-sm-column">
+        <div class="col d-flex flex-lg-row flex-md-row flex-sm-column rounded" style='background:white;'>
 
           <div class="flex-fill py-3">
             <div class="d-flex justify-content-center">
@@ -131,7 +131,7 @@
               $name = $row['name'];
               $logo = $row['logo'];
           ?>
-          <div class="col-lg-2 col-md-2 col-sm-6 pb-2">
+          <div class="col-lg-2 col-md-2 col-sm-6">
             <div class = 'card h-700 border-0'> 
               <div class='card border' style='height:auto;'>
                 <a href="store-profile.php?id=<?= $row['id'] ?>">
@@ -155,7 +155,7 @@
     <div class="container mb-5">
 
       <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-8">
+        <div class="col-lg-6 col-md-6 col-sm-8 pr-0">
             <h5>
               TRENDING PRODUCTS
             </h5>
@@ -223,14 +223,22 @@
                       ?>
                         <a class='heart-toggler' data-id='<?= $id ?>' role='button' data-enabled="0" style='float:right'>
                           <span class='wish_heart'><i class='far fa-heart text-red' id></i></span>
-                          <span class='product_wish_count'><?= getProductWishlishtCount($conn,$id) ?></span>
+                          <span class='product_wish_count'>
+                            <small>
+                              <?= getProductWishlishtCount($conn,$id) ?>
+                            </small>
+                          </span>
                         </a>
                   
                       <?php  } else { ?>
 
                         <a class='heart-toggler' data-id='<?= $id ?>' data-enabled="1" style='float:right'>
                           <span class='wish_heart'><i class='fas fa-heart text-red'></i></span> 
-                          <span class='product_wish_count'><?= getProductWishlishtCount($conn,$id) ?></span>
+                          <span class='product_wish_count'>
+                            <small>
+                              <?= getProductWishlishtCount($conn,$id) ?>
+                            </small>
+                          </span>
                         </a>
 
                       <!-- IF LOGGED OUT -->
@@ -240,13 +248,16 @@
                         
                         <a class='btn_wishlist_logout_view' data-id='<?= $id ?>' disabled style='cursor:default; float:right'>
                           <i class='far fa-heart text-red'></i> 
-                          <span class='product_wish_count'><?= getProductWishlishtCount($conn,$id) ?></span>
+                          <span class='product_wish_count'>
+                            <small>
+                              <?= getProductWishlishtCount($conn,$id) ?>
+                            </small>
+                          </span>
                         </a>
                         
                       <?php } else { ?>
                         <a class='btn_wishlist_logout_view' data-id='<?= $id ?>' disabled style='cursor:default; float:right'>
                           <i class='far fa-heart text-gray'></i> 
-                          <span class='product_wish_count text-gray'>0</span>
                         </a>
                         
                       <?php } } ?>
