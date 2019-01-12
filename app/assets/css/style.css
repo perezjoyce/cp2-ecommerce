@@ -1357,12 +1357,16 @@ input:focus{
         font-size: 1.3rem;
     }
 
-    h5 {
+    h6 {
         font-size: 1.2rem;
     }
 
     p, div, a.btn, button, .text-responsive ,.product_details, textarea, label, .small {
         font-size: .95rem!important;
+    }
+
+    .btn-lg {
+        font-size: 1.2rem!important;
     }
 
     /* HEADER */
@@ -1426,7 +1430,7 @@ input:focus{
     /* FOOTER */
     a.footer-link {
         font-weight: 100!important;
-        font-size:10px;
+        font-size:11px;
     }
 
     /* REUSABLE */
@@ -1544,8 +1548,6 @@ input:focus{
     }
 
     /* FONT SIZE */
-    
-    /* the following adjusts according to the root */
     h1 {
         /* 21px */
         font-size: 1.5rem; 
@@ -1558,17 +1560,30 @@ input:focus{
     
         /* 15px */
     h3 {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
     }
 
     h4 {
+        font-size: 1.2rem;
+    }
+
+    h5 {
+        font-size: 1.1rem;
+    }
+
+    h6 {
         font-size: 1rem;
     }
 
     p, div, a.btn, button, .text-responsive ,.product_details, textarea, label, .small {
-        font-size: .8rem!important;
+        font-size: .9rem!important;
     }
 
+    .btn-lg {
+        font-size: 1.1rem!important;
+    }
+    
+    
 
     #livesearch {
         /* padding-left: 28px; */
