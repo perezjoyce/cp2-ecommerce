@@ -192,14 +192,14 @@
           if($statement->rowCount()){
             //CREATE A ROW VARIABLE
             while($row = $statement->fetch()){
-              $id = $row['product_id'];
+              $productId = $row['product_id'];
               $name = $row['name'];
               $price = $row['price'];
               $logo = $row['url'];
               $logo = BASE_URL . "/".$logo .".jpg";
           ?>
           <div class="col-lg-3 col-md-4 col-sm-6 pb-2 px-1">
-            <a href="product.php?id=<?= $id ?>">
+            <a href="product.php?id=<?= $productId ?>">
               <div class = 'card h-700 border-0'>
                 <!-- IMGS WON'T RESPOND TO CSS TARGETING ... -->
                 <img class='card-img-top card-profilepic' src="<?= $logo ?>"> 
@@ -218,45 +218,47 @@
                     <div class='flex-fill' style='cursor:default;'>
 
                       <?php 
+                        $wishCount = getProductWishlishtCount($conn,$productId);
                         if(isset($_SESSION['id'])) {
-                            if (checkIfInWishlist($conn,$id) == 0) {
+                            if (checkIfInWishlist($conn,$id)) {
                       ?>
-                        <a class='heart-toggler' data-id='<?= $id ?>' role='button' data-enabled="0" style='float:right'>
-                          <span class='wish_heart'><i class='far fa-heart text-red' id></i></span>
+                        <a class='heart-toggler' data-id='<?= $productId ?>' role='button' data-enabled="0" style='float:right'>
+                          <span class='wish_heart'><i class='fas fa-heart text-red' id></i></span>
                           <span class='product_wish_count'>
                             <small>
-                              <?= getProductWishlishtCount($conn,$id) ?>
+                              <?= $wishCount ?>
                             </small>
                           </span>
                         </a>
                   
                       <?php  } else { ?>
 
-                        <a class='heart-toggler' data-id='<?= $id ?>' data-enabled="1" style='float:right'>
-                          <span class='wish_heart'><i class='fas fa-heart text-red'></i></span> 
+                        <a class='heart-toggler' data-id='<?= $productId ?>' data-enabled="1" style='float:right'>
+                          <span class='wish_heart'><i class='far fa-heart text-red'></i></span> 
                           <span class='product_wish_count'>
                             <small>
-                              <?= getProductWishlishtCount($conn,$id) ?>
+                              <?= $wishCount ?>
                             </small>
                           </span>
                         </a>
 
                       <!-- IF LOGGED OUT -->
                       <?php }  } else { 
-                        if(getProductWishlishtCount($conn,$id) >= 1) {
+                       
+                        if($wishCount >= 1) {
                       ?>
                         
-                        <a class='btn_wishlist_logout_view' data-id='<?= $id ?>' disabled style='cursor:default; float:right'>
+                        <a class='btn_wishlist_logout_view' data-id='<?= $productId ?>' disabled style='cursor:default; float:right'>
                           <i class='far fa-heart text-red'></i> 
                           <span class='product_wish_count'>
                             <small>
-                              <?= getProductWishlishtCount($conn,$id) ?>
+                              <?= $wishCount ?>
                             </small>
                           </span>
                         </a>
                         
                       <?php } else { ?>
-                        <a class='btn_wishlist_logout_view' data-id='<?= $id ?>' disabled style='cursor:default; float:right'>
+                        <a class='btn_wishlist_logout_view' data-id='<?= $productId ?>' disabled style='cursor:default; float:right'>
                           <i class='far fa-heart text-gray'></i> 
                         </a>
                         
@@ -266,9 +268,9 @@
                     <!-- AVERAGE STAR RATING -->
                     <div class='flex-fill pr-3' style="display:flex; flex-direction: column; width:81%; align-items:flex-end">  
                       <div class='stars-outer' 
-                        data-productrating='<?=getAveProductReview($conn, $id)?>' 
-                        data-productid='<?=$id?>' 
-                        id='average_product_stars2<?=$id?>'>
+                        data-productrating='<?=getAveProductReview($conn, $productId)?>' 
+                        data-productid='<?=$productId?>' 
+                        id='average_product_stars2<?=$productId?>'>
                         <span class='stars-inner'></span>
                       </div>
                     </div>

@@ -164,7 +164,7 @@ if(isset($_SESSION['id'])) {
                             if (checkIfInWishlist($conn,$id) == 0) {
                       ?>
                         <a class='heart-toggler' data-id='<?= $id ?>' role='button' data-enabled="0" style='float:right'>
-                          <span class='wish_heart'><i class='far fa-heart fa-2x text-red' id></i></span>
+                          <span class='wish_heart'><i class='far fa-heart fa-2x text-gray' id></i></span>
                         </a>
                   
                       <?php  } else { ?>
