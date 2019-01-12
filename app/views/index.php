@@ -202,9 +202,10 @@
             <a href="product.php?id=<?= $id ?>">
               <div class = 'card h-700 border-0'>
                 <!-- IMGS WON'T RESPOND TO CSS TARGETING ... -->
-                <img class='card-img-top card-img vanish-md vanish-sm' src="<?= $logo ?>" style='height:370px;'> 
+                <img class='card-img-top card-img vanish-md vanish-sm' src="<?= $logo ?>"> 
+                <!-- <img class='card-img-top card-img vanish-md vanish-sm' src="<?= $logo ?>" style='height:370px;'> 
                 <img class='card-img-top card-img vanish-lg vanish-sm' src="<?= $logo ?>" style='height:320px;'> 
-                <img class='card-img-top card-img vanish-lg vanish-md' src="<?= $logo ?>" style='height:230px;'> 
+                <img class='card-img-top card-img vanish-lg vanish-md' src="<?= $logo ?>" style='height:230px;'>  -->
                 <div class="card-body pr-0">
                   <div class='font-weight-bold'>
                     <?= $name ?>
