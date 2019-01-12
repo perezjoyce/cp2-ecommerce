@@ -31,8 +31,8 @@
         $storeShippingFee = displayStoreShippingFee($conn,$storeId);
         // var_dump($storeShippingFee);die();
         $storeFreeShippingMinimum = displayStoreFreeShipping($conn,$storeId);
-        $fname = getFirstName ($conn,$id);
-        $lname = getLastName ($conn,$id);
+        $fname = getFirstName ($conn,$sellerId);
+        $lname = getLastName ($conn,$sellerId);
 
     
 ?>
