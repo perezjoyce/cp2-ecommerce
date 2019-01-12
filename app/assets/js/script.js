@@ -1379,7 +1379,7 @@ $(document).ready( () => {
 					"<a class='btn btn-lg btn-purple py-3' style='height:50px;'" +  
 					"data-variationid='"+ variationId +"' role='button'" +
 					"data-id='"+ productId +"' id='btn_add_to_cart'" +
-					"data-name='"+variationName+"'>" + "Add to Cart</a>");
+					"data-name='"+variationName+"'>" + "&#65291;&nbsp;Add to Cart</a>");
 
 				//UPDATE ITEM COUNT
 				if (data == 0) {

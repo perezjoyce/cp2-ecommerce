@@ -219,25 +219,22 @@ if(isset($_SESSION['id'])) {
                   <div>Shipping Fee</div>
                 </div>
 
-                <div class="col-lg-4 col-md-2 col-sm-2">
+                <div class="col-lg-3 col-md-2 col-sm-2">
                   <div class="row">
                     &#36;&nbsp;
                     <span id='shipping_fee'><?= displayShippingFee($conn,$id) ?></span>            
                   </div>
                 </div>
 
-                <div class="col-lg-4 col-md-6 col-sm-5">
-                  <div class="row px-md-3 px-sm-5">
+                <div class="col">
+               
                     <div class="d-flex flex-lg-row flex-md-row flex-sm-column text-center border bg-light p-2">
-                        <!-- <div id='free-delivery-img'></div> -->
-                        <!-- <img src="../assets/images/discount-gradient.png" alt="discount" style='height:15px;width:15px;'> -->
-                        &nbsp;
                         <small class='text-purple'>FREE SHIPPING</small>
                         <small class='text-gray'>
                           With a minimum spend of &#36;&nbsp;<?=displayFreeShippingMinimum($conn,$id);?> from seller.
                         </small>
                     </div>
-                  </div>
+                  
                 </div>
 
               </div>
@@ -317,12 +314,11 @@ if(isset($_SESSION['id'])) {
                           }
                     ?>
                     
-                    <button class="btn p-2 mr-2 mb-2 text-center border btn_variation text-responsive " 
+                    <button class="btn p-2 mr-2 mb-2 bg-light text-center border btn_variation text-responsive " 
                       <?= $disabled ?> 
-                      style='width:18%;' 
                       data-variationStock='<?= $variationStock ?>' 
                       data-id='<?=$variationId?>'>
-                      [&nbsp;<?= ucwords($variationName) ?>&nbsp;]
+                      <?= ucwords($variationName) ?>
                     </button>
 
                     <?php } else { 
@@ -421,13 +417,13 @@ if(isset($_SESSION['id'])) {
                 ?>  
 
                 <button class='btn btn-lg btn-purple-reverse py-3' data-id='<?= $id ?>' role='button' data-variationid='<?=$variationId?>' data-name='<?=$variationName?>' id="btn_add_to_cart_again">
-                    &nbsp;Add To Cart Again
+                  &#65291;&nbsp;Add To Cart Again
                 </button>
 
                 <?php } else { ?>
                 
                 <a class='btn btn-lg btn-purple py-3' data-id='<?= $id ?>' role='button' data-variationid='<?=$variationId?>' data-name='<?=$variationName?>' id="btn_add_to_cart">
-                  &nbsp;Add To Cart
+                  &#65291;&nbsp;Add To Cart
                 </a>
                 <?php } } ?>
 
