@@ -103,12 +103,12 @@
     <div class="container my-5">
 
       <div class="row">
-        <div class="col-6">
+        <div class="col-lg-6 col-md-6 col-sm-8">
             <h5>
               FEATURED SHOPS
             </h5>
         </div>
-        <div class="col-6 text-right pt-2">
+        <div class="col-lg-6 col-md-6 col-sm-4 text-right pt-2">
           <a href="catalog.php?id=<?=$_GET['id'] = 41 ?>">
             View All&nbsp;<i class="fas fa-angle-double-right"></i>
           </a>
@@ -131,7 +131,7 @@
               $name = $row['name'];
               $logo = $row['logo'];
           ?>
-          <div class="col-lg-2 col-md-3 col-sm-6 pb-2">
+          <div class="col-lg-2 col-md-2 col-sm-6 pb-2">
             <div class = 'card h-700 border-0'> 
               <div class='card border' style='height:auto;'>
                 <a href="store-profile.php?id=<?= $row['id'] ?>">
@@ -155,12 +155,12 @@
     <div class="container mb-5">
 
       <div class="row">
-        <div class="col-8">
+        <div class="col-lg-6 col-md-6 col-sm-8">
             <h5>
               TRENDING PRODUCTS
             </h5>
         </div>
-        <div class="col text-right pt-2">
+        <div class="col-lg-6 col-md-6 col-sm-4 text-right pt-2">
           <a href="catalog.php?id=<?=$_GET['id'] = 41 ?>">
             View All&nbsp;<i class="fas fa-angle-double-right"></i>
           </a>
@@ -183,7 +183,7 @@
                   AND is_primary = 1 
                   GROUP BY variation_id 
                   ORDER BY COUNT(variation_id) 
-                  DESC ";
+                  DESC LIMIT 12";
           $statement = $conn->prepare($sql);
           $statement->execute();
           //$result = mysqli_query($conn,$sql);
