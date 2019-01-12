@@ -87,7 +87,8 @@
                             <i class="fab fa-facebook-f text-primary mr-2"></i>
                             FACEBOOK
                         </button>
-                        <small class='flex-fill mb-5'>By signing up, you agree to Shopperoo's <a href="#" class='text-primary'>Terms  & Conditions</a>. </small>
+                        <div class='flex-fill mb-5'>By signing up, you agree to Mamaroo's </div>
+                        <br><a href="#" class='text-primary'>Terms  & Conditions</a>. 
                     </div>
 
                 </form>
