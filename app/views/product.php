@@ -48,7 +48,7 @@ if(isset($_SESSION['id'])) {
               ?>
 
               <div class="col position-relative" id="product_iframe">
-                <img src='<?= BASE_URL . "/" .$url.".jpg" ?>' style='width:100%;height:450px;' iframe_img_id='<?= $img_id ?>'>
+                <img src='<?= BASE_URL . "/" .$url.".jpg" ?>' style='width:100%;height:510px;' iframe_img_id='<?= $img_id ?>'>
               </div>
             </div>
 
@@ -65,7 +65,7 @@ if(isset($_SESSION['id'])) {
               ?>
               <div class="col-2 px-0 m-0">
                 <div class="card" style="border:none;">
-                  <img src='<?= BASE_URL . "/" .$url.".jpg" ?>' style='width:67px;height:65px;cursor:pointer;' class='product_thumbnail' data-id='<?=$img_id?>' data-url='<?= BASE_URL . "/" .$url.".jpg" ?>'>
+                  <img src='<?= BASE_URL . "/" .$url.".jpg" ?>' style='width:67px;height:80px;cursor:pointer;' class='product_thumbnail' data-id='<?=$img_id?>' data-url='<?= BASE_URL . "/" .$url.".jpg" ?>'>
                 </div>
               </div>
 
@@ -168,7 +168,6 @@ if(isset($_SESSION['id'])) {
                         <a class='heart-toggler' data-id='<?= $id ?>' role='button' data-enabled="0" style='float:right'>
                           <span class='wish_heart'><i class='far fa-heart text-red' id></i></span>
                           <span class='product_wish_count'><?= getProductWishlishtCount($conn,$id) ?></span>
-                          <span>Favorites</span>
                         </a>
                   
                       <?php  } else { ?>
@@ -176,7 +175,6 @@ if(isset($_SESSION['id'])) {
                         <a class='heart-toggler' data-id='<?= $id ?>' data-enabled="1" style='float:right'>
                           <span class='wish_heart'><i class='fas fa-heart text-red'></i></span> 
                           <span class='product_wish_count'><?= getProductWishlishtCount($conn,$id) ?></span>
-                          <span>Favorites</span>
                         </a>
 
                       <!-- IF LOGGED OUT -->
@@ -187,14 +185,12 @@ if(isset($_SESSION['id'])) {
                         <a class='btn_wishlist_logout_view' data-id='<?= $id ?>' disabled style='cursor:default; float:right'>
                           <i class='far fa-heart text-red'></i> 
                           <span class='product_wish_count'><?= getProductWishlishtCount($conn,$id) ?></span>
-                          <span>Favorites</span>
                         </a>
                         
                       <?php } else { ?>
                         <a class='btn_wishlist_logout_view' data-id='<?= $id ?>' disabled style='cursor:default; float:right'>
                           <i class='far fa-heart text-gray'></i> 
                           <span class='product_wish_count text-gray'>0</span>
-                          <span>Favorites</span>
                         </a>
                         
                       <?php } } ?>
@@ -219,7 +215,7 @@ if(isset($_SESSION['id'])) {
 
               <div class="row mb-3">
 
-                <div class="col-lg-3 col-md-4 col-sm-4">
+                <div class="col-lg-4 col-md-4 col-sm-4">
                   <div>Shipping Fee</div>
                 </div>
 
@@ -230,9 +226,9 @@ if(isset($_SESSION['id'])) {
                   </div>
                 </div>
 
-                <div class="col-lg-5 col-md-6 col-sm-5">
+                <div class="col-lg-4 col-md-6 col-sm-5">
                   <div class="row px-md-3 px-sm-5">
-                    <div class='d-flex flex-row border text-center p-1 bg-light'>
+                    <div class="d-flex flex-lg-row flex-md-row flex-sm-column text-center border bg-light p-2">
                         <!-- <div id='free-delivery-img'></div> -->
                         <!-- <img src="../assets/images/discount-gradient.png" alt="discount" style='height:15px;width:15px;'> -->
                         &nbsp;
@@ -249,10 +245,10 @@ if(isset($_SESSION['id'])) {
                 <?php } else { ?>
 
               <div class="row mb-5">
-                <div class="col-lg-5 col-md-6 col-sm-6">
+                <div class="col-lg-4 col-md-6 col-sm-6">
                   <div>Shipping Fee</div>
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="col-lg-8 col-md-6 col-sm-6">
                   <div class="row">
                     &#36;&nbsp;
                     <span id='shipping_fee'><?= displayShippingFee($conn,$id) ?></span>            
@@ -265,7 +261,7 @@ if(isset($_SESSION['id'])) {
               <!-- BRAND -->
               <div class="row mb-5">
 
-                <div class="col-lg-3 col-md-4 col-sm-4">
+                <div class="col-lg-4 col-md-4 col-sm-4">
                   <div>Brand</div>
                 </div>
 
@@ -286,7 +282,7 @@ if(isset($_SESSION['id'])) {
 
               <!-- VARIATION -->
               <div class="row mb-5">
-                <div class="col-lg-3 col-md-4 col-sm-4">
+                <div class="col-lg-4 col-md-4 col-sm-4">
                   <div>Variation</div>
                 </div>
                 <div class="col">
@@ -303,7 +299,7 @@ if(isset($_SESSION['id'])) {
                           $variationName  = ucfirst(strtolower($variationName));
                           $variationStock = $row['variation_stock'];
 
-                          if($variationName != 'None') {
+                          if($variationName !== 'None') {
 
                             // query to check if this variation is already in cart
                           $disabled = '';
@@ -352,11 +348,11 @@ if(isset($_SESSION['id'])) {
               <!-- QUANTITY --> 
               <div class="row mb-4">
                 <?php $totalStocksAvailable = getTotalProductStocks($conn,$id) ?>
-                <div class="col-lg-3 col-md-3 col-sm-4">
+                <div class="col-lg-4 col-md-3 col-sm-4">
                   <div>Quantity</div>
                 </div>
                 <div class="col pl-0">
-                  <div class="d-flex flex-row mb-3">
+                  <div class="d-flex flex-lg-row flex-md-row flex-sm-column mb-3">
                     <!-- INPUT FIELD -->
                     <span class='flex-fill'>
                       <div class="input-group">
@@ -450,8 +446,8 @@ if(isset($_SESSION['id'])) {
           <!-- SELLER DETAILS -->
           <div class="col-lg-2 col-md-3 col-sm-12 mr-lg-5 white-bg py-5">
 
-            <div class='row mb-4 py-5 border'>
-                <div class="col-12">
+            <div class='row mb-4'>
+                <div class="col-12 py-5 border">
                   
                       <?php
                         $sql = "SELECT * FROM tbl_stores WHERE id = ?";
@@ -477,7 +473,7 @@ if(isset($_SESSION['id'])) {
                     </div>
 
                     <!-- STORE ADDRESS -->
-                    <div class="row justify-content-center text-gray mb-2">
+                    <div class="row justify-content-center text-gray mb-2 px-2">
                       <small>
                         <i class="fas fa-map-marker-alt"></i>
                         &nbsp;<?= ucwords(strtolower($storeAddress)) ?>
@@ -506,7 +502,7 @@ if(isset($_SESSION['id'])) {
                       <div class="col ml-3">
 
                         <!-- RATINGS -->
-                        <small class="d-flex flex-row mb-3">
+                        <div class="d-flex flex-row mb-3">
                             <?php
                             $sql = "SELECT i.id, i.store_id, AVG(product_rating) as 'averageRating' 
                             FROM tbl_ratings 
@@ -518,20 +514,22 @@ if(isset($_SESSION['id'])) {
                               $averageSellerRating = $row['averageRating'];	
                               $averageSellerRating = round($averageSellerRating,1);
                             ?>
-                          <div style='width:45%;'>Rating</div>
+                          <div style='width:55%;'>Rating</div>
                           <div>
-                            <?= $averageSellerRating ?> out of 5
+                            <?= $averageSellerRating ?> 
+                            <span class='vanish-md'>out</span> 
+                            of 5
                           </div>
-                        </small>
+                        </div>
 
                         <!-- FOLLWERS -->
-                        <small class="d-flex flex-row mb-3">
-                          <div style='width:45%;'>Followers</div>
+                        <div class="d-flex flex-row mb-3">
+                          <div style='width:55%;'>Followers</div>
                           <div><?= countFollowers ($conn, $storeId) ?></div>
-                        </small>
+                        </div>
 
                         <!-- PRODUCTS COUNT -->
-                        <small class="d-flex flex-row mb-3">
+                        <div class="d-flex flex-row mb-3">
                             <?php
                               $sql = "SELECT COUNT(*) AS 'productCount' FROM tbl_items WHERE store_id = ?";
                               $statement = $conn->prepare($sql);
@@ -539,21 +537,21 @@ if(isset($_SESSION['id'])) {
                               $row = $statement->fetch();
                               $productCount = $row['productCount'];	
                             ?>
-                          <div style='width:45%;'>Products</div>
+                          <div style='width:55%;'>Products</div>
                           <div>
                             <?= $productCount ?>
                           </div>
-                        </small>
+                        </div>
 
                         <!-- JOINED -->
-                        <small class="d-flex flex-row mb-4">
+                        <div class="d-flex flex-row mb-4">
                             
-                          <div style='width:45%;'>Joined</div>
+                          <div style='width:55%;'>Joined</div>
                           <div>
                             <?=  getMembershipDate($conn, $storeId) ?>
                           </div>
                           <!-- https://stackoverflow.com/questions/6823133/how-to-remove-first-word-from-a-php-string -->
-                        </small>
+                        </div>
 
                       </div> 
                     </div>
@@ -1318,10 +1316,10 @@ if(isset($_SESSION['id'])) {
       
       <!-- PRODUCTS FROM SELLER -->
       <div class="container mb-5" style="width:100%;">
-        <div class="pl-3 row">
-          <div class="col-6">
+        <div class="row">
+          <div class="col">
             <h4>
-              &nbsp;OTHER PRODUCTS FROM SHOP
+              OTHER PRODUCTS FROM SHOP
             </h4>
           </div>
         </div>
@@ -1343,7 +1341,7 @@ if(isset($_SESSION['id'])) {
                   $logo = BASE_URL. "/".$logo.".jpg";
             ?>
           
-          <div class="col-lg-2 col-md-3 px-1">
+          <div class="col-lg-2 col-md-3 col-sm-6 pr-1 pb-1">
             <a href="product.php?id=<?= $id ?>">
               <div class='card h-700 border-0'>
                 <a href="product.php?id=<?= $row2['id'] ?>">

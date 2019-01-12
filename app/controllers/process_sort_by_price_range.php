@@ -20,10 +20,10 @@
 	
 
 ?>
-			<div class='col-lg-3 col-md-3 col-sm-6 px-lg-1 px-md-1 px-sm-0 pb-2'>
+			<div class='col-lg-3 col-md-4 col-sm-6 px-1 pb-1'>
 				<a href='product.php?id=<?=$id?>'>
 					<div class = 'card h-700 border-0'>
-						<img class='card-img-top' src='<?=$item_img?>' style='height:250px;'>
+						<img class='card-img-top card-profilepic-catalog' src='<?=$item_img?>'>
 						<div class='card-body pr-lg-1 pr-md-1'>
 							<div class='font-weight-bold'><?=$name?></div>
 							<div>&#36;<?=$row['price'] ?></div>

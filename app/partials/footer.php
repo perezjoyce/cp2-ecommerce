@@ -100,7 +100,7 @@
                 <div class='text-light'>
                   <i class="fas fa-check"></i>
                   &nbsp;
-                  <small>Get discounted deals <span class='vanish-sm'>from Shoperoo</span></small>
+                  <small>Get discounted deals <span class='vanish-sm'>from Mamaroo</span></small>
                 </div>
               </div>
 

@@ -627,7 +627,7 @@ $(document).ready( () => {
 		$url = $(this).data('url');
 		$('#iframeId').val($id);
 		$('#product_iframe').html(
-			"<img src='"+ $url + "' style='width:100%;height:450px;' id='"+$id+"'>"
+			"<img src='"+ $url + "' style='width:100%;height:510px;' id='"+$id+"'>"
 		);
 	})
 
@@ -643,7 +643,7 @@ $(document).ready( () => {
 		$url = $(this).data('url');
 		$clientId = $(this).data('clientid');
 		$('#review_iframe'+$clientId).html(
-			"<img src='"+ $url + "' style='width:100%;height:450px;' id='"+$id+"'>"
+			"<img src='"+ $url + "' style='width:100%;height:510px;' id='"+$id+"'>"
 		);
 	})
 

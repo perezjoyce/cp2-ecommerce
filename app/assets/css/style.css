@@ -1238,6 +1238,10 @@ input:focus{
         height:370px!important;
     }
 
+    div img.card-profilepic-catalog {
+        height:275px!important;
+    }
+
 
     /********** HEADER *********/
 
@@ -1327,6 +1331,12 @@ input:focus{
     a img.card-profilepic {
         height:320px!important;
     }
+
+    div img.card-profilepic-catalog {
+        height:275px!important;
+    }
+
+  
 
     /* FONT SIZE */
     h1 {
@@ -1516,6 +1526,10 @@ input:focus{
     /* CARD IMAGES */
     a img.card-profilepic {
         height:230px!important;
+    }
+
+    div img.card-profilepic-catalog {
+        height:275px!important;
     }
 
 

@@ -27,7 +27,7 @@
                     <a href='product.php?id=<?= $id ?>'>
                         <div class='card border-0'>
                             <a href='product.php?id=<?= $id ?>'>
-                                <img class='card-img-top' src='$logo'>
+                                <img class='card-img-top card-profilepic' src='$logo'>
                                 <div class='card-body pr-0'>
                                     <div>
                                         $name

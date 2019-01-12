@@ -21,7 +21,7 @@
     <!-- COMPANY DESCRIPTIONS -->
     <div class="container my-5 py-3">
       <div class="row my-lg-5 mx-0 text-center">
-        <div class="col d-flex flex-lg-row flex-md-row rounded" style='background:white;'>
+        <div class="col d-flex flex-lg-row flex-md-row flex-sm-column rounded" style='background:white;'>
 
           <div class="flex-fill py-3">
             <div class="d-flex justify-content-center">

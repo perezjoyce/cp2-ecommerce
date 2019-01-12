@@ -396,7 +396,7 @@
                             <a href="product.php?id=<?= $id ?>">
                             <div class='card border-0'>
                                 <a href="product.php?id=<?= $row2['id'] ?>">
-                                <img class='card-img-top' src="<?= $logo ?>" style='height:400px;'>
+                                <img class='card-img-top card-profilepic' src="<?= $logo ?>">
 
                                 <div class="card-body pr-0">
                                     <div>
