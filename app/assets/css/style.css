@@ -1178,7 +1178,7 @@ input:focus{
     background: url("../../assets/images/ad-5.jpg");
 	background-repeat: no-repeat;
     background-size: cover;
-	height: 81vh;
+	height: 82.5vh;
 	position: relative;
 	background-position-y: center;
 	background-position-x: right;
@@ -1331,25 +1331,29 @@ input:focus{
     /* FONT SIZE */
     h1 {
         /* 21px */
-        font-size: 1.5rem; 
+        font-size: 1.7rem; 
     }
     
     h2 {
         /* 18 px */
-        font-size: 1.4rem;
+        font-size: 1.6rem;
     }
     
         /* 15px */
     h3 {
+        font-size: 1.4rem;
+    }
+
+    h4 {
         font-size: 1.2rem;
     }
 
     h4 {
-        font-size: 1rem;
+        font-size: 1.2rem;
     }
 
     p, div, a.btn, button, .text-responsive ,.product_details, textarea, label, .small {
-        font-size: .8rem!important;
+        font-size: .85rem!important;
     }
 
     /* HEADER */
