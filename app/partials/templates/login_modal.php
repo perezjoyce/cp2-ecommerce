@@ -54,7 +54,7 @@
                                 <small id="login_password_validation"></small>
                             </div>
                             <div class="col-lg-6 text-right">
-                                <a class="btn" id="btn_forgot_password">
+                                <a class="btn text-gray" id="btn_forgot_password">
                                     Forgot Password?
                                 </a>
                             </div>

@@ -67,7 +67,7 @@
 				$item_img = productprofile($conn,$productId);
 				$item_img = BASE_URL ."/".$item_img.".jpg";
 ?>
-			<div class='col-lg-3 col-md-4 col-sm-6 px-1 pb-1'>
+			<div class='col-lg-3 col-md-4 col-sm-6 px-1 pb-2'>
 				<a href='product.php?id=<?=$id?>'>
 					<div class = 'card h-700 border-0'>
 						<img class='card-img-top card-profilepic-catalog' src='<?=$item_img?>'>

@@ -21,7 +21,7 @@
     <!-- COMPANY DESCRIPTIONS -->
     <div class="container my-5 py-3">
       <div class="row my-lg-5 mx-0 text-center">
-        <div class="col d-flex flex-lg-row flex-md-row flex-sm-column rounded" style='background:white;'>
+        <div class="col d-flex flex-lg-row flex-md-row flex-sm-column p-4 rounded" style='background:white;'>
 
           <div class="flex-fill py-3">
             <div class="d-flex justify-content-center">
@@ -222,8 +222,8 @@
                         if(isset($_SESSION['id'])) {
                             if (checkIfInWishlist($conn,$id)) {
                       ?>
-                        <a class='heart-toggler' data-id='<?= $productId ?>' role='button' data-enabled="0" style='float:right'>
-                          <span class='wish_heart'><i class='fas fa-heart text-red' id></i></span>
+                        <a class='heart-toggler' data-id='<?= $productId ?>' role='button' data-enabled="0" style='float:left'>
+                          <span class='wish_heart'><i class='fas fa-heart text-purple' id></i></span>
                           <span class='product_wish_count'>
                             <small>
                               <?= $wishCount ?>
@@ -233,11 +233,17 @@
                   
                       <?php  } else { ?>
 
-                        <a class='heart-toggler' data-id='<?= $productId ?>' data-enabled="1" style='float:right'>
-                          <span class='wish_heart'><i class='far fa-heart text-red'></i></span> 
+                        <a class='heart-toggler' data-id='<?= $productId ?>' data-enabled="1" style='float:left'>
+                          <span class='wish_heart'><i class='far fa-heart text-purple'></i></span> 
                           <span class='product_wish_count'>
                             <small>
-                              <?= $wishCount ?>
+                              <?php
+                               if($wishCount == 0){
+                                 echo "";
+                               } else {
+                                 echo $wishCount;
+                               }
+                              ?>
                             </small>
                           </span>
                         </a>
@@ -248,8 +254,8 @@
                         if($wishCount >= 1) {
                       ?>
                         
-                        <a class='btn_wishlist_logout_view' data-id='<?= $productId ?>' disabled style='cursor:default; float:right'>
-                          <i class='far fa-heart text-red'></i> 
+                        <a class='btn_wishlist_logout_view' data-id='<?= $productId ?>' disabled style='cursor:default; float:left'>
+                          <i class='far fa-heart text-purple'></i> 
                           <span class='product_wish_count'>
                             <small>
                               <?= $wishCount ?>
@@ -258,7 +264,7 @@
                         </a>
                         
                       <?php } else { ?>
-                        <a class='btn_wishlist_logout_view' data-id='<?= $productId ?>' disabled style='cursor:default; float:right'>
+                        <a class='btn_wishlist_logout_view' data-id='<?= $productId ?>' disabled style='cursor:default; float:left'>
                           <i class='far fa-heart text-gray'></i> 
                         </a>
                         

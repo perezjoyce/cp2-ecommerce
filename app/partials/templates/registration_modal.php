@@ -39,7 +39,7 @@
 
                     <div class="form-group mb-4">
                         <input type="text" class="form-control form-control-lg" id="register_username" name="register_username" autocomplete="username" placeholder="Username">
-                        <small id="registration_username_validation"><span class='text-secondary'>Minimum of 5 characters</span></small>
+                        <small id="registration_username_validation"><span class='text-gray font-weight-light'>Minimum of 5 characters</span></small>
                     </div>
             
                     <div class="form-group mb-5">
@@ -53,7 +53,7 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <small id="registration_password_validation"><span class='text-secondary'>Minimum of 8 characters</span></small>
+                                <small id="registration_password_validation"><span class='text-gray font-weight-light'>Minimum of 8 characters</span></small>
                             </div>
                         </div>
                         
