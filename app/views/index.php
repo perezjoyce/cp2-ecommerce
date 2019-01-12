@@ -111,7 +111,7 @@
         </div>
         <div class="col-6 text-right pt-2">
           <a href="catalog.php?id=<?=$_GET['id'] = 41 ?>">
-            View All&nbsp;<i class="fas fa-angle-double-right"></i></i>
+            View All&nbsp;<i class="fas fa-angle-double-right"></i>
           </a>
         </div>
       </div>
@@ -133,19 +133,16 @@
               $logo = $row['logo'];
           ?>
           <div class="col-lg-2 col-md-3 col-sm-6 pb-2">
-            <a href="product.php?id=<?= $id ?>">
-              <div class = 'card h-700 border-0'> 
-                  <div class='card border' style='height:auto;'>
-                    <a href="store-profile.php?id=<?= $row['id'] ?>">
-                      <img class='card-img-top' src='<?= BASE_URL ."/".$logo .".jpg" ?>'>
-                    </a> 
-                  </div>
-                </a>
+            <div class = 'card h-700 border-0'> 
+              <div class='card border' style='height:auto;'>
+                <a href="store-profile.php?id=<?= $row['id'] ?>">
+                  <img class='card-img-top' src='<?= BASE_URL ."/".$logo .".jpg" ?>'>
+                </a> 
               </div>
+            </div>
           </div>
               
         <?php } } ?>
-
       </div>
     </div>
 
@@ -157,6 +154,7 @@
 
     <!-- TRENDING PRODUCTS -->
     <div class="container mb-5">
+
       <div class="row">
         <div class="col-8">
             <h5>
@@ -165,10 +163,11 @@
         </div>
         <div class="col text-right pt-2">
           <a href="catalog.php?id=<?=$_GET['id'] = 41 ?>">
-            View All&nbsp;<i class="fas fa-angle-double-right"></i></i>
+            View All&nbsp;<i class="fas fa-angle-double-right"></i>
           </a>
         </div>
       </div>
+
       <div class="row no-gutters">
         <?php 
 
@@ -268,6 +267,7 @@
               
         <?php } } ?>
       </div>
+
     </div>
 
     <!-- BUTTON -- LOAD MORE PRODUCTS -->
@@ -275,7 +275,9 @@
       <div class="row">
         <div class="col"></div>
         <div class="col-lg-4 col-md-6">
-          <a href="catalog.php?id=<?=$_GET['id'] = 1 ?>" class="btn btn-lg btn-block border hover_btn">See More Products</a>
+          <a href="catalog.php?id=<?=$_GET['id'] = 1 ?>" class="btn btn-lg btn-block border hover_btn">
+            See More Products
+          </a>
         </div>
         <div class="col"></div>
       </div>
