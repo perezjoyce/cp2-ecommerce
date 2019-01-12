@@ -46,9 +46,6 @@ html {
 }
 
 
-
-
-
 /* TURN OFF ARROWS INSIDE INPUT FIELD NUM */
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
@@ -1336,8 +1333,6 @@ input:focus{
         height:275px!important;
     }
 
-  
-
     /* FONT SIZE */
     h1 {
         /* 21px */
@@ -1351,19 +1346,23 @@ input:focus{
     
         /* 15px */
     h3 {
+        font-size: 1.5rem;
+    }
+
+    h4 {
         font-size: 1.4rem;
     }
 
-    h4 {
+    h5 {
+        font-size: 1.3rem;
+    }
+
+    h5 {
         font-size: 1.2rem;
     }
 
-    h4 {
-        font-size: 1.2rem;
-    }
-
-    a, p, div, a.btn, button, .text-responsive ,.product_details, textarea, label, .small {
-        font-size: .85rem!important;
+    p, div, a.btn, button, .text-responsive ,.product_details, textarea, label, .small {
+        font-size: .95rem!important;
     }
 
     /* HEADER */
@@ -1427,7 +1426,7 @@ input:focus{
     /* FOOTER */
     a.footer-link {
         font-weight: 100!important;
-        font-size:11px;
+        font-size:10px;
     }
 
     /* REUSABLE */

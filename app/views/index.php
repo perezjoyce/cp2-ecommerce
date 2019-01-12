@@ -33,9 +33,9 @@
               <div class='description-header'>
                 100% Mom-Approved
               </div>
-              <div class="description-supporting-text">
+              <small class="description-supporting-text">
                 Guaranteed Safe Products
-              </div>
+              </small>
             </div>
           </div>
 
@@ -50,9 +50,9 @@
               <div class='description-header'>
                 Lowest Prices
               </div>
-              <div class="description-supporting-text">
+              <small class="description-supporting-text">
                 Shop & Save Money
-              </div>
+              </small>
             </div>
           </div>
 
@@ -67,9 +67,9 @@
               <div class='description-header'>
                 Free Delivery & COD Available
               </div>
-              <div class="description-supporting-text">
+              <small class="description-supporting-text">
                 Find Amazing Deals
-              </div>
+              </small>
             </div>
           </div>
 
@@ -84,9 +84,9 @@
               <div class='description-header'>
                 Same Day Shipping
               </div>
-              <div class="description-supporting-text">
+              <small class="description-supporting-text">
                 Get Your Order in 24 Hours
-              </div>
+              </small>
             </div>
           </div>
 
