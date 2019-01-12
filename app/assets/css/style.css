@@ -1232,9 +1232,14 @@ input:focus{
 /*============================ DESKTOP ==========================*/
 
 @media only screen and (min-width: 961px) {
+    /********* INDEX **********/
+    /* CARD IMAGES */
+    .card-img {
+        height:370px!important;
+    }
 
 
-    /* HEADER */
+    /********** HEADER *********/
 
     /* #website_name {
         font-family: 'Fredoka One', cursive!important;
@@ -1318,8 +1323,10 @@ input:focus{
 /*==============================TABLET ==============================*/
 
 @media only screen and (min-width:426px) and (max-width:960px) { 
-    /* BANNER AD */
-
+    /* CARD IMAGES */
+    .card-img {
+        height:320px!important;
+    }
 
     /* FONT SIZE */
     h1 {
@@ -1493,6 +1500,13 @@ input:focus{
 /*==============================MOBILE==============================*/
 
 @media only screen and (max-width:425px) { 
+    /********* INDEX **********/
+    /* CARD IMAGES */
+    .card-img {
+        height:230px!important;
+    }
+
+
     /* BANNER AD 1 */
     #banner_ad-1 {
         background: url("../../assets/images/ad-5.jpg");
