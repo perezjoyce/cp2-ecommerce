@@ -210,11 +210,17 @@
                                             
                                                 <div id='cart-img'></div>
                                                 
-                                                <span>
-                                                    <span class='badge text-light' id="item-count">
+                                                
+                                                    <?php 
+                                                        $itemsInCart = itemsInCart($conn,$cartSession);
+                                                        if($itemsInCart > 0) {
+                                                    ?>
+                                                        <span class='badge text-light' id="item-count">
                                                         <?= itemsInCart($conn,$cartSession) ?>
-                                                    </span>
-                                                </span>
+                                                        </span>
+                                                        
+                                                    <?php }  ?>
+                                                
 
                                             </div>
                                         </a>
