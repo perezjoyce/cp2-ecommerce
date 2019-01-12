@@ -1551,7 +1551,7 @@ $(document).ready( () => {
 					let response = $.parseJSON(data);					
 					$('.user_wish_count').text(response.userWishCount);
 					$('.product_wish_count').text(response.productWishCount);
-					$('.wish_heart').html("<i class='fas fa-heart text-red'></i>");
+					$('.wish_heart').html("<i class='fas fa-heart fa-2x text-red'></i>");
 					e.id = "btn_delete_wish";
 				}
 			});
@@ -1566,7 +1566,7 @@ $(document).ready( () => {
 					enabled = !enabled;
 					$('.user_wish_count').text(response.userWishCount);
 					$('.product_wish_count').text(response.productWishCount);
-					$('.wish_heart').html("<i class='far fa-heart text-red'></i>");
+					$('.wish_heart').html("<i class='far fa-heart fa-2x text-red'></i>");
 					$("#wish-row"+productId).remove();
 	
 				}
@@ -1586,7 +1586,7 @@ $(document).ready( () => {
 					let response = $.parseJSON(data);
 					$('.user_wish_count').text(response.userWishCount);
 					$('.product_wish_count').text(response.productWishCount);
-					$('.wish_heart').html("<i class='far fa-heart text-red'></i>");
+					$('.wish_heart').html("<i class='far fa-heart fa-2x text-red'></i>");
 					$("#wish-row"+productId).remove();
 	
 				}
@@ -1623,7 +1623,7 @@ $(document).ready( () => {
 
 		$(this).replaceWith(
 			"<a class='mt-3 btn_add_to_wishlist_view' data-id='"+ productId +"' disabled>" +
-				"<i class='far fa-heart' style='color:red;'></i>&nbsp;"+
+				"<i class='far fa-heart fa-2x' style='color:red;'></i>&nbsp;"+
 				"<span class='product-wish-count"+productId+"'>"+ currentNumberOfWishes+"</span>" +
 				"</a>");
 

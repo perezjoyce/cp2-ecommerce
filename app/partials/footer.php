@@ -98,7 +98,7 @@
 
               <div class="flex-fill mt-3 px-lg-5">
                 <div class='text-light'>
-                  <i class="fas fa-check"></i>
+                  &#10003;
                   &nbsp;
                   <small>Get discounted deals <span class='vanish-sm'>from Mamaroo</span></small>
                 </div>
@@ -106,7 +106,7 @@
 
               <div class="flex-fill px-lg-5">
                 <div class='text-light'>
-                  <i class="fas fa-check"></i>
+                  &#10003;
                   &nbsp;
                   <small>Join our promos & contests</small>
                 </div>
@@ -114,7 +114,7 @@
 
               <div class="flex-fill mb-4 px-lg-5">
                 <div class='text-light'>
-                  <i class="fas fa-check"></i>
+                  &#10003;
                   &nbsp;
                   <small>Open your online shop for free</small>
                 </div>

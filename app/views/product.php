@@ -137,10 +137,8 @@ if(isset($_SESSION['id'])) {
                         <span class='rating-count<?=$id?>'>
                           <!-- no value -->
                         </span>
-                        <span class='rating-word'>
-                          <?= "&nbsp;No reviews yet" ?>
-                        </span>
-                            <?php } elseif($totalProductRating == 1){?>
+                        
+                          <?php } elseif($totalProductRating == 1){?>
                         <span class='rating-count<?=$id?>'>
                           <?= $totalProductRating ?>
                         </span>
@@ -166,14 +164,13 @@ if(isset($_SESSION['id'])) {
                             if (checkIfInWishlist($conn,$id) == 0) {
                       ?>
                         <a class='heart-toggler' data-id='<?= $id ?>' role='button' data-enabled="0" style='float:right'>
-                          <span class='wish_heart'><i class='far fa-heart text-red' id></i></span>
-                          <span class='product_wish_count'><?= getProductWishlishtCount($conn,$id) ?></span>
+                          <span class='wish_heart'><i class='far fa-heart fa-2x text-red' id></i></span>
                         </a>
                   
                       <?php  } else { ?>
 
                         <a class='heart-toggler' data-id='<?= $id ?>' data-enabled="1" style='float:right'>
-                          <span class='wish_heart'><i class='fas fa-heart text-red'></i></span> 
+                          <span class='wish_heart'><i class='fas fa-heart fa-2x text-red'></i></span> 
                           <span class='product_wish_count'><?= getProductWishlishtCount($conn,$id) ?></span>
                         </a>
 
@@ -183,14 +180,13 @@ if(isset($_SESSION['id'])) {
                       ?>
                         
                         <a class='btn_wishlist_logout_view' data-id='<?= $id ?>' disabled style='cursor:default; float:right'>
-                          <i class='far fa-heart text-red'></i> 
+                          <i class='far fa-heart fa-2x text-red'></i> 
                           <span class='product_wish_count'><?= getProductWishlishtCount($conn,$id) ?></span>
                         </a>
                         
                       <?php } else { ?>
                         <a class='btn_wishlist_logout_view' data-id='<?= $id ?>' disabled style='cursor:default; float:right'>
-                          <i class='far fa-heart text-gray'></i> 
-                          <span class='product_wish_count text-gray'>0</span>
+                          <i class='far fa-heart fa-2x text-gray'></i> 
                         </a>
                         
                       <?php } } ?>
@@ -510,18 +506,24 @@ if(isset($_SESSION['id'])) {
                               $averageSellerRating = $row['averageRating'];	
                               $averageSellerRating = round($averageSellerRating,1);
                             ?>
-                          <div style='width:55%;'>Rating</div>
-                          <div>
+                          <small style='width:55%;'>
+                            Rating
+                          </small>
+                          <small>
                             <?= $averageSellerRating ?> 
                             <span class='vanish-md'>out</span> 
                             of 5
-                          </div>
+                          </small>
                         </div>
 
                         <!-- FOLLWERS -->
                         <div class="d-flex flex-row mb-3">
-                          <div style='width:55%;'>Followers</div>
-                          <div><?= countFollowers ($conn, $storeId) ?></div>
+                          <small style='width:55%;'>
+                            Followers
+                          </small>
+                          <small>
+                            <?= countFollowers ($conn, $storeId) ?>
+                          </small>
                         </div>
 
                         <!-- PRODUCTS COUNT -->
@@ -533,19 +535,23 @@ if(isset($_SESSION['id'])) {
                               $row = $statement->fetch();
                               $productCount = $row['productCount'];	
                             ?>
-                          <div style='width:55%;'>Products</div>
-                          <div>
+                          <small style='width:55%;'>
+                            Products
+                          </small>
+                          <small>
                             <?= $productCount ?>
-                          </div>
+                          </small>
                         </div>
 
                         <!-- JOINED -->
                         <div class="d-flex flex-row mb-4">
                             
-                          <div style='width:55%;'>Joined</div>
-                          <div>
+                          <small style='width:55%;'>
+                            Joined
+                          </small>
+                          <small>
                             <?=  getMembershipDate($conn, $storeId) ?>
-                          </div>
+                          </small>
                           <!-- https://stackoverflow.com/questions/6823133/how-to-remove-first-word-from-a-php-string -->
                         </div>
 
@@ -1315,16 +1321,16 @@ if(isset($_SESSION['id'])) {
         <div class="row">
           <div class="col">
             <h4>
-              OTHER PRODUCTS FROM SHOP
+              SIMILAR PRODUCTS
             </h4>
           </div>
         </div>
         <div class="row no-gutters justify-content-left">
             <?php 
               $productId = $_GET['id'];
-              $sql2 = "SELECT * FROM tbl_items WHERE id != ? AND store_id = ? LIMIT 12 ";
+              $sql2 = "SELECT * FROM tbl_items WHERE id != ? AND category_id = ? LIMIT 12 ";
               $statement2 = $conn->prepare($sql2);
-              $statement2->execute([$productId,$storeId]);
+              $statement2->execute([$productId,$categoryId]);
 
               if($statement2->rowCount()){
                 while($row2 = $statement2->fetch()){
