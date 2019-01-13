@@ -151,7 +151,7 @@
                                     <small>MY SHOP</small>
                                 </a>
                                     <?php } else { ?>
-                                <a class="dropdown-item py-3 modal-link" data-url='../partials/templates/login_modal.php'>
+                                <a class="dropdown-item py-3 modal-link-big" data-url='../partials/templates/register_shop_modal.php'>
                                     <i class="fas fa-store pr-2"></i>
                                     <small>OPEN MY SHOP</small>
                                 </a>
