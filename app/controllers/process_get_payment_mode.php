@@ -15,8 +15,6 @@ try {
     $mail->SMTPAuth = true;
     $mail->Username = $staff_email;
 
-    var_dump("sadasd");die();
-
     $mail->Password = '8London*'; // totoong password
     $mail->SMTPSecure = 'tls';
     $mail->Port = 587;
@@ -25,7 +23,10 @@ try {
     $mail->isHTML(true);
     $mail->Subject = $email_subject;
     $mail->Body = $email_body;
-    $mail->send();
+    if(!$mail->send()) 
+    {
+        echo "Mailer Error: " . $mail->ErrorInfo;die();
+    } 
 
 } catch(\Exception $e) {
     throw $e;
