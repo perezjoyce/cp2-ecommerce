@@ -161,6 +161,46 @@
 
                             </div>
 
+                             <!-- FOLLOWING -->
+                            <?php 
+                                $sql = "SELECT * FROM tbl_followers WHERE user_id = ?";
+                                $statement = $conn->prepare($sql);
+                                $statement->execute([$id]);
+                                $count = $statement->rowCount();
+                                                                    
+                                if($count){
+                            ?>
+                            <div class='container p-5 rounded mb-5' style='background:white;'>
+                                <div class="row mb-3">
+                                    <div class="col d-flex flex-column">
+
+                                
+                                        <div class='flex-fill'>
+                                            <h4>Following</h4>
+                                        </div>
+
+                                        <div class='flex-fill d-flex flex-row border-top'>
+                                            <?php while($row = $statement->fetch()){ 
+                                                $storeId = $row['store_id'];
+                                                $logo = getStoreLogoFromId ($conn,$storeId);
+                                                $logo = BASE_URL ."/".$logo .".jpg";
+                                            ?>
+                                            <div class='flex pt-3'>
+                                                <a href="store-profile.php?id=<?= $storeId ?>">
+                                                    <img src="<?=$logo?>" style="width:40px;height:40px;" class='rounded-circle'>
+                                                </a>
+                                            </div>
+                                            <?php } ?>
+                                        </div>
+
+                                            
+                                    
+                                    </div>
+                                </div>
+
+                            </div>
+                                <?php } ?>
+
                              <!-- ORDER HISTORY -->
                              <div class="container p-lg-5 p-md-5 px-sm-2 rounded mb-5 pt-5" style='background:white;height:600px;overflow-y:auto;'>
                                 <div class="row mb-3">
@@ -907,6 +947,32 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- DEACTIVATE -->
+                            <div class='container p-5 rounded mb-5' style='background:white;'>
+                                <div class="row mb-3">
+                                    <div class="col d-flex flex-lg-row flex-md-row flex-sm-column">
+
+                                
+                                        <div class='flex-fill d-flex flex-column'>
+                                            <h4>Deactivate</h4>
+                                            <span>
+                                                <small>Notice: Mamaroo sellers will need to advise admin to deactivate their account.</small>
+                                            </span>
+                                        </div>
+                                        <div class='flex-fill border-top'>
+                                            <button class='btn btn-lg btn-border mt-3' id='btn_deactivate'>
+                                                DEACTIVATE MY ACCOUNT
+                                            </button>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                                
+
                            
 
                         </div>
@@ -916,46 +982,7 @@
                 </div>
                 <!-- /SECOND ROW -->
                 
-                <!-- FOLLOWING -->
-                <?php 
-                    $sql = "SELECT * FROM tbl_followers WHERE user_id = ?";
-                    $statement = $conn->prepare($sql);
-                    $statement->execute([$id]);
-                    $count = $statement->rowCount();
-                                                        
-                    if($count){
-                ?>
-                <div class='container p-5 rounded mb-5' style='background:white;'>
-                    <div class="row mb-3">
-                        <div class="col-12 d-flex flex-column">
-
-                       
-                            <div class='flex-fill'>
-                                <h4>Following</h4>
-                            </div>
-
-                            <div class='flex-fill d-flex flex-row border-top'>
-                                <?php while($row = $statement->fetch()){ 
-                                    $storeId = $row['store_id'];
-                                    $logo = getStoreLogoFromId ($conn,$id);
-                                    $logo = BASE_URL ."/".$logo .".jpg";
-                                ?>
-                                <div class='flex'>
-                                    <a href="store-profile.php?id=".$storeId>
-                                        <img src="<?=$logo?>" style="width:40px;height:40px;" class='rounded-circle'>
-                                    </a>
-                                </div>
-                                <?php } ?>
-                            </div>
-
-                                   
-                           
-                        </div>
-                    </div>
-
-                </div>
-                    <?php } ?>
-
+                
 
             </div>
             <!-- /MAIN BAR -->
