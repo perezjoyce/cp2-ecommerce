@@ -1,41 +1,6 @@
 <?php
 require_once '../../config.php';
 
-$buyerEmail = getEmail($conn,1);
-$mail = new PHPMailer\PHPMailer\PHPMailer(true);
-$staff_email = 'japerez.ph@gmail.com'; // where the email is comming from // replace with admin email in the future
-$users_email = 'garcia.johnray25@gmail.com';//Where the email will go // replace with $email
-$email_subject = 'Mamaroo Order Confirmation';
-$email_body = 'test';
-
-try {
-    $mail->isSMTP();
-    $mail->Host = 'smtp.gmail.com';
-    $mail->CharSet = 'UTF-8';
-    $mail->SMTPAuth = true;
-    $mail->Username = $staff_email;
-
-    $mail->Password = 'joyce9422**'; // totoong password
-    $mail->SMTPSecure = 'tls';
-    $mail->Port = 587;
-    $mail->setFrom($staff_email,'Mamaroo');
-    $mail->addAddress($users_email);
-    $mail->isHTML(true);
-    $mail->Subject = $email_subject;
-    $mail->Body = $email_body;
-    if(!$mail->send()) 
-    {
-        echo "Mailer Error: " . $mail->ErrorInfo;die();
-    } 
-
-} catch(\Exception $e) {
-    throw $e;
-}
-
-exit("Email sent");
-
-
-
 if(isset($_POST['modeOfPaymentId'])) {
    $payment_mode_id = $_POST['modeOfPaymentId'];
    $cartSession = $_SESSION['cart_session'];
