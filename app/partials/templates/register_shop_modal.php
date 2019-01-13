@@ -107,6 +107,7 @@
                                                 <label class="form-check-label" for="<?=$categoryName?>">
                                                     <?=$categoryName?>
                                                 </label>
+                                            </div>
                                         </div>
                                         <?php } ?>
                                     </div>
