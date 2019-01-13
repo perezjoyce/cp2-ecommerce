@@ -1198,6 +1198,11 @@ $(document).ready( () => {
 
 		let that = this;
 		let flag = 0;
+
+		if(quantity = 0) {
+			$('#variation_error').html("<small class='text-red'>Please select quantity first.</small>");
+			flag = 1;
+		}
 		
 		if(!variationStock && variationName != 'None') {
 			//REQUIRE USER TO CHOOSE VARIATION
@@ -1237,6 +1242,7 @@ $(document).ready( () => {
 						"id='btn_add_to_cart_again' disabled>" +
 						"Item Added To Cart!</button>");
 					
+					window.location.reload();
 				}
 			});
 		}
