@@ -1,4 +1,4 @@
-<?
+<?php
 require_once '../../config.php';
 
 $buyerEmail = getEmail($conn,1);
