@@ -509,7 +509,7 @@
                              <!-- PRODUCTS TO REVIEW -->
                              <div class="container p-lg-5 p-md-5 px-sm-2 rounded mb-5 pt-5" style='background:white;height:550px;overflow-y:auto;'>
                                 <div class="row mb-3">
-                                    <div class="col px-sm-0">
+                                    <div class="col">
                                         <div class='d-flex flex-row'>
                                             <div class='flex-fill'>
                                                 <h4>Products To Review</h4>
@@ -648,7 +648,7 @@
                                 </div>
                                 
                                 <div class="row border-top">
-                                    <div class="col-lg-3 col-md-4 col-sm-3">
+                                    <div class="col">
                                         <div class="container px-0">
 
                                             <?php 

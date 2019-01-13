@@ -198,7 +198,7 @@
 					<!-- /.SEARCH BOX -->
 
 					<!-- PRODUCT DISPLAY -->
-					<div class="row" id="products_view">
+					<div class="row px-3 pt-3" id="products_view">
 
 						<?php
 
