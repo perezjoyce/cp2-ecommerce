@@ -635,7 +635,7 @@ if(isset($_SESSION['id'])) {
                                         $description = $row['description'];
                                   ?>
                                     <!-- <li style='line-height:1.8; flex: 1 0 50%' class='pb-5 pl-lg-5 pl-md-5 pl-sm-4 product_details'>$description</li> -->
-                                    <li class='pb-5 pl-lg-5 pl-md-5 pl-sm-4 product_details' style='line-height:1.8;'>
+                                    <li class='pb-4 pl-lg-5 pl-md-5 pl-sm-4 product_details' style='line-height:1.8;'>
                                       <?= $description ?>
                                     </li>
                                   <?php } } ?>
@@ -864,14 +864,14 @@ if(isset($_SESSION['id'])) {
                         <!-- DIAGRAMS -->
                         <div class="flex-fill row mb-5">
                           
-                          <div class="col-lg-2"></div>
+                          <div class="col-lg-1"></div>
                           <!-- RATING STARS -->
-                          <div class="col-lg-2 col-md-3 col-sm-12">  
+                          <div class="col-lg-3 col-md-3 col-sm-12">  
                             <div class="container-fluid">  
                               <div class="row pt-2">
-                                <div class="col-12 d-flex flex-column">
+                                <div class="d-flex flex-column">
 
-                                  <div>
+                                  <div class='flex-fill d-flex flex-row'>
                                     
                                       <h1 style='font-size:50px'>
                                         <?= number_format((float)$averageRating, 1, '.', '')?>
@@ -882,11 +882,11 @@ if(isset($_SESSION['id'])) {
                                   
                                   </div>
 
-                                  <div>
+                                  <div class="flex-fill">
                                     <div id='average_product_stars_big' class='pb-4'></div>
                                   </div>
 
-                                  <div class='text-gray'>
+                                  <div class='class="flex-fill text-gray'>
                                     <?php 
                                     
 
@@ -1110,7 +1110,7 @@ if(isset($_SESSION['id'])) {
                               
                           </div>
 
-                          <div class="col-lg-3"></div>
+                          <div class="col"></div>
                           
                         
                         </div>
@@ -1119,7 +1119,7 @@ if(isset($_SESSION['id'])) {
                         <?php 
                           if($totalProductRating > 0) {
                         ?>
-                        <div class="row">
+                        <div class="flex-fill row">
                           <div class="col-lg-9 col-md-8  text-left">
                             <h4 class='py-1'>Comments</h4>
                           </div>
@@ -1147,6 +1147,8 @@ if(isset($_SESSION['id'])) {
                           </div>
                         </div>
 
+
+                    
                         <!-- COMMENTS --> 
                         <div id='ratings_view'> 
                             <?php
@@ -1175,7 +1177,7 @@ if(isset($_SESSION['id'])) {
 
                             ?>
                           
-                          <div class="row border-top px-4">
+                          <div class="flex-fill row border-top px-4">
 
                           
 
