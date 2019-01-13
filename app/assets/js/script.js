@@ -3126,9 +3126,9 @@ $(document).ready( () => {
 		$('#lastLoginTimeAgo').text(agoTime);
 	  }
 
-	var utcDateTime2 = $('#purchaseDateTimeAgo').text();
+	var utcDateTime2 = $('.purchaseDateTimeAgo').text();
 	var agoTime2 = moment.utc(utcDateTime2).fromNow();
-	$('#purchaseDateTimeAgo').text(agoTime2);
+	$('.purchaseDateTimeAgo').text(agoTime2);
 
 	// moment.utc('2019-01-10 17:48:13').toDate()
 	
