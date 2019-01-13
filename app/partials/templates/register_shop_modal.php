@@ -86,7 +86,7 @@
                                             <div class="row no-gutters additional_brand">
                                                 <div class="col-lg-3 col-md-4 col-sm-12 pt-4">
                                                     <button class="btn border" id='btn_add_brand' type='button'>
-                                                        Add Brand
+                                                        &#65291;&nbsp;Brand
                                                     </button>
                                                 </div>
                                                 <div class="input-group col pt-4">
@@ -128,7 +128,7 @@
                                             <div class="row no-gutters additional_category">
                                                 <div class="col-lg-3 col-md-4 col-sm-12 pt-4">
                                                     <button class="btn border" id='btn_add_category' type='button'>
-                                                        Add Category
+                                                        &#65291;&nbsp;Category
                                                     </button>
                                                 </div>
                                                 <div class="input-group col pt-4">
@@ -171,7 +171,7 @@
                                             <div class="row no-gutters additional_type">
                                                 <div class="col-lg-3 col-md-4 col-sm-12 pt-4">
                                                     <button class="btn border" id='btn_add_type' type='button'>
-                                                        Add Type
+                                                        &#65291;&nbsp;Type
                                                     </button>
                                                 </div>
                                                 <div class="input-group col pt-4">
