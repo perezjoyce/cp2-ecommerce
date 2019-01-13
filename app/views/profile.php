@@ -202,7 +202,7 @@
                                 <?php } ?>
 
                              <!-- ORDER HISTORY -->
-                             <div class="container p-lg-5 p-md-5 px-sm-2 rounded mb-5 pt-5" style='background:white;height:600px;overflow-y:auto;'>
+                             <div class="container p-lg-5 p-md-5 px-sm-2 rounded mb-5 pt-5" style='background:white;height:550px;overflow-y:auto;'>
                                 <div class="row mb-3">
                                     <div class="col">
                                         <div class='d-flex flex-row'>
@@ -547,7 +547,7 @@
 
 
                              <!-- PRODUCTS TO REVIEW -->
-                             <div class="container p-lg-5 p-md-5 px-sm-2 rounded mb-5 pt-5" style='background:white;height:550px;overflow-y:auto;'>
+                             <div class="container p-lg-5 p-md-5 px-sm-2 rounded mb-5 pt-5" style='background:white;height:500px;overflow-y:auto;'>
                                 <div class="row mb-3">
                                     <div class="col">
                                         <div class='d-flex flex-row'>
