@@ -2,22 +2,22 @@
 require_once '../../config.php';
 
 // if(isset($_POST['modeOfPaymentId'])) {
-   $payment_mode_id = 1; // $_POST['modeOfPaymentId'] ?? 2;
-   $cartSession = $_SESSION['cart_session'];
-   $userId = $_SESSION['id'];
+    $payment_mode_id = 1; // $_POST['modeOfPaymentId'] ?? 2;
+    $cartSession = $_SESSION['cart_session'];
+    $userId = $_SESSION['id'];
     $transactionCode = $_SESSION['transaction_code'];
     
+    $sql = " SELECT * FROM tbl_orders WHERE cart_session = ? AND `user_id` = ? ";
+    $statement = $conn->prepare($sql);
+    $statement->execute([$cartSession, $userId]);
+    $count = $statement->rowCount();
+    
+    var_dump($count);die();
 
-   $sql = " SELECT * FROM tbl_orders WHERE cart_session = ? AND `user_id` = ? ";
-   $statement = $conn->prepare($sql);
-   $statement->execute([$cartSession, $userId]);
-   $count = $statement->rowCount();
-
-        
-   if($count) {
-    $sql2 = " UPDATE tbl_orders SET payment_mode_id = ?, transaction_code = ? WHERE `user_id` = ?  AND cart_session = ? ";
-    $statement2 = $conn->prepare($sql2);
-    $result2 = $statement2->execute([$payment_mode_id, $transactionCode, $userId, $cartSession]);
+    if($count) {
+        $sql2 = " UPDATE tbl_orders SET payment_mode_id = ?, transaction_code = ? WHERE `user_id` = ?  AND cart_session = ? ";
+        $statement2 = $conn->prepare($sql2);
+        $result2 = $statement2->execute([$payment_mode_id, $transactionCode, $userId, $cartSession]);
 
         $sql3= " SELECT name FROM tbl_payment_modes WHERE id = ?";
         $statement3 = $conn->prepare($sql3);
@@ -31,9 +31,9 @@ require_once '../../config.php';
         $statement3 = $conn->prepare($sql3);
         $statement3->execute([$cartSession]);
     
-   }
+    }
 
-   $messageForBuyer =   
+        $messageForBuyer =   
                 "<form>
                     <h4>Mamaroo Order Receipt</h4>
                     <div style='padding-top:18px;'>Hi there!</div> 
@@ -46,9 +46,6 @@ require_once '../../config.php';
                     <div>+06907-1234-4560</div>
                     <div>+06919-1454-1160</div>
                 </form>";
-
-
-
 
                 if($result2) {
 
