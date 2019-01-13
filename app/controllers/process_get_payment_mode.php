@@ -131,7 +131,7 @@ require_once '../../config.php';
                                 $mail2->Host = 'smtp.gmail.com';
                                 $mail2->SMTPAuth = true;
                                 $mail2->Username = $staff_email2;
-                                $mail2->Password = '8London*'; // totoong password
+                                $mail2->Password = '1Borongan!'; // totoong password
                                 $mail2->SMTPSecure = 'tls';
                                 $mail2->Port = 587;
                                 $mail2->setFrom($staff_email2,'Mamaroo');
