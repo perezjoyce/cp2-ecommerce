@@ -3146,7 +3146,7 @@ $(document).ready( () => {
 	});
 
 	//ADD BRAND ROW
-	$(document).on('click', 'btn_add_brand',function(e){
+	$(document).on('click', '#btn_add_brand',function(e){
 		e.preventDefault;
 		
 		$('.additional_brand').append("<div class='input-group col pt-3 additional_brand'>" +
