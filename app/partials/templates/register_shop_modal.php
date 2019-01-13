@@ -85,7 +85,7 @@
                                         <div class="container-fluid px-0">
                                             <div class="row no-gutters">
                                                 <div class="col-lg-3 col-md-4 col-sm-12 pt-4">
-                                                    <button class="btn border" id='btn_add_brand'>
+                                                    <button class="btn border" id='btn_add_brand' type='button'>
                                                         Add Brand
                                                     </button>
                                                 </div>
