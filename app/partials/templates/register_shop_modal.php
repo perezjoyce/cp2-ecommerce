@@ -82,10 +82,16 @@
                                             </div>
                                             
                                         <?php } ?>
-                                        <div class="form-group row">
-                                            <label class='col-lg-3 col-md-3 col-sm-12'>Address</label>
-                                            <div class="input-group col">
-                                                <input type="text" class='form-control' placeholder='Additional brand.'>
+                                        <div class="container-fluid px-0">
+                                            <div class="row no-gutters">
+                                                <div class="col-lg-3 col-md-4 col-sm-12 pt-4">
+                                                    <button class="btn border" id='btn_add_brand'>
+                                                        Add Brand
+                                                    </button>
+                                                </div>
+                                                <div class="input-group col pt-4 additional_brand">
+                                                    <input type="text" class="form-control" placeholder="Additional brand.">
+                                                </div>
                                             </div>
                                         </div>
 

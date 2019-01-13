@@ -3128,7 +3128,6 @@ $(document).ready( () => {
 	
 	
 	// DEACTIVATION
-	
 	$(document).on('click', '#btn_deactivate', function(e){
 		e.preventDefault;
 		let answer = confirm("Do you really want to deactivate your account?");
@@ -3145,6 +3144,14 @@ $(document).ready( () => {
 			})
 		}
 	});
+
+	//ADD BRAND ROW
+	$(document).on('click', 'btn_add_brand',function(){
+		let productId = $(this).data('id');
+
+		$('.additional_brand').append("<div class='input-group col pt-3 additional_brand'>" +
+			"<input type='text' class='form-control' placeholder='Additional brand.'></div>");
+	})
 	
 
 	
