@@ -7,7 +7,7 @@
 <div class="container-fluid">
     <div class="row">
 
-        <div class="col-lg-3 ml-0 py-0 px-0 my-0 ml-0 d-none d-lg-block d-xl-block">
+        <div class="col-lg-3 vanish-md vanish-sm px-0">
             <div id='login_image'></div>
         </div>
 
@@ -20,7 +20,7 @@
                 </button>
             </div>
 
-            <div class="container px-5 pb-2 pt-5 mb-4">
+            <div class="container px-lg-5 px-md-5 px-sm-4 pb-2 pt-5 mb-4">
                 <div class="row mt-4"> 
                     <div class='col'>
                         <h3>Shop Registration</h3>
@@ -60,8 +60,8 @@
                         <!-- BRAND -->
                         <div class="form-group row mb-5">
                             <label for='brands' class="col-lg-3 col-md-3 col-sm-12">Brands</label>
-                            <div class="input-group col-lg-9 col-md-9 col-sm-12" id='brands'>
-                                <div class="container-fluid px-0">
+                            <div class="input-group col" id='brands'>
+                                <div class="container-fluid px-lg-0 px-md-0 pl-sm-3 pr-sm-0">
                                     <div class="row no-gutters">   
                                         <?php 
                                             $sql = "SELECT * FROM tbl_brands";
@@ -82,6 +82,17 @@
                                             </div>
                                             
                                         <?php } ?>
+                                        <div class="row no-gutters">   
+                                            <div class="col">
+                                                <div class="form-group mb-5 d-flex flex-lg-row flex-md-row flex-sm-column">
+                                                    <label class='flex'>Others</label>
+                                                    <div class="input-group flex-fill">
+                                                        <input type="text" class='form-control' placeholder='Please write brand if not in the list.'>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -89,9 +100,9 @@
 
                         <!-- CATEGORIES -->
                         <div class="form-group row mb-5">
-                            <label for='categories' class='col-lg-3 col-md-6 col-sm-12'>Categories</label>
+                            <label for='categories' class='col-lg-3 col-md-3 col-sm-12'>Categories</label>
                             <div class="input-group col" id='categories'>
-                                <div class="container-fluid px-0">
+                                <div class="container-fluid px-lg-0 px-md-0 pl-sm-3 pr-sm-0">
                                     <div class="row no-gutters"> 
                                         <?php 
                                             $sql = "SELECT * FROM tbl_categories WHERE parent_category_id IS NULL";
@@ -101,7 +112,7 @@
                                                 $categoryId = $row['id'];
                                                 $categoryName = $row['name'];
                                         ?>
-                                        <div class="col-lg-3 col-md-6 col-sm-12">
+                                        <div class="col-lg-3 col-md-4 col-sm-12">
                                             <div class="form-check-inline">
                                                 <input class="form-check-input category_checkbox" type="checkbox" value="<?=$categoryId?>" id="<?=$categoryName?>">
                                                 <label class="form-check-label" for="<?=$categoryName?>">
@@ -118,8 +129,8 @@
                         <!-- TYPES -->
                         <div class="form-group row mb-5">
                             <label for='types' class="col-lg-3 col-md-3 col-sm-12">Brands</label>
-                            <div class="input-group col-lg-9 col-md-9 col-sm-12" id='types'>
-                                <div class="container-fluid px-0">
+                            <div class="input-group col" id='types'>
+                                <div class="container-fluid px-lg-0 px-md-0 pl-sm-3 pr-sm-0">
                                     <div class="row no-gutters">   
                                         <?php 
                                             $sql = "SELECT * FROM tbl_categories WHERE parent_category_id IS NOT NULL";
@@ -130,7 +141,7 @@
                                                 $typeName = $row['name'];
                                         ?>
                                         
-                                            <div class="col-lg-3 col-md-4 col-sm-12">
+                                            <div class="col-lg-4 col-md-6 col-sm-12">
                                                 <div class="form-check-inline">
                                                     <input class="form-check-input type_checkbox" type="checkbox" value="<?=$typeId?>" id="<?=$typeName?>">
                                                     <label class="form-check-label" for="<?=$typeName?>">
@@ -157,7 +168,7 @@
                                 <div class="col-lg-8 col-md-6"></div>
                                 <div class="col-lg-4 col-md-6 col-sm-12"> 
                                     <a class='btn btn-lg btn-block py-3 btn-purple mt-5' id="btn_submit_store_application" role='button'>
-                                        SUBMIT APPLICATION
+                                        Submit <span class='vanish-sm'>Application</span>
                                     </a>
 
                                 </div>

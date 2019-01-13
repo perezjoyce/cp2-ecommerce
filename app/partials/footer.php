@@ -72,7 +72,7 @@
                 <span class="vanish-lg vanish-sm"><small>Instagram</small></span>
               </a>
 
-              <a href="#" class='text-light footer-link pt-lg-2 pt-1' target="_blank">
+              <a href="#" class='text-light footer-link pt-1' target="_blank">
                 <span class="fa-stack">
                   <i class="fa fa-circle fa-stack-2x icon-background"></i>
                   <i class="fab fa-pinterest-p fa-stack-1x text-danger"></i>
@@ -81,7 +81,7 @@
                 <span class="vanish-lg vanish-sm"><small>Pinterest</small></span>
               </a>
 
-              <a href="#" class='text-light footer-link pt-lg-2 pt-1' target="_blank">
+              <a href="#" class='text-light footer-link pt-1' target="_blank">
                 <span class="fa-stack">
                   <i class="fa fa-circle fa-stack-2x icon-background"></i>
                   <i class="fab fa-twitter fa-stack-1x text-primary"></i>
