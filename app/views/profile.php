@@ -182,12 +182,12 @@
                                         <div class='flex-fill d-flex flex-row border-top'>
                                             <?php while($row = $statement->fetch()){ 
                                                 $storeId = $row['store_id'];
-                                                $logo = getStoreLogoFromId ($conn,$storeId);
-                                                $logo = BASE_URL ."/".$logo .".jpg";
+                                                $storeLogo = getStoreLogoFromId ($conn,$storeId);
+                                                $storeLogo = BASE_URL ."/".$storeLogo .".jpg";
                                             ?>
-                                            <div class='flex pt-3'>
+                                            <div class='flex pt-4'>
                                                 <a href="store-profile.php?id=<?= $storeId ?>">
-                                                    <img src="<?=$logo?>" style="width:40px;height:40px;" class='rounded-circle'>
+                                                    <img src="<?=$storeLogo?>" style="width:40px;height:40px;" class='rounded-circle'>
                                                 </a>
                                             </div>
                                             <?php } ?>
@@ -954,14 +954,14 @@
                                     <div class="col d-flex flex-lg-row flex-md-row flex-sm-column">
 
                                 
-                                        <div class='flex-fill d-flex flex-column'>
+                                        <div class='flex-fill d-flex flex-row'>
                                             <h4>Deactivate</h4>
-                                            <span>
-                                                <small>Notice: Mamaroo sellers will need to advise admin to deactivate their account.</small>
-                                            </span>
+                                            <a data-toggle="tooltip" title="Mamaroo sellers will need to wait for 24 hours for the admin to process this request." data-original-title="#">
+                                                &nbsp;<i class="far fa-question-circle text-gray"></i>
+                                            </a>
                                         </div>
-                                        <div class='flex-fill border-top'>
-                                            <button class='btn btn-lg btn-border mt-3' id='btn_deactivate'>
+                                        <div class='flex-fill text-right pt-lg-0 pt-md-0 pt-sm-4'>
+                                            <button class='btn btn-border border' id='btn_deactivate'>
                                                 DEACTIVATE MY ACCOUNT
                                             </button>
                                         </div>
