@@ -64,7 +64,7 @@ require_once '../../config.php';
                         $mail->CharSet = 'UTF-8';
                         $mail->SMTPAuth = true;
                         $mail->Username = $staff_email;
-                        $mail->Password = '8London*'; // totoong password
+                        $mail->Password = '1Borongan!'; // totoong password
                         $mail->SMTPSecure = 'tls';
                         $mail->Port = 587;
                         $mail->setFrom($staff_email,'Mamaroo');
