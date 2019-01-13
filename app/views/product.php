@@ -596,13 +596,12 @@ if(isset($_SESSION['id'])) {
           <!-- NAV TABS FOR  -->
           <div class="col">
             <div class="row">
-              <div class="col-lg-12">
-                <div class="container-fluid">
+              <div class="col-12 pr-lg-0 pr-md-0 px-sm-0">
+                <div class="d-flex flex-column">
                 
                   <!-- TABS -->
-                  <div class="row my-lg-5 mt-md-5 no-gutters">
-                    <div class="col-12">
-                      <div class="tab border-bottom d-flex flex-row">
+                  <div class="flex-fill tab border-bottom d-flex flex-row mt-5 mb-4">
+
                         <button class="tablinks flex-fill active" onclick="window.openTab(event, 'info_content')">
                           <h4><span class='vanish-sm vanish-md'>Product&nbsp;</span>Details</h4>
                         </button>
@@ -612,17 +611,16 @@ if(isset($_SESSION['id'])) {
                         <button class="tablinks flex-fill" onclick="window.openTab(event, 'questions_content')">
                           <h4>Q&As</h4>
                         </button>
-                      </div>
-                    </div>
+                   
                   </div>
 
                   <!-- CONTENT -->
-                  <div class='row no-gutters'>
-                    <div class='col-12 px-lg-5 px-md-5 px-sm-0'>
+                  <div class='flex-fill d-flex flex-column'>
+                   
 
                       <!-- PRODUCT INFO -->
-                      <div id="info_content" class="tabcontent" style='display:block'>
-                        <div class="container mt-2 px-0">
+                      <div id="info_content" class="tabcontent flex-fill" style='display:block'>
+                        <div class="container mt-4 px-0">
                           <div class="row">
                             <!-- <div class="col-1"></div> -->
                             <div class="col">
@@ -651,7 +649,7 @@ if(isset($_SESSION['id'])) {
                       </div>
                       
                       <!-- Q&As -->
-                      <div id="questions_content" class="tabcontent">
+                      <div id="questions_content" class="tabcontent flex-fill">
                         <div class="container px-4">
                           <div class="row">
 
@@ -863,7 +861,7 @@ if(isset($_SESSION['id'])) {
                       </div> 
 
                       <!-- PRODUCT REVIEWS -->
-                      <div id="reviews_content" class="tabcontent">
+                      <div id="reviews_content" class="tabcontent flex-fill">
                         <div class="container">
 
                           <!-- DIAGRAMS -->
@@ -1319,11 +1317,7 @@ if(isset($_SESSION['id'])) {
                         
                       </div>
                     
-                      
-                      
 
-
-                    </div>
                   </div>
 
                 </div>

@@ -7,7 +7,7 @@
             <div class="col-12">
                 <div class="container">
                     <div class="row">
-                        <div class="col d-flex flex-row text-center">
+                        <div class="col d-flex flex-row text-center px-sm-0">
                
                 
                             <?php 
