@@ -2059,16 +2059,16 @@ $(document).ready( () => {
 		}
 
 		if(flag == 0){
-			alert(modeOfPaymentId);
+			// alert(modeOfPaymentId);
 			
 			$.post('../controllers/process_get_payment_mode.php', {
 				modeOfPaymentId: modeOfPaymentId
 			}, function(response){
-				if(response == "success"){
+				// if(response == "success"){
 					$.get(url, function(data){
 						$('#modalContainerBig .modal-content').html(data);
 					});
-				}
+				// }
 				
 			});
 			

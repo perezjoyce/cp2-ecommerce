@@ -226,8 +226,10 @@
                                                         $itemsInCart = itemsInCart($conn,$cartSession);
                                                         if($itemsInCart > 0) {
                                                     ?>
-                                                        <span class='badge text-light' id="item-count">
+                                                        <span>
+                                                            <span class='badge text-light' id="item-count">
                                                         <?= itemsInCart($conn,$cartSession) ?>
+                                                            </span>
                                                         </span>
                                                         
                                                     <?php }  ?>

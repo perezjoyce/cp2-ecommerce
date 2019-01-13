@@ -24,6 +24,8 @@ require_once '../../config.php';
         $paymentModeName = $row3['name'];
         $_SESSION['paymentMode'] = $paymentModeName;
 
+        echo $_SESSION['paymentMode'];
+
         //UPDATE STATUS OF ORDER IN TBL CARTS (1 IS PENDING)
         $sql3 = "UPDATE tbl_carts SET status_id = 1 WHERE cart_session=?";
         $statement3 = $conn->prepare($sql3);
