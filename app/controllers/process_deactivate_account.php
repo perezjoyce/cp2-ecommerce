@@ -13,15 +13,19 @@ if(isset($_SESSION['id'])){
                 echo "seller";
 
                 // CHANAGE STATUS TO APPLYING FOR DEACTIVATION
-                $sql2 =  "UPDATE TABLE tbl_users SET `status` = 2 WHERE id = ?";
+                $sql2 =  "UPDATE tbl_users SET `status` = 2 WHERE id = ?";
                 $statement2 = $conn->prepare($sql2);
                 $statement2->execute([$userId]);
             } else {
                 // CHANAGE STATUS TO DEACTIVATED FOR NON-SELLERS
-                $sql3 =  "UPDATE TABLE tbl_users SET `status` = 0,
-                         first_name = null, last_name = null, profile_pic = null WHERE id = ?";
+                $sql3 =  "UPDATE tbl_users SET `status` = 0, first_name = 
+                            NULL, last_name = 
+                            NULL, profile_pic = 
+                            NULL WHERE id = ?";
                 $statement3 = $conn->prepare($sql3);
                 $statement3->execute([$userId]);
+                unset($_SESSION["cart_session"]);
+                unset($_SESSION["id"]);
 
                 echo "success";
             }

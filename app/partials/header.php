@@ -18,7 +18,7 @@
     
         $profile_pic = $row['profile_pic'];
 
-        if($profile_pic == "") {
+        if($profile_pic == null) {
             $profile_pic = DEFAULT_PROFILE; 
             $prefix = "rounded";
         } else {

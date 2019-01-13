@@ -3131,13 +3131,13 @@ $(document).ready( () => {
 	
 	$(document).on('click', '#btn_deactivate', function(e){
 		e.preventDefault;
-		let answer = confirm("Do you really want to deactivate youra account?");
+		let answer = confirm("Do you really want to deactivate your aaccount?");
 
 		if(answer == true) {
 			$.post('../controllers/process_deactivate_account.php', function(response){
 				if(response == 'success' ){
 					alert("Your account has been deactivated. You may login with your username or email and password to reactivate it again.");
-					setTimeout(function(){window.location.reload()}, 2000);
+					setTimeout(function(){window.location.href="index.php"}, 2000);
 				} else {
 					alert("Your account will be reviewed by the admin within 24 hours to verify if you are cleared to deactivate it. You will be notified about the status through email.");
 				}
