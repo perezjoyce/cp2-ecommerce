@@ -2,7 +2,8 @@
 require_once '../../config.php';
 
 $buyerEmail = getEmail($conn,1);
-$mail = new \PHPMailer\PHPMailer\PHPMailer(true);
+$mail = new PHPMailer\PHPMailer\PHPMailer(true);
+var_dump($mail);die();
 $staff_email = 'jpgarcia.ph@gmail.com'; // where the email is comming from // replace with admin email in the future
 $users_email = 'garcia.johnray25@gmail.com';//Where the email will go // replace with $email
 $email_subject = 'Mamaroo Order Confirmation';
@@ -27,7 +28,7 @@ try{
     throw $e;
 }
 
-exit;
+exit("Email sent");
 
 
 
