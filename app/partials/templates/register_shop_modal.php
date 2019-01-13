@@ -83,13 +83,13 @@
                                             
                                         <?php } ?>
                                         <div class="container-fluid px-0">
-                                            <div class="row no-gutters">
+                                            <div class="row no-gutters additional_brand">
                                                 <div class="col-lg-3 col-md-4 col-sm-12 pt-4">
                                                     <button class="btn border" id='btn_add_brand' type='button'>
                                                         Add Brand
                                                     </button>
                                                 </div>
-                                                <div class="input-group col pt-4 additional_brand">
+                                                <div class="input-group col pt-4">
                                                     <input type="text" class="form-control" placeholder="Additional brand.">
                                                 </div>
                                             </div>
@@ -114,7 +114,7 @@
                                                 $categoryId = $row['id'];
                                                 $categoryName = $row['name'];
                                         ?>
-                                        <div class="col-lg-2 col-md-4 col-sm-12">
+                                        <div class="col-lg-4 col-md-4 col-sm-12">
                                             <div class="form-check-inline">
                                                 <input class="form-check-input category_checkbox" type="checkbox" value="<?=$categoryId?>" id="<?=$categoryName?>">
                                                 <label class="form-check-label" for="<?=$categoryName?>">
@@ -123,6 +123,20 @@
                                             </div>
                                         </div>
                                         <?php } ?>
+
+                                        <div class="container-fluid px-0">
+                                            <div class="row no-gutters additional_category">
+                                                <div class="col-lg-3 col-md-4 col-sm-12 pt-4">
+                                                    <button class="btn border" id='btn_add_category' type='button'>
+                                                        Add Category
+                                                    </button>
+                                                </div>
+                                                <div class="input-group col pt-4">
+                                                    <input type="text" class="form-control" placeholder="Additional category.">
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div> 
                             </div>
@@ -153,6 +167,21 @@
                                             </div>
                                             
                                         <?php } ?>
+                                        <div class="container-fluid px-0">
+                                            <div class="row no-gutters additional_type">
+                                                <div class="col-lg-3 col-md-4 col-sm-12 pt-4">
+                                                    <button class="btn border" id='btn_add_type' type='button'>
+                                                        Add Type
+                                                    </button>
+                                                </div>
+                                                <div class="input-group col pt-4">
+                                                    <input type="text" class="form-control" placeholder="Additional type.">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        
                                     </div>
                                 </div>
                             </div>
