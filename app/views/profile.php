@@ -961,7 +961,7 @@
                                             </a>
                                         </div>
                                         <div class='flex-fill text-right pt-lg-0 pt-md-0 pt-sm-4'>
-                                            <button class='btn btn-border border' id='btn_deactivate'>
+                                            <button class='btn btn-border border text-gray' id='btn_deactivate'>
                                                 <?php 
                                                     $sql =  "SELECT * FROM tbl_users WHERE `status` = 2 AND id = ?";
                                                     $statement = $conn->prepare($sql);

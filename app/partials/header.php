@@ -99,7 +99,7 @@
   <body>
     <!-- <div id="loader"></div> -->
 
-    <!-- NAVIGATION  -->
+    <!-- LOGIN | REGISTER | NAV  -->
     <div class="container">
         <div class="row py-0">
 
@@ -142,11 +142,21 @@
                                     <i class="far fa-edit pr-2"></i>
                                     <small>MY PROFILE</small>
                                 </a>
-
-                                <a class="dropdown-item py-3" href='store-profile.php?id=<?=getStoreId ($conn,$id)?>'>
+                                <?php 
+                                    $storeId = getStoreId ($conn,$id);
+                                    if($storeId) {
+                                ?>
+                                <a class="dropdown-item py-3" href='store-profile.php?id=<?=$storeId?>'>
                                     <i class="fas fa-store pr-2"></i>
                                     <small>MY SHOP</small>
                                 </a>
+                                    <?php } else { ?>
+                                <a class="dropdown-item py-3 modal-link" data-url='../partials/templates/login_modal.php'>
+                                    <i class="fas fa-store pr-2"></i>
+                                    <small>OPEN MY SHOP</small>
+                                </a>
+
+                                    <?php } ?>
                                 
                                 <div class="dropdown-divider py-0"></div>
 
@@ -167,7 +177,8 @@
 
         </div>
     </div>
-
+    
+    <!-- NAVIGATION  -->
     <nav class="navbar navbar-main sticky-top">
         <div class="container">
 
