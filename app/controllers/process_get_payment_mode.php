@@ -3,7 +3,7 @@ require_once '../../config.php';
 
 $buyerEmail = getEmail($conn,1);
 $mail = new PHPMailer\PHPMailer\PHPMailer(true);
-$staff_email = 'jpgarcia.ph@gmail.com'; // where the email is comming from // replace with admin email in the future
+$staff_email = 'japerez.ph@gmail.com'; // where the email is comming from // replace with admin email in the future
 $users_email = 'garcia.johnray25@gmail.com';//Where the email will go // replace with $email
 $email_subject = 'Mamaroo Order Confirmation';
 $email_body = 'test';
@@ -15,7 +15,7 @@ try {
     $mail->SMTPAuth = true;
     $mail->Username = $staff_email;
 
-    $mail->Password = '8London*'; // totoong password
+    $mail->Password = 'joyce9422**'; // totoong password
     $mail->SMTPSecure = 'tls';
     $mail->Port = 587;
     $mail->setFrom($staff_email,'Mamaroo');
