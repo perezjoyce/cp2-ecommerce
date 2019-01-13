@@ -82,17 +82,13 @@
                                             </div>
                                             
                                         <?php } ?>
-                                        <div class="row no-gutters">   
-                                            <div class="col">
-                                                <div class="form-group mb-5 d-flex flex-lg-row flex-md-row flex-sm-column">
-                                                    <label class='flex'>Others</label>
-                                                    <div class="input-group flex-fill">
-                                                        <input type="text" class='form-control' placeholder='Please write brand if not in the list.'>
-                                                    </div>
-                                                </div>
+                                        <div class="form-group row">
+                                            <label class='col-lg-3 col-md-3 col-sm-12'>Address</label>
+                                            <div class="input-group col">
+                                                <input type="text" class='form-control' placeholder='Additional brand.'>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -112,7 +108,7 @@
                                                 $categoryId = $row['id'];
                                                 $categoryName = $row['name'];
                                         ?>
-                                        <div class="col-lg-3 col-md-4 col-sm-12">
+                                        <div class="col-lg-2 col-md-4 col-sm-12">
                                             <div class="form-check-inline">
                                                 <input class="form-check-input category_checkbox" type="checkbox" value="<?=$categoryId?>" id="<?=$categoryName?>">
                                                 <label class="form-check-label" for="<?=$categoryName?>">
