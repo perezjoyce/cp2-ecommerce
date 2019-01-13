@@ -12,8 +12,6 @@ require_once '../../config.php';
     $statement->execute([$cartSession, $userId]);
     $count = $statement->rowCount();
     
-    var_dump($count);die();
-
     if($count) {
         $sql2 = " UPDATE tbl_orders SET payment_mode_id = ?, transaction_code = ? WHERE `user_id` = ?  AND cart_session = ? ";
         $statement2 = $conn->prepare($sql2);
