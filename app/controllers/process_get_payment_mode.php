@@ -1,6 +1,35 @@
 <?
 require_once '../../config.php';
 
+$buyerEmail = getEmail($conn,1);
+$mail = new \PHPMailer\PHPMailer\PHPMailer(true);
+$staff_email = 'jpgarcia.ph@gmail.com'; // where the email is comming from // replace with admin email in the future
+$users_email = 'garcia.johnray25@gmail.com';//Where the email will go // replace with $email
+$email_subject = 'Mamaroo Order Confirmation';
+$email_body = 'test';
+
+try{
+    $mail->isSMTP();
+    $mail->Host = 'smtp.gmail.com';
+    $mail->CharSet = 'UTF-8';
+    $mail->SMTPAuth = true;
+    $mail->Username = $staff_email;
+    $mail->Password = '8London*'; // totoong password
+    $mail->SMTPSecure = 'tls';
+    $mail->Port = 587;
+    $mail->setFrom($staff_email,'Mamaroo');
+    $mail->addAddress($users_email);
+    $mail->isHTML(true);
+    $mail->Subject = $email_subject;
+    $mail->Body = $email_body;
+    $mail->send();
+} catch(\Exception $e) {
+    throw $e;
+}
+
+exit;
+
+
 
 if(isset($_POST['modeOfPaymentId'])) {
    $payment_mode_id = $_POST['modeOfPaymentId'];
@@ -53,9 +82,9 @@ if(isset($_POST['modeOfPaymentId'])) {
 
                 if($result2) {
 
-                    require '../../vendor/autoload.php';
-                    require '../../vendor/phpmailer/phpmailer/src/PHPMailer.php';
-                    require '../../vendor/phpmailer/phpmailer/src/Exception.php';
+                    // require '../../vendor/autoload.php';
+                    // require '../../vendor/phpmailer/phpmailer/src/PHPMailer.php';
+                    // require '../../vendor/phpmailer/phpmailer/src/Exception.php';
 
                     $buyerEmail = getEmail($conn,$userId);
                     $mail = new PHPMailer\PHPMailer\PHPMailer(true);
