@@ -187,7 +187,7 @@
                                         <div class="container px-0 table-responsive-sm">
                                             <table class="table table-hover borderless mt-4 text-center">
                                                 <tr>
-                                                    <h4 class='text-gray pl-3 mt-5'>Pending Orders</h4>
+                                                    <h5 class='text-gray pl-3 mt-5'>Pending Orders</h5>
                                                     
                                                 </tr>
                                                 
@@ -269,7 +269,7 @@
                                         <div class="container px-0 table-responsive-sm">
                                             <table class="table table-hover borderless mt-4 text-center">
                                                 <tr>
-                                                    <h4 class='text-gray pl-3 mt-5'>Confirmed Orders</h4>
+                                                    <h5 class='text-gray pl-3 mt-5'>Confirmed Orders</h5>
                                                     
                                                 </tr>
                                                 
@@ -352,7 +352,7 @@
                                             
                                             <table class="table table-hover borderless mt-4 text-center">
                                                 <tr>
-                                                    <h4 class='text-gray pl-3 mt-5'>Completed Orders</h4>
+                                                    <h5 class='text-gray pl-3 mt-5'>Completed Orders</h5>
                                                     
                                                 </tr>
                                                 
@@ -435,7 +435,7 @@
                                             
                                             <table class="table table-hover borderless mt-4 text-center">
                                                 <tr>
-                                                    <h4 class='text-gray pl-3 mt-5'>Cancelled Orders</h4>
+                                                    <h5 class='text-gray pl-3 mt-5'>Cancelled Orders</h5>
                                                     
                                                 </tr>
                                                 
@@ -915,7 +915,46 @@
 
                 </div>
                 <!-- /SECOND ROW -->
+                
+                <!-- FOLLOWING -->
+                <?php 
+                    $sql = "SELECT * FROM tbl_followers WHERE user_id = ?";
+                    $statement = $conn->prepare($sql);
+                    $statement->execute([$id]);
+                    $count = $statement->rowCount();
+                                                        
+                    if($count){
+                ?>
+                <div class='container p-5 rounded mb-5' style='background:white;'>
+                    <div class="row mb-3">
+                        <div class="col-12 d-flex flex-column">
 
+                       
+                            <div class='flex-fill'>
+                                <h4>Following</h4>
+                            </div>
+
+                            <div class='flex-fill d-flex flex-row border-top'>
+                                <?php while($row = $statement->fetch()){ 
+                                    $storeId = $row['store_id'];
+                                    $logo = getStoreLogoFromId ($conn,$id);
+                                    $logo = BASE_URL ."/".$logo .".jpg";
+                                ?>
+                                <div class='flex'>
+                                    <a href="store-profile.php?id=".$storeId>
+                                        <img src="<?=$logo?>" style="width:40px;height:40px;" class='rounded-circle'>
+                                    </a>
+                                </div>
+                                <?php } ?>
+                            </div>
+
+                                   
+                           
+                        </div>
+                    </div>
+
+                </div>
+                    <?php } ?>
 
 
             </div>

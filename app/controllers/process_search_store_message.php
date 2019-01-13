@@ -15,6 +15,7 @@ $searchkey = $_GET['storeName'];
             $sellerId = $row['user_id'];
             $storeName = $row['name'];
             $storeLogo = $row['logo'];
+            $storeLogo = BASE_URL . "/" . $storeLogo .".jpg";
 
             $sql2 = "SELECT * FROM tbl_conversations 
             WHERE `from` = ? AND `to` = ? "; // named parameters

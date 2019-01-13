@@ -243,6 +243,17 @@
         return $storeLogo;
     }
 
+    // GET STORE LOGO
+    function getStoreLogoFromId ($conn,$id) {
+        $sql = " SELECT * FROM tbl_stores WHERE id ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$id]);
+        $row = $statement->fetch();
+        $storeLogo = $row['logo'];
+
+        return $storeLogo;
+    }
+
     // GET AVERAGE RATING PER STORE
     function getAverageStoreRating ($conn, $storeId) {
        
