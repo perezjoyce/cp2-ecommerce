@@ -50,15 +50,23 @@
 		}
 	} else {
 		if ($value === "1") {
-			$sql = "SELECT c.*, i.*, AVG(product_rating) 
-			FROM tbl_ratings 
+
+			$sql = "SELECT COUNT(variation_id) 
+			AS 'popularity', c.cart_session,v.product_id 
+			AS 'id' ,i.name,i.price, i.category_id, i.brand_id, pi.url, pi.is_primary 
+			FROM tbl_carts c 
 			JOIN tbl_items i 
-			JOIN tbl_categories c ON product_id =i.id 
-			AND i.category_id=c.id 
-			WHERE category_id = ? 
+			JOIN tbl_variations v 
+			JOIN tbl_product_images pi 
+			ON c.variation_id=v.id 
+			AND v.product_id=i.id 
+			AND pi.product_id=i.id 
+			WHERE is_primary = 1 
+			AND category_id = ? 
 			$brandJoin
-			GROUP BY product_id 
-			ORDER BY AVG(product_rating)";
+			GROUP BY v.product_id 
+			ORDER BY COUNT(variation_id) 
+			DESC" ; 
 			
 		} elseif ($value === '2') {
 			$sql = "SELECT i.*, c.parent_category_id 
