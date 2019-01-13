@@ -3140,6 +3140,7 @@ $(document).ready( () => {
 					setTimeout(function(){window.location.href="index.php"}, 1500);
 				} else {
 					alert("Your account will be reviewed by the admin within 3 days to verify if you are cleared to deactivate it and to delete your store profile. You will be notified about the status through email.");
+					$('#btn_deactivate').text("PENDING DEACTIVATION");
 				}
 			})
 		}

@@ -962,7 +962,18 @@
                                         </div>
                                         <div class='flex-fill text-right pt-lg-0 pt-md-0 pt-sm-4'>
                                             <button class='btn btn-border border' id='btn_deactivate'>
-                                                DEACTIVATE MY ACCOUNT
+                                                <?php 
+                                                    $sql =  "SELECT * FROM tbl_users WHERE `status` = 2 AND id = ?";
+                                                    $statement = $conn->prepare($sql);
+                                                    $statement->execute([$_SESSION['id']]);
+
+                                                    $count = $statement->rowCount();
+                                                    if($count){
+                                                        echo "PENDING DEACTIVATION";
+                                                    } else {
+                                                        echo "DEACTIVATE MY ACCOUNT";
+                                                    }
+                                                ?>        
                                             </button>
                                         </div>
 
