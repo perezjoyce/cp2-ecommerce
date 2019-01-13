@@ -956,7 +956,7 @@
                                 
                                         <div class='flex-fill d-flex flex-row'>
                                             <h4>Deactivate</h4>
-                                            <a data-toggle="tooltip" title="Mamaroo sellers will need to wait for 24 hours for the admin to process this request." data-original-title="#">
+                                            <a data-toggle="tooltip" title="Mamaroo sellers will need to wait for 3 days for the admin to process this request. Deactivation of seller account  will lead to deletion of his/her store." data-original-title="#">
                                                 &nbsp;<i class="far fa-question-circle text-gray"></i>
                                             </a>
                                         </div>

@@ -5,7 +5,7 @@ if(isset($_SESSION['id'])){
     $userId = $_SESSION['id'];
 
     // CHECK IF USER IS SELLER
-    $sql = "SELECT * FROM tbl_stores WHERE user_id = ?";
+    $sql = "SELECT * FROM tbl_users WHERE isSeller = 'yes' AND id = ?";
             $statement = $conn->prepare($sql);
             $statement->execute([$userId]);
             $count = $statement->rowCount();
@@ -17,6 +17,7 @@ if(isset($_SESSION['id'])){
                 $statement2 = $conn->prepare($sql2);
                 $statement2->execute([$userId]);
             } else {
+                
                 // CHANAGE STATUS TO DEACTIVATED FOR NON-SELLERS
                 $sql3 =  "UPDATE tbl_users SET `status` = 0, first_name = 
                             NULL, last_name = 
