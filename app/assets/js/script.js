@@ -1199,7 +1199,7 @@ $(document).ready( () => {
 		let that = this;
 		let flag = 0;
 
-		if(quantity = 0) {
+		if(quantity == 0) {
 			$('#variation_error').html("<small class='text-red'>Please select quantity first.</small>");
 			flag = 1;
 		}
