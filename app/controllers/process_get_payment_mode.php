@@ -1,8 +1,8 @@
 <?php
 require_once '../../config.php';
 
-if(isset($_POST['modeOfPaymentId'])) {
-   $payment_mode_id = $_POST['modeOfPaymentId'];
+// if(isset($_POST['modeOfPaymentId'])) {
+   $payment_mode_id = 1; // $_POST['modeOfPaymentId'] ?? 2;
    $cartSession = $_SESSION['cart_session'];
    $userId = $_SESSION['id'];
     $transactionCode = $_SESSION['transaction_code'];
@@ -159,6 +159,6 @@ if(isset($_POST['modeOfPaymentId'])) {
         // if($payment_mode_id == 3) {
         //     echo "creditCard";
         // }
-    }
+ //   }
 
 ?>
