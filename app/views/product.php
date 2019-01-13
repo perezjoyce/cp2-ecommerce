@@ -436,166 +436,167 @@ if(isset($_SESSION['id'])) {
         <div class="row bg-white rounded mb-5 px-5">
 
           <!-- SELLER DETAILS -->
-          <div class="col-lg-2 col-md-3 col-sm-12 mr-lg-5 white-bg py-5">
+          <div class="col-lg-2 col-md-3 col-sm-12 white-bg py-5">
+            <div class="container-fluid">
 
-            <div class='row mb-4'>
-                <div class="col-12 py-5 border">
-                  
-                      <?php
-                        $sql = "SELECT * FROM tbl_stores WHERE id = ?";
-                        $statement = $conn->prepare($sql);
-                        $statement->execute([$storeId]);	
-                        $row = $statement->fetch();
-                        $storeId = $row['id'];
-                        $storeName = $row['name'];
-                        $storeLogo = $row['logo'];
-                        $storeAddress = $row['store_address'];
-                        $sellerId = $row['user_id'];
-                        $shippingFee = $row['standard_shipping'];
-                      ?>
+              <div class='row mb-4'>
+                  <div class="col-12 py-5 border">
                     
-                    <!-- STORE LOG -->
-                    <div class="row justify-content-center mb-4">
-                      <div class="col">
-                        <img src="<?= BASE_URL ."/". $storeLogo . ".jpg"?>" alt="<?=$storeName?>" style='width:70px;max-height:70px;' class='circle'>
-                      </div>
-                    </div>
-
-                    <!-- STORE NAME -->
-                    <div class="row justify-content-center text-purple font-weight-bold mb-4">
-                      <div class="col">
-                        <?=$storeName?>
-                      </div>
-                    </div>
-
-                    <!-- STORE ADDRESS -->
-                    <div class="row justify-content-center text-gray mb-2 px-2">
-                      <div class="col">
-                        <small>
-                          <i class="fas fa-map-marker-alt"></i>
-                          &nbsp;<?= ucwords(strtolower($storeAddress)) ?>
-                        </small>
-                      </div>
-                    </div>
-
-
-                    <!-- LAST ACTIVITY -->
-                    <div class="row justify-content-center text-gray">
-                      <div class="col">
                         <?php
-                          $sql = "SELECT last_login FROM tbl_users WHERE id = ?";
+                          $sql = "SELECT * FROM tbl_stores WHERE id = ?";
                           $statement = $conn->prepare($sql);
-                          $statement->execute([$sellerId]);	
+                          $statement->execute([$storeId]);	
                           $row = $statement->fetch();
-                          $lastLogin = $row['last_login'];
-
+                          $storeId = $row['id'];
+                          $storeName = $row['name'];
+                          $storeLogo = $row['logo'];
+                          $storeAddress = $row['store_address'];
+                          $sellerId = $row['user_id'];
+                          $shippingFee = $row['standard_shipping'];
                         ?>
-                        <small id='lastLoginTimeAgo'><?= $lastLogin ?></small>
+                      
+                      <!-- STORE LOG -->
+                      <div class="row justify-content-center mb-4">
+                        <div class="col">
+                          <img src="<?= BASE_URL ."/". $storeLogo . ".jpg"?>" alt="<?=$storeName?>" style='width:70px;max-height:70px;' class='circle'>
+                        </div>
                       </div>
-                    </div>
 
-                   
-                    <hr class='my-4'>
-
-                    <!-- STATS -->
-                    <div class="row text-gray mb-4">
-                      <div class="col ml-3">
-
-                        <!-- RATINGS -->
-                        <div class="d-flex flex-row mb-3">
-                            <?php
-                            $sql = "SELECT i.id, i.store_id, AVG(product_rating) as 'averageRating' 
-                            FROM tbl_ratings 
-                            LEFT JOIN tbl_items i ON product_id = i.id 
-                            WHERE store_id = ? GROUP BY product_id";
-                              $statement = $conn->prepare($sql);
-                              $statement->execute([$storeId]);
-                              $row = $statement->fetch();
-                              $averageSellerRating = $row['averageRating'];	
-                              $averageSellerRating = round($averageSellerRating,1);
-                            ?>
-                          <small style='width:55%;'>
-                            Rating
-                          </small>
-                          <small>
-                            <?= $averageSellerRating ?> 
-                            <span class='vanish-md'>out</span> 
-                            of 5
-                          </small>
+                      <!-- STORE NAME -->
+                      <div class="row justify-content-center text-purple font-weight-bold mb-4">
+                        <div class="col">
+                          <?=$storeName?>
                         </div>
-
-                        <!-- FOLLWERS -->
-                        <div class="d-flex flex-row mb-3">
-                          <small style='width:55%;'>
-                            Followers
-                          </small>
-                          <small>
-                            <?= countFollowers ($conn, $storeId) ?>
-                          </small>
-                        </div>
-
-                        <!-- PRODUCTS COUNT -->
-                        <div class="d-flex flex-row mb-3">
-                            <?php
-                              $sql = "SELECT COUNT(*) AS 'productCount' FROM tbl_items WHERE store_id = ?";
-                              $statement = $conn->prepare($sql);
-                              $statement->execute([$storeId]);
-                              $row = $statement->fetch();
-                              $productCount = $row['productCount'];	
-                            ?>
-                          <small style='width:55%;'>
-                            Products
-                          </small>
-                          <small>
-                            <?= $productCount ?>
-                          </small>
-                        </div>
-
-                        <!-- JOINED -->
-                        <div class="d-flex flex-row mb-4">
-                            
-                          <small style='width:55%;'>
-                            Joined
-                          </small>
-                          <small>
-                            <?=  getMembershipDate($conn, $storeId) ?>
-                          </small>
-                          <!-- https://stackoverflow.com/questions/6823133/how-to-remove-first-word-from-a-php-string -->
-                        </div>
-
-                      </div> 
-                    </div>
-
-                  
-                    <!-- BUTTONS -->
-                    <div class="row">
-                      <!-- <a href='#' class='btn btn-block border text-purple mx-3 mb-2 py-2 modal-link' id="chatbox" data-url="../partials/templates/chatbox_modal.php">
-                        <i class="far fa-comment"></i>
-                        &nbsp;Message Seller
-                      </a> -->
-                      <div class="col">
-                        <a href='store-profile.php?id=<?=$storeId?>' class='btn btn-block border text-secondary mx-3 py-2'>
-                          <i class="fas fa-store"></i>
-                          &nbsp;View Shop
-                        </a>
                       </div>
-                    </div>
-                  
-                </div>
-            </div>
 
-            <div class='row border'>
-              <div class="col">
-            
-                <a href='#' class='btn btn-block text-gray mx-3 py-2'>
-                  <i class="far fa-flag"></i>
-                    &nbsp;Report
-                </a>
+                      <!-- STORE ADDRESS -->
+                      <div class="row justify-content-center text-gray mb-2 px-2">
+                        <div class="col">
+                          <small>
+                            <i class="fas fa-map-marker-alt"></i>
+                            &nbsp;<?= ucwords(strtolower($storeAddress)) ?>
+                          </small>
+                        </div>
+                      </div>
 
+
+                      <!-- LAST ACTIVITY -->
+                      <div class="row justify-content-center text-gray">
+                        <div class="col">
+                          <?php
+                            $sql = "SELECT last_login FROM tbl_users WHERE id = ?";
+                            $statement = $conn->prepare($sql);
+                            $statement->execute([$sellerId]);	
+                            $row = $statement->fetch();
+                            $lastLogin = $row['last_login'];
+
+                          ?>
+                          <small id='lastLoginTimeAgo'><?= $lastLogin ?></small>
+                        </div>
+                      </div>
+
+                    
+                      <hr class='my-4'>
+
+                      <!-- STATS -->
+                      <div class="row text-gray mb-4">
+                        <div class="col ml-3">
+
+                          <!-- RATINGS -->
+                          <div class="d-flex flex-row mb-3">
+                              <?php
+                              $sql = "SELECT i.id, i.store_id, AVG(product_rating) as 'averageRating' 
+                              FROM tbl_ratings 
+                              LEFT JOIN tbl_items i ON product_id = i.id 
+                              WHERE store_id = ? GROUP BY product_id";
+                                $statement = $conn->prepare($sql);
+                                $statement->execute([$storeId]);
+                                $row = $statement->fetch();
+                                $averageSellerRating = $row['averageRating'];	
+                                $averageSellerRating = round($averageSellerRating,1);
+                              ?>
+                            <small style='width:55%;'>
+                              Rating
+                            </small>
+                            <small>
+                              <?= $averageSellerRating ?> 
+                              <span class='vanish-md'>out</span> 
+                              of 5
+                            </small>
+                          </div>
+
+                          <!-- FOLLWERS -->
+                          <div class="d-flex flex-row mb-3">
+                            <small style='width:55%;'>
+                              Followers
+                            </small>
+                            <small>
+                              <?= countFollowers ($conn, $storeId) ?>
+                            </small>
+                          </div>
+
+                          <!-- PRODUCTS COUNT -->
+                          <div class="d-flex flex-row mb-3">
+                              <?php
+                                $sql = "SELECT COUNT(*) AS 'productCount' FROM tbl_items WHERE store_id = ?";
+                                $statement = $conn->prepare($sql);
+                                $statement->execute([$storeId]);
+                                $row = $statement->fetch();
+                                $productCount = $row['productCount'];	
+                              ?>
+                            <small style='width:55%;'>
+                              Products
+                            </small>
+                            <small>
+                              <?= $productCount ?>
+                            </small>
+                          </div>
+
+                          <!-- JOINED -->
+                          <div class="d-flex flex-row mb-4">
+                              
+                            <small style='width:55%;'>
+                              Joined
+                            </small>
+                            <small>
+                              <?=  getMembershipDate($conn, $storeId) ?>
+                            </small>
+                            <!-- https://stackoverflow.com/questions/6823133/how-to-remove-first-word-from-a-php-string -->
+                          </div>
+
+                        </div> 
+                      </div>
+
+                    
+                      <!-- BUTTONS -->
+                      <div class="row">
+                        <!-- <a href='#' class='btn btn-block border text-purple mx-3 mb-2 py-2 modal-link' id="chatbox" data-url="../partials/templates/chatbox_modal.php">
+                          <i class="far fa-comment"></i>
+                          &nbsp;Message Seller
+                        </a> -->
+                        <div class="col">
+                          <a href='store-profile.php?id=<?=$storeId?>' class='btn btn-block border text-secondary mx-3 py-2'>
+                            <i class="fas fa-store"></i>
+                            &nbsp;View Shop
+                          </a>
+                        </div>
+                      </div>
+                    
+                  </div>
               </div>
-            </div>
 
-          
+              <div class='row border'>
+                <div class="col">
+              
+                  <a href='#' class='btn btn-block text-gray mx-3 py-2'>
+                    <i class="far fa-flag"></i>
+                      &nbsp;Report
+                  </a>
+
+                </div>
+              </div>
+
+            </div>
           </div>
           <!-- /SELLER DETAILS -->
         
