@@ -456,34 +456,42 @@ if(isset($_SESSION['id'])) {
                     
                     <!-- STORE LOG -->
                     <div class="row justify-content-center mb-4">
-                      <img src="<?= BASE_URL ."/". $storeLogo . ".jpg"?>" alt="<?=$storeName?>" style='width:70px;max-height:70px;' class='circle'>
+                      <div class="col">
+                        <img src="<?= BASE_URL ."/". $storeLogo . ".jpg"?>" alt="<?=$storeName?>" style='width:70px;max-height:70px;' class='circle'>
+                      </div>
                     </div>
 
                     <!-- STORE NAME -->
                     <div class="row justify-content-center text-purple font-weight-bold mb-4">
-                      <?=$storeName?>
+                      <div class="col">
+                        <?=$storeName?>
+                      </div>
                     </div>
 
                     <!-- STORE ADDRESS -->
                     <div class="row justify-content-center text-gray mb-2 px-2">
-                      <small>
-                        <i class="fas fa-map-marker-alt"></i>
-                        &nbsp;<?= ucwords(strtolower($storeAddress)) ?>
-                      </small>
+                      <div class="col">
+                        <small>
+                          <i class="fas fa-map-marker-alt"></i>
+                          &nbsp;<?= ucwords(strtolower($storeAddress)) ?>
+                        </small>
+                      </div>
                     </div>
 
 
                     <!-- LAST ACTIVITY -->
                     <div class="row justify-content-center text-gray">
-                      <?php
-                        $sql = "SELECT last_login FROM tbl_users WHERE id = ?";
-                        $statement = $conn->prepare($sql);
-                        $statement->execute([$sellerId]);	
-                        $row = $statement->fetch();
-                        $lastLogin = $row['last_login'];
+                      <div class="col">
+                        <?php
+                          $sql = "SELECT last_login FROM tbl_users WHERE id = ?";
+                          $statement = $conn->prepare($sql);
+                          $statement->execute([$sellerId]);	
+                          $row = $statement->fetch();
+                          $lastLogin = $row['last_login'];
 
-                      ?>
-                      <small id='lastLoginTimeAgo'><?= $lastLogin ?></small>
+                        ?>
+                        <small id='lastLoginTimeAgo'><?= $lastLogin ?></small>
+                      </div>
                     </div>
 
                    
@@ -565,23 +573,26 @@ if(isset($_SESSION['id'])) {
                         <i class="far fa-comment"></i>
                         &nbsp;Message Seller
                       </a> -->
-
-                      <a href='store-profile.php?id=<?=$storeId?>' class='btn btn-block border text-secondary mx-3 py-2'>
-                        <i class="fas fa-store"></i>
-                        &nbsp;View Shop
-                      </a>
+                      <div class="col">
+                        <a href='store-profile.php?id=<?=$storeId?>' class='btn btn-block border text-secondary mx-3 py-2'>
+                          <i class="fas fa-store"></i>
+                          &nbsp;View Shop
+                        </a>
+                      </div>
                     </div>
                   
                 </div>
             </div>
 
             <div class='row border'>
+              <div class="col">
             
                 <a href='#' class='btn btn-block text-gray mx-3 py-2'>
                   <i class="far fa-flag"></i>
                     &nbsp;Report
-                  </a>
-          
+                </a>
+
+              </div>
             </div>
 
           
@@ -593,719 +604,736 @@ if(isset($_SESSION['id'])) {
           <div class="col-lg-9 col-md-9 col-sm-12">
             <div class="row">
               <div class="col-lg-12">
+                <div class="container-fluid">
                 
-                <!-- TABS -->
-                <div class="row my-lg-5 mt-md-5">
-                  <div class="col-12">
-                    <div class="tab border-bottom d-flex flex-row">
-                      <button class="tablinks flex-fill active" onclick="window.openTab(event, 'info_content')">
-                        <h4>Product Details</h4>
-                      </button>
-                      <button class="tablinks flex-fill progress-x" onclick="window.openTab(event, 'reviews_content')">
-                        <h4>Reviews</h4>
-                      </button>
-                      <button class="tablinks flex-fill" onclick="window.openTab(event, 'questions_content')">
-                        <h4>Q&As</h4>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- CONTENT -->
-                <div class='row'>
-                  <div class='col-12'>
-
-                    <!-- PRODUCT INFO -->
-                    <div id="info_content" class="tabcontent" style='display:block'>
-                      <div class="container mt-2 pl-0">
-                        <div class="row">
-                          <!-- <div class="col-1"></div> -->
-                          <div class="col">
-                              <!-- <ul class='d-flex flex-wrap'> -->
-                              <ul>
-                                <?php
-                                  $sql = "SELECT * FROM tbl_item_descriptions WHERE product_id = ?";
-                                  $statement = $conn->prepare($sql);
-                                  $statement->execute([$id]);	
-                                  $count = $statement->rowCount();
-                                  if($count) {
-                                    while($row = $statement->fetch()) { 
-                                      $description = $row['description'];
-                                ?>
-                                  <!-- <li style='line-height:1.8; flex: 1 0 50%' class='pb-5 pl-lg-5 pl-md-5 pl-sm-4 product_details'>$description</li> -->
-                                  <li class='pb-5 pl-lg-5 pl-md-5 pl-sm-4 product_details' style='line-height:1.8;'>
-                                    <?= $description ?>
-                                  </li>
-                                <?php } } ?>
-                              </ul>
-                            
-                          </div>
-                          
-                        </div>
+                  <!-- TABS -->
+                  <div class="row my-lg-5 mt-md-5">
+                    <div class="col-12">
+                      <div class="tab border-bottom d-flex flex-row">
+                        <button class="tablinks flex-fill active" onclick="window.openTab(event, 'info_content')">
+                          <h4><span class='vanish-sm'>Product&nbsp;</span>Details</h4>
+                        </button>
+                        <button class="tablinks flex-fill progress-x" onclick="window.openTab(event, 'reviews_content')">
+                          <h4>Reviews</h4>
+                        </button>
+                        <button class="tablinks flex-fill" onclick="window.openTab(event, 'questions_content')">
+                          <h4>Q&As</h4>
+                        </button>
                       </div>
                     </div>
-                    
-                    <!-- Q&As -->
-                    <div id="questions_content" class="tabcontent">
-                      <div class="container px-4">
-                        <div class="row">
+                  </div>
 
-                          <!-- FREQUENTLY ASKED -->
-                          <div class="col-lg-6 col-md-6 col-sm-12 pt-md-4 pt-sm-4">
-                            <div class="row mb-4">
-                              <!-- <img src="../assets/images/question-gradient-filled.png" alt="verified_user" style='height:20px;width:20px;'> -->
-                              <div class='py-1 text-secondary'>FREQUENTLY ASKED</div>
+                  <!-- CONTENT -->
+                  <div class='row'>
+                    <div class='col-12'>
+
+                      <!-- PRODUCT INFO -->
+                      <div id="info_content" class="tabcontent" style='display:block'>
+                        <div class="container mt-2 pl-0">
+                          <div class="row">
+                            <!-- <div class="col-1"></div> -->
+                            <div class="col">
+                                <!-- <ul class='d-flex flex-wrap'> -->
+                                <ul>
+                                  <?php
+                                    $sql = "SELECT * FROM tbl_item_descriptions WHERE product_id = ?";
+                                    $statement = $conn->prepare($sql);
+                                    $statement->execute([$id]);	
+                                    $count = $statement->rowCount();
+                                    if($count) {
+                                      while($row = $statement->fetch()) { 
+                                        $description = $row['description'];
+                                  ?>
+                                    <!-- <li style='line-height:1.8; flex: 1 0 50%' class='pb-5 pl-lg-5 pl-md-5 pl-sm-4 product_details'>$description</li> -->
+                                    <li class='pb-5 pl-lg-5 pl-md-5 pl-sm-4 product_details' style='line-height:1.8;'>
+                                      <?= $description ?>
+                                    </li>
+                                  <?php } } ?>
+                                </ul>
+                              
                             </div>
+                            
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <!-- Q&As -->
+                      <div id="questions_content" class="tabcontent">
+                        <div class="container px-4">
+                          <div class="row">
 
-                            <div class="row">
-                              <div class="col-12 pl-0" style="overflow-x:scroll;max-height:400px;">
-                                
+                            <!-- FREQUENTLY ASKED -->
+                            <div class="col-lg-6 col-md-6 col-sm-12 pt-md-4 pt-sm-4">
+                              <div class="container-fluid">
+                                <div class="row mb-4">
+                                  <div class="col">
+                                    <!-- <img src="../assets/images/question-gradient-filled.png" alt="verified_user" style='height:20px;width:20px;'> -->
+                                    <div class='py-1 text-secondary'>FREQUENTLY ASKED</div>
+                                  </div>
+                                </div>
 
-                                      <?php
-                                        $sql = "SELECT q.*,u.username FROM tbl_questions_answers q JOIN tbl_users u ON q.user_id = u.id WHERE product_id = ? AND faq = 'yes' ";
-                                        $statement = $conn->prepare($sql);
-                                        $statement->execute([$id]);
-                                        $count = $statement->rowCount();
+                                <div class="row">
+                                  <div class="col-12 pl-0" style="overflow-x:scroll;max-height:400px;">
+                                    
+
+                                          <?php
+                                            $sql = "SELECT q.*,u.username FROM tbl_questions_answers q JOIN tbl_users u ON q.user_id = u.id WHERE product_id = ? AND faq = 'yes' ";
+                                            $statement = $conn->prepare($sql);
+                                            $statement->execute([$id]);
+                                            $count = $statement->rowCount();
+                                          
+                                            if($count) {
+                                              while($row = $statement->fetch()) {
+                                                $question = $row['question'];
+                                                $answer = $row['answer'];
+                                          ?>
+
+                                        
+                                          <div class="d-flex flex-column pb-5">
+                                            <div>
+                                              <!-- <i class="fas fa-question-circle text-purple"></i> -->
+                                              <span class='text-purple'>
+                                                <?=$question?>
+                                              </span>
+                                            </div>
+                                            <div class='pt-2'>
+                                              <?=$answer?>
+                                            </div>
+                                          </div>
+                                        
                                       
-                                        if($count) {
-                                          while($row = $statement->fetch()) {
-                                            $question = $row['question'];
-                                            $answer = $row['answer'];
-                                      ?>
 
-                                    
-                                      <div class="d-flex flex-column pb-5">
-                                        <div>
-                                          <!-- <i class="fas fa-question-circle text-purple"></i> -->
-                                          <span class='text-purple'>
-                                            <?=$question?>
-                                          </span>
-                                        </div>
-                                        <div class='pt-2'>
-                                          <?=$answer?>
-                                        </div>
-                                      </div>
-                                    
-                                  
-
-                                    <?php } } ?>
-                                    
+                                        <?php } } ?>
+                                        
+                                  </div>
+                                </div>
                               </div>
                             </div>
-   
-                          </div>
-                          
-                          <!-- OTHER QUESTIONS-->
-                          <div class="col-lg-6 col-md-6 col-sm-12 pt-md-4 pt-sm-4">
-                            <div class="row mb-4">
-                              <div class='py-1 text-secondary'>OTHER QUESTIONS</div>
-                            </div>
+                            
+                            <!-- OTHER QUESTIONS-->
+                            <div class="col-lg-6 col-md-6 col-sm-12 pt-md-4 pt-sm-4">
+                              <div class="row mb-4">
+                                <div class="col">
+                                  <div class='py-1 text-secondary'>OTHER QUESTIONS</div>
+                                </div>
+                              </div>
 
-                            <div class="row">
-                              <div class="col-12 px-0" style="overflow-x:scroll;max-height:400px;">
-                                
+                              <div class="row">
+                                <div class="col-12 px-0" style="overflow-x:scroll;max-height:400px;">
+                                  
 
-                                      <?php
-                                        $sql = "SELECT q.*,u.username FROM tbl_questions_answers q JOIN tbl_users u ON q.user_id = u.id WHERE product_id = ? AND faq = 'no' ";
-                                        $statement = $conn->prepare($sql);
-                                        $statement->execute([$id]);
-                                        $count = $statement->rowCount();
+                                        <?php
+                                          $sql = "SELECT q.*,u.username FROM tbl_questions_answers q JOIN tbl_users u ON q.user_id = u.id WHERE product_id = ? AND faq = 'no' ";
+                                          $statement = $conn->prepare($sql);
+                                          $statement->execute([$id]);
+                                          $count = $statement->rowCount();
+                                        
+                                          if($count) {
+                                            while($row = $statement->fetch()) {
+                                              $question = $row['question'];
+                                              $answer = $row['answer'];
+                                              $whoAskedId = $row['user_id'];
+                                              $whoAsked = $row['username'];
+                                              $dateAsked = $row['date_asked'];
+                                              $dateAnswered = $row['date_answered'];
+
+                                        ?>
+
                                       
-                                        if($count) {
-                                          while($row = $statement->fetch()) {
-                                            $question = $row['question'];
-                                            $answer = $row['answer'];
-                                            $whoAskedId = $row['user_id'];
-                                            $whoAsked = $row['username'];
-                                            $dateAsked = $row['date_asked'];
-                                            $dateAnswered = $row['date_answered'];
-
-                                      ?>
-
-                                    
-                                      <div class="d-flex flex-column pb-5">
-                                        <div>
-                                          <!-- <img src="../assets/images/question-gradient.png" alt="verified_user" style='height:20px;width:20px;'> -->
-                                          <span class='text-purple'>
-                                            <?=$question?>
-                                          </span>
-                                        </div>
-                                        <div class='text-gray pb-3'>
-                                          <small><?=$whoAsked?>&nbsp;</small>
-                                          <small>
-                                            <?php
-                                              $datetime1 = new DateTime($dateAsked);
-                                              $datetime2 = new DateTime();
-                                              $interval = $datetime1->diff($datetime2);
-                                              $ago = "";
-
-                          
-                                              if($interval->format('%w') != 0) {
-                                                  $ago = $interval->format('- %w weeks ago');
-                                              } else {
-                                                if($interval->format('%d') != 0) {
-                                                  $ago = $interval->format('- %d days ago ');
-                                                } else {
-                                                  if($interval->format('%h') != 0) {
-                                                    $ago = $interval->format('- %h hrs ago');
-                                                  } elseif($interval->format('- %i') != 0) {
-                                                    $ago = $interval->format('- %i minutes ago');
-                                                  } else {
-                                                    $ago = "- just now";
-                                                  }
-                                                } 
-                                              }
-
-                                              echo $ago;
-                                            ?>
-
-                                          </small>
-                                        </div>
-                                          <?php if($answer != null){ ?>
-
-                                        <div class='pt-2'>
-                                          <div><?=$answer?></div>
-                                          <div class='text-gray'>
-                                            <small><?=$storeName?></small>
+                                        <div class="d-flex flex-column pb-5">
+                                          <div>
+                                            <!-- <img src="../assets/images/question-gradient.png" alt="verified_user" style='height:20px;width:20px;'> -->
+                                            <span class='text-purple'>
+                                              <?=$question?>
+                                            </span>
+                                          </div>
+                                          <div class='text-gray pb-3'>
+                                            <small><?=$whoAsked?>&nbsp;</small>
                                             <small>
-                                              <?php 
-                                            
-                                                $datetimeA = new DateTime($dateAsked);
-                                                $datetimeB = new DateTime($dateAnswered);
-                                                $interval2 = $datetimeB->diff($datetimeA);
-                                                $ago2 = "";
+                                              <?php
+                                                $datetime1 = new DateTime($dateAsked);
+                                                $datetime2 = new DateTime();
+                                                $interval = $datetime1->diff($datetime2);
+                                                $ago = "";
 
                             
-                                                if($interval2->format('%w') != 0) {
-                                                    $ago2 = $interval2->format('- answered within %w week/s');
+                                                if($interval->format('%w') != 0) {
+                                                    $ago = $interval->format('- %w weeks ago');
                                                 } else {
-                                                  if($interval2->format('%d') != 0) {
-                                                    $ago2 = $interval2->format('- answered within %d day/s');
+                                                  if($interval->format('%d') != 0) {
+                                                    $ago = $interval->format('- %d days ago ');
                                                   } else {
-                                                    if($interval2->format('%h') != 0) {
-                                                      $ago2 = $interval2->format('- asnwered within %h hr/s');
-                                                    } elseif($interval2->format('%i') != 0) {
-                                                      $ago2 = $interval2->format('- answered within %i min/s');
+                                                    if($interval->format('%h') != 0) {
+                                                      $ago = $interval->format('- %h hrs ago');
+                                                    } elseif($interval->format('- %i') != 0) {
+                                                      $ago = $interval->format('- %i minutes ago');
                                                     } else {
-                                                      $ago2 = $interval2->format('- answered within %s sec/s');
+                                                      $ago = "- just now";
                                                     }
                                                   } 
                                                 }
 
-                                                echo $ago2;
-                                            
-                                            
+                                                echo $ago;
                                               ?>
+
                                             </small>
                                           </div>
+                                            <?php if($answer != null){ ?>
+
+                                          <div class='pt-2'>
+                                            <div><?=$answer?></div>
+                                            <div class='text-gray'>
+                                              <small><?=$storeName?></small>
+                                              <small>
+                                                <?php 
+                                              
+                                                  $datetimeA = new DateTime($dateAsked);
+                                                  $datetimeB = new DateTime($dateAnswered);
+                                                  $interval2 = $datetimeB->diff($datetimeA);
+                                                  $ago2 = "";
+
+                              
+                                                  if($interval2->format('%w') != 0) {
+                                                      $ago2 = $interval2->format('- answered within %w week/s');
+                                                  } else {
+                                                    if($interval2->format('%d') != 0) {
+                                                      $ago2 = $interval2->format('- answered within %d day/s');
+                                                    } else {
+                                                      if($interval2->format('%h') != 0) {
+                                                        $ago2 = $interval2->format('- asnwered within %h hr/s');
+                                                      } elseif($interval2->format('%i') != 0) {
+                                                        $ago2 = $interval2->format('- answered within %i min/s');
+                                                      } else {
+                                                        $ago2 = $interval2->format('- answered within %s sec/s');
+                                                      }
+                                                    } 
+                                                  }
+
+                                                  echo $ago2;
+                                              
+                                              
+                                                ?>
+                                              </small>
+                                            </div>
+                                          </div>
+
+                                            <?php } else { ?>
+
+                                          <div class='pt-2'>
+                                            <div class='text-gray'>Waiting for seller's response.</div>
+                                          </div>
+
+                                            <?php } ?>
+
                                         </div>
-
-                                          <?php } else { ?>
-
-                                        <div class='pt-2'>
-                                          <div class='text-gray'>Waiting for seller's response.</div>
-                                        </div>
-
-                                          <?php } ?>
-
-                                      </div>
-                                    
-                                  
-
-                                    <?php } } ?>
-                                    
-                              </div>
-                            </div>
-
-                            <!-- ASK A QUESTION -->
-                            <?php 
-                              if(isset($_SESSION['id'])) {
-                                
-                            ?>
-                            <div class="row my-5">
-                              <div class="col-12 px-0">
-                                <form action='process_ask_about_product' method='POST'>
-                                  <div class="form">
-                                    <div class="form-group px-0">
-                                      <label for="post_question">
-                                        <h4>Ask A Question</h4>
-                                      </label>
-                                      <textarea class="form-control border-0" id="product_question" style='width:100%;background:#eff0f5;' rows='3'></textarea>
-                                    </div>
-                                  </div>
-
-                                  <div class="d-flex flex-row">
-                                    <a class="btn btn-purple" data-userid='<?=$userId?>' data-productid='<?=$id?>'role='button' id='btn_ask_question'>
-                                      Send
-                                      <i class="far fa-paper-plane"></i>
-                                    </a>
-                                    <small id='post_question_notification' class='text-red ml-4 pt-1'></small>
-                                  </div>
-                                </form>
-                              </div>
-                            </div>
-                            <?php } ?>
-                            
-                          </div>
-
-                        </div>
-                      </div>
-                    </div> 
-
-                    <!-- PRODUCT REVIEWS -->
-                    <div id="reviews_content" class="tabcontent">
-                      <div class="container">
-
-                        <!-- DIAGRAMS -->
-                        <div class="row mb-5">
-                          
-                          <div class="col-lg-2"></div>
-                          <!-- RATING STARS -->
-                          <div class="col-lg-2 col-md-3 col-sm-12">    
-                            <div class="row pt-2">
-                              <div class="col-12 d-flex flex-column">
-
-                                <div class="row">
-                                  
-                                    <h1 style='font-size:50px'>
-                                      <?= number_format((float)$averageRating, 1, '.', '')?>
-                                    </h1>
-                                    <h3 class='text-gray pt-5'>
-                                      &nbsp;/&nbsp;5
-                                    </h3>
-                                
-                                </div>
-
-                                <div class="row">
-                                  <div id='average_product_stars_big' class='pb-4'></div>
-                                </div>
-
-                                <div class='row text-gray'>
-                                  <?php 
-                                  
-
-                                    if (isset($_SESSION['cart_session'])) { 
-                                      if ($totalProductRating === 0 || $totalProductRating == "") { ?>
-                                    <span class='rating-count<?=$id?>'>
-                                      <!-- no value -->
-                                    </span>
-                                    <span class='rating-word'>
-                                      <?= "&nbsp;No reviews yet" ?>
-                                    </span>
-                                        <?php } elseif($totalProductRating == 1){?>
-                                    <span class='rating-count<?=$id?>'>
-                                      <?= $totalProductRating ?>
-                                    </span>
-                                    <span class='rating-word'>
-                                      <?= "&nbsp;Review" ?>
-                                    </span>
-                                        <?php } else { ?>
-                                    <span class='rating-count<?=$id?>'>
-                                      <?= $totalProductRating ?>
-                                    </span>
-                                    <span class='rating-word'>
-                                      <?= "&nbsp;Reviews" ?>
-                                    </span>
-
-                                  <?php } } ?>
-
-                                </div>
-
-                              </div>
-                            </div>
-                          </div>
-
-                          <!-- RATINGS BARS -->
-                          <div class="col-lg-5 col-md-9 col-sm-12 text-gray">
-
-                            <?php 
-
-                              if($totalProductRating > 0) {
-
-                                $sql = "SELECT COUNT(*) as 'fiveStarRating' FROM tbl_ratings WHERE product_rating = 5 AND product_id = ?";
-                                $statement = $conn->prepare($sql);
-                                $statement->execute([$id]);
-                                $row = $statement->fetch();
-                                $fiveStarRatingCount = $row['fiveStarRating'];
-                                $fiveStarRatingCount = (int)$fiveStarRatingCount;
-                                $fiveStarRatingBar = ($fiveStarRatingCount/$totalProductRating)*100;
-
-                                $sql = "SELECT COUNT(*) as 'fourStarRating' FROM tbl_ratings WHERE product_rating = 4 AND product_id = ?";
-                                $statement = $conn->prepare($sql);
-                                $statement->execute([$id]);
-                                $row = $statement->fetch();
-                                $fourStarRatingCount = $row['fourStarRating'];
-                                $fourStarRatingCount = (int)$fourStarRatingCount;
-                                $fourStarRatingBar = ($fourStarRatingCount/$totalProductRating)*100;
-
-                                $sql = "SELECT COUNT(*) as 'threeStarRating' FROM tbl_ratings WHERE product_rating = 3 AND product_id = ?";
-                                $statement = $conn->prepare($sql);
-                                $statement->execute([$id]);
-                                $row = $statement->fetch();
-                                $threeStarRatingCount = $row['threeStarRating'];
-                                $threeStarRatingCount = (int)$threeStarRatingCount;
-                                $threeStarRatingBar = ($threeStarRatingCount/$totalProductRating)*100;
-
-                                $sql = "SELECT COUNT(*) as 'twoStarRating' FROM tbl_ratings WHERE product_rating = 2 AND product_id = ?";
-                                $statement = $conn->prepare($sql);
-                                $statement->execute([$id]);
-                                $row = $statement->fetch();
-                                $twoStarRatingCount = $row['twoStarRating'];
-                                $twoStarRatingCount = (int)$twoStarRatingCount;
-                                $twoStarRatingBar = ($twoStarRatingCount/$totalProductRating)*100;
-
-                                $sql = "SELECT COUNT(*) as 'oneStarRating' FROM tbl_ratings WHERE product_rating = 1 AND product_id = ?";
-                                $statement = $conn->prepare($sql);
-                                $statement->execute([$id]);
-                                $row = $statement->fetch();
-                                $oneStarRatingCount = $row['oneStarRating'];
-                                $oneStarRatingCount = (int)$oneStarRatingCount;
-                                $oneStarRatingBar = ($oneStarRatingCount/$totalProductRating)*100;
-                              
-                              // var_dump($oneStarRatingBar);die();
-                            ?>
-
-                            
-                            <input type="hidden" id='rating_bar5_hidden' value='<?= $fiveStarRatingBar ?>'>
-                            <input type="hidden" id='rating_bar4_hidden' value='<?= $fourStarRatingBar ?>'>
-                            <input type="hidden" id='rating_bar3_hidden' value='<?= $threeStarRatingBar ?>'>
-                            <input type="hidden" id='rating_bar2_hidden' value='<?= $twoStarRatingBar ?>'>
-                            <input type="hidden" id='rating_bar1_hidden' value='<?= $oneStarRatingBar ?>'>
-                                                    
-
-                            <div class="row pt-3 no-gutters">
-                              <div class="col-2 text-center">
-                                <span>5&nbsp;</span>
-                                <span class='star'>★</span>
-                              </div>
-                              <div class="col-8">
-                                <div class="product_rating_bar">
-                                  <div id="rating_bar5" class='rating_bar'></div>
-                                </div>
-                              </div>
-                              <div class="col-2 text-center pt-1">
-                                <span>
-                                  <?php 
-                                  if($fiveStarRatingCount == null) {
-                                    echo "0";
-                                  } else {
-                                    echo $fiveStarRatingCount;
-                                  }
-                                  ?>
-                                </span>
-                              </div>
-                            </div>
-
-                            <div class="row pt-2 no-gutters">
-
-                              <div class="col-2 text-center">
-                                <span>4&nbsp;</span>
-                                <span class='star'>★</span>
-                              </div>
-
-                              <div class="col-8">
-                                <div class="product_rating_bar">
-                                  <div id="rating_bar4" class='rating_bar'></div>
-                                </div>
-                              </div>
-
-                              <div class="col-2 text-center pt-1">
-                                <span>
-                                  <?php 
-                                  if($fourStarRatingCount == null) {
-                                    echo "0";
-                                  } else {
-                                    echo $fourStarRatingCount;
-                                  }
-                                  ?>
-                                </span>
-                              </div>
-
-                            </div>
-
-                            <div class="row pt-2 no-gutters">
-
-                              <div class="col-2 text-center">
-                                <span>3&nbsp;</span>
-                                <span class='star'>★</span>
-                              </div>
-
-                              <div class="col-8">
-                                <div class="product_rating_bar">
-                                  <div id="rating_bar3" class='rating_bar'></div>
-                                </div>
-                              </div>
-
-                              <div class="col-2 text-center pt-1">
-                                <span>
-                                  <?php 
-                                  if($threeStarRatingCount == null) {
-                                    echo "0";
-                                  } else {
-                                    echo $threeStarRatingCount;
-                                  }
-                                  ?>
-                                </span>
-                              </div>
-
-                            </div>
-
-                            <div class="row pt-2 no-gutters">
-                              <div class="col-2 text-center">
-                                <span>2&nbsp;</span>
-                                <span class='star'>★</span>
-                              </div>
-                              <div class="col-8">
-                                <div class="product_rating_bar">
-                                  <div id="rating_bar2" class='rating_bar'></div>
-                                </div>
-                              </div>
-                              <div class="col-2 text-center pt-1">
-                                <span>
-                                  <?php 
-                                  if($twoStarRatingCount == null) {
-                                    echo "0";
-                                  } else {
-                                    echo $twoStarRatingCount;
-                                  }
-                                  ?>
-                                </span>
-                              </div>
-                            </div>
-
-
-                            <div class="row pt-2 no-gutters">
-                              <div class="col-2 text-center">
-                                <span>1&nbsp;</span>
-                                <span class='star'>★</span>
-                              </div>
-                              <div class="col-8">
-                                <div class="product_rating_bar">
-                                  <div id="rating_bar1" class='rating_bar'></div>
-                                </div>
-                              </div>
-                              <div class="col-2 text-center pt-1">
-                                <span>
-                                  <?php 
-                                  if($oneStarRatingCount == null) {
-                                    echo "0";
-                                  } else {
-                                    echo $oneStarRatingCount;
-                                  }
-                                  ?>
-                                </span>
-                              </div>
-                            </div>
-                          
-                            <?php } ?>
-                              
-                          </div>
-
-                          <div class="col-lg-3"></div>
-                          
-                        
-                        </div>
-
-                        <!-- FUNNEL -->
-                        <?php 
-                          if($totalProductRating > 0) {
-                        ?>
-                        <div class="row">
-                          <div class="col-lg-9 col-md-8  text-left">
-                            <h4 class='py-1'>Comments</h4>
-                          </div>
-                          <div class="col text-right">
-                            <div>
-                              <div class="flex-fill input-group" id='funnel_dropdown'>
-                                <div class="input-group-prepend p-2">
-                                  <div class="d-flex align-items-center">
-                                    <i class="fas fa-filter text-secondary"></i>
-                                    &nbsp;Filter:
-                                  </div>
-                                </div>
-
-                                <select class="custom-select border-0 pt-2" id="sort_ratings" onchange="sort_ratings" data-id='<?= $id ?>' data-storeid='<?=$storeId?>'>
-                                  <option value="6" selected>All stars</option>
-                                  <option value="5"> 5 stars </option>
-                                  <option value="4"> 4 stars </option>
-                                  <option value="3"> 3 stars </option>
-                                  <option value="2"> 2 stars </option>
-                                  <option value="1"> 1 star </option>
-                                </select>
-
-                              </div> 
-                            </div>
-                          </div>
-                        </div>
-
-                        <!-- COMMENTS --> 
-                        <div id='ratings_view'> 
-                            <?php
-
-                              $sql ="SELECT r.*, u.first_name, u.last_name FROM tbl_ratings r JOIN tbl_users u ON r.user_id = u.id WHERE product_id = ?";
-                              $statement = $conn->prepare($sql);
-                              $statement->execute([$id]);	
-
-                              $count = $statement->rowCount();
-                              
-                              
-
-                                while($row = $statement->fetch()) {
-
-                              $ratingId = $row['id'];
-                              $clientId = $row['user_id'];
-                              $clientFname = $row['first_name'];
-                              $clientFname = ucwords(strtolower($clientFname));
-                              $clientLname = $row['last_name'];
-                              $clientLname = ucwords(strtolower($clientLname ));
-                              $clientRating = $row['product_rating'];
-                              $clientProductReview = $row['product_review'];
-                              $clientRatingDate = $row['date_given'];
-                              $sellerResponse = $row['seller_response'];
-                              $sellerResponseDate = $row['response_date'];
-
-                            ?>
-                          
-                          <div class="row border-top px-4">
-
-                          
-
-                            <div class="col-12 pt-4">
-                            
-                              <!-- CLIENT RATING -->
-                              <div class="row mb-1">
-                            
-                                  <?php 
-                                    if($clientRating != null || $clientRating != "") {
-                                  ?>
-                      
-                                  <div class='test-container' data-rating="<?= $clientRating ?>" data-id='<?= $clientId ?>'></div>
-                                
-                                  <?php } else { ?>
-                                
-                                <div class="star-gray">★</div>
-                                <div class="star-gray">★</div>
-                                <div class="star-gray">★</div>
-                                <div class="star-gray">★</div>
-                                <div class="star-gray">★</div>
-                              
-                                  <?php } ?>
-
-                              </div>
-
-                              <!-- CLIENT NAME -->
-                              <div class='row text-gray mb-2'>
-                                <span><?=$clientFname." ".$clientLname ?></span>
-                              </div>
-
-                              
-
-                              <!-- VERFICATION BADGE AND DATE -->
-                              <div class="row pb-4">
-                                <img src="../assets/images/verified-gradient.png" alt="verified_user" style='height:10px;width:10px;'>
-                                <small class='text-purple'>&nbsp;Verified Purchase&nbsp;|
-                                  <?= date("M d, Y", strtotime($clientRatingDate));  ?>
-                                </small>
-                              </div>
-
-                              
-
-                              <!-- REVIEW -->
-                                  <?php 
-                                    if($clientRating != null || $clientRating != "") {
-                                  ?>  
-                              <div class="row mb-2">  
-                                <p style='line-height:1.5em;'><?=$clientProductReview?></p>
-                              </div>
-                                  <?php } else { echo ""; } ?>
-
-
-                              <!-- REVIEW IMAGES -->  
-                              <div class="row mb-2">
-                                <div class="col-12">
-                                  <div class="row mb-2">
-                                  
-                                      <?php 
-                                        $sql = "SELECT * FROM tbl_rating_images WHERE rating_id =?";
-                                        $statement2 = $conn->prepare($sql);
-                                        $statement2->execute([$ratingId]);	
-                                        $count2 = $statement2->rowCount();
-
-                                        if($count2) {
                                       
-                                        while($row2 = $statement2->fetch()){
-                                          $reviewImageId = $row2['id'];
-                                          $reviewImageUrl = $row2['url'];
-                                      ?>
-
-                                    <img src="<?= BASE_URL . "/" .$reviewImageUrl?>" 
-                                        alt="review_image" style='width:70px;max-height:80px;cursor: zoom-in;' 
-                                        class='review_thumbnail mr-2' 
-                                        data-id='<?=$reviewImageId?>' data-clientid='<?=$clientId?>'
-                                        data-url='<?= BASE_URL . "/" .$reviewImageUrl ?>'>
+                                    
 
                                       <?php } } ?>
+                                      
+                                </div>
+                              </div>
+
+                              <!-- ASK A QUESTION -->
+                              <?php 
+                                if(isset($_SESSION['id'])) {
                                   
-                                  </div>
-                                  <div class="row">
-                                    <div class="col-lg-6 col-md-12 col-sm-12 px-0">
-                                      <div id='review_iframe<?=$clientId?>'></div>
-                                    </div>   
+                              ?>
+                              <div class="row my-5">
+                                <div class="col-12 px-0">
+                                  <form action='process_ask_about_product' method='POST'>
+                                    <div class="form">
+                                      <div class="form-group px-0">
+                                        <label for="post_question">
+                                          <h4>Ask A Question</h4>
+                                        </label>
+                                        <textarea class="form-control border-0" id="product_question" style='width:100%;background:#eff0f5;' rows='3'></textarea>
+                                      </div>
+                                    </div>
+
+                                    <div class="d-flex flex-row">
+                                      <a class="btn btn-purple" data-userid='<?=$userId?>' data-productid='<?=$id?>'role='button' id='btn_ask_question'>
+                                        Send
+                                        <i class="far fa-paper-plane"></i>
+                                      </a>
+                                      <small id='post_question_notification' class='text-red ml-4 pt-1'></small>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                              <?php } ?>
+                              
+                            </div>
+
+                          </div>
+                        </div>
+                      </div> 
+
+                      <!-- PRODUCT REVIEWS -->
+                      <div id="reviews_content" class="tabcontent">
+                        <div class="container">
+
+                          <!-- DIAGRAMS -->
+                          <div class="row mb-5">
+                            
+                            <div class="col-lg-2"></div>
+                            <!-- RATING STARS -->
+                            <div class="col-lg-2 col-md-3 col-sm-12">  
+                              <div class="container-fluid">  
+                                <div class="row pt-2">
+                                  <div class="col-12 d-flex flex-column">
+
+                                    <div>
+                                      
+                                        <h1 style='font-size:50px'>
+                                          <?= number_format((float)$averageRating, 1, '.', '')?>
+                                        </h1>
+                                        <h3 class='text-gray pt-5'>
+                                          &nbsp;/&nbsp;5
+                                        </h3>
+                                    
+                                    </div>
+
+                                    <div>
+                                      <div id='average_product_stars_big' class='pb-4'></div>
+                                    </div>
+
+                                    <div class='text-gray'>
+                                      <?php 
+                                      
+
+                                        if (isset($_SESSION['cart_session'])) { 
+                                          if ($totalProductRating === 0 || $totalProductRating == "") { ?>
+                                        <span class='rating-count<?=$id?>'>
+                                          <!-- no value -->
+                                        </span>
+                                        <span class='rating-word'>
+                                          <?= "&nbsp;No reviews yet" ?>
+                                        </span>
+                                            <?php } elseif($totalProductRating == 1){?>
+                                        <span class='rating-count<?=$id?>'>
+                                          <?= $totalProductRating ?>
+                                        </span>
+                                        <span class='rating-word'>
+                                          <?= "&nbsp;Review" ?>
+                                        </span>
+                                            <?php } else { ?>
+                                        <span class='rating-count<?=$id?>'>
+                                          <?= $totalProductRating ?>
+                                        </span>
+                                        <span class='rating-word'>
+                                          <?= "&nbsp;Reviews" ?>
+                                        </span>
+
+                                      <?php } } ?>
+
+                                    </div>
+
                                   </div>
                                 </div>
                               </div>
-                                
-                          
-                                      
-                              <!-- SELLER RESPONSE -->
-                                  <?php
-                                    if($sellerResponse) {
-                                  ?>
-                              <div class="row my-4">
-                                <div class="col-1"></div>
-                                <div class="col mb-2 pt-4 px-5 seller_response_container" style='background:#eff0f5'>
+                            </div>
+
+                            <!-- RATINGS BARS -->
+                            <div class="col-lg-5 col-md-9 col-sm-12 text-gray">
+                              <div class="container-fluid">
+
+                                <?php 
+
+                                  if($totalProductRating > 0) {
+
+                                    $sql = "SELECT COUNT(*) as 'fiveStarRating' FROM tbl_ratings WHERE product_rating = 5 AND product_id = ?";
+                                    $statement = $conn->prepare($sql);
+                                    $statement->execute([$id]);
+                                    $row = $statement->fetch();
+                                    $fiveStarRatingCount = $row['fiveStarRating'];
+                                    $fiveStarRatingCount = (int)$fiveStarRatingCount;
+                                    $fiveStarRatingBar = ($fiveStarRatingCount/$totalProductRating)*100;
+
+                                    $sql = "SELECT COUNT(*) as 'fourStarRating' FROM tbl_ratings WHERE product_rating = 4 AND product_id = ?";
+                                    $statement = $conn->prepare($sql);
+                                    $statement->execute([$id]);
+                                    $row = $statement->fetch();
+                                    $fourStarRatingCount = $row['fourStarRating'];
+                                    $fourStarRatingCount = (int)$fourStarRatingCount;
+                                    $fourStarRatingBar = ($fourStarRatingCount/$totalProductRating)*100;
+
+                                    $sql = "SELECT COUNT(*) as 'threeStarRating' FROM tbl_ratings WHERE product_rating = 3 AND product_id = ?";
+                                    $statement = $conn->prepare($sql);
+                                    $statement->execute([$id]);
+                                    $row = $statement->fetch();
+                                    $threeStarRatingCount = $row['threeStarRating'];
+                                    $threeStarRatingCount = (int)$threeStarRatingCount;
+                                    $threeStarRatingBar = ($threeStarRatingCount/$totalProductRating)*100;
+
+                                    $sql = "SELECT COUNT(*) as 'twoStarRating' FROM tbl_ratings WHERE product_rating = 2 AND product_id = ?";
+                                    $statement = $conn->prepare($sql);
+                                    $statement->execute([$id]);
+                                    $row = $statement->fetch();
+                                    $twoStarRatingCount = $row['twoStarRating'];
+                                    $twoStarRatingCount = (int)$twoStarRatingCount;
+                                    $twoStarRatingBar = ($twoStarRatingCount/$totalProductRating)*100;
+
+                                    $sql = "SELECT COUNT(*) as 'oneStarRating' FROM tbl_ratings WHERE product_rating = 1 AND product_id = ?";
+                                    $statement = $conn->prepare($sql);
+                                    $statement->execute([$id]);
+                                    $row = $statement->fetch();
+                                    $oneStarRatingCount = $row['oneStarRating'];
+                                    $oneStarRatingCount = (int)$oneStarRatingCount;
+                                    $oneStarRatingBar = ($oneStarRatingCount/$totalProductRating)*100;
                                   
-                                  <!-- SELLER DETAILS -->
-                                  <div class="row flex-row text-gray mb-4"> 
-                                    <a href="store-profile.php?id=<?=$storeId ?>"></a>
-                                    <img src="<?= BASE_URL . '/' . $storeLogo . '.jpg' ?>" alt="<?=$storeName?>" style='width:30px;max-height:30px;' class='circle'>
-                                    <div>
-                                      <div>&nbsp;<?=$storeName?></div>
-                                      <small class='text-purple'>
-                                        &nbsp;
-                                        <?= date("M d, Y", strtotime($sellerResponseDate));  ?>
-                                      </small>
+                                  // var_dump($oneStarRatingBar);die();
+                                ?>
+
+                                
+                                <input type="hidden" id='rating_bar5_hidden' value='<?= $fiveStarRatingBar ?>'>
+                                <input type="hidden" id='rating_bar4_hidden' value='<?= $fourStarRatingBar ?>'>
+                                <input type="hidden" id='rating_bar3_hidden' value='<?= $threeStarRatingBar ?>'>
+                                <input type="hidden" id='rating_bar2_hidden' value='<?= $twoStarRatingBar ?>'>
+                                <input type="hidden" id='rating_bar1_hidden' value='<?= $oneStarRatingBar ?>'>
+                                                        
+
+                                <div class="row pt-3 no-gutters">
+                                  <div class="col-2 text-center">
+                                    <span>5&nbsp;</span>
+                                    <span class='star'>★</span>
+                                  </div>
+                                  <div class="col-8">
+                                    <div class="product_rating_bar">
+                                      <div id="rating_bar5" class='rating_bar'></div>
+                                    </div>
+                                  </div>
+                                  <div class="col-2 text-center pt-1">
+                                    <span>
+                                      <?php 
+                                      if($fiveStarRatingCount == null) {
+                                        echo "0";
+                                      } else {
+                                        echo $fiveStarRatingCount;
+                                      }
+                                      ?>
+                                    </span>
+                                  </div>
+                                </div>
+
+                                <div class="row pt-2 no-gutters">
+
+                                  <div class="col-2 text-center">
+                                    <span>4&nbsp;</span>
+                                    <span class='star'>★</span>
+                                  </div>
+
+                                  <div class="col-8">
+                                    <div class="product_rating_bar">
+                                      <div id="rating_bar4" class='rating_bar'></div>
                                     </div>
                                   </div>
 
-                                  <div class="row">
-                                    <p style='line-height:1.5em;'><?=$sellerResponse?></p>
+                                  <div class="col-2 text-center pt-1">
+                                    <span>
+                                      <?php 
+                                      if($fourStarRatingCount == null) {
+                                        echo "0";
+                                      } else {
+                                        echo $fourStarRatingCount;
+                                      }
+                                      ?>
+                                    </span>
                                   </div>
 
                                 </div>
+
+                                <div class="row pt-2 no-gutters">
+
+                                  <div class="col-2 text-center">
+                                    <span>3&nbsp;</span>
+                                    <span class='star'>★</span>
+                                  </div>
+
+                                  <div class="col-8">
+                                    <div class="product_rating_bar">
+                                      <div id="rating_bar3" class='rating_bar'></div>
+                                    </div>
+                                  </div>
+
+                                  <div class="col-2 text-center pt-1">
+                                    <span>
+                                      <?php 
+                                      if($threeStarRatingCount == null) {
+                                        echo "0";
+                                      } else {
+                                        echo $threeStarRatingCount;
+                                      }
+                                      ?>
+                                    </span>
+                                  </div>
+
+                                </div>
+
+                                <div class="row pt-2 no-gutters">
+                                  <div class="col-2 text-center">
+                                    <span>2&nbsp;</span>
+                                    <span class='star'>★</span>
+                                  </div>
+                                  <div class="col-8">
+                                    <div class="product_rating_bar">
+                                      <div id="rating_bar2" class='rating_bar'></div>
+                                    </div>
+                                  </div>
+                                  <div class="col-2 text-center pt-1">
+                                    <span>
+                                      <?php 
+                                      if($twoStarRatingCount == null) {
+                                        echo "0";
+                                      } else {
+                                        echo $twoStarRatingCount;
+                                      }
+                                      ?>
+                                    </span>
+                                  </div>
+                                </div>
+
+
+                                <div class="row pt-2 no-gutters">
+                                  <div class="col-2 text-center">
+                                    <span>1&nbsp;</span>
+                                    <span class='star'>★</span>
+                                  </div>
+                                  <div class="col-8">
+                                    <div class="product_rating_bar">
+                                      <div id="rating_bar1" class='rating_bar'></div>
+                                    </div>
+                                  </div>
+                                  <div class="col-2 text-center pt-1">
+                                    <span>
+                                      <?php 
+                                      if($oneStarRatingCount == null) {
+                                        echo "0";
+                                      } else {
+                                        echo $oneStarRatingCount;
+                                      }
+                                      ?>
+                                    </span>
+                                  </div>
+                                </div>
+                              
+                                <?php } ?>
                               </div>
-                                  <?php } else { echo ""; } ?>
+                                
+                            </div>
 
+                            <div class="col-lg-3"></div>
+                            
+                          
+                          </div>
 
+                          <!-- FUNNEL -->
+                          <?php 
+                            if($totalProductRating > 0) {
+                          ?>
+                          <div class="row">
+                            <div class="col-lg-9 col-md-8  text-left">
+                              <h4 class='py-1'>Comments</h4>
+                            </div>
+                            <div class="col text-right">
+                              <div>
+                                <div class="flex-fill input-group" id='funnel_dropdown'>
+                                  <div class="input-group-prepend p-2">
+                                    <div class="d-flex align-items-center">
+                                      <i class="fas fa-filter text-secondary"></i>
+                                      &nbsp;Filter:
+                                    </div>
+                                  </div>
+
+                                  <select class="custom-select border-0 pt-2" id="sort_ratings" onchange="sort_ratings" data-id='<?= $id ?>' data-storeid='<?=$storeId?>'>
+                                    <option value="6" selected>All stars</option>
+                                    <option value="5"> 5 stars </option>
+                                    <option value="4"> 4 stars </option>
+                                    <option value="3"> 3 stars </option>
+                                    <option value="2"> 2 stars </option>
+                                    <option value="1"> 1 star </option>
+                                  </select>
+
+                                </div> 
+                              </div>
                             </div>
                           </div>
-                          <!-- ADJUSTING FIXING THIS -->
-                          <?php } } ?>
-                        </div>
+
+                          <!-- COMMENTS --> 
+                          <div id='ratings_view'> 
+                              <?php
+
+                                $sql ="SELECT r.*, u.first_name, u.last_name FROM tbl_ratings r JOIN tbl_users u ON r.user_id = u.id WHERE product_id = ?";
+                                $statement = $conn->prepare($sql);
+                                $statement->execute([$id]);	
+
+                                $count = $statement->rowCount();
+                                
+                                
+
+                                  while($row = $statement->fetch()) {
+
+                                $ratingId = $row['id'];
+                                $clientId = $row['user_id'];
+                                $clientFname = $row['first_name'];
+                                $clientFname = ucwords(strtolower($clientFname));
+                                $clientLname = $row['last_name'];
+                                $clientLname = ucwords(strtolower($clientLname ));
+                                $clientRating = $row['product_rating'];
+                                $clientProductReview = $row['product_review'];
+                                $clientRatingDate = $row['date_given'];
+                                $sellerResponse = $row['seller_response'];
+                                $sellerResponseDate = $row['response_date'];
+
+                              ?>
+                            
+                            <div class="row border-top px-4">
+
+                            
+
+                              <div class="col-12 pt-4">
+                              
+                                <!-- CLIENT RATING -->
+                                <div class="row mb-1">
+                              
+                                    <?php 
+                                      if($clientRating != null || $clientRating != "") {
+                                    ?>
                         
+                                    <div class='test-container' data-rating="<?= $clientRating ?>" data-id='<?= $clientId ?>'></div>
+                                  
+                                    <?php } else { ?>
+                                  
+                                  <div class="star-gray">★</div>
+                                  <div class="star-gray">★</div>
+                                  <div class="star-gray">★</div>
+                                  <div class="star-gray">★</div>
+                                  <div class="star-gray">★</div>
+                                
+                                    <?php } ?>
 
+                                </div>
+
+                                <!-- CLIENT NAME -->
+                                <div class='row text-gray mb-2'>
+                                  <span><?=$clientFname." ".$clientLname ?></span>
+                                </div>
+
+                                
+
+                                <!-- VERFICATION BADGE AND DATE -->
+                                <div class="row pb-4">
+                                  <img src="../assets/images/verified-gradient.png" alt="verified_user" style='height:10px;width:10px;'>
+                                  <small class='text-purple'>&nbsp;Verified Purchase&nbsp;|
+                                    <?= date("M d, Y", strtotime($clientRatingDate));  ?>
+                                  </small>
+                                </div>
+
+                                
+
+                                <!-- REVIEW -->
+                                    <?php 
+                                      if($clientRating != null || $clientRating != "") {
+                                    ?>  
+                                <div class="row mb-2">  
+                                  <p style='line-height:1.5em;'><?=$clientProductReview?></p>
+                                </div>
+                                    <?php } else { echo ""; } ?>
+
+
+                                <!-- REVIEW IMAGES -->  
+                                <div class="row mb-2">
+                                  <div class="col-12">
+                                    <div class="container-fluid">
+
+                                  
+                                      <div class="row mb-2">
+                                      
+                                          <?php 
+                                            $sql = "SELECT * FROM tbl_rating_images WHERE rating_id =?";
+                                            $statement2 = $conn->prepare($sql);
+                                            $statement2->execute([$ratingId]);	
+                                            $count2 = $statement2->rowCount();
+
+                                            if($count2) {
+                                          
+                                            while($row2 = $statement2->fetch()){
+                                              $reviewImageId = $row2['id'];
+                                              $reviewImageUrl = $row2['url'];
+                                          ?>
+
+                                        <img src="<?= BASE_URL . "/" .$reviewImageUrl?>" 
+                                            alt="review_image" style='width:70px;max-height:80px;cursor: zoom-in;' 
+                                            class='review_thumbnail mr-2' 
+                                            data-id='<?=$reviewImageId?>' data-clientid='<?=$clientId?>'
+                                            data-url='<?= BASE_URL . "/" .$reviewImageUrl ?>'>
+
+                                          <?php } } ?>
+                                      
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-lg-6 col-md-12 col-sm-12 px-0">
+                                          <div id='review_iframe<?=$clientId?>'></div>
+                                        </div>   
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                  
+                            
+                                        
+                                <!-- SELLER RESPONSE -->
+                                    <?php
+                                      if($sellerResponse) {
+                                    ?>
+                                <div class="row my-4">
+                                  <div class="col-1"></div>
+                                  <div class="col mb-2 pt-4 px-5 seller_response_container" style='background:#eff0f5'>
+                                    <div class="container-fluid">
+                                    
+                                      <!-- SELLER DETAILS -->
+                                      <div class="row flex-row text-gray mb-4"> 
+                                        <a href="store-profile.php?id=<?=$storeId ?>"></a>
+                                        <img src="<?= BASE_URL . '/' . $storeLogo . '.jpg' ?>" alt="<?=$storeName?>" style='width:30px;max-height:30px;' class='circle'>
+                                        <div>
+                                          <div>&nbsp;<?=$storeName?></div>
+                                          <small class='text-purple'>
+                                            &nbsp;
+                                            <?= date("M d, Y", strtotime($sellerResponseDate));  ?>
+                                          </small>
+                                        </div>
+                                      </div>
+
+                                      <div class="row">
+                                        <p style='line-height:1.5em;'><?=$sellerResponse?></p>
+                                      </div>
+
+                                    </div>
+                                  </div>
+                                </div>
+                                    <?php } else { echo ""; } ?>
+
+
+                              </div>
+                            </div>
+                            <!-- ADJUSTING FIXING THIS -->
+                            <?php } } ?>
+                          </div>
+                          
+
+                        </div>
+                        <!-- /CONTAINER -->
+                        
                       </div>
-                      <!-- /CONTAINER -->
+                    
                       
+                      
+
+
                     </div>
-                   
-                    
-                    
-
-
                   </div>
-                </div>
 
+                </div>
               </div>
             </div>
           </div>
