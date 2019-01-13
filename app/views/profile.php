@@ -1,6 +1,6 @@
 <?php require_once "../../config.php";?>
 <?php require_once "../partials/header.php";?>
-<?php require_once "../partials/categories.php"; ?>
+
 <?php 
 
     if(!isset($_SESSION['id'])) {
@@ -59,7 +59,7 @@
                                             <img src='<?= $profile_pic ?>'  class="profile_user_photo rounded-circle">
                                         </div>
                                         <div class="d-flex flex-column text-lg-left text-md-left text-sm-center">
-                                            <div>
+                                            <div class="pt-sm-4">
                                                 <?php if($fname && $lname) { ?>
                                                 <h3><?= $fname . " " . $lname ?></h3>
                                                 <?php } else { ?> 
@@ -96,14 +96,14 @@
                     <div class="row">
 
                         
-                        <div class="col-lg-6 col-md-6">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
                             <!-- BASIC INFO -->
                             <div class="container p-5 rounded mb-5" style='background:white;'>
                                 <div class="row mb-3">
                                     <div class="col">
                                         <div class='d-flex flex-row'>
                                             <div class='flex-fill'>
-                                                <h4>Basic Information</h4>
+                                                <h4>Basic Info<span class='vanish-sm'>rmation</span></h4>
                                             </div>
                                             <div class='flex-fill text-right'>
                                                 <a class='nav-link modal-link' href='#' data-id='<?= $id ?>' data-url='../partials/templates/edit_user_modal.php' role='button'>
@@ -123,7 +123,7 @@
 
                                             <?php if ($fname && $lname) { ?>
                                             <div class="row my-5">
-                                                <div class="col-3">
+                                                <div class="col-lg-3 col-md-4 col-sm-4">
                                                     Name
                                                 </div>
                                                 <div class="col">
@@ -133,7 +133,7 @@
                                             
                                             <div class="row mb-5">
                                             <?php } else { echo "<div class='row my-5'>"; } ?>
-                                                <div class="col-3">
+                                                <div class="col-lg-3 col-md-4 col-sm-4">
                                                     Username
                                                 </div>
                                                 <div class="col">
@@ -142,10 +142,10 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-3">
+                                                <div class="col-lg-3 col-md-4 col-sm-4">
                                                     Email
                                                 </div>
-                                                <div class="col">
+                                                <div class="col-sm-8">
                                                     <?= hide_email($email) ?>
                                                 </div>
                                             </div>
@@ -162,7 +162,7 @@
                             </div>
 
                              <!-- ORDER HISTORY -->
-                             <div class="container p-5 rounded mb-5" style='background:white;height:600px;overflow-y:auto;'>
+                             <div class="container p-lg-5 p-md-5 px-sm-2 rounded mb-5 pt-5" style='background:white;height:600px;overflow-y:auto;'>
                                 <div class="row mb-3">
                                     <div class="col">
                                         <div class='d-flex flex-row'>
@@ -184,7 +184,7 @@
                                 ?>
                                 <div class="row border-top">
                                     <div class="col px-2">
-                                        <div class="container px-0">
+                                        <div class="container px-0 table-responsive-sm">
                                             <table class="table table-hover borderless mt-4 text-center">
                                                 <tr>
                                                     <h4 class='text-gray pl-3 mt-5'>Pending Orders</h4>
@@ -266,7 +266,7 @@
                                 ?>
                                 <div class="row border-top">
                                     <div class="col px-2">
-                                        <div class="container px-0">
+                                        <div class="container px-0 table-responsive-sm">
                                             <table class="table table-hover borderless mt-4 text-center">
                                                 <tr>
                                                     <h4 class='text-gray pl-3 mt-5'>Confirmed Orders</h4>
@@ -348,7 +348,7 @@
                                 ?>
                                 <div class="row border-top">
                                     <div class="col px-2">
-                                        <div class="container px-0">
+                                        <div class="container px-0 table-responsive-sm">
                                             
                                             <table class="table table-hover borderless mt-4 text-center">
                                                 <tr>
@@ -431,7 +431,7 @@
                                 ?>
                                 <div class="row border-top">
                                     <div class="col px-2">
-                                        <div class="container px-0">
+                                        <div class="container px-0 table-responsive-sm">
                                             
                                             <table class="table table-hover borderless mt-4 text-center">
                                                 <tr>
@@ -507,9 +507,9 @@
 
 
                              <!-- PRODUCTS TO REVIEW -->
-                             <div class="container p-5 rounded mb-5" style='background:white;height:550px;overflow-y:auto;'>
+                             <div class="container p-lg-5 p-md-5 px-sm-2 rounded mb-5 pt-5" style='background:white;height:550px;overflow-y:auto;'>
                                 <div class="row mb-3">
-                                    <div class="col">
+                                    <div class="col px-sm-0">
                                         <div class='d-flex flex-row'>
                                             <div class='flex-fill'>
                                                 <h4>Products To Review</h4>
@@ -539,7 +539,7 @@
                                                 if($count) {
                                         ?>
                                     <div class="col px-0">
-                                        <div class="container px-2">
+                                        <div class="container px-2 table-responsive-sm">
                                             <table class="table table-hover borderless mt-4">
 
  
@@ -626,7 +626,7 @@
                         </div>
 
 
-                        <div class="col-lg-6 col-md-6">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
 
                             <!-- ADDRESSES -->
                             <div class="container p-5 mb-5 rounded" style='background:white;'>
@@ -648,7 +648,7 @@
                                 </div>
                                 
                                 <div class="row border-top">
-                                    <div class="col">
+                                    <div class="col-lg-3 col-md-4 col-sm-3">
                                         <div class="container px-0">
 
                                             <?php 
@@ -800,7 +800,7 @@
                             
 
                             <!-- MESSAGES -->
-                            <div class="container p-5 rounded mb-5" style='background:white;height:650px;'>
+                            <div class="container p-lg-5 p-md-5 px-sm-2 rounded mb-5 pt-5" style='background:white;height:650px;'>
                                 <div class="row mb-3">
                                     <div class="col-4">   
                                         <h4>Inbox</h4>  

@@ -635,13 +635,13 @@
         $isFinal = $row['is_final']; // DONE WHEN SUBMIT BUTTON IS CLICKED. ALL DATA INSIDE IS CONSIDERED FINAL WHETHER FILLED OUT OR NOT.
 
             if($finalRatingScore == 0 && $finalImages == 0){
-                echo "<small class='text-gray font-weight-light'>REVIEW PRODUCT</small>";
+                echo "<small class='text-gray font-weight-light'>REVIEW</small>";
             } else {
                 echo "<small class='text-gray font-weight-light'>REVIEWED</small>";
             }
 
         } else {
-            echo "<small class='text-gray font-weight-light'>REVIEW PRODUCT</small>";
+            echo "<small class='text-gray font-weight-light'>REVIEW</small>";
         }
     }
 

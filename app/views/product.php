@@ -876,7 +876,7 @@ if(isset($_SESSION['id'])) {
                                       <h1 style='font-size:50px'>
                                         <?= number_format((float)$averageRating, 1, '.', '')?>
                                       </h1>
-                                      <h3 class='text-gray pt-5'>
+                                      <h3 class='text-gray pt-4'>
                                         &nbsp;/&nbsp;5
                                       </h3>
                                   
