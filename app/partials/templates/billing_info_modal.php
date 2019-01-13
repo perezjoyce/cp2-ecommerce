@@ -331,7 +331,7 @@
                              <div class="form-group row mb-5">
                                 <label for='modeOfPayment' class='col'>Payment Mode*</label>
                                 <div class="input-group col-9">
-                                    <select class="custom-select" id="modeOfPayment" onchange="window.modeOfPayment()">
+                                    <select class="custom-select" id="modeOfPayment">
                                         <option value='...' selected="...">...</option>
                                             <?php 
                                                 $sql = " SELECT * FROM tbl_payment_modes ";
@@ -350,7 +350,7 @@
                             </div>
 
                             <p id="billing_info_error"></p>
-                            
+
                             <div class="container px-0 mb-5" id='billing_info_buttons'>
                                 <!-- CHECKOUT BUTTON -->
                                 <div class="row">

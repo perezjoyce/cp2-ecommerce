@@ -2,7 +2,7 @@
 require_once '../../config.php';
 
 // if(isset($_POST['modeOfPaymentId'])) {
-    $payment_mode_id = 1; // $_POST['modeOfPaymentId'] ?? 2;
+    $payment_mode_id = $_POST['modeOfPaymentId']; // $_POST['modeOfPaymentId'] ?? 2;
     $cartSession = $_SESSION['cart_session'];
     $userId = $_SESSION['id'];
     $transactionCode = $_SESSION['transaction_code'];
