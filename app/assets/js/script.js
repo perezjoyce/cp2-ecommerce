@@ -3130,7 +3130,7 @@ $(document).ready( () => {
 	var tz = moment.tz.guess();
 	$.each(utcDateTime2, function(i, element){
 		var dateTimeStr = $(element).text().trim();		
-		$(element).text(moment(dateTimeStr).tz(tz).format("Y-m-d H:i:s"));
+		$(element).text(moment(dateTimeStr).tz(tz).format("LLL"));
 	});
 
 	// moment.utc('2019-01-10 17:48:13').toDate()
