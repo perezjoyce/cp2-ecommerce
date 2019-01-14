@@ -180,8 +180,8 @@
     <!-- BOOTSTRAP JS -->
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <script src="<?= BASE_URL ?>/node_modules/moment-timezone/builds/moment-timezone-with-data.min.js"></script>
     <script src="<?= BASE_URL ?>/node_modules/moment/moment.js"></script>
+    <script src="<?= BASE_URL ?>/node_modules/moment-timezone/builds/moment-timezone-with-data.min.js"></script>
 
     <script src="<?= BASE_URL ?>/node_modules/timeago.js/dist/timeago.min.js"></script>
     <!-- EXTERNAL JS -->
