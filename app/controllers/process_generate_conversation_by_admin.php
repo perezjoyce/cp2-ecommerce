@@ -101,6 +101,5 @@ $clientId = $_GET['userId'];
     echo json_encode([
         "messageItemSelected" => $messageItemSelected,
         "messageDetails" => $messageDetails,
-        "conversationId" => $conversationId,
-        "otherMessageItems" => []
+        "conversationId" => $conversationId
     ]);
