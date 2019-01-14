@@ -87,17 +87,7 @@
                                             </div>
                                         </td>
                                         <td width='15%'>User Type</td>
-                                        <td width='20%'>
-                                            <div class="d-flex align-items-center text-center justify-content-center">
-                                                <div>
-                                                    Status
-                                                </div>
-                                                <div class='d-flex flex-column'>
-                                                    <i class="fas fa-angle-up text-gray pl-2 sort_inventory" data-status='<?=$id?>' data-column="status" data-order='ASC' style='cursor: pointer;'></i>
-                                                    <i class="fas fa-angle-down text-gray pl-2 sort_inventory" data-status='<?=$id?>' data-column="status" data-order='DESC' style='cursor: pointer;'></i>
-                                                </div>
-                                            </div>
-                                        </td>
+                                        <td width='20%'>Status</td>
                                         <td width='15%'>Action</td>
                                     </tr> 
                                 </thead>
@@ -112,16 +102,11 @@
                                                 $username = $row['username'];
                                                 $email = $row['email'];
                                                 $userType = $row['userType'];
+                                                $userType = strtoupper($userType);
                                                 $isSeller = $row['isSeller'];
                                                 $status = $row['status'];
                         
-                                                if($status == 1) {
-                                                    echo "Active";
-                                                } elseif ($status == 0) {
-                                                    echo "Deactivated";
-                                                } else {
-                                                    echo "Pending Deactivation";
-                                                }
+                                               
                                           
                         
                                     ?>
@@ -150,7 +135,6 @@
                                                 <td class='mx-0' width='20%'> 
                                                     <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
                                                         <div class='py-3 text-secondary'>
-                                                            <span>&#36;&nbsp;</span>
                                                             <span><?= $email ?></span>
                                                         </div>
                                                     </a>
@@ -185,7 +169,17 @@
                                                 <td class='mx-0' width='20%'> 
                                                     <div class="d-flex align-items-center py-3">
                                                         <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='btn_view_order_history flex-fill text-center text-secondary' style='cursor:pointer;size:15px;'>
-                                                        <?= $status ?>
+                                                        <?php 
+
+                                                            if($status == 1) {
+                                                                echo "Active";
+                                                            } elseif ($status == 0) {
+                                                                echo "Deactivated";
+                                                            } else {
+                                                                echo "Pending Deactivation";
+                                                            }
+                                                        
+                                                        ?>
                                                         </a>
                                                     </div>
                                                 
@@ -205,16 +199,17 @@
                                                                     <!-- ONCE CLICKED, BUTTON WILL BE CHANGED -->
                                                                 
                                                                     <a class="dropdown-item btn_store_products_view" data-href='<?= BASE_URL ."/app/partials/templates/product_modal.php?id=". $productId?>'>
-                                                                        <small>VIEW</small>
+                                                                        <small>VIEW PROFILE</small>
                                                                     </a>
                                                                     
-                                                                    <!-- ONCE CLICKED, WILL BE TRANSFERRED TO SHIPPING -->
-                                                                    <a class="dropdown-item" href="store-edit-product.php?id=<?=$id?>&productid=<?=$id?>">
-                                                                        <small>SET AS SELLER</small>
-                                                                    </a>
                                                                     <!-- ONCE CLICKED, WILL BE TRANSFERRED TO ORDER HISTORY -->
                                                                     <a class="dropdown-item btn_delete_product" data-userid='<?= $id ?>' href="#">
-                                                                        <small>BLOCK</small>
+                                                                        <small>DEACTIVATE</small>
+                                                                    </a>
+
+                                                                    <!-- ONCE CLICKED, WILL BE TRANSFERRED TO ORDER HISTORY -->
+                                                                    <a class="dropdown-item btn_delete_product" data-userid='<?= $id ?>' href="#">
+                                                                        <small>DELETE</small>
                                                                     </a>
                                                                     
                                                                 </div>
