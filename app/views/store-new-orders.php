@@ -110,7 +110,7 @@
                                 <thead>
                                     <tr class='py-0'>
                                     
-                                        <td width='15%'>Time Ago</td>
+                                        <td width='15%'>Date</td>
                                         <td width='15%'>Client</td>
                                         <!-- <td width='15%'>Transaction Code</td> -->
                                         <td width='20%'>Transaction Code</td>

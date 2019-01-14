@@ -60,7 +60,7 @@
     <title>Mamaroo</title>
 
     <!-- ICON -->
-    <link rel="shortcut icon" href="../assets/images/kangaroo-logo.png">
+    <link rel="shortcut icon" href="../assets/images/logo-1.png">
 
     <!-- GOOGLE FONTS -->
     <!-- <link href="https://fonts.googleapis.com/css?family=Fredoka+One|Open+Sans:300,400,400italic,600|Roboto" rel="stylesheet"> -->
