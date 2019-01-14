@@ -12,7 +12,7 @@
         </div>
 
 
-        <div class="col">
+        <div class="col" style='height:80vh;overflow-y:auto;'>
 
             <div class="row float-right">
                 <button id='close_modal' type="button" class="close mr-3 mt-2" data-dismiss="modal" aria-label="Close">
@@ -132,7 +132,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="input-group col pt-4">
-                                                    <input type="text" class="form-control added_category" placeholder="Additional category.">
+                                                    <input type="text" class="form-control" name='added_category' placeholder="Additional category.">
                                                 </div>
                                             </div>
                                         </div>

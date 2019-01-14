@@ -3159,7 +3159,7 @@ $(document).ready( () => {
 		$('.additional_brand div:last').after(" <div class='container-fluid px-0 additional_brand'>" +
 			"<div class='row no-gutters'>" +
 			"<div class='col-lg-3 col-md-4 col-sm-12 pt-3'></div>" +
-			"<div class='input-group col pt-3 additional_brand'>" +
+			"<div class='input-group col pt-3'>" +
 			"<input type='text' class='form-control' placeholder='Additional brand.'></div></div></div>");
 	})
 
@@ -3170,8 +3170,9 @@ $(document).ready( () => {
 		$('.additional_category div:last').after("<div class='container-fluid px-0 additional_category'>" +
 			"<div class='row no-gutters'>" +
 			"<div class='col-lg-3 col-md-4 col-sm-12 pt-3'></div>" +
-			"<div class='input-group col pt-3 additional_category'>" +
-			"<input type='text' class='form-control' placeholder='Additional category.'></div></div></div>");
+			"<div class='input-group col pt-3'>" +
+			"<input type='text' class='form-control' name='added_category' placeholder='Additional category.'>" + 
+			"</div></div></div>");
 	})
 
 	//ADD TYPE ROW
@@ -3181,7 +3182,7 @@ $(document).ready( () => {
 		$('.additional_type div:last').after("<div class='container-fluid px-0 additional_type'>" + 
 			"<div class='row no-gutters'>" +
 			"<div class='col-lg-3 col-md-4 col-sm-12 pt-3'></div>" +
-			"<div class='input-group col pt-3 additional_type'>" +
+			"<div class='input-group col pt-3'>" +
 			"<input type='text' class='form-control' placeholder='Additional type.'></div></div></div>");
 	})
 
@@ -3191,7 +3192,7 @@ $(document).ready( () => {
 		$('#sname').val();
 		$('#owner').val();
 		$('#saddress').val();
-		
+
 		var brands = [];
 		var categories = [];
 		var types = [];
