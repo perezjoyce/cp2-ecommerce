@@ -31,13 +31,13 @@
             <div class="col">
                 
                 <!-- SEARCH BAR -->
-                <div class='container p-5 rounded' style='background:white;'>
+                <div class='container-fluid py-lg-5 py-md-3 pt-sm-5 px-lg-5 px-md-3 px-sm-0 rounded' style='background:white;'>
                     
                     <div class="row mx-0">
                         <!-- CONTACTS AREA -->
-                        <div class="col-4" style='background:white;height:460px;overflow-y:auto;'>
+                        <div class="col-lg-3 col-md-4 col-sm-3" style='background:white;height:460px;overflow-y:auto;'>
 
-                            <div class="row mx-0">
+                            <div class="row no-gutters px-0 mx-0">
                         
                                 <div class="input-group input-group-lg">
                                     <div class="input-group-prepend">
@@ -105,31 +105,50 @@
                                         <td> 
                                             <a data-sellerid='<?= $clientId ?>' data-conversationid='<?=$conversationId?>' class='selected_conversation'>
                                                 <div class='d-flex flex-row align-items-center' style='justify-content:flex-start;'>
-                                                    <div class='flex pr-2'>
-                                                        <img src='<?= $profile_pic ?>' style='width:50px;height:50px;' class='rounded-circle'>
-                                                    </div>   
-                                                    <div class='flex-fill vanish-sm vanish-md'>
+                                                    <?php 
+                                                        $logo = getStoreLogo ($conn,$userId);
+                                                        $logo = BASE_URL ."/". $profile_pic . "_80x80.jpg";
+                                                        if($isSeller == 'no') { 
+                                                    ?>
+                                                        <div class='flex pr-2'>
+                                                            <img src='<?= $profile_pic ?>' style='width:50px;height:50px;' class='rounded-circle'>
+                                                        </div>   
+                                                    <?php } else { ?>
+                                                        <div class='flex d-flex align-items-end pr-2'>
+                                                            <img src='<?= $logo ?>' style='width:50px;height:50px;' class='rounded-circle'>
+                                                            <img src='<?= $profile_pic ?>' style='width:25px;height:25px;margin-left:-20px;' class='rounded-circle'>
+                                                        </div>   
+                                                    <?php } ?>
+                                                   
+                                                    <div class='flex-fill vanish-sm'>
                                                         <div class='d-flex flex-column'>
                                                         
                                                             <div class='text-secondary font-weight-bold'>
                                                                 <?php 
-                                                                    if(getFirstName($conn, $clientId) && getLastName($conn, $clientId)){
-                                                                        $firstName = getFirstName ($conn,$clientId);
-                                                                        $firstName = ucwords(strtolower($firstName));
-                                                                        $lastName = getLastName($conn,$clientId);
-                                                                        $lastName = ucwords(strtolower($lastName));
 
-                                                                        echo $firstName . " " . $lastName;
+                                                                    if($isSeller == 'no') {
+                                                                        if(getFirstName($conn, $clientId) && getLastName($conn, $clientId)){
+                                                                            $firstName = getFirstName ($conn,$clientId);
+                                                                            $firstName = ucwords(strtolower($firstName));
+                                                                            $lastName = getLastName($conn,$clientId);
+                                                                            $lastName = ucwords(strtolower($lastName));
 
+                                                                            echo $firstName . " " . $lastName;
+
+                                                                        } else {
+                                                                            $username = getUsername ($conn,$client);
+                                                                            $username = ucwords(strtolower($username));
+                                                                            echo $username;
+                                                                        }
                                                                     } else {
-                                                                        $username = getUsername ($conn,$userId);
-                                                                        $username = ucwords(strtolower($username));
-                                                                        echo $username;
+                                                                        echo getStoreName ($conn,$client);
+                                                                        // $logo = getStoreLogo ($conn,$userId);
+                                                                        // $logo = BASE_URL ."/". $profile_pic . "_80x80.jpg";
                                                                     }
                                                                 ?>
                                                             </div>
                                                             <div class='text-gray'>
-                                                                <?= getLastLogin($conn, $clientId) ?> 
+                                                                <small><?= getLastLogin($conn, $clientId) ?> </small>
                                                             </div>
                                                             
 
