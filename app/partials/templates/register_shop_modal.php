@@ -144,7 +144,7 @@
 
                         <!-- TYPES -->
                         <div class="form-group row mb-5">
-                            <label for='types' class="col-lg-3 col-md-3 col-sm-12">Brands</label>
+                            <label for='types' class="col-lg-3 col-md-3 col-sm-12">Types</label>
                             <div class="input-group col" id='types'>
                                 <div class="container-fluid px-lg-0 px-md-0 pl-sm-3 pr-sm-0">
                                     <div class="row no-gutters">   

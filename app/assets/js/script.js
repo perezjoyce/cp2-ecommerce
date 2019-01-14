@@ -3166,7 +3166,7 @@ $(document).ready( () => {
 	$(document).on('click', '#btn_add_category',function(e){
 		e.preventDefault;
 		
-		$('.additional_category').after("<div class='container-fluid px-0 additional_category'>" +
+		$('.additional_category div:last').after("<div class='container-fluid px-0 additional_category'>" +
 			"<div class='row no-gutters'>" +
 			"<div class='col-lg-3 col-md-4 col-sm-12 pt-3'></div>" +
 			"<div class='input-group col pt-3 additional_category'>" +
@@ -3177,7 +3177,7 @@ $(document).ready( () => {
 	$(document).on('click', '#btn_add_type',function(e){
 		e.preventDefault;
 		
-		$('.additional_type').after("<div class='row no-gutters'>" +
+		$('.additional_type div:last').after("<div class='row no-gutters'>" +
 			"<div class='col-lg-3 col-md-4 col-sm-12 pt-3'></div>" +
 			"<div class='input-group col pt-3 additional_type'>" +
 			"<input type='text' class='form-control' placeholder='Additional type.'></div></div>");
