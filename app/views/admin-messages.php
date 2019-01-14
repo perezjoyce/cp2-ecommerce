@@ -52,8 +52,7 @@
                             <div class="row mx-0">
                                 <table class="table table-hover borderless" id='sender_container'>
                                                 
-                                            
-                                <tr class='d-flex flex-column'>
+
                                     <?php 
                                         // CHECK IF THERE IS AN EXISTING CONVERSATIONS INITIATED BY THE BUYER
                                         $sql = "SELECT * FROM tbl_users";
@@ -65,6 +64,15 @@
                                             $clientId = $row['id'];
                                             $isSeller = $row['isSeller'];
                                             $status = $row['status'];
+
+                                            $profile_pic = $row['profile_pic'];
+                                            if($profile_pic == "") {
+                                                $profile_pic = DEFAULT_PROFILE; 
+                                                $prefix = "rounded";
+                                            } else {
+                                                $profile_pic = BASE_URL ."/". $profile_pic . "_80x80.jpg";
+                                                $prefix = "";
+                                            } 
 
                                             $sql2 = "SELECT * FROM tbl_conversations WHERE `to` = ?";
                                             $statement2 = $conn->prepare($sql2);
@@ -92,12 +100,13 @@
                                     ?>
 
 
-                                        <!-- IMAGE, NAME AND VARIATION -->
+                                    <!-- IMAGE, NAME AND VARIATION -->
+                                    <tr class='d-flex flex-column'>
                                         <td> 
                                             <a data-sellerid='<?= $clientId ?>' data-conversationid='<?=$conversationId?>' class='selected_conversation'>
                                                 <div class='d-flex flex-row align-items-center' style='justify-content:flex-start;'>
                                                     <div class='flex pr-2'>
-                                                        <img src='<?= BASE_URL ."/" .getProfilePic ($conn,$clientId).".jpg" ?>' style='width:50px;height:50px;' class='rounded-circle'>
+                                                        <img src='<?= $profile_pic ?>' style='width:50px;height:50px;' class='rounded-circle'>
                                                     </div>   
                                                     <div class='flex-fill vanish-sm vanish-md'>
                                                         <div class='d-flex flex-column'>
@@ -129,14 +138,12 @@
                                                 </div>
                                             </a> 
                                         </td>
+                                    </tr>
+
 
                                     <?php } ?> 
-                                </tr>
 
                       
-                                            
-
-
                                 </table>
                             </div>
                         </div>
@@ -166,11 +173,8 @@
                                                     <p class='$backgroundClass'>".$row2['message']."</p>                    
                                                 </div>";
                                             }
-                                            
                                         }
-
                                         echo $messageDetails;
- 
                                     }
                                     
                                     ?>
