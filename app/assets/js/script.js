@@ -2360,7 +2360,6 @@ $(document).ready( () => {
 		};
 
 		$.get("../../app/controllers/process_generate_conversation_by_admin.php", data, function(response){
-
 			let data = $.parseJSON(response);
 			$('#message_box .message_items').html(data.messageItemSelected);
 			$('#message_box .message_details-container').html(data.messageDetails);
@@ -2387,8 +2386,6 @@ $(document).ready( () => {
 			$('#profile_message_container').html(data.messageDetails);
 			let container = $('#profile_message_container');
 			container.scrollTop(container[0].scrollHeight);
-
-
 		});
 	})
 

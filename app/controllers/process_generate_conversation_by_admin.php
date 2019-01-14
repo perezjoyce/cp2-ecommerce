@@ -2,7 +2,7 @@
 require_once '../../config.php';
 
 $adminId = $_SESSION['id'];
-$clientId = $_GET['sellerId'];
+$clientId = $_GET['userId'];
 
 // check if there is already a previous conversation
     $sql = "SELECT * FROM tbl_conversations 
@@ -49,8 +49,6 @@ $clientId = $_GET['sellerId'];
         }
 
      
-        
-
         // fetch the last message
         $sql5 = "SELECT u.*, m.* FROM tbl_messages m 
             JOIN tbl_users u on u.id=m.user_id        
