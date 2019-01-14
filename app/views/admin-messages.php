@@ -106,7 +106,7 @@
                                             <a data-sellerid='<?= $clientId ?>' data-conversationid='<?=$conversationId?>' class='selected_conversation'>
                                                 <div class='d-flex flex-row align-items-center' style='justify-content:flex-start;'>
                                                     <?php 
-                                                        $logo = getStoreLogo ($conn,$userId);
+                                                        $logo = getStoreLogo ($conn,$clientId);
                                                         $logo = BASE_URL ."/". $profile_pic . "_80x80.jpg";
                                                         if($isSeller == 'no') { 
                                                     ?>
@@ -136,12 +136,12 @@
                                                                             echo $firstName . " " . $lastName;
 
                                                                         } else {
-                                                                            $username = getUsername ($conn,$client);
+                                                                            $username = getUsername ($conn,$clientId);
                                                                             $username = ucwords(strtolower($username));
                                                                             echo $username;
                                                                         }
                                                                     } else {
-                                                                        echo getStoreName ($conn,$client);
+                                                                        echo getStoreName ($conn,$clientId);
                                                                         // $logo = getStoreLogo ($conn,$userId);
                                                                         // $logo = BASE_URL ."/". $profile_pic . "_80x80.jpg";
                                                                     }
