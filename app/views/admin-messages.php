@@ -106,8 +106,8 @@
                                             <a data-sellerid='<?= $clientId ?>' data-conversationid='<?=$conversationId?>' class='selected_conversation'>
                                                 <div class='d-flex flex-row align-items-center' style='justify-content:flex-start;'>
                                                     <?php 
-                                                        $logo = getStoreLogo ($conn,$clientId);
-                                                        $logo = BASE_URL ."/". $profile_pic . "_80x80.jpg";
+                                                        $logo = getStoreLogo($conn,$clientId);
+                                                        $logo = BASE_URL ."/". $logo . "_80x80.jpg";
                                                         if($isSeller == 'no') { 
                                                     ?>
                                                         <div class='flex pr-2'>

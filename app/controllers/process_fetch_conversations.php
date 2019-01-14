@@ -28,9 +28,19 @@ $sql = "SELECT u.*, m.* FROM tbl_messages m
         
     } else {
         
-        $messageDetails .= "<div class='message_details__items'>
-                <p>This will be the start of your conversation with ".getStoreName ($conn,$sellerId)." </p>                    
-            </div>";
+        $storeName = getStoreName($conn,$sellerId);
+
+        if($storeName) {
+            $messageDetails .= "<div class='message_details__items'>
+                    <p>This will be the start of your conversation with ".getStoreName($conn,$sellerId)." </p>                    
+                </div>";
+        } else {
+            $username = getUsername ($conn,$clientId);
+            $username = ucwords(strtolower($username));
+            $messageDetails .= "<div class='message_details__items'>
+                    <p>This will be the start of your conversation with ".$username." </p>                    
+                </div>";
+        }
     }  
 
     
