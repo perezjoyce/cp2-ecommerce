@@ -45,7 +45,7 @@
                                             <i class="fas fa-search" style='background:white;'></i>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control border-right-0 border-left-0 border-top-0" id="search_client_name" placeholder="Search for client names here..." style='font-size:14px;'>
+                                    <input type="text" class="form-control border-right-0 border-left-0 border-top-0" id="search_client_name" placeholder="Search names..." style='font-size:14px;'>
                                 </div>
                             </div>
                             
@@ -74,28 +74,7 @@
                                                 $prefix = "";
                                             } 
 
-                                            $sql2 = "SELECT * FROM tbl_conversations WHERE `to` = ?";
-                                            $statement2 = $conn->prepare($sql2);
-                                            $statement2->execute([$_SESSION['id']]);
-                                            $count2 = $statement2->rowCount();
-
-                                            if($count2){
-                                                $row2 = $statement2->fetch();
-                                                $conversationId = $row2['id'];
-                                            } else {
-                                                $sql3 = "INSERT INTO tbl_conversations SET `from`=?, `to`=?, date=now()";
-                                                    $statement3 = $conn->prepare($sql3);
-                                                    $statement3->execute([$_SESSION['id'], $clientId]);
-
-                                                    // Fetch again because we already inserted a new conversation
-                                                    $sql4 = "SELECT * FROM tbl_conversations 
-                                                        WHERE `from`=? AND `to`=?"; 
-                                                    $statement4 = $conn->prepare($sql4);
-                                                    $statement4->execute([$_SESSION['id'], $clientId]);
-                                                    $row4 = $statement4->fetch();
-                                                    $conversationId = $row4['id'];
-                                            }
-                    
+                                            
 
                                     ?>
 
@@ -103,7 +82,7 @@
                                     <!-- IMAGE, NAME AND VARIATION -->
                                     <tr class='d-flex flex-column'>
                                         <td> 
-                                            <a data-userid='<?= $clientId ?>' data-conversationid='<?=$conversationId?>' class='selected_user'>
+                                            <a data-userid='<?= $clientId ?>' class='selected_user'>
                                                 <div class='d-flex flex-row align-items-center' style='justify-content:flex-start;'>
                                                     <?php 
                                                         $logo = getStoreLogo($conn,$clientId);
