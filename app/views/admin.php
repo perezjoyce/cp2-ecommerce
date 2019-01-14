@@ -11,10 +11,10 @@
             if($currentUser['userType'] == "admin") {
                 require_once "../partials/admin_header.php";
             } else {
-                echo '<script>history.go(-1);</script>';
+                echo "<script>window.location.href='".BASE_URL."/app/views/'</script>";
             }
         } else {
-            echo '<script>history.go(-1);</script>';
+            echo "<script>window.location.href='".BASE_URL."/app/views/'</script>";
         }
 
     }
