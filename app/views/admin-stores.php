@@ -112,7 +112,7 @@
                                                 // $firstName = $row['first_name'];
                                                 // $lastName = $row['last_name'];
                                                 $storeName = $row['name'];
-                                                $dateCreated = $row['date_created'];
+                                                $memberSince = $row['date_created'];
                                                 $storeAddress = $row['store_address'];
                                                 $firstName = $row['first_name'];
                                                 $firstName = ucwords($firstName);
@@ -177,11 +177,11 @@
 
                                                 
 
-                                                <!-- MEMEBER SINCE -->
-                                                <td class='mx-0' width='15%'> 
+                                                 <!-- MEMEBER SINCE -->
+                                                 <td class='mx-0' width='15%'> 
                                                     <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
                                                         <div class='py-3 text-secondary memberSince'>
-                                                            <span><?= $dateCreate ?></span>
+                                                            <span><?= $memberSince ?></span>
                                                         </div>
                                                     </a>
                                                 </td>
