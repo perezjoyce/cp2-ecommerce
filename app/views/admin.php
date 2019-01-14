@@ -1,5 +1,21 @@
 <?php require_once "../../config.php";?>
-<?php require_once "../partials/admin_header.php";?>
+<?php
+
+    if(empty($_GET['id'])){ 
+        echo "<script>window.location.href='".BASE_URL."/app/views/'</script>";
+    } else {
+
+        $adminid = $_SESSION['id'];
+        $currentUser = getUser($conn, $adminid);
+        if($currentUser['userType'] == "admin") {
+            require_once "../partials/admin_header.php";
+        } else {
+            echo "<script>window.location.href='".BASE_URL."/app/views/'</script>";
+        }
+
+    }
+
+?>
     <!-- PAGE CONTENT -->
     <br>
     <div class="container p-0 my-lg-5 mt-md-5">
