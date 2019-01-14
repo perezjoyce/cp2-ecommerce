@@ -3126,14 +3126,14 @@ $(document).ready( () => {
 		$('#lastLoginTimeAgo').text(agoTime);
 	  }
 
-	var utcDateTime2 = $('.purchaseDateTimeAgo').text();
-	var utcDateTime2 = utcDateTime2.trim();
-	var agoTime2 = moment.utc(utcDateTime2).fromNow();
-	$('.purchaseDateTimeAgo').text(agoTime2);
+	var utcDateTime2 = $('.purchaseDateTimeAgo');
+	var tz = moment.tz.guess();
+	$.each(utcDateTime2, function(i, element){
+		var dateTimeStr = $(element).text().trim();		
+		$(element).text(moment(dateTimeStr).tz(tz).format("Y-m-d H:i:s"));
+	});
 
 	// moment.utc('2019-01-10 17:48:13').toDate()
-	
-	
 	// DEACTIVATION
 	$(document).on('click', '#btn_deactivate', function(e){
 		e.preventDefault;

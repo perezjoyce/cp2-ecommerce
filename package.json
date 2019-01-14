@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "moment": "^2.23.0",
+    "moment-timezone": "^0.5.23",
     "timeago.js": "^4.0.0-beta.2"
   }
 }
