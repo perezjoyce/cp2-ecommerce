@@ -82,8 +82,8 @@
                                             </div>
                                             
                                         <?php } ?>
-                                        <div class="container-fluid px-0">
-                                            <div class="row no-gutters additional_brand">
+                                        <div class='container-fluid px-0 additional_brand'>
+                                            <div class="row no-gutters">
                                                 <div class="col-lg-3 col-md-4 col-sm-12 pt-4">
                                                     <button class="btn border" id='btn_add_brand' type='button'>
                                                         &#65291;&nbsp;Brand
@@ -132,7 +132,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="input-group col pt-4">
-                                                    <input type="text" class="form-control" placeholder="Additional category.">
+                                                    <input type="text" class="form-control added_category" placeholder="Additional category.">
                                                 </div>
                                             </div>
                                         </div>
@@ -167,8 +167,8 @@
                                             </div>
                                             
                                         <?php } ?>
-                                        <div class="container-fluid px-0">
-                                            <div class="row no-gutters additional_type">
+                                        <div class='container-fluid px-0 additional_type'>
+                                            <div class="row no-gutters">
                                                 <div class="col-lg-3 col-md-4 col-sm-12 pt-4">
                                                     <button class="btn border" id='btn_add_type' type='button'>
                                                         &#65291;&nbsp;Type

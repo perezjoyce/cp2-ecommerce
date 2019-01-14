@@ -3156,10 +3156,11 @@ $(document).ready( () => {
 	$(document).on('click', '#btn_add_brand',function(e){
 		e.preventDefault;
 		
-		$('.additional_brand').append("<div class='row no-gutters'>" +
+		$('.additional_brand div:last').after(" <div class='container-fluid px-0 additional_brand'>" +
+			"<div class='row no-gutters'>" +
 			"<div class='col-lg-3 col-md-4 col-sm-12 pt-3'></div>" +
 			"<div class='input-group col pt-3 additional_brand'>" +
-			"<input type='text' class='form-control' placeholder='Additional brand.'></div></div>");
+			"<input type='text' class='form-control' placeholder='Additional brand.'></div></div></div>");
 	})
 
 	//ADD CATEGORY ROW
@@ -3177,11 +3178,42 @@ $(document).ready( () => {
 	$(document).on('click', '#btn_add_type',function(e){
 		e.preventDefault;
 		
-		$('.additional_type div:last').after("<div class='row no-gutters'>" +
+		$('.additional_type div:last').after("<div class='container-fluid px-0 additional_type'>" + 
+			"<div class='row no-gutters'>" +
 			"<div class='col-lg-3 col-md-4 col-sm-12 pt-3'></div>" +
 			"<div class='input-group col pt-3 additional_type'>" +
-			"<input type='text' class='form-control' placeholder='Additional type.'></div></div>");
+			"<input type='text' class='form-control' placeholder='Additional type.'></div></div></div>");
 	})
+
+	// GET SHOP REGISTRATION VALUES
+	
+	$('#btn_submit_store_application').click(function() {
+		$('#sname').val();
+		$('#owner').val();
+		$('#saddress').val();
+		
+		var brands = [];
+		var categories = [];
+		var types = [];
+
+		$('#brands input:checked').each(function() {
+			brands.push(this.brand);
+		});
+
+		$('#categories input:checked').each(function() {
+			categories.push(this.category);
+		});
+
+		$('#types input:checked').each(function() {
+			types.push(this.type);
+		});
+
+
+
+		// now names contains all of the names of checked checkboxes
+		// do something with it
+	});
+	
 
 	
 
