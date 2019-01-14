@@ -250,7 +250,7 @@ $(document).ready( () => {
 						location.href="index.php?id=" + data.id;
 					} else if (response.status == "adminLogIn") {
 						data = $.parseJSON(dataFromPHP);
-						location.href="users.php?id=" + data.id;
+						location.href="admin.php?id=" + data.id;
 					} else if (response.status == "loginFailed") {
 						$("#login_error_message").css("color", "#c471ed");
 						$("#login_error_message").html(response.message); 
@@ -3171,7 +3171,7 @@ $(document).ready( () => {
 			"<div class='row no-gutters'>" +
 			"<div class='col-lg-3 col-md-4 col-sm-12 pt-3'></div>" +
 			"<div class='input-group col pt-3'>" +
-			"<input type='text' class='form-control' name='added_category' placeholder='Additional category.'>" + 
+			"<input type='text' class='form-control added_category' name='added_category' placeholder='Additional category.'>" + 
 			"</div></div></div>");
 	})
 
