@@ -124,7 +124,7 @@
                                         </div>
                                         <?php } ?>
 
-                                        <div class="container-fluid px-0">
+                                        <div class="container-fluid px-0 d-flex flex-column">
                                             <div class="row no-gutters additional_category">
                                                 <div class="col-lg-3 col-md-4 col-sm-12 pt-4">
                                                     <button class="btn border" id='btn_add_category' type='button'>
