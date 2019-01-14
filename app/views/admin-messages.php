@@ -103,7 +103,7 @@
                                     <!-- IMAGE, NAME AND VARIATION -->
                                     <tr class='d-flex flex-column'>
                                         <td> 
-                                            <a data-sellerid='<?= $clientId ?>' data-conversationid='<?=$conversationId?>' class='selected_conversation'>
+                                            <a data-userid='<?= $clientId ?>' data-conversationid='<?=$conversationId?>' class='selected_user'>
                                                 <div class='d-flex flex-row align-items-center' style='justify-content:flex-start;'>
                                                     <?php 
                                                         $logo = getStoreLogo($conn,$clientId);

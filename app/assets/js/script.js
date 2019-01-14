@@ -2351,6 +2351,27 @@ $(document).ready( () => {
 		});
 	});
 
+
+	// GENERATING CONVERSATION ID (ID)
+	$(document).on('click', '.selected_user', function(e){
+		e.preventDefault();
+		let data = {
+			userId: $(this).data('userid')
+		};
+
+		$.get("../../app/controllers/process_generate_conversation_by_admin.php", data, function(response){
+
+			let data = $.parseJSON(response);
+			$('#message_box .message_items').html(data.messageItemSelected);
+			$('#message_box .message_details-container').html(data.messageDetails);
+			$('#message_details-conversationId').val(data.conversationId);
+			// update the message details to show the text conversation with seller
+
+			let container = $('#message_box .message_details-container');
+			container.scrollTop(container[0].scrollHeight);
+		});
+	});
+
 	// FETCHING MESSAGES IN PROFILE INBOX
 	$(document).on('click', '.selected_conversation', function(e){
 		e.preventDefault();

@@ -218,21 +218,21 @@
                                             </div>
                                         </a>
                                         <div class="dropdown-menu py-0">
-                                            <a class="dropdown-item py-3" href="admin-users.php?id=<?=$userId?>">
+                                            <a class="dropdown-item py-3" href="admin-manage-users.php?id=<?=$userId?>">
                                                 <i class="fas fa-spinner pr-2 text-secondary"></i>
-                                                <small>MANAGE USERS</small>
+                                                <small>USERS</small>
                                             </a>
-                                            <a class="dropdown-item py-3" href="admin-stores.php?id=<?=$userId?>">
+                                            <a class="dropdown-item py-3" href="admin-manage-stores.php?id=<?=$userId?>">
                                                 <i class="fas fa-shipping-fast pr-1 text-secondary"></i>
-                                                <small>MANAGE STORES</small>
+                                                <small>STORES</small>
                                             </a>
-                                            <a class="dropdown-item py-3" href="store-applications.php?id=<?=$userId?>">
+                                            <a class="dropdown-item py-3" href="admin-manage-store-applications.php?id=<?=$userId?>">
                                                 <i class="fas fa-clipboard-check pr-2 text-secondary"></i>
-                                                <small>MANAGE APPLICATIONS</small>
+                                                <small>APPLICATIONS</small>
                                             </a>
-                                            <a class="dropdown-item py-3" href="ads.php?id=<?=$userId?>">
+                                            <a class="dropdown-item py-3" href="admin-manage-ads.php?id=<?=$userId?>">
                                                 <i class="fas fa-eraser pr-2 text-secondary"></i>
-                                                <small>MANAGE ADS</small>
+                                                <small>ADS</small>
                                             </a>
                                         </div>
                                     </li>
@@ -252,7 +252,7 @@
                                 <div class='d-flex flex-row'>
                                     <li class="nav-item pl-lg-5 pl-md-4 d-flex flex-row">
                                         <a class="nav-link" href="admin-account.php?id=<?=$userId?>"> 
-                                            <div class='<?= isCurrentPage('messages') ? "underline" : "" ?>'>ACCOUNT</div>
+                                            <div class='<?= isCurrentPage('account') ? "underline" : "" ?>'>ACCOUNT</div>
                                         </a>
                                     </li>
                                     <!-- <li><span class='badge text-light my-0 message-badge$storeId'>0</span></li></li> -->
