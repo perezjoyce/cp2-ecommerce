@@ -126,7 +126,7 @@
                                         <img src='<?= $profile_pic ?>' height='20' class='<?= $prefix ?>circle mr-1'>
                                         <small>HELLO,&nbsp; ADMIN&nbsp;</small>
                                         <small>
-                                            <?= $firstName ."&nbsp;". $lastName ?>
+                                            <?= strtoupper($firstName) ?>
                                         </small>
                                         <small>!</small>
                                         
@@ -137,7 +137,7 @@
                                         <div class="dropdown-divider py-0 my-0"></div>
                                         <a class="dropdown-item py-3" href='../controllers/process_logout.php?id=<?=$userId?>'>
                                             <i class='fas fa-sign-in-alt pr-2'></i>
-                                            <small> LOG OUT</small>
+                                            <small>LOG OUT</small>
                                         </a>
                                     </div>
                             </div>

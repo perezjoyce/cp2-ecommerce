@@ -63,8 +63,8 @@
                             <table class="table table-hover borderless text-center bg-gray mb-0">
                                 <thead>
                                     <tr class='py-0'>
-                                        <td width='10%'>Id</td>
-                                        <td width='20%'>
+                                        <td width='5%'>Id</td>
+                                        <td width='15%'>
                                             <div class="d-flex align-items-center text-center justify-content-center">
                                                 <div>
                                                     Username
@@ -87,7 +87,8 @@
                                             </div>
                                         </td>
                                         <td width='15%'>User Type</td>
-                                        <td width='20%'>Status</td>
+                                        <td width='15%'>Member Since</td>
+                                        <td width='15%'>Status</td>
                                         <td width='15%'>Action</td>
                                     </tr> 
                                 </thead>
@@ -100,7 +101,9 @@
                                                 // $firstName = $row['first_name'];
                                                 // $lastName = $row['last_name'];
                                                 $username = $row['username'];
+                                                $memberSince = $row['date_created'];
                                                 $email = $row['email'];
+                                                $email = hide_email($email);
                                                 $userType = $row['userType'];
                                                 $userType = strtoupper($userType);
                                                 $isSeller = $row['isSeller'];
@@ -114,7 +117,7 @@
                                             <div>
 
                                                 <!-- USER ID -->
-                                                <td class='mx-0' width='10%'> 
+                                                <td class='mx-0' width='5%'> 
                                                     <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
                                                         <div class='py-3 text-secondary'>
                                                         <?= $id ?>
@@ -123,7 +126,7 @@
                                                 </td>
 
                                                 <!-- USERNAME -->
-                                                <td class='mx-0' width='20%'> 
+                                                <td class='mx-0' width='15%'> 
                                                     <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
                                                         <div class='py-3 text-secondary'>
                                                         <?= $username ?>
@@ -165,8 +168,18 @@
                                                     </a>
                                                 </td>
 
-                                                <!-- SATUS -->
-                                                <td class='mx-0' width='20%'> 
+                                                <!-- MEMEBER SINCE -->
+                                                <td class='mx-0' width='15%'> 
+                                                    <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
+                                                        <div class='py-3 text-secondary purchaseDateTimeAgo'>
+                                                            <span><?= $memberSince ?></span>
+                                                        </div>
+                                                    </a>
+                                                </td>
+
+
+                                                <!-- STATUS -->
+                                                <td class='mx-0' width='15%'> 
                                                     <div class="d-flex align-items-center py-3">
                                                         <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='btn_view_order_history flex-fill text-center text-secondary' style='cursor:pointer;size:15px;'>
                                                         <?php 
