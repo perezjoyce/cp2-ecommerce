@@ -5,12 +5,16 @@
         echo "<script>window.location.href='".BASE_URL."/app/views/'</script>";
     } else {
 
-        $adminid = $_SESSION['id'];
-        $currentUser = getUser($conn, $adminid);
-        if($currentUser['userType'] == "admin") {
-            require_once "../partials/admin_header.php";
+        if(isset($_SESSION['id'])){
+            $adminid = $_SESSION['id'];
+            $currentUser = getUser($conn, $adminid);
+            if($currentUser['userType'] == "admin") {
+                require_once "../partials/admin_header.php";
+            } else {
+                echo '<script>history.go(-1);</script>';
+            }
         } else {
-            echo "<script>window.location.href='".BASE_URL."/app/views/'</script>";
+            echo '<script>history.go(-1);</script>';
         }
 
     }
