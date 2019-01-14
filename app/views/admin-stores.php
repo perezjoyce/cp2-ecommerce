@@ -60,21 +60,12 @@
                                
                     <?php 
 
-                        $sql = "SELECT * FROM tbl_users";
-                        $statement = $conn->prepare($sql);
-                        $statement->execute();
-                        
-
-                        // $profile_pic = $row['profile_pic'];
-
-
-                        // if($profile_pic == "") {
-                        //     $profile_pic = DEFAULT_PROFILE; 
-                        //     $prefix = "rounded";
-                        // } else {
-                        //     $profile_pic = BASE_URL ."/". $profile_pic . "_80x80.jpg";
-                        //     $prefix = "";
-                        // } 
+                        $sql = " SELECT s.id AS 'store_id', s.logo, s.name, s.date_created, s.store_address, s.user_id, u.first_name, u.last_name 
+                                FROM tbl_stores s 
+                                JOIN tbl_users u 
+                                ON s.user_id=u.id ";
+                                $statement = $conn->prepare($sql);
+                                $statement->execute();
                       
                     ?>
                      <div class="row">
@@ -87,7 +78,7 @@
                                         <td width='15%'>
                                             <div class="d-flex align-items-center text-center justify-content-center">
                                                 <div>
-                                                    Username
+                                                    Shop
                                                 </div>
                                                 <div class='d-flex flex-column'>
                                                     <i class="fas fa-angle-up text-gray pl-2 sort_inventory" data-userid='<?=$id?>' data-column="username" data-order='ASC' style='cursor: pointer;'></i>
@@ -95,10 +86,10 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td width='20%'>
+                                        <td width='15%'>
                                             <div class="d-flex align-items-center text-center justify-content-center">
                                                 <div>
-                                                    Email
+                                                   Owner
                                                 </div>
                                                 <div class='d-flex flex-column'>
                                                     <i class="fas fa-angle-up text-gray pl-2 sort_inventory" data-email='<?=$id?>' data-column="email" data-order='ASC' style='cursor: pointer;'></i>
@@ -106,7 +97,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td width='15%'>User Type</td>
+                                        <td width='20%'>Address</td>
                                         <td width='15%'>Member Since</td>
                                         <td width='15%'>Status</td>
                                         <td width='15%'>Action</td>
@@ -117,17 +108,29 @@
                                     <?php 
                                     
                                             while($row = $statement->fetch()){
-                                                $id = $row['id'];
+                                                $storeId = $row['id'];
                                                 // $firstName = $row['first_name'];
                                                 // $lastName = $row['last_name'];
-                                                $username = $row['username'];
-                                                $memberSince = $row['date_created'];
-                                                $email = $row['email'];
-                                                $email = hide_email($email);
-                                                $userType = $row['userType'];
-                                                $userType = strtoupper($userType);
-                                                $isSeller = $row['isSeller'];
-                                                $status = $row['status'];
+                                                $storeName = $row['name'];
+                                                $dateCreated = $row['date_created'];
+                                                $storeAddress = $row['store_address'];
+                                                $firstName = $row['first_name'];
+                                                $firstName = ucwords($firstName);
+                                                $lastName = $row['last_name'];
+                                                $lastName = ucwords($lastName);
+                                                $sellerId = $row['user_id'];
+                                                
+
+                                                // $logo = $row['logo'];
+
+
+                                                // if($logo == "") {
+                                                //     $logo = DEFAULT_PROFILE; 
+                                                //     $prefix = "rounded";
+                                                // } else {
+                                                //     $logo = BASE_URL ."/". $logo . "_80x80.jpg";
+                                                //     $prefix = "";
+                                                // } 
                         
                                                
                                           
@@ -136,63 +139,49 @@
                                         <tr>
                                             <div>
 
-                                                <!-- USER ID -->
+                                                <!-- STORE ID -->
                                                 <td class='mx-0' width='5%'> 
                                                     <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
                                                         <div class='py-3 text-secondary'>
-                                                        <?= $id ?>
+                                                        <?= $storeId ?>
                                                         </div>
                                                     </a>
                                                 </td>
 
-                                                <!-- USERNAME -->
+                                                <!-- NAME -->
                                                 <td class='mx-0' width='15%'> 
                                                     <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
                                                         <div class='py-3 text-secondary'>
-                                                        <?= $username ?>
+                                                        <?= $storeName ?>
                                                         </div>
                                                     </a>
                                                 </td>
                                                 
-                                                <!-- EMAIL -->
-                                                <td class='mx-0' width='20%'> 
-                                                    <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                        <div class='py-3 text-secondary'>
-                                                            <span><?= $email ?></span>
-                                                        </div>
-                                                    </a>
-                                                </td>
-
-                                                <!-- USER TYPE -->
+                                                <!-- OWNER -->
                                                 <td class='mx-0' width='15%'> 
                                                     <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                        <div class='py-3 text-gray'>
-                                                            <div class="dropdown show">
-                                                                <a class="btn border dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                    <small><?=$userType?></small>    
-                                                                </a>
-
-                                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                                
-                                                                    <a class="dropdown-item btn_store_products_view" data-href='<?= BASE_URL ."/app/partials/templates/product_modal.php?id=". $id?>'>
-                                                                        <small>ADMIN</small>
-                                                                    </a>
-                                                                    <a class="dropdown-item btn_store_products_view" data-href='<?= BASE_URL ."/app/partials/templates/product_modal.php?id=". $id?>'>
-                                                                        <small>USER</small>
-                                                                    </a>
-                                                                   
-                                                                </div>
-                                                               
-                                                            </div>
+                                                        <div class='py-3 text-secondary'>
+                                                            <span><?= $firstName . "&nbsp;" . $lastName ?></span>
                                                         </div>
                                                     </a>
                                                 </td>
+
+                                                 <!-- ADDRESS -->
+                                                 <td class='mx-0' width='20%'> 
+                                                    <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
+                                                        <div class='py-3 text-secondary'>
+                                                            <span><?= $storeAddress ?></span>
+                                                        </div>
+                                                    </a>
+                                                </td>
+
+                                                
 
                                                 <!-- MEMEBER SINCE -->
                                                 <td class='mx-0' width='15%'> 
                                                     <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
                                                         <div class='py-3 text-secondary memberSince'>
-                                                            <span><?= $memberSince ?></span>
+                                                            <span><?= $dateCreate ?></span>
                                                         </div>
                                                     </a>
                                                 </td>
@@ -204,10 +193,17 @@
                                                         <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='btn_view_order_history flex-fill text-center text-secondary' style='cursor:pointer;size:15px;'>
                                                         <?php 
 
+                                                            $sql = "SELECT * FROM tbl_users WHERE id =?";
+                                                            $statement = $conn->prepare($sql);
+                                                            $statement->execute([$sellerId]);
+                                                            $row = $statement->fetch();
+                                                            $status = $row['status'];
+
                                                             if($status == 1) {
                                                                 echo "Active";
                                                             } elseif ($status == 0) {
-                                                                echo "Deactivated";
+                                                                // STORE ACCOUNT IS DELETED UPON DEACTIVATION HENCE THIS WON'T BE DISPLAYED
+                                                                echo "";
                                                             } else {
                                                                 echo "Pending Deactivation";
                                                             }
@@ -232,17 +228,17 @@
                                                                     <!-- ONCE CLICKED, BUTTON WILL BE CHANGED -->
                                                                 
                                                                     <a class="dropdown-item btn_store_products_view" data-href='<?= BASE_URL ."/app/partials/templates/product_modal.php?id=". $productId?>'>
-                                                                        <small>VIEW PROFILE</small>
+                                                                        <small>VIEW SHOP</small>
                                                                     </a>
                                                                     
-                                                                    <!-- ONCE CLICKED, WILL BE TRANSFERRED TO ORDER HISTORY -->
+    
                                                                     <a class="dropdown-item btn_delete_product" data-userid='<?= $id ?>' href="#">
-                                                                        <small>DEACTIVATE</small>
+                                                                        <small>VIEW ACCOUNT</small>
                                                                     </a>
 
                                                                     <!-- ONCE CLICKED, WILL BE TRANSFERRED TO ORDER HISTORY -->
                                                                     <a class="dropdown-item btn_delete_product" data-userid='<?= $id ?>' href="#">
-                                                                        <small>DELETE</small>
+                                                                        <small>DELETE ACCOUNT</small>
                                                                     </a>
                                                                     
                                                                 </div>

@@ -218,11 +218,11 @@
                                             </div>
                                         </a>
                                         <div class="dropdown-menu py-0">
-                                            <a class="dropdown-item py-3" href="users.php?id=<?=$userId?>">
+                                            <a class="dropdown-item py-3" href="admin-users.php?id=<?=$userId?>">
                                                 <i class="fas fa-spinner pr-2 text-secondary"></i>
                                                 <small>MANAGE USERS</small>
                                             </a>
-                                            <a class="dropdown-item py-3" href="stores.php?id=<?=$userId?>">
+                                            <a class="dropdown-item py-3" href="admin-stores.php?id=<?=$userId?>">
                                                 <i class="fas fa-shipping-fast pr-1 text-secondary"></i>
                                                 <small>MANAGE STORES</small>
                                             </a>
