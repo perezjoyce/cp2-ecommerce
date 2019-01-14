@@ -108,7 +108,7 @@
                                     <?php 
                                     
                                             while($row = $statement->fetch()){
-                                                $storeId = $row['id'];
+                                                $storeId = $row['store_id'];
                                                 // $firstName = $row['first_name'];
                                                 // $lastName = $row['last_name'];
                                                 $storeName = $row['name'];
