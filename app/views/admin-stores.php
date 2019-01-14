@@ -193,11 +193,11 @@
                                                         <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='btn_view_order_history flex-fill text-center text-secondary' style='cursor:pointer;size:15px;'>
                                                         <?php 
 
-                                                            $sql = "SELECT * FROM tbl_users WHERE id =?";
-                                                            $statement = $conn->prepare($sql);
-                                                            $statement->execute([$sellerId]);
-                                                            $row = $statement->fetch();
-                                                            $status = $row['status'];
+                                                            $sql2 = "SELECT * FROM tbl_users WHERE id =?";
+                                                            $statement2 = $conn->prepare($sql2);
+                                                            $statement2->execute([$sellerId]);
+                                                            $row2 = $statement2->fetch();
+                                                            $status = $row2['status'];
 
                                                             if($status == 1) {
                                                                 echo "Active";
