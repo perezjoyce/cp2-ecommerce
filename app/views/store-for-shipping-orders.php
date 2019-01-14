@@ -153,7 +153,7 @@
                                             <!-- PURCHASE DATE -->
                                             <td class='mx-0' width='15%'>
                                                 <div class='py-4 text-secondary purchaseDateTimeAgo'>
-                                                    <?=$purchaseDate?>
+                                                    <?=$row['purchase_date']?>
                                                 </div>
                                             </td>
 
