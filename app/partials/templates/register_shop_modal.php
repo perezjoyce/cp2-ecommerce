@@ -132,7 +132,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="input-group col pt-4">
-                                                    <input type="text" class="form-control" name='added_category' placeholder="Additional category.">
+                                                    <input type="text" class="form-control added_category" name='added_category' placeholder="Additional category.">
                                                 </div>
                                             </div>
                                         </div>
