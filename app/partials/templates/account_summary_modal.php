@@ -1,7 +1,7 @@
 <?php
     require_once '../../../config.php';
     $storeId = $_GET['id'];
-    $storeInfo = getStore ($conn,$id);
+    $storeInfo = getStore ($conn,$storeId);
     $storeName = $storeInfo['name'];
     $storeLogo = $storeInfo['logo'];
 
