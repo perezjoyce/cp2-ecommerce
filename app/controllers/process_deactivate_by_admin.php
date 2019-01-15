@@ -21,6 +21,13 @@ if(isset($_SESSION['id'])){
                 WHERE id = ?";
                     $statement2 = $conn->prepare($sql2);
                     $statement2->execute([$userId]);
+                
+                // GET STORE ID
+                $sql5 = "SELECT * FROM tbl_stores WHERE `user_id` = ?";
+                $statement5 = $conn->prepare($sql5);
+                $statement5->execute([$userId]);
+                $row5 = $statement5->fetch();
+                $storeId = $row5['id'];
 
                 // DELETE STORE
                 $sql3 =  "DELETE FROM tbl_stores WHERE `user_id` = ?  AND id = ?";
