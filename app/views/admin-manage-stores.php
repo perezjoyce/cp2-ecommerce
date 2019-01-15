@@ -227,7 +227,7 @@
                                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                                     <!-- ONCE CLICKED, BUTTON WILL BE CHANGED -->
                                                                 
-                                                                    <a class="dropdown-item btn_view_shop" data-href='<?= BASE_URL ."/app/partials/templates/view_shop_modal.php?id=". $storeId?>'>
+                                                                    <a class="dropdown-item btn_view_acount" data-href='<?= BASE_URL ."/app/partials/templates/view_shop_modal.php?id=". $storeId?>'>
                                                                         <small>VIEW SHOP</small>
                                                                     </a>
                                                                     
