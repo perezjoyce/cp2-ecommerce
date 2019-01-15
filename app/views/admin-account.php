@@ -56,7 +56,12 @@
                                
                                 
                     <?php
-                    $sql = " SELECT store_id, SUM(credit) as 'storeCredit', SUM(debit) as 'storeDebit' FROM tbl_seller_account GROUP BY store_id ";
+                    $sql = " SELECT ROUND(COUNT(store_id) /2, 0) 
+                            AS 'transactionCount', store_id, SUM(credit) 
+                            AS 'storeCredit', SUM(debit) 
+                            AS 'storeDebit' 
+                            FROM tbl_seller_account 
+                            GROUP BY store_id";
                                 $statement = $conn->prepare($sql);
                                 $statement->execute();
                                 $count = $statement->rowCount();
@@ -71,15 +76,16 @@
                                 <thead>
                                     <tr class='py-0'>
                                     
-                                        <td width='25%'>Store</td>
-                                        <td width='25%'>Credit</td>
-                                        <td width='25%'>
-                                            <span>Credit Charge</span>
+                                        <td width='20%'>Store</td>
+                                        <td width='20%'>Transaction Count</td>
+                                        <td width='20%'>Credit</td>
+                                        <td width='20%'>
+                                            Credit Charge
                                             <a data-toggle="tooltip" title="Credit Charge is 3%" data-original-title="#">
                                                 <i class="far fa-question-circle text-gray"></i>
                                             </a>
                                         </td>
-                                        <td width='25%'>View</td>
+                                        <td width='20%'>View</td>
                                         
                                     </tr> 
                                 </thead>
@@ -89,6 +95,8 @@
                                     <?php 
                                         while($row = $statement->fetch()){ 
                                             $storeId = $row['store_id'];
+                                            $transactionCount = $row['transactionCount'];
+                                            // $transactionCount = round($transactionCount, 0);
                                             $credit = $row['storeCredit'];
                                             $creidt = number_format((float)$credit, 2, '.', ',');
                                             $debit = $row['storeDebit'];
@@ -97,6 +105,13 @@
                                     
                                         <tr>
                                             <!-- STORE NAME -->
+                                            <td class='mx-0' width='25%'>
+                                                <div class='py-4 text-secondary'>
+                                                    <?=getStoreNameFromStoreId($conn, $storeId)?>
+                                                </div>
+                                            </td>
+
+                                            <!-- TRANSACTION COUNT -->
                                             <td class='mx-0' width='25%'>
                                                 <div class='py-4 text-secondary'>
                                                     <?=getStoreNameFromStoreId($conn, $storeId)?>
