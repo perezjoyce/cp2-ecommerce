@@ -73,10 +73,10 @@
                                     
                                         <td width='25%'>Store</td>
                                         <td width='25%'>Credit</td>
-                                        <td width='25%' class='d-flex flex-row'>
+                                        <td width='25%'>
                                             <span>Credit Charge</span>
                                             <a data-toggle="tooltip" title="Credit Charge is 3%" data-original-title="#">
-                                                &nbsp;<i class="far fa-question-circle text-gray"></i>
+                                                <i class="far fa-question-circle text-gray"></i>
                                             </a>
                                         </td>
                                         <td width='25%'>View</td>
@@ -90,16 +90,16 @@
                                         while($row = $statement->fetch()){ 
                                             $storeId = $row['store_id'];
                                             $credit = $row['storeCredit'];
-                                            // $creidt = number_format((float)$credit, 2, '.', ',');
+                                            $creidt = number_format((float)$credit, 2, '.', ',');
                                             $debit = $row['storeDebit'];
-                                            // $debit = number_format((float)$debit, 2, '.', ',');
+                                            $debit = number_format((float)$debit, 2, '.', ',');
                                     ?>
                                     
                                         <tr>
                                             <!-- STORE NAME -->
                                             <td class='mx-0' width='25%'>
                                                 <div class='py-4 text-secondary'>
-                                                    <?=getStore ($conn,$storeId)?>
+                                                    <?=getStoreNameFromStoreId($conn, $storeId)?>
                                                 </div>
                                             </td>
 

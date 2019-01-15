@@ -7,7 +7,7 @@
         echo "<script>window.location.href='".BASE_URL."/app/views/'</script>";
     } else {
 
-        $storeInfo = $storeId = getStore ($conn,$id);
+        $storeInfo = getStore ($conn,$id);
         $id = $_SESSION['id'];
         $currentUser = getUser($conn, $id);
         $isSeller = $currentUser['isSeller'] == "yes" ? 1 : 0;   
@@ -93,10 +93,10 @@
                                     
                                         <td width='25%'>Date</td>
                                         <td width='25%'>Credit</td>
-                                        <td width='25%' class='d-flex flex-row'>
-                                            <span>Debit</span>
+                                        <td width='25%'>
+                                          Debit
                                             <a data-toggle="tooltip" title="Credit Charge is 3%" data-original-title="#">
-                                                &nbsp;<i class="far fa-question-circle text-gray"></i>
+                                                <i class="far fa-question-circle text-gray"></i>
                                             </a>
                                         </td>
                                         <td width='25%'>Description</td>

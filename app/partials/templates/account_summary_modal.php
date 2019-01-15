@@ -1,6 +1,11 @@
 <?php
     require_once '../../../config.php';
     $storeId = $_GET['id'];
+    $storeInfo = getStore ($conn,$id);
+    $storeName = $storeInfo['name'];
+    $storeLogo = $storeInfo['logo'];
+
+    $storeLogo = BASE_URL ."/". $storeLogo . "_80x80.jpg";
 ?>
 
 
@@ -19,7 +24,11 @@
                 <div class='container p-5 rounded' style='background:white;'>
                     <div class="row mx-0">
                         <div class="col-lg-6 col-md-4 col-sm-12">
-                            <h4>Store Account</h4>
+                            <div class="d-flex align-items-center">
+                                <img src='<?= $storeLogo ?>' style='width:60px;height:60px;' class='rounded-circle'>
+                                <h4><?= $storeName ?>&nbsp; Account</h4>
+                            </div>
+                            
                         </div>
                         <!-- <div class="col">
                             <div class="input-group input-group-lg">
@@ -59,10 +68,10 @@
                                     
                                         <td width='25%'>Date</td>
                                         <td width='25%'>Credit</td>
-                                        <td width='25%' class='d-flex flex-row'>
-                                            <span>Debit</span>
+                                        <td width='25%'>
+                                          Debit
                                             <a data-toggle="tooltip" title="Credit Charge is 3%" data-original-title="#">
-                                                &nbsp;<i class="far fa-question-circle text-gray"></i>
+                                               <i class="far fa-question-circle text-gray"></i>
                                             </a>
                                         </td>
                                         <td width='25%'>Description</td>
