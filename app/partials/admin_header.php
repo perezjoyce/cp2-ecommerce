@@ -163,7 +163,7 @@
                         <!-- <div class="col-6"> -->
                                 <div class="d-flex align-items-center">
                                     <!-- <div id='header-logo'></div>&nbsp; -->
-                                    <a class="navbar-brand flex-fill" href="index.php" id="website_name" style='font-family:Fredoka One;'>
+                                    <a class="navbar-brand flex-fill" id="website_name" style='font-family:Fredoka One;'>
                                         Mamaroo
                                     </a>
 
