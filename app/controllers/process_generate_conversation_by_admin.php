@@ -39,7 +39,7 @@ $clientId = $_GET['userId'];
         } else {
             $sql6 = "SELECT * FROM tbl_stores WHERE user_id=?";
             $statement6 = $conn->prepare($sql6);
-            $statement6->execute([$sellerId]);
+            $statement6->execute([$clientId]);
             $sellerrow = $statement6->fetch();
             $name = $sellerrow['name'];
         }
