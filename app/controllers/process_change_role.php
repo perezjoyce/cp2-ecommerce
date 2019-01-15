@@ -7,7 +7,7 @@ if(isset($_POST['userId'])) {
     $userId = $_POST['userId'];
     $role = $_POST['role'];
 
-    if($role == 'admin' || $roller == 'user') {
+    if($role == 'admin' || $role == 'user') {
 
         $sql = " UPDATE tbl_users SET userType = ? WHERE id = ? ";
         $statement = $conn->prepare($sql);
