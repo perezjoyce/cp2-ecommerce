@@ -3314,7 +3314,7 @@ $(document).ready( () => {
 		if(answer == true && flag == 0) {
 			$.post('../controllers/process_deactivate_by_admin.php', data, function(response){
 				if(response == 'success' ){
-					alert(data['userName'] + "'s account has been successfully deactivated. Her/his store has also been has been successfully deleted. Email was sent to inform"+ data['userName']+ " about this.");
+					alert(data['userName'] + "'s account has been successfully deactivated. Her/his store has also been has been successfully deleted. Email was sent to inform "+ data['userName']+ " about this.");
 					setTimeout(function(){window.location.reload()}, 1500);
 				} else if(response == 'unauthorized') {
 					alert("Unauthorized deactivation. The client, "+ data['userName'] + ", did not apply for the deactivation of his/her account.");

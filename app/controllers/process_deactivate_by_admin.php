@@ -5,6 +5,7 @@ if(isset($_SESSION['id'])){
     $userId = $_POST['userId'];
     $isSeller = $_POST['isSeller'];
     $status = $_POST['status'];
+    $username = $_POST['userName'];
 
     // VERIFY IF USER IS SELLER & HAS AN EXISTING STORE
     if($isSeller == "yes" && $status == 2) {
@@ -12,6 +13,12 @@ if(isset($_SESSION['id'])){
             $statement = $conn->prepare($sql);
             $statement->execute([$userId]);
             $count = $statement->rowCount();
+            $row = $statement->fetch();
+            $email = $row['email'];
+            // $firstName = $row['first_name'];
+            // $lastName = $row['last_name'];
+            
+
             if($count){
                 // CHANAGE STATUS FROM APPLYING FOR DEACTIVATION TO DEACTIVATED
                $sql2 =  "UPDATE tbl_users SET `status` = 0, first_name = 
@@ -40,7 +47,53 @@ if(isset($_SESSION['id'])){
                 $statement4->execute([$userId, $storeId]);
                 $count4 = $statement4->rowCount();
                 if(!$count4){
-                    echo "success";
+                    //SEND EMAIL
+
+                    $messageForClient =   
+                    "<form>
+                        <h4>Mamaroo Account Deactivation & Store Deletion</h4>
+                        <div style='padding-top:20px;'>As per your request, your Mamaroo account has been deactivated. Consequently, 
+                        your store has been deleted from the website. You may reactivate your account by loggin in but, 
+                        you'll have to go through the application process once again to be able to set up an online shop. 
+                        Please do not hesitate to contact us via our email address if you have concerns or questions.</div>   
+                        <div style='padding-top:20px;'>Sincerely, </div>   
+                        <div style='padding-top:30px;font-weight:bold;'>Team Mamaroo</div>
+                        <div style='padding-top:10px;'>mamaroo@gmail.com</div>
+                        <div>+06907-1234-4560</div>
+                        <div>+06919-1454-1160</div>
+                    </form>";
+
+                    
+                    $mail = new PHPMailer\PHPMailer\PHPMailer(true);
+                    $staff_email = 'jpgarcia.ph@gmail.com'; // where the email is comming from // replace with admin email in the future
+                    $users_email = $email;//Where the email will go // replace with $email
+                    $email_subject = 'Mamaroo Account Deactivation & Store Deletion';
+                    $email_body = $messageForClient;
+        
+                    try{
+                        $mail->isSMTP();
+                        $mail->Host = 'smtp.gmail.com';
+                        $mail->CharSet = 'UTF-8';
+                        $mail->SMTPAuth = true;
+                        $mail->Username = $staff_email;
+                        $mail->Password = '1Borongan!'; // totoong password
+                        $mail->SMTPSecure = 'tls';
+                        $mail->Port = 587;
+                        $mail->setFrom($staff_email,'Mamaroo');
+                        $mail->addAddress($users_email);
+                        $mail->isHTML(true);
+                        $mail->Subject = $email_subject;
+                        $mail->Body = $email_body;
+                        $mail->send();
+        
+                        echo "success";
+        
+        
+                        }catch (Exception $e){
+                            echo "Buyer Side: Sorry".$mail->ErrorInfo;
+                        }
+                    }
+
                 }
 
             } else {
@@ -51,6 +104,6 @@ if(isset($_SESSION['id'])){
     } else {
         echo "unauthorized";
     }
-}
+
 
 ?>
