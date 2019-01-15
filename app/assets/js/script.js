@@ -2361,12 +2361,33 @@ $(document).ready( () => {
 
 		$.get("../../app/controllers/process_generate_conversation_by_admin.php", data, function(response){
 			let data = $.parseJSON(response);
-			$('#profile_conversation_id').val(data.conversationId);
-			$('#profile_message_container').html(data.messageDetails);
-			let container = $('#profile_message_container');
+			$('#admin_profile_conversation_id').val(data.conversationId);
+			$('#admin_profile_message_container').html(data.messageDetails);
+			let container = $('#admin_profile_message_container');
 			container.scrollTop(container[0].scrollHeight);
 		});
 	});
+
+	//SENDING MESSAGES THROUGH ADMIN PROFILE INBOX
+	$(document).on('keyup', '#profile_message_input', function(e) {
+		if(e.keyCode == 13) {
+			let data = {
+				userId: $(this).data('userid'),
+				conversationId: $('#admin_profile_conversation_id').val(),
+				message: $(this).val()
+			}
+			$.post('../../app/controllers/process_send_message.php', data,
+				function(response){
+				// let data = $.parseJSON(response);
+				
+				let container = $('#admin_profile_message_container');
+				container.html(response);
+				container.scrollTop(container[0].scrollHeight);			
+			});
+
+			$(this).val("");
+		}
+	})
 
 	// FETCHING MESSAGES IN PROFILE INBOX
 	$(document).on('click', '.selected_conversation', function(e){

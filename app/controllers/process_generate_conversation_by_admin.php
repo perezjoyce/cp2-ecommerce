@@ -92,7 +92,7 @@ $clientId = $_GET['userId'];
             </div>";
 
             $messageDetails .= "<div class='message_details__items'>
-                    <p>This will be the start of your conversation with ".$name.".</p>                    
+                    <p>This will be the start of your conversation with ".$lastMessengerName.".</p>                    
                 </div>";
         }  
 

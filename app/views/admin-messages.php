@@ -149,7 +149,7 @@
                         <!-- MESSAGE AREA -->
                         <div class="col px-0">
                             <div class="d-flex flex-column">
-                                <div style='background:white;height:411px;overflow-y:auto;' id='profile_message_container'>
+                                <div style='background:white;height:411px;overflow-y:auto;' id='admin_profile_message_container'>
                                     <?php 
                                     if(isset($_SESSION['last_selected_conversation'])){
                                         $sql = "SELECT u.*, m.* FROM tbl_messages m 
@@ -179,10 +179,10 @@
                                 </div>
                                 <div>
                                     <form>
-                                        <input type="hidden" id='profile_conversation_id'>
+                                        <input type="hidden" id='admin_profile_conversation_id'>
                                         <textarea class="form-control border-0" 
-                                            id="profile_message_input" 
-                                            data-sellerid='<?= $storeInfo['user_id'] ?>' 
+                                            id="admin_profile_message_input" 
+                                            data-userid='<?= $clientId ?>' 
                                             style='width:100%;background:#eff0f5;resize:none;' 
                                             rows='2'></textarea>
                                     </form>
