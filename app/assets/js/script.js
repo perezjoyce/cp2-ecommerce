@@ -3280,7 +3280,7 @@ $(document).ready( () => {
 		let answer = confirm("Do you want to set " + data['userName'] + " as " + data['role'] + "?");
 
 		if(answer == true) {
-			$.post('../controllers/process_change_role.php', function(response){
+			$.post('../controllers/process_change_role.php', data, function(response){
 				if(response == 'success' ){
 					alert(data['userName'] + " has been successfully set as " + data['role']);
 					setTimeout(function(){window.location.reload()}, 1500);
