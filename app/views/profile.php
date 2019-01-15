@@ -874,7 +874,7 @@
                                             <?php 
                                                 // CHECK IF THERE IS AN EXISTING CONVERSATIONS INITIATED BY THE BUYER
                                                 $sql = "SELECT * FROM tbl_conversations 
-                                                WHERE `from` = ? OR `to`"; // named parameters
+                                                WHERE `from` = ? OR `to` =?"; // named parameters
                                                 $statement = $conn->prepare($sql);
                                                 $statement->execute([$id, $id]);
                                                 if($statement->rowCount()) {
