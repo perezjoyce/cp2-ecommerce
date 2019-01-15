@@ -3301,7 +3301,7 @@ $(document).ready( () => {
 		}
 
 		if(data['isSeller'] == 'yes' && data['status'] == 2){
-			answer = confirm("Do you want to deactivate the account of " + data['userName'] + "? This process will consequently delete the store of this user which cannot be undone.");
+			answer = confirm("Do you want to deactivate the account of " + data['userName'] + "? This process will consequently delete the store of this user -- a process which cannot be undone.");
 			flag = 0;
 		} else if(data['isSeller'] == 'yes' && data['status'] != 2) {
 			alert("Unauthorized deactivation. The client, "+ data['userName'] + ", did not apply for the deactivation of his/her account.");

@@ -38,8 +38,8 @@ if(isset($_SESSION['id'])){
                 $sql4 = "SELECT * FROM tbl_stores WHERE `user_id` = ? AND id = ?";
                 $statement4 = $conn->prepare($sql4);
                 $statement4->execute([$userId, $storeId]);
-                $count = $statement->rowCount();
-                if(!$count){
+                $count4 = $statement4->rowCount();
+                if(!$count4){
                     echo "success";
                 }
 
