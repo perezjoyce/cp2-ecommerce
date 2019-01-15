@@ -2465,7 +2465,7 @@ $(document).ready( () => {
 				// let data = $.parseJSON(response);
 				
 				if(response == 'fail'){
-					$('#sender_container').html("<tr><td><small>Sorry. There is no store with this name in your inbox.</small></td></tr>");
+					$('#sender_container').html("<tr><td><small>Sorry. There is no store or person with this name in your inbox.</small></td></tr>");
 					setTimeout(function(){window.location.reload()}, 2000);
 				}else{
 					$('#sender_container').html(response);
