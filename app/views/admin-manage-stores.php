@@ -37,7 +37,7 @@
                 <div class='container p-5 rounded' style='background:white;'>
                     <div class="row mx-0">
                         <div class="col-lg-6 col-md-4 col-sm-12">
-                            <h4>Manage Users</h4>
+                            <h4>Manage Shops</h4>
                         </div>
                         <div class="col">
                             <div class="input-group input-group-lg">
@@ -227,18 +227,17 @@
                                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                                     <!-- ONCE CLICKED, BUTTON WILL BE CHANGED -->
                                                                 
-                                                                    <a class="dropdown-item btn_store_products_view" data-href='<?= BASE_URL ."/app/partials/templates/product_modal.php?id=". $productId?>'>
+                                                                    <a class="dropdown-item btn_view_shop" data-href='<?= BASE_URL ."/app/partials/templates/view_shop_modal.php?id=". $storeId?>'>
                                                                         <small>VIEW SHOP</small>
                                                                     </a>
                                                                     
-    
-                                                                    <a class="dropdown-item btn_delete_product" data-userid='<?= $id ?>' href="#">
+                                                                    <a class="dropdown-item btn_view_account" href="#" data-href="../partials/templates/account_summary_modal.php?id=<?=$storeId?>" >
                                                                         <small>VIEW ACCOUNT</small>
                                                                     </a>
 
                                                                     <!-- ONCE CLICKED, WILL BE TRANSFERRED TO ORDER HISTORY -->
-                                                                    <a class="dropdown-item btn_delete_product" data-userid='<?= $id ?>' href="#">
-                                                                        <small>DELETE ACCOUNT</small>
+                                                                    <a class="dropdown-item btn_delete_product" data-storeid='<?= $storeId ?>' href="#">
+                                                                        <small>DELETE SHOP</small>
                                                                     </a>
                                                                     
                                                                 </div>
