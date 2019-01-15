@@ -34,18 +34,14 @@ $clientId = $_GET['userId'];
         $clientrow = $statement4->fetch();
         $isSeller = $clientrow['isSeller'];
 
-        if(!$isSeller) {
-            $logo = $clientrow['profile_pic'];
-            $logo = BASE_URL . "/".$logo .".jpg";
-            $name = $clientrow['name'];
+        if($isSeller == 'no'){
+            $name = $clientrow['username'];
         } else {
-            $sellerQuery = "SELECT * FROM tbl_stores WHERE user_id=?";
-            $sellerStatement = $conn->prepare($sellerQuery);
-            $sellerStatement->execute([$sellerId]);
-            $sellerRow = $sellerStatement->fetch();
-            $name = $sellerRow['name'];
-            $logo =  $sellerRow['logo'];
-            $logo = BASE_URL . "/".$logo .".jpg";
+            $sql6 = "SELECT * FROM tbl_stores WHERE user_id=?";
+            $statement6 = $conn->prepare($sql6);
+            $statement6->execute([$sellerId]);
+            $sellerrow = $statement6->fetch();
+            $name = $sellerrow['name'];
         }
 
      
@@ -57,16 +53,9 @@ $clientId = $_GET['userId'];
         $statement5->execute([$conversationId]);
 
         $lastMessengerName = $name;
-        $lastMessage = "";
         $messageDetails = "";
 
-        $messageItemSelected = "<div class='message_items__message'>
-                    <img src='".$logo."' height='60' width='60' class='circle'>
-                    <div class='m_partial_container'>
-                        <div class='font-weight-bold pl-1'>".$lastMessengerName."</div>
-                        <div class='message_partial pl-1'><small>Please identify the product you are inquiring of.</small></div>
-                    </div>
-                </div>";
+       
 
         if($statement5->rowCount()) {
 
@@ -83,14 +72,6 @@ $clientId = $_GET['userId'];
             }
             
         } else {
-            $messageItemSelected = "<div class='message_items__message'>
-                <img src='".$logo."' height='60' width='60' class='circle'>
-                <div class='m_partial_container'>
-                    <div class='font-weight-bold'>".$lastMessengerName."</div>
-                    <div class='message_partial'></div>
-                </div>
-            </div>";
-
             $messageDetails .= "<div class='message_details__items'>
                     <p>This will be the start of your conversation with ".$lastMessengerName.".</p>                    
                 </div>";
@@ -99,7 +80,6 @@ $clientId = $_GET['userId'];
     }
 
     echo json_encode([
-        "messageItemSelected" => $messageItemSelected,
         "messageDetails" => $messageDetails,
         "conversationId" => $conversationId
     ]);
