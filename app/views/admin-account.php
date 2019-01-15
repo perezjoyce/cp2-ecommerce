@@ -89,7 +89,7 @@
                                         
                                     </tr> 
                                 </thead>
-                                <tbody style='background:white;height:600px;overflow-y:auto;font-size:12px;'>
+                                <tbody style='background:white;height:600px;overflow-y:auto;font-size:14px;'>
 
   
                                     <?php 
@@ -105,21 +105,21 @@
                                     
                                         <tr>
                                             <!-- STORE NAME -->
-                                            <td class='mx-0' width='25%'>
+                                            <td class='mx-0' width='20%'>
                                                 <div class='py-4 text-secondary'>
                                                     <?=getStoreNameFromStoreId($conn, $storeId)?>
                                                 </div>
                                             </td>
 
                                             <!-- TRANSACTION COUNT -->
-                                            <td class='mx-0' width='25%'>
+                                            <td class='mx-0' width='20%'>
                                                 <div class='py-4 text-secondary'>
-                                                    <?=getStoreNameFromStoreId($conn, $storeId)?>
+                                                    <?= $transactionCount?>
                                                 </div>
                                             </td>
 
                                             <!-- BALANCE -->
-                                            <td class='mx-0' width='25%'> 
+                                            <td class='mx-0' width='20%'> 
                                                 <div class='d-flex flex-row justify-content-center text-secondary py-4'>
                                                     <div>&#36;&nbsp;</div>
                                                     <div><?=$credit?></div>
@@ -128,7 +128,7 @@
                                                 
 
                                             <!-- CREDIT CHARGE -->
-                                            <td class='mx-0' width='25%'> 
+                                            <td class='mx-0' width='20%'> 
                                                 <div class='d-flex flex-row justify-content-center text-secondary py-4'>
                                                     <div>&#36;&nbsp;</div>
                                                     <div><?=$debit?></div>
@@ -136,7 +136,7 @@
                                             </td>
 
                                             <!-- VIEW -->
-                                            <td class='mx-0' width='25%'>
+                                            <td class='mx-0' width='20%'>
                                                 <a data-href="../partials/templates/account_summary_modal.php?id=<?=$storeId?>" class='border-0 btn_view_account' style='cursor:pointer;size:15px;'>
                                                     <i class="far fa-file-pdf text-gray py-4" style='width:100%;'></i>
                                                 </a>
@@ -184,7 +184,7 @@
 
                                     </tr> 
                                 </thead>
-                                <tbody style='background:white;height:600px;overflow-y:auto;font-size:12px;'>
+                                <tbody style='background:white;height:600px;overflow-y:auto;font-size:14px;'>
 
                                     
                                         <tr>

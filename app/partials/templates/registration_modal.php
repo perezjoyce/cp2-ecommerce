@@ -88,7 +88,7 @@
                             FACEBOOK
                         </button>
                         <div class='flex-fill mb-5'>By signing up, you agree to Mamaroo's </div>
-                        <br><a href="#" class='text-primary'>Terms  & Conditions</a>. 
+                        <div><a href="#" class='text-primary'>Terms  & Conditions</a></div>. 
                     </div>
 
                 </form>

@@ -81,7 +81,7 @@
                                         
                                     </tr> 
                                 </thead>
-                                <tbody style='background:white;height:600px;overflow-y:auto;font-size:12px;'>
+                                <tbody style='background:white;height:600px;overflow-y:auto;font-size:14px;'>
 
   
                                     <?php 
@@ -152,7 +152,7 @@
 
                                     </tr> 
                                 </thead>
-                                <tbody style='background:white;height:600px;overflow-y:auto;font-size:12px;'>
+                                <tbody style='background:white;height:600px;overflow-y:auto;font-size:14px;'>
 
                                     
                                         <tr>
