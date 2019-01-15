@@ -2369,7 +2369,7 @@ $(document).ready( () => {
 	});
 
 	//SENDING MESSAGES THROUGH ADMIN PROFILE INBOX
-	$(document).on('keyup', '#profile_message_input', function(e) {
+	$(document).on('keyup', '#admin_profile_message_input', function(e) {
 		if(e.keyCode == 13) {
 			let data = {
 				userId: $(this).data('userid'),
