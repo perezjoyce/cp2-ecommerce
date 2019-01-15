@@ -2,7 +2,7 @@
 require_once '../../config.php';
 
 
-if(isset($userId)) {
+if(isset($_POST['userId'])) {
 
     $userId = $_POST['userId'];
     $role = $_POST['role'];
