@@ -95,7 +95,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td width='20%'>
+                                        <td>
                                             <div class="d-flex align-items-center text-center justify-content-center">
                                                 <div>
                                                     Email
@@ -134,8 +134,6 @@
                         
                                     ?>
                                         <tr>
-                                            <div>
-
                                                 <!-- USER ID -->
                                                 <td class='mx-0' width='5%'> 
                                                     <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
@@ -155,7 +153,7 @@
                                                 </td>
                                                 
                                                 <!-- EMAIL -->
-                                                <td class='mx-0' width='20%'> 
+                                                <td class='mx-0'> 
                                                     <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
                                                         <div class='py-3 text-secondary'>
                                                             <span><?= $email ?></span>
@@ -173,23 +171,20 @@
                                                                 </a>
 
                                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                                
                                                                     <a class="dropdown-item btn_store_products_view" data-href='<?= BASE_URL ."/app/partials/templates/product_modal.php?id=". $id?>'>
                                                                         <small>ADMIN</small>
                                                                     </a>
                                                                     <a class="dropdown-item btn_store_products_view" data-href='<?= BASE_URL ."/app/partials/templates/product_modal.php?id=". $id?>'>
                                                                         <small>USER</small>
                                                                     </a>
-                                                                   
                                                                 </div>
-                                                               
                                                             </div>
                                                         </div>
                                                     </a>
                                                 </td>
 
                                                 <!-- MEMEBER SINCE -->
-                                                <td class='mx-0' width='15%'> 
+                                                <td class='mx-0 vanish-md' width='15%'> 
                                                     <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
                                                         <div class='py-3 text-secondary memberSince'>
                                                             <span><?= $memberSince ?></span>
@@ -215,7 +210,6 @@
                                                         ?>
                                                         </a>
                                                     </div>
-                                                
                                                 </td>
 
 
@@ -225,7 +219,7 @@
                                                         <div class='py-3 text-gray'>
                                                             <div class="dropdown show">
                                                                 <a class="btn border dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                    <small>CHOOSE 1</small>    
+                                                                    <small class='vanish-md'>CHOOSE 1</small>    
                                                                 </a>
 
                                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -251,10 +245,6 @@
                                                         </div>
                                                     </a>
                                                 </td>
-
-                                                
-                                                
-                                            </div>
                                             
                                         </tr>
                                     <?php } ?>

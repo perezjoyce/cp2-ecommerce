@@ -69,7 +69,7 @@
                       
                     ?>
                      <div class="row">
-                        <div class="col-12 px-2 mb-0 table-responsive-sm">
+                        <div class="col-12 px-2 mb-0 table-responsive-sm table-responsive-md">
                             
                             <table class="table table-hover borderless text-center bg-gray mb-0">
                                 <thead>

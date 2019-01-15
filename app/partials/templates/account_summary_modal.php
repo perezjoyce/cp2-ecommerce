@@ -23,7 +23,7 @@
                 <!-- SEARCH BAR -->
                 <div class='container p-5 rounded' style='background:white;'>
                     <div class="row mx-0">
-                        <div class="col-lg-6 col-md-4 col-sm-12">
+                        <div class="col">
                             <div class="d-flex align-items-center">
                                 <img src='<?= $storeLogo ?>' style='width:50px;height:50px;' class='rounded-circle'>
                                 <h4>&nbsp;<?= $storeName ?>&nbsp; Account</h4>
