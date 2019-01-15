@@ -118,6 +118,7 @@
                                                 $firstName = ucwords($firstName);
                                                 $lastName = $row['last_name'];
                                                 $lastName = ucwords($lastName);
+                                                $owner = $firstName . "&nbsp;" . $lastName;
                                                 $sellerId = $row['user_id'];
                                                 
 
@@ -161,7 +162,7 @@
                                                 <td class='mx-0' width='15%'> 
                                                     <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
                                                         <div class='py-3 text-secondary'>
-                                                            <span><?= $firstName . "&nbsp;" . $lastName ?></span>
+                                                            <span><?= $owner ?></span>
                                                         </div>
                                                     </a>
                                                 </td>
@@ -236,7 +237,7 @@
                                                                     </a>
 
                                                                     <!-- ONCE CLICKED, WILL BE TRANSFERRED TO ORDER HISTORY -->
-                                                                    <a class="dropdown-item btn_delete_product" data-storeid='<?= $storeId ?>' href="#">
+                                                                    <a class="dropdown-item btn_deactivate" data-userid='<?= $sellerId ?>' href="#" data-username='<?=$owner?>' data-isseller='yes' data-status='<?=$status?>'>
                                                                         <small>DELETE SHOP</small>
                                                                     </a>
                                                                     

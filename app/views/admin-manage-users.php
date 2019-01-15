@@ -232,11 +232,6 @@
                                                                         <small>DEACTIVATE</small>
                                                                     </a>
 
-                                                                    <!-- ONCE CLICKED, WILL BE TRANSFERRED TO ORDER HISTORY -->
-                                                                    <a class="dropdown-item btn_delete_product" data-userid='<?= $id ?>' href="#" data-username='<?=$username?>' data-isseller='<?=$isSeller?>' data-status='<?=$status?>'>
-                                                                        <small>DELETE</small>
-                                                                    </a>
-                                                                    
                                                                 </div>
                                                                 <!-- put dropdown with two buttons: SEND MESSAGE, CONFIRM, CANCELL, COMPLETE -->
                                                             </div>

@@ -51,11 +51,10 @@ if(isset($_SESSION['id'])){
 
                     $messageForClient =   
                     "<form>
-                        <h4>Mamaroo Account Deactivation & Store Deletion</h4>
                         <div style='padding-top:20px;'>As per your request, your Mamaroo account has been deactivated. Consequently, 
-                        your store has been deleted from the website. You may reactivate your account by loggin in but, 
+                        your store has been deleted from the website. You may reactivate your account by logging in with your email or username and password but, 
                         you'll have to go through the application process once again to be able to set up an online shop. 
-                        Please do not hesitate to contact us via our email address if you have concerns or questions.</div>   
+                        We wish you well in your future endeavors.</div>   
                         <div style='padding-top:20px;'>Sincerely, </div>   
                         <div style='padding-top:30px;font-weight:bold;'>Team Mamaroo</div>
                         <div style='padding-top:10px;'>mamaroo@gmail.com</div>
