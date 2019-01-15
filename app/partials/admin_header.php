@@ -138,7 +138,7 @@
                                     <div class="dropdown-menu py-0" aria-labelledby="profileDropdown" id='profileDropdown_menu' >
                                         <div class="dropdown-divider py-0 my-0"></div>
                                         <a class="dropdown-item py-3" href='../controllers/process_logout.php?id=<?=$userId?>'>
-                                            <i class='fas fa-sign-in-alt pr-2'></i>
+                                            <i class='fas fa-sign-in-alt pr-2 text-secondary'></i>
                                             <small>LOG OUT</small>
                                         </a>
                                     </div>

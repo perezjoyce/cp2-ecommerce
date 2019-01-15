@@ -139,7 +139,7 @@
 
                             <div class="dropdown-menu py-0" aria-labelledby="profileDropdown" id='profileDropdown_menu' >
                                 <a class="dropdown-item py-3" href='profile.php?id=<?=$id?>'>
-                                    <i class="far fa-edit pr-2"></i>
+                                    <i class="far fa-edit pr-2 text-secondary"></i>
                                     <small>MY PROFILE</small>
                                 </a>
                                 <?php 
@@ -147,12 +147,12 @@
                                     if($storeId) {
                                 ?>
                                 <a class="dropdown-item py-3" href='store-profile.php?id=<?=$storeId?>'>
-                                    <i class="fas fa-store pr-2"></i>
+                                    <i class="fas fa-store pr-2 text-secondary"></i>
                                     <small>MY SHOP</small>
                                 </a>
                                     <?php } else { ?>
                                 <a class="dropdown-item py-3 modal-link-big" data-url='../partials/templates/register_shop_modal.php'>
-                                    <i class="fas fa-store pr-2"></i>
+                                    <i class="fas fa-store pr-2 text-secondary"></i>
                                     <small>OPEN MY SHOP</small>
                                 </a>
 
@@ -161,7 +161,7 @@
                                 <div class="dropdown-divider py-0"></div>
 
                                 <a class="dropdown-item py-3" href='../controllers/process_logout.php?id=<?=$id?>'>
-                                    <i class='fas fa-sign-in-alt pr-2'></i>
+                                    <i class='fas fa-sign-in-alt pr-2 text-secondary'></i>
                                     <small> LOG OUT</small>
                                 </a>
                             </div>

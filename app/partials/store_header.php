@@ -134,11 +134,11 @@
 
                                     <div class="dropdown-menu py-0" aria-labelledby="profileDropdown" id='profileDropdown_menu' >
                                         <a class="dropdown-item py-3" href='profile.php?id=<?=$id?>'>
-                                            <i class="far fa-edit pr-2"></i>
+                                            <i class="far fa-edit pr-2 text-secondary"></i>
                                             <small>MY PROFILE</small>
                                         </a>
                                         <a class="dropdown-item py-3" href='store-profile.php?id=<?= $storeId ?>'>
-                                            <i class="fas fa-store pr-2"></i>
+                                            <i class="fas fa-store pr-2 text-secondary"></i>
                                             <small>MY SHOP</small>
                                         </a>
                                         <!-- <a class="dropdown-item mb-4 btn_view_wishList" data-id='<?= $id ?>'>
@@ -148,7 +148,7 @@
                                         </a> -->
                                         <div class="dropdown-divider py-0 my-0"></div>
                                         <a class="dropdown-item py-3" href='../controllers/process_logout.php?id=<?=$id?>'>
-                                            <i class='fas fa-sign-in-alt pr-2'></i>
+                                            <i class='fas fa-sign-in-alt pr-2 text-secondary'></i>
                                             <small> LOG OUT</small>
                                         </a>
                                     </div>
