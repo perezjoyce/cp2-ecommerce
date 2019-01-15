@@ -250,7 +250,7 @@ $(document).ready( () => {
 						location.href="index.php?id=" + data.id;
 					} else if (response.status == "adminLogIn") {
 						data = $.parseJSON(dataFromPHP);
-						location.href="admin.php?id=" + data.id;
+						location.href="admin-manage-users.php?id=" + data.id;
 					} else if (response.status == "loginFailed") {
 						$("#login_error_message").css("color", "#c471ed");
 						$("#login_error_message").html(response.message); 

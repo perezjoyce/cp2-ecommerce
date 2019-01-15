@@ -156,7 +156,7 @@
                                                 <td class='mx-0'> 
                                                     <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
                                                         <div class='py-3 text-secondary'>
-                                                            <span><?= $email ?></span>
+                                                            <?= $email ?>
                                                         </div>
                                                     </a>
                                                 </td>
@@ -165,7 +165,7 @@
                                                 <td class='mx-0' width='15%'> 
                                                     <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
                                                         <div class='py-3 text-gray'>
-                                                            <small><?=$userType?></small>    
+                                                            <?=$userType?>   
                                                         </div>
                                                     </a>
                                                 </td>
@@ -174,7 +174,7 @@
                                                 <td class='mx-0 vanish-md' width='15%'> 
                                                     <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
                                                         <div class='py-3 text-secondary memberSince'>
-                                                            <span><?= $memberSince ?></span>
+                                                            <?= $memberSince ?>
                                                         </div>
                                                     </a>
                                                 </td>
@@ -213,7 +213,7 @@
                                                                     <!-- ONCE CLICKED, BUTTON WILL BE CHANGED -->
 
                                                                         <?php
-                                                                            if($userType == 'user') {
+                                                                            if($userType == 'USER') {
                                                                         ?>
                                                                     <a class="dropdown-item btn_set" data-userid='<?=$id?>' data-role='admin' data-username='<?=$username?>'>
 
