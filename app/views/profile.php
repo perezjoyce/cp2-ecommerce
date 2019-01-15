@@ -881,8 +881,15 @@
                                                     while($row = $statement->fetch()){
                                                     $conversationId = $row['id'];  
                                                     $sellerId = $row['to'];
-                                                    $logo = getStoreLogo ($conn,$sellerId);
-                                                    $logo = BASE_URL ."/". $logo .".jpg";
+                                                    $adminId = $row['from'];
+
+                                                    if(getStoreLogo ($conn,$sellerId)){
+                                                        $logo = getStoreLogo ($conn,$sellerId);
+                                                        $logo = BASE_URL ."/". $logo .".jpg";
+                                                    } else {
+                                                        $logo = getProfilePic($conn,$adminId);
+                                                        $logo = BASE_URL ."/". $logo .".jpg";
+                                                    }
 
                                             ?>
                                             
