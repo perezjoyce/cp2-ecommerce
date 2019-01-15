@@ -224,7 +224,7 @@
                                             </a>
                                             <a class="dropdown-item py-3" href="admin-manage-stores.php?id=<?=$userId?>">
                                                 <i class="fas fa-shipping-fast pr-1 text-secondary"></i>
-                                                <small>STORES</small>
+                                                <small>SHOPS</small>
                                             </a>
                                             <a class="dropdown-item py-3" href="admin-manage-store-applications.php?id=<?=$userId?>">
                                                 <i class="fas fa-clipboard-check pr-2 text-secondary"></i>
