@@ -228,12 +228,12 @@
                                                                         <?php } ?>
                                                                     
                                                                     <!-- ONCE CLICKED, WILL BE TRANSFERRED TO ORDER HISTORY -->
-                                                                    <a class="dropdown-item btn_deactivate" data-userid='<?= $id ?>' href="#" data-username='<?=$username?>' data-isseller='<?=$isSeller?>'>
+                                                                    <a class="dropdown-item btn_deactivate" data-userid='<?= $id ?>' href="#" data-username='<?=$username?>' data-isseller='<?=$isSeller?>' data-status='<?=$status?>'>
                                                                         <small>DEACTIVATE</small>
                                                                     </a>
 
                                                                     <!-- ONCE CLICKED, WILL BE TRANSFERRED TO ORDER HISTORY -->
-                                                                    <a class="dropdown-item btn_delete_product" data-userid='<?= $id ?>' href="#" data-username='<?=$username?>' data-isselle='<?=$isSeller?>'>
+                                                                    <a class="dropdown-item btn_delete_product" data-userid='<?= $id ?>' href="#" data-username='<?=$username?>' data-isseller='<?=$isSeller?>' data-status='<?=$status?>'>
                                                                         <small>DELETE</small>
                                                                     </a>
                                                                     
