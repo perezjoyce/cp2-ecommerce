@@ -27,7 +27,7 @@ if (isset($_POST['username_email'])) {
 
 			//if deactivated, update status to active
 			if($status == 0){
-				$sql = " UPDATE tbl_carts SET status = 1 WHERE id = ? ";
+				$sql = " UPDATE tbl_users SET status = 1 WHERE id = ? ";
 				$statement = $conn->prepare($sql);
 				$statement->execute([$id]);
 			}
