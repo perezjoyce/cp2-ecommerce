@@ -3269,6 +3269,26 @@ $(document).ready( () => {
 		});
 	});
 
+	// SET AS ADMIN/USER
+	$(document).on('click', '.btn_set', function(){
+		let data = {
+			'userId' : $(this).data('userid'),
+			'userName' : $(this).data('username'),
+			'role' : $(this).data('role')
+		}
+
+		let answer = confirm("Do you want to set " + data['userName'] + " as " + data['role'] + "?");
+
+		if(answer == true) {
+			$.post('../controllers/process_change_role.php', function(response){
+				if(response == 'success' ){
+					alert(data['userName'] + " has been successfully set as " + data['role']);
+					setTimeout(function(){window.location.reload()}, 1500);
+				} 
+			})
+		}
+	});
+
 	
 
 });

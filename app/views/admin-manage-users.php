@@ -107,7 +107,7 @@
                                             </div>
                                         </td>
                                         <td width='15%'>User Type</td>
-                                        <td width='15%'>Member Since</td>
+                                        <td width='15%' class='vanish-md'>Member Since</td>
                                         <td width='15%'>Status</td>
                                         <td width='15%'>Action</td>
                                     </tr> 
@@ -165,20 +165,7 @@
                                                 <td class='mx-0' width='15%'> 
                                                     <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
                                                         <div class='py-3 text-gray'>
-                                                            <div class="dropdown show">
-                                                                <a class="btn border dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                    <small><?=$userType?></small>    
-                                                                </a>
-
-                                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                                    <a class="dropdown-item btn_store_products_view" data-href='<?= BASE_URL ."/app/partials/templates/product_modal.php?id=". $id?>'>
-                                                                        <small>ADMIN</small>
-                                                                    </a>
-                                                                    <a class="dropdown-item btn_store_products_view" data-href='<?= BASE_URL ."/app/partials/templates/product_modal.php?id=". $id?>'>
-                                                                        <small>USER</small>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
+                                                            <small><?=$userType?></small>    
                                                         </div>
                                                     </a>
                                                 </td>
@@ -224,10 +211,21 @@
 
                                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                                     <!-- ONCE CLICKED, BUTTON WILL BE CHANGED -->
-                                                                
-                                                                    <a class="dropdown-item btn_store_products_view" data-href='<?= BASE_URL ."/app/partials/templates/product_modal.php?id=". $productId?>'>
-                                                                        <small>VIEW PROFILE</small>
+
+                                                                        <?php
+                                                                            if($userType == 'user') {
+                                                                        ?>
+                                                                    <a class="dropdown-item btn_set" data-userid='<?=$id?>' data-role='admin' data-username='<?=$username?>'>
+
+                                                                        <small>SET AS ADMIN</small>
                                                                     </a>
+                                                                        <?php } else {?>
+
+                                                                    <a class="dropdown-item btn_set" data-userid='<?=$id?>' data-role='user' data-username='<?=$username?>'>
+                                                                        <small>SET AS USER</small>
+                                                                    </a>
+
+                                                                        <?php } ?>
                                                                     
                                                                     <!-- ONCE CLICKED, WILL BE TRANSFERRED TO ORDER HISTORY -->
                                                                     <a class="dropdown-item btn_delete_product" data-userid='<?= $id ?>' href="#">

@@ -22,7 +22,7 @@
 
 ?>
 
-<div class="container-fluid" id='confirmation_modal'>
+<div class="container-fluid" id='view_shop_modal'>
     <div class="row">
         
         <div class="col" style='height:80vh;overflow-y:auto;' id='printThis'>
@@ -42,17 +42,17 @@
                     <div class="col">
 
                         <!-- PROFILE -->
-                        <div class='container p-5 border' style='background:white;'>
+                        <div class='container p-5 border mt-lg-0 mt-md-0 mt-sm-5' style='background:white;'>
                             <div class="row mb-3">
 
                                 <div class="col">
                                     <div class='d-flex flex-lg-row flex-md-row flex-sm-column'>
                                         <div class='flex-fill'>
-                                            <div class="d-flex align-items-center">
-                                                <div class='pr-3'>
+                                            <div class="d-flex align-items-center flex-lg-row flex-md-row flex-sm-column">
+                                                <div class='pr-lg-3 pr-md-3 pr-0-sm'>
                                                     <img src='<?= $storeLogo ?>' class='rounded-circle store_page_logo'>
                                                 </div>
-                                                <div class="d-flex flex-column">
+                                                <div class="d-flex flex-column pt-lg-0 pt-md-0 pt-sm-4 text-lg-left text-md-left text-sm-center">
                                                     <div>
                                                         <h3><?= $storeName ?></h3>
                                                     </div>
@@ -73,7 +73,7 @@
                                             </div>
                                         </div>
                                         
-                                        <div class='flex-fill text-right'>
+                                        <div class='flex-fill text-md-right text-lg-right text-sm-center pt-lg-0 pt-md-0 pt-sm-4'>
                                             <div class="d-flex flex-column">
                                                 <div class="text-gray" id='btn_follow_container'>
                                                     <?php 
@@ -110,7 +110,7 @@
                             <div class="row">
 
                                 
-                                <div class="col-lg-6 col-md-6">
+                                <div class="col-lg-6 col-md-6 px-sm-0">
 
                                     <!-- ABOUT -->
                                     <div class="container p-5 rounded" style='background:white;height:250px;overflow-y:auto;'>
@@ -155,7 +155,7 @@
                                                     </div>  
 
                                                     <div class="row mb-5">
-                                                        <div class="col-3">
+                                                        <div class="col-lg-3 col-md-4">
                                                             Address
                                                         </div>
                                                         <div class="col" id='store_profile_address'>
@@ -164,7 +164,7 @@
                                                     </div>
 
                                                     <div class="row">
-                                                        <div class="col-3">
+                                                        <div class="col-lg-3 col-md-4">
                                                             Hours
                                                         </div>
                                                         <div class="col" id='store_profile_hours'>
