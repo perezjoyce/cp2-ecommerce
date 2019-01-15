@@ -6,7 +6,7 @@
     $sellerId = $storeInfo['user_id'];
     $storeName = $storeInfo['name'];
     $storeLogo = $storeInfo['logo'];
-    $storeLogo = BASE_URL ."/". $storeLogo . "_80x80.jpg";
+    $storeLogo = BASE_URL ."/". $storeLogo . ".jpg";
 
     $storeDescription = $storeInfo['description'];
     $storeAddress = $storeInfo['store_address'];
@@ -40,7 +40,7 @@
                                 <div class='flex-fill'>
                                     <div class="d-flex align-items-center">
                                         <div class='pr-3'>
-                                            <img src='<?= BASE_URL . "/" . $storeLogo . ".jpg" ?>' class='rounded-circle store_page_logo'>
+                                            <img src='<?= $storeLogo ?>' class='rounded-circle store_page_logo'>
                                         </div>
                                         <div class="d-flex flex-column">
                                             <div>
