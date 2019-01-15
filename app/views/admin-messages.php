@@ -55,7 +55,7 @@
 
                                     <?php 
                                         // CHECK IF THERE IS AN EXISTING CONVERSATIONS INITIATED BY THE BUYER
-                                        $sql = "SELECT * FROM tbl_users WHERE id IS NOT ?";
+                                        $sql = "SELECT * FROM tbl_users WHERE id != ?";
                                         $statement = $conn->prepare($sql);
                                         $statement->execute([$_SESSION['id']]);
 
