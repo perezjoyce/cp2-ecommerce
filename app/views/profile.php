@@ -874,9 +874,9 @@
                                             <?php 
                                                 // CHECK IF THERE IS AN EXISTING CONVERSATIONS INITIATED BY THE BUYER
                                                 $sql = "SELECT * FROM tbl_conversations 
-                                                WHERE `from` = ? "; // named parameters
+                                                WHERE `from` = ? OR `to`"; // named parameters
                                                 $statement = $conn->prepare($sql);
-                                                $statement->execute([$id]);
+                                                $statement->execute([$id, $id]);
                                                 if($statement->rowCount()) {
                                                     while($row = $statement->fetch()){
                                                     $conversationId = $row['id'];  

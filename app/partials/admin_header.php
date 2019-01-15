@@ -126,7 +126,7 @@
                             <div class='dropdown py-1' id='profileDropdownContainer'>
                             <a class='dropdown-toggle py-1 text-right' id="profileDropdown" role="button" data-toggle="dropdown">
                                         <img src='<?= $profile_pic ?>' height='20' class='<?= $prefix ?>circle mr-1'>
-                                        <small>HELLO,&nbsp; ADMIN&nbsp;</small>
+                                        <small>HELLO,&nbsp;</small>
                                         <small>
                                             <?= strtoupper($firstName) ?>
                                         </small>
