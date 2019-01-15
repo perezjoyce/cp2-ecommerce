@@ -98,7 +98,7 @@
                                             $transactionCount = $row['transactionCount'];
                                             // $transactionCount = round($transactionCount, 0);
                                             $credit = $row['storeCredit'];
-                                            $creidt = number_format((float)$credit, 2, '.', ',');
+                                            $credit = number_format((float)$credit, 2, '.', ',');
                                             $debit = $row['storeDebit'];
                                             $debit = number_format((float)$debit, 2, '.', ',');
                                     ?>
