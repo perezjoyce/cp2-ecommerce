@@ -1,44 +1,10 @@
-<?php require_once "../../config.php";?>
-<?php 
-    
-    $id = $_GET['id'];
-    if(empty($id)){ 
-        // header("location: index.php");
-        echo "<script>window.location.href='".BASE_URL."/app/views/'</script>";
-    } else {
-
-        $storeInfo = $storeId = getStore ($conn,$id);
-        $id = $_SESSION['id'];
-        $currentUser = getUser($conn, $id);
-        $isSeller = $currentUser['isSeller'] == "yes" ? 1 : 0;   
-        
-        $userIsStoreOwner = false;
-        //IF USER IS NOT STORE OWNER, REDIRECT TO ORIGIN
-        if($id === $storeInfo['user_id']) {
-            $userIsStoreOwner = true;
-        } else {
-            echo '<script>history.go(-1);</script>';
-        }
-    }  
-
-    $storeId = $storeInfo['id'];
-    $storeName = $storeInfo['name'];
-    $storeLogo = $storeInfo['logo'];
-    $storeDescription = $storeInfo['description'];
-    $storeAddress = $storeInfo['store_address'];
-    $storeHours = $storeInfo['hours'];
-    $storeFollowers = countFollowers ($conn, $storeId);
-    $storeRating = getAverageStoreRating ($conn, $storeId);
-    $storeMembershipDate = getMembershipDate($conn, $storeId);
-    $storeShippingFee = displayStoreShippingFee($conn,$storeId);
-    $storeFreeShippingMinimum = displayStoreFreeShipping($conn,$storeId, false);
-    $fname = getFirstName ($conn,$id);
-    $lname = getLastName ($conn,$id);
+<?php
+    require_once '../../../config.php';
+    $storeId = $_GET['id'];
 ?>
-<?php require_once "../partials/store_header.php";?>
-    <!-- PAGE CONTENT -->
-    <br>
-    <div class="container p-0 my-lg-5 mt-md-5">
+
+
+<div class="container p-0 my-lg-5 mt-md-5">
 
         
 
@@ -229,9 +195,3 @@
 
     </div>
     <!-- /.CONTAINER -->
-
-<?php require_once "../partials/footer.php";?>
-<?php require_once "../partials/modal_container.php";?>
-<?php require_once "../partials/modal_container_big.php"; ?>
-
-  

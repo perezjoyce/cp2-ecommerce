@@ -1,47 +1,27 @@
 <?php require_once "../../config.php";?>
 <?php 
     
-    $id = $_GET['id'];
-    if(empty($id)){ 
-        // header("location: index.php");
+    if(empty($_GET['id'])){ 
         echo "<script>window.location.href='".BASE_URL."/app/views/'</script>";
     } else {
 
-        $storeInfo = $storeId = getStore ($conn,$id);
-        $id = $_SESSION['id'];
-        $currentUser = getUser($conn, $id);
-        $isSeller = $currentUser['isSeller'] == "yes" ? 1 : 0;   
-        
-        $userIsStoreOwner = false;
-        //IF USER IS NOT STORE OWNER, REDIRECT TO ORIGIN
-        if($id === $storeInfo['user_id']) {
-            $userIsStoreOwner = true;
+        if(isset($_SESSION['id'])){
+            $adminid = $_SESSION['id'];
+            $currentUser = getUser($conn, $adminid);
+            if($currentUser['userType'] == "admin") {
+                require_once "../partials/admin_header.php";
+            } else {
+                echo "<script>window.location.href='".BASE_URL."/app/views/'</script>";
+            }
         } else {
-            echo '<script>history.go(-1);</script>';
+            echo "<script>window.location.href='".BASE_URL."/app/views/'</script>";
         }
-    }  
+    }
 
-    $storeId = $storeInfo['id'];
-    $storeName = $storeInfo['name'];
-    $storeLogo = $storeInfo['logo'];
-    $storeDescription = $storeInfo['description'];
-    $storeAddress = $storeInfo['store_address'];
-    $storeHours = $storeInfo['hours'];
-    $storeFollowers = countFollowers ($conn, $storeId);
-    $storeRating = getAverageStoreRating ($conn, $storeId);
-    $storeMembershipDate = getMembershipDate($conn, $storeId);
-    $storeShippingFee = displayStoreShippingFee($conn,$storeId);
-    $storeFreeShippingMinimum = displayStoreFreeShipping($conn,$storeId, false);
-    $fname = getFirstName ($conn,$id);
-    $lname = getLastName ($conn,$id);
 ?>
-<?php require_once "../partials/store_header.php";?>
-    <!-- PAGE CONTENT -->
-    <br>
+
+<br>
     <div class="container p-0 my-lg-5 mt-md-5">
-
-        
-
 
         <div class="row mx-0">
 
@@ -53,9 +33,9 @@
                 <div class='container p-5 rounded' style='background:white;'>
                     <div class="row mx-0">
                         <div class="col-lg-6 col-md-4 col-sm-12">
-                            <h4>Store Account</h4>
+                            <h4>Mamaroo Account</h4>
                         </div>
-                        <!-- <div class="col">
+                        <div class="col">
                             <div class="input-group input-group-lg">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text border-right-0 border-left-0 border-top-0" id="store_page_search_button" style='background:white;'>
@@ -64,7 +44,7 @@
                                 </div>
                                 <input type="text" class="form-control border-right-0 border-left-0 border-top-0" id="store_page_search">
                             </div>
-                        </div> -->
+                        </div>
 						
 					</div>
                 </div>
@@ -76,9 +56,9 @@
                                
                                 
                     <?php
-                    $sql = " SELECT * FROM tbl_seller_account WHERE store_id = ?";
+                    $sql = " SELECT store_id, SUM(credit) as 'storeCredit', SUM(debit) as 'storeDebit' FROM tbl_seller_account GROUP BY store_id ";
                                 $statement = $conn->prepare($sql);
-                                $statement->execute([$storeId]);
+                                $statement->execute();
                                 $count = $statement->rowCount();
             
                             if($count) {
@@ -91,18 +71,15 @@
                                 <thead>
                                     <tr class='py-0'>
                                     
-                                        <td width='25%'>Date</td>
+                                        <td width='25%'>Store</td>
                                         <td width='25%'>Credit</td>
                                         <td width='25%' class='d-flex flex-row'>
-                                            <span>Debit</span>
+                                            <span>Credit Charge</span>
                                             <a data-toggle="tooltip" title="Credit Charge is 3%" data-original-title="#">
                                                 &nbsp;<i class="far fa-question-circle text-gray"></i>
                                             </a>
                                         </td>
-                                        <td width='25%'>Description</td>
-                                        <!-- <td width='15%'>Amount</td> -->
-                                        <!-- <td width='10%'>View</td> -->
-        
+                                        <td width='25%'>View</td>
                                         
                                     </tr> 
                                 </thead>
@@ -111,21 +88,22 @@
   
                                     <?php 
                                         while($row = $statement->fetch()){ 
-                                            $purchaseDate = $row['timestamp'];
-                                            $credit = $row['credit'];
-                                            $debit = $row['debit'];
-                                            $description = $row['description'];
+                                            $storeId = $row['store_id'];
+                                            $credit = $row['storeCredit'];
+                                            // $creidt = number_format((float)$credit, 2, '.', ',');
+                                            $debit = $row['storeDebit'];
+                                            // $debit = number_format((float)$debit, 2, '.', ',');
                                     ?>
                                     
                                         <tr>
-                                            <!-- PURCHASE DATE -->
+                                            <!-- STORE NAME -->
                                             <td class='mx-0' width='25%'>
                                                 <div class='py-4 text-secondary'>
-                                                    <?=date("M d, Y", strtotime($purchaseDate))?>
+                                                    <?=getStore ($conn,$storeId)?>
                                                 </div>
                                             </td>
 
-                                            <!-- CLIENT -->
+                                            <!-- BALANCE -->
                                             <td class='mx-0' width='25%'> 
                                                 <div class='d-flex flex-row justify-content-center text-secondary py-4'>
                                                     <div>&#36;&nbsp;</div>
@@ -134,7 +112,7 @@
                                             </td>
                                                 
 
-                                            <!-- PRODUCT ID & NAME -->
+                                            <!-- CREDIT CHARGE -->
                                             <td class='mx-0' width='25%'> 
                                                 <div class='d-flex flex-row justify-content-center text-secondary py-4'>
                                                     <div>&#36;&nbsp;</div>
@@ -142,14 +120,13 @@
                                                 </div>
                                             </td>
 
-                                            <!-- VARIATION NAME -->
-                                            <td class='mx-0' width='25%'> 
-                                                <div class='py-4 text-secondary'>
-                                                    <div><?=$description?></div>
-                                                </div>
+                                            <!-- VIEW -->
+                                            <td class='mx-0' width='25%'>
+                                                <a data-href="../partials/templates/account_summary_modal.php?id=<?=$storeId?>" class='border-0 btn_view_account' style='cursor:pointer;size:15px;'>
+                                                    <i class="far fa-file-pdf text-gray py-4" style='width:100%;'></i>
+                                                </a>
                                             </td>
 
-                                        
                                            
                                         </tr>
                                     
@@ -166,12 +143,29 @@
                             <table class="table table-hover borderless text-center bg-gray mb-0">
                                 <thead>
                                     <tr class='py-0'>
+
+                                    <?php 
+                                    $sql = "SELECT  SUM(credit) 
+                                            as 'balance', SUM(debit) 
+                                            as 'totalEarningsFromServiceCharge', SUM(credit) - SUM(debit) 
+                                            as 'debit' 
+                                            FROM tbl_seller_account ";
+                                            $statement = $conn->prepare($sql);
+                                            $statement->execute();
+                                            $row = $statement->fetch();
+                                            $balance = $row['balance'];
+                                            $balance = number_format((float)$balance, 2, '.', ',');
+                                            $totalEarnings = $row['totalEarningsFromServiceCharge'];
+                                            $totalEarnings = number_format((float)$totalEarnings, 2, '.', ',');;
+                                            $debit = $row['debit'];
+                                            $debit = number_format((float)$debit, 2, '.', ',');
+                                           
+
+                                    ?>
                                     
+                                        <td width='33.33%'>Total Balance</td>
                                         <td width='33.33%'>Total Debit</td>
-                                        <td width='33.33%'>Total Credit</td>
-                                        <td width='33.33%'>Balance</td>
-                                        <!-- <td width='15%'>Amount</td> -->
-                                        <!-- <td width='10%'>View</td> -->
+                                        <td width='33.33%'>Total Earnings</td>
 
                                     </tr> 
                                 </thead>
@@ -183,7 +177,7 @@
                                             <td class='mx-0 font-weight-bold' width='33.33%'>
                                                 <div class='d-flex flex-row justify-content-center text-secondary py-4'>
                                                     <div>&#36;&nbsp;</div>
-                                                    <div><?=showStoreCredit($conn,$storeId)?></div>
+                                                    <div><?=$balance?></div>
                                                 <div>
                                             </td>
 
@@ -191,7 +185,7 @@
                                             <td class='mx-0 font-weight-bold' width='33.33%'> 
                                                 <div class='d-flex flex-row justify-content-center text-secondary py-4'>
                                                     <div>&#36;&nbsp;</div>
-                                                    <div> <?=showStoreDebit($conn,$storeId)?></div>
+                                                    <div><?=$debit?></div>
                                                 </div>
                                             </td>
                                                 
@@ -200,7 +194,7 @@
                                             <td class='mx-0 font-weight-bold' width='33.33%'> 
                                                 <div class='d-flex flex-row justify-content-center text-secondary py-4'>
                                                     <div>&#36;&nbsp;</div>
-                                                    <div> <?=showStoreBalance($conn,$storeId)?></div>
+                                                    <div><?=$totalEarnings?></div>
                                                 </div>
                                             </td>
 
@@ -230,8 +224,8 @@
     </div>
     <!-- /.CONTAINER -->
 
+
+
 <?php require_once "../partials/footer.php";?>
 <?php require_once "../partials/modal_container.php";?>
 <?php require_once "../partials/modal_container_big.php"; ?>
-
-  

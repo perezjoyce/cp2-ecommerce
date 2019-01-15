@@ -98,16 +98,6 @@
             <div class="col px-lg-0">
                 <div class="d-flex flex-row">
                 
-                  
-
-                    <!-- <div class='flex-fill text-lg-right text-md-right text-sm-center'>
-                        <a class='nav-link border-0 text-lg-right text-md-right text-sm-center py-1' href="#" role='button'> 
-                            <small>
-                                TRACK MY ORDER
-                            </small>
-                        </a>
-                    </div> -->
-
                     
                     <div class='flex-fill text-lg-right text-md-right text-sm-right'>
                         <a class='nav-link modal-link border-0 text-lg-right text-md-right text-sm-right py-1' data-url='../partials/templates/login_modal.php' role='button'> 
@@ -118,53 +108,8 @@
                         </a>
                     </div>
 
-            <?php } else { ?>
-                <!-- <div class="col-6">
-                    <div class='flex-fill text-lg-left text-md-left text-sm-left'>
-                        <a class='nav-link modal-link border-0 py-1' data-url='../partials/templates/login_modal.php' role='button'> 
-                            <i class="far fa-envelope pr-1 text-secondary"></i>
-                            <small>
-                                MESSAGES
-                            </small>
-                        </a>
-                    </div>
-                </div> -->
-              
-                <div class="col-12">
-                    <div class='flex-fill text-lg-right text-md-right text-sm-right'>
-    
-                        <div class='dropdown py-1' id='profileDropdownContainer'>
-                            <a class='dropdown-toggle py-1 text-right' id="profileDropdown" role="button" data-toggle="dropdown">
-                                <img src='<?= $profile_pic ?>' height='20' class='<?= $prefix ?>circle mr-1'>
-                                <small>HELLO,&nbsp;</small>
-                                <small>
-                                    <?= getUsername($conn,$id) ?>
-                                </small>
-                                <small>!</small>
-                                
-                            </a>  
-                            
-
-                            <div class="dropdown-menu py-0" aria-labelledby="profileDropdown" id='profileDropdown_menu' >
-                                <a class="dropdown-item py-3" href='profile.php?id=<?=$id?>'>
-                                    <i class="far fa-edit pr-2"></i>
-                                    <small>MY PROFILE</small>
-                                </a>
-                                <a class="dropdown-item py-3" href='store-profile.php?id=<?= getStoreId ($conn,$id) ?>'>
-                                    <i class="fas fa-store pr-2"></i>
-                                    <small>MY SHOP</small>
-                                </a>
-                                
-                                <div class="dropdown-divider py-0"></div>
-                                <a class="dropdown-item py-3" href='../controllers/process_logout.php?id=<?=$id?>'>
-                                    <i class='fas fa-sign-in-alt pr-2'></i>
-                                    <small> LOG OUT</small>
-                                </a>
-                            </div>
-                        </div>
-
-                    </div>
-                    <?php } ?>
+                <?php } ?>
+                
 
                 </div>
             </div>
@@ -172,10 +117,10 @@
     </div>
 
     <nav class="navbar navbar-main sticky-top">
-        <div class="container">
+        <div class="container px-0">
 
                 <!-- <div class=""> -->
-                    <div class="col">
+                    <div class="col px-0">
                         <!-- <div class="col-6"> -->
                                 <div class="d-flex align-items-center">
                                     <div id='header-logo'></div>&nbsp;

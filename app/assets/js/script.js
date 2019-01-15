@@ -3259,6 +3259,16 @@ $(document).ready( () => {
 	});
 	
 
+	//VIEW PRODUCT
+	$(document).on('click', '.btn_view_account', function(){
+		let url = $(this).data('href');
+	
+		$.get(url,function(response){
+			$("#modalContainerBig .modal-content").html(response);
+			$("#modalContainerBig").modal('show');
+		});
+	});
+
 	
 
 });
