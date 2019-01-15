@@ -3269,7 +3269,7 @@ $(document).ready( () => {
 		});
 	});
 
-	// SET AS ADMIN/USER
+	// SET AS ADMIN/USER/SELLER
 	$(document).on('click', '.btn_set', function(){
 		let data = {
 			'userId' : $(this).data('userid'),
@@ -3285,6 +3285,37 @@ $(document).ready( () => {
 					alert(data['userName'] + " has been successfully set as " + data['role']);
 					setTimeout(function(){window.location.reload()}, 1500);
 				} 
+			})
+		}
+	});
+
+	// DEACTIVATE
+	$(document).on('click', '.btn_deactivate', function(){
+		let answer = "";
+		let flag = 1;
+		let data = {
+			'userId' : $(this).data('userid'),
+			'userName' : $(this).data('username'),
+			'isSeller' : $(this).data('data-isselle')
+		}
+
+		if(data['isSeller'] == 'yes'){
+			answer = confirm("Do you want to deactivate the account of " + data['userName'] + "? This process will consequently delete the store of this user which cannot be undone.");
+			flag = 0;
+		} else {
+			alert("Sorry. Only " + data['userName'] + " is authorized to deactivate his/her account.");
+			flag = 1;
+		}
+
+		if(answer == true && flag == 0) {
+			$.post('../controllers/process_deactivate_by_admin.php', data, function(response){
+				if(response == 'success' ){
+					alert(data['userName'] + "'s account has been successfully deactivated. Her/his store has also been has been successfully deleted. Email was sent to inform"+ data['userName']+ " about this.");
+					setTimeout(function(){window.location.reload()}, 1500);
+				} else {
+					alert("Sorry. Only " + data['userName'] + " is authorized to deactivate his/her account.");
+					setTimeout(function(){window.location.reload()}, 1500);
+				}
 			})
 		}
 	});

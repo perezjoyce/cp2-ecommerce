@@ -3,9 +3,10 @@ require_once '../../config.php';
 
 if(isset($_SESSION['id'])){
     $userId = $_POST['userId'];
-    $storeId = $_POST['storeId'];
+    $isSeller = $_POST['isSeller'];
 
-    // CHECK IF USER IS SELLER
+    // VERIFY IF USER IS SELLER & HAS AN EXISTING STORE
+    if($isSeller == "yes") {
     $sql = "SELECT * FROM tbl_users WHERE isSeller = 'yes' AND id = ?";
             $statement = $conn->prepare($sql);
             $statement->execute([$userId]);
@@ -34,7 +35,12 @@ if(isset($_SESSION['id'])){
                     echo "success";
                 }
 
-            } 
+            } else {
+
+                    echo "fail";
+
+            }
+    } 
 }
 
 ?>
