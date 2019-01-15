@@ -230,6 +230,8 @@
         $statement->execute([$storeId]);
         $row = $statement->fetch();
         $storeName = $row['name'];
+
+        return $storeName;
     }
 
     // GET STORE LOGO

@@ -25,8 +25,8 @@
                     <div class="row mx-0">
                         <div class="col-lg-6 col-md-4 col-sm-12">
                             <div class="d-flex align-items-center">
-                                <img src='<?= $storeLogo ?>' style='width:60px;height:60px;' class='rounded-circle'>
-                                <h4><?= $storeName ?>&nbsp; Account</h4>
+                                <img src='<?= $storeLogo ?>' style='width:50px;height:50px;' class='rounded-circle'>
+                                <h4>&nbsp;<?= $storeName ?>&nbsp; Account</h4>
                             </div>
                             
                         </div>
@@ -88,7 +88,9 @@
                                         while($row = $statement->fetch()){ 
                                             $purchaseDate = $row['timestamp'];
                                             $credit = $row['credit'];
+                                            $credit = number_format((float)$credit, 2, '.', ',');
                                             $debit = $row['debit'];
+                                            $debit = number_format((float)$debit, 2, '.', ',');
                                             $description = $row['description'];
                                     ?>
                                     
@@ -158,7 +160,13 @@
                                             <td class='mx-0 font-weight-bold' width='33.33%'>
                                                 <div class='d-flex flex-row justify-content-center text-secondary py-4'>
                                                     <div>&#36;&nbsp;</div>
-                                                    <div><?=showStoreCredit($conn,$storeId)?></div>
+                                                    <div>
+                                                        <?php 
+                                                            $storeCredit = showStoreCredit($conn,$storeId);
+                                                            $storeCredit = number_format((float)$storeCredit, 2, '.', ',');
+                                                            echo $storeCredit;
+                                                        ?>
+                                                    </div>
                                                 <div>
                                             </td>
 
@@ -166,7 +174,13 @@
                                             <td class='mx-0 font-weight-bold' width='33.33%'> 
                                                 <div class='d-flex flex-row justify-content-center text-secondary py-4'>
                                                     <div>&#36;&nbsp;</div>
-                                                    <div> <?=showStoreDebit($conn,$storeId)?></div>
+                                                    <div>
+                                                        <?php 
+                                                            $storeDebit = showStoreDebit($conn,$storeId);
+                                                            $storeDebit = number_format((float)$storeDebit, 2, '.', ',');
+                                                            echo $storeDebit;
+                                                        ?>
+                                                    </div>
                                                 </div>
                                             </td>
                                                 
@@ -175,7 +189,13 @@
                                             <td class='mx-0 font-weight-bold' width='33.33%'> 
                                                 <div class='d-flex flex-row justify-content-center text-secondary py-4'>
                                                     <div>&#36;&nbsp;</div>
-                                                    <div> <?=showStoreBalance($conn,$storeId)?></div>
+                                                    <div>
+                                                        <?php 
+                                                            $storeBalance = showStoreBalance($conn,$storeId);
+                                                            $storeBalance = number_format((float)$storeBalance, 2, '.', ',');
+                                                            echo $storeBalance;
+                                                        ?>
+                                                    </div>
                                                 </div>
                                             </td>
 
