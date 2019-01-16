@@ -15,7 +15,8 @@ $searchkey = $_POST['searchkey'];
             LIKE ? 
             OR s.name 
             LIKE ? 
-            AND `user_id` != ?';
+            AND `user_id` != ? AND status != 0';
+            // status 0 means account is deactivated
     $statement = $conn->prepare($sql);
     $statement->execute(["%$searchkey%", "%$searchkey%", "%$searchkey%", "%$searchkey%", $adminId]);
 
