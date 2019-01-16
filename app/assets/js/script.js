@@ -3399,7 +3399,7 @@ $(document).ready( () => {
 		if(e.keyCode == 13) {
 			let searchkey = $(this).val();
 
-			$.get('../../app/controllers/process_search_admin_inbox.php', {searchkey:searchkey},
+			$.post('../../app/controllers/process_search_admin_inbox.php', {searchkey:searchkey},
 				function(response){
 				// let data = $.parseJSON(response);
 				

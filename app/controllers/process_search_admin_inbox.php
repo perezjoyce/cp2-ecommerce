@@ -1,7 +1,7 @@
 <?php
 require_once '../../config.php';
 $adminId = $_SESSION['id'];
-$searchkey = $_GET['searchkey'];
+$searchkey = $_POST['searchkey'];
 
     $sql = ' SELECT u.id AS "user_id", u.first_name, u.last_name, u.username, u.last_login, u.profile_pic, u.isSeller, u.status, s.name, s.logo
             FROM tbl_users u 
