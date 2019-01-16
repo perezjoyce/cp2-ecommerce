@@ -254,7 +254,7 @@ if(isset($_POST['searchkey'])){
             $debit = $row['storeDebit'];
             $debit = number_format((float)$debit, 2, '.', ',');
             $storeName = getStoreNameFromStoreId($conn, $storeId);
-        } }
+        
 ?>
                 <tr>
                     <!-- STORE NAME -->
@@ -301,7 +301,7 @@ if(isset($_POST['searchkey'])){
 
 
 <?php 
-    } else {
+    } } } else {
         echo "fail";
     } 
 }
