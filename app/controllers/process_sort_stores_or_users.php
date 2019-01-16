@@ -8,7 +8,7 @@ $table = "";
 
 if($location == 'users'){
     $table = 'tbl_users';
-} elseif(location == "stores") {
+} elseif($location == "stores") {
     $table = 'tbl_stores';
 } else {
     $table ='tbl_seller_accounts';
@@ -299,6 +299,8 @@ if($table != 'tbl_seller_accounts') {
 
 <?php } } ?>
 
-
+<script src="<?= BASE_URL ?>/node_modules/moment/moment.js"></script>
+<script src="<?= BASE_URL ?>/node_modules/moment-timezone/builds/moment-timezone-with-data.min.js"></script>
+<script src="<?= BASE_URL ?>/node_modules/timeago.js/dist/timeago.min.js"></script>
 
 

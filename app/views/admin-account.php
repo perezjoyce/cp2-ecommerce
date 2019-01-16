@@ -102,12 +102,12 @@
                                         <td width='20%'>
                                             <div class="d-flex align-items-center text-center justify-content-center">
                                                 <a data-toggle="tooltip" title="Credit Charge is 3%" data-original-title="#">
-                                                    <i class="far fa-question-circle text-gray"></i>
+                                                    <i class="far fa-question-circle text-gray pr-2"></i>
                                                 </a>
                                                 Credit Charge
                                                 <div class='d-flex flex-column'>
-                                                    <i class="fas fa-angle-up text-gray pl-2 btn_sort" data-location='account' data-column="storeDebit" data-order='ASC' style='cursor: pointer;'></i>
-                                                    <i class="fas fa-angle-down text-gray pl-2 btn_sort" data-location='account' data-column="storeDebit" data-order='DESC' style='cursor: pointer;'></i>
+                                                    <i class="fas fa-angle-up text-gray pr-2 btn_sort" data-location='account' data-column="storeDebit" data-order='ASC' style='cursor: pointer;'></i>
+                                                    <i class="fas fa-angle-down text-gray pr-2 btn_sort" data-location='account' data-column="storeDebit" data-order='DESC' style='cursor: pointer;'></i>
                                                 </div>
                                             </div>
                                         </td>
