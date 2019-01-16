@@ -5,35 +5,21 @@ if(isset($_POST['searchkey'])){
     $location = $_POST['location'];
     $searchkey = $_POST['searchkey'];
 
-    $sql = ' SELECT s.id AS "store_id", s.name, s.store_address, s.date_created, u.id 
-            AS "user_id", u.userType, u.status, u.isSeller, u.date_created 
-            AS "date_joined", u.first_name, u.last_name, u.username, u.email, ROUND(COUNT(a.store_id) /2, 0) 
-            AS "transactionCount", SUM(a.credit)
-            AS "storeCredit", SUM(a. debit) 
-            AS "storeDebit"
-            FROM tbl_stores s 
-            JOIN tbl_users u 
-            JOIN tbl_seller_accounts a
-            ON s.user_id=u.id 
-            AND a.store_id=s.id
-            WHERE s.name LIKE ? 
-            OR s.store_address LIKE ? 
-            OR u.first_name LIKE ? 
-            OR u.last_name LIKE ? 
-            OR u.username LIKE ? 
-            OR u.email LIKE ? ';
-    $statement = $conn->prepare($sql);
-    $statement->execute(["%$searchkey%", "%$searchkey%", "%$searchkey%", "%$searchkey%", "%$searchkey%", "%$searchkey%"]);
-    $count = $statement->rowCount();
-
-    if($count){
 
         if($location == "users") {
-            echo "success";
-            while($row = $statement->fetch()){
-            $id = $row['user_id'];
+        $sql = 'SELECT * FROM tbl_users
+            WHERE first_name LIKE ? 
+            OR last_name LIKE ? 
+            OR username LIKE ? 
+            OR email LIKE ? ';
+        $statement = $conn->prepare($sql);
+        $statement->execute(["%$searchkey%", "%$searchkey%", "%$searchkey%", "%$searchkey%"]);
+        $count = $statement->rowCount();
+        if($count) {
+        while($row = $statement->fetch()){
+            $id = $row['id'];
             $username = $row['username'];
-            $memberSince = $row['date_joined'];
+            $memberSince = $row['date_created'];
             $email = $row['email'];
             $email = hide_email($email);
             $userType = $row['userType'];
@@ -134,19 +120,35 @@ if(isset($_POST['searchkey'])){
                 </tr>
     
 <?php      
-        }  } elseif ($location == "stores") {
-                echo "success";
+            } 
+        } else { echo "fail"; } 
+    } elseif ($location == "stores") {
+            $sql = ' SELECT s.id AS "store_id", s.name, s.store_address, s.date_created, u.id 
+                AS "user_id", u.first_name, u.last_name, u.username
+                FROM tbl_stores s 
+                JOIN tbl_users u 
+                ON s.user_id=u.id 
+                WHERE s.name LIKE ? 
+                OR s.store_address LIKE ? 
+                OR u.first_name LIKE ? 
+                OR u.last_name LIKE ? 
+                OR u.username LIKE ? 
+                OR u.email LIKE ? ';
+            $statement = $conn->prepare($sql);
+            $statement->execute(["%$searchkey%", "%$searchkey%", "%$searchkey%", "%$searchkey%", "%$searchkey%", "%$searchkey%"]);
+            $count = $statement->rowCount();
+            if($count) {
             while($row = $statement->fetch()){
-            $storeId = $row['store_id'];
-            $storeName = $row['name'];
-            $memberSince = $row['date_created'];
-            $storeAddress = $row['store_address'];
-            $firstName = $row['first_name'];
-            $firstName = ucwords($firstName);
-            $lastName = $row['last_name'];
-            $lastName = ucwords($lastName);
-            $owner = $firstName . "&nbsp;" . $lastName;
-            $sellerId = $row['user_id'];
+                $storeId = $row['store_id'];
+                $storeName = $row['name'];
+                $memberSince = $row['date_created'];
+                $storeAddress = $row['store_address'];
+                $firstName = $row['first_name'];
+                $firstName = ucwords($firstName);
+                $lastName = $row['last_name'];
+                $lastName = ucwords($lastName);
+                $owner = $firstName . "&nbsp;" . $lastName;
+                $sellerId = $row['user_id'];
 ?>
 
                 <tr>
@@ -244,16 +246,35 @@ if(isset($_POST['searchkey'])){
 
 
 <?php 
-        } } else {
-            echo "success";
+            } 
+        } else { echo "fail"; } 
+    } else {
+
+            $sql = ' SELECT s.id AS "store_id", s.name, u.first_name, u.last_name, u.username, ROUND(COUNT(a.store_id) /2, 0) 
+                AS "transactionCount", SUM(a.credit)
+                AS "storeCredit", SUM(a. debit) 
+                AS "storeDebit"
+                FROM tbl_stores s 
+                JOIN tbl_users u 
+                JOIN tbl_seller_accounts a
+                ON s.user_id=u.id 
+                AND a.store_id=s.id
+                WHERE s.name LIKE ? 
+                OR u.first_name LIKE ? 
+                OR u.last_name LIKE ? 
+                OR u.username LIKE ? ';
+            $statement = $conn->prepare($sql);
+            $statement->execute(["%$searchkey%", "%$searchkey%", "%$searchkey%", "%$searchkey%"]);
+            $count = $statement->rowCount();
+            if($count) {
             while($row = $statement->fetch()){
-            $storeId = $row['store_id'];
-            $transactionCount = $row['transactionCount'];
-            $credit = $row['storeCredit'];
-            $credit = number_format((float)$credit, 2, '.', ',');
-            $debit = $row['storeDebit'];
-            $debit = number_format((float)$debit, 2, '.', ',');
-            $storeName = getStoreNameFromStoreId($conn, $storeId);
+                $storeId = $row['store_id'];
+                $transactionCount = $row['transactionCount'];
+                $credit = $row['storeCredit'];
+                $credit = number_format((float)$credit, 2, '.', ',');
+                $debit = $row['storeDebit'];
+                $debit = number_format((float)$debit, 2, '.', ',');
+                $storeName = getStoreNameFromStoreId($conn, $storeId);
         
 ?>
                 <tr>
@@ -301,8 +322,8 @@ if(isset($_POST['searchkey'])){
 
 
 <?php 
-    } } } else {
-        echo "fail";
-    } 
+            }   
+        } else { echo "fail"; } 
+    }
 }
 ?>
