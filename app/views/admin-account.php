@@ -77,13 +77,39 @@
                                     <tr class='py-0'>
                                     
                                         <td width='20%'>Store</td>
-                                        <td width='20%'>Transaction Count</td>
-                                        <td width='20%'>Credit</td>
                                         <td width='20%'>
-                                            Credit Charge
-                                            <a data-toggle="tooltip" title="Credit Charge is 3%" data-original-title="#">
-                                                <i class="far fa-question-circle text-gray"></i>
-                                            </a>
+                                            <div class="d-flex align-items-center text-center justify-content-center">
+                                                <div>
+                                                   Transaction Count
+                                                </div>
+                                                <div class='d-flex flex-column'>
+                                                    <i class="fas fa-angle-up text-gray pl-2 btn_sort" data-location='account' data-column="transactionCount" data-order='ASC' style='cursor: pointer;'></i>
+                                                    <i class="fas fa-angle-down text-gray pl-2 btn_sort" data-location='account' data-column="transactionCount" data-order='DESC' style='cursor: pointer;'></i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width='20%'>
+                                            <div class="d-flex align-items-center text-center justify-content-center">
+                                                <div>
+                                                   Credit
+                                                </div>
+                                                <div class='d-flex flex-column'>
+                                                    <i class="fas fa-angle-up text-gray pl-2 btn_sort" data-location='account' data-column="storeCredit" data-order='ASC' style='cursor: pointer;'></i>
+                                                    <i class="fas fa-angle-down text-gray pl-2 btn_sort" data-location='account' data-column="storeCredit" data-order='DESC' style='cursor: pointer;'></i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width='20%'>
+                                            <div class="d-flex align-items-center text-center justify-content-center">
+                                                <a data-toggle="tooltip" title="Credit Charge is 3%" data-original-title="#">
+                                                    <i class="far fa-question-circle text-gray"></i>
+                                                </a>
+                                                Credit Charge
+                                                <div class='d-flex flex-column'>
+                                                    <i class="fas fa-angle-up text-gray pl-2 btn_sort" data-location='account' data-column="storeDebit" data-order='ASC' style='cursor: pointer;'></i>
+                                                    <i class="fas fa-angle-down text-gray pl-2 btn_sort" data-location='account' data-column="storeDebit" data-order='DESC' style='cursor: pointer;'></i>
+                                                </div>
+                                            </div>
                                         </td>
                                         <td width='20%'>View</td>
                                         

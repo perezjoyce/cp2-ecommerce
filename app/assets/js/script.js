@@ -2990,7 +2990,7 @@ $(document).ready( () => {
 		});
 	});
 
-
+	// SORT COLUMNS IN INVENTORY
 	$(document).on('click', '.sort_inventory', function(){
 		let data = {
 			'columnName' : $(this).data('column'),
@@ -3411,7 +3411,19 @@ $(document).ready( () => {
 					
 			});
 		}
-		
+	})
+
+	// SORT ADMIN USERS/STORES
+	$(document).on('click', '.btn_sort', function(){
+		let data = {
+			'columnName' : $(this).data('column'),
+			'location' : $(this).data('location'),
+			'order' : $(this).data('order')
+		}
+
+		$.post('../controllers/process_sort_stores_or_users.php',data,function(response){
+			$(".admin-data-container").html(response);
+		})
 	})
 
 	

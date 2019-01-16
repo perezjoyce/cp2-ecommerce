@@ -75,30 +75,20 @@
                                 <thead>
                                     <tr class='py-0'>
                                         <td width='5%'>Id</td>
-                                        <td width='15%'>
-                                            <div class="d-flex align-items-center text-center justify-content-center">
-                                                <div>
-                                                    Shop
-                                                </div>
-                                                <div class='d-flex flex-column'>
-                                                    <i class="fas fa-angle-up text-gray pl-2 sort_inventory" data-userid='<?=$id?>' data-column="username" data-order='ASC' style='cursor: pointer;'></i>
-                                                    <i class="fas fa-angle-down text-gray pl-2 sort_inventory" data-userid='<?=$id?>' data-column="username" data-order='DESC' style='cursor: pointer;'></i>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td width='15%'>
-                                            <div class="d-flex align-items-center text-center justify-content-center">
-                                                <div>
-                                                   Owner
-                                                </div>
-                                                <div class='d-flex flex-column'>
-                                                    <i class="fas fa-angle-up text-gray pl-2 sort_inventory" data-email='<?=$id?>' data-column="email" data-order='ASC' style='cursor: pointer;'></i>
-                                                    <i class="fas fa-angle-down text-gray pl-2 sort_inventory" data-email='<?=$id?>' data-column="email" data-order='DESC' style='cursor: pointer;'></i>
-                                                </div>
-                                            </div>
-                                        </td>
+                                        <td width='15%'>Shop</td>
+                                        <td width='15%'>Owner</td>
                                         <td width='20%'>Address</td>
-                                        <td width='15%'>Member Since</td>
+                                        <td width='15%'>
+                                            <div class="d-flex align-items-center text-center justify-content-center">
+                                                <div>
+                                                   Member Since
+                                                </div>
+                                                <div class='d-flex flex-column'>
+                                                    <i class="fas fa-angle-up text-gray pl-2 btn_sort" data-location='stores' data-column="date_created" data-order='ASC' style='cursor: pointer;'></i>
+                                                    <i class="fas fa-angle-down text-gray pl-2 btn_sort" data-location='stores' data-column="date_created" data-order='DESC' style='cursor: pointer;'></i>
+                                                </div>
+                                            </div>
+                                        </td>
                                         <td width='15%'>Status</td>
                                         <td width='15%'>Action</td>
                                     </tr> 
