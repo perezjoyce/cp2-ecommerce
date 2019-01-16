@@ -27,10 +27,9 @@ if(isset($_POST['searchkey'])){
     $count = $statement->rowCount();
 
     if($count){
-        $row = $statement->fetch();
-        
 
         if($location == "users") {
+            echo "success";
             while($row = $statement->fetch()){
             $id = $row['user_id'];
             $username = $row['username'];
@@ -136,6 +135,7 @@ if(isset($_POST['searchkey'])){
     
 <?php      
         }  } elseif ($location == "stores") {
+                echo "success";
             while($row = $statement->fetch()){
             $storeId = $row['store_id'];
             $storeName = $row['name'];
@@ -245,6 +245,7 @@ if(isset($_POST['searchkey'])){
 
 <?php 
         } } else {
+            echo "success";
             while($row = $statement->fetch()){
             $storeId = $row['store_id'];
             $transactionCount = $row['transactionCount'];
@@ -300,5 +301,8 @@ if(isset($_POST['searchkey'])){
 
 
 <?php 
-    } }
+    } else {
+        echo "fail";
+    } 
+}
 ?>
