@@ -28,7 +28,7 @@
                         <div class='pb-4'>
                             Hello! My name is Joyce. As of this writing, I am learning web development at Tuitt -- a local bootcamp in the Philippines. 
                             Although this is my second capstone project, it's still the very first dynamic website I ever created. 
-                            Shoperoo as well as its admin, sellers and users are all fictitious as we were discouraged from using Lorem Ipsum in major parts of the website. 
+                            Mamaroo as well as its admin, sellers and users are all fictitious as we were discouraged from using Lorem Ipsum in major parts of the website. 
                         </div>
                         <div>
                             <a class='text-purple' href="resources.php">Click Here&nbsp;</a> to view the resources that I tapped for this project. If I used your work but did not mention it there, please inform me so I can give you proper recognition.

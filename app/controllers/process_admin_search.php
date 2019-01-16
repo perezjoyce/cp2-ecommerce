@@ -262,7 +262,7 @@ if(isset($_POST['searchkey'])){
                 WHERE s.name LIKE ? 
                 OR u.first_name LIKE ? 
                 OR u.last_name LIKE ? 
-                OR u.username LIKE ? ';
+                OR u.username LIKE ? GROUP BY store_id';
             $statement = $conn->prepare($sql);
             $statement->execute(["%$searchkey%", "%$searchkey%", "%$searchkey%", "%$searchkey%"]);
             $count = $statement->rowCount();

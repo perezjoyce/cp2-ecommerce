@@ -3382,7 +3382,7 @@ $(document).ready( () => {
 				
 				if(response == 'fail'){
 					$('.admin-data-container').html("<tr><td><small>Sorry. No data matched your search key.</small></td></tr>");
-					setTimeout(function(){window.location.reload()}, 2000);
+					// setTimeout(function(){window.location.reload()}, 2000);
 				}else{
 					$('.admin-data-container').html(response);
 				}
