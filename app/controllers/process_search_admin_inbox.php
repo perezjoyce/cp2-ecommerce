@@ -97,13 +97,8 @@ $searchkey = $_POST['searchkey'];
                                     </tr>
 
             
-<?php } 
-    echo "success";
-    } else { 
-        echo "<script>
-            $('#admin_contacts_container').html('<tr><td><small>Sorry. There is no client with this name in your inbox.</small></td></tr>');
-            setTimeout(function(){window.location.reload()}, 2000);
-            </script>"; 
+<?php } } else { 
+        echo "<tr><td><small>Sorry. The search key doesn't match any of your contacts.</small></td></tr>"; 
     }   
 ?>   
 

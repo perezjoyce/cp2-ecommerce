@@ -3401,9 +3401,11 @@ $(document).ready( () => {
 
 			$.post('../../app/controllers/process_search_admin_inbox.php', {searchkey:searchkey},
 				function(response){
-				// let data = $.parseJSON(response);
 				
-				if(response == 'success'){
+				if(response == '<tr><td><small>Sorry. The search key doesn\'t match any of your contacts.</small></td></tr>'){
+					$('#admin_contacts_container').html("<tr><td><small>Sorry. The search key doesn't match any of your contacts.</small></td></tr>");
+					setTimeout(function(){window.location.reload()}, 1500);
+				}else{
 					$('#admin_contacts_container').html(response);
 				}
 					
