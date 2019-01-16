@@ -71,7 +71,7 @@ if($table != 'tbl_seller_accounts') {
 
                 <!-- STATUS -->
                 <td class='mx-0' width='15%'> 
-                    <div class="d-flex align-items-center py-3 text-secondary">
+                    <div class='py-3 text-secondary'>
                         <?php 
 
                             if($status == 1) {
