@@ -3403,10 +3403,7 @@ $(document).ready( () => {
 				function(response){
 				// let data = $.parseJSON(response);
 				
-				if(response == 'fail'){
-					$('#admin_contacts_container').html("<tr><td><small>Sorry. There is no client with this name in your inbox.</small></td></tr>");
-					setTimeout(function(){window.location.reload()}, 2000);
-				}else{
+				if(response == 'success'){
 					$('#admin_contacts_container').html(response);
 				}
 					
