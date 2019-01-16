@@ -5,7 +5,7 @@ $searchkey = $_POST['searchkey'];
 
     $sql = ' SELECT u.id AS "user_id", u.first_name, u.last_name, u.username, u.last_login, u.profile_pic, u.isSeller, u.status, s.name, s.logo
             FROM tbl_users u 
-            JOIN tbl_stores s 
+            LEFT JOIN tbl_stores s 
             ON s.user_id=u.id 
             WHERE u.first_name 
             LIKE ? 
