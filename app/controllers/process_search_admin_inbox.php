@@ -14,7 +14,8 @@ $searchkey = $_GET['searchkey'];
             OR u.username 
             LIKE ? 
             OR s.name 
-            LIKE ? AND WHERE u.id != ?';
+            LIKE ? 
+            AND `user_id` != ?';
     $statement = $conn->prepare($sql);
     $statement->execute(["%$searchkey%", "%$searchkey%", "%$searchkey%", "%$searchkey%", $adminId]);
 
