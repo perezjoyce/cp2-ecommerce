@@ -15,9 +15,9 @@ if($location == 'users'){
 }
 
 if($table != 'tbl_seller_accounts') {
-    $sql = "SELECT * FROM ? ORDER BY $columnName $order";
+    $sql = "SELECT * FROM $table ORDER BY $columnName $order";
     $statement = $conn->prepare($sql);
-    $statement->execute([$table]);
+    $statement->execute();
 
     if($location == 'users'){
         while($row = $statement->fetch()){
@@ -240,9 +240,9 @@ if($table != 'tbl_seller_accounts') {
     AS 'storeCredit', SUM(debit) 
     AS 'storeDebit' 
     FROM tbl_seller_accounts 
-    GROUP BY store_id ORDER BY ? ?";
+    GROUP BY store_id ORDER BY $columnName $order";
         $statement = $conn->prepare($sql);
-        $statement->execute([$columnName, $order]);
+        $statement->execute();
 
         while($row = $statement->fetch()){ 
             $storeId = $row['store_id'];
