@@ -170,7 +170,7 @@
 
                                             <!-- STATUS -->
                                             <td class='mx-0' width='15%'> 
-                                                <div class="d-flex align-items-center text-secondary py-3">
+                                                <div class='py-3 text-secondary'>
                                                     <?php 
 
                                                         $sql2 = "SELECT * FROM tbl_users WHERE id =?";

@@ -135,7 +135,7 @@ if($table != 'tbl_seller_accounts') {
             $firstName = ucwords($firstName);
             $lastName = $row['last_name'];
             $lastName = ucwords($lastName);
-            $owner = $firstName . "&nbsp;" . $lastName;
+            // $owner = $firstName . "&nbsp;" . $lastName;
             $sellerId = $row['user_id']; 
     ?>
 
@@ -145,7 +145,7 @@ if($table != 'tbl_seller_accounts') {
                 <!-- STORE ID -->
                 <td class='mx-0' width='5%'> 
                     <div class='py-3 text-secondary'>
-                        <?= $storeId ?>
+                        <?= $row['store_id'] ?>
                     </div>
                 </td>
 
@@ -159,7 +159,7 @@ if($table != 'tbl_seller_accounts') {
                 <!-- OWNER -->
                 <td class='mx-0' width='15%'> 
                     <div class='py-3 text-secondary'>
-                        <?= $owner ?>
+                        <?= $firstName . "&nbsp;" . $lastName ?>
                     </div>
                 </td>
 
@@ -182,7 +182,7 @@ if($table != 'tbl_seller_accounts') {
 
                 <!-- STATUS -->
                 <td class='mx-0' width='15%'> 
-                    <div class="d-flex align-items-center text-secondary py-3">
+                    <div class='py-3 text-secondary'>
                         <?php 
 
                             $sql2 = "SELECT * FROM tbl_users WHERE id =?";
