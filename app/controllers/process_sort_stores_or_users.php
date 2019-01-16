@@ -131,11 +131,6 @@ if($table != 'tbl_seller_accounts') {
             $storeName = $row['name'];
             $memberSince = $row['date_created'];
             $storeAddress = $row['store_address'];
-            $firstName = $row['first_name'];
-            $firstName = ucwords($firstName);
-            $lastName = $row['last_name'];
-            $lastName = ucwords($lastName);
-            // $owner = $firstName . "&nbsp;" . $lastName;
             $sellerId = $row['user_id']; 
     ?>
 
@@ -145,7 +140,7 @@ if($table != 'tbl_seller_accounts') {
                 <!-- STORE ID -->
                 <td class='mx-0' width='5%'> 
                     <div class='py-3 text-secondary'>
-                        <?= $row['store_id'] ?>
+                        <?= getStoreId ($conn,$sellerId) ?>
                     </div>
                 </td>
 
@@ -159,7 +154,14 @@ if($table != 'tbl_seller_accounts') {
                 <!-- OWNER -->
                 <td class='mx-0' width='15%'> 
                     <div class='py-3 text-secondary'>
-                        <?= $firstName . "&nbsp;" . $lastName ?>
+                        <?php 
+                        $firstName = getFirstName ($conn,$userId);
+                        $firstName = ucwords(strtolower($firstName));
+                        $lastName = getLastName ($conn,$userId);
+                        $lastName = ucwords(strtolower($lastName));
+                        echo $firstName ." ". $lastName;
+                        
+                        ?>
                     </div>
                 </td>
 
