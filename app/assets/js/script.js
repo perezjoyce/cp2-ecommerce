@@ -3376,7 +3376,7 @@ $(document).ready( () => {
 				'location' : $(this).data('location')
 			}
 
-			$.post('../../app/controllers/process_admin_search', data,
+			$.post('../../app/controllers/process_admin_search.php', data,
 				function(response){
 				// let data = $.parseJSON(response);
 				
