@@ -3393,6 +3393,28 @@ $(document).ready( () => {
 		
 	})
 
+	// SEARCHING FOR CLIENT NAME IN ADMIN INBOX
+	$(document).on('keypress', '#search_admin_inbox', function(e) {
+	
+		if(e.keyCode == 13) {
+			let searchkey = $(this).val();
+
+			$.get('../../app/controllers/process_search_admin_inbox.php', {keypress:keypress},
+				function(response){
+				// let data = $.parseJSON(response);
+				
+				if(response == 'fail'){
+					$('#admin_contacts_container').html("<tr><td><small>Sorry. There is no client with this name in your inbox.</small></td></tr>");
+					setTimeout(function(){window.location.reload()}, 2000);
+				}else{
+					$('#admin_contacts_container').html(response);
+				}
+					
+			});
+		}
+		
+	})
+
 	
 
 });

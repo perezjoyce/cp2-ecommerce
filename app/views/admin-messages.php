@@ -45,12 +45,12 @@
                                             <i class="fas fa-search" style='background:white;'></i>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control border-right-0 border-left-0 border-top-0" id="search_client_name" placeholder="Search names..." style='font-size:14px;'>
+                                    <input type="text" class="form-control border-right-0 border-left-0 border-top-0" id="search_admin_inbox" placeholder="Search names..." style='font-size:14px;'>
                                 </div>
                             </div>
                             
                             <div class="row mx-0">
-                                <table class="table table-hover borderless" id='sender_container'>
+                                <table class="table table-hover borderless" id='admin_contacts_container'>
                                                 
 
                                     <?php 
