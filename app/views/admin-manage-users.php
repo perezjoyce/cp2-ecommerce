@@ -46,7 +46,7 @@
                                         <i class="fas fa-search" style='background:white;'></i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control border-right-0 border-left-0 border-top-0" id="btn_search_inventory">
+                                <input type="text" class="form-control border-right-0 border-left-0 border-top-0" id="admin_search" data-location='users'>
                             </div>
                         </div>
 						
@@ -112,7 +112,7 @@
                                         <td width='15%'>Action</td>
                                     </tr> 
                                 </thead>
-                                <tbody style='background:white;height:600px;overflow-y:auto;font-size:12px;' id='data-container'>
+                                <tbody style='background:white;height:600px;overflow-y:auto;font-size:12px;' class='admin-data-container'>
                                     
                                     <?php 
                                     
@@ -134,110 +134,94 @@
                         
                                     ?>
                                         <tr>
-                                                <!-- USER ID -->
-                                                <td class='mx-0' width='5%'> 
-                                                    <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                        <div class='py-3 text-secondary'>
-                                                        <?= $id ?>
-                                                        </div>
-                                                    </a>
-                                                </td>
+                                            <!-- USER ID -->
+                                            <td class='mx-0' width='5%'> 
+                                                <div class='py-3 text-secondary'>
+                                                    <?= $id ?>
+                                                </div>
+                                            </td>
 
-                                                <!-- USERNAME -->
-                                                <td class='mx-0' width='15%'> 
-                                                    <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                        <div class='py-3 text-secondary'>
-                                                        <?= $username ?>
-                                                        </div>
-                                                    </a>
-                                                </td>
+                                            <!-- USERNAME -->
+                                            <td class='mx-0' width='15%'> 
+                                                <div class='py-3 text-secondary'>
+                                                    <?= $username ?>
+                                                </div>
+                                            </td>
                                                 
-                                                <!-- EMAIL -->
-                                                <td class='mx-0'> 
-                                                    <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                        <div class='py-3 text-secondary'>
-                                                            <?= $email ?>
-                                                        </div>
-                                                    </a>
-                                                </td>
+                                            <!-- EMAIL -->
+                                            <td class='mx-0'> 
+                                                <div class='py-3 text-secondary'>
+                                                    <?= $email ?>
+                                                </div>
+                                            </td>
 
-                                                <!-- USER TYPE -->
-                                                <td class='mx-0' width='15%'> 
-                                                    <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                        <div class='py-3 text-gray'>
-                                                            <?=$userType?>   
-                                                        </div>
-                                                    </a>
-                                                </td>
+                                            <!-- USER TYPE -->
+                                            <td class='mx-0' width='15%'> 
+                                                <div class='py-3 text-secondary'>
+                                                    <?=$userType?>   
+                                                </div>
+                                            </td>
 
-                                                <!-- MEMEBER SINCE -->
-                                                <td class='mx-0 vanish-md' width='15%'> 
-                                                    <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                        <div class='py-3 text-secondary memberSince'>
-                                                            <?= $memberSince ?>
-                                                        </div>
-                                                    </a>
-                                                </td>
+                                            <!-- MEMEBER SINCE -->
+                                            <td class='mx-0 vanish-md' width='15%'> 
+                                                <div class='py-3 text-secondary memberSince'>
+                                                    <?= $memberSince ?>
+                                                </div>
+                                            </td>
 
 
-                                                <!-- STATUS -->
-                                                <td class='mx-0' width='15%'> 
-                                                    <div class="d-flex align-items-center py-3">
-                                                        <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='btn_view_order_history flex-fill text-center text-secondary' style='cursor:pointer;size:15px;'>
-                                                        <?php 
+                                            <!-- STATUS -->
+                                            <td class='mx-0' width='15%'> 
+                                                <div class="d-flex align-items-center py-3 text-secondary">
+                                                    <?php 
 
-                                                            if($status == 1) {
-                                                                echo "Active";
-                                                            } elseif ($status == 0) {
-                                                                echo "Deactivated";
-                                                            } else {
-                                                                echo "Pending Deactivation";
-                                                            }
-                                                        
-                                                        ?>
+                                                        if($status == 1) {
+                                                            echo "Active";
+                                                        } elseif ($status == 0) {
+                                                            echo "Deactivated";
+                                                        } else {
+                                                            echo "Pending Deactivation";
+                                                        }
+                                                    
+                                                    ?>
+                                                </div>
+                                            </td>
+
+
+                                            <!-- ACTION -->
+                                            <td class='mx-0' width='15%'> 
+                                                <div class='py-3 text-gray'>
+                                                    <div class="dropdown show">
+                                                        <a class="btn border dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <small class='vanish-md'>CHOOSE 1</small>    
                                                         </a>
-                                                    </div>
-                                                </td>
 
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 
-                                                <!-- ACTION -->
-                                                <td class='mx-0' width='15%'> 
-                                                    <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                        <div class='py-3 text-gray'>
-                                                            <div class="dropdown show">
-                                                                <a class="btn border dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                    <small class='vanish-md'>CHOOSE 1</small>    
-                                                                </a>
+                                                                <?php
+                                                                    if($userType == 'USER') {
+                                                                ?>
+                                                            <a class="dropdown-item btn_set" data-userid='<?=$id?>' data-role='admin' data-username='<?=$username?>'>
 
-                                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                                    <!-- ONCE CLICKED, BUTTON WILL BE CHANGED -->
+                                                                <small>SET AS ADMIN</small>
+                                                            </a>
+                                                                <?php } else {?>
 
-                                                                        <?php
-                                                                            if($userType == 'USER') {
-                                                                        ?>
-                                                                    <a class="dropdown-item btn_set" data-userid='<?=$id?>' data-role='admin' data-username='<?=$username?>'>
+                                                            <a class="dropdown-item btn_set" data-userid='<?=$id?>' data-role='user' data-username='<?=$username?>'>
+                                                                <small>SET AS USER</small>
+                                                            </a>
 
-                                                                        <small>SET AS ADMIN</small>
-                                                                    </a>
-                                                                        <?php } else {?>
+                                                                <?php } ?>
+                                                            
+                                                            <a class="dropdown-item btn_deactivate" data-userid='<?= $id ?>' href="#" data-username='<?=$username?>' data-isseller='<?=$isSeller?>' data-status='<?=$status?>'>
+                                                                <small>DEACTIVATE</small>
+                                                            </a>
 
-                                                                    <a class="dropdown-item btn_set" data-userid='<?=$id?>' data-role='user' data-username='<?=$username?>'>
-                                                                        <small>SET AS USER</small>
-                                                                    </a>
-
-                                                                        <?php } ?>
-                                                                    
-                                                                    <!-- ONCE CLICKED, WILL BE TRANSFERRED TO ORDER HISTORY -->
-                                                                    <a class="dropdown-item btn_deactivate" data-userid='<?= $id ?>' href="#" data-username='<?=$username?>' data-isseller='<?=$isSeller?>' data-status='<?=$status?>'>
-                                                                        <small>DEACTIVATE</small>
-                                                                    </a>
-
-                                                                </div>
-                                                                <!-- put dropdown with two buttons: SEND MESSAGE, CONFIRM, CANCELL, COMPLETE -->
-                                                            </div>
                                                         </div>
-                                                    </a>
-                                                </td>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </td>
                                             
                                         </tr>
                                     <?php } ?>

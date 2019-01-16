@@ -35,6 +35,7 @@ if(isset($_SESSION['id'])){
                 $statement5->execute([$userId]);
                 $row5 = $statement5->fetch();
                 $storeId = $row5['id'];
+                $storeName = $row5['name'];
 
                 // DELETE STORE
                 $sql3 =  "DELETE FROM tbl_stores WHERE `user_id` = ?  AND id = ?";
@@ -51,8 +52,8 @@ if(isset($_SESSION['id'])){
 
                     $messageForClient =   
                     "<form>
-                        <div style='padding-top:20px;'>As per your request, your Mamaroo account has been deactivated. Consequently, 
-                        your store has been deleted from the website. You may reactivate your account by logging in with your email or username and password but, 
+                        <div style='padding-top:20px;'>As per your request, your Mamaroo account has been deactivated. Consequently, your store -- ". $storeName . 
+                        " -- has been deleted from the website. You may reactivate your account by logging in with your email or username and password but, 
                         you'll have to go through the application process once again to be able to set up an online shop. 
                         We wish you well in your future endeavors.</div>   
                         <div style='padding-top:20px;'>Sincerely, </div>   

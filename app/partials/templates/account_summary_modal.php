@@ -57,7 +57,7 @@
                                         
                                         
                             <?php
-                            $sql = " SELECT * FROM tbl_seller_account WHERE store_id = ?";
+                            $sql = " SELECT * FROM tbl_seller_accounts WHERE store_id = ?";
                                         $statement = $conn->prepare($sql);
                                         $statement->execute([$storeId]);
                                         $count = $statement->rowCount();

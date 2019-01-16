@@ -42,7 +42,7 @@
                                         <i class="fas fa-search" style='background:white;'></i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control border-right-0 border-left-0 border-top-0" id="store_page_search">
+                                <input type="text" class="form-control border-right-0 border-left-0 border-top-0" id="admin_search" data-location='account'>
                             </div>
                         </div>
 						
@@ -60,7 +60,7 @@
                             AS 'transactionCount', store_id, SUM(credit) 
                             AS 'storeCredit', SUM(debit) 
                             AS 'storeDebit' 
-                            FROM tbl_seller_account 
+                            FROM tbl_seller_accounts 
                             GROUP BY store_id";
                                 $statement = $conn->prepare($sql);
                                 $statement->execute();
@@ -89,7 +89,7 @@
                                         
                                     </tr> 
                                 </thead>
-                                <tbody style='background:white;height:600px;overflow-y:auto;font-size:14px;'>
+                                <tbody style='background:white;height:600px;overflow-y:auto;font-size:14px;' class='admin-data-container'>
 
   
                                     <?php 
@@ -101,13 +101,14 @@
                                             $credit = number_format((float)$credit, 2, '.', ',');
                                             $debit = $row['storeDebit'];
                                             $debit = number_format((float)$debit, 2, '.', ',');
+                                            $storeName = getStoreNameFromStoreId($conn, $storeId);
                                     ?>
                                     
                                         <tr>
                                             <!-- STORE NAME -->
                                             <td class='mx-0' width='20%'>
                                                 <div class='py-4 text-secondary'>
-                                                    <?=getStoreNameFromStoreId($conn, $storeId)?>
+                                                    <?=$storeName?>
                                                 </div>
                                             </td>
 
@@ -164,7 +165,7 @@
                                             as 'balance', SUM(debit) 
                                             as 'totalEarningsFromServiceCharge', SUM(credit) - SUM(debit) 
                                             as 'debit' 
-                                            FROM tbl_seller_account ";
+                                            FROM tbl_seller_accounts ";
                                             $statement = $conn->prepare($sql);
                                             $statement->execute();
                                             $row = $statement->fetch();

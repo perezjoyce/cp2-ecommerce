@@ -813,7 +813,7 @@ function productprofile($conn,$productId){
 }
 
 function showStoreCredit($conn, $storeId){
-    $sql = "SELECT SUM(credit) AS 'credit' FROM tbl_seller_account WHERE store_id = ?";
+    $sql = "SELECT SUM(credit) AS 'credit' FROM tbl_seller_accounts WHERE store_id = ?";
     $statement = $conn->prepare($sql);
     $statement->execute([$storeId]);	
     $row = $statement->fetch();
@@ -823,7 +823,7 @@ function showStoreCredit($conn, $storeId){
 }
 
 function showStoreDebit($conn, $storeId){
-    $sql = "SELECT SUM(debit) AS 'debit' FROM tbl_seller_account WHERE store_id = ?";
+    $sql = "SELECT SUM(debit) AS 'debit' FROM tbl_seller_accounts WHERE store_id = ?";
     $statement = $conn->prepare($sql);
     $statement->execute([$storeId]);	
     $row = $statement->fetch();
@@ -833,7 +833,7 @@ function showStoreDebit($conn, $storeId){
 }
 
 function showStoreBalance($conn, $storeId){
-    $sql = "SELECT SUM(credit) - SUM(debit) AS 'balance' FROM tbl_seller_account WHERE store_id = ?";
+    $sql = "SELECT SUM(credit) - SUM(debit) AS 'balance' FROM tbl_seller_accounts WHERE store_id = ?";
     $statement = $conn->prepare($sql);
     $statement->execute([$storeId]);	
     $row = $statement->fetch();

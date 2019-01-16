@@ -46,7 +46,7 @@
                                         <i class="fas fa-search" style='background:white;'></i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control border-right-0 border-left-0 border-top-0" id="btn_search_inventory">
+                                <input type="text" class="form-control border-right-0 border-left-0 border-top-0" id="admin_search" data-location='stores'>
                             </div>
                         </div>
 						
@@ -103,7 +103,7 @@
                                         <td width='15%'>Action</td>
                                     </tr> 
                                 </thead>
-                                <tbody style='background:white;height:600px;overflow-y:auto;font-size:12px;' id='data-container'>
+                                <tbody style='background:white;height:600px;overflow-y:auto;font-size:12px;' class='admin-data-container'>
                                     
                                     <?php 
                                     
@@ -138,121 +138,103 @@
                         
                                     ?>
                                         <tr>
-                                            <div>
+                              
 
-                                                <!-- STORE ID -->
-                                                <td class='mx-0' width='5%'> 
-                                                    <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                        <div class='py-3 text-secondary'>
-                                                        <?= $storeId ?>
-                                                        </div>
-                                                    </a>
-                                                </td>
+                                            <!-- STORE ID -->
+                                            <td class='mx-0' width='5%'> 
+                                                <div class='py-3 text-secondary'>
+                                                    <?= $storeId ?>
+                                                </div>
+                                            </td>
 
-                                                <!-- NAME -->
-                                                <td class='mx-0' width='15%'> 
-                                                    <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                        <div class='py-3 text-secondary'>
-                                                        <?= $storeName ?>
-                                                        </div>
-                                                    </a>
-                                                </td>
+                                            <!-- NAME -->
+                                            <td class='mx-0' width='15%'> 
+                                                <div class='py-3 text-secondary'>
+                                                    <?= $storeName ?>
+                                                </div>
+                                            </td>
                                                 
-                                                <!-- OWNER -->
-                                                <td class='mx-0' width='15%'> 
-                                                    <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                        <div class='py-3 text-secondary'>
-                                                            <span><?= $owner ?></span>
-                                                        </div>
-                                                    </a>
-                                                </td>
+                                            <!-- OWNER -->
+                                            <td class='mx-0' width='15%'> 
+                                                <div class='py-3 text-secondary'>
+                                                    <?= $owner ?>
+                                                </div>
+                                            </td>
 
-                                                 <!-- ADDRESS -->
-                                                 <td class='mx-0' width='20%'> 
-                                                    <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                        <div class='py-3 text-secondary'>
-                                                            <span><?= $storeAddress ?></span>
-                                                        </div>
-                                                    </a>
-                                                </td>
+                                            <!-- ADDRESS -->
+                                            <td class='mx-0' width='20%'> 
+                                                <div class='py-3 text-secondary'>
+                                                    <?= $storeAddress ?>
+                                                </div>
+                                            </td>
 
                                                 
 
-                                                 <!-- MEMEBER SINCE -->
-                                                 <td class='mx-0' width='15%'> 
-                                                    <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                        <div class='py-3 text-secondary memberSince'>
-                                                            <span><?= $memberSince ?></span>
-                                                        </div>
-                                                    </a>
-                                                </td>
+                                            <!-- MEMEBER SINCE -->
+                                            <td class='mx-0' width='15%'> 
+                                                <div class='py-3 text-secondary memberSince'>
+                                                    <?= $memberSince ?>
+                                                </div>
+                                            </td>
 
 
-                                                <!-- STATUS -->
-                                                <td class='mx-0' width='15%'> 
-                                                    <div class="d-flex align-items-center py-3">
-                                                        <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='btn_view_order_history flex-fill text-center text-secondary' style='cursor:pointer;size:15px;'>
-                                                        <?php 
+                                            <!-- STATUS -->
+                                            <td class='mx-0' width='15%'> 
+                                                <div class="d-flex align-items-center text-secondary py-3">
+                                                    <?php 
 
-                                                            $sql2 = "SELECT * FROM tbl_users WHERE id =?";
-                                                            $statement2 = $conn->prepare($sql2);
-                                                            $statement2->execute([$sellerId]);
-                                                            $row2 = $statement2->fetch();
-                                                            $status = $row2['status'];
+                                                        $sql2 = "SELECT * FROM tbl_users WHERE id =?";
+                                                        $statement2 = $conn->prepare($sql2);
+                                                        $statement2->execute([$sellerId]);
+                                                        $row2 = $statement2->fetch();
+                                                        $status = $row2['status'];
 
-                                                            if($status == 1) {
-                                                                echo "Active";
-                                                            } elseif ($status == 0) {
-                                                                // STORE ACCOUNT IS DELETED UPON DEACTIVATION HENCE THIS WON'T BE DISPLAYED
-                                                                echo "";
-                                                            } else {
-                                                                echo "Pending Deactivation";
-                                                            }
-                                                        
-                                                        ?>
+                                                        if($status == 1) {
+                                                            echo "Active";
+                                                        } elseif ($status == 0) {
+                                                            // STORE ACCOUNT IS DELETED UPON DEACTIVATION HENCE THIS WON'T BE DISPLAYED
+                                                            echo "";
+                                                        } else {
+                                                            echo "Pending Deactivation";
+                                                        }
+                                                    
+                                                    ?>
+                                                </div>
+                                            </td>
+
+
+                                            <!-- ACTION -->
+                                            <td class='mx-0' width='15%'> 
+                                                <div class='py-3 text-gray'>
+                                                    <div class="dropdown show">
+                                                        <a class="btn border dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <small>CHOOSE 1</small>    
                                                         </a>
-                                                    </div>
-                                                
-                                                </td>
 
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                            <!-- ONCE CLICKED, BUTTON WILL BE CHANGED -->
+                                                        
+                                                            <a class="dropdown-item btn_view_account" href="#" data-href='<?= BASE_URL ."/app/partials/templates/view_shop_modal.php?id=". $storeId?>'>
+                                                                <small>VIEW SHOP</small>
+                                                            </a>
+                                                            
+                                                            <a class="dropdown-item btn_view_account" href="#" data-href="../partials/templates/account_summary_modal.php?id=<?=$storeId?>" >
+                                                                <small>VIEW ACCOUNT</small>
+                                                            </a>
 
-                                                <!-- ACTION -->
-                                                <td class='mx-0' width='15%'> 
-                                                    <a data-url="../partials/templates/view_order_summary_modal.php" data-id='#' class='border-0 btn_view_order_history' style='cursor:pointer;size:15px;'>
-                                                        <div class='py-3 text-gray'>
-                                                            <div class="dropdown show">
-                                                                <a class="btn border dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                    <small>CHOOSE 1</small>    
-                                                                </a>
-
-                                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                                    <!-- ONCE CLICKED, BUTTON WILL BE CHANGED -->
-                                                                
-                                                                    <a class="dropdown-item btn_view_account" href="#" data-href='<?= BASE_URL ."/app/partials/templates/view_shop_modal.php?id=". $storeId?>'>
-                                                                        <small>VIEW SHOP</small>
-                                                                    </a>
-                                                                    
-                                                                    <a class="dropdown-item btn_view_account" href="#" data-href="../partials/templates/account_summary_modal.php?id=<?=$storeId?>" >
-                                                                        <small>VIEW ACCOUNT</small>
-                                                                    </a>
-
-                                                                    <!-- ONCE CLICKED, WILL BE TRANSFERRED TO ORDER HISTORY -->
-                                                                    <a class="dropdown-item btn_deactivate" data-userid='<?= $sellerId ?>' href="#" data-username='<?=$owner?>' data-isseller='yes' data-status='<?=$status?>'>
-                                                                        <small>DELETE SHOP</small>
-                                                                    </a>
-                                                                    
-                                                                </div>
-                                                                <!-- put dropdown with two buttons: SEND MESSAGE, CONFIRM, CANCELL, COMPLETE -->
-                                                            </div>
+                                                            <!-- ONCE CLICKED, WILL BE TRANSFERRED TO ORDER HISTORY -->
+                                                            <a class="dropdown-item btn_deactivate" data-userid='<?= $sellerId ?>' href="#" data-username='<?=$owner?>' data-isseller='yes' data-status='<?=$status?>'>
+                                                                <small>DELETE SHOP</small>
+                                                            </a>
+                                                            
                                                         </div>
-                                                    </a>
-                                                </td>
+                                                        <!-- put dropdown with two buttons: SEND MESSAGE, CONFIRM, CANCELL, COMPLETE -->
+                                                    </div>
+                                                </div>
+                                            </td>
 
-                                                
-                                                
-                                            </div>
-                                            
                                         </tr>
+                                        
                                     <?php } ?>
                                 </tbody>
                             </table>

@@ -29,12 +29,12 @@
 
   while($row0 = $statement0->fetch()) {
     $storeId = $row0['store_id'];
-    $sql = "INSERT INTO tbl_seller_account(store_id, debit, credit, description, `timestamp`) VALUES(?,?,?,?, NOW())";
+    $sql = "INSERT INTO tbl_seller_accounts(store_id, debit, credit, description, `timestamp`) VALUES(?,?,?,?, NOW())";
     $statement = $conn->prepare($sql);
     $statement->execute([$storeId, 0, $amount, 'payment recieved from customer: '. $userId]);
 
     // charge the seller for using shoperoo
-    $sql2 = "INSERT INTO tbl_seller_account(store_id, debit, credit, description, `timestamp`) VALUES(?,?,?,?, NOW())";
+    $sql2 = "INSERT INTO tbl_seller_accounts(store_id, debit, credit, description, `timestamp`) VALUES(?,?,?,?, NOW())";
     $statement2 = $conn->prepare($sql2);
     $shoperooServiceCharge = $amount * .03; // 3% of total Amount
     $statement->execute([$storeId, $shoperooServiceCharge, 0, 'Service Charge to Mamaroo: '. $userId]);

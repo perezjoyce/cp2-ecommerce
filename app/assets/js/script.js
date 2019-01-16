@@ -3366,6 +3366,32 @@ $(document).ready( () => {
 		}
 	});
 
+
+	// SEARCH CLIENT INFO ON ADMIN SIDE
+	$(document).on('keypress', '#admin_search', function(e) {
+		
+		if(e.keyCode == 13) {
+			let data = {
+				'searchkey' : $(this).val(),
+				'location' : $(this).data('location')
+			}
+
+			$.post('../../app/controllers/process_admin_search', data,
+				function(response){
+				// let data = $.parseJSON(response);
+				
+				if(response == 'fail'){
+					$('.admin-data-container').html("<tr><td><small>Sorry. No data matched your search key.</small></td></tr>");
+					setTimeout(function(){window.location.reload()}, 2000);
+				}else{
+					$('.admin-data-container').html(response);
+				}
+					
+			});
+		}
+		
+	})
+
 	
 
 });

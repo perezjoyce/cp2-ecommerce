@@ -149,7 +149,7 @@
                         <!-- MESSAGE AREA -->
                         <div class="col px-0">
                             <div class="d-flex flex-column">
-                                <div style='background:white;height:411px;overflow-y:auto;' id='admin_profile_message_container'>
+                                <div style='background:white;height:411px;overflow-y:auto;' id='admin_profile_message_container' class='admin-data-container'>
                                     <?php 
                                     if(isset($_SESSION['last_selected_conversation'])){
                                         $sql = "SELECT u.*, m.* FROM tbl_messages m 
