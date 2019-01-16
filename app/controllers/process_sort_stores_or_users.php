@@ -299,8 +299,13 @@ if($table != 'tbl_seller_accounts') {
 
 <?php } } ?>
 
-<script src="<?= BASE_URL ?>/node_modules/moment/moment.js"></script>
-<script src="<?= BASE_URL ?>/node_modules/moment-timezone/builds/moment-timezone-with-data.min.js"></script>
-<script src="<?= BASE_URL ?>/node_modules/timeago.js/dist/timeago.min.js"></script>
+<script>
+    var utcDateTime3 = $('.memberSince');
+	var tz2 = moment.tz.guess();
+	$.each(utcDateTime3, function(i, element){
+		var dateTimeStr3 = $(element).text().trim();		
+		$(element).text(moment(dateTimeStr3).tz(tz2).format("ll"));
+	});
+</script>
 
 

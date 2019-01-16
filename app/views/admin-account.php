@@ -106,8 +106,8 @@
                                                 </a>
                                                 Credit Charge
                                                 <div class='d-flex flex-column'>
-                                                    <i class="fas fa-angle-up text-gray pr-2 btn_sort" data-location='account' data-column="storeDebit" data-order='ASC' style='cursor: pointer;'></i>
-                                                    <i class="fas fa-angle-down text-gray pr-2 btn_sort" data-location='account' data-column="storeDebit" data-order='DESC' style='cursor: pointer;'></i>
+                                                    <i class="fas fa-angle-up text-gray pl-2 btn_sort" data-location='account' data-column="storeDebit" data-order='ASC' style='cursor: pointer;'></i>
+                                                    <i class="fas fa-angle-down text-gray pl-2 btn_sort" data-location='account' data-column="storeDebit" data-order='DESC' style='cursor: pointer;'></i>
                                                 </div>
                                             </div>
                                         </td>
