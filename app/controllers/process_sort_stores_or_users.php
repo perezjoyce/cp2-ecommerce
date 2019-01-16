@@ -155,9 +155,9 @@ if($table != 'tbl_seller_accounts') {
                 <td class='mx-0' width='15%'> 
                     <div class='py-3 text-secondary'>
                         <?php 
-                        $firstName = getFirstName ($conn,$userId);
+                        $firstName = getFirstName ($conn,$sellerId);
                         $firstName = ucwords(strtolower($firstName));
-                        $lastName = getLastName ($conn,$userId);
+                        $lastName = getLastName ($conn,$sellerId);
                         $lastName = ucwords(strtolower($lastName));
                         echo $firstName ." ". $lastName;
                         
