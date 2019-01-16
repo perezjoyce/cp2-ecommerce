@@ -3381,6 +3381,7 @@ $(document).ready( () => {
 				// let data = $.parseJSON(response);
 				
 				if(response == 'fail'){
+					$('.admin-data-container').html("");
 					$('.admin-data-container-error').html("<div class='text-center mt-5'>Sorry. No data matched your search key.</div>");
 					setTimeout(function(){window.location.reload()}, 2000);
 				}else{
