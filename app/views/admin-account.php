@@ -220,6 +220,13 @@
                 
                                 </tbody>
                             </table>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12 text-center admin-data-container-error">
+                                       <!-- ERROR HERE -->
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
                     </div>
