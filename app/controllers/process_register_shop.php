@@ -17,7 +17,7 @@ $logo = $_POST['logo'];
 //UPDATE FIRST NAME AND LASTNAME OF USER AND SET TO IS SELLER= YES
 $sql = "UPDATE tbl_users SET first_name=?, last_name=?, isSeller='yes' WHERE id=?";
 $statement = $conn->prepare($sql);
-$statement->execute([$fname, $last, $userId]);
+$statement->execute([$fname, $lname, $userId]);
 
 //INSERT VALUES
 $sql = "INSERT INTO tbl_stores
