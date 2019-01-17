@@ -3429,54 +3429,55 @@ $(document).ready( () => {
 	$(document).on('click', '#btn_submit_store_application', function(){
 		// e.preventDefault;
 		let flag = 1;
-		if($('#confirmation').is(':checked')){
-			let data = {
-				'name' : $('#sname').val(),
-				'about' : $('#about').val(),
-				'fname' : $("#fname").val(),
-				'lname' : $("#lname").val(),
-				'address' : $("#saddress").val(),
-				'hours' : $("#shours").val(),
-				'standard' : $("#standard").val(),
-				'free' : $("#free").val(),
-				'logo' : $("#logo").val(),
-				'permit' : $("#permit").val()
-			}
-			if(data['name'] == "" || data['logo']=="" || data['about'] == "" || data['fname'] == "" || data['lname']=="" || data['address'] == "" || data['standard']==""){
-				$("#register_shop_error").css("color","#f64f59");
-				$("#register_shop_error").text("Please fill out all fields with asterisk.");
-				flag = 1;
-			}
+		let data = {
+			'name' : $('#sname').val(),
+			'about' : $('#about').val(),
+			'fname' : $("#fname").val(),
+			'lname' : $("#lname").val(),
+			'address' : $("#saddress").val(),
+			'hours' : $("#shours").val(),
+			'standard' : $("#standard").val(),
+			'free' : $("#free").val(),
+			'logo' : $("#logo").val(),
+			'permit' : $("#permit").val()
+		}
 
-			if(flag == 0){
-				$.post('../controllers/process_register_shop.php',data,function(response){
-
-					if(response == "tooLarge"){
-						$("#register_shop_error").css("color","#f64f59");
-						$("#register_shop_error").text("Your permit file is too large. Please limit it to 2MB");
-					}else if(response == "wrongFileType"){
-						$("#register_shop_error").css("color","#f64f59");
-						$("#register_shop_error").text("Please use only jpg, png or jpeg as file extension for the permit file.");
-					}else if(response == "logoTooLarge") {
-						$("#register_shop_error").css("color","#f64f59");
-						$("#register_shop_error").text("Your logo is too large. Please limit it to 2MB");
-					}else if(response == "logoWrongFileType"){
-						$("#register_shop_error").css("color","#f64f59");
-						$("#register_shop_error").text("Please use only jpg, png or jpeg as file extension for your logo.");
-					}else {
-						alert("Congratuations! You are now a Mamaroo seller. You will be redirected to your shop profile.");
-						setTimeout(function(){window.location.href="store-profile.php?id="+response}, 1800);
-						// location.href="profile.php?id=" + data.id
-					}
-				})
-			}
-
-
+		if($('#confirmation').is(':checked')){ 
+			flag = 0;
 		} else {
 			$("#confirmation_text").css("color","#f64f59");
+			flag = 1;
 		}
 
 		
+		if(data['name'] == "" || data['logo']=="" || data['about'] == "" || data['fname'] == "" || data['lname']=="" || data['address'] == "" || data['standard']==""){
+			$("#register_shop_error").css("color","#f64f59");
+			$("#register_shop_error").text("Please fill out all fields with asterisk.");
+			flag = 1;
+		}
+
+		if(flag == 0){
+			$.post('../controllers/process_register_shop.php',data,function(response){
+
+				if(response == "tooLarge"){
+					$("#register_shop_error").css("color","#f64f59");
+					$("#register_shop_error").text("Your permit file is too large. Please limit it to 2MB");
+				}else if(response == "wrongFileType"){
+					$("#register_shop_error").css("color","#f64f59");
+					$("#register_shop_error").text("Please use only jpg, png or jpeg as file extension for the permit file.");
+				}else if(response == "logoTooLarge") {
+					$("#register_shop_error").css("color","#f64f59");
+					$("#register_shop_error").text("Your logo is too large. Please limit it to 2MB");
+				}else if(response == "logoWrongFileType"){
+					$("#register_shop_error").css("color","#f64f59");
+					$("#register_shop_error").text("Please use only jpg, png or jpeg as file extension for your logo.");
+				}else {
+					alert("Congratuations! You are now a Mamaroo seller. You will be redirected to your shop profile.");
+					setTimeout(function(){window.location.href="store-profile.php?id="+response}, 1800);
+					// location.href="profile.php?id=" + data.id
+				}
+			})
+		}
 
 	})
 

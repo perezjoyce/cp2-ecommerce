@@ -2,26 +2,6 @@
   require_once '../../../config.php';
 
   $id = $_SESSION['id'];
-  $fname_Attribute = "";
-  $lname_Attribute = "";
-  if(getFirstName($conn,$id)){
-    $fname = getFirstName($conn,$id);
-    $fname = ucwords(strtolower($fname));
-    $fname_Attribute = "value='$fname'";
-  } else {
-    $fname_Attribute = "placeholder='First Name'";
-  }
-
-  if(getLastName($conn,$id)){
-    $lname = getLastName($conn,$id);
-    $lname = ucwords(strtolower($lname));
-    $lname_Attribute = "value='$lname'";
-  } else {
-    $lname_Attribute = "placeholder='Last Name'";
-  }
-  
-  
-
   
 ?>
 
@@ -79,8 +59,38 @@
                         <div class="form-group row mb-5">
                             <label for='owner' class='col-lg-3 col-md-3 col-sm-12'>Owner*</label>
                             <div class="input-group col-lg-9 col-md-9 col-sm-12 d-flex flex-row">
-                                <input type="text" class='form-control' id='fname' $fname_Attribute>
-                                <input type="text"class='form-control' id='lname' $lname_Attribute>
+                                <?php 
+                                    if(getFirstName($conn,$id)){
+                                    $fname = getFirstName($conn,$id);
+                                    $fname = ucwords(strtolower($fname));
+                                ?>
+                                    <input type="text" class='form-control' id='fname' value='<?=$fname?>'>
+                                <?php } else { ?>
+                                    <input type="text" class='form-control' id='fname' placeholder='First Name'>
+                                <?php } ?>
+
+
+                                <?php 
+                                    if(getFirstName($conn,$id)){
+                                    $fname = getFirstName($conn,$id);
+                                    $fname = ucwords(strtolower($fname));
+                                ?>
+                                    <input type="text" class='form-control' id='fname' value='<?=$fname?>'>
+                                <?php } else { ?>
+                                    <input type="text" class='form-control' id='fname' placeholder='First Name'>
+                                <?php } ?>
+
+                                <?php 
+                                    if(getLastName($conn,$id)){
+                                    $lname = getLastName($conn,$id);
+                                    $lname = ucwords(strtolower($lname));
+                                ?>
+                                    <input type="text" class='form-control' id='lname' value='<?=$lname?>'>
+                                <?php } else { ?>
+                                    <input type="text" class='form-control' id='lname' placeholder='Last Name'>
+                                <?php } ?>
+                                
+                                
                             </div>
                         </div>
 
