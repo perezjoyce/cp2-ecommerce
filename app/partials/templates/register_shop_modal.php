@@ -7,7 +7,7 @@
 <div class="container-fluid">
     <div class="row">
 
-        <div class="col-lg-3 vanish-md vanish-sm px-0">
+        <div class="col-lg-4 vanish-md vanish-sm px-0">
             <div id='login_image'></div>
         </div>
 
@@ -43,14 +43,14 @@
 
                         <!-- DESCRIPTION -->
                         <div class="form-group row mb-5">
-                            <label for='description' class='col-lg-3 col-md-3 col-sm-12 d-flex flex-row'>
+                            <label class='col-lg-3 col-md-3 col-sm-12 d-flex flex-row'>
                                 About
                                 <a data-toggle="tooltip" title="Describe what makes your shop unique or share your vision statement here." data-original-title="#">
-                                    &nbsp;<i class="far fa-question-circle text-gray ml-2"></i>
+                                    &nbsp;<i class="far fa-question-circle text-gray ml-1"></i>
                                 </a>
                             </label>
                             <div class="input-group col-lg-9 col-md-9 col-sm-12"><textarea 
-                            class='form-control' id='description' style='background:white;'></textarea>
+                            class='form-control' id='description' style='background:white!important;'></textarea>
                             </div>
                         </div>
 
@@ -75,7 +75,7 @@
                         <div class="form-group row mb-5">
                             <label for='hours' class='col-lg-3 col-md-3 col-sm-12'>Hours</label>
                             <div class="input-group col-lg-9 col-md-9 col-sm-12">
-                                <input type='text' class='form-control' id='hours' placeholder='Mon - Fri, 9:00 AM - 5:00 PM'>
+                                <input type='text' class='form-control' id='hours' placeholder='Mon - Fri, 0:00 AM - 0:00 PM'>
                             </div>
                         </div>
 
@@ -83,7 +83,7 @@
                         <div class="form-group row mb-5">
                             <label for='standard' class='col-lg-3 col-md-3 col-sm-12'>Standard</label>
                             <div class="input-group col-lg-9 col-md-9 col-sm-12">
-                                <input type='number' class='form-control' id='standard'>
+                                <input type='number' class='form-control' id='standard' placeholder='Standard shipping fee.'>
                             </div>
                         </div>
 
@@ -98,10 +98,10 @@
 
                         <!-- STANDARD SHIPPING -->
                         <div class="form-group row mb-5">
-                            <label for='permit' class='col-lg-3 col-md-3 col-sm-12 d-flex flex-row'>
+                            <label class='col-lg-3 col-md-3 col-sm-12 d-flex flex-row'>
                                 Permit
-                                <a data-toggle="tooltip" title="Please attach a scanned copy of your gov't permit to get the certified seller badge." data-original-title="#">
-                                    &nbsp;<i class="far fa-question-circle text-gray ml-2"></i>
+                                <a data-toggle="tooltip" title="Please attach a scanned copy of your government permit to get the certified seller badge after review." data-original-title="#">
+                                    &nbsp;<i class="far fa-question-circle text-gray ml-1"></i>
                                 </a>
                             </label>
                             <div class="input-group col-lg-9 col-md-9 col-sm-12">
@@ -120,12 +120,12 @@
                         <div class="container px-0 mb-5">
                             <!-- CHECKOUT BUTTON -->
                             <div class="row">
-                                <div class="col-lg-8 col-md-6">
+                                <div class="col">
                                     
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-sm-12"> 
-                                    <a class='btn btn-lg btn-block py-3 btn-purple mt-5' id="btn_submit_store_application" type='submit'>
-                                        Submit <span class='vanish-sm'>Application</span>
+                                    <a class='btn btn-lg btn-block py-3 btn-purple mt-5' id="btn_submit_store_application" role='button'>
+                                        Go To My Shop
                                     </a>
 
                                 </div>
