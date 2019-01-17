@@ -23,8 +23,8 @@ $statement2->execute([$shopName ,$description, $address, $userId, $free, $standa
 $sql5 = "SELECT * FROM tbl_stores WHERE `user_id`=? ";
     $statement5 = $conn->prepare($sql5);
     $statement5->execute([$userId]);
-    $row = $statement->fetch();
-    $storeId = $row['id'];
+    $row5 = $statement5->fetch();
+    $storeId = $row5['id'];
 
 
 //INSERT PERMIT TO TBL_PERMIT
@@ -74,11 +74,11 @@ $statement = $conn->prepare($sql);
 $statement->execute([$fname, $lname, $userId]);
 
 //ECHO STORE ID IF STORE HAS BEEN SET UP
-$sql5 = "SELECT * FROM tbl_stores WHERE `user_id`=? ";
-    $statement5 = $conn->prepare($sql5);
-    $statement5->execute([$storeId]);
-    $count5 = $statement5->rowCount();
-    if($count5) {
+$sql6 = "SELECT * FROM tbl_stores WHERE `user_id`=? ";
+    $statement6 = $conn->prepare($sql6);
+    $statement6->execute([$storeId]);
+    $count6 = $statement6->rowCount();
+    if($count6) {
         echo $storeId;
     }
 
