@@ -7,7 +7,6 @@ $id = $_SESSION['id']; //userId
 $storeId = $_POST['id'];
 
 $target_dir = "../../uploads/" . $id."/" . $storeId ."/"; // folder
-// $filename = $_FILES['upload']['name'];
 $filename = uniqid(); //RANDOM FILENAME
 $uploader = new Upload($_FILES['upload']);
 $imageFileType = strtolower(pathinfo($_FILES['upload']['name'], PATHINFO_EXTENSION));
@@ -23,7 +22,7 @@ if ($_FILES['upload']['size'] > 2000000) {
 } 
 
 // to limit type of files 
-if ($imageFileType != 'jpg' && $imageFileType != 'png' && $imageFileType != 'jpeg') {
+if ($imageFileType != 'jpg' || $imageFileType != 'png' || $imageFileType != 'jpeg') {
     $errorMsg = urlencode("Only JPG, JPEG and PNG Files are allowed.");
     header("Location: ../views/store-profile.php?id=$storeId&uploadError=" . $errorMsg);
     exit;

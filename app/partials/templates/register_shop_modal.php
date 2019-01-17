@@ -117,7 +117,7 @@
                             </div>
                         </div>
 
-                        <!-- PERMIT -->
+                        <!-- LOGO -->
                         <div class="form-group row mb-5">
                             <label class='col-lg-3 col-md-3 col-sm-12'>Logo*</label>
                             <div class="input-group col-lg-9 col-md-9 col-sm-12">

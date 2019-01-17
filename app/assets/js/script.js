@@ -3426,6 +3426,8 @@ $(document).ready( () => {
 		})
 	})
 
+
+
 	$(document).on('click', '#btn_submit_store_application', function(){
 		// e.preventDefault;
 		let flag = 1;
@@ -3462,12 +3464,12 @@ $(document).ready( () => {
 
 				if(response == "tooLarge"){
 					$("#register_shop_error").css("color","#f64f59");
-					$("#register_shop_error").text("Your permit file is too large. Please limit it to 2MB");
+					$("#register_shop_error").text("Your fileS are too large. Please limit it to 2MB");
 				}
 				
 				else if (response == "wrongFileType"){
 					$("#register_shop_error").css("color","#f64f59");
-					$("#register_shop_error").text("Please use only jpg, png or jpeg as file extension for the permit file.");
+					$("#register_shop_error").text("Please use only jpg, png or jpeg as file extension for the files.");
 				}
 				
 				else {
