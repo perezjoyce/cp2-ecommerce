@@ -43,12 +43,7 @@
 
                         <!-- DESCRIPTION -->
                         <div class="form-group row mb-5">
-                            <label class='col-lg-3 col-md-3 col-sm-12 d-flex flex-row'>
-                                About*
-                                <a data-toggle="tooltip" title="Describe what makes your shop unique or share your vision statement here." data-original-title="#">
-                                    &nbsp;<i class="far fa-question-circle text-gray"></i>
-                                </a>
-                            </label>
+                            <label for='about' class='col-lg-3 col-md-3 col-sm-12'>About*</label>
                             <div class="input-group col-lg-9 col-md-9 col-sm-12"><textarea 
                             class='form-control' id='about' style='background:white!important;' placeholder='Describe what makes your shop unique or share your vision statement here.'></textarea>
                             </div>
@@ -106,7 +101,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" style='background-color:white;'>&#x20B1;</span>
                                 </div>
-                                <input type='number' step=".01" class='form-control' id='standard' placeholder='Standard shipping fee.'>
+                                <input type='number' step=".01" class='form-control' id='standard' placeholder='Standard shipping fee'>
                             </div>
                         </div>
 
@@ -118,7 +113,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" style='background-color:white;'>&#x20B1;</span>
                                 </div>
-                                <input type='number' step=".01" class='form-control' id='free' placeholder='Minimum spend required to avail free shipping.'>
+                                <input type='number' step=".01" class='form-control' id='free' placeholder='Minimum spend required to avail free shipping'>
                             </div>
                         </div>
 

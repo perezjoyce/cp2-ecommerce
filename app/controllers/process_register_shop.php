@@ -24,7 +24,7 @@ $sql = "INSERT INTO tbl_stores
         (`name`, `description`, store_address,`user_id`,free_shipping_minimum,standard_shipping,`hours`)
         VALUES (?,?,?,?,?,?,?)";
 $statement = $conn->prepare($sql);
-$statement->execute([$name, $address, $userId, $free, $standard, $hours]);
+$statement->execute([$name, $description, $address, $userId, $free, $standard, $hours]);
 
 //FETCH NEW STORE ID
 // $sql = "SELECT * FROM tbl_stores WHERE `user_id` = ? AND `name` = ?";
