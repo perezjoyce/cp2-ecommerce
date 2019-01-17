@@ -3442,7 +3442,7 @@ $(document).ready( () => {
 			}
 			console.log(data);
 		} else {
-			$("#confirmation_text").css("color","red");
+			$("#confirmation_text").css("color","#f64f59");
 		}
 
 		
