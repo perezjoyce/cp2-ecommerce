@@ -117,16 +117,6 @@
                             </div>
                         </div>
 
-                        <!-- LOGO -->
-                        <div class="form-group row mb-5">
-                            <label for='logo' class='col-lg-3 col-md-3 col-sm-12 d-flex flex-row'>
-                                Logo*
-                            </label>
-                            <div class="input-group col-lg-9 col-md-9 col-sm-12">
-                                <input type='file' class='form-control' id='logo'>
-                            </div>
-                        </div>
-
                         <!-- PERMIT -->
                         <div class="form-group row mb-5">
                             <label class='col-lg-3 col-md-3 col-sm-12 d-flex flex-row'>

@@ -3438,7 +3438,6 @@ $(document).ready( () => {
 			'hours' : $("#shours").val(),
 			'standard' : $("#standard").val(),
 			'free' : $("#free").val(),
-			'logo' : $("#logo").val(),
 			'permit' : $("#permit").val()
 		}
 
@@ -3465,19 +3464,9 @@ $(document).ready( () => {
 					$("#register_shop_error").text("Your permit file is too large. Please limit it to 2MB");
 				}
 				
-				if(response == "wrongFileType"){
+				else if (response == "wrongFileType"){
 					$("#register_shop_error").css("color","#f64f59");
 					$("#register_shop_error").text("Please use only jpg, png or jpeg as file extension for the permit file.");
-				}
-				
-				if(response == "logoTooLarge") {
-					$("#register_shop_error").css("color","#f64f59");
-					$("#register_shop_error").text("Your logo is too large. Please limit it to 2MB");
-				}
-				
-				if(response == "logoWrongFileType"){
-					$("#register_shop_error").css("color","#f64f59");
-					$("#register_shop_error").text("Please use only jpg, png or jpeg as file extension for your logo.");
 				}
 				
 				else {
