@@ -3438,7 +3438,8 @@ $(document).ready( () => {
 			'hours' : $("#shours").val(),
 			'standard' : $("#standard").val(),
 			'free' : $("#free").val(),
-			'permit' : $("#permit").val()
+			'permit' : $("#permit").val(),
+			'logo' : $("#logo").val()
 		}
 
 		if($('#confirmation').is(':checked')){ 
