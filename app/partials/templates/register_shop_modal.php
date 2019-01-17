@@ -2,6 +2,27 @@
   require_once '../../../config.php';
 
   $id = $_SESSION['id'];
+  $fname_Attribute = "";
+  $lname_Attribute = "";
+  if(getFirstName($conn,$id)){
+    $fname = getFirstName($conn,$id);
+    $fname = ucwords(strtolower($fname));
+    $fname_Attribute = "value='$fname'";
+  } else {
+    $fname_Attribute = "placeholder='First Name'";
+  }
+
+  if(getLastName($conn,$id)){
+    $lname = getLastName($conn,$id);
+    $lname = ucwords(strtolower($lname));
+    $lname_Attribute = "value='$lname'";
+  } else {
+    $lname_Attribute = "placeholder='Last Name'";
+  }
+  
+  
+
+  
 ?>
 
 <div class="container-fluid">
@@ -31,11 +52,10 @@
                 <div class="row mt-5">
                     <div class="col mt-4">
                     <form action="../controllers/process_register_shop.php" method="POST" id="form_register_shop">
-                        <input type="hidden" name="id" id="id" value="<?= $id ?>">
 
                         <!-- SHOP NAME -->
                         <div class="form-group row mb-5">
-                            <label for='sname' class='col-lg-3 col-md-3 col-sm-12'>Shop Name</label>
+                            <label for='sname' class='col-lg-3 col-md-3 col-sm-12'>Shop Name*</label>
                             <div class="input-group col-lg-9 col-md-9 col-sm-12">
                                 <input type="text" class='form-control' id='sname'>
                             </div>
@@ -44,7 +64,7 @@
                         <!-- DESCRIPTION -->
                         <div class="form-group row mb-5">
                             <label class='col-lg-3 col-md-3 col-sm-12 d-flex flex-row'>
-                                About
+                                About*
                                 <a data-toggle="tooltip" title="Describe what makes your shop unique or share your vision statement here." data-original-title="#">
                                     &nbsp;<i class="far fa-question-circle text-gray"></i>
                                 </a>
@@ -57,15 +77,16 @@
 
                         <!-- OWNER -->
                         <div class="form-group row mb-5">
-                            <label for='owner' class='col-lg-3 col-md-3 col-sm-12'>Owner</label>
-                            <div class="input-group col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" class='form-control' id='owner' placeholder='Please write your complete name.'>
+                            <label for='owner' class='col-lg-3 col-md-3 col-sm-12'>Owner*</label>
+                            <div class="input-group col-lg-9 col-md-9 col-sm-12 d-flex flex-row">
+                                <input type="text" class='form-control' id='fname' $fname_Attribute>
+                                <input type="text"class='form-control' id='lname' $lname_Attribute>
                             </div>
                         </div>
 
                         <!-- ADDRESS -->
                         <div class="form-group row mb-5">
-                            <label for='saddress' class='col-lg-3 col-md-3 col-sm-12'>Address</label>
+                            <label for='saddress' class='col-lg-3 col-md-3 col-sm-12'>Address*</label>
                             <div class="input-group col">
                                 <input type="text" class='form-control' id='saddress' placeholder='Sample City, PH'>
                             </div>
@@ -81,9 +102,12 @@
 
                         <!-- STANDARD SHIPPING -->
                         <div class="form-group row mb-5">
-                            <label for='standard' class='col-lg-3 col-md-3 col-sm-12'>Standard</label>
+                            <label for='standard' class='col-lg-3 col-md-3 col-sm-12'>Standard*</label>
                             <div class="input-group col-lg-9 col-md-9 col-sm-12">
-                                <input type='number' class='form-control' id='standard' placeholder='Standard shipping fee.'>
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style='background-color:white;'>&#x20B1;</span>
+                                </div>
+                                <input type='number' step=".01" class='form-control' id='standard' placeholder='Standard shipping fee.'>
                             </div>
                         </div>
 
@@ -92,7 +116,20 @@
                         <div class="form-group row mb-5">
                             <label for='free' class='col-lg-3 col-md-3 col-sm-12'>Free</label>
                             <div class="input-group col-lg-9 col-md-9 col-sm-12">
-                                <input type='number' class='form-control' id='free' placeholder='Minimum spend required to avail free shipping.'>
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style='background-color:white;'>&#x20B1;</span>
+                                </div>
+                                <input type='number' step=".01" class='form-control' id='free' placeholder='Minimum spend required to avail free shipping.'>
+                            </div>
+                        </div>
+
+                        <!-- LOGO -->
+                        <div class="form-group row mb-5">
+                            <label class='col-lg-3 col-md-3 col-sm-12 d-flex flex-row'>
+                                Logo*
+                            </label>
+                            <div class="input-group col-lg-9 col-md-9 col-sm-12">
+                                <input type='file' class='form-control' id='logo'>
                             </div>
                         </div>
 
