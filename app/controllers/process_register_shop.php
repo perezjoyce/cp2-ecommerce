@@ -20,7 +20,12 @@ $statement2 = $conn->prepare($sql2);
 $statement2->execute([$shopName ,$description, $address, $userId, $free, $standard, $hours]);
 
 //FETCH NEW STORE ID
-$storeId = $conn->lastInsertId();
+$sql5 = "SELECT * FROM tbl_stores WHERE `user_id`=? ";
+    $statement5 = $conn->prepare($sql5);
+    $statement5->execute([$userId]);
+    $row = $statement->fetch();
+    $storeId = $row['id'];
+
 
 //INSERT PERMIT TO TBL_PERMIT
 $target_dir = "../../uploads/" . $userId."/" . $storeId ."/"; // folder
@@ -34,7 +39,7 @@ if ($_FILES['upload']['size'] > 2000000) {
 } 
 
 // to limit type of files 
-if ($imageFileType != 'jpg' && $imageFileType != 'png' && $imageFileType != 'jpeg') {
+if ($imageFileType != 'jpg' || $imageFileType != 'png' || $imageFileType != 'jpeg') {
     echo "wrongFileType";
     exit;
 }
@@ -68,7 +73,15 @@ $sql = "UPDATE tbl_users SET first_name=?, last_name=?, isSeller='yes' WHERE id=
 $statement = $conn->prepare($sql);
 $statement->execute([$fname, $lname, $userId]);
 
-echo $storeId;
+//ECHO STORE ID IF STORE HAS BEEN SET UP
+$sql5 = "SELECT * FROM tbl_stores WHERE `user_id`=? ";
+    $statement5 = $conn->prepare($sql5);
+    $statement5->execute([$storeId]);
+    $count5 = $statement5->rowCount();
+    if($count5) {
+        echo $storeId;
+    }
+
 
 
 
