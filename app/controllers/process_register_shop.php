@@ -12,6 +12,7 @@ $hours = $_POST['hours'];
 $standard = $_POST['standard'];
 $free = $_POST['free'];
 $permit = $_POST['permit'];
+$response =[];
 
 //INSERT VALUES
 $sql2 = "INSERT INTO tbl_stores(`name`, `description`, store_address,`user_id`,free_shipping_minimum, standard_shipping,`hours`)
@@ -35,6 +36,7 @@ $imageFileType = strtolower(pathinfo($_FILES['upload']['name'], PATHINFO_EXTENSI
 
 if ($_FILES['upload']['size'] > 2000000) {
     echo "tooLarge";
+    // $response = ['status' => 'tooLarge'];
     exit;
 } 
 
@@ -76,9 +78,10 @@ $statement->execute([$fname, $lname, $userId]);
 //ECHO STORE ID IF STORE HAS BEEN SET UP
 $sql6 = "SELECT * FROM tbl_stores WHERE `user_id`=? ";
     $statement6 = $conn->prepare($sql6);
-    $statement6->execute([$storeId]);
+    $statement6->execute([$userId]);
     $count6 = $statement6->rowCount();
     if($count6) {
+        // $response = ['status' => 'tooLarge'];
         echo $storeId;
     }
 
