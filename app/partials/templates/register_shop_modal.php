@@ -46,7 +46,7 @@
                             <label class='col-lg-3 col-md-3 col-sm-12 d-flex flex-row'>
                                 About
                                 <a data-toggle="tooltip" title="Describe what makes your shop unique or share your vision statement here." data-original-title="#">
-                                    &nbsp;<i class="far fa-question-circle text-gray ml-1"></i>
+                                    &nbsp;<i class="far fa-question-circle text-gray"></i>
                                 </a>
                             </label>
                             <div class="input-group col-lg-9 col-md-9 col-sm-12"><textarea 
@@ -101,7 +101,7 @@
                             <label class='col-lg-3 col-md-3 col-sm-12 d-flex flex-row'>
                                 Permit
                                 <a data-toggle="tooltip" title="Please attach a scanned copy of your government permit to get the certified seller badge after review." data-original-title="#">
-                                    &nbsp;<i class="far fa-question-circle text-gray ml-1"></i>
+                                    &nbsp;<i class="far fa-question-circle text-gray"></i>
                                 </a>
                             </label>
                             <div class="input-group col-lg-9 col-md-9 col-sm-12">
@@ -121,6 +121,12 @@
                             <!-- CHECKOUT BUTTON -->
                             <div class="row">
                                 <div class="col">
+                                    <div class="form-check-inline">
+                                        <input class="form-check-input type_checkbox" type="checkbox" id="">
+                                        <label class="form-check-label" for="">
+                                           I hereby certify that the above information given is true and correct.
+                                        </label>
+                                    </div>
                                     
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-sm-12"> 
