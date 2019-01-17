@@ -3426,6 +3426,29 @@ $(document).ready( () => {
 		})
 	})
 
+	$(document).on('click', '#btn_submit_store_application', function(e){
+		e.preventDefault;
+
+		if($('#confirmation').is(':checked')){
+			let data = {
+				'name' : $('#sname').val(),
+				'about' : $('#about').val(),
+				'owner' : $("#owner").val(),
+				'address' : $("#saddress").val(),
+				'hours' : $("#shours").val(),
+				'standard' : $("#standard").val(),
+				'free' : $("#free").val(),
+				'permit' : $("#permit").val()
+			}
+			alert(data);
+		} else {
+			$("#confirmation_text").css("color","red");
+		}
+
+		
+
+	})
+
 	
 
 });

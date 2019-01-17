@@ -50,7 +50,7 @@
                                 </a>
                             </label>
                             <div class="input-group col-lg-9 col-md-9 col-sm-12"><textarea 
-                            class='form-control' id='description' style='background:white!important;'></textarea>
+                            class='form-control' id='about' style='background:white!important;' placeholder='Describe what makes your shop unique or share your vision statement here.'></textarea>
                             </div>
                         </div>
 
@@ -73,9 +73,9 @@
 
                         <!-- HOURS -->
                         <div class="form-group row mb-5">
-                            <label for='hours' class='col-lg-3 col-md-3 col-sm-12'>Hours</label>
+                            <label for='shours' class='col-lg-3 col-md-3 col-sm-12'>Hours</label>
                             <div class="input-group col-lg-9 col-md-9 col-sm-12">
-                                <input type='text' class='form-control' id='hours' placeholder='Mon - Fri, 0:00 AM - 0:00 PM'>
+                                <input type='text' class='form-control' id='shours' placeholder='Mon - Fri, 0:00 AM - 0:00 PM'>
                             </div>
                         </div>
 
@@ -88,7 +88,7 @@
                         </div>
 
 
-                        <!-- STANDARD SHIPPING -->
+                        <!-- FREE SHIPPING -->
                         <div class="form-group row mb-5">
                             <label for='free' class='col-lg-3 col-md-3 col-sm-12'>Free</label>
                             <div class="input-group col-lg-9 col-md-9 col-sm-12">
@@ -96,7 +96,7 @@
                             </div>
                         </div>
 
-                        <!-- STANDARD SHIPPING -->
+                        <!-- PERMIT -->
                         <div class="form-group row mb-5">
                             <label class='col-lg-3 col-md-3 col-sm-12 d-flex flex-row'>
                                 Permit
@@ -117,19 +117,17 @@
 
                         
 
-                        <div class="container px-0 mb-5">
+                        <div class="container pr-0 mb-5">
                             <!-- CHECKOUT BUTTON -->
                             <div class="row">
                                 <div class="col">
-                                    <div class="form-check-inline">
-                                        <input class="form-check-input type_checkbox" type="checkbox" id="">
-                                        <label class="form-check-label" for="">
-                                           I hereby certify that the above information given is true and correct.
-                                        </label>
+                                    <div class="d-flex flex-row mt-5">
+                                        <input class="form-check-input type_checkbox" type="checkbox" name="confirmation" id='confirmation'>
+                                        <p id='confirmation_text'>I confirm that the information I gave is true & correct.</p>
                                     </div>
                                     
                                 </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12"> 
+                                <div class="col-lg-5 col-md-6 col-sm-12 pl-0"> 
                                     <a class='btn btn-lg btn-block py-3 btn-purple mt-5' id="btn_submit_store_application" role='button'>
                                         Go To My Shop
                                     </a>
