@@ -3,7 +3,7 @@ require_once '../../config.php';
 require_once "../sources/class.upload.php";
 
 $userId = $_SESSION['id'];
-$name = $_POST['name'];
+$shopName = $_POST['name'];
 $description = $_POST['about'];
 $fname = $_POST['fname'];
 $lname = $_POST['lname'];
@@ -20,9 +20,8 @@ $statement = $conn->prepare($sql);
 $statement->execute([$fname, $lname, $userId]);
 
 //INSERT VALUES
-$sql2 = "INSERT INTO tbl_stores
-        (`name`, `description`, store_address,`user_id`,free_shipping_minimum,standard_shipping,`hours`)
-        VALUES ('$name',?,?,?,?,?,?)";
+$sql2 = "INSERT INTO tbl_stores(`description`, store_address,`user_id`,free_shipping_minimum,standard_shipping,`hours`)
+        VALUES(?,?,?,?,?,?)";
 $statement2 = $conn->prepare($sql2);
 $statement2->execute([$description, $address, $userId, $free, $standard, $hours]);
 
@@ -67,7 +66,7 @@ else {
     }
     
     //$filename = $filename . "." . $imageFileType;
-    $sql3 = "UPDATE tbl_stores SET logo='uploads/$id/$storeId/$filename' WHERE id = ? ";
+    $sql3 = "UPDATE tbl_stores SET `name`=$shopName, logo='uploads/$id/$storeId/$filename' WHERE id = ? ";
     $statement3 = $conn->prepare($sql3);
     $statement3->execute([$storeId]);
 }

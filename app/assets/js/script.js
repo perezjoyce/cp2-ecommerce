@@ -3443,6 +3443,7 @@ $(document).ready( () => {
 		}
 
 		if($('#confirmation').is(':checked')){ 
+			$("#register_shop_error").text("");
 			flag = 0;
 		} else {
 			$("#confirmation_text").css("color","#f64f59");
