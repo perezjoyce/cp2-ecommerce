@@ -3430,7 +3430,7 @@ $(document).ready( () => {
 		// e.preventDefault;
 		let flag = 1;
 		let data = {
-			'name' : $('#sname').val(),
+			'sname' : $('#sname').val(),
 			'about' : $('#about').val(),
 			'fname' : $("#fname").val(),
 			'lname' : $("#lname").val(),

@@ -3,7 +3,7 @@ require_once '../../config.php';
 require_once "../sources/class.upload.php";
 
 $userId = $_SESSION['id'];
-$shopName = $_POST['name'];
+$shopName = $_POST['sname'];
 $description = $_POST['about'];
 $fname = $_POST['fname'];
 $lname = $_POST['lname'];
@@ -28,7 +28,7 @@ $sql5 = "SELECT * FROM tbl_stores WHERE `user_id`=? ";
 
 
 //INSERT PERMIT TO TBL_PERMIT
-$target_dir = "../../uploads/" . $userId."/" . $storeId ."/"; // folder
+$target_dir = "../../uploads/". $userId ."/". $storeId ."/"; // folder
 $filename = uniqid(); //RANDOM FILENAME
 $uploader = new Upload($_FILES['upload']);
 $imageFileType = strtolower(pathinfo($_FILES['upload']['name'], PATHINFO_EXTENSION));
@@ -63,7 +63,7 @@ else {
     }
     
     //$filename = $filename . "." . $imageFileType;
-    $sql4 = "INSERT INTO tbl_permits SET permit='uploads/$userId/$filename', store_id = ? ";
+    $sql4 = "INSERT INTO tbl_permits(permit,store_id) VALUES('uploads/$userId/$filename',?) ";
     $statement4 = $conn->prepare($sql4);
     $statement4->execute([$storeId]);
 }
