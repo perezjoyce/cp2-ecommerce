@@ -121,9 +121,9 @@
                             <!-- CHECKOUT BUTTON -->
                             <div class="row">
                                 <div class="col">
-                                    <div class="d-flex flex-row mt-5">
+                                    <div class="d-flex flex-row mt-5 pr-lg-5 pr-md-5 pr-sm-0">
                                         <input class="form-check-input type_checkbox" type="checkbox" name="confirmation" id='confirmation'>
-                                        <p id='confirmation_text'>I confirm that the information I gave is true & correct.</p>
+                                        <p id='confirmation_text'>I confirm that the above information I gave is true & correct.</p>
                                     </div>
                                     
                                 </div>

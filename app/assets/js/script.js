@@ -3426,8 +3426,8 @@ $(document).ready( () => {
 		})
 	})
 
-	$(document).on('click', '#btn_submit_store_application', function(e){
-		e.preventDefault;
+	$(document).on('click', '#btn_submit_store_application', function(){
+		// e.preventDefault;
 
 		if($('#confirmation').is(':checked')){
 			let data = {
@@ -3440,7 +3440,7 @@ $(document).ready( () => {
 				'free' : $("#free").val(),
 				'permit' : $("#permit").val()
 			}
-			alert(data);
+			console.log(data);
 		} else {
 			$("#confirmation_text").css("color","red");
 		}
