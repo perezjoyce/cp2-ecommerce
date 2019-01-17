@@ -39,10 +39,10 @@ if ($_FILES['upload']['size'] > 2000000) {
 } 
 
 // to limit type of files 
-if ($imageFileType != 'jpg' || $imageFileType != 'png' || $imageFileType != 'jpeg') {
-    echo "wrongFileType";
-    exit;
-}
+// if ($imageFileType != 'jpg' || $imageFileType != 'png' || $imageFileType != 'jpeg') {
+//     echo "wrongFileType";
+//     exit;
+// }
 
 else {
     $uploader->file_new_name_body = $filename; // rename uploaded file
