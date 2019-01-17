@@ -69,17 +69,6 @@
                                     <input type="text" class='form-control' id='fname' placeholder='First Name'>
                                 <?php } ?>
 
-
-                                <?php 
-                                    if(getFirstName($conn,$id)){
-                                    $fname = getFirstName($conn,$id);
-                                    $fname = ucwords(strtolower($fname));
-                                ?>
-                                    <input type="text" class='form-control' id='fname' value='<?=$fname?>'>
-                                <?php } else { ?>
-                                    <input type="text" class='form-control' id='fname' placeholder='First Name'>
-                                <?php } ?>
-
                                 <?php 
                                     if(getLastName($conn,$id)){
                                     $lname = getLastName($conn,$id);
