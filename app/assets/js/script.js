@@ -3463,16 +3463,24 @@ $(document).ready( () => {
 				if(response == "tooLarge"){
 					$("#register_shop_error").css("color","#f64f59");
 					$("#register_shop_error").text("Your permit file is too large. Please limit it to 2MB");
-				}else if(response == "wrongFileType"){
+				}
+				
+				if(response == "wrongFileType"){
 					$("#register_shop_error").css("color","#f64f59");
 					$("#register_shop_error").text("Please use only jpg, png or jpeg as file extension for the permit file.");
-				}else if(response == "logoTooLarge") {
+				}
+				
+				if(response == "logoTooLarge") {
 					$("#register_shop_error").css("color","#f64f59");
 					$("#register_shop_error").text("Your logo is too large. Please limit it to 2MB");
-				}else if(response == "logoWrongFileType"){
+				}
+				
+				if(response == "logoWrongFileType"){
 					$("#register_shop_error").css("color","#f64f59");
 					$("#register_shop_error").text("Please use only jpg, png or jpeg as file extension for your logo.");
-				}else {
+				}
+				
+				else {
 					alert("Congratuations! You are now a Mamaroo seller. You will be redirected to your shop profile.");
 					setTimeout(function(){window.location.href="store-profile.php?id="+response}, 1800);
 					// location.href="profile.php?id=" + data.id

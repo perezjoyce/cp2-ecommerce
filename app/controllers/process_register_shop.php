@@ -14,11 +14,6 @@ $free = $_POST['free'];
 $permit = $_POST['permit'];
 $logo = $_POST['logo'];
 
-//UPDATE FIRST NAME AND LASTNAME OF USER AND SET TO IS SELLER= YES
-$sql = "UPDATE tbl_users SET first_name=?, last_name=?, isSeller='yes' WHERE id=?";
-$statement = $conn->prepare($sql);
-$statement->execute([$fname, $lname, $userId]);
-
 //INSERT VALUES
 $sql2 = "INSERT INTO tbl_stores(`description`, store_address,`user_id`,free_shipping_minimum,standard_shipping,`hours`)
         VALUES(?,?,?,?,?,?)";
@@ -66,9 +61,9 @@ else {
     }
     
     //$filename = $filename . "." . $imageFileType;
-    $sql3 = "UPDATE tbl_stores SET `name`=$shopName, logo='uploads/$id/$storeId/$filename' WHERE id = ? ";
+    $sql3 = "UPDATE tbl_stores SET `name`=?, logo='uploads/$id/$storeId/$filename' WHERE id = ? ";
     $statement3 = $conn->prepare($sql3);
-    $statement3->execute([$storeId]);
+    $statement3->execute([$shopName,$storeId]);
 }
 
 //INSERT PERMIT TO TBL_PERMIT
@@ -112,9 +107,16 @@ else {
     $statement4 = $conn->prepare($sql4);
     $statement4->execute([$storeId]);
 
-    echo $storeId;
+   
 }
 
+
+//UPDATE FIRST NAME AND LASTNAME OF USER AND SET TO IS SELLER= YES
+$sql = "UPDATE tbl_users SET first_name=?, last_name=?, isSeller='yes' WHERE id=?";
+$statement = $conn->prepare($sql);
+$statement->execute([$fname, $lname, $userId]);
+
+echo $storeId;
 
 
 

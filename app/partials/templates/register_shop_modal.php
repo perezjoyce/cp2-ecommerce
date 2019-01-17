@@ -52,7 +52,7 @@
 
                         <!-- OWNER -->
                         <div class="form-group row mb-5">
-                            <label for='owner' class='col-lg-3 col-md-3 col-sm-12'>Owner*</label>
+                            <label class='col-lg-3 col-md-3 col-sm-12'>Owner*</label>
                             <div class="input-group col-lg-9 col-md-9 col-sm-12 d-flex flex-row">
                                 <?php 
                                     if(getFirstName($conn,$id)){
@@ -119,7 +119,7 @@
 
                         <!-- LOGO -->
                         <div class="form-group row mb-5">
-                            <label class='col-lg-3 col-md-3 col-sm-12 d-flex flex-row'>
+                            <label for='logo' class='col-lg-3 col-md-3 col-sm-12 d-flex flex-row'>
                                 Logo*
                             </label>
                             <div class="input-group col-lg-9 col-md-9 col-sm-12">
