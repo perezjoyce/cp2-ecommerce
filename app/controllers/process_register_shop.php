@@ -20,18 +20,13 @@ $statement = $conn->prepare($sql);
 $statement->execute([$fname, $lname, $userId]);
 
 //INSERT VALUES
-$sql = "INSERT INTO tbl_stores
+$sql2 = "INSERT INTO tbl_stores
         (`name`, `description`, store_address,`user_id`,free_shipping_minimum,standard_shipping,`hours`)
-        VALUES (?,?,?,?,?,?,?)";
-$statement = $conn->prepare($sql);
-$statement->execute([$name, $description, $address, $userId, $free, $standard, $hours]);
+        VALUES ('$name',?,?,?,?,?,?)";
+$statement2 = $conn->prepare($sql2);
+$statement2->execute([$description, $address, $userId, $free, $standard, $hours]);
 
 //FETCH NEW STORE ID
-// $sql = "SELECT * FROM tbl_stores WHERE `user_id` = ? AND `name` = ?";
-// $statement = $conn->prepare($sql);
-// $statement->execute([$userId, $name]);
-// $row = $statement->fetch();
-// $storeId = $row['id'];
 $storeId = $conn->lastInsertId();
 
 
@@ -72,9 +67,9 @@ else {
     }
     
     //$filename = $filename . "." . $imageFileType;
-    $sql = "UPDATE tbl_stores SET logo='uploads/$id/$storeId/$filename' WHERE id = ? ";
-    $statement = $conn->prepare($sql);
-    $statement->execute([$storeId]);
+    $sql3 = "UPDATE tbl_stores SET logo='uploads/$id/$storeId/$filename' WHERE id = ? ";
+    $statement3 = $conn->prepare($sql3);
+    $statement3->execute([$storeId]);
 }
 
 //INSERT PERMIT TO TBL_PERMIT
@@ -114,9 +109,9 @@ else {
     }
     
     //$filename = $filename . "." . $imageFileType;
-    $sql = "INSERT INTO tbl_permits SET permit='uploads/$userId/$filename', store_id = ? ";
-    $statement = $conn->prepare($sql);
-    $statement->execute([$storeId]);
+    $sql4 = "INSERT INTO tbl_permits SET permit='uploads/$userId/$filename', store_id = ? ";
+    $statement4 = $conn->prepare($sql4);
+    $statement4->execute([$storeId]);
 
     echo $storeId;
 }
