@@ -118,7 +118,7 @@
       <div class="row no-gutters">
         <?php 
 
-          $sql = " SELECT * FROM tbl_stores LIMIT 6 ";
+          $sql = " SELECT * FROM tbl_stores WHERE with_permit = 1 LIMIT 6 ";
           $statement = $conn->prepare($sql);
           $statement->execute();
           //$result = mysqli_query($conn,$sql);
