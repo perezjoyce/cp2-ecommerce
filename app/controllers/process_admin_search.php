@@ -327,3 +327,13 @@ if(isset($_POST['searchkey'])){
     }
 }
 ?>
+
+
+<script>
+    var utcDateTime3 = $('.memberSince');
+	var tz2 = moment.tz.guess();
+	$.each(utcDateTime3, function(i, element){
+		var dateTimeStr3 = $(element).text().trim();		
+		$(element).text(moment(dateTimeStr3).tz(tz2).format("ll"));
+	});
+</script>

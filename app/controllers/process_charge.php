@@ -18,7 +18,8 @@
       'currency' => 'usd',
   ]);
 
-  // get cart 
+  // get cart for specific seller
+  // 
   $sql = "
         SELECT c.*, v.*, p.* FROM tbl_carts c 
         JOIN tbl_variations v ON v.id=c.variation_id
@@ -40,18 +41,5 @@
     $statement->execute([$storeId, $shoperooServiceCharge, 0, 'Service Charge to Mamaroo: '. $userId]);
   }
   $transactionCode = $_SESSION['transaction_code'];
-// INITIATE
-//   unset($_SESSION["cart_session"]);
-//   unset($_SESSION['paymentMode']);
-//   unset($_SESSION['transaction_code']);
-  
-  // SEND an email to customer and seller for the info about the transaction
-  // echo "Payment successful!";
-
-//   echo "<script>
-    //   setTimeout(function(){windlow.location.href='".BASE_URL."/app/views/stripe_confirmation.php?transactionCode=".base64_encode($transactionCode)."}, 1500);
-//   </script>";
-  // unset session
-  //header('location: ../app/views/stripe_confirmation.php?transactionCode='.$transactionCode);
 
   header("Location: ../views/stripe_confirmation.php?transactionCode=".base64_encode($transactionCode));
