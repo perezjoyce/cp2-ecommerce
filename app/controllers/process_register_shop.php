@@ -31,10 +31,10 @@ $sql2 = "SELECT id FROM tbl_stores ORDER BY id DESC LIMIT 1 ";
 //INSERT LOGO
 $target_dir = "../../uploads/". $userId ."/". $storeId ."/"; // folder
 $filename = uniqid(); //RANDOM FILENAME
-$uploader = new Upload($_FILES['upload']);
-$imageFileType = strtolower(pathinfo($_FILES['upload']['name'], PATHINFO_EXTENSION));
+$uploader = new Upload($_FILES['logo']);
+$imageFileType = strtolower(pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION));
 
-if ($_FILES['upload']['size'] > 2000000) {
+if ($_FILES['logo']['size'] > 2000000) {
     echo "tooLarge";
     // $response = ['status' => 'tooLarge'];
     exit;
@@ -73,10 +73,10 @@ else {
 //INSERT PERMIT TO TBL_PERMIT
 $target_dir2 = "../../uploads/". $userId ."/". $storeId ."/"; // folder
 $filename2 = uniqid(); //RANDOM FILENAME
-$uploader2 = new Upload($_FILES['upload']);
-$imageFileType2 = strtolower(pathinfo($_FILES['upload']['name'], PATHINFO_EXTENSION));
+$uploader2 = new Upload($_FILES['permit']);
+$imageFileType2 = strtolower(pathinfo($_FILES['permit']['name'], PATHINFO_EXTENSION));
 
-if ($_FILES['upload']['size'] > 2000000) {
+if ($_FILES['permit']['size'] > 2000000) {
     echo "tooLarge";
     // $response = ['status' => 'tooLarge'];
     exit;
