@@ -69,6 +69,7 @@
 
                                         <div class="d-flex flex-column">
                                             <h3><?= $storeName ?></h3>
+
                                             <div class='d-flex flex-row'>
                                                 <?php 
                                                     $withPermit = checkifwithpermit($conn, $storeId);
@@ -76,25 +77,24 @@
                                                 ?>
                                                 
                                                     <i class="fas fa-check-circle pr-1 text-purple"></i>
-                                                    <small class="text-purple pt-1">VERIFIED SELLER</small>
+                                                    <small class="text-purple">VERIFIED SELLER</small>
 
                                                 <?php } ?>
                                             </div>
+
+                                            <div class="text-gray">
+                                                <?
+                                                    $sql = "SELECT last_login FROM tbl_users WHERE id = ?";
+                                                    $statement = $conn->prepare($sql);
+                                                    $statement->execute([$sellerId]);	
+                                                    $row = $statement->fetch();
+                                                    $lastLogin = $row['last_login'];
+                                                    
+                                                ?>
+                                                <small id='lastLoginTimeAgo'><?= $lastLogin ?></small>
+                                            </div>
                                             
                                         </div>
-                                        
-                                        <div class="text-gray">
-                                            <?
-                                                $sql = "SELECT last_login FROM tbl_users WHERE id = ?";
-                                                $statement = $conn->prepare($sql);
-                                                $statement->execute([$sellerId]);	
-                                                $row = $statement->fetch();
-                                                $lastLogin = $row['last_login'];
-                                                
-                                            ?>
-                                            <small id='lastLoginTimeAgo'><?= $lastLogin ?></small>
-                                        </div>
-
                                       
                                     </div>
                                 </div>
@@ -156,9 +156,9 @@
                     <div class="row">
 
                         <div class="col">
-                            <div class="d-flex flex-lg-row flex-md-row flex-sm-column align-items-center">
-                                <div class="flex-fill text-center mb-lg-0 mb-md-0 mb-sm-5">
-                                    Submit business permit for review to get a verified seller badge.
+                            <div class="d-flex flex-column">
+                                <div class="flex-fill mb-4">
+                                    Submit a scanned copy of your business permit for review to get a verified seller badge.
                                 </div>
                                 <div class="flex-fill text-center">
                                     <a class="modal-link btn btn-purple" href="#" data-id="<?= $storeId ?>" data-url="../partials/templates/upload_store_permit_modal.php" role="button">

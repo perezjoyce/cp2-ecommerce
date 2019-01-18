@@ -3159,7 +3159,7 @@ $(document).ready( () => {
 	if(agoTime == "a few seconds ago") {
 		$('#lastLoginTimeAgo').html("<small><i class='fas fa-circle text-success'>&nbsp;</i></small>Active Now");
 	  } else {
-		$('#lastLoginTimeAgo').html("<small><i class='fas fa-circle text-gray'>&nbsp;</i></small>Active " + agoTime);
+		$('#lastLoginTimeAgo').html("Active " + agoTime);
 	  }
 
 	var utcDateTime2 = $('.purchaseDateTimeAgo');

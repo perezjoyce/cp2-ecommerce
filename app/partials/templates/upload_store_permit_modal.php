@@ -17,7 +17,7 @@ require_once "../../sources/class.upload.php";
             <div class="container px-5 pb-2 pt-5 mb-4">
                 <div class="row mb-5 mt-4"> 
                     <div class='col'>
-                       <h3>Upload Your Store's Logo</h3>
+                       <h3>Upload Your Business Permit</h3>
                     </div>
                 </div>
 
