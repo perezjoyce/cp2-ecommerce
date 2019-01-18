@@ -67,21 +67,36 @@
                                             <img src='<?= $storeLogo ?>' class='rounded-circle store_page_logo'>
                                         </div>
                                         <div class="d-flex flex-column">
-                                            <div>
-                                                <h3><?= $storeName ?></h3>
+                                            <h3><?= $storeName ?></h3>
+                                            <div class='d-flex flex-row'>
+                                                <?php 
+                                                    $withPermit = checkifwithpermit($conn, $storeId);
+                                                    if($withPermit == 2){
+                                                ?>
+                                                
+                                                    <small class="fa-stack">
+                                                        <i class="fas fa-certificate fa-stack-2x icon-background text-purple"></i>
+                                                        <i class="fas fa-check fa-stack-1x text-light"></i>
+                                                    </small>
+
+                                                    <span class="text-purple pt-1">VERIFIED SELLER<p></p></span>
+
+                                                <?php } ?>
                                             </div>
                                             
-                                            <div class="text-gray">
-                                                <?
-                                                    $sql = "SELECT last_login FROM tbl_users WHERE id = ?";
-                                                    $statement = $conn->prepare($sql);
-                                                    $statement->execute([$sellerId]);	
-                                                    $row = $statement->fetch();
-                                                    $lastLogin = $row['last_login'];
-                                                    
-                                                ?>
-                                                <small id='lastLoginTimeAgo'><?= $lastLogin ?></small>
-                                             </div>
+                                        </div>
+                                        
+                                        <div class="text-gray">
+                                            <?
+                                                $sql = "SELECT last_login FROM tbl_users WHERE id = ?";
+                                                $statement = $conn->prepare($sql);
+                                                $statement->execute([$sellerId]);	
+                                                $row = $statement->fetch();
+                                                $lastLogin = $row['last_login'];
+                                                
+                                            ?>
+                                            <small id='lastLoginTimeAgo'><?= $lastLogin ?></small>
+                                            </div>
 
                                         </div>
                                     </div>
@@ -132,6 +147,34 @@
                     </div>
 
                 </div>
+
+                <!-- INVITATION TO REGISTER -->
+                <?php 
+                 if ($isSeller && $currentUser['id'] == $storeInfo['user_id']) {
+                    $withPermit = checkifwithpermit($conn, $storeId);
+                    if($withPermit == 0){
+                ?>
+                
+                <div class="container p-5 rounded mb-5" style="background:white;">
+                    <div class="row">
+
+                        <div class="col">
+                            <div class="d-flex flex-lg-row flex-md-row flex-sm-column align-items-center">
+                                <div class="flex-fill text-center mb-lg-0 mb-md-0 mb-sm-5">
+                                    Submit business permit for review to get a verified seller badge.
+                                </div>
+                                <div class="flex-fill text-center">
+                                    <a class="modal-link btn btn-purple" href="#" data-id="<?= $storeId ?>" data-url="../partials/templates/upload_store_permit_modal.php" role="button">
+                                        UPLOAD PERMIT
+                                    </a>                               
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <?php } } ?>
 
                 <!-- SECOND ROW -->
                 <div class='container p-0'>

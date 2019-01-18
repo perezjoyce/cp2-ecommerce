@@ -26,7 +26,7 @@
 
                 if($profile_pic == "") {
                     $profile_pic = DEFAULT_PROFILE; 
-                    $prefix = "rounded";
+                    $prefix = "rounded-";
                 } else {
                     $profile_pic = BASE_URL ."/". $profile_pic . "_80x80.jpg";
                     $prefix = "";

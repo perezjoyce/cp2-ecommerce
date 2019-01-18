@@ -39,7 +39,7 @@
     
     if($storeLogo == null) {
         $storeLogo = DEFAULT_STORE; 
-        $prefix = "rounded";
+        $prefix = "rounded-";
     } else {
         $storeLogo = BASE_URL ."/". $storeLogo . "_80x80.jpg";
         $prefix = "";

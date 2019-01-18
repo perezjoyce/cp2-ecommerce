@@ -30,7 +30,8 @@ $sql6 = "SELECT * FROM tbl_stores WHERE `user_id`=? ";
     $statement6->execute([$userId]);
     $count6 = $statement6->rowCount();
     if($count6) {
-        // $response = ['status' => 'tooLarge'];
+        $row6 = $statement6->fetch();
+        $storeId = $row6['id'];
         echo $storeId;
     }
 

@@ -348,7 +348,7 @@
                                                         $storeLogo = $row2['logo'];   
                                                         if($storeLogo == null) {
                                                             $storeLogo = DEFAULT_STORE; 
-                                                            $prefix = "rounded";
+                                                            $prefix = "rounded-";
                                                         } else {
                                                             $storeLogo = BASE_URL ."/". $storeLogo . ".jpg";
                                                             $prefix = "";

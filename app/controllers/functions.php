@@ -841,3 +841,12 @@ function showStoreBalance($conn, $storeId){
     $balance = number_format((float)$balance, 2, '.', ',');  
     return $balance;
 }
+
+function checkifwithpermit($conn, $storeId){
+    $sql = "SELECT * FROM tbl_stores WHERE id =?";
+    $statement = $conn->prepare($sql);
+    $statement->execute([$storeId]);
+    $row = $statement->fetch();
+    $withPermit = $row['with_permit'];
+    return $withPermit;
+}
