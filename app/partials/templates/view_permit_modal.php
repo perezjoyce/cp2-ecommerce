@@ -35,7 +35,7 @@
             <div class="container p-0 my-lg-5 mt-md-5" id='store_page_container' id='printThis'>
 
                 <div class="row mx-0">
-                    <div class="col mt-5">
+                    <div class="col my-5">
                         <h3><?=$storeName?> &nbsp; Business Permit</h3>
                     </div>
                 </div>
@@ -48,9 +48,9 @@
                 
             </div>
 
-            <div class="container my-5 px-0">
-                <div class="row mt-5">
-                    <div class="col-6"></div>
+            <div class="container mb-5 px-0">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12"></div>
                     <div class="col">
                         <?php 
                             $modalLinkClassPrefix = ''; 
@@ -58,7 +58,7 @@
                                 $modalLinkClassPrefix='-big';
                             }
                         ?>
-                        <a class='btn btn-lg btn-block py-3 btn-purple mt-5 btn_print'>
+                        <a class='btn btn-lg btn-block py-3 btn-purple btn_print'>
                             Save As PDF&nbsp; 
                             <i class="fas fa-file-download"></i>
                         </a>
