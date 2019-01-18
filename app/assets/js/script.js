@@ -3489,7 +3489,7 @@ $(document).ready( () => {
 		}
 
 		if(data['isSeller'] == 'yes') {
-			let answer = confirm("Do you want to set " + data['userName'] + " of " + data['storeName'] + " as  a verified seller ?");
+			let answer = confirm("Do you want to set " + data['userName'] + " of " + data['storeName'] + " as a verified seller ?");
 
 			if(answer == true) {
 				$.post('../controllers/process_verify_seller.php', data, function(response){
