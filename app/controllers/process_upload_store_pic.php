@@ -54,5 +54,6 @@ else {
     $statement = $conn->prepare($sql);
     $statement->execute([$storeId]);
     header("Location: ../views/store-profile.php?id=$storeId");
+    
 }
 

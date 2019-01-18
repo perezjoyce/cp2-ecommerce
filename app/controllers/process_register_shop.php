@@ -13,7 +13,7 @@ $standard = $_POST['standard'];
 $free = $_POST['free'];
 
 
-//INSERT VALUES
+//INSERT VALUES INTO TBL_STORE
 $sql = "INSERT INTO tbl_stores(`name`, `description`, store_address,`user_id`,free_shipping_minimum, standard_shipping,`hours`)
         VALUES(?,?,?,?,?,?,?)";
 $statement = $conn->prepare($sql);
@@ -30,8 +30,15 @@ $sql6 = "SELECT * FROM tbl_stores WHERE `user_id`=? ";
     $statement6->execute([$userId]);
     $count6 = $statement6->rowCount();
     if($count6) {
+
         $row6 = $statement6->fetch();
         $storeId = $row6['id'];
+
+        //INSERT VALUES INTO TBL_PERMIT COZ I'M HAVING ERRORS WHEN LINK IS INSERTED AFTERWARDS
+        $sql7 = "INSERT INTO tbl_permits(store_id) VALUES(?)";
+        $statement7 = $conn->prepare($sql7);
+        $statement7->execute([$storeId]);
+
         echo $storeId;
     }
 
