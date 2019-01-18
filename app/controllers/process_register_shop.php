@@ -106,10 +106,9 @@ else {
         $uploader2->Clean();
     }
     
-    $filename2 = "uploads/" . $userId ."/" . $storeId ."/". $filename2 ;
-    $sql4 = "INSERT INTO tbl_permits(permit,store_id) VALUES(?,?) ";
+    $sql4 = "INSERT INTO tbl_permits(permit,store_id) VALUES('uploads/$userId/$storeId/$filename',?) ";
     $statement4 = $conn->prepare($sql4);
-    $statement4->execute([$filename2, $storeId]);
+    $statement4->execute([$storeId]);
 }
 
 //UPDATE FIRST NAME AND LASTNAME OF USER AND SET TO ISSELLER= YES

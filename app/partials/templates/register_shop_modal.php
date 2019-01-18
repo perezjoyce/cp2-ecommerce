@@ -31,7 +31,7 @@
                 
                 <div class="row mt-5">
                     <div class="col mt-4">
-                    <form action="../controllers/process_register_shop.php" method="POST" id="form_register_shop">
+                    <form action="../controllers/process_register_shop.php" method="POST" id="form_register_shop" enctype="multipart/form-data">
 
                         <!-- SHOP NAME -->
                         <div class="form-group row mb-5">
@@ -121,7 +121,7 @@
                         <div class="form-group row mb-5">
                             <label class='col-lg-3 col-md-3 col-sm-12'>Logo*</label>
                             <div class="input-group col-lg-9 col-md-9 col-sm-12">
-                                <input type='file' class='form-control' id='logo' name='logo' accept="image/jpeg, image/jpg, image/png" />
+                                <input type='file' value='UPLOAD' class='form-control' id='logo' name='logo' accept="image/jpeg, image/jpg, image/png" />
                             </div>
                         </div>
 
@@ -134,7 +134,7 @@
                                 </a>
                             </label>
                             <div class="input-group col-lg-9 col-md-9 col-sm-12">
-                                <input type='file' class='form-control' id='permit' name='permit' accept="image/jpeg, image/jpg, image/png" />
+                                <input type='file' value='UPLOAD' class='form-control' id='permit' name='permit' accept="image/jpeg, image/jpg, image/png" />
                             </div>
                         </div>
 
