@@ -3157,7 +3157,7 @@ $(document).ready( () => {
 	var utcDateTime = $('#lastLoginTimeAgo').text();
 	var agoTime = moment.utc(utcDateTime).fromNow();
 	if(agoTime == "a few seconds ago") {
-		$('#lastLoginTimeAgo').html("<small><i class='fas fa-circle text-success'>&nbsp;</i></small>Active Now");
+		$('#lastLoginTimeAgo').html("<small><i class='fas fa-circle text-purple'>&nbsp;</i></small>Active Now");
 	  } else {
 		$('#lastLoginTimeAgo').html("Active " + agoTime);
 	  }
@@ -3467,6 +3467,43 @@ $(document).ready( () => {
 		}
 
 	})
+
+	//VIEW PRODUCT
+	$(document).on('click', '.btn_view_permit', function(){
+		let url = $(this).data('href');
+	
+		$.get(url,function(response){
+			$("#modalContainer .modal-content").html(response);
+			$("#modalContainer").modal('show');
+		});
+	});
+
+	// SET AS ADMIN/USER/SELLER
+	$(document).on('click', '.btn_verify', function(){
+		let data = {
+			'userId' : $(this).data('userid'),
+			'userName' : $(this).data('username'),
+			'storeId' : $(this).data('storeid'),
+			'storeName' : $(this).data('storename'),
+			'isSeller' : $(this).data('isseller')
+		}
+
+		if(data['isSeller'] == 'yes') {
+			let answer = confirm("Do you want to set " + data['userName'] + " of " + data['storeName'] + " as  a verified seller ?");
+
+			if(answer == true) {
+				$.post('../controllers/process_verify_seller.php', data, function(response){
+					if(response == 'success' ){
+						alert(data['userName'] + " of " + data['storeName'] + " has been successfully set as a verified seller!");
+						setTimeout(function(){window.location.reload()}, 1500);
+					} else {
+						alert(data['userName'] + " of " + data['storeName'] + " has not submitted a copy of permit for review.");
+						setTimeout(function(){window.location.reload()}, 1500);
+					}
+				})
+			}
+		} 
+	});
 
 	
 

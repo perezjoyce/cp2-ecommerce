@@ -505,6 +505,17 @@ if(isset($_SESSION['id'])) {
                       <?=$storeName?>
                     </div>
 
+                     <!-- VERIFICATION BADGE -->
+                     <?php 
+                          $withPermit = checkifwithpermit($conn, $storeId);
+                          if($withPermit == 2){
+                      ?>
+                      <div class="flex-fill d-flex flex-row justify-content-center">
+                        <small><i class="fas fa-check-circle pr-1 text-gray"></i></small>
+                        <small class="text-gray">Verified Seller</small>
+                      </div>
+                      <?php } ?>
+
                     <!-- STORE ADDRESS -->
                     <div class="row justify-content-center text-gray mb-2">
                       <small>

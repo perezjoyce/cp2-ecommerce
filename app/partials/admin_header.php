@@ -226,14 +226,14 @@
                                                 <i class="fas fa-shipping-fast pr-1 text-secondary"></i>
                                                 <small>SHOPS</small>
                                             </a>
-                                            <a class="dropdown-item py-3" href="admin-manage-store-applications.php?id=<?=$userId?>">
+                                            <a class="dropdown-item py-3" href="admin-manage-store-verifications.php?id=<?=$userId?>">
                                                 <i class="fas fa-clipboard-check pr-2 text-secondary"></i>
-                                                <small>APPLICATIONS</small>
+                                                <small>VERIFICATIONS</small>
                                             </a>
-                                            <a class="dropdown-item py-3" href="admin-manage-ads.php?id=<?=$userId?>">
+                                            <!-- <a class="dropdown-item py-3" href="admin-manage-ads.php?id=$userId">
                                                 <i class="fas fa-eraser pr-2 text-secondary"></i>
                                                 <small>ADS</small>
-                                            </a>
+                                            </a> -->
                                         </div>
                                     </li>
                                     <!-- <li><span class='badge text-light my-0'>0</span></li> -->
