@@ -106,7 +106,7 @@ else {
         $uploader2->Clean();
     }
     
-    $filename2 = 'uploads/$userId/$storeId/$filename';
+    $filename2 = "uploads/" . $userId ."/" . $storeId ."/". $filename2 ;
     $sql4 = "INSERT INTO tbl_permits(permit,store_id) VALUES(?,?) ";
     $statement4 = $conn->prepare($sql4);
     $statement4->execute([$filename2, $storeId]);
