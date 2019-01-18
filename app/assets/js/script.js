@@ -2092,6 +2092,7 @@ $(document).ready( () => {
 		}
 	});
 
+	
 
 	// PRINT CONFIRMATION PAGE 
 	// http://jsfiddle.net/95ezN/121/
@@ -2112,6 +2113,8 @@ $(document).ready( () => {
 		});
 
 	});
+
+	
 
 	window.printElement = function(elem) {
 		var domClone = elem.cloneNode(true);
@@ -3478,7 +3481,7 @@ $(document).ready( () => {
 		});
 	});
 
-	// SET AS ADMIN/USER/SELLER
+	// SET AS VERIFIED SELLER/STORE
 	$(document).on('click', '.btn_verify', function(){
 		let data = {
 			'userId' : $(this).data('userid'),
@@ -3503,6 +3506,12 @@ $(document).ready( () => {
 				})
 			}
 		} 
+	});
+
+	// PRINT BUSINESS PERMIT
+	$(document).on('click', ".btn_print", function () {
+		printElement(document.getElementById("printThis"));
+		window.print();
 	});
 
 	
