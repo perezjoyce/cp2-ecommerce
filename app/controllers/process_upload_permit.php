@@ -32,9 +32,7 @@ else {
 
     $uploader->file_new_name_body = $filename; // rename uploaded file
     $uploader->Process($target_dir); // actual uploading process
-    //move_uploaded_file($_FILES['upload']['tmp_name'], $target_file);
-    // SET PERMISSION ON FOLDER. TYPE IN TERMINAL : sudo chmod -R  777 app/controllers/uploads/ for file permission for the folder
-
+   
     // resize uploaded file and copy in another file
     $uploader->file_new_name_body = $filename . "_80x80";
     $uploader->image_resize = true;
@@ -50,7 +48,7 @@ else {
     }
     
     //SAVE URL IN DATABASE
-    $sql = "UPDATE tbl_permits SET permit='uploads/$id/$storeId/$filename' WHERE id=?";
+    $sql = "UPDATE tbl_permits SET permit='uploads/$id/$storeId/$filename' WHERE store_id=?";
     $statement = $conn->prepare($sql);
     $statement->execute([$storeId]);
 
@@ -59,7 +57,10 @@ else {
     $statement = $conn->prepare($sql);
     $statement->execute([$storeId]);
     $message = "Your file was successfully submitted for review.";
-    echo "<script type='text/javascript'>alert('$message');</script>";
-    header("Location: ../views/store-profile.php?id=$storeId");
+    echo "<script type='text/javascript'>
+        alert('$message');
+        setTimeout(function(){window.location.href='store-profile.php?id=$storeId'}, 1500);
+        </script>";
+    // header("Location: ../views/store-profile.php?id=$storeId");
 }
 
