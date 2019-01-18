@@ -66,6 +66,7 @@
                                         <div class='pr-3'>
                                             <img src='<?= $storeLogo ?>' class='rounded-circle store_page_logo'>
                                         </div>
+
                                         <div class="d-flex flex-column">
                                             <h3><?= $storeName ?></h3>
                                             <div class='d-flex flex-row'>
@@ -74,12 +75,8 @@
                                                     if($withPermit == 2){
                                                 ?>
                                                 
-                                                    <small class="fa-stack">
-                                                        <i class="fas fa-certificate fa-stack-2x icon-background text-purple"></i>
-                                                        <i class="fas fa-check fa-stack-1x text-light"></i>
-                                                    </small>
-
-                                                    <span class="text-purple pt-1">VERIFIED SELLER<p></p></span>
+                                                    <i class="fas fa-check-circle pr-1 text-purple"></i>
+                                                    <small class="text-purple pt-1">VERIFIED SELLER</small>
 
                                                 <?php } ?>
                                             </div>
@@ -96,9 +93,9 @@
                                                 
                                             ?>
                                             <small id='lastLoginTimeAgo'><?= $lastLogin ?></small>
-                                            </div>
-
                                         </div>
+
+                                      
                                     </div>
                                 </div>
                                 
