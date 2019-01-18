@@ -6,6 +6,7 @@
   $amount = $_SESSION['total_amount'];
   $userId = $_SESSION['id'];
   $cartSession = $_SESSION['cart_session'];
+  $transactionCode = $_SESSION['transaction_code'];
 
   $customer = \Stripe\Customer::create([
       'email' => $email,
@@ -19,14 +20,12 @@
   ]);
 
   // get cart for specific seller
-  // 
-  $sql = "
-        SELECT c.*, v.*, p.* FROM tbl_carts c 
+  $sql = "SELECT c.*, v.*, p.* FROM tbl_carts c 
         JOIN tbl_variations v ON v.id=c.variation_id
         LEFT JOIN tbl_items p on p.id=v.product_id
         WHERE cart_session=?";
-  $statement0 = $conn->prepare($sql);
-  $statement0->execute([$cartSession]);
+        $statement0 = $conn->prepare($sql);
+        $statement0->execute([$cartSession]);
 
   while($row0 = $statement0->fetch()) {
     $storeId = $row0['store_id'];
@@ -40,6 +39,6 @@
     $shoperooServiceCharge = $amount * .03; // 3% of total Amount
     $statement->execute([$storeId, $shoperooServiceCharge, 0, 'Service Charge to Mamaroo: '. $userId]);
   }
-  $transactionCode = $_SESSION['transaction_code'];
+ 
 
   header("Location: ../views/stripe_confirmation.php?transactionCode=".base64_encode($transactionCode));

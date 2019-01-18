@@ -2049,8 +2049,8 @@ $(document).ready( () => {
 				addressType:addressType,
 				name:name
 
-			}, function(response){
-				if(response == 'success') {
+			}, function(response1){
+				if(response1 == 'success') {
 					flag = 0;
 				}
 			});
@@ -2059,8 +2059,10 @@ $(document).ready( () => {
 		} else {
 			$.post('../controllers/process_save_shipping_as_billing.php', {
 				addressId: addressId
-			}, function(response){
-				flag = 0;
+			}, function(response2){
+				if(response2 == 'success') {
+					flag = 0;
+				}
 			});
 		}
 
@@ -2069,12 +2071,14 @@ $(document).ready( () => {
 			
 			$.post('../controllers/process_get_payment_mode.php', {
 				modeOfPaymentId: modeOfPaymentId
-			}, function(response){
-				// if(response == "success"){
-					$.get(url, function(data){
-						$('#modalContainerBig .modal-content').html(data);
+			}, function(data){
+				let response = $.parseJSON(data);
+				if(response.emailForClient == "sent" && response.emailForSeller == "sent"){
+					$.get(url, function(dataFromPHP){
+						$('#modalContainerBig .modal-content').html(dataFromPHP);
+						$('#payment_mode').text(response.paymentModeName);
 					});
-				// }
+				}
 				
 			});
 			

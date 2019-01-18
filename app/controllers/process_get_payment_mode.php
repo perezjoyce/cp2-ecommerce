@@ -6,6 +6,9 @@ require_once '../../config.php';
     $cartSession = $_SESSION['cart_session'];
     $userId = $_SESSION['id'];
     $transactionCode = $_SESSION['transaction_code'];
+    $response = [];
+    $emailForClient = "";
+    $emailForSeller = "";
     
     $sql = " SELECT * FROM tbl_orders WHERE cart_session = ? AND `user_id` = ? ";
     $statement = $conn->prepare($sql);
@@ -23,8 +26,6 @@ require_once '../../config.php';
         $row3 = $statement3->fetch();
         $paymentModeName = $row3['name'];
         $_SESSION['paymentMode'] = $paymentModeName;
-
-        echo $_SESSION['paymentMode'];
 
         //UPDATE STATUS OF ORDER IN TBL CARTS (1 IS PENDING)
         $sql3 = "UPDATE tbl_carts SET status_id = 1 WHERE cart_session=?";
@@ -76,11 +77,14 @@ require_once '../../config.php';
                         $mail->Body = $email_body;
                         $mail->send();
         
-                        echo "Message sent to buyer!".$buyerEmail;
+                        //  "Message sent to buyer!".$buyerEmail;
+                       $emailForClient = "sent";
         
         
                         }catch (Exception $e){
-                            echo "Buyer Side: Sorry".$mail->ErrorInfo;
+                            // echo "Buyer Side: Sorry".$mail->ErrorInfo;
+
+                            $emailForClient = "notSent";
                         }
                     }
                     
@@ -143,19 +147,21 @@ require_once '../../config.php';
                                 $mail2->Body = $email_body2;
                                 $mail2->send();
                 
-                                echo "Message sent to seller!".$sellerEmail;
+                                // echo "Message sent to seller!".$sellerEmail;
+
+                                $emailForSeller = "sent";
                 
                 
                             } catch (Exception $e2){
-                                    echo "Seller Side: Sorry ".$mail2->ErrorInfo;
-                                }
-                        }
-                }
-        }
+                                    // echo "Seller Side: Sorry ".$mail2->ErrorInfo;
 
-        // if($payment_mode_id == 3) {
-        //     echo "creditCard";
-        // }
- //   }
+                                    $emailForSeller = "notSent";
+                                }
+                            }
+                        }
+                    }
+    
+    $response = ['paymentModeName' => $paymentModeName, 'emailForClient' =>  $emailForClient, 'emailForSeller' => $emailForSeller];
+    echo json_encode($response);
 
 ?>

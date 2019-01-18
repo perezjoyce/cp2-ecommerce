@@ -125,7 +125,7 @@
                                         </div>
                                     </div>
                                     <div class="col">
-                                        <div>
+                                        <div id='payment_mode'>
                                             <?= isset($_SESSION['paymentMode']) ? $_SESSION['paymentMode'] : getModeOfPayment($conn, $paymentModeId) ?>
                                         </div>
                                     </div>
