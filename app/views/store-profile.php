@@ -62,8 +62,8 @@
                         <div class="col">
                             <div class='d-flex flex-lg-row flex-md-row flex-sm-column'>
                                 <div class='flex-fill'>
-                                    <div class="d-flex align-items-center">
-                                        <div class='pr-3'>
+                                    <div class="d-flex align-items-center flex-lg-row flex-md-row flex-sm-column">
+                                        <div class='pr-lg-3 pr-md-3 pr-sm-0 mb-lg-0 mb-md-0 mb-sm-5'>
                                             <img src='<?= $storeLogo ?>' class='rounded-circle store_page_logo'>
                                         </div>
 
@@ -99,7 +99,7 @@
                                     </div>
                                 </div>
                                 
-                                <div class='flex-fill text-right'>
+                                <div class='flex-fill text-lg-right text-md-right text-sm-center mt-lg-0 mt-md-0 mt-sm-5'>
                                     <div class="d-flex flex-column">
                                         <?php if ($isSeller && $currentUser['id'] == $storeInfo['user_id']) { ?>
                                             <a class='nav-link modal-link px-0' href='#' data-id='<?= $storeId ?>' data-url='../partials/templates/upload_store_pic_modal.php' role='button'>
@@ -156,8 +156,8 @@
                     <div class="row">
 
                         <div class="col">
-                            <div class="d-flex flex-column">
-                                <div class="flex-fill mb-4">
+                            <div class="d-flex flex-column text-center p-lg-5 p-md-5 p-sm-3">
+                                <div class="flex-fill mb-5">
                                     Submit a scanned copy of your business permit for review to get a verified seller badge.
                                 </div>
                                 <div class="flex-fill text-center">
@@ -241,7 +241,7 @@
                                         <div class="container px-0">
 
                                             <div class="row my-5">
-                                                <div class="col-3">
+                                                <div class="col-lg-3 col-md-5 col-sm-5">
                                                     Owner
                                                     <?php if ($isSeller && $currentUser['id'] == $storeInfo['user_id']) { ?>
                                                     <a data-toggle="tooltip" title="Please coordinate with the admin for changes in store ownership." data-original-title="#">
@@ -255,7 +255,7 @@
                                             </div>  
 
                                             <div class="row mb-5">
-                                                <div class="col-3">
+                                                <div class="col-lg-3 col-md-5 col-sm-5">
                                                     Address
                                                 </div>
                                                 <div class="col" id='store_profile_address'>
@@ -300,7 +300,7 @@
                                         <div class="container px-0">
 
                                             <div class="row my-4">
-                                                <div class="col-4 pt-5">
+                                                <div class="col-lg-3 col-md-5 col-sm-5 pt-5">
                                                     Rating
                                                 </div>
                                                 <div class="col">
@@ -312,7 +312,7 @@
                                             </div>  
 
                                             <div class="row mb-5">
-                                                <div class="col-4">
+                                                <div class="col-lg-3 col-md-5 col-sm-5">
                                                     Followers
                                                 </div>
                                                 <div class="col">
@@ -321,7 +321,7 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-4">
+                                                <div class="col-lg-3 col-md-5 col-sm-5">
                                                     Member Since
                                                 </div>
                                                 <div class="col">
@@ -359,7 +359,7 @@
                                         <div class="container px-0">
 
                                             <div class="row mt-5">
-                                                <div class="col-3">
+                                                <div class="col-lg-3 col-md-4 col-sm-4">
                                                     Standard 
                                                 </div>
                                                 <div class="col">
@@ -370,7 +370,7 @@
                                             
                                             <?php if($storeFreeShippingMinimum) { ?>
                                             <div class="row mt-5">
-                                                <div class="col-3">
+                                                <div class="col-lg-3 col-md-4 col-sm-4">
                                                     Free
                                                 </div>
                                                 <div class="col">
@@ -400,7 +400,7 @@
                 <!-- SEARCH BAR -->
                 <div class='container p-5 rounded mb-5' style='background:white;'>
                     <div class="row mx-0">
-                        <div class="col-6">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
                             <h4>Search For Products</h4>
                         </div>
                         <div class="col">

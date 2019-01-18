@@ -22,7 +22,7 @@ if ($_FILES['upload']['size'] > 2000000) {
 } 
 
 // to limit type of files 
-if ($imageFileType != 'jpg' || $imageFileType != 'png' || $imageFileType != 'jpeg') {
+if ($imageFileType != 'jpg' && $imageFileType != 'png' && $imageFileType != 'jpeg') {
     $errorMsg = urlencode("Only JPG, JPEG and PNG Files are allowed.");
     header("Location: ../views/store-profile.php?id=$storeId&uploadError=" . $errorMsg);
     exit;
@@ -59,6 +59,6 @@ else {
     $statement = $conn->prepare($sql);
     $statement->execute([$storeId]);
     header("Location: ../views/store-profile.php?id=$storeId");
-    
+
 }
 
