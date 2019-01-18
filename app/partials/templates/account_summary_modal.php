@@ -5,7 +5,12 @@
     $storeName = $storeInfo['name'];
     $storeLogo = $storeInfo['logo'];
 
-    $storeLogo = BASE_URL ."/". $storeLogo . "_80x80.jpg";
+    if($storeLogo == null) {
+        $storeLogo = DEFAULT_STORE; 
+    } else {
+        $storeLogo = BASE_URL ."/". $storeLogo . "_80x80.jpg";
+    } 
+
 ?>
 <div class="container-fluid" id='account_summary_modal'>
     <div class="row">

@@ -3439,9 +3439,7 @@ $(document).ready( () => {
 			'address' : $("#saddress").val(),
 			'hours' : $("#shours").val(),
 			'standard' : $("#standard").val(),
-			'free' : $("#free").val(),
-			'permit' : $("#permit").val(),
-			'logo' : $("#logo").val()
+			'free' : $("#free").val()
 		}
 
 		if($('#confirmation').is(':checked')){ 
@@ -3452,8 +3450,7 @@ $(document).ready( () => {
 			flag = 1;
 		}
 
-		
-		if(data['name'] == "" || data['logo']=="" || data['about'] == "" || data['fname'] == "" || data['lname']=="" || data['address'] == "" || data['standard']==""){
+		if(data['name']=="" || data['about']=="" || data['fname']=="" || data['lname']=="" || data['address']=="" || data['standard']==""){
 			$("#register_shop_error").css("color","#f64f59");
 			$("#register_shop_error").text("Please fill out all fields with asterisk.");
 			flag = 1;
@@ -3462,21 +3459,10 @@ $(document).ready( () => {
 		if(flag == 0){
 			$.post('../controllers/process_register_shop.php',data,function(response){
 
-				if(response == "tooLarge"){
-					$("#register_shop_error").css("color","#f64f59");
-					$("#register_shop_error").text("Your fileS are too large. Please limit it to 2MB");
-				}
+				alert("Congratuations! You are now a Mamaroo seller. You will be redirected to your shop profile.");
+				setTimeout(function(){window.location.href="store-profile.php?id="+response}, 1800);
+				// location.href="profile.php?id=" + data.id
 				
-				else if (response == "wrongFileType"){
-					$("#register_shop_error").css("color","#f64f59");
-					$("#register_shop_error").text("Please use only jpg, png or jpeg as file extension for the files.");
-				}
-				
-				else {
-					alert("Congratuations! You are now a Mamaroo seller. You will be redirected to your shop profile.");
-					setTimeout(function(){window.location.href="store-profile.php?id="+response}, 1800);
-					// location.href="profile.php?id=" + data.id
-				}
 			})
 		}
 

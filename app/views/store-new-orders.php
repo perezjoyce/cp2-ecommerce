@@ -23,7 +23,7 @@
         
         $storeId = $storeInfo['id'];
         $storeName = $storeInfo['name'];
-        $storeLogo = $storeInfo['logo'];
+        // $storeLogo = $storeInfo['logo'];
         $storeDescription = $storeInfo['description'];
         $storeAddress = $storeInfo['store_address'];
         $storeHours = $storeInfo['hours'];

@@ -5,6 +5,7 @@ require_once( BASE_DIR . '/vendor/autoload.php');
 define('BASE_URL', 'http://mamaroo.herokuapp.com');
 // define ('DEFAULT_PROFILE' , 'http://png.pngtree.com/svg/20161021/user_avatar_35720.png');
 define ('DEFAULT_PROFILE' , BASE_URL."/app/assets/images/user_default_img.png" );
+define ('DEFAULT_STORE' , BASE_URL."/app/assets/images/default_store_img.jpg" );
 // define ('DEFAULT_PRODUCT_IMG' , 'http://via.placeholder.com/350x25');
 date_default_timezone_set('Asia/Manila');
 

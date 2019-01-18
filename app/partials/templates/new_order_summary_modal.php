@@ -7,7 +7,7 @@ require_once '../../../config.php';
     $cartSession = $_GET['cart'];
    
     $storeName = getStoreName ($conn,$userId);
-    $storeLogo = getStoreLogo ($conn,$userId);
+    // $storeLogo = getStoreLogo ($conn,$userId);
     $storeAddress = getStoreAddress ($conn,$userId);
     $storeHours = getStoreHours ($conn,$userId);
     $storeFollowers = countFollowers ($conn, $storeId);
@@ -384,9 +384,14 @@ require_once '../../../config.php';
                                                         <div class='flex pr-2'>
                                                             <a href="store-profile.php?id=<?=$storeId?>">
                                                                 <img src='<?php 
-                                                                    $logo = getStoreLogo ($conn,$userId);
-                                                                    $logo = BASE_URL."/". $logo . ".jpg";
-                                                                    echo $logo;
+                                                                   $logo = getStoreLogo ($conn,$userId);
+                                                                   if($logo == null) {
+                                                                       $logo = DEFAULT_STORE; 
+                                                                       echo $logo;
+                                                                   } else {
+                                                                       $logo = BASE_URL ."/". $logo . "_80x80.jpg";
+                                                                       echo $logo;
+                                                                   } 
                                                                 ?>' style='width:50px;height:50px;' class='circle'> 
                                                             </a>
                                                         </div>   

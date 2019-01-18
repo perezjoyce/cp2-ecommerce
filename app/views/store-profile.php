@@ -22,6 +22,14 @@
         $storeId = $storeInfo['id'];
         $storeName = $storeInfo['name'];
         $storeLogo = $storeInfo['logo'];
+
+        if($storeLogo == null) {
+            $storeLogo = DEFAULT_STORE; 
+        } else {
+            $storeLogo = BASE_URL ."/". $storeLogo . ".jpg";
+        } 
+
+
         $storeDescription = $storeInfo['description'];
         $storeAddress = $storeInfo['store_address'];
         $storeHours = $storeInfo['hours'];
@@ -56,7 +64,7 @@
                                 <div class='flex-fill'>
                                     <div class="d-flex align-items-center">
                                         <div class='pr-3'>
-                                            <img src='<?= BASE_URL . "/" . $storeLogo . ".jpg" ?>' class='rounded-circle store_page_logo'>
+                                            <img src='<?= $storeLogo ?>' class='rounded-circle store_page_logo'>
                                         </div>
                                         <div class="d-flex flex-column">
                                             <div>

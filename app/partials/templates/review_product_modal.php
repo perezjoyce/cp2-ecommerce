@@ -78,6 +78,11 @@ require_once "../../sources/class.upload.php";
                                     
                                     $storeId = $row['storeId'];
                                     $storeLogo = $row['logo'];
+                                    if($storeLogo == null) {
+                                        $storeLogo = DEFAULT_STORE; 
+                                    } else {
+                                        $storeLogo = BASE_URL ."/". $storeLogo . ".jpg";
+                                    } 
                                     $storeName = $row['storeName'];
                                     $storeAddress = $row['store_address'];
                             
@@ -103,7 +108,7 @@ require_once "../../sources/class.upload.php";
                                                     <div class='d-flex align-items-center'>
                                                         
                                                         <div class='pr-3'>
-                                                            <img src='<?=BASE_URL ."/". $storeLogo . ".jpg"?>' alt="<?=$storeName?>?>" alt="<?=$storeName?>" class='circle' style='height:40px;'>
+                                                            <img src='<?=$storeLogo?>' alt="<?=$storeName?>?>" alt="<?=$storeName?>" class='circle' style='height:40px;'>
                                                         </div>
                                                         <div class='d-flex flex-column'>
                                                         

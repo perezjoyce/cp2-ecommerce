@@ -32,6 +32,13 @@
                     $row2 = $statement2->fetch();
                     $storeName = $row2['name'];
                     $storeLogo = $row2['logo'];
+                    if($storeLogo == null) {
+                        $storeLogo = DEFAULT_STORE; 
+                       
+                    } else {
+                        $storeLogo = BASE_URL ."/". $storeLogo . ".jpg";
+                     
+                    } 
                     $storeAddress = $row2['store_address'];
                     $sellerId = $row2['user_id'];
         

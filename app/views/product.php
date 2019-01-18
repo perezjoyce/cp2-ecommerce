@@ -450,6 +450,15 @@ if(isset($_SESSION['id'])) {
                           $storeId = $row['id'];
                           $storeName = $row['name'];
                           $storeLogo = $row['logo'];
+
+                          if($storeLogo == null) {
+                              $storeLogo = DEFAULT_STORE; 
+                              $prefix = "rounded";
+                          } else {
+                              $storeLogo = BASE_URL ."/". $storeLogo . "_80x80.jpg";
+                              $prefix = "";
+                          } 
+
                           $storeAddress = $row['store_address'];
                           $sellerId = $row['user_id'];
                           $shippingFee = $row['standard_shipping'];
@@ -457,7 +466,7 @@ if(isset($_SESSION['id'])) {
                       
                       <!-- STORE LOG -->
                       <div class="flex-fill mb-4">
-                        <img src="<?= BASE_URL ."/". $storeLogo . ".jpg"?>" alt="<?=$storeName?>" style='width:70px;max-height:70px;' class='circle'>
+                        <img src="<?= $storeLogo?>" alt="<?=$storeName?>" style='width:70px;max-height:70px;' class='circle'>
                       </div>
 
                       <!-- STORE NAME -->
@@ -1284,7 +1293,7 @@ if(isset($_SESSION['id'])) {
                                     <!-- SELLER DETAILS -->
                                     <div class="row flex-row text-gray mb-4"> 
                                       <a href="store-profile.php?id=<?=$storeId ?>"></a>
-                                      <img src="<?= BASE_URL . '/' . $storeLogo . '.jpg' ?>" alt="<?=$storeName?>" style='width:30px;max-height:30px;' class='circle'>
+                                      <img src="<?= $storeLogo ?>" alt="<?=$storeName?>" style='width:30px;max-height:30px;' class='circle'>
                                       <div>
                                         <div>&nbsp;<?=$storeName?></div>
                                         <small class='text-purple'>

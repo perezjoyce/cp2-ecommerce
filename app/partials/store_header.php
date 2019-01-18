@@ -38,13 +38,12 @@
     $lname = getLastName ($conn,$id);
     
     if($storeLogo == null) {
-        $storeLogo = DEFAULT_PROFILE; 
+        $storeLogo = DEFAULT_STORE; 
         $prefix = "rounded";
     } else {
         $storeLogo = BASE_URL ."/". $storeLogo . "_80x80.jpg";
         $prefix = "";
     } 
-
 
 ?>
 

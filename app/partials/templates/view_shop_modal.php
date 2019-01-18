@@ -6,7 +6,11 @@
     $sellerId = $storeInfo['user_id'];
     $storeName = $storeInfo['name'];
     $storeLogo = $storeInfo['logo'];
-    $storeLogo = BASE_URL ."/". $storeLogo . ".jpg";
+    if($storeLogo == null) {
+        $storeLogo = DEFAULT_STORE; 
+    } else {
+        $storeLogo = BASE_URL ."/". $storeLogo . ".jpg";
+    } 
 
     $storeDescription = $storeInfo['description'];
     $storeAddress = $storeInfo['store_address'];

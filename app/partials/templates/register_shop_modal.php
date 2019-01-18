@@ -37,7 +37,7 @@
                         <div class="form-group row mb-5">
                             <label for='sname' class='col-lg-3 col-md-3 col-sm-12'>Shop Name*</label>
                             <div class="input-group col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" class='form-control' id='sname'>
+                                <input type="text" class='form-control' id='sname' placeholder='You cannot change this afterwards.'>
                             </div>
                         </div>
 
@@ -117,7 +117,7 @@
                             </div>
                         </div>
 
-                        <!-- LOGO -->
+                        <!-- LOGO
                         <div class="form-group row mb-5">
                             <label class='col-lg-3 col-md-3 col-sm-12'>Logo*</label>
                             <div class="input-group col-lg-9 col-md-9 col-sm-12">
@@ -125,7 +125,7 @@
                             </div>
                         </div>
 
-                        <!-- PERMIT -->
+                        PERMIT
                         <div class="form-group row mb-5">
                             <label class='col-lg-3 col-md-3 col-sm-12 d-flex flex-row'>
                                 Permit
@@ -136,10 +136,7 @@
                             <div class="input-group col-lg-9 col-md-9 col-sm-12">
                                 <input type='file' value='UPLOAD' class='form-control' id='permit' name='permit' accept="image/jpeg, image/jpg, image/png" />
                             </div>
-                        </div>
-
-                       
-
+                        </div> -->
 
 
                         <p id="register_shop_error"></p>

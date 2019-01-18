@@ -225,7 +225,14 @@
                                                         $storeName = $row2['name'];  
                                                         $storeAddress = $row2['store_address'];
                                                         $storeLogo = $row2['logo'];   
-                                                        $storeLogo = BASE_URL ."/".$storeLogo.".jpg";
+
+                                                        if($storeLogo == null) {
+                                                            $storeLogo = DEFAULT_STORE; 
+                                                       
+                                                        } else {
+                                                            $storeLogo = BASE_URL ."/". $storeLogo . "_80x80.jpg";
+                                                      
+                                                        } 
                                                         $totalPerStore = $row2['totalPerStore'];
                                                         $standardShipping = $row2['standard_shipping'];
                                                         $freeShippingMinimum = $row2['free_shipping_minimum'];                                                 
