@@ -106,7 +106,7 @@ else {
         $uploader2->Clean();
     }
     
-    $sql4 = "INSERT INTO tbl_permits(permit,store_id) VALUES('uploads/$userId/$storeId/$filename',?) ";
+    $sql4 = "INSERT INTO tbl_permits(permit,store_id) VALUES('uploads/$userId/$storeId/$filename2',?) ";
     $statement4 = $conn->prepare($sql4);
     $statement4->execute([$storeId]);
 }
