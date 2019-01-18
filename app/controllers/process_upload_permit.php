@@ -58,8 +58,8 @@ else {
     $statement->execute([$storeId]);
     $message = "Your file was successfully submitted for review.";
     echo "<script type='text/javascript'>
+        window.location.href='../views/store-profile.php?id=$storeId';
         alert('$message');
-        setTimeout(function(){window.location.href='../views/store-profile.php?id=$storeId'}, 1500);
         </script>";
     // header("Location: ../views/store-profile.php?id=$storeId");
 }

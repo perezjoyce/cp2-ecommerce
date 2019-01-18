@@ -43,7 +43,7 @@
 
                     
                     <!-- MAIN BAR-->
-                    <div class="col">
+                    <div class="col p-0">
 
                         <!-- PROFILE -->
                         <div class='container p-5 border mt-lg-0 mt-md-0 mt-sm-5' style='background:white;'>
@@ -57,10 +57,22 @@
                                                     <img src='<?= $storeLogo ?>' class='rounded-circle store_page_logo'>
                                                 </div>
                                                 <div class="d-flex flex-column pt-lg-0 pt-md-0 pt-sm-4 text-lg-left text-md-left text-sm-center">
-                                                    <div>
-                                                        <h3><?= $storeName ?></h3>
+
+                                               
+                                                    <h3><?= $storeName ?></h3>
+
+                                                    <div class='d-flex flex-row'>
+                                                        <?php 
+                                                            $withPermit = checkifwithpermit($conn, $storeId);
+                                                            if($withPermit == 2){
+                                                        ?>
+                                                        
+                                                            <i class="fas fa-check-circle pr-1 text-purple"></i>
+                                                            <small class="text-purple">VERIFIED SELLER</small>
+
+                                                        <?php } ?>
                                                     </div>
-                                                    
+
                                                     <div class="text-gray">
                                                         <?
                                                             $sql = "SELECT last_login FROM tbl_users WHERE id = ?";
@@ -71,7 +83,7 @@
                                                             
                                                         ?>
                                                         <small id='lastLoginTimeAgo'><?= $lastLogin ?></small>
-                                                        </div>
+                                                    </div>
 
                                                 </div>
                                             </div>
@@ -129,7 +141,7 @@
 
                                     
                                     <!-- BUSINESS DETAILS -->
-                                    <div class="container p-5 rounded mb-5" style='background:white;'>
+                                    <div class="container p-lg-5 p-md-5 p-sm-0 rounded mb-5" style='background:white;'>
                                         <div class="row mb-3">
                                             <div class="col">
                                                 <div class='d-flex flex-row'>
@@ -147,11 +159,6 @@
                                                     <div class="row my-5">
                                                         <div class="col-lg-3 col-md-4">
                                                             Owner
-                                                            <?php if ($isSeller && $currentUser['id'] == $storeInfo['user_id']) { ?>
-                                                            <a data-toggle="tooltip" title="Please coordinate with the admin for changes in store ownership." data-original-title="#">
-                                                                &nbsp;<i class="far fa-question-circle text-gray"></i>
-                                                            </a>
-                                                            <?php } ?>
                                                         </div>
                                                         <div class="col">
                                                             <?= ucwords(strtolower($fname)) . " " . ucwords(strtolower($lname)) ?>
@@ -188,7 +195,7 @@
                                 <div class="col-lg-6 col-md-6">
 
                                     <!-- STATS -->
-                                    <div class="container p-5 rounded" style='background:white;'>
+                                    <div class="container p-lg-5 p-md-5 p-sm-0 rounded mb-5" style='background:white;'>
                                         <div class="row mb-3">
                                             <div class="col">
                                                 <div class='d-flex flex-row'>
@@ -239,22 +246,10 @@
                                     </div>
 
                                     <!-- SHIPPING RATES -->
-                                    <div class="container p-5 rounded" style='background:white;'>
+                                    <div class="container p-lg-5 p-md-5 p-sm-0 rounded mb-5" style='background:white;'>
                                         <div class="row mb-3">
                                             <div class="col">
-                                                <div class='d-flex flex-row'>
-                                                    <div class='flex-fill'>
-                                                        <h4>Shipping Rates</h4>
-                                                    </div>
-                                                    <?php if ($isSeller && $currentUser['id'] == $storeInfo['user_id']) { ?>    
-                                                    <div class='flex-fill text-right'>
-                                                        <a class='nav-link modal-link' href='#' data-id='<?= $storeId ?>' data-url='../partials/templates/edit_store_shipping_modal.php' role='button'>
-                                                            <i class="far fa-edit"></i>
-                                                            Edit
-                                                        </a>
-                                                    </div>
-                                                    <?php } else { echo ""; } ?>
-                                                </div>
+                                                <h4>Shipping Rates</h4>
                                             </div>
                                         </div>
                                         
@@ -302,10 +297,10 @@
 
                         
                         <!-- SEARCH BAR -->
-                        <div class='container p-5 rounded mb-5' style='background:white;'>
+                        <div class='container p-lg-5 p-md-5 p-sm-0 rounded mb-5' style='background:white;'>
                             <div class="row mx-0">
-                                <div class="col-6">
-                                    <h4>Search For Products</h4>
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <h4>Search <span class='vanish-sm'>For</span> Products</h4>
                                 </div>
                                 <div class="col">
                                     <div class="input-group input-group-lg">
@@ -344,7 +339,7 @@
                                     
                                 ?>
                             
-                                <div class="col-lg-3 col-md-4 col-sm-6 p-2">
+                                <div class="col-lg-3 col-md-4 col-sm-12 p-2">
                                     <a href="product.php?id=<?= $id ?>">
                                     <div class='card border-0'>
                                         <a href="product.php?id=<?= $row2['id'] ?>">
@@ -427,3 +422,12 @@
         </div>
     </div>
 </div>
+
+<script>
+    var utcDateTime3 = $('.memberSince');
+	var tz2 = moment.tz.guess();
+	$.each(utcDateTime3, function(i, element){
+		var dateTimeStr3 = $(element).text().trim();		
+		$(element).text(moment(dateTimeStr3).tz(tz2).format("ll"));
+	});
+</script>

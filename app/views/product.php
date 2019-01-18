@@ -473,6 +473,17 @@ if(isset($_SESSION['id'])) {
                       <div class="flex-fill text-purple font-weight-bold mb-4">
                           <?=$storeName?>
                       </div>
+                        
+                      <!-- VERIFICATION BADGE -->
+                      <?php 
+                          $withPermit = checkifwithpermit($conn, $storeId);
+                          if($withPermit == 2){
+                      ?>
+                      <div class="flex-fill d-flex flex-row justify-content-center">
+                        <small><i class="fas fa-check-circle pr-1 text-gray"></i></small>
+                        <small class="text-gray">Verified Seller</small>
+                      </div>
+                      <?php } ?>
 
                       <!-- STORE ADDRESS -->
                       <div class="flex-fill text-gray mb-2 px-2">
