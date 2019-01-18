@@ -40,7 +40,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row" >
                     <div class="col mb-5">
                         <img src="<?=$permit?>" alt="business permit of <?=$storeName?>" style="width:100%;">
                     </div>
@@ -58,7 +58,7 @@
                                 $modalLinkClassPrefix='-big';
                             }
                         ?>
-                        <a class='btn btn-lg btn-block py-3 btn-purple btn_print'>
+                        <a class='btn btn-lg btn-block py-3 btn-purple' id='btnPrint'>
                             Save As PDF&nbsp; 
                             <i class="fas fa-file-download"></i>
                         </a>
