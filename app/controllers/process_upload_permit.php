@@ -59,7 +59,7 @@ else {
     $message = "Your file was successfully submitted for review.";
     echo "<script type='text/javascript'>
         alert('$message');
-        setTimeout(function(){window.location.href='store-profile.php?id=$storeId'}, 1500);
+        setTimeout(function(){window.location.href='../views/store-profile.php?id=$storeId'}, 1500);
         </script>";
     // header("Location: ../views/store-profile.php?id=$storeId");
 }
