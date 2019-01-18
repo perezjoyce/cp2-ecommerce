@@ -58,7 +58,7 @@
                                 $modalLinkClassPrefix='-big';
                             }
                         ?>
-                        <a class='btn btn-lg btn-block py-3 btn-purple' id='btnPrint'>
+                        <a class='btn btn-lg btn-block py-3 btn-purple btn_print'>
                             Save As PDF&nbsp; 
                             <i class="fas fa-file-download"></i>
                         </a>

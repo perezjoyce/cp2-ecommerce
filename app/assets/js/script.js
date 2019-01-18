@@ -2115,10 +2115,10 @@ $(document).ready( () => {
 	});
 
 	// PRINT BUSINESS PERMIT
-	// $(document).on('click', ".btn_print", function () {
-	// 	printElement(document.getElementById("printThis"));
-	// 	window.print();
-	// });
+	$(document).on('click', ".btn_print", function () {
+		printElement(document.getElementById("printThis"));
+		window.print();
+	});
 
 	
 
