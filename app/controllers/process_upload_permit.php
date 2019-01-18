@@ -50,15 +50,17 @@ else {
     }
     
     //SAVE URL IN DATABASE
-    $sql = "INSERT INTO tbl_permits(permit, store_id) VALUES('uploads/$id/$storeId/$filename', ?)";
+    $imgPath = "uploads/".$id."/".$storeId."/".$filename;
+    $sql = "INSERT INTO tbl_permits(permit, store_id) VALUES(?, ?)";
     $statement = $conn->prepare($sql);
-    $statement->execute([$storeId]);
+    $statement->execute([$imgPath, $storeId]);
 
     //UPDATE STATUS TO PENDING
     $sql = "UPDATE tbl_stores SET with_permit=1 WHERE id = ? ";
     $statement = $conn->prepare($sql);
     $statement->execute([$storeId]);
-    header("Location: ../views/store-profile.php?id=$storeId");
-
+    $message = "Your file was successfully submitted for review.";
+    echo "<script type='text/javascript'>alert('$message');</script>";
+    // header("Location: ../views/store-profile.php?id=$storeId");
 }
 
