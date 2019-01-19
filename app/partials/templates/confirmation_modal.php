@@ -18,7 +18,7 @@
 
         <div class="col" style='height:80vh;overflow-y:auto;' id='printThis'>
 
-            <div class="container px-5 pb-2 pt-5 mb-4 shadow">
+            <div class="container px-5 pb-2 pt-5 mb-4">
                 <input type="hidden" value='1' id='variation_id_hidden_modal'>
                 <div class="row mb-5 mt-4"> 
                     <div class='col'>

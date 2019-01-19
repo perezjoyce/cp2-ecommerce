@@ -6,7 +6,8 @@
     // } else {
     //     $addressId = $_SESSION['preselectedAddressId'];
     // }
-
+        $billingAddressId = $_POST['addressId'];
+        $_SESSION['billingAddressId'] = $billingAddressId;
         $cartSession = $_SESSION['cart_session'];
         $userId = $_SESSION['id'];
   
@@ -15,23 +16,21 @@
         $statement = $conn->prepare($sql);
         $statement->execute([$cartSession, $userId]);
         $row = $statement->fetch();
-        $billingAddress = $row['address_id'];
-        $_SESSION['billingAddressId'] = $billingAddress;
         $count = $statement->rowCount();
 
         if($count) {
             $sql2 = " UPDATE tbl_orders SET billing_address_id = ? WHERE cart_session = ? AND `user_id` = ? ";
             $statement2 = $conn->prepare($sql2);
-            $statement2->execute([$billingAddress, $cartSession, $userId]);
+            $statement2->execute([$billingAddressId, $cartSession, $userId]);
         } else {
             $sql3 = " INSERT INTO tbl_orders (cart_session, `user_id`, billing_address_id) VALUES (?, ?, ?) ";
             $statement3 = $conn->prepare($sql3);
-            $statement3->execute([$cartSession, $userId, $billingAddress]);
+            $statement3->execute([$cartSession, $userId, $billingAddressId]);
         }
 
         $sql4 = "SELECT * FROM tbl_orders WHERE cart_session = ? AND billing_address_id = ?";
         $statement4 = $conn->prepare($sql4);
-        $statement4->execute([$cartSession, $addressId]);
+        $statement4->execute([$cartSession, $billingAddressId]);
         $count4 = $statement4->rowCount();
 
         if($count4) {
