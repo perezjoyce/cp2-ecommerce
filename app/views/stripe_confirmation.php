@@ -2,8 +2,7 @@
 <?php require_once BASE_DIR . "/app/partials/header_stripe.php";?>
 <?php 
 
-$transactionCode = $_GET['transactionCode'];
-$transactionCode = base64_decode($transactionCode);
+$transactionCode = $_SESSION['transaction_code'];
 $cartSession = $_SESSION['cart_session'];
 $userId = $_SESSION['id'];
 
@@ -44,42 +43,42 @@ $userId = $_SESSION['id'];
                                     $billingAddressId = $row['billing_address_id'];
 
                                     //SHIPPING INFO
-                                    $sql = "SELECT * FROM tbl_addresses WHERE id = ?";
-                                    $statement = $conn->prepare($sql);
-                                    $statement->execute([$shippingAddressId]);	
-                                    $row = $statement->fetch();
-                                    $sName = $row['name'];
+                                    $sql2 = "SELECT * FROM tbl_addresses WHERE id = ?";
+                                    $statement2 = $conn->prepare($sql2);
+                                    $statement2->execute([$shippingAddressId]);	
+                                    $row2 = $statement2->fetch();
+                                    $sName = $row2['name'];
                                     $sName = ucwords(strtolower( $sName));
 
-                                    $sLandmark = $row['landmark'];
+                                    $sLandmark = $row2['landmark'];
                                     $sLandmark = ucwords(strtolower($sLandmark));
 
-                                    $sStreet = $row['street_bldg_unit'];
+                                    $sStreet = $row2['street_bldg_unit'];
                                     $sStreet = ucwords(strtolower($sStreet));
 
-                                    $sRegionId = $row['region_id'];
-                                    $sProvId = $row['province_id'];
-                                    $sCityId = $row['city_id'];
-                                    $sBrgyId = $row['brgy_id'];
+                                    $sRegionId = $row2['region_id'];
+                                    $sProvId = $row2['province_id'];
+                                    $sCityId = $row2['city_id'];
+                                    $sBrgyId = $row2['brgy_id'];
 
                                     //BILLING INFO
-                                    $sql = "SELECT * FROM tbl_addresses WHERE id = ?";
-                                    $statement = $conn->prepare($sql);
-                                    $statement->execute([$billingAddressId]);	
-                                    $row = $statement->fetch();
-                                    $bName = $row['name'];
+                                    $sql3 = "SELECT * FROM tbl_addresses WHERE id = ?";
+                                    $statement3 = $conn->prepare($sql3);
+                                    $statement3->execute([$billingAddressId]);	
+                                    $row3 = $statement3->fetch();
+                                    $bName = $row3['name'];
                                     $bName = ucwords(strtolower( $sName));
 
-                                    $bLandmark = $row['landmark'];
+                                    $bLandmark = $row3['landmark'];
                                     $bLandmark = ucwords(strtolower($sLandmark));
 
-                                    $bStreet = $row['street_bldg_unit'];
+                                    $bStreet = $row3['street_bldg_unit'];
                                     $bStreet = ucwords(strtolower($sStreet));
 
-                                    $bRegionId = $row['region_id'];
-                                    $bProvId = $row['province_id'];
-                                    $bCityId = $row['city_id'];
-                                    $bBrgyId = $row['brgy_id'];
+                                    $bRegionId = $row3['region_id'];
+                                    $bProvId = $row3['province_id'];
+                                    $bCityId = $row3['city_id'];
+                                    $bBrgyId = $row3['brgy_id'];
                                 ?>
 
                             <div class="container my-5 px-0">
@@ -355,15 +354,6 @@ $userId = $_SESSION['id'];
                                             ?>
 
                                             <tr>
-                                                <!-- DELETE STORE AND ITS PRODUCTS BUTTON -->
-                                                <td class='pr-0'>
-                                                    <!-- <div class='text-left' style='align-self:end;'>
-                                                        <a data-productid='<?=$productId?>' data-vname='<?=$variationName?>' data-variationid='<?= $variationId ?>' data-quantity='<?=$quantity?>' role='button' class='btn_delete_item text-gray flex-fill font-weight-light' style='font-size:16px;'>
-                                                        &times;
-                                                        </a>
-                                                    </div> -->
-                                                </td>
-                                                
                                                 <!-- STORE LOGO AND NAME -->
                                                 <td> 
                                                     <div class='d-flex flex-row' style='justify-content:flex-start;'>
