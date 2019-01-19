@@ -123,7 +123,7 @@
                     <div class="col px-0">
                         <!-- <div class="col-6"> -->
                                 <div class="d-flex align-items-center my-5">
-                                    <div id='header-logo'></div>&nbsp;
+                                    
                                     <a class="navbar-brand" href="index.php" id="website_name" style='font-family:Fredoka One;color:#3F3F3F'>
                                       Mamaroo  
                                     </a>

@@ -14,7 +14,7 @@ $userId = $_SESSION['id'];
         <div class="col" id='printThis'>
 
             
-            <div class="container px-5 pb-2 pt-5 mb-4 rounded" style="background:white;">
+            <div class="container px-5 pb-2 pt-5 mb-4 rounded shadow" style="background:white;">
                 <input type="hidden" value='1' id='variation_id_hidden_modal'>
                 <div class="row mb-5 mt-4"> 
                     <div class='col'>
@@ -476,8 +476,8 @@ $userId = $_SESSION['id'];
                         <!-- CHECKOUT BUTTON -->
                             <div class="container my-5 px-0">
                                 <div class="row mt-5">
-                                    <div class="col-6"></div>
-                                    <div class="col">
+                                    <div class="col"></div>
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                         <?php 
                                             $modalLinkClassPrefix = ''; 
                                             if(isset($_SESSION['id'])) {
