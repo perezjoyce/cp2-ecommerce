@@ -129,8 +129,8 @@ button[class^=stripe-button-el] span {
 
                         <!-- HIDDEN ELEMENT  -->
                         <form action='../controllers/process_save_billing_address.php' method='POST' id='shipping_info_modal'>
-                            <input type="hidden" id="address_id" name="address_id" value="<?= isset($preselectedAddressId) 
-                                        ? $_SESSION['preselectedAddressId'] : null ?>">
+                            <input type="hidden" id="address_id" name="address_id" value="<?= isset($preselectedAddressData['id'])
+                                        ? $preselectedAddressData['id'] : null ?>">
 
                             <div class="form-inline ml-0 px-0 mt-5">
                                 <div class='pr-5 pt-3 mr-4'>Choose Billing Address</div> 
@@ -428,7 +428,7 @@ button[class^=stripe-button-el] span {
                                         }
                                     ?>
                                     
-                                    <a class='btn btn-lg btn-block py-3 btn-purple back modal-link<?= $modalLinkClassPrefix?> mt-5'
+                                    <a class='btn btn-lg btn-block py-3 btn-purple back modal-link<?= $modalLinkClassPrefix?>'
                                         data-url="../partials/templates/shipping_info_modal.php" role='button' id='btn_back_to_shipping'>
                                         <i class="fas fa-angle-double-left"></i>
                                         &nbsp;Edit Shipping Info

@@ -152,7 +152,10 @@ $userId = $_SESSION['id'];
 
                                                 <tr class='tr-gray'>
                                                     <?php 
-                                                    
+
+                                                        if(!isset($billingAddressId)){
+                                                            $billingAddressId = $shippingAddressId;
+                                                        }
                                                         //BILLING INFO
                                                         $sql3 = "SELECT * FROM tbl_addresses WHERE id = ?";
                                                         $statement3 = $conn->prepare($sql3);
