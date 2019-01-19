@@ -181,7 +181,7 @@
                   AND pi.product_id=i.id 
                   WHERE status_id IS NOT NULL 
                   AND is_primary = 1 
-                  GROUP BY variation_id 
+                  GROUP BY product_id 
                   ORDER BY COUNT(variation_id) 
                   DESC LIMIT 12";
           $statement = $conn->prepare($sql);
