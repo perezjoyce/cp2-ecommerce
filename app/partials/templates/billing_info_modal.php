@@ -78,12 +78,25 @@
     text-shadow: none!important;
     box-shadow: none!important;
     font-weight: 650!important;
-    background: #8e44ad!important;
+    background: #9c5abd!important;
     border: 2px solid #8e44ad!important;
     color: white!important;
     padding: 15px;
-    margin-top: 2.3em;
+    /* margin-top: 2.3em; */
+    width:100%!important;
 }
+button[class^=stripe-button-el] span {
+    /* background: #8e44ad;  */
+    border: white!important;
+    /* color: #9c5abd!important; */
+    /* font-weight: 500; */
+    /* height: 40px; */
+    /* background-image: initial; */
+    padding: 41px;
+    padding-top: 16px;
+    /* background: #9c5abd; */
+}
+
 </style>
 
 <div class="container-fluid">
@@ -116,8 +129,8 @@
 
                         <!-- HIDDEN ELEMENT  -->
                         <form action='../controllers/process_save_billing_address.php' method='POST' id='shipping_info_modal'>
-                            <input type="hiddend" id="address_id" name="address_id" value="<?= isset($preselectedAddressId) 
-                                        ? $preselectedAddressId : null ?>">
+                            <input type="hidden" id="address_id" name="address_id" value="<?= isset($preselectedAddressId) 
+                                        ? $_SESSION['preselectedAddressId'] : null ?>">
 
                             <div class="form-inline ml-0 px-0 mt-5">
                                 <div class='pr-5 pt-3 mr-4'>Choose Billing Address</div> 
@@ -364,7 +377,8 @@
 
                             <p id="billing_info_error"></p>
 
-                            <div class="container px-0 mb-5" id='billing_info_buttons'>
+                            <div class="container px-0 my-5" id='billing_info_buttons'>
+                            <br><br><br>
                                 <!-- CHECKOUT BUTTON -->
                                 <div class="row">
                                     <div class="col-4">
@@ -389,7 +403,7 @@
                                     </div>
 
                                     <div class="col-4">
-                                        <a class='btn btn-lg btn-block py-3 btn-purple mt-5 modal-link<?= $modalLinkClassPrefix?>' 
+                                        <a class='btn btn-lg btn-block py-3 btn-purple modal-link<?= $modalLinkClassPrefix?>' 
                                             data-url='../partials/templates/confirmation_modal.php' id='btn_order_confirmation' role='button'>
                                             Confirm Order
                                         </a>
@@ -401,7 +415,8 @@
 
                         </form>
 
-                        <div class="container px-0 mb-5" id='stripe_buttons' style='display:none;'>
+                        <div class="container px-0 my-5" id='stripe_buttons' style='display:none;'>
+                        <br><br><br>
                             <!-- CHECKOUT BUTTON -->
                             <div class="row">
                                 <div class="col-4">

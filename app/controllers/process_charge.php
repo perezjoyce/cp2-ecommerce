@@ -76,6 +76,7 @@
         $subtotalPerStore = $row4['subTotalPerStore'];
         $standardShippingPerStore = $row4['standard_shipping'];
         $freeShippingMinimumPerStore = $row4['free_shipping_minimum'];
+        $mamarooServiceCharge = $subtotalPerStore * .03; // 3% of subtotal (i.e., w/o shipping fee)
         $totalPerStore = 0;
 
         if($subtotalPerStore >= $freeShippingMinimumPerStore){
@@ -83,8 +84,6 @@
         } else {
             $totalPerStore = $subtotalPerStore + $standardShippingPerStore;
         }
-
-        $mamarooServiceCharge = $totalPerStore * .03; // 3% of total Amount
 
         //INSERT CREDIT AND DEBIT/SERVICE CHARGE PER SELLER -- PATTERNED AFTER METROBANK
         $sql5 = "INSERT INTO tbl_seller_accounts(store_id, debit, credit, transaction_code, description, `timestamp`) VALUES(?,?,?,?,?, NOW())";
