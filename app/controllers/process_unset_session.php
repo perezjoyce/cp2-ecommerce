@@ -10,6 +10,10 @@
     if(isset($_SESSION['transaction_code'])){
         unset($_SESSION['transaction_code']);
     }
+
+    if(isset($_SESSION['billingAddressId'])){
+        unset($_SESSION['billingAddressId']);
+    }
     
     // header("Location: ../views/index.php"); // redirected to index.php
     $response = [''];
