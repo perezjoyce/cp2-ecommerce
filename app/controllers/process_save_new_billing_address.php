@@ -30,7 +30,7 @@
         } else {
             // IF NO, INSERT IT
             $sql = " INSERT INTO tbl_addresses ( `user_id`, addressType ,region_id, province_id, city_id, brgy_id, street_bldg_unit, landmark, `name` ) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?) ";
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) ";
             $statement = $conn->prepare($sql);
             $statement->execute([ $userId, $addressType, $regionId, $provinceId, $cityMunId, $brgyId, $streetBldgUnit, $landmark, $name]);
             
