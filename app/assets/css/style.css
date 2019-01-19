@@ -352,11 +352,12 @@ div.card:hover {
   
 
 .stars-container {
-    width: 130px;
+    width: 145px;
     position: relative;
     display: inline-block;
     color: transparent;
 }
+
   
 .stars-container:before {
     position: absolute;
@@ -1498,7 +1499,7 @@ input:focus{
     }
 
     .stars-container {
-        width: 104px;
+        width: 139px;
     }
 
     .stars-outer {
@@ -1825,7 +1826,7 @@ input:focus{
 
    
     .stars-container {
-        width: 104px;
+        width: 131px;
     }
 
     .stars-outer {
