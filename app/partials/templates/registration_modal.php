@@ -12,13 +12,13 @@
 
             <div class="row float-right">
                 <button id='close_modal' type="button" class="close mr-3 mt-2" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" class='font-weight-light text-secondary' style='font-size:20px;'>&times;</span>
+                    <span aria-hidden="true" class='font-weight-light text-purple' style='font-size:20px;'>&times;</span>
                 </button>
             </div>
 
             <div class="container px-5 pb-2 pt-5 mb-4">
                 <div class="row mb-5 mt-4"> 
-                    <a class='text-purple modal-link col-6' data-url='../partials/templates/login_modal.php'>
+                    <a class='text-secondary modal-link col-6' data-url='../partials/templates/login_modal.php'>
                         <h4>Log In</h4>
                     </a>
                     <div class='col-6 text-right'>
