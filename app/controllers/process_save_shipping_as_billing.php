@@ -1,9 +1,12 @@
   <?php
     require_once '../../config.php';
 
-    if(isset($_POST['addressId'])){
-
+    if(isset($_POST['addressId'])){ 
         $addressId = $_POST['addressId'];
+    } else {
+        $addressId = $_SESSION['preselectedAddressId'];
+    }
+
         $cartSession = $_SESSION['cart_session'];
         $userId = $_SESSION['id'];
   
@@ -35,4 +38,4 @@
             echo "success";
         }
     
-    }
+    

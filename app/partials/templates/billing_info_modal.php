@@ -390,7 +390,7 @@ button[class^=stripe-button-el] span {
                                             }
                                         ?>
                                         
-                                        <a class='btn btn-lg btn-block py-3 btn-purple back modal-link<?= $modalLinkClassPrefix?> mt-5'
+                                        <a class='btn btn-lg btn-block py-3 btn-purple back modal-link<?= $modalLinkClassPrefix?>'
                                             data-url="../partials/templates/shipping_info_modal.php" role='button'>
                                             <i class="fas fa-angle-double-left"></i>
                                             &nbsp;Edit Shipping Info
