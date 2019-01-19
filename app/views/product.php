@@ -879,7 +879,7 @@ if(isset($_SESSION['id'])) {
 
                     <!-- PRODUCT REVIEWS -->
                     <div id="reviews_content" class="tabcontent flex-fill">
-                      <div class="d-flex flex-row">
+                      <div class="d-flex flex-column">
 
                         <!-- DIAGRAMS -->
                         <div class="flex-fill row mb-5">
@@ -943,7 +943,7 @@ if(isset($_SESSION['id'])) {
                           </div>
 
                           <!-- RATINGS BARS -->
-                          <div class="col-lg-5 col-md-9 col-sm-12 text-gray">
+                          <div class="col-lg-5 col-md-9 col-sm-12 text-gray px-0">
                             <div class="container-fluid">
 
                               <?php 

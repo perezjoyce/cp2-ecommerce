@@ -192,6 +192,7 @@ div.card:hover {
 }
 
 
+
 /* #btn_order_confirmation:hover,
 .back:hover {
     background: #edd4f9!important;
@@ -314,16 +315,16 @@ div.card:hover {
     overflow: hidden;
     display: inline-block;
     font-family: 'Font Awesome 5 Free';
-    width: 74px;
-    height: 17px;
+    width: 70px;
+    height: 15px;
 }
 
 .stars-outer::before {
     position: absolute;
-    top: 0;
+    top:0;
     left: 0;
     font-family: 'Font Awesome 5 Free';
-    width: 100px;
+    width: 70px;
     height: 15px;
     /* content: "\f005 \f005 \f005 \f005 \f005"; */
     content: '★★★★★';
@@ -332,32 +333,31 @@ div.card:hover {
 
 .stars-inner {
     position: relative;
-    height: 17px;
-    width: 92px;
+    height: 15px;
+    width: 70px;
     display: inline-block;
     overflow: hidden;
 }
 
 .stars-inner::after {
     position: absolute;
-    top: 0;
+    top:0;
     left: 0;
     color: gold;
     /* content: "\f005 \f005 \f005 \f005 \f005"; */
     content: '★★★★★';
-    width: 81px;
+    width: 70px;
     font-family: 'Font Awesome 5 Free';
     font-weight: 900;
 }
   
 
 .stars-container {
-    width: 145px;
+    width: 130px;
     position: relative;
     display: inline-block;
     color: transparent;
 }
-
   
 .stars-container:before {
     position: absolute;
@@ -1499,16 +1499,7 @@ input:focus{
     }
 
     .stars-container {
-        width: 139px;
-    }
-
-    .stars-outer {
-        position: relative;
-        overflow: hidden;
-        display: inline-block;
-        font-family: 'Font Awesome 5 Free';
-        width: 70px;
-        height: 17px;
+        width: 104px;
     }
 
     /* PRODUCT PAGE */
@@ -1826,16 +1817,7 @@ input:focus{
 
    
     .stars-container {
-        width: 131px;
-    }
-
-    .stars-outer {
-        position: relative;
-        overflow: hidden;
-        display: inline-block;
-        font-family: 'Font Awesome 5 Free';
-        width: 66px;
-        height: 17px;
+        width: 104px;
     }
 
     /* PRODUCT PAGE */
