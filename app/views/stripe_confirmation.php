@@ -5,7 +5,7 @@
 $transactionCode = $_SESSION['transaction_code'];
 $cartSession = $_SESSION['cart_session'];
 $userId = $_SESSION['id'];
-$billingAddressId = $_SESSION['billingAddressId'];
+// $billingAddressId = $_SESSION['billingAddressId'];
 
 ?>
 
@@ -116,7 +116,7 @@ $billingAddressId = $_SESSION['billingAddressId'];
                                     <div class="col-12">
                                             
                                         <div>
-                                            <h5 class='text-secondary'>Shipping & Billing Info</h5>
+                                            <h5 class='text-secondary'>Shipping Info</h5>
                                         </div>
                                         <table class="table table-hover borderless mt-5 text-center">
                                             <thead>
@@ -151,50 +151,7 @@ $billingAddressId = $_SESSION['billingAddressId'];
                                                     </td>
                                                 </tr>
 
-                                                <tr class='tr-gray'>
-                                                    <?php 
-
-                                                        // if(!isset($billingAddressId)){
-                                                        //     $billingAddressId = $shippingAddressId;
-                                                        // }
-                                                        //BILLING INFO
-                                                        $sql3 = "SELECT * FROM tbl_addresses WHERE id = ?";
-                                                        $statement3 = $conn->prepare($sql3);
-                                                        $statement3->execute([$billingAddressId]);	
-                                                        $row3 = $statement3->fetch();
-                                                        $bName = $row3['name'];
-                                                        $bName = ucwords(strtolower( $sName));
-
-                                                        $bLandmark = $row3['landmark'];
-                                                        $bLandmark = ucwords(strtolower($sLandmark));
-
-                                                        $bStreet = $row3['street_bldg_unit'];
-                                                        $bStreet = ucwords(strtolower($sStreet));
-
-                                                        $bRegionId = $row3['region_id'];
-                                                        $bProvId = $row3['province_id'];
-                                                        $bCityId = $row3['city_id'];
-                                                        $bBrgyId = $row3['brgy_id'];
-                                                    ?>
-                                                    <td>
-                                                        Billing
-                                                    </td>
-                                                    <td>
-                                                        <?=$bName?>
-                                                    </td>
-                                                    <td>
-                                                        <?= $bStreet?>,&nbsp;
-                                                        <?= getBrgyName($conn, $bBrgyId) ?>,&nbsp;
-                                                        <?= getCityName($conn, $bCityId) ?>,&nbsp;
-                                                        <?= getProvinceName($conn, $bProvId) ?>,
-                                                        <br>
-                                                        <?= getRegionName($conn, $bRegionId) ?>&nbsp; -- &nbsp;
-                                                        
-                                                        <span class='text-gray'>
-                                                            <?=$bLandmark?>
-                                                        </span>
-                                                    </td>
-                                                </tr>
+                                             
                                             </tbody>
 
                                         </table>

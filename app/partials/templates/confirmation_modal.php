@@ -2,7 +2,7 @@
     require_once '../../../config.php';
     $cartSession = $_SESSION['cart_session'];
     $paymentMode = $_SESSION['paymentMode'];
-    $billingAddressId = $_SESSION['billingAddressId'];
+    $billingAddressId = $_SESSION['billingAddressId']
 ?>
 
 
@@ -65,24 +65,7 @@
                                     $sCityId = $row2['city_id'];
                                     $sBrgyId = $row2['brgy_id'];
 
-                                    //BILLING INFO
-                                    $sql3 = "SELECT * FROM tbl_addresses WHERE id = ?";
-                                    $statement3 = $conn->prepare($sql3);
-                                    $statement3->execute([$billingAddressId]);	
-                                    $row3 = $statement3->fetch();
-                                    $bName = $row3['name'];
-                                    $bName = ucwords(strtolower( $sName));
-
-                                    $bLandmark = $row3['landmark'];
-                                    $bLandmark = ucwords(strtolower($sLandmark));
-
-                                    $bStreet = $row3['street_bldg_unit'];
-                                    $bStreet = ucwords(strtolower($sStreet));
-
-                                    $bRegionId = $row3['region_id'];
-                                    $bProvId = $row3['province_id'];
-                                    $bCityId = $row3['city_id'];
-                                    $bBrgyId = $row3['brgy_id'];
+                                    
                                 ?>
 
                             <div class="container my-5 px-0">
@@ -176,6 +159,26 @@
                                                 <tr class='tr-gray'>
                                                     <td>
                                                         Billing
+                                                        <?php
+                                                        
+                                                            //BILLING INFO
+                                                            $sql3 = "SELECT * FROM tbl_addresses WHERE id = ?";
+                                                            $statement3 = $conn->prepare($sql3);
+                                                            $statement3->execute([$billingAddressId]);	
+                                                            $row3 = $statement3->fetch();
+                                                            $bName = $row3['name'];
+                                                            $bName = ucwords(strtolower( $bName));
+                                                            $bLandmark = $row3['landmark'];
+                                                            $bLandmark = ucwords(strtolower($bLandmark));
+
+                                                            $bStreet = $row3['street_bldg_unit'];
+                                                            $bStreet = ucwords(strtolower($bStreet));
+
+                                                            $bRegionId = $row3['region_id'];
+                                                            $bProvId = $row3['province_id'];
+                                                            $bCityId = $row3['city_id'];
+                                                            $bBrgyId = $row3['brgy_id'];
+                                                        ?>
                                                     </td>
                                                     <td>
                                                         <?=$bName?>
