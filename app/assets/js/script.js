@@ -2057,7 +2057,7 @@ $(document).ready( () => {
 		
 
 		} else {
-			$.post('../controllers/process_save_shipping_as_billing.php', {
+			$.post('../controllers/process_save_shipping_address.php', {
 				addressId: addressId
 			}, function(response2){
 				if(response2 == 'success') {
