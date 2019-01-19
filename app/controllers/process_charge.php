@@ -58,19 +58,13 @@
   }
 
   // get cart for specific seller
-  $sql4 = "SELECT SUM(quantity*price) 
-            AS 'subtotalPerStore', i.store_id, s.name, s.free_shipping_minimum, s.standard_shipping, u.email 
+  $sql4 = "SELECT c.id, c.user_id, c.variation_id, i.price, c.quantity, i.price*c.quantity AS subTotalPerStore, c.cart_session, c.variation_id, s.id as 'store_id',  s.name, s.free_shipping_minimum, s.standard_shipping, u.email 
             FROM tbl_carts c 
-            JOIN tbl_variations v 
-            JOIN tbl_items i 
-            JOIN tbl_stores s 
-            JOIN tbl_users u 
-            ON c.variation_id=v.id 
-            AND v.product_id=i.id 
-            AND i.store_id=s.id 
-            AND s.user_id=u.id 
-            WHERE cart_session = ? 
-            GROUP BY store_id";
+            JOIN tbl_variations v ON v.id=c.variation_id
+            JOIN tbl_items i ON i.id=v.product_id
+            JOIN tbl_stores s on s.id=i.store_id
+            JOIN tbl_users u ON u.id=s.user_id
+            WHERE c.cart_session='5c426a67b6b08' GROUP by store_id";
             $statement4 = $conn->prepare($sql4);
             $statement4->execute([$cartSession]);
 
@@ -79,7 +73,7 @@
         $storeEmail = $row4['email'];
         $storeName = $row4['name'];
 
-        $subtotalPerStore = $row4['subtotalPerStore'];
+        $subtotalPerStore = $row4['subTotalPerStore'];
         $standardShippingPerStore = $row4['standard_shipping'];
         $freeShippingMinimumPerStore = $row4['free_shipping_minimum'];
         $totalPerStore = 0;
