@@ -61,24 +61,7 @@ $userId = $_SESSION['id'];
                                     $sCityId = $row2['city_id'];
                                     $sBrgyId = $row2['brgy_id'];
 
-                                    //BILLING INFO
-                                    $sql3 = "SELECT * FROM tbl_addresses WHERE id = ?";
-                                    $statement3 = $conn->prepare($sql3);
-                                    $statement3->execute([$billingAddressId]);	
-                                    $row3 = $statement3->fetch();
-                                    $bName = $row3['name'];
-                                    $bName = ucwords(strtolower( $sName));
-
-                                    $bLandmark = $row3['landmark'];
-                                    $bLandmark = ucwords(strtolower($sLandmark));
-
-                                    $bStreet = $row3['street_bldg_unit'];
-                                    $bStreet = ucwords(strtolower($sStreet));
-
-                                    $bRegionId = $row3['region_id'];
-                                    $bProvId = $row3['province_id'];
-                                    $bCityId = $row3['city_id'];
-                                    $bBrgyId = $row3['brgy_id'];
+                                   
                                 ?>
 
                             <div class="container my-5 px-0">
@@ -168,6 +151,27 @@ $userId = $_SESSION['id'];
                                                 </tr>
 
                                                 <tr class='tr-gray'>
+                                                    <?php 
+                                                    
+                                                        //BILLING INFO
+                                                        $sql3 = "SELECT * FROM tbl_addresses WHERE id = ?";
+                                                        $statement3 = $conn->prepare($sql3);
+                                                        $statement3->execute([$billingAddressId]);	
+                                                        $row3 = $statement3->fetch();
+                                                        $bName = $row3['name'];
+                                                        $bName = ucwords(strtolower( $sName));
+
+                                                        $bLandmark = $row3['landmark'];
+                                                        $bLandmark = ucwords(strtolower($sLandmark));
+
+                                                        $bStreet = $row3['street_bldg_unit'];
+                                                        $bStreet = ucwords(strtolower($sStreet));
+
+                                                        $bRegionId = $row3['region_id'];
+                                                        $bProvId = $row3['province_id'];
+                                                        $bCityId = $row3['city_id'];
+                                                        $bBrgyId = $row3['brgy_id'];
+                                                    ?>
                                                     <td>
                                                         Billing
                                                     </td>
@@ -313,7 +317,6 @@ $userId = $_SESSION['id'];
                                         <table class="table table-hover borderless mt-5">
                                             
                                             <tr id="table-header" class='text-secondary bg-gray text-center border-bottom'>
-                                                <th></th>
                                                 <th class='text-left'>STORE</th>
                                                 <th> SHIPPING FEE </th>
                                                 
@@ -394,7 +397,7 @@ $userId = $_SESSION['id'];
 
                                             <!-- SHIPPING FEE TOTAL -->
                                             <tr class='tr-gray text-secondary font-weight-bold text-center'>
-                                                <td colspan='2' class='text-right'>SUBTOTAL (Shipping Fee)</td>
+                                                <td colspan='1' class='text-right'>SUBTOTAL (Shipping Fee)</td>
                                                 <!-- <td></td> -->
                                                 <td>&#36;<span id='grand_total_price'> <?= number_format((float)$combinedShippingFee, 2, '.', ','); ?> </span> </td>
                                             </tr>  

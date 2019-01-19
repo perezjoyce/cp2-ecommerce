@@ -14,19 +14,25 @@
         $count = $statement->rowCount();
 
         if($count) {
-            $sql = " UPDATE tbl_orders SET billing_address_id = ? WHERE cart_session = ? AND `user_id` = ? ";
-            $statement = $conn->prepare($sql);
-            $statement->execute([$addressId, $cartSession, $userId]);
+            $sql2 = " UPDATE tbl_orders SET billing_address_id = ? WHERE cart_session = ? AND `user_id` = ? ";
+            $statement2 = $conn->prepare($sql2);
+            $statement2->execute([$addressId, $cartSession, $userId]);
         } else {
-            $sql = " INSERT INTO tbl_orders (cart_session, `user_id`, billing_address_id) VALUES (?, ?, ?) ";
-            $statement = $conn->prepare($sql);
-            $statement->execute([$cartSession, $userId, $addressId]);
+            $sql3 = " INSERT INTO tbl_orders (cart_session, `user_id`, billing_address_id) VALUES (?, ?, ?) ";
+            $statement3 = $conn->prepare($sql3);
+            $statement3->execute([$cartSession, $userId, $addressId]);
         }
 
+        $sql4 = "SELECT * FROM tbl_orders WHERE cart_session = ? AND billing_address_id = ?";
+        $statement4 = $conn->prepare($sql4);
+        $statement4->execute([$cartSession, $addressId]);
+        $count4 = $statement4->rowCount();
+
+        if($count4) {
 
         // $row = $statement->fetch(PDO::FETCH_ASSOC);
         // echo json_encode($row);
-
-        echo "success";
+            echo "success";
+        }
     
     }

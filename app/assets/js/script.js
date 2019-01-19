@@ -2037,7 +2037,7 @@ $(document).ready( () => {
 			flag = 1;
 		} 
 
-		if(!addressId || addressId == "") {	
+		if(!addressId || addressId == "" || addressId == null) {	
 			
 			$.post('../controllers/process_save_new_billing_address.php', {
 				regionId:regionId, 

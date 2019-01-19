@@ -81,7 +81,7 @@
         if($subtotalPerStore >= $freeShippingMinimumPerStore){
             $totalPerStore = $subtotalPerStore;
         } else {
-            $totalPerStore = $subtotalPerStore + $freeShippingMinimumPerStore;
+            $totalPerStore = $subtotalPerStore + $standardShippingPerStore;
         }
 
         $mamarooServiceCharge = $totalPerStore * .03; // 3% of total Amount
