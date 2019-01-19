@@ -59,7 +59,7 @@
 
   // get cart for specific seller
   $sql4 = "SELECT SUM(quantity*price) 
-            AS 'subtotalPerStore', i.store_id, s.name, s.free_shipping_minimum, s.standard_shipping, u.email, 
+            AS 'subtotalPerStore', i.store_id, s.name, s.free_shipping_minimum, s.standard_shipping, u.email 
             FROM tbl_carts c 
             JOIN tbl_variations v 
             JOIN tbl_items i 
