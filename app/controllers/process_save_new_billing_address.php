@@ -14,56 +14,35 @@
         $name = $_POST['name'];
         // $_SESSION['preselectedAddressId'] = $_POST['addressId'];
         
-        //CHECK IF USER ALREADY HAS AN ADDRESS
-        $sql = " SELECT * FROM tbl_addresses WHERE `user_id` = ? ";
+        //CHECK IF USER ALREADY HAS AN ADDRESS AND THE GIVEN ADDRESS TYPE
+        $sql = " SELECT * FROM tbl_addresses WHERE `user_id`=? AND addressType = ? ";
         $statement = $conn->prepare($sql);
-        $statement->execute([$userId]);
-
+        $statement->execute([$userId, $addressType]);
         $count = $statement->rowCount();
 
-        //IF USER HAS ADDRESS...
+        //IF YES, UPDATE IT
         if($count) {
-            // CHECK IF USER HAS THE GIVEN ADDRESS TYPE TO AVOID DUPLICATION
-            $sql = " SELECT * FROM tbl_addresses WHERE addressType = ? AND `user_id` = ? ";
+            $sql = " UPDATE tbl_addresses SET region_id = ?, province_id = ?, city_id = ?, brgy_id = ?,
+                street_bldg_unit = ?, landmark = ?, name = ? WHERE addressType = ? AND `user_id` = ? ";
             $statement = $conn->prepare($sql);
-            $statement->execute([$addressType, $userId]);
-            $count = $statement->rowCount();
+            $statement->execute([$regionId, $provinceId, $cityMunId, $brgyId, $streetBldgUnit, $landmark, $name, $addressType, $userId]);
 
-            //IF USER HAS GIVEN ADDRESS TYPE, UPDATE IT
-            if($count) {
-                $sql = " UPDATE tbl_addresses SET region_id = ?, province_id = ?, city_id = ?, brgy_id = ?,
-                    street_bldg_unit = ?, landmark = ?, name = ? WHERE addressType = ? AND `user_id` = ? ";
-                $statement = $conn->prepare($sql);
-                $statement->execute([$regionId, $provinceId, $cityMunId, $brgyId, $streetBldgUnit, $landmark, $name, $addressType, $userId]);
-
-            } else {
-                // IF NO, INSERT IT
-                $sql = " INSERT INTO tbl_addresses ( `user_id`, addressType ,region_id, province_id, city_id, brgy_id, street_bldg_unit, landmark, `name` ) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?) ";
-                $statement = $conn->prepare($sql);
-                $statement->execute([ $userId, $addressType, $regionId, $provinceId, $cityMunId, $brgyId, $streetBldgUnit, $landmark, $name]);
-             
-            }
-
-
-        } 
-        else {
-            // IF USER DOESN'T WANT TO USE SAVED ADDRESS
+        } else {
+            // IF NO, INSERT IT
             $sql = " INSERT INTO tbl_addresses ( `user_id`, addressType ,region_id, province_id, city_id, brgy_id, street_bldg_unit, landmark, `name` ) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?) ";
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?) ";
             $statement = $conn->prepare($sql);
             $statement->execute([ $userId, $addressType, $regionId, $provinceId, $cityMunId, $brgyId, $streetBldgUnit, $landmark, $name]);
-            $row = $statement->fetch();
-            $addressType = $row['addressType'];
+            
         }
 
-        
         // GET ID OF ADDEDED/UPDATED ADDRESS
         $sql = " SELECT * FROM tbl_addresses WHERE `user_id` = ? AND addressType = ? ";
         $statement = $conn->prepare($sql);
         $statement->execute([$userId,$addressType]);
         $row = $statement->fetch();
         $address_id = $row['id'];
+        $_SESSION['billingAddressId'] = $address_id;
         $cartSession = $_SESSION['cart_session'];
 
         // INSERT CHOSEN BILLING ADDRESS TO TBL_ORDERS BUT FIRST, CHECK IF CART SESSION ALREADY EXISTS

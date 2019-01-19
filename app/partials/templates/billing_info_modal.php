@@ -130,7 +130,7 @@ button[class^=stripe-button-el] span {
                         <!-- HIDDEN ELEMENT  -->
                         <form action='../controllers/process_save_billing_address.php' method='POST' id='shipping_info_modal'>
                             <input type="text" id="address_id" name="address_id" value="<?= isset($preselectedAddressData['id'])
-                                        ? $preselectedAddressData['id'] : null ?>">
+                                        ? $preselectedAddressData['id'] : "" ?>">
 
                             <div class="form-inline ml-0 px-0 mt-5">
                                 <div class='pr-5 pt-3 mr-4'>Choose Billing Address</div> 

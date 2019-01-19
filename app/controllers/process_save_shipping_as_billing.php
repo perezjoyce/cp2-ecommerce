@@ -16,6 +16,7 @@
         $statement->execute([$cartSession, $userId]);
         $row = $statement->fetch();
         $billingAddress = $row['address_id'];
+        $_SESSION['billingAddressId'] = $billingAddress;
         $count = $statement->rowCount();
 
         if($count) {

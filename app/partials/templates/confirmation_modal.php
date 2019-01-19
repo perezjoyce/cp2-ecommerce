@@ -2,6 +2,7 @@
     require_once '../../../config.php';
     $cartSession = $_SESSION['cart_session'];
     $paymentMode = $_SESSION['paymentMode'];
+    $billingAddressId = $_SESSION['billingAddressId'];
 ?>
 
 
@@ -43,7 +44,7 @@
                                     $paymentModeId = $row['payment_mode_id'];
                                     $shippingAddressId = $row['address_id'];
                                     $status = $row['status_id'];
-                                    $billingAddressId = $row['billing_address_id'];
+                                    // $billingAddressId = $row['billing_address_id'];
 
                                     //SHIPPING INFO
                                     $sql2 = "SELECT * FROM tbl_addresses WHERE id = ?";

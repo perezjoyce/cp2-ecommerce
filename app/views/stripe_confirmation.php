@@ -5,6 +5,7 @@
 $transactionCode = $_SESSION['transaction_code'];
 $cartSession = $_SESSION['cart_session'];
 $userId = $_SESSION['id'];
+$billingAddressId = $_SESSION['billingAddressId'];
 
 ?>
 
@@ -40,7 +41,7 @@ $userId = $_SESSION['id'];
                                     $paymentModeId = $row['payment_mode_id'];
                                     $shippingAddressId = $row['address_id'];
                                     $status = $row['status_id'];
-                                    $billingAddressId = $row['billing_address_id'];
+                                    // $billingAddressId = $row['billing_address_id'];
 
                                     //SHIPPING INFO
                                     $sql2 = "SELECT * FROM tbl_addresses WHERE id = ?";
@@ -153,9 +154,9 @@ $userId = $_SESSION['id'];
                                                 <tr class='tr-gray'>
                                                     <?php 
 
-                                                        if(!isset($billingAddressId)){
-                                                            $billingAddressId = $shippingAddressId;
-                                                        }
+                                                        // if(!isset($billingAddressId)){
+                                                        //     $billingAddressId = $shippingAddressId;
+                                                        // }
                                                         //BILLING INFO
                                                         $sql3 = "SELECT * FROM tbl_addresses WHERE id = ?";
                                                         $statement3 = $conn->prepare($sql3);
