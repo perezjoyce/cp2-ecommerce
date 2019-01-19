@@ -64,7 +64,7 @@
             JOIN tbl_items i ON i.id=v.product_id
             JOIN tbl_stores s on s.id=i.store_id
             JOIN tbl_users u ON u.id=s.user_id
-            WHERE c.cart_session='5c426a67b6b08' GROUP by store_id";
+            WHERE c.cart_session=? GROUP by store_id";
             $statement4 = $conn->prepare($sql4);
             $statement4->execute([$cartSession]);
 
@@ -96,13 +96,13 @@
         $statement6->execute([$storeId, $mamarooServiceCharge, 0, $transactionCode, 'service charge from Mamaroo to: '. $storeName]);
 
         //CHECK IF SUCCESSFUL
-        $sql7 = "SELECT * FROM tbl_seller_accounts WHERE transaction_code = ? AND store_id ?";
-        $statement7 = $conn->prepare($sql7);
-        $statement7->execute([$transactionCode, $storeId]);
-        $count7 = $statement7->rowCount();
+        // $sql7 = "SELECT * FROM tbl_seller_accounts WHERE transaction_code = ?";
+        // $statement7 = $conn->prepare($sql7);
+        // $statement7->execute([$transactionCode]);
+        // $count7 = $statement7->rowCount();
 
         //SEND EMAIL TO EACH SELLER
-        if($count7) {
+        // if($count7) {
             $mail2 = new PHPMailer\PHPMailer\PHPMailer(true);
             $staff_email2 = 'jpgarcia.ph@gmail.com'; // where the email is comming from // replace with admin email in the future
             $users_email2 = $storeEmail;//Where the email will go // replace with $email
@@ -131,7 +131,7 @@
                 echo "Seller Side: Sorry ".$mail2->ErrorInfo;
                 // $emailForSeller = "notSent";
             }
-        }
+        // }
     }
         
 
@@ -151,7 +151,7 @@
         <div>+06919-1454-1160</div>
     </form>";
 
-    if($count7) {
+    // if($count7) {
     $mail = new PHPMailer\PHPMailer\PHPMailer(true);
     $staff_email = 'jpgarcia.ph@gmail.com'; // where the email is comming from // replace with admin email in the future
     $users_email = $clientEmail;//Where the email will go // replace with $email
@@ -180,6 +180,6 @@
             echo "Buyer Side: Sorry".$mail->ErrorInfo;
             // $emailForClient = "notSent";
         }
-    }
+    // }
                     
     header("Location: ../views/stripe_confirmation.php?id".$userId);
