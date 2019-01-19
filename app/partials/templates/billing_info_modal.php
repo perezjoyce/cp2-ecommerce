@@ -72,6 +72,20 @@
     
 ?>
 
+<style>
+.stripe-button-el span {
+    font-size: 18px!important;
+    text-shadow: none!important;
+    box-shadow: none!important;
+    font-weight: 650!important;
+    background: #8e44ad!important;
+    border: 2px solid #8e44ad!important;
+    color: white!important;
+    padding: 15px;
+    margin-top: 2.3em;
+}
+</style>
+
 <div class="container-fluid">
     <div class="row">
 
@@ -101,10 +115,9 @@
                     <div class="col">
 
                         <!-- HIDDEN ELEMENT  -->
-                        <input type="hidden" id="address_id" name="address_id" value="<?= isset($preselectedAddressData['id']) 
-                                        ? $preselectedAddressData['id'] : "" ?>">
                         <form action='../controllers/process_save_billing_address.php' method='POST' id='shipping_info_modal'>
-                            
+                            <input type="hiddend" id="address_id" name="address_id" value="<?= isset($preselectedAddressId) 
+                                        ? $preselectedAddressId : null ?>">
 
                             <div class="form-inline ml-0 px-0 mt-5">
                                 <div class='pr-5 pt-3 mr-4'>Choose Billing Address</div> 
@@ -429,7 +442,7 @@
                                             // have more than 1 button of that class
                                             document.getElementsByClassName("stripe-button-el")[0].style.display = 'none';
                                         </script>
-                                        <a type="submit" class="btn btn-lg btn-block py-3 btn-purple" id='btn_stripe'>Use Credit Card</a>
+                                        <!-- <a type="submit" class="btn btn-lg btn-block py-3 btn-purple" id='btn_stripe'>Use Credit Card</a> -->
                                     </form>
                                 </div>
                             </div>

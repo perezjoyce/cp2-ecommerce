@@ -191,13 +191,6 @@ div.card:hover {
     font-weight:500!important;
 }
 
-.btn_stripe {
-    font-size:18px!important;
-    font-weight:500!important;
-    background: #8e44ad!important;
-    border: 2px solid #8e44ad!important;
-    color: white!important;
-}
 
 /* #btn_order_confirmation:hover,
 .back:hover {
@@ -604,6 +597,10 @@ div#login_image {
 	position: relative;
 	background-position-y: center;
 	background-position-x: right;
+}
+
+.shadow {
+    box-shadow: 0 4px 6px 0 hsla(0,0%,0%,0.2)!important;
 }
 
 /* ================================ Message Box =================================== */

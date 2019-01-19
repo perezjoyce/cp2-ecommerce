@@ -116,7 +116,7 @@
         </div>
     </div>
 
-    <nav class="navbar navbar-main sticky-top">
+    <nav class="navbar navbar-main">
         <div class="container px-0">
 
                 <!-- <div class=""> -->
