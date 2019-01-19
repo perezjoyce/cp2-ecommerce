@@ -91,7 +91,7 @@
         $statement5 = $conn->prepare($sql5);
         $statement5->execute([$storeId, 0, $totalPerStore, $transactionCode, 'payment recieved from customer: '. $clientName]);
 
-        $sql6 = "INSERT INTO tbl_seller_accounts(store_id, debit, credit, transaction_code, description, `timestamp`) VALUES(?,?,?,?, NOW())";
+        $sql6 = "INSERT INTO tbl_seller_accounts(store_id, debit, credit, transaction_code, description, `timestamp`) VALUES(?,?,?,?, ?, NOW())";
         $statement6 = $conn->prepare($sql6);
         $statement6->execute([$storeId, $mamarooServiceCharge, 0, $transactionCode, 'service charge from Mamaroo to: '. $storeName]);
 
