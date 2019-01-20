@@ -696,7 +696,7 @@ $(document).ready( () => {
 	$('.stars-outer').each(function(i, element){
 		let rating = $(this).data('productrating');
 		let id = $(this).attr('id');
-		$('#' +id + ' .stars-inner')[0].style.width = (rating/5*100) + '%';
+		$('#stars-inner'+id)[0].style.width = (rating/5*100) + '%';
 	});
 
 

@@ -422,7 +422,7 @@
                         data-productrating='<?=getAveProductReview($conn, $productId)?>' 
                         data-productid='<?=$productId?>' 
                         id='average_product_stars2<?=$productId?>'>
-                        <span class='stars-inner'></span>
+                        <span class='stars-inner stars-inner<?=$productId?>'></span>
                       </div>
                     </div>
                     <!-- /AVERAGE STAR RATING -->
