@@ -351,7 +351,7 @@
                 <!-- <img class='card-img-top card-img vanish-md vanish-sm' src="<?= $logo ?>" style='height:370px;'> 
                 <img class='card-img-top card-img vanish-lg vanish-sm' src="<?= $logo ?>" style='height:320px;'> 
                 <img class='card-img-top card-img vanish-lg vanish-md' src="<?= $logo ?>" style='height:230px;'>  -->
-                <div class="card-body pr-0">
+                <div class="card-body pr-lg-0 pr-md-0 p-sm-2">
                   <div class='font-weight-bold'>
                     <?= $name ?>
                   </div>
@@ -360,7 +360,64 @@
                   <div class='d-flex flex-row mt-3'>
                  
                     <!-- WISHLIST BUTTONS -->
-                    <div class='flex-fill' style='cursor:default;'>
+                    <div class='flex-fill vanish-sm' style='cursor:default;'>
+
+                      <?php 
+                        $wishCount = getProductWishlishtCount($conn,$productId);
+                        if(isset($_SESSION['id'])) {
+                            if (checkIfInWishlist($conn,$id)) {
+                      ?>
+                        <a class='heart-toggler' data-id='<?= $productId ?>' role='button' data-enabled="0" style='float:left'>
+                          <span class='wish_heart'><i class='fas fa-heart text-purple' id></i></span>
+                          <span class='product_wish_count'>
+                            <small>
+                              <?= $wishCount ?>
+                            </small>
+                          </span>
+                        </a>
+                  
+                      <?php  } else { ?>
+
+                        <a class='heart-toggler' data-id='<?= $productId ?>' data-enabled="1" style='float:left'>
+                          <span class='wish_heart'><i class='far fa-heart text-purple'></i></span> 
+                          <span class='product_wish_count'>
+                            <small>
+                              <?php
+                               if($wishCount == 0){
+                                 echo "";
+                               } else {
+                                 echo $wishCount;
+                               }
+                              ?>
+                            </small>
+                          </span>
+                        </a>
+
+                      <!-- IF LOGGED OUT -->
+                      <?php }  } else { 
+                       
+                        if($wishCount >= 1) {
+                      ?>
+                        
+                        <a class='btn_wishlist_logout_view' data-id='<?= $productId ?>' disabled style='cursor:default; float:left'>
+                          <i class='far fa-heart text-purple'></i> 
+                          <span class='product_wish_count'>
+                            <small>
+                              <?= $wishCount ?>
+                            </small>
+                          </span>
+                        </a>
+                        
+                      <?php } else { ?>
+                        <a class='btn_wishlist_logout_view' data-id='<?= $productId ?>' disabled style='cursor:default; float:left'>
+                          <i class='far fa-heart text-gray'></i> 
+                        </a>
+                        
+                      <?php } } ?>
+                    </div>
+
+                    <!-- WISHLIST BUTTONS -->
+                    <div class='flex vanish-lg vanish-md' style='cursor:default;'>
 
                       <?php 
                         $wishCount = getProductWishlishtCount($conn,$productId);
@@ -417,7 +474,7 @@
                     </div>
 
                     <!-- AVERAGE STAR RATING -->
-                    <div class='flex-fill pr-3' style="display:flex; flex-direction: column; width:6%; align-items:flex-end">  
+                    <div class='flex-fill pr-lg-3 pr-md-3 pr-sm-0' style="display:flex; flex-direction: column; width:14%; align-items:flex-end">  
                       <div class='stars-outer' 
                         data-productrating='<?=getAveProductReview($conn, $productId)?>' 
                         data-productid='<?=$productId?>' 
