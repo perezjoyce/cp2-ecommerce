@@ -1822,6 +1822,14 @@ input:focus{
         padding:0!important;
     }
 
+    .p-sm-2 {
+        padding:1em!important;
+    }
+
+    .p-sm-p5 {
+        padding:.5em!important;
+    }
+
     .float-sm-right{
         float: right;
     }

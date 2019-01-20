@@ -351,7 +351,7 @@
                 <!-- <img class='card-img-top card-img vanish-md vanish-sm' src="<?= $logo ?>" style='height:370px;'> 
                 <img class='card-img-top card-img vanish-lg vanish-sm' src="<?= $logo ?>" style='height:320px;'> 
                 <img class='card-img-top card-img vanish-lg vanish-md' src="<?= $logo ?>" style='height:230px;'>  -->
-                <div class="card-body pr-lg-0 pr-md-0 p-sm-2">
+                <div class="card-body pr-lg-0 pr-md-0 p-sm-p5">
                   <div class='font-weight-bold'>
                     <?= $name ?>
                   </div>
@@ -474,7 +474,7 @@
                     </div>
 
                     <!-- AVERAGE STAR RATING -->
-                    <div class='flex-fill pr-lg-3 pr-md-3 pr-sm-0' style="display:flex; flex-direction: column; width:14%; align-items:flex-end">  
+                    <div class='flex-fill pr-lg-3 pr-md-3 p-sm-0' style="display:flex; flex-direction: column; width:14%; align-items:flex-end">  
                       <div class='stars-outer' 
                         data-productrating='<?=getAveProductReview($conn, $productId)?>' 
                         data-productid='<?=$productId?>' 
