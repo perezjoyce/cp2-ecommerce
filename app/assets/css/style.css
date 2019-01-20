@@ -347,7 +347,7 @@ div.card:hover {
     color: gold;
     /* content: "\f005 \f005 \f005 \f005 \f005"; */
     content: '★★★★★';
-    width: 100%!important;
+    width: 100%;
     font-family: 'Font Awesome 5 Free';
     font-weight: 900;
 }
