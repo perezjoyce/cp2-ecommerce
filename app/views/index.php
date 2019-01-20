@@ -417,7 +417,7 @@
                     </div>
 
                     <!-- AVERAGE STAR RATING -->
-                    <div class='flex-fill pr-3' style="display:flex; flex-direction: column; width:81%; align-items:flex-end">  
+                    <div class='flex-fill pr-3' style="display:flex; flex-direction: column; width:6%; align-items:flex-end">  
                       <div class='stars-outer' 
                         data-productrating='<?=getAveProductReview($conn, $productId)?>' 
                         data-productid='<?=$productId?>' 

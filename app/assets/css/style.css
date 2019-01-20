@@ -315,16 +315,16 @@ div.card:hover {
     overflow: hidden;
     display: inline-block;
     font-family: 'Font Awesome 5 Free';
-    width: 85px;
+    width: 65%;
     height: 18px;
 }
 
 .stars-outer::before {
     position: absolute;
-    top:0;
+    top: 0;
     left: 0;
     font-family: 'Font Awesome 5 Free';
-    width: 85px;
+    width: 100%;
     height: 18px;
     /* content: "\f005 \f005 \f005 \f005 \f005"; */
     content: '★★★★★';
@@ -335,18 +335,19 @@ div.card:hover {
     position: relative;
     height: 18px;
     width: 0%;
+    /* width: 10%; */
     display: inline-block;
     overflow: hidden;
 }
 
 .stars-inner::after {
     position: absolute;
-    top:0;
+    top: 0;
     left: 0;
     color: gold;
     /* content: "\f005 \f005 \f005 \f005 \f005"; */
     content: '★★★★★';
-    width: 0%;
+    /* width: 100%; */
     font-family: 'Font Awesome 5 Free';
     font-weight: 900;
 }
