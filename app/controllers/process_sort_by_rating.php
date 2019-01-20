@@ -64,8 +64,10 @@
                 $id = $row['id'];
                 $price = $row['price'];
 				// $item_img = $row['img_path'];
-				$item_img = productprofile($conn,$productId);
-				$item_img = BASE_URL ."/".$item_img.".jpg";
+				
+				$item_img = productprofile($conn, $id);
+				$item_img = BASE_URL . "/". $item_img. ".jpg";
+				
 ?>
 			<div class='col-lg-3 col-md-4 col-sm-6 px-1 pb-2'>
 				<a href='product.php?id=<?=$id?>'>
