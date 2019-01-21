@@ -368,7 +368,7 @@
                             if (checkIfInWishlist($conn,$id)) {
                       ?>
                         <a class='heart-toggler' data-id='<?= $productId ?>' role='button' data-enabled="0" style='float:left'>
-                          <span class='wish_heart'><i class='fas fa-heart text-purple' id></i></span>
+                          <span class='wish_heart'><i class='fas fa-heart text-purple'></i></span>
                           <span class='product_wish_count'>
                             <small>
                               <?= $wishCount ?>

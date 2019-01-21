@@ -265,12 +265,12 @@
 											<div class='flex-fill' style='cursor:default;'>
 
 											<?php 
-												$wishCount = getProductWishlishtCount($conn,$id);
+												$wishCount = getProductWishlishtCount($conn,$productId);
 												if(isset($_SESSION['id'])) {
-													if (checkIfInWishlist($conn,$id)) {
+													if (checkIfInWishlist($conn,$productId)) {
 											?>
-												<a class='heart-toggler' data-id='<?= $id ?>' role='button' data-enabled="0" style='float:left'>
-												<span class='wish_heart'><i class='fas fa-heart text-purple' id></i></span>
+												<a class='heart-toggler' data-id='<?=$productId?>' role='button' data-enabled="0" style='float:left'>
+												<span class='wish_heart'><i class='fas fa-heart text-purple'></i></span>
 												<span class='product_wish_count'>
 													<small>
 													<?= $wishCount ?>
@@ -280,7 +280,7 @@
 										
 											<?php  } else { ?>
 
-												<a class='heart-toggler' data-id='<?=$id ?>' data-enabled="1" style='float:left'>
+												<a class='heart-toggler' data-id='<?=$productId?>' data-enabled="1" style='float:left'>
 												<span class='wish_heart'><i class='far fa-heart text-purple'></i></span> 
 												<span class='product_wish_count'>
 													<small>
@@ -301,7 +301,7 @@
 												if($wishCount >= 1) {
 											?>
 												
-												<a class='btn_wishlist_logout_view' data-id='<?= $id ?>' disabled style='cursor:default; float:left'>
+												<a class='btn_wishlist_logout_view' data-id='<?=$productId?>' disabled style='cursor:default; float:left'>
 												<i class='far fa-heart text-purple'></i> 
 												<span class='product_wish_count'>
 													<small>
@@ -311,7 +311,7 @@
 												</a>
 												
 											<?php } else { ?>
-												<a class='btn_wishlist_logout_view' data-id='<?= $id ?>' disabled style='cursor:default; float:left'>
+												<a class='btn_wishlist_logout_view' data-id='<?=$productId?>' disabled style='cursor:default; float:left'>
 												<i class='far fa-heart text-gray'></i> 
 												</a>
 												
@@ -322,7 +322,7 @@
 											<div class='flex-fill text-right'>
 											<div class="ratings">
 												<div class="empty-stars"></div>
-												<div class="full-stars" style="width:<?=getProductRating($conn, $id)?>%"></div>
+												<div class="full-stars" style="width:<?=getProductRating($conn,$productId)?>%"></div>
 											</div>
 											</div>
 										
