@@ -1387,7 +1387,7 @@ if(isset($_SESSION['id'])) {
                 <a href="product.php?id=<?= $row2['id'] ?>">
                   <img class='card-img-top' src="<?= $logo ?>" style='height:250px;'>
 
-                  <div class="card-body pr-0">
+                  <div class="card-body p-lg-4 p-md-3 p-sm-p5">
                     <div>
                       <?= $name ?>
                     </div>
@@ -1457,7 +1457,7 @@ if(isset($_SESSION['id'])) {
                       <div class='flex-fill text-right'>
                         <div class="ratings">
                           <div class="empty-stars"></div>
-                          <div class="full-stars" style="width:<?=getProductRating($conn, $productId)?>%"></div>
+                          <div class="full-stars" style="width:<?=getProductRating($conn, $id)?>%"></div>
                         </div>
                       </div>
                      
