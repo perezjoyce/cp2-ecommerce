@@ -1381,7 +1381,7 @@ if(isset($_SESSION['id'])) {
                   $logo = BASE_URL. "/".$logo.".jpg";
             ?>
           
-          <div class="col-lg-2 col-md-3 col-sm-6 pr-1 pb-1">
+          <div class="col-lg-2 col-md-3 col-sm-6 pr-1 pb-2">
             <a href="product.php?id=<?= $id ?>">
               <div class='card h-700 border-0'>
                 <a href="product.php?id=<?= $row2['id'] ?>">
@@ -1397,47 +1397,70 @@ if(isset($_SESSION['id'])) {
 
                     <div class='d-flex flex-row mt-3'>
                     
-                      <!-- WISHLIST BUTTONS -->
                       <div class='flex-fill' style='cursor:default;'>
 
-                        <?php if(checkIfInWishlist($conn,$id) == 1 ) { ?>
-
-                          <i class='fas fa-heart text-red'></i> 
-                          <span class='text-gray product-wish-count<?= $id ?>'>
-                            <small><?= getProductWishlishtCount($conn, $id) ?></small>
-                          </span>
-
-                        <?php } else { 
-                          
-                          if(getProductWishlishtCount($conn, $id) == 0) { ?>
-
-                          <i class='far fa-heart text-gray'></i> 
-                          <span class='text-gray product-wish-count<?= $id ?>'>
-                            <small><?= getProductWishlishtCount($conn, $id) ?></small>
-                          </span>
-
-                          <?php } else { ?>
-
-                          <i class='far fa-heart text-red'></i> 
-                          <span class='text-gray product-wish-count<?= $id ?>'>
-                            <small><?= getProductWishlishtCount($conn, $id) ?></small>
-                          </span>
-
-                        <?php   } }  ?>
-                      </div>
-                            
+                        <?php 
+                          $wishCount = getProductWishlishtCount($conn,$productId);
+                          if(isset($_SESSION['id'])) {
+                              if (checkIfInWishlist($conn,$id)) {
+                        ?>
+                          <a class='heart-toggler' data-id='<?= $productId ?>' role='button' data-enabled="0" style='float:left'>
+                            <span class='wish_heart'><i class='fas fa-heart text-purple' id></i></span>
+                            <span class='product_wish_count'>
+                              <small>
+                                <?= $wishCount ?>
+                              </small>
+                            </span>
+                          </a>
                     
+                        <?php  } else { ?>
+
+                          <a class='heart-toggler' data-id='<?= $productId ?>' data-enabled="1" style='float:left'>
+                            <span class='wish_heart'><i class='far fa-heart text-purple'></i></span> 
+                            <span class='product_wish_count'>
+                              <small>
+                                <?php
+                                if($wishCount == 0){
+                                  echo "";
+                                } else {
+                                  echo $wishCount;
+                                }
+                                ?>
+                              </small>
+                            </span>
+                          </a>
+
+                        <!-- IF LOGGED OUT -->
+                        <?php }  } else { 
+                        
+                          if($wishCount >= 1) {
+                        ?>
+                          
+                          <a class='btn_wishlist_logout_view' data-id='<?= $productId ?>' disabled style='cursor:default; float:left'>
+                            <i class='far fa-heart text-purple'></i> 
+                            <span class='product_wish_count'>
+                              <small>
+                                <?= $wishCount ?>
+                              </small>
+                            </span>
+                          </a>
+                          
+                        <?php } else { ?>
+                          <a class='btn_wishlist_logout_view' data-id='<?= $productId ?>' disabled style='cursor:default; float:left'>
+                            <i class='far fa-heart text-gray'></i> 
+                          </a>
+                          
+                        <?php } } ?>
+                      </div>
 
                       <!-- AVERAGE STAR RATING -->
-                      <div class='flex-fill' style="display:flex; flex-direction: column; width:81%; align-items:flex-end">  
-                        <div class='stars-outer' 
-                          data-productrating='<?=getAveProductReview($conn, $id)?>' 
-                          data-productid='<?=$id?>' 
-                          id='average_product_stars2<?=$id?>'>
-                          <span class='stars-inner'></span>
+                      <div class='flex-fill text-right'>
+                        <div class="ratings">
+                          <div class="empty-stars"></div>
+                          <div class="full-stars" style="width:<?=getProductRating($conn, $productId)?>%"></div>
                         </div>
                       </div>
-                      <!-- /AVERAGE STAR RATING -->
+                     
                     </div>
 
                   </div>
