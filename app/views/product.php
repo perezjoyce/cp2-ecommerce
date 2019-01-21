@@ -435,7 +435,7 @@ if(isset($_SESSION['id'])) {
         <!-- /FIRST ROW -->
 
         <!-- SECOND ROW -->
-        <div class="row bg-white rounded mb-5 px-5">
+        <div class="row bg-white rounded mb-5 px-lg-5 px-md-5 px-sm-1">
 
           <!-- SELLER DETAILS -->
           <div class="col-lg-2 col-md-3 col-sm-12 white-bg py-5">
@@ -616,7 +616,7 @@ if(isset($_SESSION['id'])) {
         
 
           <!-- NAV TABS FOR  -->
-          <div class="col">
+          <div class="col-lg-10 col-md-9">
             <div class="row">
               <div class="col-12 pl-lg-5 pr-lg-0 pl-md-4 pr-md-0 px-sm-0">
                 <div class="d-flex flex-column">
@@ -881,16 +881,16 @@ if(isset($_SESSION['id'])) {
 
                     <!-- PRODUCT REVIEWS -->
                     <div id="reviews_content" class="tabcontent flex-fill">
-                      <div class="d-flex flex-column">
+                      <div class="d-flex flex-column container">
 
                         <!-- DIAGRAMS -->
-                        <div class="flex-fill row mb-5">
+                        <div class="row flex-fill flex-lg-row flex-md-column flex-sm-column mb-5">
                           
-                          <div class="col-lg-1"></div>
+                          <!-- <div class="col-lg-1"></div> -->
                           <!-- RATING STARS -->
-                          <div class="col-lg-3 col-md-3 col-sm-12">  
-                            <div class="container-fluid">  
-                              <div class="row pt-2">
+                          <div class="col-lg-3 col-md-12 col-sm-12">  
+                            <div class="container">  
+                              <div class="row pt-2 justify-content-center">
                                 <div class="d-flex flex-column">
 
                                   <div class='flex-fill d-flex flex-row'>
@@ -908,7 +908,7 @@ if(isset($_SESSION['id'])) {
                                     <div id='average_product_stars_big' class='pb-4'></div>
                                   </div>
 
-                                  <div class='class="flex-fill text-gray'>
+                                  <div class='flex-fill text-gray'>
                                     <?php 
                                     
 
@@ -945,8 +945,8 @@ if(isset($_SESSION['id'])) {
                           </div>
 
                           <!-- RATINGS BARS -->
-                          <div class="col-lg-5 col-md-9 col-sm-12 text-gray px-0">
-                            <div class="container-fluid">
+                          <div class="col-lg-9 col-md-12 col-sm-12 text-gray px-0">
+                            <div class="container-fluid justify-content-center">
 
                               <?php 
 
@@ -1132,7 +1132,7 @@ if(isset($_SESSION['id'])) {
                               
                           </div>
 
-                          <div class="col"></div>
+                          <!-- <div class="col"></div> -->
                           
                         
                         </div>
@@ -1199,7 +1199,7 @@ if(isset($_SESSION['id'])) {
 
                             ?>
                           
-                          <div class="flex-fill row border-top px-4">
+                          <div class="flex-fill row border-top px-3">
 
                           
 
@@ -1299,8 +1299,8 @@ if(isset($_SESSION['id'])) {
                                     if($sellerResponse) {
                                   ?>
                               <div class="row my-4">
-                                <div class="col-1"></div>
-                                <div class="col mb-2 pt-4 px-5 seller_response_container" style='background:#eff0f5'>
+                                <div class="col-1 vanish-sm vanish-md"></div>
+                                <div class="col mb-2 pt-4 px-lg-5 px-md-3 px-sm-1 seller_response_container" style='background:#eff0f5'>
                                   <div class="container-fluid">
                                   
                                     <!-- SELLER DETAILS -->
@@ -1316,7 +1316,7 @@ if(isset($_SESSION['id'])) {
                                       </div>
                                     </div>
 
-                                    <div class="row">
+                                    <div class="row" style="white-space:nowrap;overflow:scroll;text-overflow: ellipsis;">
                                       <p style='line-height:1.5em;'><?=$sellerResponse?></p>
                                     </div>
 
