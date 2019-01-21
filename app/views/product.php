@@ -120,42 +120,44 @@ if(isset($_SESSION['id'])) {
                     <!-- FOR DEBUGGING PURPOSES -->
                     <input type="hidden" value='<?= $aveRating ?>' id='average_product_rating'>
                     <!-- AVE PRODUCT RATING AS STARS -->
-                    <div class='flex' style='flex: 1 0 1%'>
-                      <div id='average_product_stars'>
-                      </div>
+                    <div class="flex d-flex align-items-center">
+                        <div class="flex-fill mr-2">
+                            <div class="ratings-big">
+                                <div class="empty-stars-big"></div>
+                                <div class="full-stars-big" style="width:<?=getProductRating($conn, $id)?>%"></div>
+                            </div>
+                        </div>
+                        <div class="flex-fill">
+                              <!-- NUMBER OF REVIEWS -->
+                              <?php 
+                                $totalProductRating = countRatingsPerProduct($conn, $id);
+
+                                if (isset($_SESSION['cart_session'])) { 
+                                  if ($totalProductRating === 0 || $totalProductRating == "") { ?>
+                                <span class='rating-count<?=$id?>'>
+                                  <!-- no value -->
+                                </span>
+
+                                  <?php } elseif($totalProductRating == 1){?>
+                                <span class='rating-count<?=$id?>'>
+                                  <?= $totalProductRating ?>
+                                </span>
+                                <span class='rating-word'>
+                                  <?= "&nbsp;Review" ?>
+                                </span>
+                                    <?php } else {?>
+                                <span class='rating-count<?=$id?>'>
+                                  <?= $totalProductRating ?>
+                                </span>
+                                <span class='rating-word'>
+                                  <?= "&nbsp;Reviews" ?>
+                                </span>
+                                <?php } } ?> 
+                           
+                                          
+                        </div>
                     </div>
                   
-                  
-                    <div class='flex' style='flex: 2 5 50px; margin: 0 10px'>
-                      <!-- NUMBER OF REVIEWS -->
-                      <?php 
-
-                        $totalProductRating = countRatingsPerProduct($conn, $id);
-
-                        if (isset($_SESSION['cart_session'])) { 
-                          if ($totalProductRating === 0 || $totalProductRating == "") { ?>
-                        <span class='rating-count<?=$id?>'>
-                          <!-- no value -->
-                        </span>
-                        
-                          <?php } elseif($totalProductRating == 1){?>
-                        <span class='rating-count<?=$id?>'>
-                          <?= $totalProductRating ?>
-                        </span>
-                        <span class='rating-word'>
-                          <?= "&nbsp;Review" ?>
-                        </span>
-                            <?php } else {?>
-                        <span class='rating-count<?=$id?>'>
-                          <?= $totalProductRating ?>
-                        </span>
-                        <span class='rating-word'>
-                          <?= "&nbsp;Reviews" ?>
-                        </span>
-                      <?php } } ?> 
-                    </div>
-                  
-
                     <div class='' style='flex:5'>
                     
 

@@ -1253,6 +1253,27 @@ input:focus{
     -webkit-text-stroke: 1px orange;
 } */
 
+.ratings-big {
+    position: relative;
+    vertical-align: middle;
+    display: inline-block;
+    color: lightgray;
+    overflow: hidden;
+}
+
+.full-stars-big {
+    position: absolute;
+    left: 0;
+    top: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    color: #8e44ad;
+}
+.empty-stars-big:before, .full-stars-big:before {
+    content: "\2605\2605\2605\2605\2605";
+    font-size: 20pt;
+}
+
 /*============================ DESKTOP ==========================*/
 
 @media only screen and (min-width: 961px) {

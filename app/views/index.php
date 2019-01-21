@@ -474,14 +474,6 @@
                     </div>
 
                     <!-- AVERAGE STAR RATING -->
-                    <!-- <div class='flex-fill pr-lg-3 pr-md-3 p-sm-0' style="display:flex; flex-direction: column; width:14%; align-items:flex-end">  
-                      <div class='stars-outer' 
-                        data-productrating='<?=getAveProductReview($conn, $productId)?>' 
-                        data-productid='<?=$productId?>' 
-                        id='average_product_stars2<?=$productId?>'>
-                        <span class='stars-inner'></span>
-                      </div>
-                    </div> -->
                     <div class='flex-fill text-right'>
                       <div class="ratings">
                         <div class="empty-stars"></div>
