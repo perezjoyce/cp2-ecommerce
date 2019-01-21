@@ -28,7 +28,7 @@
                         <div class='card border-0'>
                             <a href='product.php?id=<?= $id ?>'>
                                 <img class='card-img-top card-profilepic' src='$logo'>
-                                <div class='card-body pr-0'>
+                                <div class='card-body p-lg-4 p-md-3 p-sm-p5'>
                                     <div>
                                         $name
                                     </div>
@@ -38,51 +38,64 @@
 
                                     <div class='d-flex flex-row mt-3'>
                                     
-                                    <div class='flex-fill' style='cursor:default;'>";
+                                        <div class='flex-fill' style='cursor:default;'>";
+                                            $wishCount = getProductWishlishtCount($conn,$id);
+                                            $productRating = getProductRating($conn, $id);
+                                            if(isset($_SESSION['id'])) {
+                                            if(checkIfInWishlist($conn,$id) == 1 ) { 
 
-                                         if(checkIfInWishlist($conn,$id) == 1 ) { 
+                                echo        "<a class='heart-toggler' data-id='<?= $id ?>' role='button' data-enabled='0' style='float:left'>
+                                                <span class='wish_heart'>
+                                                    <i class='fas fa-heart text-purple' id></i>
+                                                </span> 
+                                                <span class='product_wish_count'>
+                                                    <small>$wishCount</small>
+                                                </span>
+                                            </a>";
 
-                            echo        "<i class='fas fa-heart text-red'></i> 
-                                        <span class='text-gray product-wish-count$id'>
-                                            <small>";
-                                                echo getProductWishlishtCount($conn, $id)
-                                       . "</small>
-                                        </span>";
+                                        } else { 
+                                            
+                                echo        "<a class='heart-toggler' data-id='<?= $id ?>' data-enabled='1' style='float:left'>
+                                                <span class='wish_heart'>
+                                                    <i class='far fa-heart text-purple'></i>
+                                                </span> 
+                                                <span class='product_wish_count'>
+                                                    <small>";
+                                            
+                                                        if($wishCount == 0){
+                                                        echo "";
+                                                        } else {
+                                                        echo $wishCount;
+                                                        }
+                                                
+                                echo                "</small>
+                                                </span>
+                                            </a>";
 
-                                       } else { 
-                                        
-                                        if(getProductWishlishtCount($conn, $id) == 0) {
+                                            } } else {
 
-                            echo        "<i class='far fa-heart text-gray'></i> 
-                                        <span class='text-gray product-wish-count$id'>
-                                            <small>";
-                                             echo   getProductWishlishtCount($conn, $id)
-                                        . "</small>
-                                        </span>";
+                                                if($wishCount >= 1) {
+                                echo        "<a class='btn_wishlist_logout_view' data-id='<?= $id ?>' disabled style='cursor:default; float:left'>
+                                                <i class='far fa-heart text-purple'></i> 
+                                                <span class='product_wish_count'>
+                                                    <small$wishCount</small>
+                                                </span>
+                                            </a>";
 
-                                         } else { 
+                                            } else {
 
-                            echo       "<i class='far fa-heart text-red'></i> 
-                                        <span class='text-gray product-wish-count$id'>
-                                            <small>";
-                                            echo    getProductWishlishtCount($conn, $id)
-                                           .  "</small>
-                                        </span>";
+                                echo        "<a class='btn_wishlist_logout_view' data-id='<?= $id ?>' disabled style='cursor:default; float:left'>
+                                                <i class='far fa-heart text-gray'></i> 
+                                            </a>";
 
-                                        } }  
-                            echo        "</div>
-                                        <!-- AVERAGE STAR RATING -->
-                                        <div class='flex-fill' style='display:flex; flex-direction: column; width:81%; align-items:flex-end'>  
-                                            <div class='stars-outer' 
-                                                data-productrating='";
-                                        echo   getAveProductReview($conn, $id) ."'";
-
-                            echo                "data-productid='$id' 
-                                                id='average_product_stars2$id'>
-                                                <span class='stars-inner'></span>
+                                            } }
+                                echo    "</div>
+                                        <div class='flex-fill text-right'>
+                                            <div class='ratings'>
+                                                <div class='empty-stars'></div>
+                                                <div class='full-stars' style='width:$productRating%'></div>
                                             </div>
                                         </div>
-                                    
                                     </div>
                                 </div>
                             </a> 
