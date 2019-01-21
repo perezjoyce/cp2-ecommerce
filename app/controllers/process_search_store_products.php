@@ -46,7 +46,7 @@
 
                                 echo        "<a class='heart-toggler' data-id='<?= $id ?>' role='button' data-enabled='0' style='float:left'>
                                                 <span class='wish_heart'>
-                                                    <i class='fas fa-heart text-purple' id></i>
+                                                    <i class='fas fa-heart text-purple'></i>
                                                 </span> 
                                                 <span class='product_wish_count'>
                                                     <small>$wishCount</small>
@@ -78,7 +78,7 @@
                                 echo        "<a class='btn_wishlist_logout_view' data-id='<?= $id ?>' disabled style='cursor:default; float:left'>
                                                 <i class='far fa-heart text-purple'></i> 
                                                 <span class='product_wish_count'>
-                                                    <small$wishCount</small>
+                                                    <small>$wishCount</small>
                                                 </span>
                                             </a>";
 
