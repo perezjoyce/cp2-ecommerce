@@ -893,7 +893,7 @@ if(isset($_SESSION['id'])) {
                               <div class="row pt-2 justify-content-center">
                                 <div class="d-flex flex-column">
 
-                                  <div class='flex-fill d-flex flex-row'>
+                                  <div class='flex-fill d-flex flex-row justify-content-center'>
                                     
                                       <h1 style='font-size:50px'>
                                         <?= number_format((float)$averageRating, 1, '.', '')?>
@@ -904,11 +904,15 @@ if(isset($_SESSION['id'])) {
                                   
                                   </div>
 
-                                  <div class="flex-fill">
-                                    <div id='average_product_stars_big' class='pb-4'></div>
+                               
+                                  <div class="flex-fill d-flex align-items-center">
+                                    <div class="ratings-big">
+                                      <div class="empty-stars-big"></div>
+                                      <div class="full-stars-big" style="width:<?=getProductRating($conn, $id)?>%"></div>
+                                    </div>
                                   </div>
 
-                                  <div class='flex-fill text-gray'>
+                                  <div class='flex-fill text-gray text-center'>
                                     <?php 
                                     
 

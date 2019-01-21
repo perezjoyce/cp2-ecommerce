@@ -1240,7 +1240,7 @@ input:focus{
     top: 0;
     white-space: nowrap;
     overflow: hidden;
-    color: #8e44ad;
+    color: gold;
 }
 .empty-stars:before, .full-stars:before {
     content: "\2605\2605\2605\2605\2605";
@@ -1267,7 +1267,7 @@ input:focus{
     top: 0;
     white-space: nowrap;
     overflow: hidden;
-    color: #8e44ad;
+    color: gold;
 }
 .empty-stars-big:before, .full-stars-big:before {
     content: "\2605\2605\2605\2605\2605";
