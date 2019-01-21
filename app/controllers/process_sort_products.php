@@ -172,7 +172,7 @@
 									<div class='flex-fill text-right'>
 										<div class="ratings">
 											<div class="empty-stars"></div>
-											<div class="full-stars" style="width:<?=getProductRating($conn,$productId)?>%"></div>
+											<div class="full-stars" style="width:<?=getProductRating($conn,$id)?>%"></div>
 										</div>
 									</div>
 								
