@@ -850,3 +850,15 @@ function checkifwithpermit($conn, $storeId){
     $withPermit = $row['with_permit'];
     return $withPermit;
 }
+
+function getProductRating($conn, $productId) {
+    $sql = " SELECT AVG(product_rating) as aveProductRating FROM tbl_ratings WHERE product_id=? ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$productId]);
+        $row = $statement->fetch();
+        $aveProductRating = $row['aveProductRating'];
+        $aveProductRating = round($aveProductRating, 2);
+        $aveProductRating =  ($aveProductRating/5) * 100;
+        return $aveProductRating;
+
+}

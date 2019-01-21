@@ -351,7 +351,7 @@
                 <!-- <img class='card-img-top card-img vanish-md vanish-sm' src="<?= $logo ?>" style='height:370px;'> 
                 <img class='card-img-top card-img vanish-lg vanish-sm' src="<?= $logo ?>" style='height:320px;'> 
                 <img class='card-img-top card-img vanish-lg vanish-md' src="<?= $logo ?>" style='height:230px;'>  -->
-                <div class="card-body pr-lg-0 pr-md-0 p-sm-p5">
+                <div class="card-body p-lg-4 p-md-3 p-sm-p5">
                   <div class='font-weight-bold'>
                     <?= $name ?>
                   </div>
@@ -482,10 +482,11 @@
                         <span class='stars-inner'></span>
                       </div>
                     </div> -->
-
-                    <div class="ratings">
-                      <div class="empty-stars"></div>
-                      <div class="full-stars" style="width:85%"></div>
+                    <div class='flex-fill text-right'>
+                      <div class="ratings">
+                        <div class="empty-stars"></div>
+                        <div class="full-stars" style="width:<?=getProductRating($conn, $productId)?>%"></div>
+                      </div>
                     </div>
                     <!-- /AVERAGE STAR RATING -->
                   </div>
