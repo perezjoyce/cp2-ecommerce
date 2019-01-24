@@ -205,7 +205,7 @@
               <div class = 'card h-700 border-0'>
                 <!-- IMGS WON'T RESPOND TO CSS TARGETING ... -->
                 <img class='card-img-top card-profilepic' src="<?= $logo ?>"> 
-                <div class="card-body pr-0">
+                <div class="card-body p-lg-4 p-md-3 p-sm-p5">
                   <div class='font-weight-bold'>
                     <?= $name ?>
                   </div>
@@ -222,7 +222,7 @@
                             if (checkIfInWishlist($conn,$id)) {
                       ?>
                         <a class='heart-toggler' data-id='<?= $productId ?>' role='button' data-enabled="0" style='float:left'>
-                          <span class='wish_heart'><i class='fas fa-heart text-purple' id></i></span>
+                          <span class='wish_heart'><i class='fas fa-heart text-purple'></i></span>
                           <span class='product_wish_count'>
                             <small>
                               <?= $wishCount ?>
@@ -271,12 +271,10 @@
                     </div>
 
                     <!-- AVERAGE STAR RATING -->
-                    <div class='flex-fill pr-3' style="display:flex; flex-direction: column; width:81%; align-items:flex-end">  
-                      <div class='stars-outer' 
-                        data-productrating='<?=getAveProductReview($conn, $productId)?>' 
-                        data-productid='<?=$productId?>' 
-                        id='average_product_stars2<?=$productId?>'>
-                        <span class='stars-inner'></span>
+                    <div class='flex-fill text-right'>
+                      <div class="ratings">
+                        <div class="empty-stars"></div>
+                        <div class="full-stars" style="width:<?=getProductRating($conn, $productId)?>%"></div>
                       </div>
                     </div>
                     <!-- /AVERAGE STAR RATING -->
