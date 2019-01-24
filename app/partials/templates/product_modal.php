@@ -1245,15 +1245,11 @@ if(isset($_SESSION['id'])) {
                             
                                   <?php 
                                     if($clientRating != null || $clientRating != "") {
-                                      $clientRating = parseInt($clientRating);
-                                      $clientRating = ($clientRating / 5) * 100;
+                                     
                                   ?>
                       
                                   <div class='test-container' data-rating="<?= $clientRating ?>" data-id='<?= $clientId ?>'></div>
-                                  <div class="ratings">
-                                    <div class="empty-stars"></div>
-                                    <div class="full-stars" style="width:<?=$clientRating?>%"></div>
-                                  </div>
+                                  
                                 
                                   <?php } else { ?>
                                 
