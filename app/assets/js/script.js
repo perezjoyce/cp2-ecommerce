@@ -742,7 +742,7 @@ $(document).ready( () => {
 	});
 
 	//SORTING RATINGS
-	$("#sort_ratings").on("change", function(){
+	$(document).on("change", "#sort_ratings", function(){
 		let rating = $(this).val();
 
 		// if(rating < 6){
