@@ -946,7 +946,7 @@ $(document).ready( () => {
 				userId: userId,
 				productId:productId 
 			},function(data){
-				$('#post_questioin_notification').text(data);
+				$('#post_question_notification').text(data);
 			})
 		}
 

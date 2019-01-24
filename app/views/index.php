@@ -178,15 +178,10 @@
     <div class="container mb-5">
 
       <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-8 pr-0">
+        <div class="col">
             <h5>
               FOR YOU
             </h5>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-4 text-right pt-2">
-          <a href="catalog.php?id=<?=$_GET['id'] = 41 ?>">
-            View All&nbsp;<i class="fas fa-angle-double-right"></i>
-          </a>
         </div>
       </div>
 

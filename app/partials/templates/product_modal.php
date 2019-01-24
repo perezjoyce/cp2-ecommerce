@@ -288,7 +288,7 @@ if(isset($_SESSION['id'])) {
                           $variationName  = ucfirst(strtolower($variationName));
                           $variationStock = $row['variation_stock'];
 
-                          if($variationName !== 'None') {
+                          if($variationName != 'None') {
 
                             // query to check if this variation is already in cart
                           $disabled = '';
