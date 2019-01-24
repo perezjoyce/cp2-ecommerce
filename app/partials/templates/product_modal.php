@@ -828,7 +828,7 @@ if(isset($_SESSION['id'])) {
                                             <form action="process_answer_question" method="POST">
                                               <textarea class="form-control border-0" id="product_answer" style="width:100%;background:#eff0f5;" rows="3"></textarea>
                                                                                     
-                                              <a class="btn btn-purple" data-qaid='<?=$qaId?>' role='button' id='btn_answer_question'>
+                                              <a class="btn btn-purple mt-2" data-qaid='<?=$qaId?>' role='button' id='btn_answer_question'>
                                                     Send
                                                   <i class="far fa-paper-plane"></i>
                                               </a>

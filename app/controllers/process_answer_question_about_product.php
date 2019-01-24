@@ -1,7 +1,7 @@
 <?php 
 require_once '../../config.php';
 
-if(isset($_POST['userId'])){
+if(isset($_POST['qaId'])){
     
     $qaId = $_POST['qaId'];
     $answer = $_POST['answer'];
@@ -10,11 +10,11 @@ if(isset($_POST['userId'])){
     $statement = $conn->prepare($sql);
     $statement->execute([$answer,$qaId]);
     
-    // SEND EMAIL TO SELLER
+    // SEND EMAIL TO SENDER
     echo "Your response has been posted.";
 
 } else {
-    echo "Your response has not been posted. Please try again.";
+    echo "Error. Please try again.";
 }
 			
 ?>
