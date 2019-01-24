@@ -5,46 +5,9 @@ require_once '../../../config.php';
 	if(!$conn) {
 		die("Connection failed: " . mysqli_error($conn));
   }
-    
+ 
 
-
-  // UPDATE LAST ACTIVITY    
-  if(isset($_SESSION['id'])){
-    $id = $_SESSION['id']; // userId
-    $sql = "UPDATE tbl_users SET last_login = now() WHERE id = ?";
-    $statement = $conn->prepare($sql);
-    $statement->execute([$id]);
-
-    $sql = " SELECT * FROM tbl_users WHERE id = ? ";
-    $statement = $conn->prepare($sql);
-    $statement->execute([$id]);
-    $row = $statement->fetch();
-
-    
-        $profile_pic = $row['profile_pic'];
-
-        if($profile_pic == "") {
-            $profile_pic = DEFAULT_PROFILE; 
-            $prefix = "rounded-";
-        } else {
-            $profile_pic = BASE_URL ."/". $profile_pic . "_80x80.jpg";
-            $prefix = "";
-        } 
-
-  }
-
-  if(!isset($_SESSION['cart_session'])) {
-    $_SESSION['cart_session'] = uniqid();
-    
-  }
-
-  $cartSession = $_SESSION['cart_session'];
-  $sql = " SELECT * FROM tbl_carts WHERE cart_session=?";
-  $statement = $conn->prepare($sql);
-  $statement->execute([$cartSession]);
-
-
-$id = $_GET['id'];
+$id = $_GET['id']; //productId
 
 if(isset($_SESSION['id'])) {
   $userId = $_SESSION['id'];
@@ -360,7 +323,7 @@ if(isset($_SESSION['id'])) {
                       if(isset($variationStock)) {
                         echo $variationStock;
                       } else {
-                        $variationStock = getTotalProductStocks ($conn,$productId);
+                        $variationStock = getTotalProductStocks ($conn,$id);
                         echo $variationStock;
                       }
                       ?>'>
