@@ -1349,3 +1349,19 @@ if(isset($_SESSION['id'])) {
       </div>
   
   
+      <script>
+        var utcDateTime3 = $('.memberSince');
+        var tz2 = moment.tz.guess();
+        $.each(utcDateTime3, function(i, element){
+          var dateTimeStr3 = $(element).text().trim();		
+          $(element).text(moment(dateTimeStr3).tz(tz2).format("ll"));
+          });
+          
+          var utcDateTime = $('#lastLoginTimeAgo').text();
+        var agoTime = moment.utc(utcDateTime).fromNow();
+        if(agoTime == "a few seconds ago") {
+          $('#lastLoginTimeAgo').html("<small><i class='fas fa-circle text-success'>&nbsp;</i></small>Active Now");
+          } else {
+          $('#lastLoginTimeAgo').html("Active " + agoTime);
+          }
+      </script>

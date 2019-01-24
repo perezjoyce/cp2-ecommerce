@@ -755,11 +755,11 @@ $(document).ready( () => {
 				function(data){
 				$("#ratings_view").html(data);
 
-				$('.test-container').each(function(i, element){
-					let rating = $(this).data('rating');
-					//let className = $(this).attr('class');
-					productRatingAsStars(rating, $(element));
-				});
+				// $('.test-container').each(function(i, element){
+				// 	let rating = $(this).data('rating');
+				// 	//let className = $(this).attr('class');
+				// 	productRatingAsStars(rating, $(element));
+				// });
 			});
 		// }
 	  });
