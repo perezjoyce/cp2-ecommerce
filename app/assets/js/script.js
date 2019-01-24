@@ -947,6 +947,7 @@ $(document).ready( () => {
 				productId:productId 
 			},function(data){
 				$('#post_question_notification').text(data);
+				setTimeout(function(){window.location.reload()}, 1500);
 			})
 		}
 
