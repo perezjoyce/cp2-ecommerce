@@ -734,6 +734,7 @@ if(isset($_SESSION['id'])) {
                                         
                                           if($count) {
                                             while($row = $statement->fetch()) {
+                                              $qaId = $row['id'];
                                               $question = $row['question'];
                                               $answer = $row['answer'];
                                               $whoAskedId = $row['user_id'];
@@ -824,7 +825,15 @@ if(isset($_SESSION['id'])) {
                                             <?php } else { ?>
 
                                           <div class='pt-2'>
-                                            <div class='text-gray'>Waiting for seller's response.</div>
+                                            <form action="process_answer_question" method="POST">
+                                              <textarea class="form-control border-0" id="product_answer" style="width:100%;background:#eff0f5;" rows="3"></textarea>
+                                                                                    
+                                              <a class="btn btn-purple" data-qaid='<?=$qaId?>' role='button' id='btn_answer_question'>
+                                                    Send
+                                                  <i class="far fa-paper-plane"></i>
+                                              </a>
+                                              <small id="post_answer_notification" class="text-red ml-4 pt-1"></small>
+                                            </form>
                                           </div>
 
                                             <?php } ?>
@@ -838,34 +847,7 @@ if(isset($_SESSION['id'])) {
                                 </div>
                               </div>
 
-                              <!-- ASK A QUESTION -->
-                              <?php 
-                                if(isset($_SESSION['id'])) {
-                                  
-                              ?>
-                              <div class="row my-5">
-                                <div class="col-12 px-0">
-                                  <form action='process_ask_about_product' method='POST'>
-                                    <div class="form">
-                                      <div class="form-group px-0">
-                                        <label for="post_question">
-                                          <h4>Ask A Question</h4>
-                                        </label>
-                                        <textarea class="form-control border-0" id="product_question" style='width:100%;background:#eff0f5;' rows='3'></textarea>
-                                      </div>
-                                    </div>
-
-                                    <div class="d-flex flex-row">
-                                      <a class="btn btn-purple" data-userid='<?=$userId?>' data-productid='<?=$id?>'role='button' id='btn_ask_question'>
-                                        Send
-                                        <i class="far fa-paper-plane"></i>
-                                      </a>
-                                      <small id='post_question_notification' class='text-red ml-4 pt-1'></small>
-                                    </div>
-                                  </form>
-                                </div>
-                              </div>
-                              <?php } ?>
+                              
                               
                             </div>
 

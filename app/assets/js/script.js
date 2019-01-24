@@ -951,7 +951,26 @@ $(document).ready( () => {
 			})
 		}
 
-		
+	})
+
+
+	// ANSWERING QUESTIONS
+	$(document).on('click', '#btn_answer_question', function(){
+
+		let qaId = $(this).data('qaid');
+		let answer = $('#product_answer').val();
+
+		if(answer == null || answer == "") {
+			$('#post_answer_notification').text("Please type your answer first.");
+		} else {
+			$.post('../controllers/process_answer_question_about_product.php', {
+				qaId:qaId,
+				answer:answer
+			},function(data){
+				$('#post_answer_notification').text(data);
+				setTimeout(function(){window.location.reload()}, 1500);
+			})
+		}
 
 	})
 	
