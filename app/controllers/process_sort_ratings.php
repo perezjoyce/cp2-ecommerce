@@ -187,8 +187,8 @@
                             <div class='col-12 text-center my-5'>
                                 No client gave this rating yet.
                             </div>
-                        </div>"; }?>
+                        </div>"; } }?>
 
         
-	
+    
     
